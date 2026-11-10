@@ -27,6 +27,7 @@ var droppableKnown = []string{
 	"맺음:네", "맺음:냐", "맺음:니", "맺음:라", "맺음:거든", "맺음:구나", "맺음:군",
 	"맺음:야", "맺음:니까", "맺음:죠", "맺음:냐고",
 	"꾸밈:라는", "맺음:라며", "맺음:라면서", "맺음:라니",
+	"맺음:더라도", "맺음:거나", "맺음:든지", "맺음:든가",
 }
 
 // dropAdn is the closing before which a dropped stem is rebutted: in
