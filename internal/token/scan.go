@@ -11,6 +11,7 @@ type scan struct {
 	adnEnds  map[int]bool
 	marks    []map[int]bool
 	trace    *[]string
+	attach   bool
 	head     int
 	headName string
 }

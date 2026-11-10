@@ -13,7 +13,7 @@ func (sc *scan) fixed(j, next int) []tail {
 		if b < 0 || string(sc.s[b:j]) != c.form {
 			continue
 		}
-		v := sc.judge(e, b, j, rule.Piece{Form: c.form, HasStem: true, Slot: linkOf(labelOf(c.name), c.text, e.slot), Next: next, Adn: sc.adnEnds[b]})
+		v := sc.judge(e, b, j, rule.Piece{Form: c.form, HasStem: true, Slot: linkOf(labelOf(c.name), c.text, e.slot), Next: next, Adn: sc.adnEnds[b] || (sc.attach && b == 0)})
 		if v <= 0 {
 			continue
 		}

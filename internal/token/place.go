@@ -16,7 +16,7 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	if start < 0 || string(sc.s[start:j]) != e.form {
 		return 0, rule.Piece{}, false
 	}
-	p := rule.Piece{Form: e.form, HasStem: start >= 1, Slot: e.slot, Next: -1}
+	p := rule.Piece{Form: e.form, HasStem: start >= 1 || sc.attach, Slot: e.slot, Next: -1}
 	switch {
 	case start == 0:
 		return start, p, e.lead == 0

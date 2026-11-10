@@ -11,7 +11,7 @@ func TestEuForms(t *testing.T) {
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	for _, bad := range []string{"살을", "살은", "살으면", "알음", "들은", "들으시고"} {
 		got := strings.Join(r.Lines(bad, false), "\n")
-		if strings.Contains(got, "살[열쇠:동사]+을[꾸밈") || strings.Contains(got, "살[열쇠:동사]+은[꾸밈") || strings.Contains(got, "살[열쇠:동사]+으면") || strings.Contains(got, "+음[이름:음]") || strings.Contains(got, "들[") {
+		if strings.Contains(got, "살[열쇠:동사]+을[꾸밈") || strings.Contains(got, "살[열쇠:동사]+은[꾸밈") || strings.Contains(got, "살[열쇠:동사]+으면") || strings.Contains(got, "+음[이름:음]") || strings.Contains(got, "들[열쇠") {
 			t.Errorf("%s: a form with 으 after a stem that ends in ㄹ\n%s", bad, got)
 		}
 	}

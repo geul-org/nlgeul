@@ -16,7 +16,7 @@ func (sc *scan) copulas(tails []tail) []tail {
 		if !ok {
 			continue
 		}
-		p := rule.Piece{Form: "이", HasStem: start >= 1, Next: rule.SlotClosing, After: t.close.name}
+		p := rule.Piece{Form: "이", HasStem: start >= 1 || sc.attach, Next: rule.SlotClosing, After: t.close.name}
 		base := rune(0)
 		if start >= 1 {
 			p.Prev = sc.s[start-1]
