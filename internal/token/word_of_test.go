@@ -20,7 +20,7 @@ func TestWordOf(t *testing.T) {
 	}
 	ws := wordsScan("고양이가마신", layerCost)
 	e = ws.wordOf(0, 4, tail{start: 3, pieces: []piece{{"가", "주격:가", 1, -1.2, rule.TailCase, false}}})
-	if e.marked != "고양이[열쇠:체언]+가[주격:가]" || e.verdict <= ws.ix.unknown || math.Abs(e.pref-(math.Log10(1000/ws.ix.lexTotal)-1.2-2*costPiece)) > 1e-9 {
+	if e.marked != "고양이[열쇠:체언]+가[주격:가]" || e.verdict <= ws.ix.unknown || math.Abs(e.pref-(math.Log10(1000/ws.ix.lexTotal)-1.2-costPiece)) > 1e-9 {
 		t.Fatal(e)
 	}
 	if e = ws.wordOf(4, 6, tail{start: 6, pieces: []piece{{"다", "맺음:다", 1, -4, rule.TailPred, false}}}); e.verdict != ws.ix.unknown {
@@ -31,7 +31,7 @@ func TestWordOf(t *testing.T) {
 		t.Fatal("a rarely seen known word below a new word", e)
 	}
 	at := scanOf("task.py에")
-	if e = at.wordOf(0, 8, tail{start: 7, pieces: []piece{{"에", "부사격:에", 1, -1.2, rule.TailCase, false}}}); e.marked != "task.py[파일명|도메인]+에[부사격:에]" || e.verdict != 1 || math.Abs(e.pref-(math.Log10(1.0/syllables)-1.2)) > 1e-9 {
+	if e = at.wordOf(0, 8, tail{start: 7, pieces: []piece{{"에", "부사격:에", 1, -1.2, rule.TailCase, false}}}); e.marked != "task.py[파일명|도메인]+에[부사격:에]" || e.verdict != 1 || math.Abs(e.pref-(math.Log10(1.0/syllables)-1.2-costPiece)) > 1e-9 {
 		t.Fatal(e)
 	}
 	sc = scanOf("마신다")
@@ -43,7 +43,7 @@ func TestWordOf(t *testing.T) {
 		t.Fatal(e)
 	}
 	num := scanOf("세명")
-	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.marked != "세[수]+명[단위:명]" || e.pref != -1.5 || e.verdict != 1 {
+	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.marked != "세[수]+명[단위:명]" || e.pref != -1.5-costPiece || e.verdict != 1 {
 		t.Fatal(e)
 	}
 }

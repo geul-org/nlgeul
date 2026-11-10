@@ -12,7 +12,7 @@ func (sc *scan) loneHonors(j int, vowel bool) []tail {
 		return nil
 	}
 	e := sc.ix.named(key, name)
-	out := sc.honors(piece{text, name, 1, sc.ix.pref(e.count, ""), tailOf(e), false}, j, !vowel)
+	out := sc.honors(piece{text, name, 1, sc.ix.fusedPref(e, "어", sc.ix.pref(e.count, "")), tailOf(e), false}, j, !vowel)
 	for i := range out {
 		out[i].close = e
 	}

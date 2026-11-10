@@ -39,6 +39,7 @@ type index struct {
 	stem       *toulmin.Graph
 	unknown    float64
 	total      float64
+	counted    map[string]bool
 	graphs     int
 	edges      int
 }

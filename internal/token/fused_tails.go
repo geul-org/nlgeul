@@ -9,6 +9,7 @@ func (sc *scan) fusedTails(pc piece, e *entry, start int) []tail {
 	for _, o := range restores(sc.s[start-1], e.lead) {
 		p := pc
 		p.text = "(" + o.piece + ")" + e.form
+		p.pref = sc.ix.fusedPref(e, o.piece, pc.pref)
 		p.unseen = e.lead == leadVowel && e.form == "" && !rule.FusedVowel(sc.s[start-1], false)
 		out = append(out, tail{start: start, pieces: []piece{p}, base: o.stem, noYo: e.noYo})
 		if o.stem == '시' {

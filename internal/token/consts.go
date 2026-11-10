@@ -72,7 +72,9 @@ const (
 // much a boundary, an unseen piece or a piece is worth. Each is paid
 // once: for every word after a unit's first, for every piece that
 // leaves no trace in the letters (어/아 fused into ㅏ ㅓ ㅐ ㅔ with
-// nothing after it), and for every stem and marker of a word.
+// nothing after it), and for the stem of a word. The markers of the
+// index (particles, slots, closings, units, signs) pay no such cost:
+// a word read into its pieces is not dearer than the same word whole.
 // How strong the evidence is that a stem found in the word table is
 // a word (the verdict of its kind's graph). These too are placeholders,
 // not measured values. A stem observed seenEnough times or more is not
