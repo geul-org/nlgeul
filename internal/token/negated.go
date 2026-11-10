@@ -10,7 +10,7 @@ func (sc *scan) negated(tails []tail) []tail {
 	var out []tail
 	for _, t := range tails {
 		at := t.start - 1
-		if t.base != 0 || t.only != "" || at < 0 || sc.s[at] != negLetter {
+		if t.base != 0 || t.only != "" || t.irr != 0 || at < 0 || sc.s[at] != negLetter {
 			continue
 		}
 		facts := rule.Piece{Form: string(negLetter), HasStem: at >= 1, Next: rule.SlotClosing}

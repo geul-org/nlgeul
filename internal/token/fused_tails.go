@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what fusedTails — the tails a piece fused into the stem's last syllable begins: one for each stem the syllable may come from, with the piece written in brackets as it was before fusing; an 어/아 that leaves no trace in the letters (under ㅏ ㅓ ㅐ ㅔ) asks, with a word table, for a predicate's stem of the table before it
+//ff:what fusedTails — the tails a piece fused into the stem's last syllable begins: one for each stem the syllable may come from, with the piece written in brackets as it was before fusing; an 어/아 that leaves no trace in the letters, and a lone final consonant under a syllable other than the few it is always read under, ask with a word table for a predicate's stem of the table before them (asksStem)
 package token
 
 import "github.com/geul-org/koparse/pkg/rule"
@@ -11,8 +11,8 @@ func (sc *scan) fusedTails(pc piece, e *entry, start int) []tail {
 		p.text = "(" + o.piece + ")" + e.form
 		p.pref = sc.ix.fusedPref(e, o.piece, pc.pref)
 		p.unseen = e.lead == leadVowel && e.form == "" && !rule.FusedVowel(sc.s[start-1], false)
-		t := tail{start: start, pieces: []piece{p}, base: o.stem, noYo: e.noYo}
-		if e.lead == leadVowel && !rule.FusedVowel(sc.s[start-1], false) {
+		t := tail{start: start, pieces: []piece{p}, base: o.stem, noYo: e.noYo, head: e.head}
+		if sc.asksStem(e, start, o.stem) {
 			t.gate = sc.ix.pred
 		}
 		out = append(out, t)

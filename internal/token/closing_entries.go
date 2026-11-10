@@ -18,6 +18,7 @@ func closingEntries(m parse.Marker) []*entry {
 	}
 	switch {
 	case m.Lead == 0 && m.Eu:
+		base.eu = true
 		return []*entry{make1(m.Form, 0, afterOpen, m.Form), make1("으"+m.Form, 0, afterBatchim, "으"+m.Form)}
 	case m.Lead == 0:
 		return []*entry{make1(m.Form, 0, m.After, m.Form)}

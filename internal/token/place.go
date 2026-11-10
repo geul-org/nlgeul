@@ -27,6 +27,7 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	case e.lead == jongSS:
 		return start, p, rule.FusedPast(sc.s[start-1])
 	}
-	p.Base = string(sc.s[start-1] - rune(e.lead))
-	return start, p, rule.JongOf(sc.s[start-1]) == e.lead
+	base, ok := under(sc.s[start-1], e.lead)
+	p.Base = string(base)
+	return start, p, ok && (len(f) == 0 || rule.JongOf(sc.s[start-1]) == e.lead)
 }
