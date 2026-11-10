@@ -18,6 +18,17 @@ const (
 	jiName     = "맺음:지"
 )
 
+// An auxiliary particle is written onto a linking closing (보지도,
+// 먹고는, 조용하게는; clause 41 of the orthography: a particle after an
+// ending is written onto it too). auxClosings are the closings and
+// auxParticles the particles this is read for. A pair that is itself a
+// closing of the tables (어도, 어야, 고도, 지만) is read as that closing
+// only.
+const linkAuxName = "사슬:맺음 뒤 보조사"
+
+var auxClosings = []string{"맺음:지", "맺음:고", "맺음:게", "맺음:어", "맺음:아", "맺음:여", "맺음:어(합침)"}
+var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "보조사:야"}
+
 var honorLetters = []rune{'셨', '셔', '십'}
 
 // negParts is what 잖 is written out as: the closing 지 and the stem

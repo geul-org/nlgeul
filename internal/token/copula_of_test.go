@@ -34,6 +34,16 @@ func TestCopulaOf(t *testing.T) {
 	if at, e, ok := scanOf("누군").copulaOf(tail{start: 2, pieces: one, base: '구', close: n}); !ok || at != 2 || e == nil || e.name != droppedName {
 		t.Fatal("dropped under a fused piece", at)
 	}
+	ji := []piece{{text: "지", names: jiName}, {text: "(않)"}, {text: "아"}}
+	if at, e, ok := school.copulaOf(tail{start: 2, pieces: ji, close: &entry{name: jiName}}); !ok || at != 2 || e != school.ix.dropped {
+		t.Fatal("dropped before 잖", at)
+	}
+	if _, _, ok := wordsScan("일본", layerCost).copulaOf(tail{start: 2, pieces: one, base: '보', close: n, gate: &entry{}}); ok {
+		t.Fatal("a lone consonant that asks for a predicate's stem has no dropped copula")
+	}
+	if _, _, ok := school.copulaOf(tail{start: 2, pieces: one, close: da, irr: irrS}); ok {
+		t.Fatal("a tail that asks for a changed stem")
+	}
 	if _, _, ok := scanOf("곰고").copulaOf(tail{start: 1, pieces: one, close: go_}); ok {
 		t.Fatal("a consonant before")
 	}

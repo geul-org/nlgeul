@@ -15,7 +15,7 @@ func TestAddCopula(t *testing.T) {
 	ix.addCopula()
 	said := func(p rule.Piece) float64 { v, _ := verdictOf(ix.copula.g, p, "x"); return v }
 	gone := func(p rule.Piece) float64 { v, _ := verdictOf(ix.dropped.g, p, "x"); return v }
-	if ix.graphs != graphs+2 || ix.edges != edges+5 || ix.total != total || ix.copula.count != copulaCount || ix.dropped.form != "" {
+	if ix.graphs != graphs+2 || ix.edges != edges+6 || ix.total != total || ix.copula.count != copulaCount || ix.dropped.form != "" {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 	if said(rule.Piece{HasStem: true, Prev: '곰', After: "맺음:다"}) <= 0 || said(rule.Piece{Prev: '곰', After: "맺음:다"}) > 0 || said(rule.Piece{HasStem: true, Prev: '곰', After: "꾸밈:는"}) > 0 {
@@ -23,5 +23,8 @@ func TestAddCopula(t *testing.T) {
 	}
 	if gone(rule.Piece{HasStem: true, Prev: '교', After: "맺음:다"}) <= 0 || gone(rule.Piece{HasStem: true, Prev: '곰', After: "맺음:다"}) > 0 {
 		t.Fatal("dropped")
+	}
+	if adn := gone(rule.Piece{HasStem: true, Prev: '교', After: "꾸밈:ㄴ"}); adn <= 0 || adn >= gone(rule.Piece{HasStem: true, Prev: '교', After: "맺음:다"}) {
+		t.Fatal("a dropped stem before a modifying closing stands lower", adn)
 	}
 }

@@ -20,10 +20,11 @@ func (sc *scan) copulas(tails []tail) []tail {
 		if e == sc.ix.dropped && t.base != 0 {
 			base, p.Prev = t.base, t.base
 		}
-		if sc.judge(e, start, start+len([]rune(e.form)), p) <= 0 {
+		v := sc.judge(e, start, start+len([]rune(e.form)), p)
+		if v <= 0 {
 			continue
 		}
-		pc := piece{"이", e.name, 1, sc.ix.pref(e.count, "이"), rule.TailCopula, e == sc.ix.dropped}
+		pc := piece{"이", e.name, v, sc.ix.pref(e.count, "이"), rule.TailCopula, e == sc.ix.dropped}
 		if pc.unseen {
 			pc.text = "(이)"
 		}

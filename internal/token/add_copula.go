@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what addCopula — the graphs of the copula stem: 이 said after a noun, and 이 dropped after a vowel; the claim "this is the stem of 이다 after a noun", and the exceptions that no stem stands before it, that the closing after it is one the copula does not take, and for the dropped stem that no vowel stands before it
+//ff:what addCopula — the graphs of the copula stem: 이 said after a noun, and 이 dropped after a vowel; the claim "this is the stem of 이다 after a noun", and the exceptions that no stem stands before it, that the closing after it is one the copula does not take, and for the dropped stem that no vowel stands before it, with the rebuttal that a modifying closing follows
 package token
 
 import (
@@ -22,6 +22,7 @@ func (ix *index) addCopula() {
 	d.Except(rule.PieceNoStem).Attacks(claim)
 	d.Except(rule.NextListed).With(barred).Attacks(claim)
 	d.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: afterVowel}).Attacks(claim)
+	d.Counter(rule.NextListed).With(toulmin.NewStringListSpec("dropAdn", dropAdn)).Attacks(claim, forceDropAdn)
 	ix.dropped = &entry{name: droppedName, count: copulaCount, g: d}
-	ix.graphs, ix.edges = ix.graphs+2, ix.edges+5
+	ix.graphs, ix.edges = ix.graphs+2, ix.edges+6
 }
