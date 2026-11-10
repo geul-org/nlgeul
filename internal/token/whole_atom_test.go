@@ -12,9 +12,8 @@ func TestWholeAtom(t *testing.T) {
 	if end := scanOf("고양이").wholeAtom(); end != 0 {
 		t.Fatal(end)
 	}
-	head := &scan{ix: sc.ix, s: []rune(")를"), head: 1, headName: "닫는 묶음표"}
-	head.prepare()
-	if a := head.atoms[0]; a.end != 1 || a.names != "닫는 묶음표" {
+	head := &scan{ix: sc.ix, s: []rune(")를"), head: 1, headName: "닫는 묶음표", inside: make([]bool, 3), atoms: map[int]atom{}}
+	if a := head.atoms[head.wholeAtom()-1]; a.end != 1 || a.names != "닫는 묶음표" {
 		t.Fatal("the sign of a pair at a unit's head", head.atoms)
 	}
 }
