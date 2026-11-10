@@ -29,5 +29,6 @@ func (sc *scan) wordOf(b, end int, t tail) eojeol {
 		names = append(names, p.names)
 	}
 	e.names = strings.Join(names, " + ")
+	e.adn = len(t.pieces) > 0 && strings.HasPrefix(names[len(names)-1], "꾸밈:")
 	return e
 }

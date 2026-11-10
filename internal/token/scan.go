@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what scan — one unit under reading: the index, the unit's tokens, the places inside an atom (where no word may begin or end), the atoms by where they start, the places where a number ends, and the trace lines when a trace is asked for
+//ff:what scan — one unit under reading: the index, the unit's tokens, the places inside an atom (where no word may begin or end), the atoms by where they start, the places where a number ends, the places where a word that ends in a modifying closing ends in some reading, and the trace lines when a trace is asked for
 package token
 
 type scan struct {
@@ -8,5 +8,6 @@ type scan struct {
 	inside  []bool
 	atoms   map[int]atom
 	numEnds map[int]bool
+	adnEnds map[int]bool
 	trace   *[]string
 }

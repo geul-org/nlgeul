@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what extend — every reading that ends with tail t at j: each reading kept at a place before the tail's stem, grown by the word from there; no word begins or has its stem end inside an atom
+//ff:what extend — every reading that ends with tail t at j: each reading kept at a place before the tail's stem, grown by the word from there; no word begins or has its stem end inside an atom; a tail read only after a modifying closing grows only the readings whose last word ends in one, and the places where such a word ends are kept
 package token
 
 func (sc *scan) extend(cands []*path, best [][]*path, t tail, j int) []*path {
@@ -9,7 +9,11 @@ func (sc *scan) extend(cands []*path, best [][]*path, t tail, j int) []*path {
 		}
 		e := sc.wordOf(b, j, t)
 		for _, p := range best[b] {
+			if t.adn && !p.last.adn {
+				continue
+			}
 			cands = append(cands, grow(p, e))
+			sc.adnEnds[j] = sc.adnEnds[j] || e.adn
 		}
 	}
 	return cands

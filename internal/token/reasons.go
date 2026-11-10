@@ -20,6 +20,7 @@ var reasons = map[string]string{
 	"MarkAfterWord": "기호의 왼쪽에 글자가 붙어 있다",
 	"NextListed":    "뒤의 맺음은 서술격 이에 붙지 않는다",
 	"PieceLast":     "뒤에 조사가 없다",
+	"PieceNoAdn":    "앞 어절이 꾸밈 맺음으로 끝나지 않는다",
 	"MarkSides":     "양쪽이 맞는 글자 열이 아니다",
 	"MarkEnclosed":  "양쪽이 영숫자 열이다",
 	"MarkAlone":     "점이 하나뿐이다",

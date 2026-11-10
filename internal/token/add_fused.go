@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addFused — the graphs of the fused letters: the honorific 시 under 셨·셔·십 (after a vowel), the link vowel 으 before it (after a consonant other than ㄹ), 잖 (지+않), and each fused form whose first word is fixed, which is judged as the particle under it is in a chain
+//ff:what addFused — the graphs of the fused letters: the honorific 시 under 셨·셔·십 (after a vowel), the link vowel 으 before it (after a consonant other than ㄹ), 잖 (지+않), and each fused form whose first word is fixed, which is judged as the particle under it is in a chain (and, for 거 written onto a modifying closing, by whether such a closing stands before it)
 package token
 
 import (
@@ -32,6 +32,10 @@ func (ix *index) addFused() {
 		g := toulmin.NewGraph(name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
 		g.Except(rule.ChainLinks).Attacks(claim)
+		if c.adn {
+			g.Except(rule.PieceNoAdn).Attacks(claim)
+			ix.edges++
+		}
 		under := ix.named(c.key, c.name)
 		ix.fixed = append(ix.fixed, &entry{name: name, form: c.form, class: classParticle, slot: under.slot, kase: under.kase, count: under.count, g: g})
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1

@@ -4,7 +4,8 @@ package token
 
 // base is 0 when no piece is fused into the stem. close is the closing
 // of a predicate tail. only names the one stem the tail attaches to
-// ("" for any).
+// ("" for any). adn tells that the tail's word is read only right after
+// a word that ends in a modifying closing.
 type tail struct {
 	start  int
 	pieces []piece
@@ -18,4 +19,5 @@ type tail struct {
 	as     string
 	weight float64
 	gate   *entry
+	adn    bool
 }

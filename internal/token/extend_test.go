@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestExtend — a tail grows every reading kept before its stem, from each place before it; a tail that attaches to one stem only grows no other; a tail that asks for a predicate's stem grows only after one
+//ff:what TestExtend — a tail grows every reading kept before its stem, from each place before it; a tail that attaches to one stem only grows no other; a tail that asks for a predicate's stem grows only after one; a tail read only after a modifying closing grows only the readings whose last word ends in one, and where such a word ends is kept
 package token
 
 import "testing"
@@ -27,5 +27,15 @@ func TestExtend(t *testing.T) {
 	ws := wordsScan("학교래", layerCost)
 	if got := ws.extend(nil, [][]*path{{{verdict: 1}}, nil, nil, nil}, tail{start: 2, gate: ws.ix.pred, pieces: []piece{{text: "래"}}}, 3); len(got) != 0 {
 		t.Fatal("a noun before a closing that asks for a predicate", got)
+	}
+	adn := scanOf("간곳")
+	after := [][]*path{{{verdict: 1}}, {{verdict: 1, last: eojeol{end: 1}}, {verdict: 1, last: eojeol{end: 1, adn: true}}}, nil}
+	if got := adn.extend(nil, after, tail{start: 2, adn: true}, 2); len(got) != 1 || got[0].prev != after[1][1] {
+		t.Fatal("a tail read only after a modifying closing", got)
+	}
+	mark := scanOf("가는")
+	mark.extend(nil, [][]*path{{{verdict: 1}}, nil, nil}, tail{start: 1, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1}}}, 2)
+	if !mark.adnEnds[2] || mark.adnEnds[1] {
+		t.Fatal("where a word that ends in a modifying closing ends", mark.adnEnds)
 	}
 }

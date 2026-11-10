@@ -13,12 +13,12 @@ func (sc *scan) fixed(j, next int) []tail {
 		if b < 0 || string(sc.s[b:j]) != c.form {
 			continue
 		}
-		v := sc.judge(e, b, j, rule.Piece{Form: c.form, HasStem: true, Slot: linkOf(labelOf(c.name), c.text, e.slot), Next: next})
+		v := sc.judge(e, b, j, rule.Piece{Form: c.form, HasStem: true, Slot: linkOf(labelOf(c.name), c.text, e.slot), Next: next, Adn: sc.adnEnds[b]})
 		if v <= 0 {
 			continue
 		}
 		pc := piece{c.text, c.name, v, sc.ix.pref(e.count, c.text), tailOf(e), false}
-		out = append(out, tail{start: j, pieces: []piece{pc}, only: c.form, shown: c.stem, label: e.name})
+		out = append(out, tail{start: j, pieces: []piece{pc}, only: c.form, shown: c.stem, label: e.name, adn: c.adn})
 	}
 	return out
 }

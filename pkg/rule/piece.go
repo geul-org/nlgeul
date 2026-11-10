@@ -12,7 +12,8 @@ package rule
 // it, when a rule asks for them. Num tells that a number stands right
 // before the piece; Whole that this number and the piece together are a
 // word of the word table or a fused form, and Lone that the number is a
-// lone Sino-Korean digit read with no word table.
+// lone Sino-Korean digit read with no word table. Adn tells that the
+// word right before the piece ends in a modifying closing.
 type Piece struct {
 	Form    string
 	HasStem bool
@@ -28,4 +29,5 @@ type Piece struct {
 	Num     bool
 	Whole   bool
 	Lone    bool
+	Adn     bool
 }
