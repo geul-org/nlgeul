@@ -16,6 +16,16 @@ var extensions = []string{
 }
 var topDomains = []string{"com", "org", "net", "io", "dev", "ai", "app", "co", "kr", "jp", "uk", "us", "de", "fr", "cn", "edu", "gov", "info", "me", "tv", "xyz", "py"}
 
+// linkSigns are signs that bind two words written with no space into
+// one stem: a slash sets two things side by side (입력/출력), a hyphen
+// joins two words that belong together (원-달러). Each stands only
+// with a letter on both sides, and the stem only when every word in it
+// is known (bound). Between two runs of Latin letters and digits the
+// same signs join the runs into one name before the unit is read
+// (nameSigns).
+var linkSigns = map[rune]string{'/': "대비:/", '-': "붙임:-"}
+var linkOrder = []rune{'/', '-'}
+
 // run names the graph of a run of Latin letters and digits that no
 // table lists. forceRun is the force of the rebuttal "it is in no key
 // table" against it: lower than a new Hangul word's, because the

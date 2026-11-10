@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what stemOf — the stem of a word as it is printed and looked up, its name and its verdict (0 for a new word): the letters before the tail, with the last syllable as it was before a piece was fused into it, or the word a fused form stands for
+//ff:what stemOf — the stem of a word as it is printed and looked up, its name and its verdict (0 for a new word): the letters before the tail, with the last syllable as it was before a piece was fused into it, the word a fused form stands for, or known words bound by a slash or a hyphen
 package token
 
 // A fused form's word is given by the closed set, so it is known under
@@ -21,6 +21,9 @@ func (sc *scan) stemOf(b int, t tail) (string, string, float64) {
 	}
 	if v <= 0 && t.label != "" {
 		name, v = t.label, 1
+	}
+	if v <= 0 {
+		name, v = sc.bound(stem, tailClass(t.pieces))
 	}
 	return stem, name, v
 }

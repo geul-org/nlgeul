@@ -13,7 +13,7 @@ func TestEvaluate(t *testing.T) {
 	ix := scanOf("x").ix
 	ctx := toulmin.NewContext()
 	ctx.Set(rule.KeyMark, rule.Mark{Left: rule.SideAlnum, Right: rule.SideAlnum, Run: 1})
-	if v, why := evaluate(ix.stops[0].g, ctx); v != -1 || len(why) != 1 || why[0] != "양쪽이 영숫자 열이다" {
+	if v, why := evaluate(ix.stops[0].g, ctx); v != -1 || len(why) != 1 || why[0] != "양쪽이 모두 그 글자 열이다" {
 		t.Fatal(v, why)
 	}
 	ctx.Set(rule.KeyMark, rule.Mark{Left: rule.SideHangul, Run: 1})

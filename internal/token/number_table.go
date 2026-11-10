@@ -38,6 +38,13 @@ var signShapes = map[rune][]rule.Shape{
 	},
 }
 
+// nameSigns are the signs that join two runs of Latin letters and
+// digits into one name when they are not both numbers: a slash joins
+// the parts of a path (a/b), a hyphen two words that belong together
+// (h-Cat).
+var nameSigns = map[rune]string{'/': "경로:/", '-': "붙임:-"}
+var nameOrder = []rune{'/', '-'}
+
 var signOrder = []rune{',', '~', '-', ':', '/', '.'}
 
 var shownAs = map[string]string{"자릿수": numName}

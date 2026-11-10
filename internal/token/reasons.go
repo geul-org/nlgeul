@@ -25,7 +25,7 @@ var reasons = map[string]string{
 	"PieceLast":     "뒤에 조사가 없다",
 	"PieceNoAdn":    "앞 어절이 꾸밈 맺음으로 끝나지 않는다",
 	"MarkSides":     "양쪽이 맞는 글자 열이 아니다",
-	"MarkEnclosed":  "양쪽이 영숫자 열이다",
+	"MarkBoth":      "양쪽이 모두 그 글자 열이다",
 	"MarkAlone":     "점이 하나뿐이다",
 	"MarkRepeated":  "점이 이어진다",
 	"ExtUnlisted":   "확장자 목록에 없다",

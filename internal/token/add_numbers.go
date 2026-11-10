@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each reading of each sign between runs of digits (the full stop keeps its own and gets two more), the signs at a number's front, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each reading of each sign between runs of digits (the full stop keeps its own and gets two more), the readings of a slash and a hyphen that join the runs of a name, the signs at a number's front, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
 package token
 
 import (
@@ -25,6 +25,10 @@ func (ix *index) addNumbers() {
 			ix.signs[sign] = append(ix.signs[sign], shapeGraph(s))
 			ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 		}
+	}
+	for _, sign := range nameOrder {
+		ix.signs[sign] = append(ix.signs[sign], nameGraph(nameSigns[sign]))
+		ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
 	}
 	digits := &rule.Bits{Of: "sides", Mask: rule.SideDigit}
 	ix.fronts = map[rune]*entry{}

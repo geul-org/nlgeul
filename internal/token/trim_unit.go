@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what trimUnit — a unit without the signs at its edges, keeping a sign that belongs to a number there: one that stands at a number's front (-3, $40) and a unit sign at its end (50%, 3℃)
+//ff:what trimUnit — a unit without the signs at its edges, keeping a sign that belongs to a number there (one that stands at a number's front: -3, $40; a unit sign at its end: 50%, 3℃) and the signs that belong to a name: a path's head and the slash at its end, the dashes of an option, and @ # $ _ . before Latin letters
 package token
 
 import (
@@ -21,6 +21,10 @@ func trimUnit(field string) []rune {
 		from--
 	}
 	if r := atOf(all, to); (r == '%' || r == '℃') && unicode.IsDigit(s[len(s)-1]) {
+		to++
+	}
+	from = headKept(all, from)
+	if atOf(all, to) == '/' && strings.ContainsRune(string(all[from:to]), '/') {
 		to++
 	}
 	return all[from:to]

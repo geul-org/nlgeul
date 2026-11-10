@@ -10,7 +10,7 @@ import (
 func TestAddDots(t *testing.T) {
 	ix := &index{}
 	ix.addDots()
-	if len(ix.joins) != 4 || len(ix.stops) != 2 || ix.joins[0].name != "파일명:." || ix.graphs != 7 || ix.edges != 12 || math.Abs(ix.run-(2/(1+forceRun)-1)) > 1e-9 {
+	if len(ix.joins) != 4 || len(ix.stops) != 2 || ix.joins[0].name != "파일명:." || ix.graphs != 7+len(linkSigns) || ix.edges != 12+len(linkSigns) || ix.links['/'][0].name != "대비:/" || math.Abs(ix.run-(2/(1+forceRun)-1)) > 1e-9 {
 		t.Fatal(len(ix.joins), ix.graphs, ix.edges, ix.run)
 	}
 }

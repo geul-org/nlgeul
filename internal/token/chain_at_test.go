@@ -13,9 +13,9 @@ func TestChainAt(t *testing.T) {
 	if got := chainAt(s, runs, 3); len(got) != 2 || got[0] != [2]int{6, 7} {
 		t.Fatal(got)
 	}
-	s2 := []rune("10:30 a-1")
+	s2 := []rune("10:30 a:1 a-1")
 	r2 := runsOf(s2)
-	if len(chainAt(s2, r2, 0)) != 2 || len(chainAt(s2, r2, 2)) != 1 {
-		t.Fatal("signs of numbers")
+	if len(chainAt(s2, r2, 0)) != 2 || len(chainAt(s2, r2, 2)) != 1 || len(chainAt(s2, r2, 4)) != 2 {
+		t.Fatal("a sign of numbers ties digits only, a hyphen any two runs")
 	}
 }

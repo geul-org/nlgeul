@@ -18,7 +18,7 @@ func dotGraph(name string) (*toulmin.Graph, int) {
 	alnum, digits := &rule.Bits{Of: "sides", Mask: rule.SideAlnum}, &rule.Bits{Of: "sides", Mask: rule.SideDigit}
 	switch name {
 	case "마침표":
-		g.Except(rule.MarkEnclosed).Attacks(claim)
+		g.Except(rule.MarkBoth).With(alnum).Attacks(claim)
 		g.Except(rule.MarkRepeated).Attacks(claim)
 	case "줄임표":
 		g.Except(rule.MarkAlone).Attacks(claim)
