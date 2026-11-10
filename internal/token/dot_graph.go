@@ -31,7 +31,7 @@ func dotGraph(name string) (*toulmin.Graph, int) {
 		g.Except(rule.LastUnlisted).With(toulmin.NewStringListSpec("topDomains", topDomains)).Attacks(claim)
 	case "소수점":
 		g.Except(rule.MarkSides).With(digits).Attacks(claim)
-		g.Except(rule.DecimalShape).Attacks(claim)
+		g.Except(rule.PartsShape).With(&rule.Shape{Of: "소수점:.", Min: 2, Max: 2}).Attacks(claim)
 	case "버전":
 		g.Except(rule.MarkSides).With(alnum).Attacks(claim)
 		g.Except(rule.VersionShape).Attacks(claim)

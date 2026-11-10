@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what chains — every particle chain that ends at j (three particles at most), read right to left through the index; each reading of a particle is followed back by its own kind; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle
+//ff:what chains — every particle chain that ends at j (chainMax particles at most), read right to left through the index; each reading of a particle is followed back by its own kind; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle
 package token
 
 import "github.com/geul-org/koparse/pkg/rule"
@@ -7,7 +7,7 @@ import "github.com/geul-org/koparse/pkg/rule"
 // next is the kind of the particle to the right (-1 for none), depth
 // the number of particles already read there.
 func (sc *scan) chains(j, depth, next int) []tail {
-	if j < 1 || depth == 3 {
+	if j < 1 || depth == chainMax {
 		return nil
 	}
 	pieces, from, starts := sc.readGroup(classParticle, j, next, false)

@@ -7,7 +7,8 @@ import (
 	"github.com/geul-org/koparse/pkg/rule"
 )
 
-// innerSuffixes are read here and not by kopas parse. 이 comes after a
+// ownParticles are the particles and suffixes read here and not by
+// kopas parse. 이 comes after a
 // name that ends in a consonant (영숙이가; morphemes.md section 1) and
 // stands where 들, 씩, 쯤 and 끼리 stand, before the particles. It is
 // read only with a particle after it: alone it looks the same as the
@@ -25,9 +26,9 @@ const emphName = "보조사:가(강조)"
 var comparing = []string{"보다", "처럼", "같이", "만큼"}
 var together = []string{"과", "와", "이랑", "랑"}
 var directional = []string{"으로", "로", "으로부터", "로부터"}
-var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보단", "선", "론"}
+var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보단"}
 
-var innerSuffixes = []entry{
+var ownParticles = []entry{
 	{name: "접미:이", form: "이", class: classParticle, after: afterBatchim, slot: rule.LinkSuffix, inner: true},
 	{name: "보조사:야", form: "야", class: classParticle, after: afterVowel, slot: rule.LinkTopic},
 	{name: emphName, form: "가", class: classParticle, slot: rule.LinkEmph, count: 2},
@@ -41,8 +42,8 @@ func (ix *index) addParticles() {
 			ix.add(&entry{name: label + ":" + m.Form, form: m.Form, class: classParticle, after: m.After, slot: linkOf(label, m.Form, m.Slot), kase: m.Kase, count: particleCount(m)})
 		}
 	}
-	for i := range innerSuffixes {
-		e := innerSuffixes[i]
+	for i := range ownParticles {
+		e := ownParticles[i]
 		ix.add(&e)
 	}
 }

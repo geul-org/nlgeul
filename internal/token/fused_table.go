@@ -16,6 +16,7 @@ const (
 	negName    = "합침:잖"
 	negLetter  = '잖'
 	jiName     = "맺음:지"
+	yoName     = "보조사:요"
 )
 
 // An auxiliary particle is written onto a linking closing (보지도,

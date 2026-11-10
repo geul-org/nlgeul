@@ -14,7 +14,6 @@ type tail struct {
 	start  int
 	pieces []piece
 	base   rune
-	slot   int
 	noYo   bool
 	close  *entry
 	only   string

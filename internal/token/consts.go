@@ -42,6 +42,10 @@ const (
 	wakeGap  = 11.0
 )
 
+// chainMax is how many particles a chain holds at most (the longest
+// chains observed hold three).
+const chainMax = 3
+
 // syllables is the number of Hangul syllables: with no key table, a
 // stem syllable may be any of them, so each costs log10(1/syllables)
 // of preference.

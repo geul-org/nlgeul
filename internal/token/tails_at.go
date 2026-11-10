@@ -15,7 +15,7 @@ func (sc *scan) tailsAt(j int) []tail {
 	if j < 2 || sc.s[j-1] != '요' {
 		return out
 	}
-	yo := piece{"요", "보조사:요", 1, sc.ix.pref(2894, "요"), rule.TailPred, false}
+	yo := piece{"요", yoName, 1, sc.ix.pref(sc.ix.named('요', yoName).count, "요"), rule.TailPred, false}
 	out = append(out, joined(sc.loneHonors(j-1, true), yo)...)
 	for _, t := range sc.closings(j-1, true) {
 		if !t.noYo {

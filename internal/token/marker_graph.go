@@ -40,7 +40,7 @@ func markerGraph(e *entry, whole []string, lexed bool) int {
 		edges++
 	}
 	if e.wide && e.class == classClosing {
-		g.Except(rule.PieceParticle).Attacks(claim)
+		g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
 		edges++
 	}
 	if e.head&headWhole != 0 {

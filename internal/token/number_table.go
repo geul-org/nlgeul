@@ -67,10 +67,6 @@ var unitWords = []string{
 	"%", "℃", "kg", "cm", "km", "ms", "MB", "GB",
 }
 
-// latinUnits are the units written in Latin letters: a run of digits
-// and one of them is a number and its unit.
-var latinUnits = []string{"kg", "cm", "km", "ms", "MB", "GB"}
-
 // Places after a number: a greater number (만, 천), 여 (more than), a
 // unit, 째 (an order).
 const (

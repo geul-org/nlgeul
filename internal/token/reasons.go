@@ -9,11 +9,9 @@ var reasons = map[string]string{
 	"SlotOrder":     "선어말 칸의 순서가 어긋난다",
 	"PieceBase":     "받침만 붙은 꼴을 읽는 음절이 아니다",
 	"WordListed":    "통째로 닫힌 집합의 낱말이다",
-	"PieceParticle": "바로 뒤에 조사가 붙는다",
-	"PieceCut":      "떼어 낸 받침이 뒤 토큰과 표의 맺음을 이루지 않는다",
+	"PieceRight":    "바로 뒤에 선 것이 이 조각 뒤에 오지 못한다",
 	"StemKind":      "앞말이 낱말 표에서 그 갈래의 줄기가 아니다",
 	"PartsShape":    "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다",
-	"PieceRunsOn":   "단위 뒤에 글자가 그대로 이어진다",
 	"PieceNoNumber": "바로 앞이 수가 아니다",
 	"PieceLone":     "낱말 표 없이 홀로 선 한자어 한 음절 수사다",
 	"MarkRight":     "기호의 오른쪽이 수가 아니다",
@@ -31,5 +29,4 @@ var reasons = map[string]string{
 	"ExtUnlisted":   "확장자 목록에 없다",
 	"LastUnlisted":  "최상위 도메인 목록에 없다",
 	"VersionShape":  "버전의 꼴이 아니다",
-	"DecimalShape":  "소수의 꼴이 아니다",
 }

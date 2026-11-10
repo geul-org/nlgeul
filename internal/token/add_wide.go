@@ -28,9 +28,9 @@ func (ix *index) addWide() {
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
 		g.Except(rule.PieceNoStem).Attacks(claim)
 		g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
-		g.Except(rule.PieceCut).Attacks(claim)
+		g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightOther}).Attacks(claim)
 		if r != nounHonor && r != vowelHonor {
-			g.Except(rule.PieceParticle).Attacks(claim)
+			g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
 			ix.edges++
 		}
 		e.g, ix.wide[r] = g, e
