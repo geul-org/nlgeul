@@ -1,0 +1,10 @@
+//ff:func feature=parse type=rule control=sequence
+//ff:what Lines — one line "word:constituent" for each space-separated word of the sentence, "+" before each particle, judged by the parse graph
+package parse
+
+// Lines trusts three conditions of the input: the predicate comes
+// last, the spacing is right, and every noun carries its particle.
+func Lines(sentence string) ([]string, error) {
+	g, _ := newGraph()
+	return classify(g, sentence)
+}

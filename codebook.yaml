@@ -1,7 +1,7 @@
 required:
   feature:
     cli: "kopas 명령줄 — cobra 명령 정의와 실행 연결"
-    mini: "kopas mini — 어절 끝을 문법 표로 읽고 toulmin 그래프로 문장성분을 판정"
+    parse: "kopas parse — 어절 끝을 문법 표로 읽고 toulmin 그래프로 문장성분을 판정"
   type:
     command: "cobra 명령 진입점"
     model: "자료형 정의"
