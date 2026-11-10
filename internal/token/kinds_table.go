@@ -58,3 +58,7 @@ var verbClosings = []string{
 	"맺음:자", "맺음:자마자", "맺음:자고", "맺음:ㅂ시다", "맺음:읍시다",
 	"맺음:러", "맺음:으러", "맺음:려", "맺음:으려", "맺음:려고", "맺음:으려고", "맺음:려면", "맺음:으려면", "맺음:려다", "맺음:으려다", "맺음:고자",
 }
+
+// predTails are the tails a predicate takes: a stem before one of them
+// stands as a verb or an adjective.
+const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj

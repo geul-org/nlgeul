@@ -13,7 +13,9 @@ import (
 // above a new word. A stem that a piece is fused into
 // is printed, and looked up, with its last syllable as it was before
 // fusing (마신 → 마시). In a stem an atom counts as one token for
-// preference.
+// preference. The boundary before an auxiliary verb's stem is given
+// back only when the stem stands as a predicate (주 before the modifying
+// 는, not 주 the noun before the particle 는).
 func (sc *scan) wordOf(b, end int, t tail) step {
 	stem, name, v := sc.stemOf(b, t)
 	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: sc.ix.unknown}
@@ -33,7 +35,7 @@ func (sc *scan) wordOf(b, end int, t tail) step {
 	e.sig = e.word.String()
 	e.adn = strings.HasPrefix(last, "꾸밈:")
 	e.conn = slices.Contains(connNames, last)
-	if b > 0 && v > 0 && len(t.pieces) > 0 && slices.Contains(sc.ix.auxStems(), stem) {
+	if b > 0 && v > 0 && tailClass(t.pieces)&predTails != 0 && slices.Contains(sc.ix.auxStems(), stem) {
 		e.back = sc.ix.structure(b, nil) - sc.ix.structure(0, nil)
 	}
 	return e

@@ -49,6 +49,13 @@ func TestWordOf(t *testing.T) {
 	if e = main.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false}}}); e.conn || e.back != costBoundary {
 		t.Fatal("an auxiliary verb's stem after a boundary", e)
 	}
+	aux := wordsScan("열어두는", layerCost)
+	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false}}}); e.back != costBoundary || e.sig != "두[보조 용언:두]+는[꾸밈:는]" {
+		t.Fatal("an auxiliary verb's stem before a predicate tail", e)
+	}
+	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "보조사:는", 1, -1, rule.TailAux, false}}}); e.back != 0 || e.verdict <= 0 {
+		t.Fatal("the same letters standing as a noun before a particle", e)
+	}
 	num := scanOf("세명")
 	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.sig != "세[수]+명[단위:명]" || e.pref != -1.5-costPiece || e.verdict != 1 {
 		t.Fatal(e)
