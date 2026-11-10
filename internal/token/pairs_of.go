@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what pairsOf — the signs of a sentence that open and close a pair, each place with its partner's: brackets by nesting, quotation marks and backticks two by two in the order they come; an apostrophe between two letters is no quotation mark, and a sign inside a span of code is no sign
+//ff:what pairsOf — the signs of a sentence that open and close a pair, each place with its partner's: brackets by nesting, quotation marks and backticks two by two in the order they come; an apostrophe between two Latin letters or digits is no quotation mark, and a sign inside a span of code is no sign
 package token
 
 // Brackets inside a span of code, and quotation marks, pair only
