@@ -11,7 +11,8 @@ import (
 // Without a word table only the closed-set words are known, under
 // their own names, when their set takes what follows them (an
 // auxiliary verb's stem does not stand alone, a determiner takes no
-// slot or closing). In the first
+// slot or closing); 이, 그 and 저 before particles or the copula are
+// named as the pronouns they are there. In the first
 // layer a stem of the table is known whatever follows. From the second
 // layer on each kind's graph judges the stem. A closed-set word is
 // named by its set only when it stands as that set's kind: 이 before a
@@ -21,7 +22,7 @@ func (ix *index) known(stem string, tail int) (string, float64) {
 	c, closed := ix.words[stem]
 	if ix.layers == layerNone && closed {
 		v, _ := verdictOf(c.g, rule.Piece{Form: stem, Tail: tail}, "")
-		return c.name, v
+		return pronounName(c.name, stem, tail), v
 	}
 	if ix.layers == layerNone {
 		return "", 0

@@ -62,3 +62,14 @@ var verbClosings = []string{
 // predTails are the tails a predicate takes: a stem before one of them
 // stands as a verb or an adjective.
 const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj
+
+// pronouns are the determiners of the closed set that are pronouns
+// too (이, 그, 저): with no word table one of them before particles or
+// the copula is named a pronoun, not a determiner (그의, 저는); alone
+// it stays a determiner.
+var pronouns = []string{"이", "그", "저"}
+
+const (
+	determinerLabel = "관형사"
+	pronounLabel    = "대명사"
+)
