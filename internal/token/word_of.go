@@ -20,7 +20,7 @@ func (sc *scan) wordOf(b, end int, t tail) eojeol {
 	if v > 0 {
 		e.names, e.verdict, e.marked = name, v, stem+"["+name+"]"
 	}
-	e.pref = sc.ix.stemPref(stem, v > 0, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
+	e.pref = sc.ix.stemPref(stem, tailClass(t.pieces), v > 0, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
 	if t.as != "" {
 		e.pref = t.weight - sc.ix.structure(b, t.pieces)
 	}

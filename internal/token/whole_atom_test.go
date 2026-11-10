@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestWholeAtom — a path at a unit's head is one atom named so, with no place inside it for a word to begin; a word is none
+//ff:what TestWholeAtom — a path at a unit's head is one atom named so, with no place inside it for a word to begin; a word is none; the sign of a pair at a unit's head is the atom, named as the unit names it
 package token
 
 import "testing"
@@ -11,5 +11,10 @@ func TestWholeAtom(t *testing.T) {
 	}
 	if end := scanOf("고양이").wholeAtom(); end != 0 {
 		t.Fatal(end)
+	}
+	head := &scan{ix: sc.ix, s: []rune(")를"), head: 1, headName: "닫는 묶음표"}
+	head.prepare()
+	if a := head.atoms[0]; a.end != 1 || a.names != "닫는 묶음표" {
+		t.Fatal("the sign of a pair at a unit's head", head.atoms)
 	}
 }

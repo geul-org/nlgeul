@@ -2,10 +2,12 @@
 //ff:what partsPref — the preference of a stem of bound words: the sum of the words' own (a word the table gives no count costs what its letters would)
 package token
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 func (ix *index) partsPref(parts []string) float64 {
 	sum := 0.0
 	for _, part := range parts {
-		sum += ix.stemPref(part, true, len([]rune(part)))
+		sum += ix.stemPref(part, rule.TailBare, true, len([]rune(part)))
 	}
 	return sum
 }

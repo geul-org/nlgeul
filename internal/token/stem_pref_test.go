@@ -5,15 +5,17 @@ package token
 import (
 	"math"
 	"testing"
+
+	"github.com/geul-org/koparse/pkg/rule"
 )
 
 func TestStemPref(t *testing.T) {
 	ix := wordsScan("x", layerCost).ix
-	if got := ix.stemPref("고양이", true, 3); math.Abs(got-math.Log10(1000/ix.lexTotal)) > 1e-9 {
+	if got := ix.stemPref("고양이", rule.TailCase, true, 3); math.Abs(got-math.Log10(1000/ix.lexTotal)) > 1e-9 {
 		t.Fatal(got)
 	}
 	per := math.Log10(1.0 / syllables)
-	if ix.stemPref("고양이", false, 3) != 3*per || ix.stemPref("것", true, 1) != per {
-		t.Fatal(ix.stemPref("것", true, 1))
+	if ix.stemPref("고양이", rule.TailCase, false, 3) != 3*per || ix.stemPref("것", rule.TailBare, true, 1) != per {
+		t.Fatal(ix.stemPref("것", rule.TailBare, true, 1))
 	}
 }

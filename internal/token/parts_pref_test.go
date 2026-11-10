@@ -5,6 +5,8 @@ package token
 import (
 	"math"
 	"testing"
+
+	"github.com/geul-org/koparse/pkg/rule"
 )
 
 func TestPartsPref(t *testing.T) {
@@ -13,7 +15,7 @@ func TestPartsPref(t *testing.T) {
 	if got := ix.partsPref([]string{"입력", "ab"}); math.Abs(got-want) > 1e-9 {
 		t.Fatal(got, want)
 	}
-	if got := ix.stemPref("입력/ab", true, 5); math.Abs(got-want) > 1e-9 {
+	if got := ix.stemPref("입력/ab", rule.TailBare, true, 5); math.Abs(got-want) > 1e-9 {
 		t.Fatal("a stem of bound words", got)
 	}
 }
