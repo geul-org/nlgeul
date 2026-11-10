@@ -15,6 +15,7 @@ var reasons = map[string]string{
 	"PartsShape":    "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다",
 	"PieceRunsOn":   "단위 뒤에 글자가 그대로 이어진다",
 	"PieceNoNumber": "바로 앞이 수가 아니다",
+	"PieceLone":     "낱말 표 없이 홀로 선 한자어 한 음절 수사다",
 	"MarkRight":     "기호의 오른쪽이 수가 아니다",
 	"MarkAfterWord": "기호의 왼쪽에 글자가 붙어 있다",
 	"NextListed":    "뒤의 맺음은 서술격 이에 붙지 않는다",

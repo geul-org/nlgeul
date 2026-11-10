@@ -41,7 +41,7 @@ func TestUnits(t *testing.T) {
 	if len(scanOf("삼만").units(2, 0, true)) != 0 {
 		t.Fatal("a greater number after a Hangul numeral is part of the numeral")
 	}
-	if len(scanOf("사회적").units(2, 0, true)) != 0 || len(scanOf("사회적").units(2, 0, false)) != 1 || len(scanOf("3개.").units(2, 0, true)) != 1 {
+	if len(scanOf("두배적").units(2, 0, true)) != 0 || len(scanOf("두배적").units(2, 0, false)) != 1 || len(scanOf("3개.").units(2, 0, true)) != 1 {
 		t.Fatal("letters running on")
 	}
 }

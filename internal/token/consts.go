@@ -87,6 +87,13 @@ const (
 	shortKey   = 1
 )
 
+// forceWhole is the force of the rebuttal "the number and the unit
+// together are a word of the table" against a unit read after a lone
+// Hangul numeral (이건, 세대). It is a placeholder chosen among a few
+// values tried on a thousand sentences: below about 0.94 the unit
+// reading still comes first, and at 1 it is not kept at all.
+const forceWhole = 0.98
+
 const (
 	costBoundary = 1.0
 	costUnseen   = 1.0

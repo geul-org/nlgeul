@@ -10,7 +10,9 @@ package rule
 // piece that follows, when a rule asks for it. Right is what stands
 // right after the piece (Right…), and Stem the kinds of the word before
 // it, when a rule asks for them. Num tells that a number stands right
-// before the piece.
+// before the piece; Whole that this number and the piece together are a
+// word of the word table or a fused form, and Lone that the number is a
+// lone Sino-Korean digit read with no word table.
 type Piece struct {
 	Form    string
 	HasStem bool
@@ -24,4 +26,6 @@ type Piece struct {
 	Right   int
 	Stem    int
 	Num     bool
+	Whole   bool
+	Lone    bool
 }

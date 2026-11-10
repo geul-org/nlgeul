@@ -34,9 +34,7 @@ func (sc *scan) units(j, next int, open bool) []tail {
 		if sc.numEnds[start] {
 			out = append(out, tail{start: start, pieces: []piece{pc}})
 		}
-		for _, w := range words {
-			out = append(out, tail{start: start, pieces: []piece{pc}, only: w.text, as: numName, weight: w.pref})
-		}
+		out = append(out, sc.numeralTails(e, start, j, facts, pc, words)...)
 		out = append(out, joined(lefts, pc)...)
 	}
 	return out
