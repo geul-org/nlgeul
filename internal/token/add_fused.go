@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addFused — the graphs of the fused letters: the honorific 시 under 셨·셔·십 (after a vowel), the link vowel 으 (after a consonant other than ㄹ, before 시 or a closing that takes it as a piece), 잖 (지+않), and each fused form whose first word is fixed, which is judged as the particle under it is in a chain (and, for 거 written onto a modifying closing, by whether such a closing stands before it)
+//ff:what addFused — the graphs of the fused letters: the honorific 시 under 셨·셔·십 (after a vowel), the link vowel 으 before it (after a consonant other than ㄹ), 잖 (지+않), and each fused form whose first word is fixed, which is judged as the particle under it is in a chain (and, for 거 written onto a modifying closing, by whether such a closing stands before it)
 package token
 
 import (
@@ -21,10 +21,6 @@ func (ix *index) addFused() {
 		g.Except(rule.PieceNoStem).Attacks(claim)
 		if e.after != afterAny {
 			g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
-			ix.edges++
-		}
-		if e.name == euName {
-			g.Except(rule.NextUnlisted).With(toulmin.NewStringListSpec("takers", append([]string{honorName}, linkTakers...))).Attacks(claim)
 			ix.edges++
 		}
 		e.g = g

@@ -5,7 +5,7 @@ package token
 import "testing"
 
 func TestCountOf(t *testing.T) {
-	w := folded(folded(word{}, kindNominal, 0, 7), kindAdverb, 0, 0)
+	w := folded(folded(word{}, kindNominal, 7), kindAdverb, 0)
 	if countOf(w, kindNominal, 0) != 7 || countOf(w, kindAdverb, 3) != 0 || countOf(w, kindVerb, 1) != -1 {
 		t.Fatal(w)
 	}

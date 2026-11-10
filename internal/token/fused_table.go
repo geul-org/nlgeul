@@ -12,7 +12,6 @@ const (
 	honorName  = "선어말:시"
 	honorCount = 19566
 	euName     = "이음:으"
-	euCount    = 225409
 	negName    = "합침:잖"
 	negLetter  = '잖'
 	jiName     = "맺음:지"

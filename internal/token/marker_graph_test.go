@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestMarkerGraph — the exceptions a graph gets by its entry: every marker the stem check; a particle its end and chain order; a slot its order; a lone consonant its base (not with a word table); a piece that begins with 어/아 the rebuttal of a vowel that does not fit; a form that ends a closed-set word that word; a closing read only with a word table what stands right after it
+//ff:what TestMarkerGraph — the exceptions a graph gets by its entry: every marker the stem check; a particle its end and chain order; a slot its order; a lone consonant its base; a form that ends a closed-set word that word; a closing read only with a word table what stands right after it
 package token
 
 import "testing"
@@ -19,16 +19,11 @@ func TestMarkerGraph(t *testing.T) {
 		{entry{name: "맺음:ㄴ다", form: "다", class: classClosing, lead: jongN}, nil, 1},
 		{entry{name: "맺음:재(자고 해)", form: "재", class: classClosing, wide: true}, nil, 2},
 		{entry{name: "부사격:선(에서는)", form: "선", class: classParticle, wide: true}, nil, 2},
-		{entry{name: "맺음:어서", form: "어서", class: classClosing, head: headWhole}, nil, 2},
 	}
 	for _, c := range cases {
 		e := c.e
-		if got := markerGraph(&e, c.whole, false); got != c.edges || e.g == nil {
+		if got := markerGraph(&e, c.whole); got != c.edges || e.g == nil {
 			t.Errorf("%s: %d", e.name, got)
 		}
-	}
-	lone := entry{name: "꾸밈:ㄴ", class: classClosing, lead: jongN}
-	if got := markerGraph(&lone, nil, true); got != 1 {
-		t.Fatal("with a word table a lone consonant's base is not the graph's to ask", got)
 	}
 }

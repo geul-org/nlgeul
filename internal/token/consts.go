@@ -39,7 +39,7 @@ const (
 const (
 	beam     = 16
 	branches = 7
-	wakeGap  = 11.0
+	wakeGap  = 9.0
 )
 
 // syllables is the number of Hangul syllables: with no key table, a
@@ -103,11 +103,6 @@ const (
 // values tried on a thousand sentences: below about 0.94 the unit
 // reading still comes first, and at 1 it is not kept at all.
 const forceWhole = 0.98
-
-// forceClash is the force of the rebuttal "어/아 does not fit the vowel
-// before it" (먹아, 잡어): the reading is kept and comes later. It is a
-// placeholder chosen among a few values tried on a thousand sentences.
-const forceClash = 0.5
 
 const (
 	costBoundary = 1.0

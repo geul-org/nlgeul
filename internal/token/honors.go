@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what honors — the readings of a letter as the honorific 시 with a piece fused under it: the stem ends before the letter, or before the link vowel 으 that stands before it (linked)
+//ff:what honors — the readings of a letter as the honorific 시 with a piece fused under it: the stem ends before the letter, or before the link vowel 으 that stands before it
 package token
 
 import "github.com/geul-org/koparse/pkg/rule"
@@ -23,8 +23,11 @@ func (sc *scan) honors(p piece, start int, bare bool) []tail {
 	}
 	var out []tail
 	if sc.judge(e, at, start, facts) > 0 {
-		out = append(out, tail{start: at, pieces: []piece{h, p}, gate: gate, head: headEuOpen | headS})
-		out = append(out, withGate(sc.linked(at, []piece{h, p}, honorName, false), gate)...)
+		out = append(out, tail{start: at, pieces: []piece{h, p}, gate: gate})
+	}
+	if at >= 2 && sc.s[at-1] == '으' && sc.judge(sc.ix.eu, at-1, at, rule.Piece{Form: "으", HasStem: true, Prev: sc.s[at-2], Next: -1}) > 0 {
+		eu := piece{"으", euName, 1, sc.ix.pref(0, "으"), rule.TailPred, false}
+		out = append(out, tail{start: at - 1, pieces: []piece{eu, h, p}, gate: gate})
 	}
 	return out
 }
