@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestPlace — a whole form reports the end before it; a form at the unit's start has no stem; a piece under a consonant or fused into a vowel sits in the stem's last syllable; a fused ㅆ only on the vowels it fuses into, an unseen 어/아 only with more of the tail or at the unit's end; a form that is not there is not placed
+//ff:what TestPlace — a whole form reports the end before it; a form at the unit's start has no stem; a piece under a consonant or fused into a vowel sits in the stem's last syllable; a fused ㅆ only on the vowels it fuses into, an unseen 어/아 only with more of the tail or at the unit's end; a form that is not there is not placed; a form at the unit's start has a stem in the unit before while the unit is read as attaching
 package token
 
 import (
@@ -48,5 +48,13 @@ func TestPlace(t *testing.T) {
 	}
 	if _, _, ok := sc.place(&entry{lead: jongN}, 0, false); ok {
 		t.Fatal("a fused piece at the start")
+	}
+	lone := scanOf("로")
+	if _, p, ok := lone.place(&entry{form: "로"}, 1, false); !ok || p.HasStem {
+		t.Fatal("no stem at the unit's start", p)
+	}
+	lone.attach = true
+	if start, p, ok := lone.place(&entry{form: "로"}, 1, false); !ok || start != 0 || !p.HasStem {
+		t.Fatal("a stem in the unit before", p)
 	}
 }

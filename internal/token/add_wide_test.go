@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddWide — 신 stands as the honorific at a closing's end, not before a particle or something else; 심 stands before a particle; the shortened closings and particles are in the index with their gates; particles are found by their first letter
+//ff:what TestAddWide — 신 stands as the honorific at a closing's end, not before a particle or something else; 심 stands before a particle; the shortened closings and particles are in the index with their gates; particles are found by their first letter; the naming closing 기 is in the index asking for a predicate's stem, with its count, and the graph of a particle chain after it takes 이름:기 and nothing else
 package token
 
 import (
@@ -35,5 +35,17 @@ func TestAddWide(t *testing.T) {
 	}
 	if e := ix.named('대', "맺음:ㄴ대(ㄴ다고 해)"); e.gate != ix.pred || e.tail != rule.TailVerb || !slices.Contains(ix.barred, e.name) {
 		t.Fatal(e)
+	}
+	if e := ix.named('기', "이름:기"); e.form != "기" || e.gate != ix.pred || e.count != closingCounts["이름:기"] || e.class != classClosing {
+		t.Fatal("the naming closing 기", e)
+	}
+	if ix.nounAux == nil || ix.nounAux.name != nounAuxName {
+		t.Fatal("the graph of a particle chain after 기", ix.nounAux)
+	}
+	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "이름:기", HasStem: true, Next: -1}, ""); v <= 0 {
+		t.Fatal("a particle chain after 이름:기", v)
+	}
+	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "맺음:지", HasStem: true, Next: -1}, ""); v > 0 {
+		t.Fatal("no particle chain after another closing", v)
 	}
 }

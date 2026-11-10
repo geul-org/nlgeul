@@ -1,8 +1,9 @@
-//ff:func feature=token type=rule control=sequence
-//ff:what TestMarkerStem — a new word after a boundary whose letters read as markers there, or that starts with the link vowel 으 and from 으 on, or from after it, reads as markers up to the tail's end, is no stem (a stem a piece is fused into too, for the 으 rule only); the unit's first word, a stem whose letters are not so read, markers that end before the tail's end, a stem of another letter, a word the table knows, a stem a piece is fused into outside the 으 rule and a tail that names its stem are let be; so is every stem when there is no word table
+//ff:func feature=token type=rule control=iteration dimension=1
+//ff:what TestMarkerStem — a new word after a boundary whose letters read as markers there, or that starts with the link vowel 으 and from 으 on, or from after it, reads as markers up to the tail's end, is no stem (a stem a piece is fused into too, for the 으 rule only); the unit's first word, a stem whose letters are not so read, markers that end before the tail's end, a stem of another letter, a word the table knows, a stem a piece is fused into outside the 으 rule and a tail that names its stem are let be; so is every stem when there is no word table; the 으 left when ㄹ is taken off 을 (a stem of one syllable with 으 as its base) is the link vowel, while a fused stem of more than one syllable is judged by its first letter as written; end to end 먹었을걸 has no new word 으 before (ㄹ)걸
 package token
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/geul-org/koparse/pkg/rule"
@@ -103,4 +104,30 @@ func TestMarkerStem(t *testing.T) {
 	if known.markerStem(1, 5, cop) {
 		t.Fatal("a word the table knows that starts with the link vowel")
 	}
+
+	geol := []piece{{text: "(ㄹ)걸", names: "맺음:ㄹ걸", verdict: 1, tail: rule.TailPred}}
+	eul := wordsScan("곰을걸", layerCost)
+	if eul.markerStem(1, 3, tail{start: 2, base: '으', pieces: geol}) {
+		t.Fatal("으 out of 을 before (ㄹ)걸 when nothing reads as markers")
+	}
+	eul.marks[3] = map[int]bool{1: true}
+	if !eul.markerStem(1, 3, tail{start: 2, base: '으', pieces: geol}) {
+		t.Fatal("으 out of 을 is the link vowel: 을걸 reads as markers from it")
+	}
+	two := wordsScan("곰가을걸", layerCost)
+	two.marks[4] = map[int]bool{1: true, 2: true}
+	if two.markerStem(1, 4, tail{start: 3, base: '으', pieces: geol}) {
+		t.Fatal("a fused stem of two syllables is judged by its first letter as written (가)")
+	}
+	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	got := strings.Join(r.Lines("먹었을걸", false), "\n")
+	if strings.Contains(got, " 으+(ㄹ)걸") || !strings.Contains(got, "먹[열쇠:동사]+었[선어말:었]+을걸[맺음:을걸]") {
+		t.Fatal("먹었을걸\n" + got)
+	}
+	for _, line := range r.Lines("사과을걸", false) {
+		if strings.Contains(line, " 으+(ㄹ)걸") {
+			return
+		}
+	}
+	t.Fatal("사과을걸: where 을걸 does not read as markers the new word 으 stands")
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestCopulaOf — the stem said as a syllable 이 or under a fused piece, the stem dropped after a vowel before a closing that allows it (whole or fused), and no reading for a tail with no closing, a closing that holds the stem, a closing that does not allow dropping, or a consonant before it
+//ff:what TestCopulaOf — the stem said as a syllable 이 or under a fused piece, the stem dropped after a vowel before a closing that allows it (whole or fused), and no reading for a tail with no closing, a closing that holds the stem, a closing that does not allow dropping, or a consonant before it; the closings of droppableKnown (네, 냐) allow it only with a word table
 package token
 
 import "testing"
@@ -49,5 +49,18 @@ func TestCopulaOf(t *testing.T) {
 	}
 	if _, _, ok := scanOf("다").copulaOf(tail{start: 0, pieces: one, close: da}); ok {
 		t.Fatal("nothing before")
+	}
+	ne := tail{start: 1, pieces: one, close: &entry{name: "맺음:네"}}
+	if at, e, ok := wordsScan("거네", layerCost).copulaOf(ne); !ok || at != 1 || e == nil || e.name != droppedName {
+		t.Fatal("dropped before 네 with a word table", at)
+	}
+	if _, _, ok := scanOf("거네").copulaOf(ne); ok {
+		t.Fatal("not before 네 without a word table")
+	}
+	if at, _, ok := wordsScan("뭐냐", layerCost).copulaOf(tail{start: 1, pieces: one, close: &entry{name: "맺음:냐"}}); !ok || at != 1 {
+		t.Fatal("dropped before 냐 with a word table")
+	}
+	if _, _, ok := wordsScan("학교서", layerCost).copulaOf(tail{start: 2, pieces: one, close: seo}); ok {
+		t.Fatal("a closing of neither list, with a word table")
 	}
 }

@@ -1,8 +1,11 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestWhole — a new word after a boundary does not stand where its letters read as markers, the unit's first word does; a word of no markers is read at the unit's end from every place, and inside the unit only when it is a known word that may stand alone or the script changes there, and never inside an atom
+//ff:what TestWhole — a new word after a boundary does not stand where its letters read as markers, the unit's first word does; a word of no markers is read at the unit's end from every place, and inside the unit only when it is a known word that may stand alone or the script changes there, and never inside an atom; nor where its letters read as two runs of markers one after the other (는 then 게), while one run is the old rule and letters with no run stand; end to end 곰이는게 has no new word 는게 after 곰+이
 package token
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestWhole(t *testing.T) {
 	sc := scanOf("것곰")
@@ -38,5 +41,23 @@ func TestWhole(t *testing.T) {
 	}
 	if got := after.whole(nil, kept, 3, map[int]bool{0: true}); len(got) != 2 {
 		t.Fatal("the unit's first word is not asked", got)
+	}
+	runs := scanOf("곰는게")
+	start := [][]*path{{{verdict: 1}}, {{verdict: 1}}, nil, nil}
+	if got := runs.whole(nil, start, 3, nil); len(got) != 2 {
+		t.Fatal("letters with no run stand", got)
+	}
+	if got := runs.whole(nil, start, 3, map[int]bool{1: true}); len(got) != 1 || got[0].sig != "곰는게" {
+		t.Fatal("one run, by the old rule", got)
+	}
+	runs.marks[2] = map[int]bool{1: true}
+	runs.marks[3] = map[int]bool{2: true}
+	if got := runs.whole(nil, start, 3, nil); len(got) != 1 || got[0].sig != "곰는게" {
+		t.Fatal("는 and then 게: two runs", got)
+	}
+	r, _ := New(Options{Asleep: true})
+	got := strings.Join(r.Lines("곰이는게", false), "\n")
+	if strings.Contains(got, "곰+이[주격:이|보격:이] 는게\t") || !strings.Contains(got, "곰이는게\t") {
+		t.Fatal("곰이는게\n" + got)
 	}
 }

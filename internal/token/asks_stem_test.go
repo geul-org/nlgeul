@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAsksStem — a fused 어/아 or ㅆ asks for a predicate's stem, whether it shows or not, but not in 해 and 했; a lone ㄴ under 하 does not ask, under another syllable it does; a consonant with letters after it does not
+//ff:what TestAsksStem — a fused 어/아 or ㅆ asks for a predicate's stem, whether it shows or not, with a trace (봐, 줬, 켜) or none (가, 갔), but not in 해 and 했; a lone ㄴ under 하 does not ask, under another syllable it does; a consonant with letters after it does not
 package token
 
 import "testing"
@@ -14,5 +14,9 @@ func TestAsksStem(t *testing.T) {
 	}
 	if sc.asksStem(&entry{lead: jongN, form: "다"}, 3, '가') || !sc.asksStem(&entry{lead: jongSS}, 5, '가') || sc.asksStem(&entry{lead: jongSS}, 7, '하') {
 		t.Fatal("a consonant with letters after it, or ㅆ")
+	}
+	traced := scanOf("줬켜켰")
+	if !traced.asksStem(&entry{lead: jongSS}, 1, '주') || !traced.asksStem(&entry{lead: leadVowel}, 2, '켜') || !traced.asksStem(&entry{lead: jongSS}, 3, '켜') {
+		t.Fatal("a fused piece that shows in the letters")
 	}
 }

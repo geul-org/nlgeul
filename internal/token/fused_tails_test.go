@@ -1,8 +1,11 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestFusedTails — a tail for each stem the fused syllable may come from, the piece in brackets before the rest of the form; a fused 어/아 that changes no letter is marked as leaving no trace and, with a word table, asks for a predicate's stem before it; 셨 is read as the honorific too
+//ff:what TestFusedTails — a tail for each stem the fused syllable may come from, the piece in brackets before the rest of the form; a fused 어/아 that changes no letter is marked as leaving no trace and, with a word table, asks for a predicate's stem before it; so does a fused 어/아 or ㅆ that shows (봐, 줬), but 해 and 했 ask for nothing; 셨 is read as the honorific too; end to end 쏴 is no 쏘+아 until the table has 쏘, and 곰해 keeps the new word 곰하+여
 package token
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestFusedTails(t *testing.T) {
 	sc := scanOf("갔다")
@@ -26,6 +29,12 @@ func TestFusedTails(t *testing.T) {
 	if gate := wordsScan("해", layerCost).fusedTails(piece{}, &entry{lead: leadVowel}, 1); gate[0].gate != nil {
 		t.Fatal("해 asks for nothing", gate)
 	}
+	if gate := wordsScan("줬다", layerCost).fusedTails(piece{}, &entry{lead: jongSS}, 1); len(gate) != 1 || gate[0].gate == nil || gate[0].base != '주' {
+		t.Fatal("a fused ㅆ that shows asks for a predicate's stem", gate)
+	}
+	if gate := wordsScan("했다", layerCost).fusedTails(piece{}, &entry{lead: jongSS}, 1); len(gate) != 1 || gate[0].gate != nil {
+		t.Fatal("했 asks for nothing", gate)
+	}
 	sc = scanOf("마신다")
 	got = sc.fusedTails(piece{names: "맺음:ㄴ다"}, &entry{form: "다", lead: jongN, noYo: true}, 2)
 	if len(got) != 1 || got[0].base != '시' || got[0].pieces[0].text != "(ㄴ)다" || !got[0].noYo {
@@ -37,5 +46,16 @@ func TestFusedTails(t *testing.T) {
 	}
 	if !honor {
 		t.Fatal("no honorific under 셨")
+	}
+	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	if got := strings.Join(r.Lines("쏴", false), "\n"); strings.Contains(got, "쏘+(아)") || strings.Contains(got, "쏘[") {
+		t.Fatal("쏘 is no predicate's stem of the table\n" + got)
+	}
+	if got := strings.Join(r.Lines("곰해", false), "\n"); !strings.Contains(got, "곰하+(여)[맺음:어(합침)]") {
+		t.Fatal("해 asks for nothing\n" + got)
+	}
+	r.ix.lex["쏘"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
+	if got := strings.Join(r.Lines("쏴", false), "\n"); !strings.Contains(got, "쏘[열쇠:동사]+(아)[맺음:어(합침)]") {
+		t.Fatal("쏘 of the table\n" + got)
 	}
 }
