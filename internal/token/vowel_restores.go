@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=selection
-//ff:what vowelRestores — the stems a syllable may come from when 어/아 is fused into its vowel (endings.md section 4): 해 from 하+여, ㅘ from ㅗ+아, ㅝ from ㅜ+어, ㅕ from ㅣ+어, ㅙ from ㅚ+어; ㅏ and ㅓ from the same vowel or from a dropped ㅡ; ㅐ and ㅔ from the same vowel
+//ff:what vowelRestores — the stems a syllable may come from when 어/아 is fused into its vowel (endings.md section 4): 해 from 하+여, ㅘ from ㅗ+아, ㅝ from ㅜ+어, ㅕ from ㅣ+어, ㅙ from ㅚ+어; ㅏ and ㅓ from the same vowel or from a dropped ㅡ; ㅐ and ㅔ from the same vowel; 놔 also from 놓+아 (clause 35 of the orthography)
 package token
 
 import "github.com/geul-org/koparse/pkg/rule"
@@ -10,6 +10,8 @@ func vowelRestores(r rune) []restore {
 	switch {
 	case r == '해':
 		return []restore{{'하', "여"}}
+	case r == '놔':
+		return []restore{{'노', "아"}, {'놓', "아"}}
 	case v == 9:
 		return []restore{{to(8), "아"}}
 	case v == 14:
