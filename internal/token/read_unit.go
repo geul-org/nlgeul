@@ -1,9 +1,10 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what readUnit — the lines of one unit (the text between fixed boundaries): its trace when asked for, then the bundles of its readings that are awake, then (when asked for) the readings that are asleep, then the dots that close it
+//ff:what readUnit — the lines of one unit (the text between fixed boundaries: spaces and the signs of a pair): its trace when asked for, then the bundles of its readings that are awake, then (when asked for) the readings that are asleep, then the dots that close it
 package token
 
-func readUnit(ix *index, field string, trace bool) []string {
-	sc := &scan{ix: ix, s: trimUnit(field)}
+func readUnit(ix *index, u unit, trace bool) []string {
+	field := u.text
+	sc := &scan{ix: ix, s: coreOf(u), head: u.head, headName: u.name}
 	if len(sc.s) == 0 {
 		return []string{field}
 	}

@@ -1,9 +1,12 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what wholeAtom — note the atom a unit begins with when the unit is no sentence's word but an address, a mail address, a path or an option: one piece, not read inside, named by what it is; where it ends (0 when the unit is none of these)
+//ff:what wholeAtom — note the atom a unit begins with: the sign of a pair or the span of code at its head, or, when the unit is no sentence's word, an address, a mail address, a path or an option: one piece, not read inside, named by what it is; where it ends (0 when the unit is none of these)
 package token
 
 func (sc *scan) wholeAtom() int {
 	name, end := special(sc.s)
+	if sc.head > 0 {
+		name, end = sc.headName, sc.head
+	}
 	if end == 0 {
 		return 0
 	}
