@@ -18,7 +18,7 @@
 
 ## 판정 (toulmin 그래프, `type=rule`)
 
-`newGraph`가 그래프와 주장들을 돌려준다. 규칙 함수는 모두 `func(Context, Specs) (float64, any)`다. 값은 사실 하나를 보는 규칙이면 +1(적용)·-1(적용 안 됨)이고, 관측 횟수를 견주는 규칙이면 두 횟수 가운데 상대의 몫을 [-1, 1]에 옮긴 값이다.
+`newGraph`가 그래프와 주장들을 돌려준다. 규칙 함수는 대부분 [pkg/rule](../../pkg/rule/README.md)의 공통 함수이고 기준(Spec)으로 갈린다. 아래 표의 이름은 그래프 노드의 이름(주장은 `Claim` 기준의 이름)이다. 이 패키지에만 있는 규칙 함수는 `complementCase`, `complementShare`, `lastPredicate`, `beforeBound` 넷이다. 읽기가 낸 사실은 `facts`가 `rule.Word`로 옮겨 컨텍스트에 넣는다.  규칙 함수는 모두 `func(Context, Specs) (float64, any)`다. 값은 사실 하나를 보는 규칙이면 +1(적용)·-1(적용 안 됨)이고, 관측 횟수를 견주는 규칙이면 두 횟수 가운데 상대의 몫을 [-1, 1]에 옮긴 값이다.
 
 | 규칙 | 갈래 | 문법 |
 |---|---|---|

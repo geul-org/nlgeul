@@ -4,27 +4,7 @@ package parse
 // school grammar lists the constituents in.
 var printed = []string{labelSubj, labelObj, labelComp, labelPred, labelAdn, labelAdv, labelVoc}
 
-// conclusions names the constituent each claim concludes, by the claim
-// function's name.
-var conclusions = map[string]string{
-	"subjectCase":      labelSubj,
-	"topicSubject":     labelSubj,
-	"objectCase":       labelObj,
-	"topicObject":      labelObj,
-	"complementCase":   labelComp,
-	"closingPredicate": labelPred,
-	"lastPredicate":    labelPred,
-	"adnominalCase":    labelAdn,
-	"adnominalClosing": labelAdn,
-	"adverbialCase":    labelAdv,
-	"adverbialClosing": labelAdv,
-	"rangeAdverbial":   labelAdv,
-	"determinerWord":   labelAdn,
-	"conjunctiveWord":  labelVoc,
-	"vocativeCase":     labelVoc,
-}
-
-// adverbialClosings is the criterion of adverbialClosing: 게, which
+// adverbialClosings is the criterion of the claim adverbialClosing: 게, which
 // morphemes.md section 4 says is used like an adverb, and its emphatic
 // 게끔.
 var adverbialClosings = []string{"게", "게끔"}

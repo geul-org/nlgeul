@@ -1,6 +1,6 @@
 # koparse
 
-한국어 문장을 문법 표만으로 분석하는 실험 도구다. Go 모듈 `github.com/geul-org/koparse`과 cobra CLI `kopas`이고, 하위 명령은 `parse` 하나다(cobra의 `help`는 남고 `completion`은 껐다). 2026-11-10 이전의 분석기(명사 분리·식별)는 git 기록에 남아 있다.
+한국어 문장을 문법 표만으로 분석하는 실험 도구다. Go 모듈 `github.com/geul-org/koparse`과 cobra CLI `kopas`이고, 하위 명령은 `parse`와 실험용 `token`이다(cobra의 `help`는 남고 `completion`은 껐다). 2026-11-10 이전의 분석기(명사 분리·식별)는 git 기록에 남아 있다.
 
 ## kopas parse
 
@@ -25,10 +25,19 @@ kopas parse "이것은 문장을 분해한다"
 2. 띄어쓰기를 올바로 한다.
 3. 조사를 반드시 올바로 붙인다.
 
+## kopas token (실험)
+
+```sh
+kopas token "다음으로써"
+kopas token --trace "다음으로써"
+```
+
+토큰(음절) 스트림을 표지 풀이마다 하나씩 둔 판정 그래프로 읽어 어절로 끊어 올린다. 띄어쓰기와 문장 부호는 확정 경계이고, 그 사이 단위에서 읽기들이 합의한 자리에서 끊는다. 읽기가 갈리면 경합으로 갈래마다 성립과 선호를 찍는다. 문장성분은 정하지 않는다([internal/token/](internal/token/README.md)).
+
 ## 구성
 
 - 어절의 오른쪽 끝을 음절·자모로 읽는 부분은 일반 Go 코드, 읽은 사실로 문장성분을 가리는 판정은 toulmin 그래프다([internal/parse/](internal/parse/README.md)).
 - toulmin은 park-jun-woo/toulmin `geul` 브랜치의 Go 모듈(MIT)을 공개 커밋 버전으로 require한다.
 - 제3자 구성요소: `github.com/park-jun-woo/toulmin/go`(MIT), `github.com/spf13/cobra` v1.10.2(Apache-2.0), `github.com/spf13/pflag` v1.0.9(BSD-3-Clause), `github.com/inconshreveable/mousetrap` v1.1.0(Apache-2.0). 우리 코드는 CC0다(LICENSE, NOTICE).
 - 규칙: filefunc(`codebook.yaml`, 함수·타입별 파일), TSMA, `go test`·`go vet`·`go build`. `go.work`는 쓰지 않는다(`GOWORK=off`).
-- 패키지는 [internal/](internal/README.md), 진입점은 [cmd/](cmd/README.md).
+- 패키지는 [internal/](internal/README.md)과 [pkg/](pkg/README.md), 진입점은 [cmd/](cmd/README.md). 여러 그래프가 함께 쓰는 규칙 함수는 `pkg/rule`에 있다.

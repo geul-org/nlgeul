@@ -6,3 +6,4 @@
 |---|---|
 | [parse/](parse/README.md) | `kopas parse`: 어절 끝을 문법 표로 읽어 사실을 내고 toulmin 그래프로 문장성분을 판정 |
 | [cli/](cli/README.md) | cobra 루트 명령 `kopas`와 하위 명령 `parse` |
+| [token/](token/README.md) | `kopas token`: 토큰 스트림을 색인과 표지별 판정 그래프로 읽어 어절로 끊어 올림(실험) |

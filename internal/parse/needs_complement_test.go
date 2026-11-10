@@ -2,10 +2,14 @@
 //ff:what TestNeedsComplement — 되 and 아니 as the whole stem; 사용되 and 먹 are not
 package parse
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/geul-org/koparse/pkg/rule"
+)
 
 func TestNeedsComplement(t *testing.T) {
-	if !needsComplement(&sentence{stems: []string{"되"}}) || !needsComplement(&sentence{stems: []string{"아니"}}) || needsComplement(&sentence{stems: []string{"사용되"}}) || needsComplement(&sentence{stems: []string{"먹"}}) || needsComplement(&sentence{}) {
+	if !needsComplement(&rule.Sentence{Stems: []string{"되"}}) || !needsComplement(&rule.Sentence{Stems: []string{"아니"}}) || needsComplement(&rule.Sentence{Stems: []string{"사용되"}}) || needsComplement(&rule.Sentence{Stems: []string{"먹"}}) || needsComplement(&rule.Sentence{}) {
 		t.Fatal("needsComplement")
 	}
 }

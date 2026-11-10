@@ -5,19 +5,20 @@ package parse
 import (
 	"testing"
 
+	"github.com/geul-org/koparse/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 
 func TestNewGraph(t *testing.T) {
 	g, claims := newGraph()
-	if len(claims) != len(conclusions) {
+	if len(claims) != len(chainClaims)+len(tailClaims)+len(wordClaims) {
 		t.Fatal(len(claims))
 	}
 	if got, _ := classify(g, "우리가 함께 간다"); got[1] != "함+께:부사어" {
 		t.Fatal(got)
 	}
 	notParticle := func(ctx toulmin.Context, _ toulmin.Specs) (float64, any) {
-		return applies(wordOf(ctx).text == "함께"), nil
+		return rule.Applies(rule.WordOf(ctx).Text == "함께"), nil
 	}
 	g.Except(notParticle).Attacks(claims["adverbialCase"])
 	got, err := classify(g, "우리가 함께 선생님께 간다")

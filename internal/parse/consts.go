@@ -1,5 +1,7 @@
 package parse
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 // Sentence constituents kopas parse prints (the seven of school
 // grammar) and the name for a word no rule speaks for.
 const (
@@ -13,25 +15,22 @@ const (
 	labelNone = "미정"
 )
 
-// Cases a particle marks, as particles.md names its function. A
-// particle with none of them is an auxiliary (보조사), a connective or
-// a suffix.
+// Cases a particle marks, as particles.md names its function, and the
+// kinds of closing, as endings.md section 3 marks them. The rules read
+// them, so they are the rule package's.
 const (
-	caseSubj = 1 << iota // 주격
-	caseComp             // 보격 (이/가 before 되다, 아니다)
-	caseObj              // 목적격
-	caseAdn              // 관형격
-	caseAdv              // 부사격
-	caseVoc              // 호격
-	caseBare             // no particle at all: a bound noun written onto a modifying closing (아는거)
-)
+	caseSubj = rule.CaseSubj
+	caseComp = rule.CaseComp
+	caseObj  = rule.CaseObj
+	caseAdn  = rule.CaseAdn
+	caseAdv  = rule.CaseAdv
+	caseVoc  = rule.CaseVoc
+	caseBare = rule.CaseBare
 
-// Kinds of closing, as endings.md section 3 marks them.
-const (
-	kindFinal = 1 << iota // 종: 종결
-	kindLink              // 연: 연결
-	kindAdn               // 꾸: 꾸밈(관형사형)
-	kindNoun              // 이: 이름(명사형)
+	kindFinal = rule.KindFinal
+	kindLink  = rule.KindLink
+	kindAdn   = rule.KindAdn
+	kindNoun  = rule.KindNoun
 )
 
 // What the syllable before a piece must look like.
@@ -66,9 +65,3 @@ const (
 
 // idaCount is the observed count of the copula 이다 in morphemes.md.
 const idaCount = 4520000
-
-// keyWord and keyTail are the context keys the rules read.
-const (
-	keyWord = "word"
-	keyTail = "tail"
-)

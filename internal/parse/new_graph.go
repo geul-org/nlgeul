@@ -2,10 +2,15 @@
 //ff:what newGraph — the grammar of kopas parse as a toulmin graph: fifteen claims of a constituent, and the exceptions and rebuttals against them; the claims are returned so that more can be added
 package parse
 
-import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
+import (
+	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
+)
 
 // newGraph judges one reading of a word: its particle chain together
-// with one of its tails. The claims are returned by function name.
+// with one of its tails. The claims are returned by name. The rule
+// functions are the rule package's, told apart by their criteria; the
+// names below are the nodes'.
 //
 //	chain claims  subjectCase, topicSubject → 주어; objectCase,
 //	              topicObject → 목적어; complementCase → 보어;
@@ -27,28 +32,30 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 //	              complementShare → subjectCase
 func newGraph() (*toulmin.Graph, map[string]*toulmin.Rule) {
 	g := toulmin.NewGraph("kopas:parse")
-	c := map[string]*toulmin.Rule{
-		"subjectCase":      g.Rule(subjectCase),
-		"topicSubject":     g.Rule(topicSubject),
-		"objectCase":       g.Rule(objectCase),
-		"topicObject":      g.Rule(topicObject),
-		"complementCase":   g.Rule(complementCase),
-		"adnominalCase":    g.Rule(adnominalCase),
-		"adverbialCase":    g.Rule(adverbialCase),
-		"vocativeCase":     g.Rule(vocativeCase),
-		"closingPredicate": g.Rule(closingPredicate),
-		"lastPredicate":    g.Rule(lastPredicate),
-		"adnominalClosing": g.Rule(adnominalClosing),
-		"adverbialClosing": g.Rule(adverbialClosing).With(toulmin.NewStringListSpec("adverbialClosings", adverbialClosings)),
-		"rangeAdverbial":   g.Rule(rangeAdverbial).With(toulmin.NewStringListSpec("rangeParticles", rangeParticles)),
-		"determinerWord":   g.Rule(determinerWord).With(toulmin.NewStringListSpec("determiners", determiners)),
-		"conjunctiveWord":  g.Rule(conjunctiveWord).With(toulmin.NewStringListSpec("conjunctions", conjunctions)),
-	}
-	last := g.Except(finalWord)
-	chainLonger, chainSeen := g.Except(chainReadsMore), g.Counter(chainSeenMore)
-	tailLonger, tailSeen := g.Except(tailReadsMore), g.Counter(tailSeenMore)
-	cut := g.Except(tailCutShort)
-	whole := g.Except(wholeWord).With(toulmin.NewStringListSpec("wholeWords", append(append([]string{}, determiners...), conjunctions...)))
+	c := map[string]*toulmin.Rule{}
+	list := toulmin.NewStringListSpec
+	claim(g, c, "subjectCase", labelSubj, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseSubj})
+	claim(g, c, "topicSubject", labelSubj, rule.ChainNoCase)
+	claim(g, c, "objectCase", labelObj, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseObj})
+	claim(g, c, "topicObject", labelObj, rule.ChainNoCase)
+	claim(g, c, "complementCase", labelComp, complementCase)
+	claim(g, c, "adnominalCase", labelAdn, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseAdn})
+	claim(g, c, "adverbialCase", labelAdv, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseAdv})
+	claim(g, c, "vocativeCase", labelVoc, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseVoc})
+	claim(g, c, "closingPredicate", labelPred, rule.ClosingKind, &rule.Bits{Of: "kind", Mask: kindFinal | kindLink})
+	claim(g, c, "lastPredicate", labelPred, lastPredicate)
+	claim(g, c, "adnominalClosing", labelAdn, rule.ClosingKind, &rule.Bits{Of: "kind", Mask: kindAdn})
+	claim(g, c, "adverbialClosing", labelAdv, rule.ClosingListed, list("adverbialClosings", adverbialClosings))
+	claim(g, c, "rangeAdverbial", labelAdv, rule.ChainListed, list("rangeParticles", rangeParticles))
+	claim(g, c, "determinerWord", labelAdn, rule.WordListed, list("determiners", determiners))
+	claim(g, c, "conjunctiveWord", labelVoc, rule.WordListed, list("conjunctions", conjunctions))
+
+	last := g.Except(rule.WordIs).With(&rule.Bits{Of: "word", Mask: rule.WordLast})
+	chainLonger := g.Except(rule.Longer).With(&rule.Versus{Mine: rule.SideTail, Rival: rule.SideChain})
+	tailLonger := g.Except(rule.Longer).With(&rule.Versus{Mine: rule.SideChain, Rival: rule.SideLongest})
+	cut := g.Except(rule.Longer).With(&rule.Versus{Mine: rule.SideTail, Rival: rule.SideLongest})
+	chainSeen, tailSeen := g.Counter(rule.ChainSeenMore), g.Counter(rule.TailSeenMore)
+	whole := g.Except(rule.WordListed).With(list("wholeWords", append(append([]string{}, determiners...), conjunctions...)))
 	modifies := g.Except(beforeBound)
 	for _, name := range chainClaims {
 		last.Attacks(c[name])
@@ -70,7 +77,7 @@ func newGraph() (*toulmin.Graph, map[string]*toulmin.Rule) {
 	last.Attacks(c["determinerWord"])
 	last.Attacks(c["conjunctiveWord"])
 	modifies.Attacks(chainSeen)
-	noStem := g.Except(boundStem)
+	noStem := g.Except(rule.WordIs).With(&rule.Bits{Of: "word", Mask: rule.WordBound})
 	noStem.Attacks(c["adnominalClosing"])
 	noStem.Attacks(tailSeen)
 	g.Counter(complementShare).Attacks(c["subjectCase"])
