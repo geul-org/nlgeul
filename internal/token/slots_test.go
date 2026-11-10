@@ -21,4 +21,19 @@ func TestSlots(t *testing.T) {
 	if sc.slots(0, 9) != nil {
 		t.Fatal("start")
 	}
+	link := scanOf("읽으시")
+	found := false
+	for _, x := range link.slots(3, 9) {
+		found = found || (x.start == 1 && len(x.pieces) == 2 && x.pieces[0].names == euName)
+	}
+	if !found {
+		t.Fatal("시 after the link vowel")
+	}
+	ws := wordsScan("가쟀간댔", layerCost)
+	if got := ws.slots(2, 9); len(got) == 0 || got[0].gate != ws.ix.pred {
+		t.Fatal("a slot read only with a word table asks for a predicate's stem", got)
+	}
+	if got := ws.slots(4, 9); len(got) < 2 || got[1].gate != ws.ix.pred || got[1].base != '가' {
+		t.Fatal("a fused one too", got)
+	}
 }

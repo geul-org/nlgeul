@@ -44,7 +44,11 @@ var splits = map[string][]part{
 }
 
 // contracts are the fused forms whose first word is fixed, a closed
-// set: only what is listed is read. The last three are the dependent
+// set: only what is listed is read. A particle put under a pronoun as
+// a final consonant is read for the listed pronouns only (누군 here,
+// and the one-syllable ones of shortPronouns), not after any word (a
+// choice that keeps readings few: the particles ㄴ and ㄹ do attach to
+// any word that ends in a vowel). The last three are the dependent
 // noun 거 with a particle under it, written onto a modifying closing
 // (한건, 하는게, 할걸): they are read only right after such a closing,
 // next to the closings and words of the same letters.
@@ -57,7 +61,18 @@ var contracts = []contract{
 	{"여긴", "여기", "(는)", "보조사:는", '는', false}, {"여길", "여기", "(를)", "목적격:를", '를', false},
 	{"우린", "우리", "(는)", "보조사:는", '는', false}, {"우릴", "우리", "(를)", "목적격:를", '를', false},
 	{"그땐", "그때", "(는)", "보조사:는", '는', false}, {"땐", "때", "(는)", "보조사:는", '는', false},
+	{"누군", "누구", "(는)", "보조사:는", '는', false},
 	{"게", "거", "(이)", "주격:이", '이', true},
 	{"건", "거", "(는)", "보조사:는", '는', true},
 	{"걸", "거", "(를)", "목적격:를", '를', true},
+}
+
+// shortPronouns are one-syllable pronouns with a particle under them
+// (난 = 나+는, 날 = 나+를). The letters are common in other words, so
+// they are read only with a word table, next to the words of the same
+// letters (전, 날, 절).
+var shortPronouns = []contract{
+	{"난", "나", "(는)", "보조사:는", '는', false}, {"넌", "너", "(는)", "보조사:는", '는', false}, {"전", "저", "(는)", "보조사:는", '는', false},
+	{"날", "나", "(를)", "목적격:를", '를', false}, {"널", "너", "(를)", "목적격:를", '를', false}, {"절", "저", "(를)", "목적격:를", '를', false},
+	{"걘", "걔", "(는)", "보조사:는", '는', false}, {"얜", "얘", "(는)", "보조사:는", '는', false}, {"쟨", "쟤", "(는)", "보조사:는", '는', false},
 }

@@ -30,6 +30,7 @@ type index struct {
 	neg        *entry
 	ji         *entry
 	fixed      []*entry
+	contracts  []contract
 	wide       map[rune]*entry
 	pred       *entry
 	nominal    *entry

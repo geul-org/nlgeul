@@ -7,7 +7,7 @@ import "github.com/geul-org/koparse/pkg/rule"
 // next is the kind of the particle to the right (-1 for none).
 func (sc *scan) fixed(j, next int) []tail {
 	var out []tail
-	for i, c := range contracts {
+	for i, c := range sc.ix.contracts {
 		e := sc.ix.fixed[i]
 		b := j - len([]rune(c.form))
 		if b < 0 || string(sc.s[b:j]) != c.form {

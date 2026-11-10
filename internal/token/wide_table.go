@@ -26,7 +26,7 @@ const (
 
 // shortClosings are closings a quotation or a particle is shortened
 // into: 대 (다고 해), 래 (라고 해), 재 (자고 해), 단 (다는), 란 (라는),
-// 잔 (자는), and 진 (지는), 긴 (기는), 길 (기를). Each is one piece,
+// 잔 (자는), 냬 (냐고 해), and 진 (지는), 긴 (기는), 길 (기를). Each is one piece,
 // named with the form it is short for. 대 and 단 follow an adjective's
 // stem directly and a verb's as ㄴ대/는대, ㄴ단/는단; 래, 재, 란 and 잔
 // follow a verb's.
@@ -41,6 +41,7 @@ var shortClosings = []short{
 	{parse.Marker{Form: "는단", After: rule.AfterBatchim, Kind: rule.KindAdn}, "는다는", true, rule.TailVerb},
 	{parse.Marker{Form: "란", Eu: true, Kind: rule.KindAdn}, "라는", false, rule.TailVerb},
 	{parse.Marker{Form: "잔", Kind: rule.KindAdn}, "자는", true, rule.TailVerb},
+	{parse.Marker{Form: "냬", Kind: rule.KindFinal}, "냐고 해", false, 0},
 	{parse.Marker{Form: "진", Kind: rule.KindLink}, "지는", false, 0},
 	{parse.Marker{Form: "긴", Kind: rule.KindNoun}, "기는", false, 0},
 	{parse.Marker{Form: "길", Kind: rule.KindNoun}, "기를", false, 0},
@@ -51,4 +52,18 @@ var shortClosings = []short{
 var shortParticles = []entry{
 	{name: "부사격:선(에서는)", form: "선", class: classParticle, slot: rule.LinkTopic, kase: rule.CaseAdv},
 	{name: "부사격:론(로는)", form: "론", class: classParticle, after: afterOpen, slot: rule.LinkTopic, kase: rule.CaseAdv},
+}
+
+// shortSlots are the same quotations shortened with the past fused in:
+// 댔 (다고 했), 랬 (라고 했), 쟀 (자고 했). Each stands where a slot
+// stands, before a closing (간댔어, 하랬는데, 가쟀다), after the stems
+// 대, 래 and 재 follow. The dictionary lists none of them; they are
+// read as 해 → 했 is.
+var shortSlots = []entry{
+	{name: "선어말:댔(다고 했)", form: "댔", slot: rule.SlotPast, tail: rule.TailAdj},
+	{name: "선어말:ㄴ댔(ㄴ다고 했)", form: "댔", lead: rule.JongN, slot: rule.SlotPast, tail: rule.TailVerb},
+	{name: "선어말:는댔(는다고 했)", form: "는댔", after: rule.AfterBatchim, slot: rule.SlotPast, tail: rule.TailVerb},
+	{name: "선어말:랬(라고 했)", form: "랬", after: rule.AfterOpen, slot: rule.SlotPast, tail: rule.TailVerb},
+	{name: "선어말:으랬(라고 했)", form: "으랬", after: rule.AfterBatchim, slot: rule.SlotPast, tail: rule.TailVerb},
+	{name: "선어말:쟀(자고 했)", form: "쟀", slot: rule.SlotPast, tail: rule.TailVerb},
 }

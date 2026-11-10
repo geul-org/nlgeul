@@ -12,7 +12,7 @@ func (ix *index) wholeWord(numeral, form string) bool {
 	if _, ok := ix.lex[numeral+form]; ok {
 		return true
 	}
-	for _, c := range contracts {
+	for _, c := range ix.contracts {
 		if c.form == numeral+form {
 			return true
 		}

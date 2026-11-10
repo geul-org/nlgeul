@@ -72,12 +72,13 @@ var linkTakers = []string{"맺음:니", "맺음:니까", "맺음:나", "맺음:�
 
 // Final consonants and vowels the changes turn on.
 const (
-	jongD  = 7  // ㄷ
-	jongLM = 10 // ㄻ: ㅁ put under a stem's ㄹ (삶, 만듦)
-	jongS  = 19 // ㅅ
-	jongH  = 27 // ㅎ
-	jungU  = 13 // ㅜ
-	jungEu = 18 // ㅡ
-	choN   = 2  // ㄴ
-	choS   = 9  // ㅅ
+	jongD   = 7  // ㄷ
+	jongLM  = 10 // ㄻ: ㅁ put under a stem's ㄹ (삶, 만듦)
+	jongS   = 19 // ㅅ
+	jongH   = 27 // ㅎ
+	jungYeo = 6  // ㅕ
+	jungU   = 13 // ㅜ
+	jungEu  = 18 // ㅡ
+	choN    = 2  // ㄴ
+	choS    = 9  // ㅅ
 )

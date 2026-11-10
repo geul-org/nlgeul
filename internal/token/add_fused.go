@@ -31,7 +31,11 @@ func (ix *index) addFused() {
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	}
 	ix.honor, ix.eu, ix.neg, ix.ji = rows[0], rows[1], rows[2], ix.named('지', jiName)
-	for _, c := range contracts {
+	ix.contracts = contracts
+	if ix.lexed {
+		ix.contracts = append(append([]contract{}, contracts...), shortPronouns...)
+	}
+	for _, c := range ix.contracts {
 		name := "줄임:" + c.form
 		g := toulmin.NewGraph(name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
