@@ -9,4 +9,5 @@ var reasons = map[string]string{
 	"SlotOrder":   "선어말 칸의 순서가 어긋난다",
 	"PieceBase":   "받침만 붙은 꼴을 읽는 음절이 아니다",
 	"WordListed":  "통째로 닫힌 집합의 낱말이다",
+	"PieceLast":   "뒤에 조사가 없다",
 }

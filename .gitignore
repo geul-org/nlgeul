@@ -17,3 +17,6 @@ session*.json
 # Local Go workspace (not used; build with GOWORK=off)
 go.work
 go.work.sum
+
+# Local word list (built separately, not published)
+/data/words.tsv

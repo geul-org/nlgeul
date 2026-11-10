@@ -24,8 +24,7 @@ func (sc *scan) closings(j int, more bool) []tail {
 	for _, k := range keys {
 		pc, e := pieces[k], from[k]
 		if e.lead != 0 {
-			pc.text = "(" + rule.LeadText(e.lead) + ")" + pc.text
-			out = append(out, tail{start: starts[k], pieces: []piece{pc}, noYo: e.noYo})
+			out = append(out, sc.fusedTails(pc, e, starts[k])...)
 			continue
 		}
 		out = append(out, tail{start: starts[k], pieces: []piece{pc}, noYo: e.noYo})

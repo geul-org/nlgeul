@@ -5,8 +5,8 @@ package token
 import "testing"
 
 func TestJoined(t *testing.T) {
-	got := joined([]tail{{start: 2, pieces: []piece{{text: "에서"}}}}, piece{text: "는"})
-	if len(got) != 1 || got[0].start != 2 || len(got[0].pieces) != 2 || got[0].pieces[1].text != "는" || joined(nil, piece{}) != nil {
+	got := joined([]tail{{start: 2, base: '가', pieces: []piece{{text: "에서"}}}}, piece{text: "는"})
+	if len(got) != 1 || got[0].start != 2 || got[0].base != '가' || len(got[0].pieces) != 2 || got[0].pieces[1].text != "는" || joined(nil, piece{}) != nil {
 		t.Fatal(got)
 	}
 }

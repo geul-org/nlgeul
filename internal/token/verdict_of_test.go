@@ -10,7 +10,7 @@ import (
 )
 
 func TestVerdictOf(t *testing.T) {
-	ix := newIndex()
+	ix, _ := newIndex(Options{})
 	e := ix.byKey['은'][0]
 	if v, why := verdictOf(e.g, rule.Piece{HasStem: true, Prev: '것', Next: -1}, "것은"); v != 1 || why != nil {
 		t.Fatal(v, why)

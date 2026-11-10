@@ -42,6 +42,14 @@ const (
 	SlotClosing = 9
 )
 
+// What follows a stem in its word (StemTail).
+const (
+	TailBare = 1 << iota // nothing: the stem stands alone
+	TailAux              // particles, none of them a case particle
+	TailCase             // particles with a case particle among them
+	TailPred             // a predicate tail: slots and a closing
+)
+
 // Cases a particle marks. A particle with none of them is an auxiliary
 // (보조사), a connective or a suffix.
 const (

@@ -9,7 +9,7 @@ import "github.com/geul-org/koparse/pkg/rule"
 func stemOf(s []rune) string {
 	out := append([]rune(nil), s...)
 	last := &out[len(out)-1]
-	if fusedPast(*last) {
+	if rule.FusedPast(*last) {
 		*last -= jongSS
 	}
 	if *last == '해' {

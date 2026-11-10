@@ -16,5 +16,5 @@ func (sc *scan) search() []*path {
 		}
 		best[j] = top(sc.whole(cands, best, j), beam)
 	}
-	return top(best[n], branches)
+	return sc.ix.settled(top(best[n], branches))
 }

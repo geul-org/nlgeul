@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what wordOf — one word of a reading: the stem from b (a closed-set word or a new word) and the markers after it, printed with "+" and the graph names, with its verdict and preference
+//ff:what wordOf — one word of a reading: the stem from b (a known word or a new word) and the markers after it, printed with "+" and the graph names, with its verdict and preference
 package token
 
 import (
@@ -7,15 +7,19 @@ import (
 	"strings"
 )
 
-// A stem syllable costs log10(1/syllables) of preference whether the
-// stem is a key or not: the tables give keys no counts.
+// A stem that a piece is fused into is printed, and looked up, with
+// its last syllable as it was before fusing (마신 → 마시).
 func (sc *scan) wordOf(b, end int, t tail) eojeol {
 	stem := string(sc.s[b:t.start])
-	e := eojeol{end: end, marked: stem, names: newWord, verdict: sc.ix.unknown}
-	if k, ok := sc.ix.words[stem]; ok {
-		e.names, e.verdict, e.marked = k.name, 1, stem+"["+k.name+"]"
+	if t.base != 0 {
+		stem = string(sc.s[b:t.start-1]) + string(t.base)
 	}
-	e.pref = float64(t.start-b) * math.Log10(1.0/syllables)
+	e := eojeol{end: end, marked: stem, names: newWord, verdict: sc.ix.unknown}
+	name, ok := sc.ix.known(stem, tailClass(t.pieces))
+	if ok {
+		e.names, e.verdict, e.marked = name, 1, stem+"["+name+"]"
+	}
+	e.pref = sc.ix.stemPref(stem, ok) - sc.ix.structure(b, t.pieces)
 	names := []string{e.names}
 	for _, p := range t.pieces {
 		e.marked += "+" + p.text + "[" + p.names + "]"

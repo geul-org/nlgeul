@@ -28,6 +28,7 @@ func (ix *index) addWords() {
 			g := toulmin.NewGraph(name)
 			g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
 			ix.words[w] = &entry{name: name, form: w, class: classKey, g: g}
+			ix.closed[w] |= closedKinds[kind]
 			ix.graphs++
 		}
 	}

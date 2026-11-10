@@ -4,8 +4,12 @@ package token
 
 func (sc *scan) extend(cands []*path, best [][]*path, t tail, j int) []*path {
 	for b := 0; b < t.start; b++ {
+		if len(best[b]) == 0 {
+			continue
+		}
+		e := sc.wordOf(b, j, t)
 		for _, p := range best[b] {
-			cands = append(cands, grow(p, sc.wordOf(b, j, t)))
+			cands = append(cands, grow(p, e))
 		}
 	}
 	return cands

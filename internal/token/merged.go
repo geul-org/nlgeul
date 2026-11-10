@@ -8,5 +8,5 @@ func merged(old, add piece) piece {
 	if old.names == "" {
 		return add
 	}
-	return piece{add.text, old.names + "|" + add.names, math.Max(old.verdict, add.verdict), math.Max(old.pref, add.pref)}
+	return piece{add.text, old.names + "|" + add.names, math.Max(old.verdict, add.verdict), math.Max(old.pref, add.pref), old.tail | add.tail, false}
 }

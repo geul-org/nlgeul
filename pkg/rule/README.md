@@ -43,6 +43,8 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `PieceAfter` | except | 앞 토큰의 끝이 붙는 조건과 안 맞는다(`Fits`) | `Bits`(after) |
 | `ChainOrder` | except | 조사 사슬의 순서가 어긋난다(`Follows`) | 없음 |
 | `SlotOrder` | except | 선어말 칸의 순서가 어긋난다(`SlotBefore`) | 없음 |
+| `PieceLast` | except | 이 표지 뒤에 이어지는 조각이 없다 | 없음 |
+| `StemTail` | except | 줄기의 갈래가 뒤에 붙은 것과 맞지 않는다 | `Bits`(tail) |
 | `PieceBase` | except | 합쳐진 조각이 기준 목록에 없는 음절 밑에 있다 | 음절 목록 |
 
 도움 함수: `PieceOf`, `Applies`(예/아니오 → ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
@@ -59,6 +61,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `BareBases(lead)` | 받침 하나뿐인 맺음을 읽는 음절 | `PieceBase`의 기준, 읽기 코드 |
 | `JongOf`, `JungOf` | 음절의 받침·모음 번호 | 읽기 코드 |
 | `FusedVowel(r, more)` | 어/아가 합쳐진 음절인가 | 읽기 코드 |
+| `FusedPast(r)` | 었/았이 합쳐진 음절인가(받침 ㅆ과 모음 조건) | 읽기 코드 |
 | `LeadText(lead)` | 조각의 머리(받침, 합쳐지는 어)를 글자로 | 읽기 코드 |
 | `Trim(field)` | 어절 앞뒤의 문장 부호 떼기 | 읽기 코드 |
 

@@ -45,3 +45,34 @@ const (
 	newWord = "새 낱말"
 	noKey   = "열쇠 표에 없다"
 )
+
+// Kinds of stem, by what may follow them (kindTails). The parts of
+// speech of a word table are folded into these.
+const (
+	kindNominal    = 1 << iota // 체언: 명사, 대명사, 수사, 식별자
+	kindVerbal                 // 용언 줄기: 동사, 형용사, 보조 용언
+	kindAdverb                 // 부사
+	kindDeterminer             // 관형사
+	kindAlone                  // 홀로 서는 말: 감탄사와 그 밖
+)
+
+// Layers of a word table's use: whether a stem is in the table; whether
+// its kind fits what follows it; and the cost of structure.
+const (
+	layerNone = iota
+	layerKnown
+	layerKind
+	layerCost
+)
+
+// The costs of structure, in the units of preference (log10). They are
+// placeholders, not measured values: nothing in the tables says how
+// much a boundary, an unseen piece or a piece is worth. Each is paid
+// once: for every word after a unit's first, for every piece that
+// leaves no trace in the letters (어/아 fused into ㅏ ㅓ ㅐ ㅔ with
+// nothing after it), and for every stem and marker of a word.
+const (
+	costBoundary = 1.0
+	costUnseen   = 1.0
+	costPiece    = 1.0
+)

@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, its observed count, and its judgment graph
+//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, its observed count, and its judgment graph
 package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -13,7 +13,9 @@ type entry struct {
 	lead  int
 	after int
 	slot  int
+	kase  int
 	noYo  bool
+	inner bool
 	count int
 	g     *toulmin.Graph
 }

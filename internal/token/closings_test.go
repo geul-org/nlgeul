@@ -17,7 +17,7 @@ func TestClosings(t *testing.T) {
 	sc = scanOf("간다")
 	var fused bool
 	for _, c := range sc.closings(2, false) {
-		fused = fused || c.pieces[0].text == "(ㄴ)다"
+		fused = fused || (c.pieces[0].text == "(ㄴ)다" && c.base == '가')
 	}
 	if !fused || sc.closings(0, false) != nil {
 		t.Fatal(fused)

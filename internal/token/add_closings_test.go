@@ -5,7 +5,7 @@ package token
 import "testing"
 
 func TestAddClosings(t *testing.T) {
-	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}}
+	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}}
 	ix.addClosings()
 	if len(ix.byKey['만']) == 0 || len(ix.byKey['ㄴ']) == 0 || len(ix.byKey[keyVowel]) == 0 {
 		t.Fatal("missing keys")

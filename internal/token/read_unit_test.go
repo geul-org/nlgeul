@@ -8,7 +8,7 @@ import (
 )
 
 func TestReadUnit(t *testing.T) {
-	ix := newIndex()
+	ix, _ := newIndex(Options{})
 	plain := readUnit(ix, "아버지가", false)
 	if len(plain) < 2 || !strings.HasPrefix(plain[1], "  아버지+가[주격:가|보격:가]\t") {
 		t.Fatal(plain)

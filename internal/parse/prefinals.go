@@ -20,7 +20,7 @@ func prefinals(s []rune, start, size int) (int, int, bool) {
 		}
 		i, size, next = i-1, size+2, slot
 	}
-	if i > 0 && fusedPast(s[i-1]) {
+	if i > 0 && rule.FusedPast(s[i-1]) {
 		return i, size + 1, true
 	}
 	if i > 0 && rule.SlotOf(s[i-1]) == rule.SlotHonor {
