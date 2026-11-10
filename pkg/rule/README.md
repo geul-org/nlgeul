@@ -15,6 +15,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `Claim{Name, Concludes}` | 주장 노드의 이름과 결론. 같은 함수를 여러 주장이 쓸 수 있게 하고, 평가 결과의 이름에서 `ClaimOf`로 되찾는다 |
 | `Bits{Of, Mask}` | 격(`Case…`), 맺음 갈래(`Kind…`), 어절의 사실(`WordLast`, `WordBound`) 가운데 어느 것을 볼지 |
 | `Versus{Mine, Rival}` | `Longer`가 견줄 두 길이(`SideChain`, `SideTail`, `SideLongest`) |
+| `Shape{Of, Min, Max, Lens, Vals, Head}` | 기호가 잇는 숫자 마디들의 꼴 |
 | toulmin `StringListSpec` | 낱말·조사·맺음의 목록 |
 
 ## 규칙 함수
@@ -45,24 +46,37 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `SlotOrder` | except | 선어말 칸의 순서가 어긋난다(`SlotBefore`) | 없음 |
 | `PieceLast` | except | 이 표지 뒤에 이어지는 조각이 없다 | 없음 |
 | `StemTail` | except | 줄기의 갈래가 뒤에 붙은 것과 맞지 않는다 | `Bits`(tail) |
-| `SeenFew` | counter | 이 낱말은 관측이 적다(적은 정도) | `Bits`(enough) |
+| `StemKind` | except | 앞말이 낱말 표에서 기준 갈래의 줄기가 아니다 | `Bits`(kinds) |
+| `SeenFew` | counter | 이 낱말은 관측이 적다(적은 정도. 횟수 0은 한 번과 같고, 횟수를 모르면 걸리지 않는다) | `Bits`(enough) |
 | `ShortKey` | counter | 이 낱말은 짧아 우연히 겹치기 쉽다 | `Bits`(syllables) |
 | `PieceBase` | except | 합쳐진 조각이 기준 목록에 없는 음절 밑에 있다 | 음절 목록 |
+| `PieceRight` | except | 조각 바로 뒤에 선 것이 기준의 것이다(조사, 그 밖의 글자) | `Bits`(right) |
+| `PieceClash` | counter | 어/아/여로 시작하는 조각이 앞 음절의 모음과 어긋난다(`Harmony`) | 없음 |
+| `PieceNoNumber` | except | 조각 바로 앞이 수가 아니다 | 없음 |
+| `PieceLone` | except | 조각 앞의 수가 낱말 표 없이 홀로 선 한자어 한 음절 수사다 | 없음 |
+| `PieceWhole` | counter | 수와 단위를 합친 글자열이 통째로 낱말 표의 낱말이거나 줄임 꼴이다 | 없음 |
+| `PieceNoAdn` | except | 조각 바로 앞의 어절이 꾸밈 맺음으로 끝나지 않는다 | 없음 |
+| `PieceMarked` | except | 경계 뒤에 선 통짜 새 낱말이 통째로 표지로 읽힌다 | 없음 |
+| `NextListed` | except, counter | 뒤에 오는 조각이 기준 목록에 있다 | 조각 이름 목록 |
+| `NextUnlisted` | except | 뒤에 오는 조각이 기준 목록에 없다 | 조각 이름 목록 |
+| `FormUnlisted` | except | 판정 중인 조각의 이름이 기준 목록에 없다 | 조각 이름 목록 |
 
-도움 함수: `PieceOf`, `Applies`(예/아니오 → ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
+도움 함수: `PieceOf`, `MarkOf`, `Applies`(예/아니오 → ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
 
 기호 하나를 풀이별로 판정하는 그래프(컨텍스트 열쇠 `KeyMark` → `Mark`)가 쓰는 함수:
 
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
-| `MarkSides` | except | 기호의 양쪽이 기준의 글자 갈래가 아니다 | `Bits`(sides) |
-| `MarkEnclosed` | except | 점의 양쪽이 영숫자 열이다 | 없음 |
+| `MarkSides` | except | 기호의 양쪽이 기준의 글자 갈래가 아니다(한쪽이라도) | `Bits`(sides) |
+| `MarkBoth` | except | 기호의 양쪽이 모두 기준의 글자 갈래다 | `Bits`(sides) |
+| `MarkRight` | except | 기호의 오른쪽이 기준의 글자 갈래가 아니다 | `Bits`(sides) |
+| `MarkAfterWord` | except | 기호의 왼쪽에 글자가 붙어 있다 | 없음 |
+| `PartsShape` | except | 기호가 잇는 숫자 마디들이 기준 꼴이 아니다(`FitsShape`) | `Shape` |
 | `MarkAlone` | except | 점이 하나뿐이다 | 없음 |
 | `MarkRepeated` | except | 점이 둘 이상 이어진다 | 없음 |
 | `ExtUnlisted` | except | 점 오른쪽 마디가 기준 목록에 없다 | 마디 목록 |
 | `LastUnlisted` | except | 이름의 맨 오른쪽 마디가 기준 목록에 없다 | 마디 목록 |
-| `VersionShape` | except | 버전의 꼴이 아니다 | 없음 |
-| `DecimalShape` | except | 소수의 꼴이 아니다 | 없음 |
+| `VersionShape` | except | 버전의 꼴이 아니다(마디가 모두 숫자여야 한다) | 없음 |
 
 ## 조건식과 도움 함수 (toulmin 규칙이 아니다)
 
@@ -72,6 +86,8 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 |---|---|---|
 | `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`)과 맞는가 | `PieceAfter`, 읽기 코드 |
 | `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `kopas parse`의 읽기 코드 |
+| `Harmony(prev, first)` | 줄기 끝 음절 뒤에 어/아/여로 시작하는 조각이 모음에 맞는가(ㅏ·ㅑ·ㅗ 뒤 아, 그 밖 어, 하 뒤 여, ㅆ 받침 뒤 어) | `PieceClash` |
+| `FitsShape(parts, shape)`, `InRange` | 숫자 마디들이 꼴(마디 수, 자리 수, 값의 범위, 머리)에 맞는가 | `PartsShape` |
 | `Links(left, right)` | 조사 사슬에서 갈래 left 뒤에 갈래 right가 올 수 있는가(갈래 표, `Link…`) | `ChainLinks` |
 | `SlotOf(r)`, `SlotBefore(slot, next)` | 선어말 칸과 그 순서(시 < 었 < 겠 < 더 < 맺음, 었은 겹침) | `SlotOrder`, 읽기 코드 |
 | `BareBases(lead)` | 받침 하나뿐인 맺음을 읽는 음절 | `PieceBase`의 기준, 읽기 코드 |
