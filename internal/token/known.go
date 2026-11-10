@@ -13,7 +13,10 @@ import (
 // auxiliary verb's stem does not stand alone, a determiner takes no
 // slot or closing). In the first
 // layer a stem of the table is known whatever follows. From the second
-// layer on each kind's graph judges the stem.
+// layer on each kind's graph judges the stem. A closed-set word is
+// named by its set only when it stands as that set's kind: 이 before a
+// particle stands as the table's noun, not as the determiner, and is
+// named so.
 func (ix *index) known(stem string, tail int) (string, float64) {
 	c, closed := ix.words[stem]
 	if ix.layers == layerNone && closed {
@@ -25,18 +28,18 @@ func (ix *index) known(stem string, tail int) (string, float64) {
 	}
 	w := ix.lex[stem]
 	var names []string
-	best := 0.0
+	best, passed := 0.0, 0
 	for i, k := range kindOrder {
 		v := 1.0
 		if ix.layers >= layerKind {
 			v = ix.stemVerdict(k, tail, countOf(w, k, i), stem)
 		}
 		if (ix.closed[stem]|w.kinds)&k != 0 && v > 0 {
-			names, best = append(names, kindLabel[k]), max(best, v)
+			names, best, passed = append(names, kindLabel[k]), max(best, v), passed|k
 		}
 	}
-	if closed && names != nil {
-		return c.name, best
+	if own := ownName(c, passed); closed && own != "" {
+		return own, best
 	}
 	return "열쇠:" + strings.Join(names, "|"), best
 }

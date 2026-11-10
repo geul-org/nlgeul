@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestKnown — without a word table only closed-set words are known, fully, when their set takes what follows (an auxiliary verb's stem not alone, a determiner not before a closing, a word of two sets as either); in the first layer any word of the table, fully; from the second by its kind's graph: not when no kind takes what follows, less when rarely seen or one syllable long
+//ff:what TestKnown — without a word table only closed-set words are known, fully, when their set takes what follows (an auxiliary verb's stem not alone, a determiner not before a closing, a word of two sets as either); in the first layer any word of the table, fully; from the second by its kind's graph: not when no kind takes what follows, less when rarely seen or one syllable long; a closed-set word is named by its set only when it stands as that set's kind
 package token
 
 import (
@@ -56,6 +56,18 @@ func TestKnown(t *testing.T) {
 	}
 	if _, v := two.known("것", rule.TailPred); v != 0 {
 		t.Fatal("a dependent noun before a closing")
+	}
+	if name, v := two.known("물", rule.TailBare); v <= 0 || name != "열쇠:체언" {
+		t.Fatal(name, v)
+	}
+	if name, v := two.known("이", rule.TailCase); v <= 0 || name != "열쇠:체언" {
+		t.Fatal("a determiner's letters before a particle stand as the table's noun and are named so", name, v)
+	}
+	if name, v := two.known("이", rule.TailBare); v <= 0 || name != "관형사:이" {
+		t.Fatal("alone it is the determiner", name, v)
+	}
+	if name, v := two.known("두", rule.TailPred); v <= 0 || name != "보조 용언:두" {
+		t.Fatal("a word of two sets is named by the set it stands as", name, v)
 	}
 	if _, v := two.known("없는말", rule.TailBare); v != 0 {
 		t.Fatal("unknown")
