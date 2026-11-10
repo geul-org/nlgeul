@@ -45,6 +45,9 @@ func TestMarkerStem(t *testing.T) {
 	if !eu.markerStem(1, 4, da) {
 		t.Fatal("a run of markers from the link vowel on")
 	}
+	if !eu.markerStem(1, 4, tail{start: 3, base: '시', pieces: da.pieces}) {
+		t.Fatal("으시 with a piece fused into it, before 다")
+	}
 	ws := wordsScan("곰서로", layerCost)
 	ws.marks[2] = map[int]bool{1: true}
 	if ws.markerStem(1, 3, tail{start: 2, pieces: []piece{{text: "로", names: "부사격:로", verdict: 1, tail: rule.TailCase}}}) {
