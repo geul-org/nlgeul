@@ -17,10 +17,10 @@ func TestJudge(t *testing.T) {
 			e = x
 		}
 	}
-	if v := sc.judge(e, 3, 4, rule.Piece{HasStem: true, PrevEnd: rule.EndVowel, Next: -1}); v != 1 {
+	if v := sc.judge(e, 3, 4, rule.Piece{HasStem: true, Prev: '으', Next: -1}); v != 1 {
 		t.Fatal(v)
 	}
-	if v := sc.judge(e, 3, 4, rule.Piece{HasStem: true, PrevEnd: rule.EndHard, Next: -1}); v != -1 {
+	if v := sc.judge(e, 3, 4, rule.Piece{HasStem: true, Prev: '음', Next: -1}); v != -1 {
 		t.Fatal(v)
 	}
 	notes := *sc.trace
@@ -28,7 +28,7 @@ func TestJudge(t *testing.T) {
 		t.Fatal(notes)
 	}
 	sc.trace = nil
-	if v := sc.judge(e, 3, 4, rule.Piece{HasStem: true, PrevEnd: rule.EndVowel, Next: -1}); v != 1 {
+	if v := sc.judge(e, 3, 4, rule.Piece{HasStem: true, Prev: '으', Next: -1}); v != 1 {
 		t.Fatal(v)
 	}
 }

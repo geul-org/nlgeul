@@ -1,5 +1,7 @@
 package token
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 // Classes of index entry.
 const (
 	classParticle = iota // 조사
@@ -8,30 +10,21 @@ const (
 	classKey             // 닫힌 집합의 낱말(열쇠)
 )
 
-// Final-consonant indexes, and the index keys of pieces that are not a
-// syllable of their own: a final consonant put under the stem's last
-// syllable, and 어/아 fused into its vowel.
+// Final-consonant indexes, the lead of a fused 어/아 and the attachment
+// conditions are the rule package's. keyVowel is the index key of 어/아
+// fused into a stem's last vowel; a final consonant put under the
+// stem's last syllable is keyed by its letter (rule.LeadText).
 const (
-	jongN  = 4
-	jongL  = 8
-	jongM  = 16
-	jongB  = 17
-	jongSS = 20
+	jongN  = rule.JongN
+	jongM  = rule.JongM
+	jongSS = rule.JongSS
 
-	leadVowel = -1 // 어/아 fused into the stem's last vowel
+	leadVowel = rule.LeadVowel
 	keyVowel  = 'ㅓ'
-)
 
-// jamoKeys maps a final-consonant index to its index key.
-var jamoKeys = map[int]rune{jongN: 'ㄴ', jongL: 'ㄹ', jongM: 'ㅁ', jongB: 'ㅂ', jongSS: 'ㅆ'}
-
-// Attachment conditions of the grammar tables (the Marker's After).
-const (
-	afterAny = iota
-	afterBatchim
-	afterHard
-	afterOpen
-	afterVowel
+	afterAny     = rule.AfterAny
+	afterBatchim = rule.AfterBatchim
+	afterOpen    = rule.AfterOpen
 )
 
 // beam is how many partial readings are kept at each place, and

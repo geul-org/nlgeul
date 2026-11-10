@@ -2,7 +2,10 @@
 //ff:what closingEntries — the index entries of one closing of the table: a whole-syllable form (and its 으 form), the three whole forms and the fused form of an 어/아 closing, or a form under a final consonant
 package token
 
-import "github.com/geul-org/koparse/internal/parse"
+import (
+	"github.com/geul-org/koparse/internal/parse"
+	"github.com/geul-org/koparse/pkg/rule"
+)
 
 func closingEntries(m parse.Marker) []*entry {
 	name := closingLabel(m.Kind) + ":"
@@ -23,5 +26,5 @@ func closingEntries(m parse.Marker) []*entry {
 			make1("여"+m.Form, 0, afterAny, "여"+m.Form), make1(m.Form, leadVowel, afterAny, "어"+m.Form+"(합침)"),
 		}
 	}
-	return []*entry{make1(m.Form, m.Lead, afterAny, leadText(m.Lead)+m.Form)}
+	return []*entry{make1(m.Form, m.Lead, afterAny, rule.LeadText(m.Lead)+m.Form)}
 }

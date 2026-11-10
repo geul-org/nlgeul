@@ -2,6 +2,8 @@
 //ff:what readGroup — judge every entry of one class that ends at j and merge the readings of the same token sequence into one piece (its names joined, its best verdict and count)
 package token
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 // The pieces come back by where their form starts, with one of the
 // entries behind each. next is the place of the piece that follows.
 func (sc *scan) readGroup(class, j, next int, more bool) (map[string]piece, map[string]*entry, map[string]int) {
@@ -16,7 +18,7 @@ func (sc *scan) readGroup(class, j, next int, more bool) (map[string]piece, map[
 		if v <= 0 {
 			continue
 		}
-		key := leadText(e.lead) + "·" + e.form
+		key := rule.LeadText(e.lead) + "·" + e.form
 		pieces[key] = merged(pieces[key], piece{string(sc.s[start:j]), e.name, v, sc.ix.pref(e.count, e.form)})
 		from[key], starts[key] = e, start
 	}

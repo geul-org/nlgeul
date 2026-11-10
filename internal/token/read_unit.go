@@ -2,8 +2,10 @@
 //ff:what readUnit — the lines of one unit (the text between fixed boundaries): its trace when asked for, then its bundles
 package token
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 func readUnit(ix *index, field string, trace bool) []string {
-	sc := &scan{ix: ix, s: core(field)}
+	sc := &scan{ix: ix, s: rule.Trim(field)}
 	if len(sc.s) == 0 {
 		return []string{field}
 	}

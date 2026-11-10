@@ -1,11 +1,11 @@
-//ff:func feature=parse type=reader control=sequence
-//ff:what follows — may a particle of place right stand after one of place left (particles.md section 5)
-package parse
+//ff:func feature=rule type=helper control=sequence
+//ff:what Follows — 조건식(규칙 ChainOrder와 읽기 코드가 함께 쓴다). 조사 사슬에서 자리 left의 조사 뒤에 자리 right의 조사가 올 수 있는가
+package rule
 
 // Places rise from left to right. A case particle (3) takes nothing
 // of place 3 or 4 after it, a place-4 particle only 요 (5), and an
 // adverbial particle (1) may follow a place-2 one (만+으로, 까지+에).
-func follows(left, right int) bool {
+func Follows(left, right int) bool {
 	if left == 2 && right == 1 {
 		return true
 	}

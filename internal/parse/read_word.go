@@ -2,8 +2,10 @@
 //ff:what readWord — read one word's right end against the tables and report what was read; no constituent is named here
 package parse
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 func readWord(text string, last bool, sent *sentence) *word {
-	s := core(text)
+	s := rule.Trim(text)
 	w := &word{text: string(s), chain: readChain(s), last: last, sent: sent}
 	w.tails = collectTails(s, len(s), false)
 	if len(s) > 1 && s[len(s)-1] == '요' {

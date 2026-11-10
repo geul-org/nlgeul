@@ -10,7 +10,7 @@ import (
 
 func TestPlace(t *testing.T) {
 	sc := scanOf("다음으로간다해서")
-	if start, p, ok := sc.place(&entry{form: "으로"}, 4, false); !ok || start != 2 || !p.HasStem || p.PrevEnd != rule.EndHard {
+	if start, p, ok := sc.place(&entry{form: "으로"}, 4, false); !ok || start != 2 || !p.HasStem || p.Prev != '음' {
 		t.Fatal(start, p, ok)
 	}
 	if _, p, ok := sc.place(&entry{form: "다"}, 1, false); !ok || p.HasStem {
@@ -19,7 +19,7 @@ func TestPlace(t *testing.T) {
 	if start, p, ok := sc.place(&entry{form: "다", lead: jongN}, 6, false); !ok || start != 5 || p.Base != "가" {
 		t.Fatal(start, p, ok)
 	}
-	if _, _, ok := sc.place(&entry{form: "다", lead: jongL}, 6, false); ok {
+	if _, _, ok := sc.place(&entry{form: "다", lead: rule.JongL}, 6, false); ok {
 		t.Fatal("wrong consonant")
 	}
 	if start, _, ok := sc.place(&entry{form: "서", lead: leadVowel}, 8, false); !ok || start != 7 {

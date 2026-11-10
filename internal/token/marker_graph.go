@@ -18,7 +18,7 @@ func markerGraph(e *entry, whole []string) int {
 	g.Except(rule.PieceNoStem).Attacks(claim)
 	edges := 1
 	if e.lead == 0 && e.after != afterAny {
-		g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: afterMask(e.after)}).Attacks(claim)
+		g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
 		edges++
 	}
 	if e.class == classParticle {
@@ -26,11 +26,11 @@ func markerGraph(e *entry, whole []string) int {
 		edges++
 	}
 	if e.class == classSlot {
-		g.Except(rule.SlotOrder).With(&rule.Bits{Of: "repeat", Mask: 2}).Attacks(claim)
+		g.Except(rule.SlotOrder).Attacks(claim)
 		edges++
 	}
 	if e.class == classClosing && e.form == "" && e.lead > 0 {
-		g.Except(rule.PieceBase).With(toulmin.NewStringListSpec("bases", bareBases(e.lead))).Attacks(claim)
+		g.Except(rule.PieceBase).With(toulmin.NewStringListSpec("bases", rule.BareBases(e.lead))).Attacks(claim)
 		edges++
 	}
 	if len(whole) > 0 {

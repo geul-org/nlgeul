@@ -12,16 +12,16 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	if start < 0 || string(sc.s[start:j]) != e.form {
 		return 0, rule.Piece{}, false
 	}
-	p := rule.Piece{Form: e.form, HasStem: start >= 1, PrevEnd: rule.EndOther, Slot: e.slot, Next: -1}
+	p := rule.Piece{Form: e.form, HasStem: start >= 1, Slot: e.slot, Next: -1}
 	switch {
 	case start == 0:
 		return start, p, e.lead == 0
 	case e.lead == 0:
-		p.PrevEnd = endClass(sc.s[start-1])
+		p.Prev = sc.s[start-1]
 		return start, p, true
 	case e.lead == leadVowel:
-		return start, p, fusedVowel(sc.s[start-1], len(f) > 0 || more)
+		return start, p, rule.FusedVowel(sc.s[start-1], len(f) > 0 || more)
 	}
 	p.Base = string(sc.s[start-1] - rune(e.lead))
-	return start, p, jongOf(sc.s[start-1]) == e.lead
+	return start, p, rule.JongOf(sc.s[start-1]) == e.lead
 }

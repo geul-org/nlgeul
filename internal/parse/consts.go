@@ -33,25 +33,23 @@ const (
 	kindNoun  = rule.KindNoun
 )
 
-// What the syllable before a piece must look like.
+// Attachment conditions, final-consonant indexes and the lead of an
+// 어/아 closing: the rule package's, which the tables here are written
+// with.
 const (
-	afterAny     = iota // no condition
-	afterBatchim        // ends in a consonant
-	afterHard           // ends in a consonant other than ㄹ (으로)
-	afterOpen           // ends in a vowel or ㄹ
-	afterVowel          // ends in a vowel
-)
+	afterAny     = rule.AfterAny
+	afterBatchim = rule.AfterBatchim
+	afterHard    = rule.AfterHard
+	afterOpen    = rule.AfterOpen
+	afterVowel   = rule.AfterVowel
 
-// Final-consonant indexes of a Hangul syllable, and the lead of an
-// ending that fuses into the syllable before it.
-const (
-	leadNone = 0  // the ending is whole syllables
-	leadA    = -1 // 어/아/여, whole or fused into the stem's last vowel
-	jongN    = 4  // ㄴ
-	jongL    = 8  // ㄹ
-	jongM    = 16 // ㅁ
-	jongB    = 17 // ㅂ
-	jongSS   = 20 // ㅆ
+	leadNone = 0
+	leadA    = rule.LeadVowel
+	jongN    = rule.JongN
+	jongL    = rule.JongL
+	jongM    = rule.JongM
+	jongB    = rule.JongB
+	jongSS   = rule.JongSS
 )
 
 // Ending flags: how a closing attaches. None of them names a constituent.

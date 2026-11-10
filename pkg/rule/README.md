@@ -40,9 +40,26 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 |---|---|---|---|
 | `PieceRead` | rule, counter | 색인에서 걸린 토큰 열이 이 자리에 있다 | 없음 |
 | `PieceNoStem` | except | 표지 앞에 줄기가 없다 | 없음 |
-| `PieceAfter` | except | 앞 토큰의 끝이 붙는 조건과 안 맞는다 | `Bits`(after) |
-| `ChainOrder` | except | 조사 사슬의 순서가 어긋난다 | 없음 |
-| `SlotOrder` | except | 선어말 칸의 순서가 어긋난다 | `Bits`(repeat) |
+| `PieceAfter` | except | 앞 토큰의 끝이 붙는 조건과 안 맞는다(`Fits`) | `Bits`(after) |
+| `ChainOrder` | except | 조사 사슬의 순서가 어긋난다(`Follows`) | 없음 |
+| `SlotOrder` | except | 선어말 칸의 순서가 어긋난다(`SlotBefore`) | 없음 |
 | `PieceBase` | except | 합쳐진 조각이 기준 목록에 없는 음절 밑에 있다 | 음절 목록 |
 
 도움 함수: `PieceOf`, `Applies`(예/아니오 → ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
+
+## 조건식과 도움 함수 (toulmin 규칙이 아니다)
+
+규칙 함수와 읽기 코드가 같은 문법 조건을 따로 갖지 않도록 조건식을 한 곳에 둔다. `//ff:what` 첫머리에 "조건식" 또는 "도움 함수(규칙 아님)"이라고 적혀 있다.
+
+| 함수 | 뜻 | 쓰는 곳 |
+|---|---|---|
+| `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`)과 맞는가 | `PieceAfter`, 읽기 코드 |
+| `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가 | `ChainOrder`, 읽기 코드 |
+| `SlotOf(r)`, `SlotBefore(slot, next)` | 선어말 칸과 그 순서(시 < 었 < 겠 < 더 < 맺음, 었은 겹침) | `SlotOrder`, 읽기 코드 |
+| `BareBases(lead)` | 받침 하나뿐인 맺음을 읽는 음절 | `PieceBase`의 기준, 읽기 코드 |
+| `JongOf`, `JungOf` | 음절의 받침·모음 번호 | 읽기 코드 |
+| `FusedVowel(r, more)` | 어/아가 합쳐진 음절인가 | 읽기 코드 |
+| `LeadText(lead)` | 조각의 머리(받침, 합쳐지는 어)를 글자로 | 읽기 코드 |
+| `Trim(field)` | 어절 앞뒤의 문장 부호 떼기 | 읽기 코드 |
+
+상수 `After…`, `Jong…`, `LeadVowel`, `Slot…`도 여기 한 벌만 있다.

@@ -14,7 +14,7 @@ func (sc *scan) judge(e *entry, start, j int, p rule.Piece) float64 {
 	if sc.trace == nil {
 		return v
 	}
-	text := leadText(e.lead) + string(sc.s[start:j])
+	text := rule.LeadText(e.lead) + string(sc.s[start:j])
 	note := "통과"
 	if v <= 0 {
 		note = "기각: " + strings.Join(why, ", ")

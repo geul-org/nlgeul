@@ -31,7 +31,3 @@ var conjunctions = []string{"그리고", "그러나", "그래서", "하지만"}
 // rangeParticles are the auxiliary particles that also mark an
 // adverbial of range.
 var rangeParticles = []string{"까지", "부터"}
-
-// nominalBases are the syllables the naming ㅁ is read under at a
-// sentence's end (함, 됨, 임).
-const nominalBases = "하되이"

@@ -3,15 +3,24 @@
 package token
 
 import (
+	"sort"
+
 	"github.com/geul-org/koparse/internal/parse"
 	"github.com/geul-org/koparse/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 
-// A word that is in two sets keeps both names.
+// A word that is in two sets keeps both names, in the order of the
+// sets' names, so that the same input always prints the same.
 func (ix *index) addWords() {
-	for kind, words := range parse.ClosedWords() {
-		for _, w := range words {
+	sets := parse.ClosedWords()
+	kinds := make([]string, 0, len(sets))
+	for kind := range sets {
+		kinds = append(kinds, kind)
+	}
+	sort.Strings(kinds)
+	for _, kind := range kinds {
+		for _, w := range sets[kind] {
 			name := kind + ":" + w
 			if old, ok := ix.words[w]; ok {
 				name = old.name + "|" + name

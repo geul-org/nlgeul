@@ -12,10 +12,10 @@ import (
 func TestVerdictOf(t *testing.T) {
 	ix := newIndex()
 	e := ix.byKey['은'][0]
-	if v, why := verdictOf(e.g, rule.Piece{HasStem: true, PrevEnd: rule.EndHard, Next: -1}, "것은"); v != 1 || why != nil {
+	if v, why := verdictOf(e.g, rule.Piece{HasStem: true, Prev: '것', Next: -1}, "것은"); v != 1 || why != nil {
 		t.Fatal(v, why)
 	}
-	v, why := verdictOf(e.g, rule.Piece{PrevEnd: rule.EndVowel, Next: -1}, "은")
+	v, why := verdictOf(e.g, rule.Piece{Prev: '나', Next: -1}, "은")
 	if v != -1 || len(why) != 2 || why[0] != "앞에 줄기가 없다" {
 		t.Fatal(v, why)
 	}

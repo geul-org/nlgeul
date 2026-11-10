@@ -2,12 +2,15 @@
 //ff:what keysAt — the index keys of one token: the token itself, and as a fused token the final consonant under it or the vowel 어/아 fuses into
 package token
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 func keysAt(r rune) []rune {
 	keys := []rune{r}
-	if k, ok := jamoKeys[jongOf(r)]; ok {
-		keys = append(keys, k)
+	jong := rule.JongOf(r)
+	if k := rule.LeadText(jong); jong > 0 && k != "" {
+		keys = append(keys, []rune(k)[0])
 	}
-	if jongOf(r) == 0 {
+	if jong == 0 {
 		keys = append(keys, keyVowel)
 	}
 	return keys

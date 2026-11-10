@@ -1,6 +1,6 @@
-//ff:func feature=parse type=reader control=iteration dimension=1
+//ff:func feature=rule type=helper control=iteration dimension=1
 //ff:what TestFollows — 에+는, 에서+부터, 만+으로, 까지+에, 에서+와, 는+요 are allowed; 이+는, 는+도, 이+에, 는+에, 요+는 are not
-package parse
+package rule
 
 import "testing"
 
@@ -13,8 +13,8 @@ func TestFollows(t *testing.T) {
 		{3, 4, false}, {4, 4, false}, {3, 1, false}, {4, 1, false}, {5, 4, false}, {3, 3, false}, {4, 2, false},
 	}
 	for _, c := range cases {
-		if follows(c.left, c.right) != c.want {
-			t.Errorf("follows(%d, %d)", c.left, c.right)
+		if Follows(c.left, c.right) != c.want {
+			t.Errorf("Follows(%d, %d)", c.left, c.right)
 		}
 	}
 }

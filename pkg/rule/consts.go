@@ -11,12 +11,35 @@ const (
 // (Piece), for graphs that judge one marker at one place.
 const KeyPiece = "piece"
 
-// How the syllable before a piece ends.
+// What the syllable before a piece must look like for the piece to
+// attach (Fits).
 const (
-	EndVowel = 1 << iota // a vowel
-	EndL                 // ㄹ
-	EndHard              // a consonant other than ㄹ
-	EndOther             // not a Hangul syllable: meets every condition
+	AfterAny     = iota // no condition
+	AfterBatchim        // ends in a consonant
+	AfterHard           // ends in a consonant other than ㄹ (으로)
+	AfterOpen           // ends in a vowel or ㄹ
+	AfterVowel          // ends in a vowel
+)
+
+// Final-consonant indexes of a Hangul syllable, and the lead of a
+// piece that begins with 어/아/여.
+const (
+	JongN     = 4  // ㄴ
+	JongL     = 8  // ㄹ
+	JongM     = 16 // ㅁ
+	JongB     = 17 // ㅂ
+	JongSS    = 20 // ㅆ
+	LeadVowel = -1 // 어/아/여, whole or fused into the stem's last vowel
+)
+
+// The slots before a closing, in their order from the stem outwards
+// (SlotOf, SlotBefore); a closing stands after them all.
+const (
+	SlotHonor   = 1 // 시
+	SlotPast    = 2 // 었/았/였, which may come twice
+	SlotGuess   = 3 // 겠
+	SlotRecall  = 4 // 더
+	SlotClosing = 9
 )
 
 // Cases a particle marks. A particle with none of them is an auxiliary

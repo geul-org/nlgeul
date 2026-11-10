@@ -2,6 +2,8 @@
 //ff:what stemOf — the stem as text, with a fused piece taken out of its last syllable: ㅆ off (갔 → 가), 해 → 하, ㅙ → ㅚ (돼 → 되)
 package parse
 
+import "github.com/geul-org/koparse/pkg/rule"
+
 // stemOf undoes only the fusions endings.md section 4 lists with one
 // source (하 → 해, ㅚ → ㅙ); other fused vowels stay as they are.
 func stemOf(s []rune) string {
@@ -13,7 +15,7 @@ func stemOf(s []rune) string {
 	if *last == '해' {
 		*last = '하'
 	}
-	if jongOf(*last) == 0 && jungOf(*last) == 10 {
+	if rule.JongOf(*last) == 0 && rule.JungOf(*last) == 10 {
 		*last += 28
 	}
 	return string(out)
