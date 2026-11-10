@@ -18,7 +18,7 @@ func (sc *scan) copulaOf(t tail) (int, *entry, bool) {
 		return t.start - 1, sc.ix.copula, true
 	case whole && t.start >= 1 && sc.s[t.start-1] == '이':
 		return t.start - 1, sc.ix.copula, true
-	case (len(t.pieces) != 1 && t.pieces[0].names != jiName) || !slices.Contains(droppable, t.close.name):
+	case (len(t.pieces) != 1 && t.pieces[0].names != jiName) || !(slices.Contains(droppable, t.close.name) || (sc.ix.lexed && slices.Contains(droppableKnown, t.close.name))):
 		return 0, nil, false
 	case whole && t.start >= 1 && rule.JongOf(sc.s[t.start-1]) == 0:
 		return t.start, sc.ix.dropped, true

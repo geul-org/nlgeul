@@ -1,8 +1,12 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what copulas — the copula readings of some predicate tails: each tail that may stand after the stem 이 (said or dropped), judged by the copula's graph, with the stem as a piece before the tail
+//ff:what copulas — the copula readings of some predicate tails: each tail that may stand after the stem 이 (said or dropped), judged by the copula's graph, with the stem as a piece before the tail; before the closings of droppableKnown a dropped stem asks for a nominal of the word table before it
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import (
+	"slices"
+
+	"github.com/geul-org/koparse/pkg/rule"
+)
 
 // A dropped stem is written (이) and leaves no trace in the letters.
 func (sc *scan) copulas(tails []tail) []tail {
@@ -29,6 +33,9 @@ func (sc *scan) copulas(tails []tail) []tail {
 			pc.text = "(이)"
 		}
 		read := tail{start: start, pieces: append([]piece{pc}, t.pieces...), base: base, noYo: t.noYo, close: t.close}
+		if pc.unseen && slices.Contains(droppableKnown, t.close.name) {
+			read.gate = sc.ix.nominal
+		}
 		out = append(out, read)
 		out = append(out, sc.afterUnits(read)...)
 	}
