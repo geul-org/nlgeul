@@ -20,8 +20,11 @@ func TestFusedTails(t *testing.T) {
 	if gate := ws.fusedTails(piece{}, &entry{lead: leadVowel, form: "서"}, 1); len(gate) != 2 || gate[0].gate != ws.ix.pred || gate[0].gate == nil {
 		t.Fatal("an 어/아 that leaves no trace asks for a predicate's stem of the table", gate)
 	}
-	if gate := wordsScan("봐", layerCost).fusedTails(piece{}, &entry{lead: leadVowel}, 1); gate[0].gate != nil {
-		t.Fatal("a fused 어/아 that shows asks for nothing", gate)
+	if gate := wordsScan("봐", layerCost).fusedTails(piece{}, &entry{lead: leadVowel}, 1); gate[0].gate == nil {
+		t.Fatal("a fused 어/아 that shows asks for a predicate's stem too", gate)
+	}
+	if gate := wordsScan("해", layerCost).fusedTails(piece{}, &entry{lead: leadVowel}, 1); gate[0].gate != nil {
+		t.Fatal("해 asks for nothing", gate)
 	}
 	sc = scanOf("마신다")
 	got = sc.fusedTails(piece{names: "맺음:ㄴ다"}, &entry{form: "다", lead: jongN, noYo: true}, 2)
