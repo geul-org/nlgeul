@@ -79,6 +79,8 @@ const (
 	jungYeo = 6  // ㅕ
 	jungU   = 13 // ㅜ
 	jungEu  = 18 // ㅡ
+	jungA   = 0  // ㅏ
+	jungEo  = 4  // ㅓ
 	choN    = 2  // ㄴ
 	choS    = 9  // ㅅ
 )
