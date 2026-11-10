@@ -6,9 +6,11 @@ import "testing"
 
 func TestBundles(t *testing.T) {
 	sc := scanOf("아버지가방에들어가신다")
-	got := sc.bundles(sc.search())
+	awake, _ := wake(sc.search())
+	got := sc.bundles(awake)
 	contest := scanOf("다음으로써")
-	if b := contest.bundles(contest.search()); len(b) != 1 || len(b[0].branches) < 2 {
+	two, _ := wake(contest.search())
+	if b := contest.bundles(two); len(b) != 1 || len(b[0].branches) < 2 {
 		t.Fatalf("%+v", b)
 	}
 	if len(got) != 2 || got[0].text != "아버지가방에" || len(got[0].branches) < 2 || got[0].branches[0].marked != "아버지+가[주격:가|보격:가] 방+에[부사격:에]" || got[1].text != "들어가신다" {

@@ -1,25 +1,15 @@
-//ff:func feature=token type=reader control=iteration dimension=2
-//ff:what Cuts — for measuring: one line for each unit, its text and the word ends (token offsets) of each surviving reading, best first, readings separated by ";"
+//ff:func feature=token type=reader control=iteration dimension=1
+//ff:what Cuts — for measuring: one line for each unit, its text, the word ends (token offsets) of each reading that is awake, best first, readings separated by ";", and after another tab the same for the readings that are asleep
 package token
 
-import (
-	"strconv"
-	"strings"
-)
+import "strings"
 
 func (r *Reader) Cuts(sentence string) []string {
 	var out []string
 	for _, field := range strings.Fields(sentence) {
 		sc := &scan{ix: r.ix, s: trimUnit(field)}
-		var readings []string
-		for _, p := range sc.search() {
-			var ends []string
-			for _, e := range wordsOf(p) {
-				ends = append(ends, strconv.Itoa(e.end))
-			}
-			readings = append(readings, strings.Join(ends, ","))
-		}
-		out = append(out, string(sc.s)+"\t"+strings.Join(readings, ";"))
+		awake, asleep := wake(sc.search())
+		out = append(out, string(sc.s)+"\t"+endsOf(awake)+"\t"+endsOf(asleep))
 	}
 	return out
 }

@@ -57,6 +57,7 @@ func newTokenCmd() *cobra.Command {
 			stdin, _ := f.GetBool("stdin")
 			words, _ := f.GetString("words")
 			layers, _ := f.GetInt("layers")
+			asleep, _ := f.GetBool("asleep")
 			if words == "" {
 				words = os.Getenv("KOPAS_WORDS")
 			}
@@ -64,7 +65,7 @@ func newTokenCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			r, err := token.New(token.Options{Words: words, Layers: layers})
+			r, err := token.New(token.Options{Words: words, Layers: layers, Asleep: asleep})
 			if err != nil {
 				return err
 			}
@@ -76,6 +77,7 @@ func newTokenCmd() *cobra.Command {
 	cmd.Flags().Bool("cuts", false, "측정용: 단위마다 살아남은 읽기들의 어절 끝 자리(토큰 수)만 찍는다")
 	cmd.Flags().Bool("stdin", false, "표준 입력의 줄마다 문장 하나로 읽고, 문장 사이에 빈 줄을 찍는다")
 	cmd.Flags().String("words", "", "낱말 표 파일(없으면 환경 변수 KOPAS_WORDS, 그것도 없으면 낱말 표 없이)")
+	cmd.Flags().Bool("asleep", false, "단위마다 잠든 갈래(1등과의 차이가 커서 올리지 않고 재워 둔 읽기)도 찍는다")
 	cmd.Flags().Int("layers", 0, "측정용: 낱말 표를 몇 겹까지 쓸지(1 여부, 2 갈래 맞춤, 3 구조 값; 0은 전부)")
 	return cmd
 }

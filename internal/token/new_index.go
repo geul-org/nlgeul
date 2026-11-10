@@ -15,7 +15,7 @@ import (
 // inside a unit does not stand when its letters read as markers there
 // (the exception PieceMarked).
 func newIndex(o Options) (*index, error) {
-	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}}
+	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}, asleep: o.Asleep}
 	ix.addWords()
 	ix.addParticles()
 	ix.addClosings()

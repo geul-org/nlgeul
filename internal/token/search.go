@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what search — read a unit token by token: at each place look up the markers that end there, grow the readings kept so far, and keep the best; the readings that reach the end come back, best first
+//ff:what search — read a unit token by token: at each place look up the markers that end there, grow the readings kept so far, and keep the best; the readings that reach the end come back, best first (as many as are kept at a place; wake tells which of them are sent up)
 package token
 
 func (sc *scan) search() []*path {
@@ -18,5 +18,5 @@ func (sc *scan) search() []*path {
 		}
 		best[j] = sc.ix.top(sc.whole(cands, best, j, markedFrom(tails)), beam)
 	}
-	return sc.ix.top(best[n], branches)
+	return sc.ix.top(best[n], beam)
 }

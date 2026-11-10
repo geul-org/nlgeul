@@ -10,7 +10,7 @@ import (
 func TestReaderCuts(t *testing.T) {
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	got := r.Cuts("물을마신다")
-	if len(got) != 1 || !strings.HasPrefix(got[0], "물을마신다\t2,5") {
+	if len(got) != 1 || !strings.HasPrefix(got[0], "물을마신다\t2,5") || strings.Count(got[0], "\t") != 2 {
 		t.Fatal(got)
 	}
 	if r.Cuts("") != nil {

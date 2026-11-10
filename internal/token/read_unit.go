@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what readUnit — the lines of one unit (the text between fixed boundaries): its trace when asked for, then its bundles, then the dots that close it
+//ff:what readUnit — the lines of one unit (the text between fixed boundaries): its trace when asked for, then the bundles of its readings that are awake, then (when asked for) the readings that are asleep, then the dots that close it
 package token
 
 func readUnit(ix *index, field string, trace bool) []string {
@@ -12,8 +12,12 @@ func readUnit(ix *index, field string, trace bool) []string {
 		sc.trace = &notes
 	}
 	var out []string
-	for _, b := range sc.bundles(sc.search()) {
+	awake, asleep := wake(sc.search())
+	for _, b := range sc.bundles(awake) {
 		out = append(out, render(b)...)
+	}
+	if ix.asleep {
+		out = append(out, renderAsleep(string(sc.s), asleep)...)
 	}
 	out = append(out, sc.closingDots(field)...)
 	return append(notes, out...)

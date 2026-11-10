@@ -30,10 +30,16 @@ const (
 
 // beam is how many partial readings are kept at each place, and
 // branches how many readings of a unit are sent up at most
-// (stream-graph-algorithm.md section 12 names four to seven).
+// (stream-graph-algorithm.md section 12 names four to seven). Only a
+// reading that is awake is sent up: one whose place (preference plus
+// log10 of verdict) is within wakeGap of the best reading's. The others
+// are asleep: kept, not sent up, for a layer above to wake. wakeGap is
+// a placeholder chosen among a few values tried on a thousand
+// sentences.
 const (
 	beam     = 16
 	branches = 7
+	wakeGap  = 9.0
 )
 
 // syllables is the number of Hangul syllables: with no key table, a
