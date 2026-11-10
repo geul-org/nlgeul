@@ -79,10 +79,14 @@ const (
 // a word (the verdict of its kind's graph). These too are placeholders,
 // not measured values. A stem observed seenEnough times or more is not
 // rebutted as rarely seen; forceFew and forceShort are the forces of
-// the rebuttals "rarely seen" and "a key of one syllable".
+// the rebuttals "rarely seen" and "a key of one syllable". forceFew is
+// chosen among a few values tried on a thousand sentences so that a
+// row seen once (or with no count), even of one syllable, still stands
+// above a new word: with the two rebuttals in full the verdict is
+// 2/(1+0.24+0.25)-1, just over a new word's 1/3.
 const (
 	seenEnough = 10000
-	forceFew   = 1.0
+	forceFew   = 0.24
 	forceShort = 0.25
 	shortKey   = 1
 )

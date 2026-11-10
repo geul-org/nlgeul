@@ -6,7 +6,7 @@ package rule
 // closing; Next is -1 when nothing follows. Base is "" unless the
 // piece is fused into a stem's last syllable. Tail is set when the
 // piece is a stem: what follows it in its word (Tail…); Count is
-// then its observed count (0 when unknown). After is the name of the
+// then its observed count (negative when no table row gives one). After is the name of the
 // piece that follows, when a rule asks for it. Right is what stands
 // right after the piece (Right…), and Stem the kinds of the word before
 // it, when a rule asks for them. Num tells that a number stands right

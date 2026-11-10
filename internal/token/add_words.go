@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=2
-//ff:what addWords — the closed-set words as keys: one graph each, whose claim nothing attacks
+//ff:what addWords — the closed-set words as keys: one graph each, with the exception that the word's set does not take what follows it (read when there is no word table)
 package token
 
 import (
@@ -11,7 +11,9 @@ import (
 )
 
 // A word that is in two sets keeps both names, in the order of the
-// sets' names, so that the same input always prints the same.
+// sets' names, so that the same input always prints the same, and
+// takes what either set takes. The graphs and edges are counted once
+// for each word.
 func (ix *index) addWords() {
 	sets := parse.ClosedWords()
 	kinds := make([]string, 0, len(sets))
@@ -19,17 +21,20 @@ func (ix *index) addWords() {
 		kinds = append(kinds, kind)
 	}
 	sort.Strings(kinds)
+	ix.takes = map[string]int{}
 	for _, kind := range kinds {
 		for _, w := range sets[kind] {
 			name := kind + ":" + w
 			if old, ok := ix.words[w]; ok {
 				name = old.name + "|" + name
 			}
-			g := toulmin.NewGraph(name)
-			g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
-			ix.words[w] = &entry{name: name, form: w, class: classKey, g: g}
 			ix.closed[w] |= closedKinds[kind]
-			ix.graphs++
+			ix.takes[w] |= closedTails[kind]
+			g := toulmin.NewGraph(name)
+			claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
+			g.Except(rule.StemTail).With(&rule.Bits{Of: "tail", Mask: ix.takes[w]}).Attacks(claim)
+			ix.words[w] = &entry{name: name, form: w, class: classKey, g: g}
 		}
 	}
+	ix.graphs, ix.edges = ix.graphs+len(ix.words), ix.edges+len(ix.words)
 }

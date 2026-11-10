@@ -13,8 +13,9 @@ func TestSeenFew(t *testing.T) {
 	one, _ := SeenFew(pieceCtx(Piece{Count: 1}), specs)
 	mid, _ := SeenFew(pieceCtx(Piece{Count: 100}), specs)
 	many, _ := SeenFew(pieceCtx(Piece{Count: 50000}), specs)
-	unknown, _ := SeenFew(pieceCtx(Piece{}), specs)
-	if one != 1 || mid != 0 || many != -1 || unknown != -1 {
-		t.Fatal(one, mid, many, unknown)
+	none, _ := SeenFew(pieceCtx(Piece{}), specs)
+	unknown, _ := SeenFew(pieceCtx(Piece{Count: -1}), specs)
+	if one != 1 || mid != 0 || many != -1 || none != 1 || unknown != -1 {
+		t.Fatal(one, mid, many, none, unknown)
 	}
 }

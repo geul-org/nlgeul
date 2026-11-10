@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what index — the token index: from a form's last token (or the key of a fused piece) to the entries that end there, the closed-set words, the word table and how it is used, the graphs of stems by kind with the verdicts already worked out, the graphs of the copula stem (said and dropped) and the closings it does not take, the graphs of the full stop's readings, the verdict of an unlisted run of Latin letters and digits, the graph of a new word and its verdict, and the total observed counts
+//ff:what index — the token index: from a form's last token (or the key of a fused piece) to the entries that end there, the closed-set words with their kinds and what may follow them, the word table and how it is used, the graphs of stems by kind with the verdicts already worked out, the graphs of the copula stem (said and dropped) and the closings it does not take, the graphs of the full stop's readings, the verdict of an unlisted run of Latin letters and digits, the graph of a new word and its verdict, and the total observed counts
 package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -10,6 +10,7 @@ type index struct {
 	byKey      map[rune][]*entry
 	words      map[string]*entry
 	closed     map[string]int
+	takes      map[string]int
 	lex        map[string]word
 	lexTotal   float64
 	layers     int

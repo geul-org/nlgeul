@@ -32,6 +32,19 @@ var partKinds = map[string]int{
 // closedKinds gives the kind of each closed set of the grammar tables.
 // The auxiliary verbs are taken as verbs and as adjectives (있다 is
 // both).
+// closedTails says what may follow a closed-set word when there is no
+// word table: a dependent noun stands alone or takes particles or the
+// copula; an auxiliary verb's stem takes a predicate tail and does not
+// stand alone; a determiner takes no slot or closing, but particles
+// are let through (이 and 그 are pronouns too: 그의, 그에게); a
+// conjunction stands alone or takes auxiliary particles.
+var closedTails = map[string]int{
+	"의존명사":  rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
+	"보조 용언": rule.TailPred | rule.TailVerb | rule.TailAdj,
+	"관형사":   rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
+	"접속 부사": rule.TailBare | rule.TailAux,
+}
+
 var closedKinds = map[string]int{"의존명사": kindNominal, "보조 용언": kindVerb | kindAdj, "관형사": kindDeterminer, "접속 부사": kindAdverb}
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
