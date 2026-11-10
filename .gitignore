@@ -1,11 +1,11 @@
 # Build output
-/koparse
-/cmd/koparse/koparse
+/kopas
+/cmd/kopas/kopas
 
 # Test and verification state (tsma)
 .tsma/
 tsma-results.jsonl
-session.json
+session*.json
 *.out
 *.test
 
@@ -14,6 +14,6 @@ session.json
 *.key
 *.pem
 
-# Local Go workspace (the parent draft/go.work is used)
+# Local Go workspace (not used; build with GOWORK=off)
 go.work
 go.work.sum

@@ -14,36 +14,30 @@ not covered by CC0: the Go modules listed below.
 --------------------------------------------------------------------------------
 Go (module: github.com/geul-org/koparse)
 --------------------------------------------------------------------------------
-* github.com/park-jun-woo/toulmin/go  v0.0.0-20261030175336-eaae1acd5259
-  (package pkg/toulmin — the TAN judgement engine)
+* github.com/park-jun-woo/toulmin/go  v0.0.0-20261106103040-fe3eed5d099a
+  (package pkg/toulmin — the TAN judgement engine, branch geul)
     License:     MIT
     Copyright:   Copyright (c) 2026 park-jun-woo
     URL:         https://github.com/park-jun-woo/toulmin
 
-* golang.org/x/text  v0.43.0  (package unicode/norm — NFC normalization)
+* github.com/spf13/cobra  v1.10.2  (command line interface)
+    License:     Apache-2.0
+    URL:         https://github.com/spf13/cobra
+
+* github.com/spf13/pflag  v1.0.9  (indirect, flags for cobra)
     License:     BSD-3-Clause
-    Copyright:   Copyright 2009 The Go Authors.
-    URL:         https://golang.org/x/text
+    URL:         https://github.com/spf13/pflag
+
+* github.com/inconshreveable/mousetrap  v1.1.0  (indirect, cobra on Windows)
+    License:     Apache-2.0
+    URL:         https://github.com/inconshreveable/mousetrap
 
 The modules' LICENSE files hold the full texts.
 
 --------------------------------------------------------------------------------
-Lists and test data
+Grammar tables
 --------------------------------------------------------------------------------
-pkg/lexicon/data (particle/ending list, property nouns, idiom frames, class
-list) and pkg/config/default.json are our own work (CC0). The class list names
-Wikidata QIDs (CC0).
-
-testdata/fixture.json holds Wikidata labels, aliases, descriptions, P31 values
-and statements (Wikidata, CC0 1.0) taken from an internal noun identification
-test of 2026-10-31.
-
-Lexicon sources
----------------
-koparse builds its lexicon only from CC0 sources (Wikidata labels and lexemes)
-and from material the GEUL project creates itself. Non-CC0 dictionaries and
-analyzers (for example mecab-ko-dic, Kiwi, Standard Korean Language Dictionary)
-may be used internally to measure accuracy, but none of their content is copied
-into this repository. Evaluation texts (e.g. Wikipedia extracts, CC BY-SA) and
-gold annotations are kept outside the repository; the evaluation tool takes
-their paths as arguments.
+The tables in internal/mini (particles, endings, pieces) are our own work
+(CC0). They were written from the authors' own knowledge of Korean grammar and
+checked against counts observed in our own corpus work; no dictionary or
+third-party list is copied into this repository.

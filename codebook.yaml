@@ -1,27 +1,10 @@
 required:
   feature:
-    hangul: "한글 음절·받침 판별(숫자 읽기 포함)"
-    lexicon: "자체 목록 — 조사·서술격·용언화 접미(받침 호응·사슬 순서), 성질·틀 명사, 관용 틀, 분류 목록"
-    knowledge: "지식 어댑터 인터페이스와 자료형"
-    fixture: "fixture 어댑터 — 10/31 시험 자료(위키데이터 CC0)로 만든 메모리 표"
-    config: "Qualifier·공격 세기·문턱 설정 파일"
-    text: "정규화(NFC)·문장 분리·괄호 곁가지·어절 분할"
-    split: "분리 후보 생성과 분리 판정(TAN)"
-    noun: "명사 단위 찾기와 명사 판정(TAN)"
-    stats: "문맥 통계 — 슬롯 묶음, 부호 있는 거리 구간, 플래그"
-    analyze: "전체 처리 흐름과 JSON 줄 출력 구조"
-    eval: "평가 — 분리 정확도, 명사 정밀도·재현율·버림 비율, 규칙별 정밀도"
-    cli: "명령줄 도구 — 인자 해석과 입출력만(로직은 pkg)"
+    cli: "kopas 명령줄 — cobra 명령 정의와 실행 연결"
+    mini: "kopas mini — 어절 끝을 문법 표로 읽고 toulmin 그래프로 문장성분을 판정"
   type:
-    model: "data type definition"
-    parser: "텍스트·파일을 구조로 읽는다"
-    builder: "입력에서 구조·그래프를 만든다"
-    rule: "TAN 규칙 함수(warrant·counter·except)"
-    judge: "그래프 평가와 순위·채택 결정"
-    adapter: "지식 어댑터 구현"
-    helper: "internal utility function"
-    command: "명령 엔트리포인트"
-
-optional:
-  level:
-    error: "error-path handling"
+    command: "cobra 명령 진입점"
+    model: "자료형 정의"
+    helper: "내부 유틸리티 함수"
+    reader: "어절 끝을 문법 표로 읽어 사실을 내는 코드(품사를 정하지 않는다)"
+    rule: "toulmin 규칙 함수와 그래프, 판정"

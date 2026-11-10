@@ -1,40 +1,34 @@
 # koparse
 
-Korean text analyzer for [GEUL](https://geul.org). It starts small — splitting
-nouns from the particles (조사) and endings (어미) attached to them — and may grow
-into a full morphological analyzer.
+한국어 문장을 문법 표만으로 분석하는 실험 도구다. Go 모듈 `github.com/geul-org/koparse`과 cobra CLI `kopas`이고, 하위 명령은 `mini` 하나다(cobra의 `help`는 남고 `completion`은 껐다). 2026-11-10 이전의 분석기(명사 분리·식별)는 git 기록에 남아 있다.
 
-한국어 분석기. 어절에서 명사와 조사·어미를 떼어 내는 일부터 시작해, 필요하면 형태소 분석기로 키운다.
-
-## 원칙
-
-- 형태소 분석기·사전을 가져다 쓰지 않고 직접 만든다. 기존 분석기는 정확도 비교용으로만 쓴다.
-- 사전은 CC0 원천(위키데이터 라벨·Lexeme)과 자체 생성 자료만 쓴다.
-- 애매하면 정하지 않고 후보로 남긴다.
-
-## 상태
-
-2026-10-31: M0·M1·M2·M4 구현(fixture 어댑터). 설계는 [design.md](design.md).
-
-- M0: 조사·어미 목록(`pkg/lexicon/data/suffixes.tsv`, 받침 조건·사슬 자리·무게), 지식 어댑터 인터페이스(`pkg/knowledge`), fixture 어댑터(`pkg/fixture`, `testdata/fixture.json`).
-- M1: 정규화(NFC, 괄호 곁가지, 따옴표), 어절 분할, 분리 후보, 분리 판정(toulmin TAN).
-- M2: 명사 단위(여러 어절 구간, 공백 변형, 복합어 조각), 명사 판정(TAN, R1~R4b + 분류 불일치 반박, 성질·관용 예외).
-- M4: 문맥 통계(슬롯 묶음, 부호 있는 거리 구간, 같은 어절·절 경계 플래그).
-- 아직 없음: SILK 어댑터(S1·S2·M3), 유일 후보 신뢰표(M5), GEUL 문서 출력(M6).
-
-백과 표본 10건(fixture) 측정: 분리 정확도 96.5%, 명사 정밀도 94.8%(목표 95% 미달), 재현율 42.0%. 자세한 수치는 design.md §11.1.
-
-## 사용
+## kopas mini
 
 ```sh
-go build ./cmd/koparse
-echo "고양이는 고기를 먹는다." | ./koparse -fixture testdata/fixture.json -topic Q146
+go install ./cmd/kopas
+kopas mini "이것은 문장을 분해한다"
 ```
 
-문장마다 JSON 한 줄(design.md §5). `-config`로 Qualifier·공격 세기·문턱을 바꾸고, `-trace`로 어절 분리 후보 순위를 붙인다.
+문장 하나(인자 하나)를 띄어쓰기로 나눠 어절마다 `어절:문장성분`을 한 줄씩 찍는다. 이름은 `주어`, `목적어`, `보어`, `서술어`, `관형어`, `부사어`, `독립어`, `미정`이고, 풀이가 여럿이면 `|`로 잇는다. 단어와 조사, 용언의 줄기와 꼬리 조각(선어말 칸, 맺음, 요, 인용의 고, 명사 뒤 하다·되다·시키다) 사이에는 `+`를 넣는다. 줄기와 조각이 한 음절에 합쳐진 곳은 표면 꼴 그대로 둔다(`지시+해서`, `합+니다`).
 
-평가: `go run ./cmd/koparse-eval -fixture testdata/fixture.json -samples <표본.json> -gold-split <분리 정답.tsv> -gold-noun <명사 정답.tsv> [-judgments <손 판정.tsv>] [-out <디렉터리>]`. 표본 원문과 정답은 저장소 밖에 둔다.
+```
+이것+은:관형어|주어|목적어
+문장+을:목적어|관형어
+분해+한+다:서술어
+```
 
-## License
+사전과 낱말 목록 없이 조사, 어미 사슬, 문법 형태소의 표만으로 어디까지 되는지 재는 실험이다. 코드 주석의 `particles.md`, `endings.md`, `morphemes.md`는 그 표를 적은 작업 문서의 이름이고 이 저장소에는 없다. 표는 코드 안에 옮겨 두었고 실행 때 md를 읽지 않는다.
 
-CC0 1.0 Universal. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+입력 문장의 전제조건(어긴 입력을 고쳐 읽지 않는다):
+
+1. 동사 서술은 반드시 마지막에 온다.
+2. 띄어쓰기를 올바로 한다.
+3. 조사를 반드시 올바로 붙인다.
+
+## 구성
+
+- 어절의 오른쪽 끝을 음절·자모로 읽는 부분은 일반 Go 코드, 읽은 사실로 문장성분을 가리는 판정은 toulmin 그래프다([internal/mini/](internal/mini/README.md)).
+- toulmin은 park-jun-woo/toulmin `geul` 브랜치의 Go 모듈(MIT)을 공개 커밋 버전으로 require한다.
+- 제3자 구성요소: `github.com/park-jun-woo/toulmin/go`(MIT), `github.com/spf13/cobra` v1.10.2(Apache-2.0), `github.com/spf13/pflag` v1.0.9(BSD-3-Clause), `github.com/inconshreveable/mousetrap` v1.1.0(Apache-2.0). 우리 코드는 CC0다(LICENSE, NOTICE).
+- 규칙: filefunc(`codebook.yaml`, 함수·타입별 파일), TSMA, `go test`·`go vet`·`go build`. `go.work`는 쓰지 않는다(`GOWORK=off`).
+- 패키지는 [internal/](internal/README.md), 진입점은 [cmd/](cmd/README.md).

@@ -1,0 +1,19 @@
+//ff:func feature=cli type=command control=sequence
+//ff:what newRootCmd — the kopas command with mini
+package cli
+
+import "github.com/spf13/cobra"
+
+// newRootCmd builds the command tree. Cobra's completion command is
+// turned off so that only mini is there.
+func newRootCmd() *cobra.Command {
+	root := &cobra.Command{
+		Use:           "kopas",
+		Short:         "한국어 문법 음절 표 기반 분석기(실험)",
+		SilenceUsage:  true,
+		SilenceErrors: true,
+	}
+	root.CompletionOptions.DisableDefaultCmd = true
+	root.AddCommand(newMiniCmd())
+	return root
+}
