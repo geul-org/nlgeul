@@ -6,7 +6,7 @@ import "testing"
 
 func TestFusedPref(t *testing.T) {
 	ix, _ := newIndex(Options{})
-	vowel := ix.named(keyVowel, "맺음:어서(합침)")
+	vowel := ix.named('서', "맺음:어서(합침)")
 	if got := ix.fusedPref(vowel, "아", 0); got != ix.pref(closingCounts["맺음:아서"], "아서") || got >= 0 {
 		t.Fatal(got)
 	}
