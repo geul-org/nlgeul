@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestByForm — the readings of one form become one piece with the kinds of each; a suffix of the same form stays apart
+//ff:what TestByForm — the emphatic 가 is kept apart from the case particle 가; the readings of one form become one piece with the kinds of each; a suffix of the same form stays apart
 package token
 
 import (
@@ -20,5 +20,10 @@ func TestByForm(t *testing.T) {
 	_, merged, kinds = byForm(pieces, from)
 	if merged["에서"].names != "주격:에서|부사격:에서" || len(kinds["에서"]) != 2 {
 		t.Fatal(merged, kinds)
+	}
+	emph := scanOf("집에서가")
+	pieces, from, _ = emph.readGroup(classParticle, 4, -1, false)
+	if forms, merged, _ = byForm(pieces, from); len(forms) != 2 || merged["가·강조"].names != emphName || merged["가"].names != "주격:가|보격:가" {
+		t.Fatal("the emphatic 가 apart from the case particle", forms, merged)
 	}
 }

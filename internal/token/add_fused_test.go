@@ -31,6 +31,14 @@ func TestAddFused(t *testing.T) {
 	if !ok(ix.neg, rule.Piece{HasStem: true, Next: -1}) || ok(ix.neg, rule.Piece{Next: -1}) || ix.ji.g == nil {
 		t.Fatal("neg")
 	}
+	lexed := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}, lexed: true}
+	lexed.addParticles()
+	lexed.addClosings()
+	lexed.addSlots()
+	lexed.addFused()
+	if len(lexed.fixed) != len(contracts)+len(shortPronouns) || len(lexed.contracts) != len(lexed.fixed) || len(ix.contracts) != len(contracts) || lexed.fixed[len(contracts)].name != "줄임:난" {
+		t.Fatal("with a word table the one-syllable pronouns are read too", len(lexed.fixed))
+	}
 	first := ix.fixed[0]
 	if first.name != "줄임:이게" || first.count == 0 || !ok(first, rule.Piece{HasStem: true, Slot: rule.LinkCase, Next: -1}) || ok(first, rule.Piece{HasStem: true, Slot: rule.LinkCase, Next: rule.LinkCase}) {
 		t.Fatal(first)
