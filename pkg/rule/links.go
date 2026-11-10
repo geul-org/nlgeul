@@ -10,13 +10,14 @@ package rule
 // particle, 의, an adverbial one and the rest. Nothing follows a
 // vocative particle or 요. 으로/로 also follows an adverbial particle
 // (에게로, 께로부터) and is otherwise as one; the honorific 께서 takes a
-// range or topic particle (께서는).
+// range or topic particle (께서는). The emphatic 가 follows an
+// adverbial particle and nothing else, and nothing follows it.
 var linkable = map[int]int{
 	LinkSuffix: 1<<LinkSuffix | 1<<LinkCase | 1<<LinkAdn | 1<<LinkAdv | 1<<LinkComp | 1<<LinkWith | 1<<LinkRange | 1<<LinkTopic | 1<<LinkVoc | 1<<LinkYo | 1<<LinkDir | 1<<LinkHonor,
 	LinkCase:   1 << LinkYo,
 	LinkAdn:    1 << LinkYo,
-	LinkAdv:    1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkComp | 1<<LinkWith | 1<<LinkYo | 1<<LinkDir,
-	LinkDir:    1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkComp | 1<<LinkWith | 1<<LinkYo,
+	LinkAdv:    1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkComp | 1<<LinkWith | 1<<LinkYo | 1<<LinkDir | 1<<LinkEmph,
+	LinkDir:    1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkComp | 1<<LinkWith | 1<<LinkYo | 1<<LinkEmph,
 	LinkHonor:  1<<LinkRange | 1<<LinkTopic | 1<<LinkYo,
 	LinkComp:   1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkYo,
 	LinkWith:   1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkYo,

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addFused — the graphs of the fused letters: the honorific 시 under 셨·셔·십 (after a vowel), the link vowel 으 (after a consonant other than ㄹ, before 시 or a closing that takes it as a piece), 잖 (지+않), and each fused form whose first word is fixed, which is judged as the particle under it is in a chain (and, for 거 written onto a modifying closing, by whether such a closing stands before it)
+//ff:what addFused — the graphs of the fused letters (the honorific 시 under 셨·셔·십 is judged by the slot's own graph): the link vowel 으 (after a consonant other than ㄹ, before 시 or a closing that takes it as a piece), 잖 (지+않), and each fused form whose first word is fixed, which is judged as the particle under it is in a chain (and, for 거 written onto a modifying closing, by whether such a closing stands before it)
 package token
 
 import (
@@ -11,7 +11,6 @@ import (
 // added to the total the shares are taken of.
 func (ix *index) addFused() {
 	rows := []*entry{
-		{name: honorName, form: "시", after: afterVowel, count: honorCount},
 		{name: euName, form: "으", after: rule.AfterHard},
 		{name: negName, form: string(negLetter)},
 	}
@@ -30,7 +29,7 @@ func (ix *index) addFused() {
 		e.g = g
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	}
-	ix.honor, ix.eu, ix.neg, ix.ji = rows[0], rows[1], rows[2], ix.named('지', jiName)
+	ix.honor, ix.eu, ix.neg, ix.ji = ix.named('시', honorName), rows[0], rows[1], ix.named('지', jiName)
 	ix.contracts = contracts
 	if ix.lexed {
 		ix.contracts = append(append([]contract{}, contracts...), shortPronouns...)

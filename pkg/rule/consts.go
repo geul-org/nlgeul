@@ -112,6 +112,7 @@ const (
 	LinkYo            // 요
 	LinkDir           // 방향·출발의 부사격: 으로/로, 으로부터/로부터 (에게로, 께로부터)
 	LinkHonor         // 높임의 주격 께서 (께서는, 께서도)
+	LinkEmph          // 부사격 조사 뒤의 강조 보조사 가 (에서가, 에가)
 )
 
 // What stands right after a piece (Piece.Right).

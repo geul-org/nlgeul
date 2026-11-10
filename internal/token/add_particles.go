@@ -14,7 +14,11 @@ import (
 // subject particle 이. The emphatic 야 after a vowel (에야, 이제야;
 // particles.md section 3 gives 이야 / 야) is in the particle table only
 // as 이야. The tables give neither a count. 은커녕 and 는커녕 are one
-// particle each (the table has 커녕 alone); their count is 커녕's.
+// particle each (the table has 커녕 alone); their count is 커녕's. 가
+// after an adverbial particle (에서가 아니라) is an auxiliary particle
+// of emphasis, read only there.
+const emphName = "보조사:가(강조)"
+
 // comparing, together, directional and shortTopics tell kinds of particle apart for
 // chains (linkOf): the particles of comparison, those of company, and
 // the shortened forms that end in 는.
@@ -26,6 +30,7 @@ var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보�
 var innerSuffixes = []entry{
 	{name: "접미:이", form: "이", class: classParticle, after: afterBatchim, slot: rule.LinkSuffix, inner: true},
 	{name: "보조사:야", form: "야", class: classParticle, after: afterVowel, slot: rule.LinkTopic},
+	{name: emphName, form: "가", class: classParticle, slot: rule.LinkEmph, count: 2},
 	{name: "보조사:은커녕", form: "은커녕", class: classParticle, after: afterBatchim, slot: rule.LinkTopic, count: 66},
 	{name: "보조사:는커녕", form: "는커녕", class: classParticle, after: afterVowel, slot: rule.LinkTopic, count: 66},
 }

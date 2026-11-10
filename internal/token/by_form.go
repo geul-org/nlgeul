@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what byForm — the particle readings that stand at one place, gathered by form: one piece for each form with its names joined, and the kinds of its readings (a suffix apart from particles of the same form)
+//ff:what byForm — the particle readings that stand at one place, gathered by form: one piece for each form with its names joined, and the kinds of its readings (a suffix, and the emphatic 가, apart from particles of the same form)
 package token
 
 import (
@@ -22,6 +22,9 @@ func byForm(pieces map[string]piece, from map[string]*entry) ([]string, map[stri
 		f := from[k].form
 		if from[k].slot == rule.LinkSuffix {
 			f += "·접미"
+		}
+		if from[k].slot == rule.LinkEmph {
+			f += "·강조"
 		}
 		if _, ok := merged[f]; !ok {
 			forms = append(forms, f)
