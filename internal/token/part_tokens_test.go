@@ -1,17 +1,31 @@
-//ff:func feature=token type=helper control=sequence
-//ff:what TestPartTokens — a run of Latin letters and digits is one token; a word of other letters has one for each
+//ff:func feature=token type=helper control=iteration dimension=1
+//ff:what TestPartTokens — a part made only of Latin letters, digits and underscores is one token; a part with any other letter (Hangul, Greek, a dot, Hangul mixed with Latin) has one for each letter
 package token
 
 import "testing"
 
 func TestPartTokens(t *testing.T) {
-	if got := partTokens("abc_12"); got != 1 {
-		t.Fatal(got)
+	cases := []struct {
+		part string
+		want int
+	}{
+		{"ab", 1},
+		{"abc_12", 1},
+		{"2026", 1},
+		{"_", 1},
+		{"café", 1},
+		{"곰", 1},
+		{"사자", 2},
+		{"고양이", 3},
+		{"곰a", 2},
+		{"a곰b", 3},
+		{"a.b", 3},
+		{"a-b", 3},
+		{"αβ", 2},
 	}
-	if got := partTokens("사자"); got != 2 {
-		t.Fatal(got)
-	}
-	if got := partTokens("곰a"); got != 2 {
-		t.Fatal(got)
+	for _, c := range cases {
+		if got := partTokens(c.part); got != c.want {
+			t.Fatal(c.part, got, c.want)
+		}
 	}
 }

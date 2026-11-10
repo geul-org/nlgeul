@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestMarkerStem — a new word after a boundary whose letters read as markers there, or that starts with the link vowel 으 and goes on as markers, is no stem; the unit's first word, a stem whose letters are not so read, a word the table knows, a stem a piece is fused into and a tail that names its stem are let be; so is every stem when there is no word table
+//ff:what TestMarkerStem — a new word after a boundary whose letters read as markers there, or that starts with the link vowel 으 and from 으 on, or from after it, reads as markers up to the tail's end, is no stem (a stem a piece is fused into too, for the 으 rule only); the unit's first word, a stem whose letters are not so read, markers that end before the tail's end, a stem of another letter, a word the table knows, a stem a piece is fused into outside the 으 rule and a tail that names its stem are let be; so is every stem when there is no word table
 package token
 
 import (
@@ -29,11 +29,55 @@ func TestMarkerStem(t *testing.T) {
 	if sc.markerStem(1, 3, tail{start: 2, base: '에', pieces: seo.pieces}) || sc.markerStem(1, 3, tail{start: 2, shown: "에", pieces: seo.pieces}) || sc.markerStem(1, 3, tail{start: 2, as: numName, pieces: seo.pieces}) || sc.markerStem(1, 3, tail{start: 2, only: "에", pieces: seo.pieces}) {
 		t.Fatal("a tail with its own stem")
 	}
+	ws := wordsScan("곰서로", layerCost)
+	ws.marks[2] = map[int]bool{1: true}
+	if ws.markerStem(1, 3, tail{start: 2, pieces: []piece{{text: "로", names: "부사격:로", verdict: 1, tail: rule.TailCase}}}) {
+		t.Fatal("a word the table knows (서 the noun)")
+	}
+
+	myeo := tail{start: 2, pieces: []piece{{text: "며", names: "맺음:며", verdict: 1, tail: rule.TailPred}}}
+	link := wordsScan("곰으며", layerCost)
+	if link.markerStem(1, 3, myeo) {
+		t.Fatal("으 before 며 when nothing reads as markers")
+	}
+	link.marks[3] = map[int]bool{1: true}
+	if !link.markerStem(1, 3, myeo) {
+		t.Fatal("으 before 며: from the link vowel on the letters read as markers (으며)")
+	}
+	link.marks[3] = map[int]bool{2: true}
+	if !link.markerStem(1, 3, myeo) {
+		t.Fatal("으 before 며: after the link vowel the letters read as markers (며)")
+	}
+	if link.markerStem(1, 3, tail{start: 2, shown: "으", pieces: myeo.pieces}) || link.markerStem(1, 3, tail{start: 2, as: numName, pieces: myeo.pieces}) || link.markerStem(1, 3, tail{start: 2, only: "으", pieces: myeo.pieces}) {
+		t.Fatal("a tail with its own stem, under the link vowel rule too")
+	}
+	link.marks[3] = map[int]bool{}
+	link.marks[2] = map[int]bool{1: true}
+	if !link.markerStem(1, 3, myeo) {
+		t.Fatal("으 read as a marker by itself before 며, by the old rule")
+	}
+	if link.markerStem(1, 3, tail{start: 2, base: '으', pieces: myeo.pieces}) {
+		t.Fatal("a stem a piece is fused into, when nothing up to the tail's end reads as markers")
+	}
+	head := wordsScan("으며", layerCost)
+	head.marks[2] = map[int]bool{0: true, 1: true}
+	if head.markerStem(0, 2, tail{start: 1, pieces: myeo.pieces}) {
+		t.Fatal("the link vowel as the unit's first word")
+	}
+	if none := scanOf("곰으며"); none.markerStem(1, 3, myeo) {
+		t.Fatal("without a word table the link vowel rule is not asked")
+	}
+
 	eu := wordsScan("곰으셨다", layerCost)
 	da := tail{start: 3, pieces: []piece{{text: "다", names: "맺음:다", verdict: 1, tail: rule.TailPred}}}
 	if eu.markerStem(1, 4, da) {
 		t.Fatal("으셨 before 다 when nothing reads 셨다 as markers")
 	}
+	eu.marks[3] = map[int]bool{2: true}
+	if eu.markerStem(1, 4, da) {
+		t.Fatal("markers that end before the tail's end do not count for the link vowel")
+	}
+	eu.marks[3] = nil
 	eu.marks[4] = map[int]bool{2: true}
 	if !eu.markerStem(1, 4, da) {
 		t.Fatal("으셨 before 다: the link vowel and then a run of markers")
@@ -48,9 +92,15 @@ func TestMarkerStem(t *testing.T) {
 	if !eu.markerStem(1, 4, tail{start: 3, base: '시', pieces: da.pieces}) {
 		t.Fatal("으시 with a piece fused into it, before 다")
 	}
-	ws := wordsScan("곰서로", layerCost)
-	ws.marks[2] = map[int]bool{1: true}
-	if ws.markerStem(1, 3, tail{start: 2, pieces: []piece{{text: "로", names: "부사격:로", verdict: 1, tail: rule.TailCase}}}) {
-		t.Fatal("a word the table knows (서 the noun)")
+
+	known := wordsScan("곰으뜸이다", layerCost)
+	cop := tail{start: 3, pieces: []piece{{text: "이다", names: "서술격:이다", verdict: 1, tail: rule.TailCopula}}}
+	known.marks[5] = map[int]bool{2: true}
+	if !known.markerStem(1, 5, cop) {
+		t.Fatal("으뜸 before 이다 as a new word, when 뜸이다 reads as markers")
+	}
+	known.ix.lex["으뜸"] = word{kinds: kindNominal, count: 50, by: [6]int{50}}
+	if known.markerStem(1, 5, cop) {
+		t.Fatal("a word the table knows that starts with the link vowel")
 	}
 }
