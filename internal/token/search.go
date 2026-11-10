@@ -13,10 +13,11 @@ func (sc *scan) search() []*path {
 	for j := 1; j <= n; j++ {
 		var cands []*path
 		tails := sc.tailsAt(j)
+		sc.marks[j] = markedFrom(tails)
 		for _, t := range tails {
 			cands = sc.extend(cands, best, t, j)
 		}
-		best[j] = sc.ix.top(sc.whole(cands, best, j, markedFrom(tails)), beam)
+		best[j] = sc.ix.top(sc.whole(cands, best, j, sc.marks[j]), beam)
 	}
 	return sc.ix.top(best[n], beam)
 }
