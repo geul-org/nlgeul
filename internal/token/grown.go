@@ -3,7 +3,7 @@
 package token
 
 func (sc *scan) grown(cands []*path, kept []*path, t tail, b, j int) []*path {
-	if !sc.gated(b, t) || sc.markerStem(b, t) {
+	if !sc.gated(b, t) || sc.markerStem(b, j, t) {
 		return cands
 	}
 	e := sc.wordOf(b, j, t)
