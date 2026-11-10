@@ -6,7 +6,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func TestAddWide(t *testing.T) {

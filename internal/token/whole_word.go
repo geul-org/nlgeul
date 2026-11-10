@@ -2,7 +2,7 @@
 //ff:what wholeWord — are a lone Hangul numeral and the piece after it together a word of the word table, or a fused form of the closed set (이건, 세대, 사회)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (ix *index) wholeWord(numeral, form string) bool {
 	n := []rune(numeral)

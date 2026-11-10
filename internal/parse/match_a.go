@@ -5,7 +5,7 @@ package parse
 import (
 	"strings"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // yo tells that 요 follows the closing. A fused closing stays in one

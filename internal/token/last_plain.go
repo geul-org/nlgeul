@@ -2,7 +2,7 @@
 //ff:what lastPlain — the place right after the last letter of a unit that is no Hangul syllable (0 when every letter is one)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func lastPlain(s []rune) int {
 	for i := len(s); i > 0; i-- {

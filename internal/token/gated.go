@@ -2,7 +2,7 @@
 //ff:what gated — does the word before a tail pass the tail's graph, when it has one: the word's kinds in the word table are handed to it
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) gated(b int, t tail) bool {
 	if t.gate == nil {

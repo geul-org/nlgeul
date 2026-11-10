@@ -5,7 +5,7 @@ package token
 import (
 	"strings"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func (ix *index) partVerdict(part string, tail int) float64 {

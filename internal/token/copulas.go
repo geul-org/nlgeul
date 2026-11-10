@@ -5,7 +5,7 @@ package token
 import (
 	"slices"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // A dropped stem is written (이) and leaves no trace in the letters.

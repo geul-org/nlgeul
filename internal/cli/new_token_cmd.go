@@ -1,16 +1,16 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what newTokenCmd — kopas token: read a token (syllable) stream into words with a graph for every marker reading, and print contests where the readings do not agree
+//ff:what newTokenCmd — nlgeul token: read a token (syllable) stream into words with a graph for every marker reading, and print contests where the readings do not agree
 package cli
 
 import (
 	"os"
 
-	"github.com/geul-org/koparse/internal/token"
+	"github.com/geul-org/nlgeul/internal/token"
 	"github.com/spf13/cobra"
 )
 
-// newTokenCmd is `kopas token "<문장>"`. The word table comes from
-// --words, else from the environment variable KOPAS_WORDS.
+// newTokenCmd is `nlgeul token "<문장>"`. The word table comes from
+// --words, else from the environment variable NLGEUL_WORDS.
 func newTokenCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   `token "<문장>"`,
@@ -43,7 +43,7 @@ func newTokenCmd() *cobra.Command {
 조각으로 읽는다.
 문장성분은 정하지 않는다.
 
-낱말 표(--words 또는 환경 변수 KOPAS_WORDS)가 없으면 문법 표에 적힌 닫힌 집합
+낱말 표(--words 또는 환경 변수 NLGEUL_WORDS)가 없으면 문법 표에 적힌 닫힌 집합
 낱말만 안다. 낱말 표는 탭으로 나눈 칸 넷(검색 키, 갈래, 불규칙 유형, 횟수)의
 줄이고 "#"으로 시작하는 줄은 건너뛴다. 표가 있으면 표에 있는 줄기를 아는 낱말로
 치고(1겹), 줄기의 갈래가 뒤의 표지와 맞는지와 관측 횟수·길이로 그 세기를 보고
@@ -66,7 +66,7 @@ func newTokenCmd() *cobra.Command {
 			layers, _ := f.GetInt("layers")
 			asleep, _ := f.GetBool("asleep")
 			if words == "" {
-				words = os.Getenv("KOPAS_WORDS")
+				words = os.Getenv("NLGEUL_WORDS")
 			}
 			sentences, err := tokenInput(args, stdin, cmd.InOrStdin())
 			if err != nil {
@@ -83,7 +83,7 @@ func newTokenCmd() *cobra.Command {
 	cmd.Flags().Bool("trace", false, "단위마다 걸린 토큰 열, 그래프, verdict, 기각 이유를 함께 찍는다")
 	cmd.Flags().Bool("cuts", false, "측정용: 단위마다 살아남은 읽기들의 어절 끝 자리(토큰 수)만 찍는다")
 	cmd.Flags().Bool("stdin", false, "표준 입력의 줄마다 문장 하나로 읽고, 문장 사이에 빈 줄을 찍는다")
-	cmd.Flags().String("words", "", "낱말 표 파일(없으면 환경 변수 KOPAS_WORDS, 그것도 없으면 낱말 표 없이)")
+	cmd.Flags().String("words", "", "낱말 표 파일(없으면 환경 변수 NLGEUL_WORDS, 그것도 없으면 낱말 표 없이)")
 	cmd.Flags().Bool("asleep", false, "단위마다 잠든 갈래(1등과의 차이가 커서 올리지 않고 재워 둔 읽기)도 찍는다")
 	cmd.Flags().Int("layers", 0, "측정용: 낱말 표를 몇 겹까지 쓸지(1 여부, 2 갈래 맞춤, 3 구조 값; 0은 전부)")
 	return cmd

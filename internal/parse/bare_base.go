@@ -5,7 +5,7 @@ package parse
 import (
 	"slices"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // Under any other syllable nothing in the tables tells the consonant

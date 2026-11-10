@@ -2,7 +2,7 @@
 //ff:what unfuse — a stem's last syllable without the piece fused into it: the final consonant off, and the vowel back as endings.md section 4 gives it (해 → 하, ㅘ → ㅗ, ㅝ → ㅜ, ㅕ → ㅣ, ㅙ → ㅚ)
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func unfuse(r rune) rune {
 	r -= rune(rule.JongOf(r))

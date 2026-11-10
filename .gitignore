@@ -1,6 +1,6 @@
 # Build output
-/kopas
-/cmd/kopas/kopas
+/nlgeul
+/cmd/nlgeul/nlgeul
 
 # Test and verification state (tsma)
 .tsma/

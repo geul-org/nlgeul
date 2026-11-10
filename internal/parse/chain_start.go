@@ -2,7 +2,7 @@
 //ff:what chainStart — the leftmost start of a particle chain that ends at end, with that chain's particles and the case of its outermost case particle; a chain is at most three particles in the order of their places (particles.md section 5)
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // chainStart returns end, 0 and "" when no particle is read there.
 // depth is the number of particles already read to the right, right

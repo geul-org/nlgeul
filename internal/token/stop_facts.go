@@ -2,7 +2,7 @@
 //ff:what stopFacts — the facts of the dots from start to end: what stands on each side (nothing at the unit's edges) and how many dots there are
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) stopFacts(start, end int) rule.Mark {
 	m := rule.Mark{Run: end - start}

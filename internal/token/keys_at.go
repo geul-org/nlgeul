@@ -2,7 +2,7 @@
 //ff:what keysAt — the index keys of one token: the token itself, and as a fused token the final consonant under it (ㅁ also under ㄻ) or the vowel 어/아 fuses into
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func keysAt(r rune) []rune {
 	keys := []rune{r}

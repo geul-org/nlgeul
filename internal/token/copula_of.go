@@ -5,7 +5,7 @@ package token
 import (
 	"slices"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // The third value is false when the tail has no such reading.

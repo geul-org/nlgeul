@@ -1,4 +1,4 @@
-module github.com/geul-org/koparse
+module github.com/geul-org/nlgeul
 
 go 1.27.3
 

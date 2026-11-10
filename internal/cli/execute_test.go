@@ -10,11 +10,11 @@ import (
 func TestExecute(t *testing.T) {
 	old := os.Args
 	defer func() { os.Args = old }()
-	os.Args = []string{"kopas", "--help"}
+	os.Args = []string{"nlgeul", "--help"}
 	if Execute() != 0 {
 		t.Fatal("help")
 	}
-	os.Args = []string{"kopas", "--no-such-flag"}
+	os.Args = []string{"nlgeul", "--no-such-flag"}
 	if Execute() != 1 {
 		t.Fatal("unknown flag")
 	}

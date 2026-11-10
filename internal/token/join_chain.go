@@ -2,7 +2,7 @@
 //ff:what joinChain — judge each sign of a chain of runs and note the atoms: runs stay joined across a sign that a joining reading stands for; an atom made of runs of digits is a number
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) joinChain(chain [][2]int) {
 	labels, signs := make([]string, len(chain)), make([]rune, len(chain)-1)

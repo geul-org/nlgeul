@@ -14,7 +14,7 @@ func TestNewRootCmd(t *testing.T) {
 	for _, c := range root.Commands() {
 		names = append(names, c.Name())
 	}
-	if root.Name() != "kopas" || strings.Join(names, " ") != "parse token" {
+	if root.Name() != "nlgeul" || strings.Join(names, " ") != "parse token" {
 		t.Fatal(root.Name(), names)
 	}
 }

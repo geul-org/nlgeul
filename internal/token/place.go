@@ -2,7 +2,7 @@
 //ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // A piece with a lead sits in the stem's last syllable, so the stem
 // ends where the form starts. more tells that 요 follows. A fused 어/아 that does

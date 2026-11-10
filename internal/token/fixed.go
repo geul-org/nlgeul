@@ -2,7 +2,7 @@
 //ff:what fixed — the fused forms with a fixed first word that end at j (이게 → 이것+(이)): each is a word and the particle under it, judged as that particle is before the one that follows
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // next is the kind of the particle to the right (-1 for none).
 func (sc *scan) fixed(j, next int) []tail {

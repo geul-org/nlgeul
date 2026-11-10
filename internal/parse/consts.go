@@ -1,8 +1,8 @@
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
-// Sentence constituents kopas parse prints (the seven of school
+// Sentence constituents nlgeul parse prints (the seven of school
 // grammar) and the name for a word no rule speaks for.
 const (
 	labelSubj = "주어"

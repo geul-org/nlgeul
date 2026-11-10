@@ -5,7 +5,7 @@ package token
 import (
 	"slices"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // Readings of one particle go their own ways: 에서 as a subject marker

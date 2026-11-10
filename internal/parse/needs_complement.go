@@ -5,7 +5,7 @@ package parse
 import (
 	"slices"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // The two predicates are named by the grammar (morphemes.md sections 2

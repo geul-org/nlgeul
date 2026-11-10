@@ -2,7 +2,7 @@
 //ff:what readWord — read one word's right end against the tables and report what was read; no constituent is named here
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func readWord(text string, last bool, sent *sentence) *word {
 	s := rule.Trim(text)

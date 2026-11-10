@@ -2,7 +2,7 @@
 //ff:what change — does the script change at place j: a run of Latin letters and digits on one side and a Hangul syllable on the other (a place where a word may end with no marker)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) change(j int) bool {
 	if j < 1 || j >= len(sc.s) {

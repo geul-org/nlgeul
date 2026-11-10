@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func TestKnownAsNew(t *testing.T) {

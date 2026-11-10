@@ -1,9 +1,9 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what newGraph — the grammar of kopas parse as a toulmin graph: fifteen claims of a constituent, and the exceptions and rebuttals against them; the claims are returned so that more can be added
+//ff:what newGraph — the grammar of nlgeul parse as a toulmin graph: fifteen claims of a constituent, and the exceptions and rebuttals against them; the claims are returned so that more can be added
 package parse
 
 import (
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 
@@ -31,7 +31,7 @@ import (
 //	              tailSeenMore → every chain claim
 //	              complementShare → subjectCase
 func newGraph() (*toulmin.Graph, map[string]*toulmin.Rule) {
-	g := toulmin.NewGraph("kopas:parse")
+	g := toulmin.NewGraph("nlgeul:parse")
 	c := map[string]*toulmin.Rule{}
 	list := toulmin.NewStringListSpec
 	claim(g, c, "subjectCase", labelSubj, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseSubj})

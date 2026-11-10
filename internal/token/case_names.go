@@ -2,7 +2,7 @@
 //ff:what caseNames — the readings of a particle, one for each case it marks: 주격, 보격, 목적격, 관형격, 부사격, 호격; 보조사 when it marks none, 접미 for the suffix-like ones
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 var caseOrder = []int{rule.CaseSubj, rule.CaseComp, rule.CaseObj, rule.CaseAdn, rule.CaseAdv, rule.CaseVoc}
 var caseLabel = map[int]string{rule.CaseSubj: "주격", rule.CaseComp: "보격", rule.CaseObj: "목적격", rule.CaseAdn: "관형격", rule.CaseAdv: "부사격", rule.CaseVoc: "호격"}

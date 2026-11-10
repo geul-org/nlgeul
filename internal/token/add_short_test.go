@@ -6,8 +6,8 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/geul-org/koparse/internal/parse"
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/internal/parse"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func TestAddShort(t *testing.T) {

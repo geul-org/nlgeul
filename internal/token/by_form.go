@@ -5,7 +5,7 @@ package token
 import (
 	"sort"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // The keys of pieces and from are those of readGroup. The forms come

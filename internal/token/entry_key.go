@@ -2,7 +2,7 @@
 //ff:what entryKey — the index key of an entry: its form's last token, or for a piece with no token of its own the key of its lead
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func entryKey(e *entry) rune {
 	if f := []rune(e.form); len(f) > 0 {

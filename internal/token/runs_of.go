@@ -2,7 +2,7 @@
 //ff:what runsOf — the runs of Latin letters, digits and underscores in a unit, each as where it starts and ends
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func runsOf(s []rune) [][2]int {
 	var out [][2]int

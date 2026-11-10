@@ -2,7 +2,7 @@
 //ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits; for all but a greater number also Hangul numerals or a Latin letter of the table)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // next is the place of the piece to the right (0 for none). open tells
 // that nothing is known to follow at j, so that letters running on are

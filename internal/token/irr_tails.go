@@ -2,7 +2,7 @@
 //ff:what irrTails — the closings that end at j and attach only after a consonant (some of them not after ㄹ), read where a vowel or ㄹ stands before them, by the own last syllable of a stem that changes there (지은 = 짓+은, 물을 = 묻+을): each stands as a tail that asks for a stem so changed
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // Such a closing takes no slot before it: the syllable it is judged by
 // is the stem's.

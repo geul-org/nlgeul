@@ -5,7 +5,7 @@ package parse
 import (
 	"testing"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 

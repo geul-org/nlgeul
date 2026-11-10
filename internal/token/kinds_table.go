@@ -1,6 +1,6 @@
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // kindOrder is the order kinds are named in; kindLabel their names in
 // a graph's name (열쇠:체언).
@@ -70,7 +70,7 @@ const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj
 var pronouns = []string{"이", "그", "저"}
 
 // pronounWords are pronouns this layer knows on top of the word
-// table, which kopas parse does not read: 네 (너 before 가, and 너의),
+// table, which nlgeul parse does not read: 네 (너 before 가, and 너의),
 // 내 (나 before 가, and 나의) and 제 (저 before 가, and 저의). The
 // dictionary lists each as a pronoun. With a word table each is a
 // nominal whatever rows the table has for it (네 is there only as a

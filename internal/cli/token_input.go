@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=iteration dimension=1
-//ff:what tokenInput — the sentences kopas token reads: the one argument, or with --stdin every line of standard input
+//ff:what tokenInput — the sentences nlgeul token reads: the one argument, or with --stdin every line of standard input
 package cli
 
 import (

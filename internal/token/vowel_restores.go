@@ -2,7 +2,7 @@
 //ff:what vowelRestores — the stems a syllable may come from when 어/아 is fused into its vowel (endings.md section 4): 해 from 하+여, ㅘ from ㅗ+아, ㅝ from ㅜ+어, ㅕ from ㅣ+어, ㅙ from ㅚ+어; ㅏ and ㅓ from the same vowel or from a dropped ㅡ; ㅐ and ㅔ from the same vowel; 놔 also from 놓+아 (clause 35 of the orthography)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func vowelRestores(r rune) []restore {
 	v := rule.JungOf(r)

@@ -5,7 +5,7 @@ package token
 import (
 	"slices"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // The tails are those of the closings read after the stem or fused

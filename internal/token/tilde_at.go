@@ -2,7 +2,7 @@
 //ff:what tildeAt — the range sign that ends at j after a number and its unit and before another number (1월~3월): the tails it closes, as the full stop closes a word
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) tildeAt(j int) []tail {
 	if sc.at(j-1) != '~' {

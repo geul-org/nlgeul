@@ -5,7 +5,7 @@ package token
 import (
 	"fmt"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func entryGroup(e *entry) string {

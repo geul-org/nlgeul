@@ -2,7 +2,7 @@
 //ff:what negated — the readings of 잖 before a closing: 지+않, the closing attached to 않, alone or after the slots before 지 (했잖아 → 하+(였)+지+(않)+아)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // The tails are those of the closings read after the letter. A tail
 // fused into the letter, or one of the copula, is not such a closing.

@@ -2,7 +2,7 @@
 //ff:what linked — the tails that begin with the link vowel 으 right before some pieces (읽+으+시, 먹+으+니): after the stem, by the syllable that stands there or, for a changed stem (들으니, 지으니), by the stem's own last syllable; and (when asked) after the slots 었, 겠 (먹었으니)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // start is where the pieces begin and after the name of the first.
 func (sc *scan) linked(start int, ps []piece, after string, slots bool) []tail {

@@ -3,14 +3,14 @@
 package token
 
 import (
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 
 // A token sequence that no table lists is a new word: the claim that
 // it is a word stands, rebutted at half force by "it is in no key
 // table". Its verdict (1/3) is a low positive one, as
-// stream-graph-algorithm.md section 12 asks; the force is a
+// token-stream-algorithm.md section 12 asks; the force is a
 // placeholder, not a measured value. A whole new word after a boundary
 // inside a unit does not stand when its letters read as markers there
 // (the exception PieceMarked).

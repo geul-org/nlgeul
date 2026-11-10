@@ -2,7 +2,7 @@
 //ff:what front — the sign right before a number, when it is one that stands at a number's front and its graph stands: the number then begins at the sign and is named with it too
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) front(start int, names string) (int, string) {
 	if start < 1 {

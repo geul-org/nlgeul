@@ -1,6 +1,6 @@
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // Classes of index entry.
 const (
@@ -30,7 +30,7 @@ const (
 
 // beam is how many partial readings are kept at each place, and
 // branches how many readings of a unit are sent up at most
-// (stream-graph-algorithm.md section 12 names four to seven). Only a
+// (token-stream-algorithm.md section 12 names four to seven). Only a
 // reading that is awake is sent up: one whose place (preference plus
 // log10 of verdict) is within wakeGap of the best reading's. The others
 // are asleep: kept, not sent up, for a layer above to wake. wakeGap is

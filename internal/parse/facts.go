@@ -2,7 +2,7 @@
 //ff:what facts — the word as the rule package's facts, which the rules read from the context
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func facts(w *word) *rule.Word {
 	c := w.chain

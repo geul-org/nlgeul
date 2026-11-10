@@ -1,6 +1,6 @@
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // Numbers (decision 014-31). A run of digits is a number; a sign
 // between two runs of digits is judged by a graph for each of its

@@ -5,7 +5,7 @@ package token
 import (
 	"testing"
 
-	"github.com/geul-org/koparse/internal/parse"
+	"github.com/geul-org/nlgeul/internal/parse"
 )
 
 func TestParticleCount(t *testing.T) {

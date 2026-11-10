@@ -2,7 +2,7 @@
 //ff:what prefinals — read the slots left of a closing in their order 시 < 었 < 겠 < 더 (endings.md section 1); where the stem ends, the length read, and whether a ㅆ fused into the stem was read
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // Every slot read adds a syllable (2). 더, 겠 and 었/았/였 are read
 // from the right while their order holds, 었/았/였 twice at most. A

@@ -1,8 +1,8 @@
 package token
 
 import (
-	"github.com/geul-org/koparse/internal/parse"
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/internal/parse"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // Fused letters that are common inside words too (decision 014-30).

@@ -5,7 +5,7 @@ package token
 import (
 	"math"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func (sc *scan) bound(stem string, tail int) (string, float64) {

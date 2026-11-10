@@ -3,12 +3,12 @@
 package token
 
 import (
-	"github.com/geul-org/koparse/internal/parse"
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/internal/parse"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // ownParticles are the particles and suffixes read here and not by
-// kopas parse. 이 comes after a
+// nlgeul parse. 이 comes after a
 // name that ends in a consonant (영숙이가; morphemes.md section 1) and
 // stands where 들, 씩, 쯤 and 끼리 stand, before the particles. It is
 // read only with a particle after it: alone it looks the same as the

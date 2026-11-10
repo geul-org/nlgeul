@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestLines — stream-graph-algorithm.md section 4: 다음으로써 is sent up as a contest whose first branches are 다음+으로써 and 다음+으로 써 (써 also as 쓰+어, further down); spaces are fixed boundaries; the same unit always gives the same lines
+//ff:what TestLines — token-stream-algorithm.md section 4: 다음으로써 is sent up as a contest whose first branches are 다음+으로써 and 다음+으로 써 (써 also as 쓰+어, further down); spaces are fixed boundaries; the same unit always gives the same lines
 package token
 
 import (

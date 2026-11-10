@@ -2,7 +2,7 @@
 //ff:what tailsAt — every run of markers that ends at j: particle chains, predicate tails, predicate tails with a closing 요, and any of these (or none) closed by a full stop
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) tailsAt(j int) []tail {
 	if stop, start, ok := sc.stopAt(j); ok {

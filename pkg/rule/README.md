@@ -85,7 +85,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | 함수 | 뜻 | 쓰는 곳 |
 |---|---|---|
 | `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`)과 맞는가 | `PieceAfter`, 읽기 코드 |
-| `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `kopas parse`의 읽기 코드 |
+| `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `nlgeul parse`의 읽기 코드 |
 | `Harmony(prev, first)` | 줄기 끝 음절 뒤에 어/아/여로 시작하는 조각이 모음에 맞는가(ㅏ·ㅑ·ㅗ 뒤 아, 그 밖 어, 하 뒤 여, ㅆ 받침 뒤 어) | `PieceClash` |
 | `FitsShape(parts, shape)`, `InRange` | 숫자 마디들이 꼴(마디 수, 자리 수, 값의 범위, 머리)에 맞는가 | `PartsShape` |
 | `Links(left, right)` | 조사 사슬에서 갈래 left 뒤에 갈래 right가 올 수 있는가(갈래 표, `Link…`) | `ChainLinks` |

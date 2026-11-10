@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmd — kopas token prints the words of a unit; --cuts word ends; --trace the judgments; --stdin reads lines; a word table comes from --words or KOPAS_WORDS; no sentence and a table that cannot be read are refused
+//ff:what TestNewTokenCmd — nlgeul token prints the words of a unit; --cuts word ends; --trace the judgments; --stdin reads lines; a word table comes from --words or NLGEUL_WORDS; no sentence and a table that cannot be read are refused
 package cli
 
 import (
@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewTokenCmd(t *testing.T) {
-	t.Setenv("KOPAS_WORDS", "")
+	t.Setenv("NLGEUL_WORDS", "")
 	var out bytes.Buffer
 	run := func(in string, args ...string) error {
 		out.Reset()
@@ -34,7 +34,7 @@ func TestNewTokenCmd(t *testing.T) {
 	if err := run("", "--words", "testdata/words.tsv", "마당에서"); err != nil || !strings.Contains(out.String(), "\n  마당[열쇠:체언]+에서[주격:에서|부사격:에서]\t성립 ") {
 		t.Fatalf("%v %q", err, out.String())
 	}
-	t.Setenv("KOPAS_WORDS", "testdata/words.tsv")
+	t.Setenv("NLGEUL_WORDS", "testdata/words.tsv")
 	if err := run("", "--layers", "1", "마당에서"); err != nil || !strings.Contains(out.String(), "마당[열쇠:체언]+에서") {
 		t.Fatalf("%v %q", err, out.String())
 	}

@@ -2,7 +2,7 @@
 //ff:what addSlots — the slots before a closing (endings.md section 1) with their order and observed counts, form by form: 시 (after a vowel; after a consonant the link vowel 으 stands before it), 었/았/였 (also fused as ㅆ, which is counted as the form it is written out as), 겠, 더
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 var slotRows = []entry{
 	{name: honorName, form: "시", after: afterVowel, slot: rule.SlotHonor, count: honorCount},

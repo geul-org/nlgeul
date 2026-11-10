@@ -2,7 +2,7 @@
 //ff:what matchJamo — read a closing that puts ㄴ, ㄹ or ㅂ under the syllable before it (간다, 할까, 갑니다, 입니다)
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // A final consonant alone (no syllable after it) is read only where
 // bareBase allows.

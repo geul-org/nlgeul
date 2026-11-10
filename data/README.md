@@ -1,6 +1,6 @@
 # data
 
-`kopas`가 읽는 자료 표를 두는 폴더다.
+`nlgeul`이 읽는 자료 표를 두는 폴더다.
 
 ## words.tsv
 

@@ -1,7 +1,7 @@
 package token
 
 // closingCounts are the observed counts of the closings, form by form
-// (an allomorph has its own count), that only this layer reads; kopas
+// (an allomorph has its own count), that only this layer reads; nlgeul
 // parse keeps the counts of its own table. A closing that is both a
 // final and a linking one has the two counts summed. A form with no
 // entry has no count.

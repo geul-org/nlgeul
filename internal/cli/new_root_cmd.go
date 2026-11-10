@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what newRootCmd — the kopas command with parse and token
+//ff:what newRootCmd — the nlgeul command with parse and token
 package cli
 
 import "github.com/spf13/cobra"
@@ -8,7 +8,7 @@ import "github.com/spf13/cobra"
 // turned off so that only parse and token are there.
 func newRootCmd() *cobra.Command {
 	root := &cobra.Command{
-		Use:           "kopas",
+		Use:           "nlgeul",
 		Short:         "한국어 문법 음절 표 기반 분석기(실험)",
 		SilenceUsage:  true,
 		SilenceErrors: true,

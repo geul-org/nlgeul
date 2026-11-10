@@ -2,7 +2,7 @@
 //ff:what under — the syllable a final consonant put under it comes off: the same syllable without it (간 → 가), and for ㅁ also the syllable left with ㄹ when the two stand together as ㄻ (삶 → 살); false when the consonant does not sit there
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func under(r rune, lead int) (rune, bool) {
 	jong := rule.JongOf(r)

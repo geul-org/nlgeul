@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func trimUnit(field string) []rune {

@@ -2,7 +2,7 @@
 //ff:what finish — after a closing is read at start: read the slots before it, require a stem, and report the tail as a fact with the word divided into its pieces
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // closing is the closing as it is printed, with its leading "+". A
 // closing that attaches only to 이 or 아니 (에요, 야) is not read

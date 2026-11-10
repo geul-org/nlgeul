@@ -2,7 +2,7 @@
 //ff:what closingTails — the tails one closing read at one place begins: itself (once for each stem a fused one may come from), itself after each run of slots, and, for a closing that takes the link vowel 으 as a piece, itself after 으
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) closingTails(pc piece, e *entry, start int) []tail {
 	ps := partsOf(pc, splits[e.name])

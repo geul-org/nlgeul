@@ -2,7 +2,7 @@
 //ff:what fusedTails — the tails a piece fused into the stem's last syllable begins: one for each stem the syllable may come from, with the piece written in brackets as it was before fusing; an 어/아 that leaves no trace in the letters, and a lone final consonant under a syllable other than the few it is always read under, ask with a word table for a predicate's stem of the table before them (asksStem)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) fusedTails(pc piece, e *entry, start int) []tail {
 	var out []tail

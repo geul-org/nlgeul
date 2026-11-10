@@ -2,7 +2,7 @@
 //ff:what plainStart — where a whole-syllable ending starts at the end of s[:end], with 으 before it when the ending takes one
 package parse
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func plainStart(s []rune, end int, e ending) (int, bool) {
 	after := e.after

@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func pronounName(name, stem string, tail int) string {

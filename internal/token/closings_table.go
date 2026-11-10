@@ -1,12 +1,12 @@
 package token
 
 import (
-	"github.com/geul-org/koparse/internal/parse"
-	"github.com/geul-org/koparse/pkg/rule"
+	"github.com/geul-org/nlgeul/internal/parse"
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 // moreClosings are closings this layer reads on top of the closing
-// table (which kopas parse reads too and is left as it is). Each is an
+// table (which nlgeul parse reads too and is left as it is). Each is an
 // ending the standard dictionary lists: 되, 어야지, 어야만, 어다가, the
 // quoting endings with 면서, 며 and 니 (다면서, ㄴ다면서, 는다면서,
 // 라면서, 자면서, ㄴ다며, 는다며, 라며, 자며, 다니, ㄴ다니, 는다니,

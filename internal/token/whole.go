@@ -2,7 +2,7 @@
 //ff:what whole — every reading that ends at j with a word of no markers: a known word that may stand alone anywhere, any token sequence at the unit's end or where the script changes (without a marker nothing else shows a boundary inside a unit); never inside an atom, and a new word after a boundary not when its letters read as markers there (marked: the places such markers start), as one run or as two runs one after the other
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) whole(cands []*path, best [][]*path, j int, marked map[int]bool) []*path {
 	for b := 0; b < j && !sc.inside[j]; b++ {

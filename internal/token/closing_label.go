@@ -2,7 +2,7 @@
 //ff:what closingLabel — the reading of a closing by its kind: 꾸밈, 이름, else 맺음
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func closingLabel(kind int) string {
 	switch {

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/geul-org/koparse/internal/parse"
+	"github.com/geul-org/nlgeul/internal/parse"
 )
 
 // lines judges a sentence; tests replace it to observe a failure.

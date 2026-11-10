@@ -2,7 +2,7 @@
 //ff:what numeralTails — the tails of a piece after each number that is no run of digits: the number names the stem; the piece's graph is asked again when letters run on after the piece, and after a lone Hangul numeral with whether the two together are a word and whether the numeral is a lone Sino-Korean digit read with no word table
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) numeralTails(e *entry, start, j int, facts rule.Piece, pc piece, words []numeral) []tail {
 	var out []tail

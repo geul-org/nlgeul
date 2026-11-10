@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/geul-org/koparse/internal/token"
+	"github.com/geul-org/nlgeul/internal/token"
 )
 
 func TestRunToken(t *testing.T) {

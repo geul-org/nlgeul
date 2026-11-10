@@ -2,7 +2,7 @@
 //ff:what ties — may the sign between two runs tie them: a full stop, and a sign that joins the runs of a name (a slash, a hyphen), always; another sign of numbers only between two runs of digits
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func ties(s []rune, a, b [2]int) bool {
 	sign := s[a[1]]

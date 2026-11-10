@@ -2,7 +2,7 @@
 //ff:what stemVerdict — the verdict of a kind's graph for a stem with what follows it, its observed count and its length; the same facts are judged once and remembered
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (ix *index) stemVerdict(kind, tail, count int, stem string) float64 {
 	n := len([]rune(stem))

@@ -1,10 +1,10 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what newParseCmd — kopas parse: one line "어절:문장성분" for each word of the sentence
+//ff:what newParseCmd — nlgeul parse: one line "어절:문장성분" for each word of the sentence
 package cli
 
 import "github.com/spf13/cobra"
 
-// newParseCmd is `kopas parse "<문장>"`.
+// newParseCmd is `nlgeul parse "<문장>"`.
 func newParseCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   `parse "<문장>"`,

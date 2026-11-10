@@ -2,7 +2,7 @@
 //ff:what honors — the readings of a letter as the honorific 시 with a piece fused under it: the stem ends before the letter, or before the link vowel 으 that stands before it (linked)
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // start is the place after the letter, p the piece fused under it;
 // bare tells that the piece is the final consonant alone, so that what

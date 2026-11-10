@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewParseCmd — kopas parse prints a line per word; no sentence or two arguments are refused; the help names the three input conditions
+//ff:what TestNewParseCmd — nlgeul parse prints a line per word; no sentence or two arguments are refused; the help names the three input conditions
 package cli
 
 import (

@@ -2,7 +2,7 @@
 //ff:what newWord — the verdict of the new word's graph for a token sequence no table lists: the usual low one, or none when the sequence stands after a boundary and reads as markers
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (ix *index) newWord(marked bool) float64 {
 	if !marked {

@@ -1,4 +1,4 @@
-koparse — Notice
+nlgeul — Notice
 ================
 
 Scope of CC0
@@ -12,7 +12,7 @@ CC0 covers only our own work. Third-party material keeps its own license and is
 not covered by CC0: the Go modules listed below.
 
 --------------------------------------------------------------------------------
-Go (module: github.com/geul-org/koparse)
+Go (module: github.com/geul-org/nlgeul)
 --------------------------------------------------------------------------------
 * github.com/park-jun-woo/toulmin/go  v0.0.0-20261106103040-fe3eed5d099a
   (package pkg/toulmin — the TAN judgement engine, branch geul)

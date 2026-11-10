@@ -2,7 +2,7 @@
 //ff:what tailClass — what follows a stem in its word, from the pieces after it: the copula and its tail, a predicate tail with a closing only verbs take, another predicate tail, particles with a case particle, other particles, or nothing
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 func tailClass(pieces []piece) int {
 	all := 0
