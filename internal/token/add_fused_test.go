@@ -15,14 +15,17 @@ func TestAddFused(t *testing.T) {
 	graphs, edges, total := ix.graphs, ix.edges, ix.total
 	ix.addFused()
 	ok := func(e *entry, p rule.Piece) bool { v, _ := verdictOf(e.g, p, "x"); return v > 0 }
-	if ix.graphs != graphs+3+len(contracts) || ix.edges != edges+5+len(contracts)+3 || ix.total != total || len(ix.fixed) != len(contracts) {
+	if ix.graphs != graphs+3+len(contracts) || ix.edges != edges+6+len(contracts)+3 || ix.total != total || len(ix.fixed) != len(contracts) {
 		t.Fatal(ix.graphs-graphs, ix.edges-edges)
 	}
 	if !ok(ix.honor, rule.Piece{HasStem: true, Prev: '가', Next: -1}) || ok(ix.honor, rule.Piece{HasStem: true, Prev: '읽', Next: -1}) || ok(ix.honor, rule.Piece{Prev: '가', Next: -1}) {
 		t.Fatal("honor")
 	}
-	if !ok(ix.eu, rule.Piece{HasStem: true, Prev: '읽', Next: -1}) || ok(ix.eu, rule.Piece{HasStem: true, Prev: '가', Next: -1}) || ok(ix.eu, rule.Piece{HasStem: true, Prev: '살', Next: -1}) {
+	if !ok(ix.eu, rule.Piece{HasStem: true, Prev: '읽', Next: -1, After: honorName}) || ok(ix.eu, rule.Piece{HasStem: true, Prev: '가', Next: -1, After: honorName}) || ok(ix.eu, rule.Piece{HasStem: true, Prev: '살', Next: -1, After: honorName}) {
 		t.Fatal("eu")
+	}
+	if !ok(ix.eu, rule.Piece{HasStem: true, Prev: '읽', Next: -1, After: "맺음:니"}) || ok(ix.eu, rule.Piece{HasStem: true, Prev: '읽', Next: -1, After: "맺음:고"}) {
+		t.Fatal("eu stands only before what takes it as a piece")
 	}
 	if !ok(ix.neg, rule.Piece{HasStem: true, Next: -1}) || ok(ix.neg, rule.Piece{Next: -1}) || ix.ji.g == nil {
 		t.Fatal("neg")

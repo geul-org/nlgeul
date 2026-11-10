@@ -10,7 +10,9 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // before a closing, its order. bars, needs and holds are a closing's
 // ways with the copula stem 이: it does not attach to it, attaches only
 // to it (or to 아니), or holds it. lead is 0 for a form of whole syllables, leadVowel, or the final
-// consonant the piece puts under the syllable before form.
+// consonant the piece puts under the syllable before form. eu tells
+// that a closing takes the link vowel 으 after a consonant, and head
+// what a slot or closing begins with (head…).
 type entry struct {
 	name  string
 	form  string
@@ -25,6 +27,8 @@ type entry struct {
 	needs bool
 	holds bool
 	wide  bool
+	eu    bool
+	head  int
 	tail  int
 	gate  *entry
 	count int

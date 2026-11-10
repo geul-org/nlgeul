@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what slots — every run of slots (시, 었, 겠, 더, a fused ㅆ) that ends at j, read right to left; a fused one ends the run
+//ff:what slots — every run of slots (시, 었, 겠, 더, a fused ㅆ) that ends at j, read right to left; a fused one ends the run, and 시 is read after the link vowel 으 too
 package token
 
 import "sort"
@@ -22,8 +22,9 @@ func (sc *scan) slots(j, next int) []tail {
 			out = append(out, sc.fusedTails(pc, e, starts[k])...)
 			continue
 		}
-		out = append(out, tail{start: starts[k], pieces: []piece{pc}})
+		out = append(out, tail{start: starts[k], pieces: []piece{pc}, head: e.head})
 		out = append(out, joined(sc.slots(starts[k], e.slot), pc)...)
+		out = append(out, sc.linked(starts[k], []piece{pc}, e.name, false)...)
 	}
 	return out
 }
