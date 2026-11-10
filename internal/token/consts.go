@@ -25,6 +25,7 @@ const (
 	afterAny     = rule.AfterAny
 	afterBatchim = rule.AfterBatchim
 	afterOpen    = rule.AfterOpen
+	afterVowel   = rule.AfterVowel
 )
 
 // beam is how many partial readings are kept at each place, and

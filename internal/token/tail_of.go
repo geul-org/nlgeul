@@ -10,6 +10,10 @@ import (
 
 func tailOf(e *entry) int {
 	switch {
+	case e.holds:
+		return rule.TailCopula
+	case e.tail != 0:
+		return e.tail
 	case slices.Contains(verbClosings, e.name):
 		return rule.TailVerb
 	case e.class != classParticle:

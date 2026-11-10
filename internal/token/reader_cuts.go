@@ -5,14 +5,12 @@ package token
 import (
 	"strconv"
 	"strings"
-
-	"github.com/geul-org/koparse/pkg/rule"
 )
 
 func (r *Reader) Cuts(sentence string) []string {
 	var out []string
 	for _, field := range strings.Fields(sentence) {
-		sc := &scan{ix: r.ix, s: rule.Trim(field)}
+		sc := &scan{ix: r.ix, s: trimUnit(field)}
 		var readings []string
 		for _, p := range sc.search() {
 			var ends []string

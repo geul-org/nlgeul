@@ -8,14 +8,14 @@ var kindOrder = []int{kindNominal, kindVerb, kindAdj, kindAdverb, kindDeterminer
 var kindLabel = map[int]string{kindNominal: "체언", kindVerb: "동사", kindAdj: "형용사", kindAdverb: "부사", kindDeterminer: "관형사", kindAlone: "홀로"}
 
 // kindTails says what may follow a stem of each kind: a nominal stands
-// alone or takes particles; a verb stem takes slots and any closing,
+// alone or takes particles or the copula; a verb stem takes slots and any closing,
 // an adjective stem slots and the closings that are not the verbs'
 // own, and neither stands alone; an adverb stands alone or takes
 // auxiliary particles; a determiner and the other words stand alone.
 var kindTails = map[int]int{
-	kindNominal:    rule.TailBare | rule.TailAux | rule.TailCase,
+	kindNominal:    rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
 	kindVerb:       rule.TailPred | rule.TailVerb,
-	kindAdj:        rule.TailPred,
+	kindAdj:        rule.TailPred | rule.TailAdj,
 	kindAdverb:     rule.TailBare | rule.TailAux,
 	kindDeterminer: rule.TailBare,
 	kindAlone:      rule.TailBare,

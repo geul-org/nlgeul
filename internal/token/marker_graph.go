@@ -8,7 +8,7 @@ import (
 )
 
 // Every marker needs a stem before it. A whole-syllable form checks
-// how the token before it ends; a particle its place in the chain; a suffix that needs a particle after it that one follows; a
+// how the token before it ends; a particle whether its kind takes the particle after it; a suffix that needs a particle after it that one follows; a
 // slot its order; a lone final consonant the syllable it sits under;
 // and a form that ends a closed-set word yields to that word. The
 // number of edges is returned.
@@ -22,7 +22,7 @@ func markerGraph(e *entry, whole []string) int {
 		edges++
 	}
 	if e.class == classParticle {
-		g.Except(rule.ChainOrder).Attacks(claim)
+		g.Except(rule.ChainLinks).Attacks(claim)
 		edges++
 	}
 	if e.inner {
@@ -35,6 +35,10 @@ func markerGraph(e *entry, whole []string) int {
 	}
 	if e.class == classClosing && e.form == "" && e.lead > 0 {
 		g.Except(rule.PieceBase).With(toulmin.NewStringListSpec("bases", rule.BareBases(e.lead))).Attacks(claim)
+		edges++
+	}
+	if e.wide && e.class == classClosing {
+		g.Except(rule.PieceParticle).Attacks(claim)
 		edges++
 	}
 	if len(whole) > 0 {

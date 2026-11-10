@@ -1,5 +1,5 @@
 //ff:func feature=rule type=helper control=sequence
-//ff:what Follows — 조건식(규칙 ChainOrder와 읽기 코드가 함께 쓴다). 조사 사슬에서 자리 left의 조사 뒤에 자리 right의 조사가 올 수 있는가
+//ff:what Follows — 조건식(kopas parse의 읽기 코드가 쓴다; 자리 번호만 본다. 갈래 표는 Links). 조사 사슬에서 자리 left의 조사 뒤에 자리 right의 조사가 올 수 있는가
 package rule
 
 // Places rise from left to right. A case particle (3) takes nothing

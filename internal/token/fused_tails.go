@@ -11,6 +11,9 @@ func (sc *scan) fusedTails(pc piece, e *entry, start int) []tail {
 		p.text = "(" + o.piece + ")" + e.form
 		p.unseen = e.lead == leadVowel && e.form == "" && !rule.FusedVowel(sc.s[start-1], false)
 		out = append(out, tail{start: start, pieces: []piece{p}, base: o.stem, noYo: e.noYo})
+		if o.stem == '시' {
+			out = append(out, sc.honors(p, start, e.form == "")...)
+		}
 	}
 	return out
 }

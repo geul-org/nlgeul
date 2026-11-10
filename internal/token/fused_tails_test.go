@@ -1,5 +1,5 @@
-//ff:func feature=token type=reader control=sequence
-//ff:what TestFusedTails — a tail for each stem the fused syllable may come from, the piece in brackets before the rest of the form; a fused 어/아 that changes no letter is marked as leaving no trace
+//ff:func feature=token type=reader control=iteration dimension=1
+//ff:what TestFusedTails — a tail for each stem the fused syllable may come from, the piece in brackets before the rest of the form; a fused 어/아 that changes no letter is marked as leaving no trace; 셨 is read as the honorific too
 package token
 
 import "testing"
@@ -20,5 +20,12 @@ func TestFusedTails(t *testing.T) {
 	got = sc.fusedTails(piece{names: "맺음:ㄴ다"}, &entry{form: "다", lead: jongN, noYo: true}, 2)
 	if len(got) != 1 || got[0].base != '시' || got[0].pieces[0].text != "(ㄴ)다" || !got[0].noYo {
 		t.Fatal(got)
+	}
+	var honor bool
+	for _, c := range scanOf("가셨다").fusedTails(piece{}, &entry{lead: jongSS}, 2) {
+		honor = honor || (c.start == 1 && c.pieces[0].names == honorName)
+	}
+	if !honor {
+		t.Fatal("no honorific under 셨")
 	}
 }

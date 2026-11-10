@@ -19,6 +19,13 @@ func newIndex(o Options) (*index, error) {
 	ix.addParticles()
 	ix.addClosings()
 	ix.addSlots()
+	if o.Words != "" {
+		ix.addWide()
+	}
+	ix.addCopula()
+	ix.addFused()
+	ix.addDots()
+	ix.addNumbers()
 	g := toulmin.NewGraph(newWord)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: newWord, Concludes: "열쇠"})
 	g.Counter(rule.PieceRead).With(&rule.Claim{Name: noKey, Concludes: "반박"}).Attacks(claim, 0.5)

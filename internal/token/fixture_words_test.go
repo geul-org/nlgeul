@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what wordsScan — a unit under reading with the small word table of testdata, used up to the given layer
+//ff:what wordsScan — a unit under reading with the small word table of testdata, used up to the given layer, its atoms found
 package token
 
 func wordsScan(text string, layers int) *scan {
@@ -7,5 +7,7 @@ func wordsScan(text string, layers int) *scan {
 	if err != nil {
 		panic(err)
 	}
-	return &scan{ix: ix, s: []rune(text)}
+	sc := &scan{ix: ix, s: []rune(text)}
+	sc.prepare()
+	return sc
 }

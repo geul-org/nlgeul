@@ -7,7 +7,8 @@ func ClosingMarkers() []Marker {
 	for _, e := range endings {
 		out = append(out, Marker{
 			Form: e.form, Lead: e.lead, After: e.after, Kind: e.kind, Count: e.count,
-			Eu: e.flags&fEu != 0, NoYo: e.flags&fNoYo != 0, Copula: e.flags&(fNeedIda|fSelfIda) != 0,
+			Eu: e.flags&fEu != 0, NoYo: e.flags&fNoYo != 0, NoIda: e.flags&fNoIda != 0,
+			NeedIda: e.flags&fNeedIda != 0, SelfIda: e.flags&fSelfIda != 0,
 		})
 	}
 	return out

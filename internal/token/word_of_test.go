@@ -30,6 +30,10 @@ func TestWordOf(t *testing.T) {
 	if e = rare.wordOf(0, 2, tail{start: 2}); e.verdict != rare.ix.unknown || e.marked != "of[열쇠:홀로]" {
 		t.Fatal("a rarely seen known word below a new word", e)
 	}
+	at := scanOf("task.py에")
+	if e = at.wordOf(0, 8, tail{start: 7, pieces: []piece{{"에", "부사격:에", 1, -1.2, rule.TailCase, false}}}); e.marked != "task.py[파일명|도메인]+에[부사격:에]" || e.verdict != 1 || math.Abs(e.pref-(math.Log10(1.0/syllables)-1.2)) > 1e-9 {
+		t.Fatal(e)
+	}
 	sc = scanOf("마신다")
 	e = sc.wordOf(0, 3, tail{start: 2, base: '시', pieces: []piece{{"(ㄴ)다", "맺음:ㄴ다", 1, -4, 0, false}}})
 	if e.marked != "마시+(ㄴ)다[맺음:ㄴ다]" || e.end != 3 {

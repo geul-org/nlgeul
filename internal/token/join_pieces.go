@@ -1,10 +1,10 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what merged — two readings of the same token sequence as one piece: both names, the higher verdict and preference
+//ff:what joinPieces — two readings of the same token sequence as one piece: both names, the higher verdict and preference
 package token
 
 import "math"
 
-func merged(old, add piece) piece {
+func joinPieces(old, add piece) piece {
 	if old.names == "" {
 		return add
 	}

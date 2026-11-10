@@ -11,6 +11,17 @@ const (
 // (Piece), for graphs that judge one marker at one place.
 const KeyPiece = "piece"
 
+// KeyMark is the context key of the sign under judgment (Mark), for
+// graphs that judge one reading of a sign such as the full stop.
+const KeyMark = "mark"
+
+// What stands on one side of a sign.
+const (
+	SideAlnum  = 1 << iota // a run of Latin letters, digits and underscores
+	SideDigit              // such a run made of digits only
+	SideHangul             // a Hangul syllable
+)
+
 // What the syllable before a piece must look like for the piece to
 // attach (Fits).
 const (
@@ -44,11 +55,13 @@ const (
 
 // What follows a stem in its word (StemTail).
 const (
-	TailBare = 1 << iota // nothing: the stem stands alone
-	TailAux              // particles, none of them a case particle
-	TailCase             // particles with a case particle among them
-	TailPred             // a predicate tail: slots and a closing
-	TailVerb             // a predicate tail whose closing only verbs take
+	TailBare   = 1 << iota // nothing: the stem stands alone
+	TailAux                // particles, none of them a case particle
+	TailCase               // particles with a case particle among them
+	TailPred               // a predicate tail: slots and a closing
+	TailVerb               // a predicate tail whose closing only verbs take
+	TailCopula             // the copula 이다 and its tail (a noun stands before it)
+	TailAdj                // a predicate tail whose closing only adjectives take with no slot before it
 )
 
 // Cases a particle marks. A particle with none of them is an auxiliary
@@ -82,4 +95,28 @@ const (
 	SideChain   = "chain"   // the particle chain
 	SideTail    = "tail"    // the tail reading under judgment
 	SideLongest = "longest" // the word's longest tail reading
+)
+
+// Kinds of particle by what may follow them in a chain (Links). They
+// are bit places, so that a set of kinds is a mask.
+const (
+	LinkSuffix = iota // 접미: 들, 씩, 쯤, 끼리, a name's 이
+	LinkCase          // 주격·보격·목적격: 이/가, 께서, 을/를
+	LinkAdn           // 관형격: 의
+	LinkAdv           // 부사격: 에, 에서, 에게, 으로 …
+	LinkComp          // 견줌의 부사격: 보다, 처럼, 같이, 만큼
+	LinkWith          // 함께·이음: 과/와, 이랑
+	LinkRange         // 범위·한정의 보조사: 까지, 부터, 만, 뿐, 조차, 마저, 마다, 밖에, 대로
+	LinkTopic         // 주제류 보조사: 은/는, 도, 이나, 이라도, 이든, 이야 …
+	LinkVoc           // 호격: 아/야, 이여
+	LinkYo            // 요
+	LinkDir           // 방향·출발의 부사격: 으로/로, 으로부터/로부터 (에게로, 께로부터)
+	LinkHonor         // 높임의 주격 께서 (께서는, 께서도)
+)
+
+// What stands right after a piece (Piece.Right).
+const (
+	RightDone     = 1 << iota // the unit ends, or the piece is whole as the tables give it
+	RightParticle             // a particle
+	RightOther                // something else
 )

@@ -9,16 +9,19 @@ package parse
 // than ㄹ, 3 a vowel or ㄹ, 4 a vowel. Slot is a particle's place in a
 // chain; Kase its case flags; Kind a closing's kind flags (the rule
 // package's constants). Eu: takes 으 after a consonant. NoYo: 요 does
-// not follow. Copula: attaches only to, or holds, the copula stem.
+// not follow. NoIda: does not attach to the copula stem 이. NeedIda:
+// attaches only to 이 or 아니. SelfIda: holds the copula stem itself.
 type Marker struct {
-	Form   string
-	Lead   int
-	After  int
-	Slot   int
-	Kase   int
-	Kind   int
-	Eu     bool
-	NoYo   bool
-	Copula bool
-	Count  int
+	Form    string
+	Lead    int
+	After   int
+	Slot    int
+	Kase    int
+	Kind    int
+	Eu      bool
+	NoYo    bool
+	NoIda   bool
+	NeedIda bool
+	SelfIda bool
+	Count   int
 }

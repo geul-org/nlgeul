@@ -1,15 +1,12 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what closings — every predicate tail that ends at j: a closing, alone or with the slots before it
+//ff:what closings — every predicate tail that ends at j: a closing, alone or with the slots before it, and the same after the copula stem
 package token
 
-import (
-	"sort"
-
-	"github.com/geul-org/koparse/pkg/rule"
-)
+import "sort"
 
 // more tells that 요 follows. A closing that sits in the stem's last
-// syllable takes no slot before it.
+// syllable takes no slot before it. A closing that attaches only to
+// the copula stem stands otherwise only after 아니.
 func (sc *scan) closings(j int, more bool) []tail {
 	if j < 1 {
 		return nil
@@ -22,16 +19,9 @@ func (sc *scan) closings(j int, more bool) []tail {
 	sort.Strings(keys)
 	var out []tail
 	for _, k := range keys {
-		pc, e := pieces[k], from[k]
-		if e.lead != 0 {
-			out = append(out, sc.fusedTails(pc, e, starts[k])...)
-			continue
-		}
-		out = append(out, tail{start: starts[k], pieces: []piece{pc}, noYo: e.noYo})
-		for _, t := range joined(sc.slots(starts[k], rule.SlotClosing), pc) {
-			t.noYo = e.noYo
-			out = append(out, t)
-		}
+		out = append(out, sc.closingTails(pieces[k], from[k], starts[k])...)
 	}
-	return out
+	out = append(out, sc.loneHonors(j, false)...)
+	out = append(out, sc.negated(out)...)
+	return append(out, sc.copulas(out)...)
 }

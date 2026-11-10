@@ -7,6 +7,7 @@ func (sc *scan) search() []*path {
 	if n == 0 {
 		return nil
 	}
+	sc.prepare()
 	best := make([][]*path, n+1)
 	best[0] = []*path{{verdict: 1}}
 	for j := 1; j <= n; j++ {
