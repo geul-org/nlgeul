@@ -42,6 +42,13 @@ func TestWordOf(t *testing.T) {
 	if e = scanOf("봐").wordOf(0, 1, tail{start: 1, base: '보', pieces: []piece{{"(아)", "맺음:어(합침)", 1, 0, rule.TailPred, false}}}); e.marked != "보[보조 용언:보]+(아)[맺음:어(합침)]" || e.verdict != 1 {
 		t.Fatal(e)
 	}
+	main := wordsScan("먹어보다", layerCost)
+	if e = main.wordOf(0, 2, tail{start: 1, pieces: []piece{{"어", "맺음:어", 1, -1, rule.TailPred, false}}}); !e.conn || e.back != 0 {
+		t.Fatal("a word that ends in 어", e)
+	}
+	if e = main.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false}}}); e.conn || e.back != costBoundary {
+		t.Fatal("an auxiliary verb's stem after a boundary", e)
+	}
 	num := scanOf("세명")
 	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.marked != "세[수]+명[단위:명]" || e.pref != -1.5-costPiece || e.verdict != 1 {
 		t.Fatal(e)

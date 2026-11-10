@@ -34,6 +34,9 @@ func TestPlace(t *testing.T) {
 	if _, _, ok := scanOf("가다").place(&entry{lead: leadVowel}, 1, false); ok {
 		t.Fatal("an unseen fusion inside a unit")
 	}
+	if _, _, ok := scanOf("가보다").place(&entry{lead: leadVowel}, 1, false); !ok {
+		t.Fatal("an unseen fusion right before an auxiliary verb's stem")
+	}
 	if _, _, ok := scanOf("가").place(&entry{lead: leadVowel}, 1, false); !ok {
 		t.Fatal("an unseen fusion at the unit's end")
 	}

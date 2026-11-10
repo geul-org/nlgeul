@@ -4,6 +4,7 @@ package token
 
 import (
 	"math"
+	"slices"
 	"strings"
 )
 
@@ -31,5 +32,9 @@ func (sc *scan) wordOf(b, end int, t tail) eojeol {
 	}
 	e.names = strings.Join(names, " + ")
 	e.adn = len(t.pieces) > 0 && strings.HasPrefix(names[len(names)-1], "꾸밈:")
+	e.conn = len(t.pieces) > 0 && slices.Contains(connNames, names[len(names)-1])
+	if b > 0 && v > 0 && len(t.pieces) > 0 && slices.Contains(sc.ix.auxStems(), stem) {
+		e.back = sc.ix.structure(b, nil) - sc.ix.structure(0, nil)
+	}
 	return e
 }

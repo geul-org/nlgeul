@@ -76,3 +76,16 @@ var shortPronouns = []contract{
 	{"날", "나", "(를)", "목적격:를", '를', false}, {"널", "너", "(를)", "목적격:를", '를', false}, {"절", "저", "(를)", "목적격:를", '를', false},
 	{"걘", "걔", "(는)", "보조사:는", '는', false}, {"얜", "얘", "(는)", "보조사:는", '는', false}, {"쟨", "쟤", "(는)", "보조사:는", '는', false},
 }
+
+// Auxiliary verbs written onto the 어/아 form of a main verb (clause 47
+// of the orthography lets them be). connNames are the readings of that
+// form. auxAfter are the stems read so, on top of the closed set of the
+// grammar tables (지 apart): the boundary before one of them costs
+// nothing, and an 어/아 that leaves no trace is read right before one.
+// helpers are 지 (어지다) and 하 (어하다), which are always written
+// onto the main verb: they are read as pieces of the same word
+// (지우+(어)+지+(ㄴ)다, 예쁘+(어)+하+(ㄴ)다).
+var connNames = []string{"맺음:어", "맺음:아", "맺음:여", "맺음:어(합침)"}
+var auxAfter = []string{"주", "보", "버리", "놓", "두", "있"}
+var auxMore = []string{"가", "내", "드리"}
+var helpers = map[rune]string{'지': "보조:지", '하': "보조:하"}
