@@ -45,6 +45,8 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `SlotOrder` | except | 선어말 칸의 순서가 어긋난다(`SlotBefore`) | 없음 |
 | `PieceLast` | except | 이 표지 뒤에 이어지는 조각이 없다 | 없음 |
 | `StemTail` | except | 줄기의 갈래가 뒤에 붙은 것과 맞지 않는다 | `Bits`(tail) |
+| `SeenFew` | counter | 이 낱말은 관측이 적다(적은 정도) | `Bits`(enough) |
+| `ShortKey` | counter | 이 낱말은 짧아 우연히 겹치기 쉽다 | `Bits`(syllables) |
 | `PieceBase` | except | 합쳐진 조각이 기준 목록에 없는 음절 밑에 있다 | 음절 목록 |
 
 도움 함수: `PieceOf`, `Applies`(예/아니오 → ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.

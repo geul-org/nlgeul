@@ -1,31 +1,35 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what known — is a stem a known word with what follows it: its name, and true when a table has it and (from the second layer on) one of its kinds takes that tail
+//ff:what known — is a stem a known word with what follows it: its name and its verdict, the best among the kinds a table gives it (0 when no table has it, or no kind of it takes that tail)
 package token
 
 import "strings"
 
 // Without a word table only the closed-set words are known, whatever
-// follows them, under their own names.
-func (ix *index) known(stem string, tail int) (string, bool) {
+// follows them, under their own names and with verdict 1. In the first
+// layer a stem of the table is known whatever follows. From the second
+// layer on each kind's graph judges the stem.
+func (ix *index) known(stem string, tail int) (string, float64) {
 	c, closed := ix.words[stem]
+	if ix.layers == layerNone && closed {
+		return c.name, 1
+	}
 	if ix.layers == layerNone {
-		if closed {
-			return c.name, true
-		}
-		return "", false
+		return "", 0
 	}
-	kinds := ix.closed[stem] | ix.lex[stem].kinds
+	w := ix.lex[stem]
 	var names []string
-	for _, k := range kindOrder {
-		if kinds&k != 0 && (ix.layers == layerKnown || ix.fits[k][tail] > 0) {
-			names = append(names, kindLabel[k])
+	best := 0.0
+	for i, k := range kindOrder {
+		v := 1.0
+		if ix.layers >= layerKind {
+			v = ix.stemVerdict(k, tail, w.by[i], stem)
+		}
+		if (ix.closed[stem]|w.kinds)&k != 0 && v > 0 {
+			names, best = append(names, kindLabel[k]), max(best, v)
 		}
 	}
-	if names == nil {
-		return "", false
+	if closed && names != nil {
+		return c.name, best
 	}
-	if closed {
-		return c.name, true
-	}
-	return "열쇠:" + strings.Join(names, "|"), true
+	return "열쇠:" + strings.Join(names, "|"), best
 }

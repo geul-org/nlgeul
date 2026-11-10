@@ -24,13 +24,12 @@ func loadWords(path string) (map[string]word, float64, error) {
 		if strings.HasPrefix(sc.Text(), "#") || sc.Text() == "" {
 			continue
 		}
-		key, w, err := parseWord(sc.Text())
+		key, kind, count, err := parseWord(sc.Text())
 		if err != nil {
 			return nil, 0, fmt.Errorf("낱말 표 %d번째 줄: %w", line, err)
 		}
-		old := lex[key]
-		lex[key] = word{old.kinds | w.kinds, max(old.count, w.count)}
-		total += float64(w.count)
+		lex[key] = folded(lex[key], kind, count)
+		total += float64(count)
 	}
 	return lex, total, sc.Err()
 }

@@ -48,6 +48,7 @@ const (
 	TailAux              // particles, none of them a case particle
 	TailCase             // particles with a case particle among them
 	TailPred             // a predicate tail: slots and a closing
+	TailVerb             // a predicate tail whose closing only verbs take
 )
 
 // Cases a particle marks. A particle with none of them is an auxiliary

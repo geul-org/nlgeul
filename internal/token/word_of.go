@@ -7,7 +7,8 @@ import (
 	"strings"
 )
 
-// A stem that a piece is fused into is printed, and looked up, with
+// A stem the word table has is never less well founded than a new
+// word, however rarely it was seen. A stem that a piece is fused into is printed, and looked up, with
 // its last syllable as it was before fusing (마신 → 마시).
 func (sc *scan) wordOf(b, end int, t tail) eojeol {
 	stem := string(sc.s[b:t.start])
@@ -15,11 +16,11 @@ func (sc *scan) wordOf(b, end int, t tail) eojeol {
 		stem = string(sc.s[b:t.start-1]) + string(t.base)
 	}
 	e := eojeol{end: end, marked: stem, names: newWord, verdict: sc.ix.unknown}
-	name, ok := sc.ix.known(stem, tailClass(t.pieces))
-	if ok {
-		e.names, e.verdict, e.marked = name, 1, stem+"["+name+"]"
+	name, v := sc.ix.known(stem, tailClass(t.pieces))
+	if v > 0 {
+		e.names, e.verdict, e.marked = name, math.Max(v, sc.ix.unknown), stem+"["+name+"]"
 	}
-	e.pref = sc.ix.stemPref(stem, ok) - sc.ix.structure(b, t.pieces)
+	e.pref = sc.ix.stemPref(stem, v > 0) - sc.ix.structure(b, t.pieces)
 	names := []string{e.names}
 	for _, p := range t.pieces {
 		e.marked += "+" + p.text + "[" + p.names + "]"

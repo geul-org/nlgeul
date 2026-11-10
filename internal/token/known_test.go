@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestKnown — without a word table only closed-set words are known, whatever follows; in the first layer any word of the table; from the second only when its kind takes what follows
+//ff:what TestKnown — without a word table only closed-set words are known, whatever follows, fully; in the first layer any word of the table, fully; from the second by its kind's graph: not when no kind takes what follows, less when rarely seen or one syllable long
 package token
 
 import (
@@ -10,33 +10,39 @@ import (
 
 func TestKnown(t *testing.T) {
 	none := scanOf("x").ix
-	if name, ok := none.known("것", rule.TailPred); !ok || name != "의존명사:것" {
-		t.Fatal(name, ok)
+	if name, v := none.known("것", rule.TailPred); v != 1 || name != "의존명사:것" {
+		t.Fatal(name, v)
 	}
-	if _, ok := none.known("고양이", rule.TailCase); ok {
+	if _, v := none.known("고양이", rule.TailCase); v != 0 {
 		t.Fatal("known without a table")
 	}
 	one := wordsScan("x", layerKnown).ix
-	if name, ok := one.known("마신", rule.TailPred); !ok || name != "열쇠:체언" {
-		t.Fatal(name, ok)
+	if name, v := one.known("마신", rule.TailPred); v != 1 || name != "열쇠:체언" {
+		t.Fatal(name, v)
 	}
 	two := wordsScan("x", layerKind).ix
-	if _, ok := two.known("마신", rule.TailPred); ok {
+	if _, v := two.known("마신", rule.TailPred); v != 0 {
 		t.Fatal("a noun before a closing")
 	}
-	if name, ok := two.known("작", rule.TailPred); !ok || name != "열쇠:용언" {
-		t.Fatal(name, ok)
+	if name, v := two.known("작", rule.TailPred); v <= 0 || name != "열쇠:형용사" {
+		t.Fatal(name, v)
 	}
-	if name, ok := two.known("작", rule.TailAux); !ok || name != "열쇠:체언" {
-		t.Fatal(name, ok)
+	if _, v := two.known("작", rule.TailVerb); v != 0 {
+		t.Fatal("an adjective before a verb's closing")
 	}
-	if name, ok := two.known("것", rule.TailCase); !ok || name != "의존명사:것" {
-		t.Fatal(name, ok)
+	if name, v := two.known("먹", rule.TailVerb); v <= 0 || name != "열쇠:동사" {
+		t.Fatal(name, v)
 	}
-	if _, ok := two.known("것", rule.TailPred); ok {
+	if name, v := two.known("작", rule.TailAux); v <= 0 || v >= 1 || name != "열쇠:체언" {
+		t.Fatal(name, v)
+	}
+	if name, v := two.known("것", rule.TailCase); v <= 0 || name != "의존명사:것" {
+		t.Fatal(name, v)
+	}
+	if _, v := two.known("것", rule.TailPred); v != 0 {
 		t.Fatal("a dependent noun before a closing")
 	}
-	if _, ok := two.known("없는말", rule.TailBare); ok {
+	if _, v := two.known("없는말", rule.TailBare); v != 0 {
 		t.Fatal("unknown")
 	}
 }

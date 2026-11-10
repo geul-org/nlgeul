@@ -50,7 +50,8 @@ const (
 // speech of a word table are folded into these.
 const (
 	kindNominal    = 1 << iota // 체언: 명사, 대명사, 수사, 식별자
-	kindVerbal                 // 용언 줄기: 동사, 형용사, 보조 용언
+	kindVerb                   // 동사 줄기 (보조 용언 포함)
+	kindAdj                    // 형용사 줄기
 	kindAdverb                 // 부사
 	kindDeterminer             // 관형사
 	kindAlone                  // 홀로 서는 말: 감탄사와 그 밖
@@ -71,6 +72,18 @@ const (
 // once: for every word after a unit's first, for every piece that
 // leaves no trace in the letters (어/아 fused into ㅏ ㅓ ㅐ ㅔ with
 // nothing after it), and for every stem and marker of a word.
+// How strong the evidence is that a stem found in the word table is
+// a word (the verdict of its kind's graph). These too are placeholders,
+// not measured values. A stem observed seenEnough times or more is not
+// rebutted as rarely seen; forceFew and forceShort are the forces of
+// the rebuttals "rarely seen" and "a key of one syllable".
+const (
+	seenEnough = 10000
+	forceFew   = 1.0
+	forceShort = 0.25
+	shortKey   = 1
+)
+
 const (
 	costBoundary = 1.0
 	costUnseen   = 1.0

@@ -11,7 +11,7 @@ import (
 
 func TestLoadWords(t *testing.T) {
 	lex, total, err := loadWords("testdata/words.tsv")
-	if err != nil || lex["작"] != (word{kindNominal | kindVerbal, 7000}) || lex["고양이"].count != 1000 || total <= 7000 {
+	if err != nil || lex["작"].kinds != kindNominal|kindAdj || lex["작"].count != 7000 || lex["작"].by[2] != 7000 || lex["작"].by[0] != 400 || lex["고양이"].count != 1000 || total <= 7000 {
 		t.Fatal(lex["작"], total, err)
 	}
 	if _, _, err := loadWords("testdata/none.tsv"); err == nil || !strings.Contains(err.Error(), "낱말 표를 열 수 없다") {

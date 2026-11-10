@@ -20,11 +20,15 @@ func TestWordOf(t *testing.T) {
 	}
 	ws := wordsScan("고양이가마신", layerCost)
 	e = ws.wordOf(0, 4, tail{start: 3, pieces: []piece{{"가", "주격:가", 1, -1.2, rule.TailCase, false}}})
-	if e.marked != "고양이[열쇠:체언]+가[주격:가]" || e.verdict != 1 || math.Abs(e.pref-(math.Log10(1000/ws.ix.lexTotal)-1.2-2*costPiece)) > 1e-9 {
+	if e.marked != "고양이[열쇠:체언]+가[주격:가]" || e.verdict <= ws.ix.unknown || math.Abs(e.pref-(math.Log10(1000/ws.ix.lexTotal)-1.2-2*costPiece)) > 1e-9 {
 		t.Fatal(e)
 	}
 	if e = ws.wordOf(4, 6, tail{start: 6, pieces: []piece{{"다", "맺음:다", 1, -4, rule.TailPred, false}}}); e.verdict != ws.ix.unknown {
 		t.Fatal("a noun before a closing counted as known", e)
+	}
+	rare := wordsScan("of", layerCost)
+	if e = rare.wordOf(0, 2, tail{start: 2}); e.verdict != rare.ix.unknown || e.marked != "of[열쇠:홀로]" {
+		t.Fatal("a rarely seen known word below a new word", e)
 	}
 	sc = scanOf("마신다")
 	e = sc.wordOf(0, 3, tail{start: 2, base: '시', pieces: []piece{{"(ㄴ)다", "맺음:ㄴ다", 1, -4, 0, false}}})

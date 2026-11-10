@@ -1,11 +1,17 @@
 //ff:func feature=token type=reader control=selection
-//ff:what tailOf — what kind of tail an entry makes after a stem: a case particle, another particle or suffix, or a piece of a predicate tail
+//ff:what tailOf — what kind of tail an entry makes after a stem: a case particle, another particle or suffix, a closing only verbs take, or another piece of a predicate tail
 package token
 
-import "github.com/geul-org/koparse/pkg/rule"
+import (
+	"slices"
+
+	"github.com/geul-org/koparse/pkg/rule"
+)
 
 func tailOf(e *entry) int {
 	switch {
+	case slices.Contains(verbClosings, e.name):
+		return rule.TailVerb
 	case e.class != classParticle:
 		return rule.TailPred
 	case e.kase != 0:

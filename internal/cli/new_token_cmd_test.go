@@ -31,7 +31,7 @@ func TestNewTokenCmd(t *testing.T) {
 	if err := run("아버지가\n아버지가\n", "--stdin", "--cuts"); err != nil || strings.Count(out.String(), "아버지가\t4;") != 2 {
 		t.Fatalf("%v %q", err, out.String())
 	}
-	if err := run("", "--words", "testdata/words.tsv", "마당에서"); err != nil || !strings.Contains(out.String(), "\n  마당[열쇠:체언]+에서[주격:에서|부사격:에서]\t성립 1.00") {
+	if err := run("", "--words", "testdata/words.tsv", "마당에서"); err != nil || !strings.Contains(out.String(), "\n  마당[열쇠:체언]+에서[주격:에서|부사격:에서]\t성립 ") {
 		t.Fatalf("%v %q", err, out.String())
 	}
 	t.Setenv("KOPAS_WORDS", "testdata/words.tsv")

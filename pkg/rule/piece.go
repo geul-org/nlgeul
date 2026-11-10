@@ -5,7 +5,8 @@ package rule
 // Prev is 0 when nothing stands before the piece. Slot and Next are places in a particle chain or the slots before a
 // closing; Next is -1 when nothing follows. Base is "" unless the
 // piece is fused into a stem's last syllable. Tail is set when the
-// piece is a stem: what follows it in its word (Tail…).
+// piece is a stem: what follows it in its word (Tail…); Count is
+// then its observed count (0 when unknown).
 type Piece struct {
 	Form    string
 	HasStem bool
@@ -14,4 +15,5 @@ type Piece struct {
 	Next    int
 	Base    string
 	Tail    int
+	Count   int
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestTailOf — a case particle, another particle, and anything of a predicate tail
+//ff:what TestTailOf — a case particle, another particle, a closing only verbs take, and anything else of a predicate tail
 package token
 
 import (
@@ -9,7 +9,7 @@ import (
 )
 
 func TestTailOf(t *testing.T) {
-	if tailOf(&entry{class: classParticle, kase: rule.CaseObj}) != rule.TailCase || tailOf(&entry{class: classParticle}) != rule.TailAux || tailOf(&entry{class: classClosing}) != rule.TailPred || tailOf(&entry{class: classSlot}) != rule.TailPred {
+	if tailOf(&entry{class: classParticle, kase: rule.CaseObj}) != rule.TailCase || tailOf(&entry{class: classParticle}) != rule.TailAux || tailOf(&entry{class: classClosing, name: "맺음:지만"}) != rule.TailPred || tailOf(&entry{class: classSlot}) != rule.TailPred || tailOf(&entry{class: classClosing, name: "맺음:ㄴ다"}) != rule.TailVerb {
 		t.Fatal("tailOf")
 	}
 }

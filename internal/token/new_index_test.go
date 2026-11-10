@@ -9,7 +9,7 @@ import (
 
 func TestNewIndex(t *testing.T) {
 	withWords, err := newIndex(Options{Words: "testdata/words.tsv"})
-	if err != nil || withWords.layers != layerCost || len(withWords.lex) == 0 || withWords.fits == nil {
+	if err != nil || withWords.layers != layerCost || len(withWords.lex) == 0 || withWords.kinds == nil {
 		t.Fatal(err)
 	}
 	if two, _ := newIndex(Options{Words: "testdata/words.tsv", Layers: layerKind}); two.layers != layerKind {
