@@ -34,14 +34,14 @@ var honorLetters = []rune{'셨', '셔', '십'}
 
 // negParts is what 잖 is written out as: the closing 지 and the stem
 // of 않다, which the closing after it attaches to.
-var negParts = []part{{"지", jiName}, {"(않)", "부정:않"}}
+var negParts = []split{{"지", jiName}, {"(않)", "부정:않"}}
 
 // splits are closings of the tables that are written out as their
 // pieces: 죠 is 지+요, 십시오 the honorific and ㅂ시오, 세요 the
 // honorific, 어 and 요, 더라 the slot 더 and 라. A closing so written
 // out is the same reading as its pieces read one by one, and is sent
 // up once.
-var splits = map[string][]part{
+var splits = map[string][]split{
 	"맺음:죠":    {{"지", jiName}, {"(요)", "보조사:요"}},
 	"맺음:세요":   {{"시", honorName}, {"(어)", vowelName}, {"요", "보조사:요"}},
 	"맺음:으세요":  {{"으", euName}, {"시", honorName}, {"(어)", vowelName}, {"요", "보조사:요"}},

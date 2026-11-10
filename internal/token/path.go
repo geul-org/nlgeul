@@ -4,7 +4,7 @@ package token
 
 type path struct {
 	prev    *path
-	last    eojeol
+	last    step
 	sig     string
 	verdict float64
 	pref    float64

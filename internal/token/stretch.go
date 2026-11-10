@@ -1,21 +1,16 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what stretch — one reading's way through the stretch (from, to]: its words there, printed, with the least verdict and the summed preference
+//ff:what stretch — one reading's way through the stretch (from, to]: its words there, with the least verdict and the summed preference
 package token
 
-import (
-	"math"
-	"strings"
-)
+import "math"
 
-func stretch(p *path, from, to int) branch {
-	b := branch{verdict: 1}
-	var marked, names []string
+func stretch(p *path, from, to int) Branch {
+	b := Branch{Verdict: 1}
 	for _, e := range wordsOf(p) {
 		if e.end > from && e.end <= to {
-			marked, names = append(marked, e.marked), append(names, e.names)
-			b.verdict, b.pref = math.Min(b.verdict, e.verdict), b.pref+e.pref
+			b.Words = append(b.Words, e.word)
+			b.Verdict, b.Pref = math.Min(b.Verdict, e.verdict), b.Pref+e.pref
 		}
 	}
-	b.marked, b.names = strings.Join(marked, " "), strings.Join(names, " + ")
 	return b
 }

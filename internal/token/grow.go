@@ -4,10 +4,10 @@ package token
 
 import "math"
 
-func grow(p *path, e eojeol) *path {
-	sig := e.marked
+func grow(p *path, e step) *path {
+	sig := e.sig
 	if p.prev != nil || p.sig != "" {
-		sig = p.sig + " " + e.marked
+		sig = p.sig + " " + e.sig
 	}
 	pref := p.pref + e.pref
 	if p.last.conn {

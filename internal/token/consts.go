@@ -52,9 +52,11 @@ const chainMax = 3
 const syllables = 11172
 
 // newWord and noKey name the graph of a stem that is not in any table.
+// keyKind is the kind of a stem's reading that a word table gives.
 const (
 	newWord = "새 낱말"
 	noKey   = "열쇠 표에 없다"
+	keyKind = "열쇠"
 )
 
 // Kinds of stem, by what may follow them (kindTails). The parts of

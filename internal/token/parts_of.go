@@ -2,7 +2,7 @@
 //ff:what partsOf — a piece written out as the parts it is fused from: each part has the piece's verdict and kind of tail, and the first its preference
 package token
 
-func partsOf(pc piece, parts []part) []piece {
+func partsOf(pc piece, parts []split) []piece {
 	if len(parts) == 0 {
 		return []piece{pc}
 	}

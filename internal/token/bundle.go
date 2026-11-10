@@ -1,8 +1,14 @@
 //ff:type feature=token type=model
-//ff:what bundle — what is sent up for one stretch between agreed boundaries: its text and its branches, best first; more than one branch is a contest (one of them holds)
+//ff:what Bundle — what is sent up for one stretch of a sentence: which unit of the sentence it is in, its letters, and its branches, best first; one branch is a settled reading, more than one a contest (one of them holds); a bundle of branches that are asleep holds a unit's whole readings that were not sent up
 package token
 
-type bundle struct {
-	text     string
-	branches []branch
+// The stretches of a unit come in order; after them, when the unit has
+// readings asleep, one bundle with the whole unit's letters and those
+// readings; and last the dots that close the unit, as a bundle of
+// their own. A unit that holds nothing to read (signs only) is one
+// bundle with its letters as they are.
+type Bundle struct {
+	Unit     int
+	Text     string
+	Branches []Branch
 }

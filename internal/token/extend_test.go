@@ -29,7 +29,7 @@ func TestExtend(t *testing.T) {
 		t.Fatal("a noun before a closing that asks for a predicate", got)
 	}
 	adn := scanOf("간곳")
-	after := [][]*path{{{verdict: 1}}, {{verdict: 1, last: eojeol{end: 1}}, {verdict: 1, last: eojeol{end: 1, adn: true}}}, nil}
+	after := [][]*path{{{verdict: 1}}, {{verdict: 1, last: step{end: 1}}, {verdict: 1, last: step{end: 1, adn: true}}}, nil}
 	if got := adn.extend(nil, after, tail{start: 2, adn: true}, 2); len(got) != 1 || got[0].prev != after[1][1] {
 		t.Fatal("a tail read only after a modifying closing", got)
 	}

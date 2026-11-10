@@ -6,7 +6,7 @@ import "testing"
 
 func TestGrown(t *testing.T) {
 	sc := scanOf("가는")
-	kept := []*path{{verdict: 1}, {verdict: 1, last: eojeol{adn: true}}}
+	kept := []*path{{verdict: 1}, {verdict: 1, last: step{adn: true}}}
 	adn := tail{start: 1, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1}}}
 	if got := sc.grown(nil, kept, adn, 0, 2); len(got) != 2 || !sc.adnEnds[2] {
 		t.Fatal(got, sc.adnEnds)

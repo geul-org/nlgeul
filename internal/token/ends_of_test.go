@@ -5,8 +5,8 @@ package token
 import "testing"
 
 func TestEndsOf(t *testing.T) {
-	first := &path{prev: &path{}, last: eojeol{end: 2}}
-	two := &path{prev: first, last: eojeol{end: 5}}
+	first := &path{prev: &path{}, last: step{end: 2}}
+	two := &path{prev: first, last: step{end: 5}}
 	if got := endsOf([]*path{two, first}); got != "2,5;2" {
 		t.Fatal(got)
 	}

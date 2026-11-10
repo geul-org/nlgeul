@@ -1,25 +1,19 @@
-//ff:func feature=token type=reader control=iteration dimension=1
-//ff:what readUnit — the lines of one unit (the text between fixed boundaries: spaces and the signs of a pair): its trace when asked for, then the bundles of its readings that are awake, then (when asked for) the readings that are asleep, then the dots that close it
+//ff:func feature=token type=reader control=sequence
+//ff:what readUnit — one unit (the text between fixed boundaries: spaces and the signs of a pair) read into bundles: the stretches its readings that are awake agree on, then the readings that are asleep, then the dots that close it; and its trace when asked for
 package token
 
-func readUnit(ix *index, u unit, trace bool) []string {
-	field := u.text
+// A unit with nothing to read (signs only) is one bundle with its
+// letters as they are.
+func readUnit(ix *index, u unit, trace bool) ([]Bundle, []string) {
 	sc := &scan{ix: ix, s: coreOf(u), head: u.head, headName: u.name}
 	if len(sc.s) == 0 {
-		return []string{field}
+		return []Bundle{{Text: u.text, Branches: []Branch{{Words: []Eojeol{{Parts: []Part{{Text: u.text, Stem: true}}}}, Verdict: 1}}}}, nil
 	}
 	var notes []string
 	if trace {
 		sc.trace = &notes
 	}
-	var out []string
 	awake, asleep := wake(sc.search())
-	for _, b := range sc.bundles(awake) {
-		out = append(out, render(b)...)
-	}
-	if ix.asleep {
-		out = append(out, renderAsleep(string(sc.s), asleep)...)
-	}
-	out = append(out, sc.closingDots(field)...)
-	return append(notes, out...)
+	out := append(sc.bundles(awake), sc.asleepBundle(asleep)...)
+	return append(out, sc.closingDots(u.text)...), notes
 }

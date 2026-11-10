@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what wordOf — one word of a reading: the stem from b (a known word, an atom or a new word) and the markers after it, printed with "+" and the graph names, with its verdict and preference
+//ff:what wordOf — one word of a reading: the stem from b (a known word, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference
 package token
 
 import (
@@ -14,25 +14,25 @@ import (
 // is printed, and looked up, with its last syllable as it was before
 // fusing (마신 → 마시). In a stem an atom counts as one token for
 // preference.
-func (sc *scan) wordOf(b, end int, t tail) eojeol {
+func (sc *scan) wordOf(b, end int, t tail) step {
 	stem, name, v := sc.stemOf(b, t)
-	e := eojeol{end: end, marked: stem, names: newWord, verdict: sc.ix.unknown}
+	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: sc.ix.unknown}
 	if v > 0 {
-		e.names, e.verdict, e.marked = name, v, stem+"["+name+"]"
+		e.verdict, e.word.Parts[0].Names = v, namesOf(name)
 	}
 	e.pref = sc.ix.stemPref(stem, tailClass(t.pieces), v > 0, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
 	if t.as != "" {
 		e.pref = t.weight - sc.ix.structure(b, t.pieces)
 	}
-	names := []string{e.names}
+	last := ""
 	for _, p := range t.pieces {
-		e.marked += "+" + p.text + "[" + p.names + "]"
-		e.verdict, e.pref = math.Min(e.verdict, p.verdict), e.pref+p.pref
-		names = append(names, p.names)
+		hidden, shown := hiddenOf(p.text)
+		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen})
+		e.verdict, e.pref, last = math.Min(e.verdict, p.verdict), e.pref+p.pref, p.names
 	}
-	e.names = strings.Join(names, " + ")
-	e.adn = len(t.pieces) > 0 && strings.HasPrefix(names[len(names)-1], "꾸밈:")
-	e.conn = len(t.pieces) > 0 && slices.Contains(connNames, names[len(names)-1])
+	e.sig = e.word.String()
+	e.adn = strings.HasPrefix(last, "꾸밈:")
+	e.conn = slices.Contains(connNames, last)
 	if b > 0 && v > 0 && len(t.pieces) > 0 && slices.Contains(sc.ix.auxStems(), stem) {
 		e.back = sc.ix.structure(b, nil) - sc.ix.structure(0, nil)
 	}
