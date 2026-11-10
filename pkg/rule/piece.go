@@ -13,7 +13,9 @@ package rule
 // before the piece; Whole that this number and the piece together are a
 // word of the word table or a fused form, and Lone that the number is a
 // lone Sino-Korean digit read with no word table. Adn tells that the
-// word right before the piece ends in a modifying closing.
+// word right before the piece ends in a modifying closing. Marked tells
+// that the letters of a whole new word after a boundary read as
+// markers of the index.
 type Piece struct {
 	Form    string
 	HasStem bool
@@ -30,4 +32,5 @@ type Piece struct {
 	Whole   bool
 	Lone    bool
 	Adn     bool
+	Marked  bool
 }

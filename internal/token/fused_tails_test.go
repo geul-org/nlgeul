@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestFusedTails — a tail for each stem the fused syllable may come from, the piece in brackets before the rest of the form; a fused 어/아 that changes no letter is marked as leaving no trace; 셨 is read as the honorific too
+//ff:what TestFusedTails — a tail for each stem the fused syllable may come from, the piece in brackets before the rest of the form; a fused 어/아 that changes no letter is marked as leaving no trace and, with a word table, asks for a predicate's stem before it; 셨 is read as the honorific too
 package token
 
 import "testing"
@@ -15,6 +15,13 @@ func TestFusedTails(t *testing.T) {
 	}
 	if seen := scanOf("봐").fusedTails(piece{}, &entry{lead: leadVowel}, 1); len(seen) != 1 || seen[0].pieces[0].unseen {
 		t.Fatal(seen)
+	}
+	ws := wordsScan("가서", layerCost)
+	if gate := ws.fusedTails(piece{}, &entry{lead: leadVowel, form: "서"}, 1); len(gate) != 2 || gate[0].gate != ws.ix.pred || gate[0].gate == nil {
+		t.Fatal("an 어/아 that leaves no trace asks for a predicate's stem of the table", gate)
+	}
+	if gate := wordsScan("봐", layerCost).fusedTails(piece{}, &entry{lead: leadVowel}, 1); gate[0].gate != nil {
+		t.Fatal("a fused 어/아 that shows asks for nothing", gate)
 	}
 	sc = scanOf("마신다")
 	got = sc.fusedTails(piece{names: "맺음:ㄴ다"}, &entry{form: "다", lead: jongN, noYo: true}, 2)

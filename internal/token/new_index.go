@@ -11,8 +11,9 @@ import (
 // it is a word stands, rebutted at half force by "it is in no key
 // table". Its verdict (1/3) is a low positive one, as
 // stream-graph-algorithm.md section 12 asks; the force is a
-// placeholder, not a measured value. Without a word table the index
-// reads as it did before there was one.
+// placeholder, not a measured value. A whole new word after a boundary
+// inside a unit does not stand when its letters read as markers there
+// (the exception PieceMarked).
 func newIndex(o Options) (*index, error) {
 	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}}
 	ix.addWords()
@@ -29,7 +30,8 @@ func newIndex(o Options) (*index, error) {
 	g := toulmin.NewGraph(newWord)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: newWord, Concludes: "열쇠"})
 	g.Counter(rule.PieceRead).With(&rule.Claim{Name: noKey, Concludes: "반박"}).Attacks(claim, 0.5)
-	ix.stem, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+1
+	g.Except(rule.PieceMarked).Attacks(claim)
+	ix.stem, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+2
 	ix.unknown, _ = verdictOf(g, rule.Piece{}, "")
 	if o.Words == "" {
 		return ix, nil

@@ -12,10 +12,11 @@ func (sc *scan) search() []*path {
 	best[0] = []*path{{verdict: 1}}
 	for j := 1; j <= n; j++ {
 		var cands []*path
-		for _, t := range sc.tailsAt(j) {
+		tails := sc.tailsAt(j)
+		for _, t := range tails {
 			cands = sc.extend(cands, best, t, j)
 		}
-		best[j] = sc.ix.top(sc.whole(cands, best, j), beam)
+		best[j] = sc.ix.top(sc.whole(cands, best, j, markedFrom(tails)), beam)
 	}
 	return sc.ix.top(best[n], branches)
 }
