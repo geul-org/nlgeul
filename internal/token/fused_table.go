@@ -9,15 +9,16 @@ package token
 // the honorific too. After a consonant the link vowel 으 stands before
 // it (읽으셨다).
 const (
-	honorName  = "선어말:시"
-	honorCount = 19566
-	euName     = "이음:으"
-	linkVowel  = '으'
-	euCount    = 225409
-	negName    = "합침:잖"
-	negLetter  = '잖'
-	jiName     = "맺음:지"
-	yoName     = "보조사:요"
+	honorName     = "선어말:시"
+	honorCount    = 19566
+	euName        = "이음:으"
+	linkVowel     = '으'
+	euCount       = 225409
+	negName       = "합침:잖"
+	negLetter     = '잖'
+	jiName        = "맺음:지"
+	yoName        = "보조사:요"
+	closingPrefix = "맺음:"
 )
 
 // An auxiliary particle is written onto a linking closing (보지도,

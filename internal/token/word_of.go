@@ -29,7 +29,7 @@ func (sc *scan) wordOf(b, end int, t tail) step {
 	last := ""
 	for _, p := range t.pieces {
 		hidden, shown := hiddenOf(p.text)
-		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen})
+		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen, Ends: closesOf(t, p)})
 		e.verdict, e.pref, last = math.Min(e.verdict, p.verdict), e.pref+p.pref, p.names
 	}
 	e.sig = e.word.String()

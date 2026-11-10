@@ -17,6 +17,7 @@ type entry struct {
 	name  string
 	form  string
 	class int
+	ends  int
 	lead  int
 	after int
 	slot  int

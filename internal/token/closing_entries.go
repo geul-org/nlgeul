@@ -9,7 +9,7 @@ import (
 
 func closingEntries(m parse.Marker) []*entry {
 	name := closingLabel(m.Kind) + ":"
-	base := entry{class: classClosing, noYo: m.NoYo, bars: m.NoIda, needs: m.NeedIda, holds: m.SelfIda}
+	base := entry{class: classClosing, ends: m.Kind & (rule.KindFinal | rule.KindLink), noYo: m.NoYo, bars: m.NoIda, needs: m.NeedIda, holds: m.SelfIda}
 	make1 := func(form string, lead, after int, shown string) *entry {
 		e := base
 		e.name, e.form, e.lead, e.after = name+shown, form, lead, after
