@@ -21,14 +21,14 @@ const (
 )
 
 // An auxiliary particle is written onto a linking closing (보지도,
-// 먹고는, 조용하게는; clause 41 of the orthography: a particle after an
+// 먹고는, 조용하게는, 먹어서는, 하면서는; clause 41 of the orthography: a particle after an
 // ending is written onto it too). auxClosings are the closings and
 // auxParticles the particles this is read for. A pair that is itself a
 // closing of the tables (어도, 어야, 고도, 지만) is read as that closing
 // only.
 const linkAuxName = "사슬:맺음 뒤 보조사"
 
-var auxClosings = []string{"맺음:지", "맺음:고", "맺음:게", "맺음:어", "맺음:아", "맺음:여", "맺음:어(합침)"}
+var auxClosings = []string{"맺음:지", "맺음:고", "맺음:게", "맺음:어", "맺음:아", "맺음:여", "맺음:어(합침)", "맺음:어서", "맺음:아서", "맺음:여서", "맺음:어서(합침)", "맺음:면서", "맺음:으면서"}
 var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "보조사:야"}
 
 var honorLetters = []rune{'셨', '셔', '십'}
