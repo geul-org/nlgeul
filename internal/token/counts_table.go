@@ -145,7 +145,8 @@ var closingCounts = map[string]int{
 	"맺음:어라":   6703,
 	"맺음:아라":   5268,
 	"맺음:여라":   960,
-	// the closings of this layer's own list (moreClosings)
+	// the closings of this layer's own lists (moreClosings, gatedClosings)
+	"이름:기":    951824,
 	"맺음:되":    3306,
 	"맺음:어야지":  44,
 	"맺음:아야지":  65,

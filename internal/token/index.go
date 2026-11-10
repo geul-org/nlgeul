@@ -23,6 +23,7 @@ type index struct {
 	barred     []string
 	copula     *entry
 	linkAux    *entry
+	nounAux    *entry
 	closingSet map[string]bool
 	dropped    *entry
 	honor      *entry

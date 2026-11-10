@@ -59,3 +59,20 @@ var moreClosings = []parse.Marker{
 	{Form: "는답니다", After: rule.AfterBatchim, Kind: rule.KindFinal, NoYo: true, NoIda: true},
 	{Form: "랍니다", Eu: true, Kind: rule.KindFinal, NoYo: true},
 }
+
+// gatedClosings are closings of this layer read only with a word
+// table, after a predicate's stem of the table: the naming closing 기
+// (먹기, 있기), which without that would be read at the end of every
+// word that ends in 기. nounHeads are the naming closings a particle
+// chain is read right after (있기+는, 받기+도): the word so made is a
+// nominal. 음 and ㅁ are not among them.
+var gatedClosings = []parse.Marker{
+	{Form: "기", Kind: rule.KindNoun, NoYo: true},
+}
+
+var nounHeads = []string{"이름:기"}
+
+const (
+	nounAuxName = "사슬:이름 꼴 뒤 조사"
+	nounLetter  = '기'
+)
