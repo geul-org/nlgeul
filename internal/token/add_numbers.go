@@ -13,7 +13,7 @@ import (
 // graphs have no rebuttal, so they stand with verdict 1. The tables
 // give the pieces after a number no counts: each is taken as one of
 // the table's entries, as a token no table lists is taken as one of
-// the Hangul syllables.
+// the Hangul syllables, and a greater number as one of its own few.
 func (ix *index) addNumbers() {
 	g := toulmin.NewGraph(numGraph)
 	g.Rule(rule.PieceRead).With(&rule.Claim{Name: numGraph, Concludes: "열쇠"})
@@ -34,7 +34,11 @@ func (ix *index) addNumbers() {
 	}
 	ix.tilde = frontGraph(tildeName, digits, false)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
-	ix.after, ix.afterPref = map[rune][]*entry{}, math.Log10(1/float64(len(unitWords)+2))
+	ix.after = map[rune][]*entry{}
+	ix.afterPrefs = map[bool]float64{false: math.Log10(1 / float64(len(unitWords)+2)), true: math.Log10(1 / float64(len([]rune(sinoBigs))))}
+	for _, r := range sinoBigs {
+		ix.addAfter(bigName+string(r), string(r), placeBig)
+	}
 	ix.addAfter(overName, "여", placeOver)
 	ix.addAfter(orderName, "째", placeOrder)
 	for _, u := range unitWords {

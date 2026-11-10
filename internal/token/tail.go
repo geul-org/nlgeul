@@ -15,5 +15,7 @@ type tail struct {
 	only   string
 	shown  string
 	label  string
+	as     string
+	weight float64
 	gate   *entry
 }

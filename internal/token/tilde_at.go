@@ -8,7 +8,7 @@ func (sc *scan) tildeAt(j int) []tail {
 	if sc.at(j-1) != '~' {
 		return nil
 	}
-	lefts := sc.units(j-1, 0)
+	lefts := sc.units(j-1, 0, false)
 	if len(lefts) == 0 {
 		return nil
 	}

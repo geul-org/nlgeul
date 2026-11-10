@@ -6,7 +6,7 @@ func (sc *scan) afterUnits(t tail) []tail {
 	if t.base != 0 {
 		return nil
 	}
-	out := joined(sc.units(t.start, 0), t.pieces...)
+	out := joined(sc.units(t.start, 0, false), t.pieces...)
 	for i := range out {
 		out[i].noYo, out[i].close = t.noYo, t.close
 	}

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestWordOf — a new word with its marker: the low verdict, the stem and marker printed with the graph name; a closed-set word as stem has verdict 1; a stem a piece is fused into is printed and looked up as it was before fusing; with a word table a stem is known only when its kind takes what follows, and its preference comes from the table's count less the cost of structure
+//ff:what TestWordOf — a new word with its marker: the low verdict, the stem and marker printed with the graph name; a closed-set word as stem has verdict 1; a stem a piece is fused into is printed and looked up as it was before fusing; with a word table a stem is known only when its kind takes what follows, and its preference comes from the table's count less the cost of structure; a stem read as a number has the preference the tail gives it
 package token
 
 import (
@@ -40,6 +40,10 @@ func TestWordOf(t *testing.T) {
 		t.Fatal(e)
 	}
 	if e = scanOf("봐").wordOf(0, 1, tail{start: 1, base: '보', pieces: []piece{{"(아)", "맺음:어(합침)", 1, 0, 0, false}}}); e.marked != "보[보조 용언:보]+(아)[맺음:어(합침)]" || e.verdict != 1 {
+		t.Fatal(e)
+	}
+	num := scanOf("세명")
+	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.marked != "세[수]+명[단위:명]" || e.pref != -1.5 || e.verdict != 1 {
 		t.Fatal(e)
 	}
 }

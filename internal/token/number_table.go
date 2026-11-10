@@ -62,9 +62,11 @@ var unitWords = []string{
 // and one of them is a number and its unit.
 var latinUnits = []string{"kg", "cm", "km", "ms", "MB", "GB"}
 
-// Places after a number: 여 (more than), a unit, 째 (an order).
+// Places after a number: a greater number (만, 천), 여 (more than), a
+// unit, 째 (an order).
 const (
-	placeOver = iota + 1
+	placeBig = iota + 1
+	placeOver
 	placeUnit
 	placeOrder
 )

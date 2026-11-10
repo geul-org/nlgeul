@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStemOf — the letters before the tail; the syllable before fusing; a closed-set word; an atom; the word of a fused form, known under the form's name without a table and under the table's name with one
+//ff:what TestStemOf — the letters before the tail; the syllable before fusing; a closed-set word; an atom; the word of a fused form, known under the form's name without a table and under the table's name with one; a stem that a tail reads as a number is named so with the number's verdict
 package token
 
 import "testing"
@@ -20,6 +20,9 @@ func TestStemOf(t *testing.T) {
 	}
 	ws := wordsScan("물게", layerCost)
 	if stem, name, v := ws.stemOf(0, tail{start: 2, shown: "물", label: "줄임:x", pieces: []piece{{tail: 2}}}); stem != "물" || name == "줄임:x" || v <= 0 {
+		t.Fatal(stem, name, v)
+	}
+	if stem, name, v := scanOf("세명").stemOf(0, tail{start: 1, as: numName}); stem != "세" || name != numName || v != 1 {
 		t.Fatal(stem, name, v)
 	}
 }

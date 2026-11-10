@@ -10,7 +10,7 @@ func (sc *scan) tailsAt(j int) []tail {
 	}
 	out := append(sc.chains(j, 0, -1), sc.closings(j, false)...)
 	out = append(out, sc.fixed(j, -1)...)
-	out = append(out, sc.units(j, 0)...)
+	out = append(out, sc.units(j, 0, true)...)
 	out = append(out, sc.tildeAt(j)...)
 	if j < 2 || sc.s[j-1] != '요' {
 		return out

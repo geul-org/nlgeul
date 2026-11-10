@@ -20,7 +20,7 @@ func (sc *scan) chains(j, depth, next int) []tail {
 		}
 		out = append(out, withGate(here, kinds[f][0].gate)...)
 		out = append(out, joined(sc.loneHonors(start, false), pc)...)
-		out = append(out, joined(sc.units(start, 0), pc)...)
+		out = append(out, joined(sc.units(start, 0, false), pc)...)
 	}
 	return out
 }

@@ -19,6 +19,9 @@ func (sc *scan) wordOf(b, end int, t tail) eojeol {
 		e.names, e.verdict, e.marked = name, math.Max(v, sc.ix.unknown), stem+"["+name+"]"
 	}
 	e.pref = sc.ix.stemPref(stem, v > 0, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
+	if t.as != "" {
+		e.pref = t.weight - sc.ix.structure(b, t.pieces)
+	}
 	names := []string{e.names}
 	for _, p := range t.pieces {
 		e.marked += "+" + p.text + "[" + p.names + "]"

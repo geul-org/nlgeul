@@ -13,6 +13,7 @@ var reasons = map[string]string{
 	"PieceCut":      "떼어 낸 받침이 뒤 토큰과 표의 맺음을 이루지 않는다",
 	"StemKind":      "앞말이 낱말 표에서 그 갈래의 줄기가 아니다",
 	"PartsShape":    "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다",
+	"PieceRunsOn":   "단위 뒤에 글자가 그대로 이어진다",
 	"PieceNoNumber": "바로 앞이 수가 아니다",
 	"MarkRight":     "기호의 오른쪽이 수가 아니다",
 	"MarkAfterWord": "기호의 왼쪽에 글자가 붙어 있다",
