@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what irrTails — the closings that end at j and attach only after a consonant, read where a vowel stands before them, by the own last syllable of a stem that changes there (지은 = 짓+은): each stands as a tail that asks for a stem so changed
+//ff:what irrTails — the closings that end at j and attach only after a consonant (some of them not after ㄹ), read where a vowel or ㄹ stands before them, by the own last syllable of a stem that changes there (지은 = 짓+은, 물을 = 묻+을): each stands as a tail that asks for a stem so changed
 package token
 
 import "github.com/geul-org/koparse/pkg/rule"
@@ -10,7 +10,7 @@ func (sc *scan) irrTails(j int, more bool) []tail {
 	var out []tail
 	for _, e := range sc.entriesAt(j) {
 		start, p, ok := sc.place(e, j, more)
-		if !ok || e.class != classClosing || e.lead != 0 || e.after != afterBatchim || start < 1 || rule.Fits(sc.s[start-1], e.after) {
+		if !ok || e.class != classClosing || e.lead != 0 || (e.after != afterBatchim && e.after != rule.AfterHard) || start < 1 || rule.Fits(sc.s[start-1], e.after) {
 			continue
 		}
 		for _, a := range sc.ix.irrEnds[sc.s[start-1]] {
