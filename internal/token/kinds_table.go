@@ -69,6 +69,15 @@ const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj
 // it stays a determiner.
 var pronouns = []string{"이", "그", "저"}
 
+// pronounWords are pronouns this layer knows on top of the word
+// table, which kopas parse does not read: 네 (너 before 가, and 너의),
+// 내 (나 before 가, and 나의) and 제 (저 before 가, and 저의). The
+// dictionary lists each as a pronoun. With a word table each is a
+// nominal whatever rows the table has for it (네 is there only as a
+// determiner), named as the table's nominals are; without one they are
+// not read (each would cut every word that begins with it).
+var pronounWords = []string{"네", "내", "제"}
+
 const (
 	determinerLabel = "관형사"
 	pronounLabel    = "대명사"
