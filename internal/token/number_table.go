@@ -20,6 +20,7 @@ var signShapes = map[rune][]rule.Shape{
 	'~': {{Of: "범위:~", Min: 2, Max: 2}},
 	'-': {
 		{Of: "범위:-", Min: 2, Max: 2},
+		{Of: "빼기:-", Min: 2, Max: 2},
 		{Of: "날짜:-", Min: 3, Max: 3, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}, {1, 31}}},
 		{Of: "전화:-", Min: 3, Max: 3, Lens: [][2]int{{2, 4}, {3, 4}, {4, 4}}, Head: "0"},
 	},
@@ -55,6 +56,7 @@ var unitWords = []string{
 	"년", "월", "일", "시", "분", "초", "주", "개월", "시간", "살", "세",
 	"원", "달러", "엔",
 	"자", "글자", "단어", "문장", "토큰",
+	"비트", "바이트", "단계", "워드", "차원", "종", "라인", "픽셀", "턴", "세트",
 	"%", "℃", "kg", "cm", "km", "ms", "MB", "GB",
 }
 
@@ -76,3 +78,7 @@ const (
 	orderName = "차례:째"
 	tildeName = "범위:~(단위 뒤)"
 )
+
+// unitSuffixes stand after a number and its unit, where 째 stands
+// (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are.
+var unitSuffixes = []string{"짜리", "가량", "당"}

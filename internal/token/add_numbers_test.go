@@ -9,13 +9,13 @@ func TestAddNumbers(t *testing.T) {
 	ix.addDots()
 	graphs := ix.graphs
 	ix.addNumbers()
-	if ix.number != 1 || len(ix.signs['-']) != 3 || len(ix.signs['.']) != len(joinNames)+2 || ix.signs['.'][0].name != "파일명:." || ix.signs[':'][0].name != "시각::" {
+	if ix.number != 1 || len(ix.signs['-']) != 4 || len(ix.signs['.']) != len(joinNames)+2 || ix.signs['.'][0].name != "파일명:." || ix.signs[':'][0].name != "시각::" {
 		t.Fatal(ix.number, ix.signs)
 	}
 	if len(ix.fronts) != 4 || ix.tilde == nil || len(ix.after['개']) != 1 || ix.after['월'][1].name != "단위:개월" || ix.after['째'][0].slot != placeOrder || ix.after['만'][0].name != "큰 수:만" || ix.afterPrefs[true] >= 0 || ix.afterPrefs[false] >= 0 {
 		t.Fatal(ix.fronts, ix.after['월'])
 	}
-	if ix.graphs != graphs+1+11+4+1+2+6+len(unitWords) {
+	if ix.graphs != graphs+1+12+4+1+2+6+len(unitSuffixes)+len(unitWords) || len(ix.after['리']) != 2 {
 		t.Fatal(ix.graphs - graphs)
 	}
 }

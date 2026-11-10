@@ -41,6 +41,15 @@ func TestUnits(t *testing.T) {
 	if len(scanOf("삼만").units(2, 0, true)) != 0 {
 		t.Fatal("a greater number after a Hangul numeral is part of the numeral")
 	}
+	if got := wordsScan("3개고양이", layerCost).units(2, 0, true); len(got) != 1 {
+		t.Fatal("with a word table a unit after digits ends its word though letters run on", got)
+	}
+	if got := wordsScan("세개고양이", layerCost).units(2, 0, true); len(got) != 0 {
+		t.Fatal("not after a Hangul numeral", got)
+	}
+	if got := wordsScan("백원짜리", layerCost).units(4, 0, true); len(got) != 1 || len(got[0].pieces) != 2 || got[0].pieces[1].names != "접미:짜리" {
+		t.Fatal("a suffix after a unit", got)
+	}
 	if len(scanOf("두배적").units(2, 0, true)) != 0 || len(scanOf("두배적").units(2, 0, false)) != 1 || len(scanOf("3개.").units(2, 0, true)) != 1 {
 		t.Fatal("letters running on")
 	}
