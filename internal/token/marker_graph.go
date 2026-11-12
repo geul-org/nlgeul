@@ -18,7 +18,9 @@ import (
 // after a stem's ㄹ (loose) as one that does not fit the consonant
 // before it; an auxiliary particle that sets a word before what is said
 // of it (leading) whether it stands right on its stem with a sign that
-// ends a sentence closing the unit after it; and a form that ends a
+// ends a sentence closing the unit after it; a closing written only
+// onto a Hangul stem (hangulBound) whether a Hangul syllable stands
+// before it; and a form that ends a
 // closed-set word yields to that word. The number of edges is returned.
 func markerGraph(e *entry, whole []string, lexed bool) int {
 	g := toulmin.NewGraph(e.name)
@@ -35,6 +37,10 @@ func markerGraph(e *entry, whole []string, lexed bool) int {
 	}
 	if slices.Contains(leading, e.name) {
 		except(g, rule.PieceIs, whyClosed, fact(rule.PieceClosed)).Attacks(claim)
+		edges++
+	}
+	if slices.Contains(hangulBound, e.name) {
+		except(g, rule.PieceAfter, whyNoHangul, &rule.Bits{Of: "after", Mask: rule.AfterHangul}).Attacks(claim)
 		edges++
 	}
 	if e.inner {

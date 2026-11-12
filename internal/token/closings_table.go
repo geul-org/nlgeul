@@ -88,3 +88,14 @@ var looseClosings = []parse.Marker{
 }
 
 const nounAuxName = "사슬:이름 꼴 뒤 조사"
+
+// hangulBound are the closings that are written only onto a Hangul
+// syllable: the modifying closings 은, 는 and 을 and the closings 아, 어,
+// 나 and 여. After a run of Latin letters and digits, a number, a span
+// of code, a path or a file name the same letters are a particle
+// (push는, 3은, v2나), and a predicate made of such a run has 하 or the
+// copula's stem between the two (push하는, API인, API여서). The
+// closings 다, 고, 면, 지 and 네 are not here: before them the copula's
+// stem may be dropped after such a run. A closed table: only the
+// closings listed are held back.
+var hangulBound = []string{"꾸밈:은", "꾸밈:는", "꾸밈:을", "맺음:아", "맺음:어", "맺음:나", "맺음:여"}

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestMarkerGraph — the exceptions a graph gets by its entry: every marker the stem check; a particle its end and chain order; a slot its order; a lone consonant its base (not with a word table); a piece that begins with 어/아 the rebuttal of a vowel that does not fit; a form with 으 read after a stem's ㄹ (loose) the rebuttal of a consonant that does not fit, which leaves it standing after ㄹ below the same form not loose, and not after another consonant; a form that ends a closed-set word that word; a closing read only with a word table what stands right after it
+//ff:what TestMarkerGraph — the exceptions a graph gets by its entry: every marker the stem check; a particle its end and chain order; a slot its order; a lone consonant its base (not with a word table); a piece that begins with 어/아 the rebuttal of a vowel that does not fit; a form with 으 read after a stem's ㄹ (loose) the rebuttal of a consonant that does not fit, which leaves it standing after ㄹ below the same form not loose, and not after another consonant; a form that ends a closed-set word that word; a closing read only with a word table what stands right after it; a closing of hangulBound the exception that no Hangul syllable stands before it (counted)
 package token
 
 import (
@@ -24,8 +24,8 @@ func TestMarkerGraph(t *testing.T) {
 		{entry{name: "맺음:재(자고 해)", form: "재", class: classClosing, wide: true}, nil, 2},
 		{entry{name: "부사격:선(에서는)", form: "선", class: classParticle, wide: true}, nil, 2},
 		{entry{name: "맺음:어서", form: "어서", class: classClosing, head: headWhole}, nil, 2},
-		{entry{name: "꾸밈:은", form: "은", class: classClosing, after: rule.AfterLiquid, loose: true}, nil, 3},
-		{entry{name: "꾸밈:을", form: "을", class: classClosing, after: rule.AfterLiquid}, nil, 2},
+		{entry{name: "꾸밈:은", form: "은", class: classClosing, after: rule.AfterLiquid, loose: true}, nil, 4},
+		{entry{name: "꾸밈:을", form: "을", class: classClosing, after: rule.AfterLiquid}, nil, 3},
 	}
 	for _, c := range cases {
 		e := c.e
