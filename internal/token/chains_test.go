@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestChains — 학교에서는 gives 는 alone and 에서+는; 결과가 gives 가 alone and not 과+가; 마당에서 gives 에서 and 서 but not 에+서; nothing at the start; a chain is as long as its particles follow one another (에게서+부터+는+요); 이건요 reads the fused form before 요; with a word table 선 is read after a nominal's place with its gate, and a particle after 심 takes the honorific noun form; a particle after a unit takes the unit with it
+//ff:what TestChains — 학교에서는 gives 는 alone and 에서+는; 결과가 gives 가 alone and not 과+가; 마당에서 gives 에서 and 서 but not 에+서; nothing at the start; a chain is as long as its particles follow one another (에게서+부터+는+요); 이건요 reads the fused form before 요; with a word table 선 is read after a nominal's place with its gate, and a particle after 심 takes the honorific noun form; a particle after a unit takes the unit with it; the emphatic 가 ends a chain only after a particle (집에서가), not after a number's unit, an honorific or a closing that names or asks
 package token
 
 import "testing"
@@ -55,5 +55,31 @@ func TestChains(t *testing.T) {
 	}
 	if !unit {
 		t.Fatal("no unit before the particle")
+	}
+	emph := func(sc *scan, end int) (n int) {
+		for _, c := range sc.chains(end, 0, -1) {
+			if c.pieces[len(c.pieces)-1].names == emphName {
+				n++
+			}
+		}
+		return n
+	}
+	if emph(scanOf("집에서가"), 4) == 0 {
+		t.Fatal("no emphatic 가 after a particle")
+	}
+	for _, c := range []struct {
+		text string
+		end  int
+		sc   *scan
+	}{
+		{"3건가", 3, scanOf("3건가")},
+		{"두개가", 3, scanOf("두개가")},
+		{"가심가", 3, wordsScan("가심가", layerCost)},
+		{"먹기가", 3, wordsScan("먹기가", layerCost)},
+		{"먹는지가", 4, wordsScan("먹는지가", layerCost)},
+	} {
+		if n := emph(c.sc, c.end); n != 0 {
+			t.Fatal("emphatic 가 read after a unit, an honorific or a closing:", c.text, n)
+		}
 	}
 }
