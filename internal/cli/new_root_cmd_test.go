@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=iteration dimension=1
-//ff:what TestNewRootCmd — hypo, parse and token (in cobra's name order) are the only subcommands besides cobra's help; the completion command is off
+//ff:what TestNewRootCmd — token is the only subcommand besides cobra's help; the completion command is off
 package cli
 
 import (
@@ -14,7 +14,7 @@ func TestNewRootCmd(t *testing.T) {
 	for _, c := range root.Commands() {
 		names = append(names, c.Name())
 	}
-	if root.Name() != "nlgeul" || strings.Join(names, " ") != "hypo parse token" {
+	if root.Name() != "nlgeul" || strings.Join(names, " ") != "token" {
 		t.Fatal(root.Name(), names)
 	}
 }

@@ -1,7 +1,5 @@
 # cli
 
-cobra 루트 명령 `nlgeul`(`newRootCmd`), 하위 명령 `parse`(`newParseCmd`, `runParse`), 실행(`Execute`). `parse`는 인자를 정확히 하나 받고 `parse.Lines`가 돌려준 줄(`조각+조각:문장성분`)을 표준 출력에 찍는다. 인자가 없거나 둘 이상이면 오류(종료 코드 1)다.
+cobra 루트 명령 `nlgeul`(`newRootCmd`), 하위 명령 `token`, 실행(`Execute`). `parse`와 `hypo` 하위 명령은 없다(`internal/parse`와 `internal/hypo`는 내부 함수로 남아 있다).
 
 하위 명령 `token`(`newTokenCmd`, `runToken`)은 인자 하나를 받아 `Reader.Lines`의 줄을 찍는다(`Reader.Bundles`의 구조를 찍은 것이다). `--trace`는 판정 과정을, `--cuts`는 측정용 어절 끝 자리를 찍는다. `--words`(또는 환경 변수 `NLGEUL_WORDS`)로 낱말 표를, `--layers`로 그 표를 몇 겹까지 쓸지를 주고, `--stdin`이면 인자 대신 표준 입력의 줄마다 문장을 읽는다(`tokenInput`).
-
-하위 명령 `hypo`(`newHypoCmd`, `runHypo`)는 인자를 정확히 하나 받아 `Reader.Bundles`의 구조에서 가설을 세고(`hypo.Count`), 정렬해(`hypo.List`) 한 줄씩 찍는다(`hypo.Line`). `--page`를 주면 그 페이지의 가설만 찍고(`hypo.Page`, 순위는 전체 순위 그대로), `--per-page`로 한 페이지의 가설 수(기본 `hypo.PerPage`)를 바꾼다. 두 옵션은 `hypoPage`가 읽는다: 1보다 작은 `--page`나 `--per-page`, `--page` 없는 `--per-page`는 오류(종료 코드 1)다. 가설이 `hypo.Limit`를 넘으면 가설 수만 찍고 오류(종료 코드 1)다. 낱말 표는 `token`과 같이 `--words`(또는 `NLGEUL_WORDS`)로 준다.
