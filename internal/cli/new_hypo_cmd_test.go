@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewHypoCmd — nlgeul hypo prints what runHypo prints; a word table comes from --words or NLGEUL_WORDS, and it runs without one; a table that cannot be read, no sentence, two sentences and a sentence past the limit are refused
+//ff:what TestNewHypoCmd — nlgeul hypo with no option prints what runHypo prints for page 0; a word table comes from --words or NLGEUL_WORDS, and it runs without one; a table that cannot be read, no sentence, two sentences and a sentence past the limit are refused; a --page below 1 is refused before the word table is read
 package cli
 
 import (
@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/geul-org/nlgeul/internal/hypo"
 	"github.com/geul-org/nlgeul/internal/token"
 )
 
@@ -26,7 +27,7 @@ func TestNewHypoCmd(t *testing.T) {
 		t.Fatal(err)
 	}
 	var want bytes.Buffer
-	if err := runHypo(&want, tabled, sentence); err != nil {
+	if err := runHypo(&want, tabled, sentence, 0, hypo.PerPage); err != nil {
 		t.Fatal(err)
 	}
 	bare, err := token.New(token.Options{})
@@ -34,7 +35,7 @@ func TestNewHypoCmd(t *testing.T) {
 		t.Fatal(err)
 	}
 	var wantBare bytes.Buffer
-	if err := runHypo(&wantBare, bare, sentence); err != nil {
+	if err := runHypo(&wantBare, bare, sentence, 0, hypo.PerPage); err != nil {
 		t.Fatal(err)
 	}
 	if want.String() == wantBare.String() || !strings.Contains(want.String(), "[열쇠:") || strings.Contains(wantBare.String(), "[열쇠:") {
@@ -54,6 +55,9 @@ func TestNewHypoCmd(t *testing.T) {
 	t.Setenv("NLGEUL_WORDS", "")
 	if err := run("--words", "testdata/none.tsv", sentence); err == nil {
 		t.Fatal("a missing word table accepted")
+	}
+	if err := run("--words", "testdata/none.tsv", "--page", "0", sentence); err == nil || err.Error() != "--page는 1 이상이어야 한다: 0" || out.Len() != 0 {
+		t.Fatalf("--page 0 with a missing word table: %v %q", err, out.String())
 	}
 	if err := run(); err == nil {
 		t.Fatal("no sentence accepted")

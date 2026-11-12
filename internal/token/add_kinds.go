@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows, and the rebuttals that it was rarely seen and that it is one syllable long
+//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows, the rebuttals that it was rarely seen and that it is one syllable long, and for a verb's or an adjective's stem the exception that a word ending in a modifying closing stands right before it (adnExcept)
 package token
 
 import (
@@ -20,5 +20,8 @@ func (ix *index) addKinds() {
 		g.Counter(rule.ShortKey).With(&rule.Bits{Of: "syllables", Mask: shortKey}).Attacks(claim, forceShort)
 		ix.kinds[kind] = g
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+3
+		if kind&(kindVerb|kindAdj) != 0 {
+			ix.edges += adnExcept(g, claim)
+		}
 	}
 }

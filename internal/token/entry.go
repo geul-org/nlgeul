@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, its observed count, and its judgment graph
+//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, its observed count, and its judgment graph
 package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -12,7 +12,9 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // to it (or to 아니), or holds it. lead is 0 for a form of whole syllables, leadVowel, or the final
 // consonant the piece puts under the syllable before form. eu tells
 // that a closing takes the link vowel 으 after a consonant, and head
-// what a slot or closing begins with (head…).
+// what a slot or closing begins with (head…). loose marks a form read
+// where the tables do not let it attach (은 after a stem's ㄹ): its
+// graph rebuts it.
 type entry struct {
 	name  string
 	form  string
@@ -28,6 +30,7 @@ type entry struct {
 	needs bool
 	holds bool
 	wide  bool
+	loose bool
 	eu    bool
 	head  int
 	tail  int

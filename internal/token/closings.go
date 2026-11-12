@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what closings — every predicate tail that ends at j: a closing, alone or with the slots before it, a closing read by the own last syllable of a changed stem, the tails of 지 and 하 written onto a main verb's 어/아 form, and the same after the copula stem
+//ff:what closings — every predicate tail that ends at j: a closing, alone or with the slots before it, a closing read by the own last syllable of a changed stem, the tails of 지 and 하 written onto a main verb's 어/아 form, the tails of 잖 (지+않) and of 겠 right after 어야 (어야 하겠), and the same after the copula stem
 package token
 
 import "sort"
@@ -25,5 +25,6 @@ func (sc *scan) closings(j int, more bool) []tail {
 	out = append(out, sc.loneHonors(j, false)...)
 	out = append(out, sc.helped(out)...)
 	out = append(out, sc.negated(out)...)
+	out = append(out, sc.obliged(out)...)
 	return append(out, sc.copulas(out)...)
 }

@@ -41,7 +41,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 |---|---|---|---|
 | `PieceRead` | rule, counter | 색인에서 걸린 토큰 열이 이 자리에 있다 | 없음 |
 | `PieceNoStem` | except | 표지 앞에 줄기가 없다 | 없음 |
-| `PieceAfter` | except | 앞 토큰의 끝이 붙는 조건과 안 맞는다(`Fits`) | `Bits`(after) |
+| `PieceAfter` | except, counter | 앞 토큰의 끝이 붙는 조건과 안 맞는다(`Fits`) | `Bits`(after) |
 | `ChainLinks` | except | 조사 사슬에서 앞 조사의 갈래가 뒤 조사의 갈래를 받지 않는다(`Links`) | 없음 |
 | `SlotOrder` | except | 선어말 칸의 순서가 어긋난다(`SlotBefore`) | 없음 |
 | `PieceLast` | except | 이 표지 뒤에 이어지는 조각이 없다 | 없음 |
@@ -56,10 +56,13 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `PieceLone` | except | 조각 앞의 수가 낱말 표 없이 홀로 선 한자어 한 음절 수사다 | 없음 |
 | `PieceWhole` | counter | 수와 단위를 합친 글자열이 통째로 낱말 표의 낱말이거나 줄임 꼴이다 | 없음 |
 | `PieceNoAdn` | except | 조각 바로 앞의 어절이 꾸밈 맺음으로 끝나지 않는다 | 없음 |
+| `PieceAdn` | except | 조각 바로 앞의 어절이 꾸밈 맺음으로 끝난다 | 없음 |
 | `PieceMarked` | except | 경계 뒤에 선 통짜 새 낱말이 통째로 표지로 읽힌다 | 없음 |
 | `NextListed` | except, counter | 뒤에 오는 조각이 기준 목록에 있다 | 조각 이름 목록 |
 | `NextUnlisted` | except | 뒤에 오는 조각이 기준 목록에 없다 | 조각 이름 목록 |
 | `FormUnlisted` | except | 판정 중인 조각의 이름이 기준 목록에 없다 | 조각 이름 목록 |
+| `FormListed` | except | 판정 중인 조각의 꼴이 기준 목록에 있다 | 꼴 목록 |
+| `StemCoda` | except | 뒤에 표지가 붙은 줄기의 마지막 음절이 기준 받침으로 끝난다 | `Bits`(jong) |
 
 도움 함수: `PieceOf`, `MarkOf`, `Applies`(예/아니오 → ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
 
@@ -84,7 +87,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 뜻 | 쓰는 곳 |
 |---|---|---|
-| `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`)과 맞는가 | `PieceAfter`, 읽기 코드 |
+| `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`: 받침, ㄹ 아닌 받침, 모음이나 ㄹ, 모음, ㄹ 받침, 한글 음절)과 맞는가 | `PieceAfter`, 읽기 코드 |
 | `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `nlgeul parse`의 읽기 코드 |
 | `Harmony(prev, first)` | 줄기 끝 음절 뒤에 어/아/여로 시작하는 조각이 모음에 맞는가(ㅏ·ㅑ·ㅗ 뒤 아, 그 밖 어, 하 뒤 여, ㅆ 받침 뒤 어) | `PieceClash` |
 | `FitsShape(parts, shape)`, `InRange` | 숫자 마디들이 꼴(마디 수, 자리 수, 값의 범위, 머리)에 맞는가 | `PartsShape` |

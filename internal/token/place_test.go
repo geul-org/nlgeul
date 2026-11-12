@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestPlace — a whole form reports the end before it; a form at the unit's start has no stem; a piece under a consonant or fused into a vowel sits in the stem's last syllable; a fused ㅆ only on the vowels it fuses into, an unseen 어/아 only with more of the tail or at the unit's end; a form that is not there is not placed; a form at the unit's start has a stem in the unit before while the unit is read as attaching
+//ff:what TestPlace — a whole form reports the end before it; a form at the unit's start has no stem; a piece under a consonant or fused into a vowel sits in the stem's last syllable; a fused ㅆ only on the vowels it fuses into, an unseen 어/아 only with more of the tail or at the unit's end; after 되 an 어 the writing leaves out, with more of the tail, before 요 or at the unit's end but not inside it, and a fused ㅆ under it (됬); a form that is not there is not placed; a form at the unit's start has a stem in the unit before while the unit is read as attaching
 package token
 
 import (
@@ -39,6 +39,24 @@ func TestPlace(t *testing.T) {
 	}
 	if _, _, ok := scanOf("가").place(&entry{lead: leadVowel}, 1, false); !ok {
 		t.Fatal("an unseen fusion at the unit's end")
+	}
+	if start, _, ok := scanOf("되도").place(&entry{form: "도", lead: leadVowel}, 2, false); !ok || start != 1 {
+		t.Fatal("an 어 left out after 되 with more of the tail", start, ok)
+	}
+	if _, _, ok := scanOf("보도").place(&entry{form: "도", lead: leadVowel}, 2, false); ok {
+		t.Fatal("no 어 left out after a syllable not of unspelt")
+	}
+	if _, _, ok := scanOf("되요").place(&entry{lead: leadVowel}, 1, true); !ok {
+		t.Fatal("an 어 left out after 되 before 요")
+	}
+	if _, _, ok := scanOf("되").place(&entry{lead: leadVowel}, 1, false); !ok {
+		t.Fatal("an 어 left out after 되 at the unit's end")
+	}
+	if _, _, ok := scanOf("되다").place(&entry{lead: leadVowel}, 1, false); ok {
+		t.Fatal("no 어 left out after 되 inside a unit")
+	}
+	if start, _, ok := scanOf("됬다").place(&entry{lead: jongSS}, 1, false); !ok || start != 1 {
+		t.Fatal("a fused ㅆ under 되 with the 어 left out", start, ok)
 	}
 	if _, _, ok := sc.place(&entry{form: "로써"}, 4, false); ok {
 		t.Fatal("form not there")

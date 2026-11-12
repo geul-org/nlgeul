@@ -59,6 +59,21 @@ var verbClosings = []string{
 	"맺음:러", "맺음:으러", "맺음:려", "맺음:으려", "맺음:려고", "맺음:으려고", "맺음:려면", "맺음:으려면", "맺음:려다", "맺음:으려다", "맺음:고자",
 }
 
+// boundAux are the stems of the auxiliaries made of a dependent noun
+// and 하다 or 싶다 (듯하다, 만하다, 법하다, 성싶다, 척하다 of the
+// spelling rules' article 47, and the dictionary's other auxiliaries
+// of that make): each is written right after a modifying closing (올
+// 듯하다, 아는 척한다), where no other predicate stands. 직하다 is not
+// here: it follows the naming closing ㅁ.
+var boundAux = []string{"듯하", "듯싶", "만하", "법하", "뻔하", "성싶", "성부르", "성하", "척하", "체하", "양하"}
+
+// adnPrefix and namingPrefix begin the names of the modifying closings
+// (꾸밈:은) and of the naming closings (이름:기, 이름:ㅁ).
+const (
+	adnPrefix    = "꾸밈:"
+	namingPrefix = "이름:"
+)
+
 // predTails are the tails a predicate takes: a stem before one of them
 // stands as a verb or an adjective.
 const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj

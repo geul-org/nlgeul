@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=iteration dimension=1
-//ff:what TestRunHypo — the hypotheses of all the bundles the reader gives: for a sentence within hypo.Limit the count first, then a line for every hypothesis ranked from 1, in the order of hypo.List and written as hypo.Line writes it; an empty sentence has none; a sentence past hypo.Limit is only counted and refused
+//ff:what TestRunHypo — page 0 gives the hypotheses of all the bundles the reader gives: for a sentence within hypo.Limit the count first, then a line for every hypothesis ranked from 1, in the order of hypo.List and written as hypo.Line writes it; an empty sentence has none; a sentence past hypo.Limit is only counted and refused
 package cli
 
 import (
@@ -24,7 +24,7 @@ func TestRunHypo(t *testing.T) {
 	listed := hypo.List(choices)
 
 	var out bytes.Buffer
-	if err := runHypo(&out, r, sentence); err != nil {
+	if err := runHypo(&out, r, sentence, 0, hypo.PerPage); err != nil {
 		t.Fatal(err)
 	}
 	lines := strings.Split(strings.TrimSuffix(out.String(), "\n"), "\n")
@@ -38,7 +38,7 @@ func TestRunHypo(t *testing.T) {
 	}
 
 	out.Reset()
-	if err := runHypo(&out, r, ""); err != nil || out.String() != "가설 0\n" {
+	if err := runHypo(&out, r, "", 0, hypo.PerPage); err != nil || out.String() != "가설 0\n" {
 		t.Fatalf("empty sentence: %v %q", err, out.String())
 	}
 
@@ -52,7 +52,7 @@ func TestRunHypo(t *testing.T) {
 		t.Fatalf("%s hypotheses are not past the limit", over)
 	}
 	out.Reset()
-	if err := runHypo(&out, bare, many); err == nil || out.String() != "가설 "+over.String()+"\n" {
+	if err := runHypo(&out, bare, many, 0, hypo.PerPage); err == nil || out.String() != "가설 "+over.String()+"\n" {
 		t.Fatalf("past the limit: %v %q", err, out.String())
 	}
 }

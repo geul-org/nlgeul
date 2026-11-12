@@ -72,6 +72,18 @@ var gatedClosings = []parse.Marker{
 
 var nounHeads = []string{"이름:기"}
 
+// looseClosings are the modifying closings 은 and 을 written onto a
+// stem that ends in ㄹ without dropping the ㄹ (줄은 for 준, 줄을 for
+// 줄), against clause 18 of the orthography (a stem's ㄹ goes before
+// ㄴ and ㄹ, and such a stem takes no 으). They are read only with a
+// word table, after a predicate's stem of the table that ends in ㄹ,
+// next to the readings the tables give, and are rebutted as a form
+// that does not fit what stands before it is (forceClash).
+var looseClosings = []parse.Marker{
+	{Form: "은", After: rule.AfterLiquid, Kind: rule.KindAdn, NoIda: true, NoYo: true},
+	{Form: "을", After: rule.AfterLiquid, Kind: rule.KindAdn, NoIda: true, NoYo: true},
+}
+
 const (
 	nounAuxName = "사슬:이름 꼴 뒤 조사"
 	nounLetter  = '기'

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestCopulaOf — the stem said as a syllable 이 or under a fused piece, the stem dropped after a vowel before a closing that allows it (whole or fused), and no reading for a tail with no closing, a closing that holds the stem, a closing that does not allow dropping, or a consonant before it; the closings of droppableKnown (네, 냐) allow it only with a word table
+//ff:what TestCopulaOf — the stem said as a syllable 이 or under a fused piece, the stem dropped after a vowel before a closing that allows it (whole or fused), and no reading for a tail with no closing, a closing that holds the stem, a closing that does not allow dropping, or a consonant before it; the closings of droppableKnown (네, 냐, 야, the naming 기) allow it only with a word table; a letter that is no Hangul syllable before it (abc, 3) allows it like a vowel, before 야 and before 다 alike, leaving to the graph which closing such a letter takes
 package token
 
 import "testing"
@@ -62,5 +62,25 @@ func TestCopulaOf(t *testing.T) {
 	}
 	if _, _, ok := wordsScan("학교서", layerCost).copulaOf(tail{start: 2, pieces: one, close: seo}); ok {
 		t.Fatal("a closing of neither list, with a word table")
+	}
+	ya := tail{start: 3, pieces: one, close: &entry{name: "맺음:야"}}
+	if at, e, ok := wordsScan("abc야", layerCost).copulaOf(ya); !ok || at != 3 || e == nil || e.name != droppedName {
+		t.Fatal("dropped before 야 after a letter that is no Hangul syllable, with a word table", at)
+	}
+	if at, e, ok := wordsScan("3야", layerCost).copulaOf(tail{start: 1, pieces: one, close: &entry{name: "맺음:야"}}); !ok || at != 1 || e == nil || e.name != droppedName {
+		t.Fatal("dropped before 야 after a digit, with a word table", at)
+	}
+	if _, _, ok := scanOf("abc야").copulaOf(ya); ok {
+		t.Fatal("not before 야 without a word table")
+	}
+	if at, e, ok := scanOf("abc다").copulaOf(tail{start: 3, pieces: one, close: da}); !ok || at != 3 || e == nil || e.name != droppedName {
+		t.Fatal("before 다 after a letter that is no Hangul syllable the reading is offered, and its graph decides", at)
+	}
+	gi := tail{start: 2, pieces: one, close: &entry{name: "이름:기"}}
+	if at, e, ok := wordsScan("문제기", layerCost).copulaOf(gi); !ok || at != 2 || e == nil || e.name != droppedName {
+		t.Fatal("dropped before the naming 기 with a word table (the graph asks for a particle after it)", at)
+	}
+	if _, _, ok := scanOf("문제기").copulaOf(gi); ok {
+		t.Fatal("not before the naming 기 without a word table")
 	}
 }

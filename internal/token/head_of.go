@@ -9,11 +9,13 @@ import (
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
-// A particle begins with nothing an irregular stem changes before.
+// A particle begins with nothing an irregular stem changes before, and
+// a form read against the tables' attachment rule (loose) stands after
+// the stem as it is written.
 func headOf(e *entry) int {
 	f := []rune(e.form)
 	switch {
-	case e.class != classClosing && e.class != classSlot:
+	case (e.class != classClosing && e.class != classSlot) || e.loose:
 		return 0
 	case e.lead == leadVowel || e.lead == jongSS:
 		return headFused

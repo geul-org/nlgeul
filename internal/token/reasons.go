@@ -22,6 +22,8 @@ var reasons = map[string]string{
 	"PieceMarked":   "경계 뒤의 통짜 새 낱말이 표지로 읽힌다",
 	"PieceLast":     "뒤에 조사가 없다",
 	"PieceNoAdn":    "앞 어절이 꾸밈 맺음으로 끝나지 않는다",
+	"PieceAdn":      "앞 어절이 꾸밈 맺음으로 끝난다",
+	"StemCoda":      "새 낱말의 줄기가 ㅆ 받침으로 끝난다",
 	"MarkSides":     "양쪽이 맞는 글자 열이 아니다",
 	"MarkBoth":      "양쪽이 모두 그 글자 열이다",
 	"MarkAlone":     "점이 하나뿐이다",

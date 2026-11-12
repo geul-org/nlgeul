@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=selection
-//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph
+//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph; a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -9,7 +9,9 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // not show (가, 서, 내, 세) is read when more of the tail follows, and
 // also at the unit's end, where the stem under it is what a key table
 // is asked for; inside a unit nothing would show the boundary, except
-// right before an auxiliary verb's stem (가보다 = 가+아 보다). A fused ㅆ is read only on the vowels 었/았 fuses into.
+// right before an auxiliary verb's stem (가보다 = 가+아 보다). A fused ㅆ is read only on the vowels 었/았 fuses into. After a
+// syllable of unspelt (되) both are read as well, with an 어 the
+// writing leaves out (되도, 됬다).
 func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	f := []rune(e.form)
 	start := j - len(f)
@@ -24,9 +26,10 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 		p.Prev = sc.s[start-1]
 		return start, p, true
 	case e.lead == leadVowel:
-		return start, p, rule.FusedVowel(sc.s[start-1], len(f) > 0 || more || j == len(sc.s) || sc.auxNext(j))
+		open := len(f) > 0 || more || j == len(sc.s) || sc.auxNext(j)
+		return start, p, rule.FusedVowel(sc.s[start-1], open) || unspeltAt(sc.s[start-1], e.lead, open)
 	case e.lead == jongSS:
-		return start, p, rule.FusedPast(sc.s[start-1])
+		return start, p, rule.FusedPast(sc.s[start-1]) || unspeltAt(sc.s[start-1], e.lead, false)
 	}
 	base, ok := under(sc.s[start-1], e.lead)
 	p.Base = string(base)

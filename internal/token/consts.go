@@ -101,7 +101,8 @@ const (
 const forceWhole = 0.98
 
 // forceClash is the force of the rebuttal "어/아 does not fit the vowel
-// before it" (먹아, 잡어): the reading is kept and comes later. It is a
+// before it" (먹아, 잡어), and of "a form with 으 does not fit the ㄹ
+// before it" (줄은): the reading is kept and comes later. It is a
 // placeholder chosen among a few values tried on a thousand sentences.
 const forceClash = 0.5
 

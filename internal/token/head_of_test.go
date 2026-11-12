@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestHeadOf — what each kind of slot or closing begins with: fused 어 and ㅆ; fused ㄴ (ㄴ다 and a shortened closing take no 으), ㄹ, ㅁ, ㅂ (ㅂ시다 takes 으); a syllable 어/았; a form with 으; a first consonant with or without 으; 네; a particle and a piece with no letters nothing
+//ff:what TestHeadOf — what each kind of slot or closing begins with: fused 어 and ㅆ; fused ㄴ (ㄴ다 and a shortened closing take no 으), ㄹ, ㅁ, ㅂ (ㅂ시다 takes 으); a syllable 어/았; a form with 으; a first consonant with or without 으; 네; a particle, a piece with no letters and a form read after a stem's ㄹ against the tables (loose 은, 을) nothing
 package token
 
 import (
@@ -34,6 +34,8 @@ func TestHeadOf(t *testing.T) {
 		{entry{class: classClosing, form: "는"}, headN},
 		{entry{class: classClosing, form: "네"}, headN | headNe},
 		{entry{class: classClosing, form: "고"}, 0},
+		{entry{class: classClosing, form: "은", after: rule.AfterLiquid, loose: true}, 0},
+		{entry{class: classClosing, form: "을", after: rule.AfterLiquid, loose: true}, 0},
 	}
 	for _, c := range cases {
 		e := c.e

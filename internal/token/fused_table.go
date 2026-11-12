@@ -34,6 +34,22 @@ var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "
 
 var honorLetters = []rune{'셨', '셔', '십'}
 
+// 겠 right after the closing 어야 is 어야 하겠 with 하 left out
+// (가야겠다, 먹어야겠네). mustNames are the readings of that closing,
+// guessName the slot, and mustPart what is written out between them:
+// the auxiliary 하, which the slot and the closing after it attach to.
+const guessName = "선어말:겠"
+
+var mustNames = []string{"맺음:어야", "맺음:아야", "맺음:여야", "맺음:어야(합침)"}
+var mustPart = split{"(하)", "보조:하"}
+
+// unspelt are the syllables a stem ends in after which an 어 is often
+// left out in writing, against the spelling rules (clause 35, note 2:
+// 되어 is shortened to 돼, so 되도, 되서, 되야, 되요 and 됬다 stand for
+// 돼도, 돼서, 돼야, 돼요 and 됐다). Such a syllable is read as 가, 서,
+// 내 and 세 are, with an 어/아 fused in that does not show.
+var unspelt = []rune{'되'}
+
 // negParts is what 잖 is written out as: the closing 지 and the stem
 // of 않다, which the closing after it attaches to.
 var negParts = []split{{"지", jiName}, {"(않)", "부정:않"}}
@@ -60,7 +76,15 @@ var splits = map[string][]split{
 // any word that ends in a vowel). The last three are the dependent
 // noun 거 with a particle under it, written onto a modifying closing
 // (한건, 하는게, 할걸): they are read only right after such a closing,
-// next to the closings and words of the same letters.
+// next to the closings and words of the same letters. 내게, 네게 and
+// 제게 are the pronoun forms 내, 네 and 제 with the case particle 게,
+// which the dictionary gives after these three and with the meaning of
+// 에게: it is read under 에게's entry and nowhere else. 다 and 다가
+// right after 어디, 여기, 거기 and 저기 are the particle the dictionary
+// gives after a few nominals of place as well as after 에 (여기다
+// 놓다, 어디다가 두다): they are read under the entries of 에다 and
+// 에다가, after these four words only (after any nominal they would
+// look the same as the copula's 다).
 var contracts = []contract{
 	{"이게", "이것", "(이)", "주격:이", '이', false}, {"그게", "그것", "(이)", "주격:이", '이', false}, {"저게", "저것", "(이)", "주격:이", '이', false},
 	{"이건", "이것", "(은)", "보조사:은", '은', false}, {"그건", "그것", "(은)", "보조사:은", '은', false}, {"저건", "저것", "(은)", "보조사:은", '은', false},
@@ -71,6 +95,11 @@ var contracts = []contract{
 	{"우린", "우리", "(는)", "보조사:는", '는', false}, {"우릴", "우리", "(를)", "목적격:를", '를', false},
 	{"그땐", "그때", "(는)", "보조사:는", '는', false}, {"땐", "때", "(는)", "보조사:는", '는', false},
 	{"누군", "누구", "(는)", "보조사:는", '는', false},
+	{"내게", "내", "게", "부사격:에게", '게', false}, {"네게", "네", "게", "부사격:에게", '게', false}, {"제게", "제", "게", "부사격:에게", '게', false},
+	{"어디다", "어디", "다", "부사격:에다", '다', false}, {"여기다", "여기", "다", "부사격:에다", '다', false},
+	{"거기다", "거기", "다", "부사격:에다", '다', false}, {"저기다", "저기", "다", "부사격:에다", '다', false},
+	{"어디다가", "어디", "다가", "부사격:에다가", '가', false}, {"여기다가", "여기", "다가", "부사격:에다가", '가', false},
+	{"거기다가", "거기", "다가", "부사격:에다가", '가', false}, {"저기다가", "저기", "다가", "부사격:에다가", '가', false},
 	{"게", "거", "(이)", "주격:이", '이', true},
 	{"건", "거", "(는)", "보조사:는", '는', true},
 	{"걸", "거", "(를)", "목적격:를", '를', true},

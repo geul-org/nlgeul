@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestCopulas — 곰이다 reads 이 as the copula stem before 다; 학교다 a dropped stem written (이); 누군 keeps the stem's syllable; 이다 alone and a tail without a closing give nothing; after a unit the copula takes the unit with it; before a closing of droppableKnown (네) the dropped stem is read only with a word table and asks for a nominal of it, while the stem said (곰이네) and the old closings (다) ask for nothing; a unit read as attaching has a stem before 이; end to end 거네 is 거+(이)+네 with a table and not without, a word no table has takes no dropped stem before 네 but does before 다
+//ff:what TestCopulas — 곰이다 reads 이 as the copula stem before 다; 학교다 a dropped stem written (이); 누군 keeps the stem's syllable; 이다 alone and a tail without a closing give nothing; after a unit the copula takes the unit with it; before a closing of droppableKnown (네) the dropped stem is read only with a word table and asks for a nominal of it, while the stem said (곰이네) and the old closings (다) ask for nothing; after a letter that is no Hangul syllable a dropped stem stands before 야 asking for no nominal, and not before 다; before 기 it stands only while a particle is read after it (chained), asking for a nominal; a unit read as attaching has a stem before 이; end to end 거네 is 거+(이)+네 with a table and not without, a word no table has takes no dropped stem before 네 but does before 다
 package token
 
 import (
@@ -42,6 +42,23 @@ func TestCopulas(t *testing.T) {
 	}
 	if got = wordsScan("학교다", layerCost).copulas([]tail{{start: 2, pieces: []piece{{text: "다"}}, close: da}}); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != nil {
 		t.Fatal("before 다 a dropped stem asks for nothing", got)
+	}
+	ya := &entry{name: "맺음:야"}
+	run := wordsScan("abc야", layerCost)
+	if got = run.copulas([]tail{{start: 3, pieces: []piece{{text: "야"}}, close: ya}}); len(got) != 1 || got[0].start != 3 || got[0].pieces[0].text != "(이)" || got[0].pieces[0].names != droppedName || got[0].gate != nil {
+		t.Fatal("after a letter that is no Hangul syllable a dropped stem before 야 asks for no nominal", got)
+	}
+	if got = wordsScan("abc다", layerCost).copulas([]tail{{start: 3, pieces: []piece{{text: "다"}}, close: da}}); len(got) != 0 {
+		t.Fatal("after a letter that is no Hangul syllable the graph takes no dropped stem before 다", got)
+	}
+	naming := []tail{{start: 2, pieces: []piece{{text: "기", names: "이름:기"}}, close: &entry{name: "이름:기"}}}
+	ch := wordsScan("문제기도", layerCost)
+	if got = ch.copulas(naming); len(got) != 0 {
+		t.Fatal("no dropped stem before 기 when no particle is read after it", got)
+	}
+	ch.chained = true
+	if got = ch.copulas(naming); len(got) != 1 || got[0].start != 2 || got[0].pieces[0].text != "(이)" || got[0].pieces[1].names != "이름:기" || got[0].gate != ch.ix.nominal {
+		t.Fatal("a dropped stem before 기 with a particle read after it, asking for a nominal", got)
 	}
 	lone := scanOf("이다")
 	lone.attach = true

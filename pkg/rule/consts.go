@@ -30,6 +30,8 @@ const (
 	AfterHard           // ends in a consonant other than ㄹ (으로)
 	AfterOpen           // ends in a vowel or ㄹ
 	AfterVowel          // ends in a vowel
+	AfterLiquid         // ends in ㄹ
+	AfterHangul         // is a Hangul syllable
 )
 
 // Final-consonant indexes of a Hangul syllable, and the lead of a

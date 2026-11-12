@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestClosings — 먹었다 gives 다 alone and 었+다; 간다 a closing under the consonant; nothing at the start; 곰이다 has the copula reading too; 했잖아 has 지+(않) before the closing; with a word table 가심 has the honorific noun form
+//ff:what TestClosings — 먹었다 gives 다 alone and 었+다; 간다 a closing under the consonant; nothing at the start; 곰이다 has the copula reading too; 했잖아 has 지+(않) before the closing; 가야겠다 has (하) between the fused 어야 and 겠; with a word table 가심 has the honorific noun form
 package token
 
 import "testing"
@@ -35,6 +35,13 @@ func TestClosings(t *testing.T) {
 	}
 	if !neg {
 		t.Fatal("no 잖 reading")
+	}
+	var must bool
+	for _, c := range scanOf("가야겠다").closings(4, false) {
+		must = must || (c.start == 1 && c.base == '가' && len(c.pieces) == 4 && c.pieces[0].names == "맺음:어야(합침)" && c.pieces[1].text == "(하)" && c.pieces[2].names == guessName)
+	}
+	if !must {
+		t.Fatal("no 겠 read after 어야")
 	}
 	var lone bool
 	for _, c := range wordsScan("가심", layerCost).closings(2, false) {
