@@ -1,11 +1,11 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what newRootCmd — the nlgeul command with parse and token
+//ff:what newRootCmd — the nlgeul command with parse, token and hypo
 package cli
 
 import "github.com/spf13/cobra"
 
 // newRootCmd builds the command tree. Cobra's completion command is
-// turned off so that only parse and token are there.
+// turned off so that only parse, token and hypo are there.
 func newRootCmd() *cobra.Command {
 	root := &cobra.Command{
 		Use:           "nlgeul",
@@ -14,6 +14,6 @@ func newRootCmd() *cobra.Command {
 		SilenceErrors: true,
 	}
 	root.CompletionOptions.DisableDefaultCmd = true
-	root.AddCommand(newParseCmd(), newTokenCmd())
+	root.AddCommand(newParseCmd(), newTokenCmd(), newHypoCmd())
 	return root
 }
