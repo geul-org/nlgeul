@@ -22,6 +22,7 @@ package rule
 // that keeps its last vowel before 어/아 (a 르 or 러 irregular). Sole
 // tells that the piece is a stem whose word is the whole of its unit:
 // the stem begins the unit and nothing but its own markers follows it.
+// Det tells that the word right before the piece is a determiner.
 type Piece struct {
 	Form    string
 	HasStem bool
@@ -43,4 +44,5 @@ type Piece struct {
 	Marked  bool
 	Keeps   bool
 	Sole    bool
+	Det     bool
 }

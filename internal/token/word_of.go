@@ -36,6 +36,7 @@ func (sc *scan) wordOf(b, end int, t tail) step {
 	}
 	e.sig = e.word.String()
 	e.adn = strings.HasPrefix(last, adnPrefix)
+	e.det = len(t.pieces) == 0 && determiner(e.word.Parts[0].Names)
 	e.conn = slices.Contains(connNames, last)
 	if b > 0 && v > 0 && tailClass(t.pieces)&predTails != 0 && slices.Contains(sc.ix.auxStems(), stem) {
 		e.back = sc.ix.structure(b, nil) - sc.ix.structure(0, nil)

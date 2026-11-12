@@ -13,61 +13,61 @@ func TestAfterAdn(t *testing.T) {
 	da := []piece{{text: "다", names: "맺음:다", verdict: 1, tail: rule.TailPred}}
 	past := []piece{{text: "었", names: "선어말:었", verdict: 1, tail: rule.TailPred}, da[0]}
 	sc := wordsScan("먹을마시다", layerCost)
-	if sc.afterAdn(2, tail{start: 4, pieces: da}) {
+	if sc.afterAdn(2, tail{start: 4, pieces: da}, false) {
 		t.Fatal("no reading has a word that ends in a modifying closing end at 2")
 	}
 	sc.adnEnds[2] = true
-	if !sc.afterAdn(2, tail{start: 4, pieces: da}) {
+	if !sc.afterAdn(2, tail{start: 4, pieces: da}, false) {
 		t.Fatal("마시, a verb of the table, before 다 right after 먹+을")
 	}
-	if sc.afterAdn(2, tail{start: 4, as: numName, pieces: da}) {
+	if sc.afterAdn(2, tail{start: 4, as: numName, pieces: da}, false) {
 		t.Fatal("a tail that names its own stem")
 	}
-	if sc.afterAdn(2, tail{start: 4, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1, tail: rule.TailPred}}}) {
+	if sc.afterAdn(2, tail{start: 4, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1, tail: rule.TailPred}}}, false) {
 		t.Fatal("마시+는 is itself a modifying form")
 	}
-	if sc.afterAdn(2, tail{start: 4, pieces: []piece{{text: "기", names: "이름:기", verdict: 1, tail: rule.TailPred}, {text: "는", names: "보조사:는", verdict: 1, tail: rule.TailAux}}}) {
+	if sc.afterAdn(2, tail{start: 4, pieces: []piece{{text: "기", names: "이름:기", verdict: 1, tail: rule.TailPred}, {text: "는", names: "보조사:는", verdict: 1, tail: rule.TailAux}}}, false) {
 		t.Fatal("마시+기+는 is itself a naming form")
 	}
 	low := wordsScan("먹을마시다", layerKnown)
 	low.adnEnds[2] = true
-	if low.afterAdn(2, tail{start: 4, pieces: da}) {
+	if low.afterAdn(2, tail{start: 4, pieces: da}, false) {
 		t.Fatal("below the layer in which the kinds' graphs judge a stem")
 	}
 	fused := wordsScan("먹을마셨다", layerCost)
 	fused.adnEnds[2] = true
-	if !fused.afterAdn(2, tail{start: 4, base: '시', pieces: past}) {
+	if !fused.afterAdn(2, tail{start: 4, base: '시', pieces: past}, false) {
 		t.Fatal("마시 as it was before 었 was fused into 셨")
 	}
-	if fused.afterAdn(2, tail{start: 4, pieces: da}) {
+	if fused.afterAdn(2, tail{start: 4, pieces: da}, false) {
 		t.Fatal("마셨 as written is no word of the table")
 	}
 	irr := wordsScan("먹을들었다", layerCost)
 	irr.adnEnds[2] = true
-	if !irr.afterAdn(2, tail{start: 3, shown: "듣", pieces: past}) {
+	if !irr.afterAdn(2, tail{start: 3, shown: "듣", pieces: past}, false) {
 		t.Fatal("듣, the verb that 들 stands for before 었")
 	}
-	if irr.afterAdn(2, tail{start: 3, pieces: past}) {
+	if irr.afterAdn(2, tail{start: 3, pieces: past}, false) {
 		t.Fatal("들 as written is no word of the table")
 	}
 	adj := wordsScan("먹을작다", layerCost)
 	adj.adnEnds[2] = true
-	if !adj.afterAdn(2, tail{start: 3, pieces: da}) {
+	if !adj.afterAdn(2, tail{start: 3, pieces: da}, false) {
 		t.Fatal("작, an adjective (and a noun) of the table, before 다")
 	}
 	aux := wordsScan("먹을듯하다", layerCost)
 	aux.adnEnds[2] = true
-	if aux.afterAdn(2, tail{start: 4, pieces: da}) {
+	if aux.afterAdn(2, tail{start: 4, pieces: da}, false) {
 		t.Fatal("듯하, an auxiliary written onto a modifying form")
 	}
 	noun := wordsScan("먹을사과를", layerCost)
 	noun.adnEnds[2] = true
-	if noun.afterAdn(2, tail{start: 4, pieces: []piece{{text: "를", names: "목적격:를", verdict: 1, tail: rule.TailCase}}}) {
+	if noun.afterAdn(2, tail{start: 4, pieces: []piece{{text: "를", names: "목적격:를", verdict: 1, tail: rule.TailCase}}}, false) {
 		t.Fatal("사과, a noun, before a particle")
 	}
 	none := wordsScan("먹을곰다", layerCost)
 	none.adnEnds[2] = true
-	if none.afterAdn(2, tail{start: 3, pieces: da}) {
+	if none.afterAdn(2, tail{start: 3, pieces: da}, false) {
 		t.Fatal("곰, a word no table has")
 	}
 

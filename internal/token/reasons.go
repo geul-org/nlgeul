@@ -32,6 +32,7 @@ const (
 	whyLast       = "뒤에 조사가 없다"
 	whyNoAdn      = "앞 어절이 꾸밈 맺음으로 끝나지 않는다"
 	whyAdn        = "앞 어절이 꾸밈 맺음으로 끝난다"
+	whyDet        = "앞 어절이 관형사다"
 	whyBoundAux   = "의존 명사에 하다·싶다가 붙은 보조 용언의 줄기다"
 	whyCoda       = "새 낱말의 줄기가 ㅆ 받침으로 끝난다"
 	whyKnown      = "표가 아는 낱말이다"

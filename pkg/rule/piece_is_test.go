@@ -1,5 +1,5 @@
 //ff:func feature=rule type=rule control=iteration dimension=1
-//ff:what TestPieceIs — applies when the piece has one of the facts asked for (a lone digit, a whole word with its number, after a modifying closing, a modifying or naming form, a marked new word, the last piece, a stem keeping its vowel, a stem whose word is the whole of its unit); not when it has none of them, or when the context has no piece
+//ff:what TestPieceIs — applies when the piece has one of the facts asked for (a lone digit, a whole word with its number, after a modifying closing, a modifying or naming form, a marked new word, the last piece, a stem keeping its vowel, a stem whose word is the whole of its unit, after a determiner); not when it has none of them, or when the context has no piece
 package rule
 
 import (
@@ -22,6 +22,9 @@ func TestPieceIs(t *testing.T) {
 		{Piece{Form: "가르"}, PieceAdn, -1},
 		{Piece{Turned: true}, PieceTurned, 1},
 		{Piece{Adn: true}, PieceTurned, -1},
+		{Piece{Det: true}, PieceDet, 1},
+		{Piece{Adn: true}, PieceDet, -1},
+		{Piece{Det: true}, PieceAdn | PieceDet, 1},
 		{Piece{Marked: true}, PieceMarked, 1},
 		{Piece{}, PieceMarked, -1},
 		{Piece{Next: -1}, PieceLast, 1},

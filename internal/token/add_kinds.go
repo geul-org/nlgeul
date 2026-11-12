@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows, the rebuttals that it was rarely seen and that it is one syllable long with what lifts each (kindRebuttals), and for a verb's or an adjective's stem the exception that a word ending in a modifying closing stands right before it (adnExcept)
+//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows, the rebuttals that it was rarely seen and that it is one syllable long with what lifts each (kindRebuttals), for a verb's or an adjective's stem the exceptions that a word ending in a modifying closing or a determiner stands right before it (adnExcept), and for a word that only stands alone the same two with nothing to lift them (aloneExcept)
 package token
 
 import (
@@ -20,6 +20,9 @@ func (ix *index) addKinds() {
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1+kindRebuttals(g, claim)
 		if kind&(kindVerb|kindAdj) != 0 {
 			ix.edges += adnExcept(g, claim)
+		}
+		if kind == kindAlone {
+			ix.edges += aloneExcept(g, claim)
 		}
 	}
 }

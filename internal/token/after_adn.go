@@ -1,11 +1,15 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what afterAdn — does the word from b with tail t not stand right after a word of its unit that ends in a modifying closing: its stem is a word of the word table there, and the graph of every kind it stands as turns it down when told that such a word is before it and whether the word is itself a modifying or a naming form (a verb's or an adjective's stem: a modifying form modifies a nominal; the graph lets through the auxiliaries made of a dependent noun and 하다 or 싶다, and a word that is itself a modifying or a naming form); no word is asked where no reading has such a word end at b, or below the layer in which the kinds' graphs judge a stem
+//ff:what afterAdn — does the word from b with tail t not stand right after a word of its unit that modifies a nominal, one that ends in a modifying closing or, when det is set, a determiner: its stem is a word of the word table there, and the graph of every kind it stands as turns it down when told that such a word is before it and whether the word is itself a modifying or a naming form (a verb's or an adjective's stem, or a word that only stands alone: what modifies a nominal is followed by one; the graph lets through the auxiliaries made of a dependent noun and 하다 or 싶다 after a modifying closing, and a word that is itself a modifying or a naming form); no word is asked where no reading has such a word end at b, or below the layer in which the kinds' graphs judge a stem
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
 
-func (sc *scan) afterAdn(b int, t tail) bool {
-	if !sc.adnEnds[b] || t.as != "" || sc.ix.layers < layerKind {
+func (sc *scan) afterAdn(b int, t tail, det bool) bool {
+	ends := sc.adnEnds
+	if det {
+		ends = sc.detEnds
+	}
+	if !ends[b] || t.as != "" || sc.ix.layers < layerKind {
 		return false
 	}
 	stem := string(sc.s[b:t.start])
@@ -22,7 +26,7 @@ func (sc *scan) afterAdn(b int, t tail) bool {
 		if (sc.ix.closed[stem]|w.kinds)&k == 0 || sc.ix.stemVerdict(k, facts) <= 0 {
 			continue
 		}
-		facts.Adn, facts.Turned = true, namesForm(t.pieces)
+		facts.Adn, facts.Det, facts.Turned = !det, det, namesForm(t.pieces)
 		v := sc.ix.stemVerdict(k, facts)
 		stands, barred = stands || v > 0, barred || v <= 0
 	}

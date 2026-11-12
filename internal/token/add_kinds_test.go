@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddKinds — a graph for each kind, each with its exception, two rebuttals, the exception of a spoken form against the first and the exception of a sole word against the second, and on the verb's and the adjective's the exception of a modifying closing before the stem with the two against it (36 edges): right after a modifying closing those two graphs turn a stem down and the others judge it as before, and neither turns down a listed auxiliary (boundAux)
+//ff:what TestAddKinds — a graph for each kind, each with its exception, two rebuttals, the exception of a spoken form against the first and the exception of a sole word against the second, on the verb's and the adjective's the exceptions of a modifying closing and of a determiner before the stem with what lifts them, and on the graph of words that only stand alone the same two exceptions (42 edges): right after a modifying closing or a determiner those three graphs turn a stem down and the others judge it as before, and the verb's and the adjective's do not turn down a listed auxiliary (boundAux) after a modifying closing
 package token
 
 import (
@@ -11,16 +11,17 @@ import (
 func TestAddKinds(t *testing.T) {
 	ix := &index{}
 	ix.addKinds()
-	if ix.graphs != 6 || ix.edges != 36 || len(ix.kinds) != 6 || ix.seen == nil {
+	if ix.graphs != 6 || ix.edges != 42 || len(ix.kinds) != 6 || ix.seen == nil {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 	fits := map[int]int{kindNominal: rule.TailCase, kindVerb: rule.TailPred, kindAdj: rule.TailAdj, kindAdverb: rule.TailAux, kindDeterminer: rule.TailBare, kindAlone: rule.TailBare}
 	for _, kind := range kindOrder {
 		free, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough}, "", false)
 		after, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough, Adn: true}, "", false)
-		pred := kind&(kindVerb|kindAdj) != 0
-		if free <= 0 || (pred && after > 0) || (!pred && after != free) {
-			t.Fatal(kindLabel[kind], free, after)
+		det, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough, Det: true}, "", false)
+		barred := kind&(kindVerb|kindAdj|kindAlone) != 0
+		if free <= 0 || (barred && (after > 0 || det > 0)) || (!barred && (after != free || det != free)) {
+			t.Fatal(kindLabel[kind], free, after, det)
 		}
 	}
 	for _, form := range boundAux {

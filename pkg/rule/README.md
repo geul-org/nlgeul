@@ -41,7 +41,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
 | `PieceRead` | rule, counter | 색인에서 걸린 토큰 열이 이 자리에 있다(주장, 늘 서는 반박) | 없음 |
-| `PieceIs` | except, counter | 조각이 기준의 사실을 갖는다(`Piece…`): 앞에 줄기가 있다(`PieceStem`), 바로 앞이 수다(`PieceNum`), 그 수가 낱말 표 없이 홀로 선 한자어 한 음절 수사다(`PieceLone`), 수와 합쳐 통째로 낱말이다(`PieceWhole`), 앞 어절이 꾸밈 맺음으로 끝난다(`PieceAdn`), 그 낱말 자신이 꾸밈꼴·이름꼴이다(`PieceTurned`), 경계 뒤의 새 낱말이 표지로 읽힌다(`PieceMarked`), 뒤에 이어지는 조각이 없다(`PieceLast`), 줄기가 어/아 앞에서 끝 모음을 지킨다(`PieceKeeps`), 줄기의 낱말이 단위 전체다(`PieceSole`) | `Bits`(piece), 뒤집으려면 `Not` |
+| `PieceIs` | except, counter | 조각이 기준의 사실을 갖는다(`Piece…`): 앞에 줄기가 있다(`PieceStem`), 바로 앞이 수다(`PieceNum`), 그 수가 낱말 표 없이 홀로 선 한자어 한 음절 수사다(`PieceLone`), 수와 합쳐 통째로 낱말이다(`PieceWhole`), 앞 어절이 꾸밈 맺음으로 끝난다(`PieceAdn`), 그 낱말 자신이 꾸밈꼴·이름꼴이다(`PieceTurned`), 경계 뒤의 새 낱말이 표지로 읽힌다(`PieceMarked`), 뒤에 이어지는 조각이 없다(`PieceLast`), 줄기가 어/아 앞에서 끝 모음을 지킨다(`PieceKeeps`), 줄기의 낱말이 단위 전체다(`PieceSole`), 앞 어절이 관형사다(`PieceDet`) | `Bits`(piece), 뒤집으려면 `Not` |
 | `Listed` | except, counter | 조각의 꼴(`ListForm`), 앞 조각의 이름(`ListBefore`), 뒤 조각의 이름(`ListAfter`), 합쳐진 조각이 놓인 음절(`ListBase`)이 기준 목록에 있다 | `List`, 뒤집으려면 `Not` |
 | `PieceAfter` | except, counter | 앞 토큰의 끝이 붙는 조건과 안 맞는다(`Fits`) | `Bits`(after) |
 | `PieceRight` | except | 조각 바로 뒤에 선 것이 기준의 것이다(조사, 그 밖의 글자) | `Bits`(right) |
