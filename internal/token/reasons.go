@@ -45,6 +45,7 @@ const (
 	whyLonger     = "줄기에 앞 음절이 있다"
 	whyTurned     = "그 낱말 자신이 꾸밈꼴·이름꼴이다"
 	whyStemTail   = "줄기의 갈래가 뒤에 붙은 것을 받지 않는다"
+	whySpoken     = "닫힌 표의 구어 꼴이다"
 	whySides      = "양쪽이 맞는 글자 열이 아니다"
 	whyBoth       = "양쪽이 모두 그 글자 열이다"
 	whyAlone      = "점이 하나뿐이다"
