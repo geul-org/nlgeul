@@ -22,11 +22,11 @@ func newIndex(o Options) (*index, error) {
 	if o.Words == "" {
 		return ix, nil
 	}
-	lex, total, err := loadWords(o.Words)
+	lex, typos, total, err := loadWords(o.Words)
 	if err != nil {
 		return nil, err
 	}
-	ix.lex, ix.lexTotal, ix.layers = lex, total, layerCost
+	ix.lex, ix.typos, ix.lexTotal, ix.layers = lex, typos, total, layerCost
 	ix.addAlts()
 	if o.Layers >= layerKnown && o.Layers <= layerCost {
 		ix.layers = o.Layers

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what stemOf — the stem of a word as it is printed and looked up, its name and its verdict (0 for a new word): the letters before the tail, with the last syllable as it was before a piece was fused into it, the word a fused form stands for, or known words bound by a slash or a hyphen; sole tells that the word is the whole of its unit, which the stem's graph is told
+//ff:what stemOf — the stem of a word as it is printed and looked up, its name and its verdict (0 for a new word): the letters before the tail, with the last syllable as it was before a piece was fused into it, the word a fused form stands for, or known words bound by a slash or a hyphen; a stem written wrong is the right form, judged as a misspelt form (misspelt) and by nothing else; sole tells that the word is the whole of its unit, which the stem's graph is told
 package token
 
 // A fused form's word is given by the closed set, so it is known under
@@ -14,6 +14,10 @@ func (sc *scan) stemOf(b int, t tail, sole bool) (string, string, float64) {
 	}
 	if t.as != "" {
 		return stem, t.as, sc.ix.number
+	}
+	if t.wrote != "" {
+		name, v := sc.ix.misspelt(stem, t.kinds, tailClass(t.pieces), sole)
+		return stem, name, v
 	}
 	name, v := sc.ix.known(stem, tailClass(t.pieces), sole)
 	if v <= 0 {

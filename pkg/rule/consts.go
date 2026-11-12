@@ -126,19 +126,20 @@ const (
 
 // Yes/no facts of a piece that PieceIs tests.
 const (
-	PieceStem   = 1 << iota // a stem stands before it (for a stem's restored syllable: letters of the stem stand before it)
-	PieceNum                // a number stands right before it
-	PieceLone               // that number is a lone Sino-Korean digit read with no word table
-	PieceWhole              // that number and the piece together are a word
-	PieceAdn                // the word right before it ends in a modifying closing
-	PieceTurned             // its own word is a modifying or a naming form
-	PieceMarked             // it is a new word after a boundary whose letters read as markers
-	PieceLast               // no piece follows it
-	PieceKeeps              // it is a stem that keeps its last vowel before 어/아 (a 르 or 러 irregular)
-	PieceSole               // it is a stem whose word is the whole of its unit
-	PieceDet                // the word right before it is a determiner
-	PieceClosed             // it stands right on its stem and ends its unit, and a sign that ends a sentence (. ? !) stands right after it
-	PieceSame               // it is a restored syllable that stands in the letters as it is (the piece fused into it left no trace)
+	PieceStem     = 1 << iota // a stem stands before it (for a stem's restored syllable: letters of the stem stand before it)
+	PieceNum                  // a number stands right before it
+	PieceLone                 // that number is a lone Sino-Korean digit read with no word table
+	PieceWhole                // that number and the piece together are a word
+	PieceAdn                  // the word right before it ends in a modifying closing
+	PieceTurned               // its own word is a modifying or a naming form
+	PieceMarked               // it is a new word after a boundary whose letters read as markers
+	PieceLast                 // no piece follows it
+	PieceKeeps                // it is a stem that keeps its last vowel before 어/아 (a 르 or 러 irregular)
+	PieceSole                 // it is a stem whose word is the whole of its unit
+	PieceDet                  // the word right before it is a determiner
+	PieceClosed               // it stands right on its stem and ends its unit, and a sign that ends a sentence (. ? !) stands right after it
+	PieceSame                 // it is a restored syllable that stands in the letters as it is (the piece fused into it left no trace)
+	PieceMisspelt             // it is a stem whose letters the word table gives as a wrong way to write another word
 )
 
 // Yes/no facts of a sign that MarkIs tests.

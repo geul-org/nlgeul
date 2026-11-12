@@ -26,29 +26,32 @@ package rule
 // Same tells that a restored syllable stands in the letters as it is:
 // the piece fused into it left no trace. Closed tells that the piece stands right on its stem and ends its
 // unit, and that a full stop, a question mark or an exclamation mark
-// stands right after it in the unit's letters.
+// stands right after it in the unit's letters. Misspelt tells that the
+// stem's letters are what the word table gives as a wrong way to write
+// another word, whose form the stem then is.
 type Piece struct {
-	Form    string
-	HasStem bool
-	Prev    rune
-	Slot    int
-	Next    int
-	Base    string
-	Tail    int
-	Count   int
-	Before  string
-	After   string
-	Right   int
-	Stem    int
-	Num     bool
-	Whole   bool
-	Lone    bool
-	Adn     bool
-	Turned  bool
-	Marked  bool
-	Keeps   bool
-	Sole    bool
-	Det     bool
-	Closed  bool
-	Same    bool
+	Form     string
+	HasStem  bool
+	Prev     rune
+	Slot     int
+	Next     int
+	Base     string
+	Tail     int
+	Count    int
+	Before   string
+	After    string
+	Right    int
+	Stem     int
+	Num      bool
+	Whole    bool
+	Lone     bool
+	Adn      bool
+	Turned   bool
+	Marked   bool
+	Keeps    bool
+	Sole     bool
+	Det      bool
+	Closed   bool
+	Same     bool
+	Misspelt bool
 }

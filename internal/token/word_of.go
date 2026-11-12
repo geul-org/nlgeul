@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what wordOf — one word of a reading: the stem from b (a known word, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference; a stem no table lists stands as the new word's graph judges it, and a word whose stem does not stand has a verdict of 0 or less
+//ff:what wordOf — one word of a reading: the stem from b (a known word, a known word written wrong, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference; a stem no table lists stands as the new word's graph judges it, and a word whose stem does not stand has a verdict of 0 or less
 package token
 
 import (
@@ -20,7 +20,7 @@ func (sc *scan) wordOf(b, end int, t tail) step {
 	stem, name, v := sc.stemOf(b, t, b == 0 && end == len(sc.s))
 	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: v}
 	if v > 0 {
-		e.word.Parts[0].Names = namesOf(name)
+		e.word.Parts[0].Names, e.word.Parts[0].Written = namesOf(name), t.wrote
 	} else {
 		e.verdict = sc.unlisted(b, end, stem, t)
 	}

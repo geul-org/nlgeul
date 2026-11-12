@@ -12,7 +12,10 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // tail). head is what the tail begins with (head…, of its first piece),
 // and irr the kind of change the stem before it must have gone through
 // (0 for none): its first piece was judged by the stem's own last
-// syllable, not by the letter that stands there.
+// syllable, not by the letter that stands there. wrote is the letters of
+// a stem that the word table gives as a wrong way to write another
+// word (shown is that word, and kinds the kinds the table gives the
+// wrong form); "" for any other tail.
 type tail struct {
 	start  int
 	pieces []piece
@@ -29,4 +32,6 @@ type tail struct {
 	facts  *rule.Piece
 	head   int
 	irr    int
+	wrote  string
+	kinds  int
 }

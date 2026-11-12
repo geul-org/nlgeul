@@ -38,4 +38,21 @@ func TestVariants(t *testing.T) {
 	if got = sc.variants(0, tail{start: 1, pieces: past, head: headWhole, irr: irrS}); len(got) != 0 {
 		t.Fatal("a tail that asks for another change", got)
 	}
+	conn := []piece{{text: "(어)", tail: rule.TailPred}}
+	ts := typoScan("맞겨", layerCost)
+	if got = ts.variants(0, tail{start: 2, base: '기', pieces: conn}); len(got) != 2 || got[0].shown != "" || got[1].shown != "맡기" || got[1].wrote != "맞기" {
+		t.Fatal("a misspelt form is read once more, without a head", got)
+	}
+	if got = ts.variants(0, tail{start: 2, base: '기', pieces: conn, shown: "맡기"}); len(got) != 1 || got[0].wrote != "" {
+		t.Fatal("a tail that shows its own stem", got)
+	}
+	if got = ts.variants(0, tail{start: 2, base: '기', pieces: conn, irr: irrS}); len(got) != 0 {
+		t.Fatal("a tail that asks for a change gets no misspelt read", got)
+	}
+	if got = ts.variants(0, tail{start: 2, base: '기', pieces: []piece{{text: "이", tail: rule.TailCase}}}); len(got) != 1 {
+		t.Fatal("a misspelt verb stem does not take a particle", got)
+	}
+	if got = sc.variants(0, tail{start: 2, base: '기', pieces: conn}); len(got) != 1 {
+		t.Fatal("no misspelt read without the misspelt line", got)
+	}
 }

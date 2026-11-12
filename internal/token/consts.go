@@ -36,6 +36,14 @@ const (
 	keyKind = "열쇠"
 )
 
+// typoSign and typoName mark a part written in a wrong form: the sign
+// that joins the mark to the part's readings, and the mark's name
+// (corrected). 열쇠:동사 written 맞기 is 열쇠:동사,오타정정:맞기.
+const (
+	typoSign = ","
+	typoName = "오타정정"
+)
+
 // restoreName names the graph of a stem's last syllable as it is put
 // back when a piece is taken out of it (마신 → 마시, 따라 → 따르).
 const restoreName = "줄기:되돌린 끝 음절"
@@ -99,6 +107,18 @@ const forceWhole = 0.98
 // among a few values tried on a thousand sentences for the first of the
 // two; nothing records a measurement for the second, which borrows it.
 const forceClash = 0.5
+
+// forceTypo is the force of the rebuttal "the letters are a misspelling
+// of the word" against a stem that the word table gives as a wrong way
+// to write another word (misspeltRebuttal). With only that rebuttal the
+// verdict is 2/(1+0.24)-1, about 0.61, below the verdict of the word
+// written right, so that the right reading of the same letters comes
+// first. forceClash (먹아, 줄은) is not used: those forms
+// have another reading of the same letters that fits the norm, and the
+// reading is sent behind it; a misspelt stem has no right reading of
+// those letters to give way to. It is a placeholder, not a measured
+// value.
+const forceTypo = 0.24
 
 // The costs of structure, in the units of preference (log10). They are
 // placeholders, not measured values: nothing in the tables says how

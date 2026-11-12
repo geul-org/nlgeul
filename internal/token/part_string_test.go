@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestPartString — a part prints what the letters do not show in brackets, its letters, and its readings in square brackets; a stem no table knows prints bare, a marker with no readings with empty brackets, and a part with no letters as what is written out alone
+//ff:what TestPartString — a part prints what the letters do not show in brackets, its letters, and its readings in square brackets; a stem no table knows prints bare, a marker with no readings with empty brackets, a stem written wrong has the form it is written in after its readings, and a part with no letters as what is written out alone
 package token
 
 import "testing"
@@ -19,6 +19,9 @@ func TestPartString(t *testing.T) {
 	}
 	if got := (Part{Hidden: "이", Names: []Name{{"서술격", "이(빠짐)"}}, Unseen: true}).String(); got != "(이)[서술격:이(빠짐)]" {
 		t.Fatalf("written out only: %q", got)
+	}
+	if got := (Part{Text: "맡기", Written: "맞기", Stem: true, Names: []Name{{"열쇠", "동사"}}}).String(); got != "맡기[열쇠:동사,오타정정:맞기]" {
+		t.Fatalf("written wrong: %q", got)
 	}
 	if got := (Part{Text: "가", Names: []Name{{"주격", "가"}, {"보격", "가"}}}).String(); got != "가[주격:가|보격:가]" {
 		t.Fatalf("marker: %q", got)
