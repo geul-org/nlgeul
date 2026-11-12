@@ -17,13 +17,13 @@ func (ix *index) addFused() {
 	for _, e := range rows {
 		g := toulmin.NewGraph(e.name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
-		g.Except(rule.PieceNoStem).Attacks(claim)
-		if e.after != afterAny {
-			g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
+		except(g, rule.PieceIs, whyNoStem, fact(rule.PieceStem), not).Attacks(claim)
+		if e.after != rule.AfterAny {
+			except(g, rule.PieceAfter, whyAfter, &rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
 			ix.edges++
 		}
 		if e.name == euName {
-			g.Except(rule.NextUnlisted).With(toulmin.NewStringListSpec("takers", append([]string{honorName}, linkTakers...))).Attacks(claim)
+			except(g, rule.Listed, whyNotBefore, listed("takers", rule.ListAfter, append([]string{honorName}, linkTakers...)), not).Attacks(claim)
 			ix.edges++
 		}
 		e.g = g
@@ -38,9 +38,9 @@ func (ix *index) addFused() {
 		name := "줄임:" + c.form
 		g := toulmin.NewGraph(name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
-		g.Except(rule.ChainLinks).Attacks(claim)
+		except(g, rule.ChainLinks, whyChain).Attacks(claim)
 		if c.adn {
-			g.Except(rule.PieceNoAdn).Attacks(claim)
+			except(g, rule.PieceIs, whyNoAdn, fact(rule.PieceAdn), not).Attacks(claim)
 			ix.edges++
 		}
 		under := ix.named(c.key, c.name)

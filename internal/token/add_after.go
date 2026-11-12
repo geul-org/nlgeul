@@ -10,12 +10,12 @@ import (
 func (ix *index) addAfter(name, form string, place int) {
 	g := toulmin.NewGraph(name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "표지"})
-	g.Except(rule.PieceNoNumber).Attacks(claim)
-	g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightOther}).Attacks(claim)
+	except(g, rule.PieceIs, whyNoNumber, fact(rule.PieceNum), not).Attacks(claim)
+	except(g, rule.PieceRight, whyRight, &rule.Bits{Of: "right", Mask: rule.RightOther}).Attacks(claim)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
 	if place != placeBig {
-		g.Except(rule.PieceLone).Attacks(claim)
-		g.Counter(rule.PieceWhole).Attacks(claim, forceWhole)
+		except(g, rule.PieceIs, whyLone, fact(rule.PieceLone)).Attacks(claim)
+		g.Counter(rule.PieceIs).With(fact(rule.PieceWhole)).Attacks(claim, forceWhole)
 		ix.edges += 2
 	}
 	f := []rune(form)

@@ -20,7 +20,10 @@ const (
 )
 
 // numeralCount is the number of entries of the two tables: a numeral
-// is taken as one of them, as the tables give no counts.
+// is taken as one of them, as the tables give no counts. 13 is the
+// native numerals (nativeOnes and nativeAlone), 16 the Sino-Korean ones
+// (sinoDigits, sinoBigs and sinoSome); the sum is written by hand and
+// follows the tables only as long as it is kept so.
 const numeralCount = 13 + 16
 
 // numberLetters are Latin letters written where a number stands (N개,

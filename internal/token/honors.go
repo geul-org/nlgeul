@@ -13,7 +13,6 @@ func (sc *scan) honors(p piece, start int, bare bool) []tail {
 	if e == nil {
 		return nil
 	}
-	h := piece{"시", honorName, 1, sc.ix.pref(honorCount, "시"), rule.TailPred, false}
 	facts := rule.Piece{Form: "시", HasStem: at >= 1, Next: -1, Right: rule.RightDone}
 	if at >= 1 {
 		facts.Prev = sc.s[at-1]
@@ -22,7 +21,8 @@ func (sc *scan) honors(p piece, start int, bare bool) []tail {
 		facts.Right = sc.right(start)
 	}
 	var out []tail
-	if sc.judge(e, at, start, facts) > 0 {
+	if v := sc.judge(e, at, start, facts); v > 0 {
+		h := piece{"시", honorName, v, sc.ix.pref(honorCount, "시"), rule.TailPred, false}
 		out = append(out, tail{start: at, pieces: []piece{h, p}, gate: gate, head: headEuOpen | headS})
 		out = append(out, withGate(sc.linked(at, []piece{h, p}, honorName, false), gate)...)
 	}

@@ -14,7 +14,7 @@ func TestShapeGraph(t *testing.T) {
 	run := func(parts ...string) float64 {
 		ctx := toulmin.NewContext()
 		ctx.Set(rule.KeyMark, rule.Mark{Parts: parts})
-		v, _ := evaluate(e.g, ctx)
+		v, _ := evaluate(e.g, ctx, false)
 		return v
 	}
 	if e.name != "비율::" || run("16", "9") <= 0 || run("10", "30", "00") > 0 {

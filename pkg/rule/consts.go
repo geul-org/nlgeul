@@ -123,3 +123,35 @@ const (
 	RightParticle             // a particle
 	RightOther                // something else
 )
+
+// Yes/no facts of a piece that PieceIs tests.
+const (
+	PieceStem   = 1 << iota // a stem stands before it (for a stem's restored syllable: letters of the stem stand before it)
+	PieceNum                // a number stands right before it
+	PieceLone               // that number is a lone Sino-Korean digit read with no word table
+	PieceWhole              // that number and the piece together are a word
+	PieceAdn                // the word right before it ends in a modifying closing
+	PieceTurned             // its own word is a modifying or a naming form
+	PieceMarked             // it is a new word after a boundary whose letters read as markers
+	PieceLast               // no piece follows it
+	PieceKeeps              // it is a stem that keeps its last vowel before 어/아 (a 르 or 러 irregular)
+)
+
+// Yes/no facts of a sign that MarkIs tests.
+const (
+	MarkRepeated  = 1 << iota // two dots or more stand in a row
+	MarkAfterWord             // a letter stands right before the sign
+	MarkNumeric               // every run of the dotted name is digits
+)
+
+// The facts a list is asked for (List.Of).
+const (
+	ListForm    = iota + 1 // the piece's form
+	ListBefore             // the name of the piece before it
+	ListAfter              // the name of the piece after it
+	ListBase               // the syllable a fused piece sits under
+	ListExt                // the run right of a dot
+	ListLast               // the last run of a dotted name
+	ListWord               // the word under judgment
+	ListClosing            // the closing of the tail under judgment
+)

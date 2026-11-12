@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what fixed — the fused forms with a fixed first word that end at j (이게 → 이것+(이)): each is a word and the particle under it, judged as that particle is before the one that follows
+//ff:what fixed — the fused forms with a fixed first word that end at j (이게 → 이것+(이)): each is a word and the particle under it, judged as that particle is before the one that follows; a form read only right after a modifying closing is judged here by whether some reading has such a word end before it, and keeps its graph and facts to be asked again on each reading (again)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -13,12 +13,17 @@ func (sc *scan) fixed(j, next int) []tail {
 		if b < 0 || string(sc.s[b:j]) != c.form {
 			continue
 		}
-		v := sc.judge(e, b, j, rule.Piece{Form: c.form, HasStem: true, Slot: linkOf(labelOf(c.name), c.text, e.slot), Next: next, Adn: sc.adnEnds[b] || (sc.attach && b == 0)})
+		facts := rule.Piece{Form: c.form, HasStem: true, Slot: linkOf(labelOf(c.name), c.text, e.slot), Next: next, Adn: sc.adnEnds[b] || (sc.attach && b == 0)}
+		v := sc.judge(e, b, j, facts)
 		if v <= 0 {
 			continue
 		}
 		pc := piece{c.text, c.name, v, sc.ix.pref(e.count, c.text), tailOf(e), false}
-		out = append(out, tail{start: j, pieces: []piece{pc}, only: c.form, shown: c.stem, label: e.name, adn: c.adn})
+		read := tail{start: j, pieces: []piece{pc}, only: c.form, shown: c.stem, label: e.name}
+		if c.adn {
+			read.again, read.facts = e, &facts
+		}
+		out = append(out, read)
 	}
 	return out
 }

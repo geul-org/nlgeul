@@ -18,11 +18,12 @@ func TestLettered(t *testing.T) {
 	if lettered([]rune("이'는"), 1) || lettered([]rune("a'는"), 1) || lettered([]rune("이'a"), 1) {
 		t.Fatal("a Hangul letter on either side")
 	}
-	got := strings.Join(Lines("곰이 '사자 호랑이'는 싫다", false), "\n")
+	bare, _ := New(Options{})
+	got := strings.Join(bare.Lines("곰이 '사자 호랑이'는 싫다", false), "\n")
 	if !strings.Contains(got, "'[여는 작은따옴표]") || !strings.Contains(got, "'[닫는 작은따옴표]+는[보조사:는]") {
 		t.Fatal("a quote closed with a particle on it\n" + got)
 	}
-	if got := strings.Join(Lines("it's", false), "\n"); strings.Contains(got, "작은따옴표") {
+	if got := strings.Join(bare.Lines("it's", false), "\n"); strings.Contains(got, "작은따옴표") {
 		t.Fatal("an apostrophe inside a Latin word\n" + got)
 	}
 }

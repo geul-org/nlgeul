@@ -9,10 +9,10 @@ import (
 )
 
 func TestEuAfter(t *testing.T) {
-	if euAfter("을", afterBatchim) != rule.AfterHard || euAfter("은데", afterBatchim) != rule.AfterHard || euAfter("읍시다", afterBatchim) != rule.AfterHard {
+	if euAfter("을", rule.AfterBatchim) != rule.AfterHard || euAfter("은데", rule.AfterBatchim) != rule.AfterHard || euAfter("읍시다", rule.AfterBatchim) != rule.AfterHard {
 		t.Fatal("forms with 으")
 	}
-	if euAfter("습니다", afterBatchim) != afterBatchim || euAfter("은", afterAny) != afterAny || euAfter("고", afterAny) != afterAny {
+	if euAfter("습니다", rule.AfterBatchim) != rule.AfterBatchim || euAfter("은", rule.AfterAny) != rule.AfterAny || euAfter("고", rule.AfterAny) != rule.AfterAny {
 		t.Fatal("other forms and conditions")
 	}
 }

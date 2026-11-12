@@ -7,17 +7,17 @@ import "testing"
 func TestExtend(t *testing.T) {
 	sc := scanOf("곰이")
 	best := [][]*path{{{verdict: 1}}, nil, nil}
-	if got := sc.extend(nil, best, tail{start: 2, pieces: []piece{{text: "x"}}}, 2); len(got) != 1 {
+	if got := sc.extend(nil, best, tail{start: 2, pieces: []piece{{text: "x", verdict: 1}}}, 2); len(got) != 1 {
 		t.Fatal("a place with no reading grown", got)
 	}
 	inner := scanOf("ab는")
-	if got := inner.extend(nil, [][]*path{{{verdict: 1}}, {{verdict: 1}}, nil, nil}, tail{start: 2, pieces: []piece{{text: "는"}}}, 3); len(got) != 1 {
+	if got := inner.extend(nil, [][]*path{{{verdict: 1}}, {{verdict: 1}}, nil, nil}, tail{start: 2, pieces: []piece{{text: "는", verdict: 1}}}, 3); len(got) != 1 {
 		t.Fatal("a word beginning inside an atom", got)
 	}
-	if got := inner.extend(nil, [][]*path{{{verdict: 1}}, nil, nil, nil}, tail{start: 1, pieces: []piece{{text: "x"}}}, 3); len(got) != 0 {
+	if got := inner.extend(nil, [][]*path{{{verdict: 1}}, nil, nil, nil}, tail{start: 1, pieces: []piece{{text: "x", verdict: 1}}}, 3); len(got) != 0 {
 		t.Fatal("a stem ending inside an atom", got)
 	}
-	if got := sc.extend(nil, best, tail{start: 2, only: "아니", pieces: []piece{{text: "x"}}}, 2); len(got) != 0 {
+	if got := sc.extend(nil, best, tail{start: 2, only: "아니", pieces: []piece{{text: "x", verdict: 1}}}, 2); len(got) != 0 {
 		t.Fatal("a tail of 아니 after another stem", got)
 	}
 	got := sc.extend(nil, best, tail{start: 1, pieces: []piece{{"이", "주격:이", 1, -1, 0, false}}}, 2)
@@ -25,12 +25,17 @@ func TestExtend(t *testing.T) {
 		t.Fatal(got)
 	}
 	ws := wordsScan("학교래", layerCost)
-	if got := ws.extend(nil, [][]*path{{{verdict: 1}}, nil, nil, nil}, tail{start: 2, gate: ws.ix.pred, pieces: []piece{{text: "래"}}}, 3); len(got) != 0 {
+	if got := ws.extend(nil, [][]*path{{{verdict: 1}}, nil, nil, nil}, tail{start: 2, gate: ws.ix.pred, pieces: []piece{{text: "래", verdict: 1}}}, 3); len(got) != 0 {
 		t.Fatal("a noun before a closing that asks for a predicate", got)
 	}
-	adn := scanOf("간곳")
+	adn := scanOf("간건")
+	adn.adnEnds[1] = true
+	only := adn.fixed(2, -1)
+	if len(only) != 1 || only[0].again == nil {
+		t.Fatal("건 as 거 and 는, read only after a modifying closing", only)
+	}
 	after := [][]*path{{{verdict: 1}}, {{verdict: 1, last: step{end: 1}}, {verdict: 1, last: step{end: 1, adn: true}}}, nil}
-	if got := adn.extend(nil, after, tail{start: 2, adn: true}, 2); len(got) != 1 || got[0].prev != after[1][1] {
+	if got := adn.extend(nil, after, only[0], 2); len(got) != 1 || got[0].prev != after[1][1] {
 		t.Fatal("a tail read only after a modifying closing", got)
 	}
 	mark := scanOf("가는")

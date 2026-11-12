@@ -12,7 +12,7 @@ func TestAuxStems(t *testing.T) {
 	if !slices.Contains(none, "보") || slices.Contains(none, "지") || slices.Contains(none, "가") {
 		t.Fatal(none)
 	}
-	if !slices.Contains(with, "보") || !slices.Contains(with, "가") || len(with) != len(auxAfter)+len(auxMore) || len(auxAfter) != 6 {
+	if !slices.Contains(with, "보") || !slices.Contains(with, "가") || len(with) != len(none)+len(auxMore) || len(none) != 6 {
 		t.Fatal(with)
 	}
 }

@@ -12,11 +12,11 @@ func TestAddAfter(t *testing.T) {
 	ix := &index{after: map[rune][]*entry{}}
 	ix.addAfter("단위:개월", "개월", placeUnit)
 	e := ix.after['월'][0]
-	yes, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightDone}, "")
-	on, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightOther}, "")
-	no, _ := verdictOf(e.g, rule.Piece{}, "")
-	lone, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightDone, Lone: true}, "")
-	whole, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightDone, Whole: true}, "")
+	yes, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightDone}, "", false)
+	on, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightOther}, "", false)
+	no, _ := verdictOf(e.g, rule.Piece{}, "", false)
+	lone, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightDone, Lone: true}, "", false)
+	whole, _ := verdictOf(e.g, rule.Piece{Num: true, Right: rule.RightDone, Whole: true}, "", false)
 	if e.form != "개월" || e.slot != placeUnit || yes <= 0 || no > 0 || on > 0 || ix.graphs != 1 || ix.edges != 4 {
 		t.Fatal(e, yes, no)
 	}
@@ -24,7 +24,7 @@ func TestAddAfter(t *testing.T) {
 		t.Fatal(lone, whole)
 	}
 	ix.addAfter(bigName+"만", "만", placeBig)
-	if big, _ := verdictOf(ix.after['만'][0].g, rule.Piece{Num: true, Right: rule.RightDone, Lone: true, Whole: true}, ""); big != yes || ix.edges != 6 {
+	if big, _ := verdictOf(ix.after['만'][0].g, rule.Piece{Num: true, Right: rule.RightDone, Lone: true, Whole: true}, "", false); big != yes || ix.edges != 6 {
 		t.Fatal(big, ix.edges)
 	}
 }

@@ -15,7 +15,9 @@ func TestGrown(t *testing.T) {
 	if got := sc.grown(nil, kept, adn, 0, 2); len(got) != 2 || !sc.adnEnds[2] {
 		t.Fatal(got, sc.adnEnds)
 	}
-	if got := sc.grown(nil, kept, tail{start: 2, adn: true}, 0, 2); len(got) != 1 || got[0].prev != kept[1] {
+	bound := scanOf("가건")
+	bound.adnEnds[1] = true
+	if got := bound.grown(nil, kept, bound.fixed(2, -1)[0], 1, 2); len(got) != 1 || got[0].prev != kept[1] {
 		t.Fatal("only after a modifying closing", got)
 	}
 	ws := wordsScan("학교래", layerCost)

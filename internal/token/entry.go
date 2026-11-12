@@ -9,7 +9,7 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // makes when it is not the usual one. slot is, for a particle, its kind in chains (rule.Link…); for a slot
 // before a closing, its order. bars, needs and holds are a closing's
 // ways with the copula stem 이: it does not attach to it, attaches only
-// to it (or to 아니), or holds it. lead is 0 for a form of whole syllables, leadVowel, or the final
+// to it (or to 아니), or holds it. lead is 0 for a form of whole syllables, rule.LeadVowel, or the final
 // consonant the piece puts under the syllable before form. eu tells
 // that a closing takes the link vowel 으 after a consonant, and head
 // what a slot or closing begins with (head…). loose marks a form read
@@ -19,7 +19,6 @@ type entry struct {
 	name  string
 	form  string
 	class int
-	ends  int
 	lead  int
 	after int
 	slot  int

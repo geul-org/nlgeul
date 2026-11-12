@@ -19,30 +19,30 @@ import (
 func markerGraph(e *entry, whole []string, lexed bool) int {
 	g := toulmin.NewGraph(e.name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
-	g.Except(rule.PieceNoStem).Attacks(claim)
+	except(g, rule.PieceIs, whyNoStem, fact(rule.PieceStem), not).Attacks(claim)
 	edges := 1
-	if e.lead == 0 && e.after != afterAny {
-		g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
+	if e.lead == 0 && e.after != rule.AfterAny {
+		except(g, rule.PieceAfter, whyAfter, &rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
 		edges++
 	}
 	if e.class == classParticle {
-		g.Except(rule.ChainLinks).Attacks(claim)
+		except(g, rule.ChainLinks, whyChain).Attacks(claim)
 		edges++
 	}
 	if e.inner {
-		g.Except(rule.PieceLast).Attacks(claim)
+		except(g, rule.PieceIs, whyLast, fact(rule.PieceLast)).Attacks(claim)
 		edges++
 	}
 	if e.class == classSlot {
-		g.Except(rule.SlotOrder).Attacks(claim)
+		except(g, rule.SlotOrder, whySlot).Attacks(claim)
 		edges++
 	}
 	if e.class == classClosing && e.form == "" && e.lead > 0 && !lexed {
-		g.Except(rule.PieceBase).With(toulmin.NewStringListSpec("bases", rule.BareBases(e.lead))).Attacks(claim)
+		except(g, rule.Listed, whyBase, listed("bases", rule.ListBase, rule.BareBases(e.lead)), not).Attacks(claim)
 		edges++
 	}
 	if e.wide && e.class == classClosing {
-		g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
+		except(g, rule.PieceRight, whyRight, &rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
 		edges++
 	}
 	if e.head&headWhole != 0 {
@@ -54,7 +54,7 @@ func markerGraph(e *entry, whole []string, lexed bool) int {
 		edges++
 	}
 	if len(whole) > 0 {
-		g.Except(rule.WordListed).With(toulmin.NewStringListSpec("wholeWords", whole)).Attacks(claim)
+		except(g, rule.Listed, whyWhole, listed("wholeWords", rule.ListWord, whole)).Attacks(claim)
 		edges++
 	}
 	e.g = g

@@ -51,7 +51,7 @@ var shortClosings = []short{
 // a vowel or ㄹ, 론 (로는). They close a chain as 엔 and 에선 do.
 var shortParticles = []entry{
 	{name: "부사격:선(에서는)", form: "선", class: classParticle, slot: rule.LinkTopic, kase: rule.CaseAdv},
-	{name: "부사격:론(로는)", form: "론", class: classParticle, after: afterOpen, slot: rule.LinkTopic, kase: rule.CaseAdv},
+	{name: "부사격:론(로는)", form: "론", class: classParticle, after: rule.AfterOpen, slot: rule.LinkTopic, kase: rule.CaseAdv},
 }
 
 // shortSlots are the same quotations shortened with the past fused in:

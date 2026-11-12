@@ -2,7 +2,11 @@
 //ff:what TestFusedPref — a fused 어/아 and a fused ㅆ take the preference of the whole form they are written out as; a piece under another consonant, and a form the index gives no count, keep the preference given
 package token
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
 
 func TestFusedPref(t *testing.T) {
 	ix, _ := newIndex(Options{})
@@ -17,7 +21,7 @@ func TestFusedPref(t *testing.T) {
 	if got := ix.fusedPref(ix.named('ㄴ', "꾸밈:ㄴ"), "ㄴ", -7); got != -7 {
 		t.Fatal(got)
 	}
-	if got := ix.fusedPref(&entry{name: "맺음:없는꼴", lead: leadVowel, form: "꼴"}, "어", -3); got != -3 {
+	if got := ix.fusedPref(&entry{name: "맺음:없는꼴", lead: rule.LeadVowel, form: "꼴"}, "어", -3); got != -3 {
 		t.Fatal(got)
 	}
 }

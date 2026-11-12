@@ -10,31 +10,18 @@ const (
 	classKey             // 닫힌 집합의 낱말(열쇠)
 )
 
-// Final-consonant indexes, the lead of a fused 어/아 and the attachment
-// conditions are the rule package's. keyVowel is the index key of 어/아
-// fused into a stem's last vowel; a final consonant put under the
-// stem's last syllable is keyed by its letter (rule.LeadText).
-const (
-	jongN  = rule.JongN
-	jongM  = rule.JongM
-	jongSS = rule.JongSS
-
-	leadVowel = rule.LeadVowel
-	keyVowel  = 'ㅓ'
-
-	afterAny     = rule.AfterAny
-	afterBatchim = rule.AfterBatchim
-	afterOpen    = rule.AfterOpen
-	afterVowel   = rule.AfterVowel
-)
+// keyVowel is the index key of 어/아 fused into a stem's last vowel; a
+// final consonant put under the stem's last syllable is keyed by its
+// letter (rule.LeadText). The final-consonant indexes, the lead of a
+// fused 어/아 and the attachment conditions are the rule package's
+// (rule.Jong…, rule.LeadVowel, rule.After…) and have no second name
+// here.
+const keyVowel = 'ㅓ'
 
 // beam is how many partial readings are kept at each place while a
-// unit is read.
+// unit is read, and how many readings of a unit are sent up. Nothing
+// records why it is 16 (no measurement, no decision).
 const beam = 16
-
-// chainMax is how many particles a chain holds at most (the longest
-// chains observed hold three).
-const chainMax = 3
 
 // syllables is the number of Hangul syllables: with no key table, a
 // stem syllable may be any of them, so each costs log10(1/syllables)
@@ -49,6 +36,10 @@ const (
 	keyKind = "열쇠"
 )
 
+// restoreName names the graph of a stem's last syllable as it is put
+// back when a piece is taken out of it (마신 → 마시, 따라 → 따르).
+const restoreName = "줄기:되돌린 끝 음절"
+
 // Kinds of stem, by what may follow them (kindTails). The parts of
 // speech of a word table are folded into these.
 const (
@@ -60,6 +51,10 @@ const (
 	kindAlone                  // 홀로 서는 말: 감탄사와 그 밖
 )
 
+// kindAny is every kind: a stem with one of them is a word some table
+// knows.
+const kindAny = kindNominal | kindVerb | kindAdj | kindAdverb | kindDeterminer | kindAlone
+
 // Layers of a word table's use: whether a stem is in the table; whether
 // its kind fits what follows it; and the cost of structure.
 const (
@@ -69,23 +64,21 @@ const (
 	layerCost
 )
 
-// The costs of structure, in the units of preference (log10). They are
-// placeholders, not measured values: nothing in the tables says how
-// much a boundary, an unseen piece or a piece is worth. Each is paid
-// once: for every word after a unit's first, for every piece that
-// leaves no trace in the letters (어/아 fused into ㅏ ㅓ ㅐ ㅔ with
-// nothing after it), and for the stem of a word. The markers of the
-// index (particles, slots, closings, units, signs) pay no such cost:
-// a word read into its pieces is not dearer than the same word whole.
-// How strong the evidence is that a stem found in the word table is
-// a word (the verdict of its kind's graph). These too are placeholders,
-// not measured values. A stem observed seenEnough times or more is not
-// rebutted as rarely seen; forceFew and forceShort are the forces of
-// the rebuttals "rarely seen" and "a key of one syllable". forceFew is
-// chosen among a few values tried on a thousand sentences so that a
-// row seen once (or with no count), even of one syllable, still stands
-// above a new word: with the two rebuttals in full the verdict is
-// 2/(1+0.24+0.25)-1, just over a new word's 1/3.
+// forceNew is the force of the rebuttal "it is in no key table"
+// against a new word: with it a new word's verdict is 2/(1+0.5)-1 =
+// 1/3, a low positive one. It is a placeholder, not a measured value.
+const forceNew = 0.5
+
+// How strong the evidence is that a stem found in the word table is a
+// word (the verdict of its kind's graph). A stem observed seenEnough
+// times or more is not rebutted as rarely seen; forceFew and forceShort
+// are the forces of the rebuttals "rarely seen" and "a key of one
+// syllable", and shortKey the length that counts as short. seenEnough,
+// forceShort and shortKey are placeholders, not measured values.
+// forceFew is chosen among a few values tried on a thousand sentences
+// so that a row seen once (or with no count), even of one syllable,
+// still stands above a new word: with the two rebuttals in full the
+// verdict is 2/(1+0.24+0.25)-1, just over a new word's 1/3.
 const (
 	seenEnough = 10000
 	forceFew   = 0.24
@@ -95,19 +88,32 @@ const (
 
 // forceWhole is the force of the rebuttal "the number and the unit
 // together are a word of the table" against a unit read after a lone
-// Hangul numeral (이건, 세대). It is a placeholder chosen among a few
-// values tried on a thousand sentences: below about 0.94 the unit
-// reading still comes first, and at 1 it is not kept at all.
+// Hangul numeral (이건, 세대). It is chosen among a few values tried on
+// a thousand sentences: below about 0.94 the unit reading still comes
+// first, and at 1 it is not kept at all.
 const forceWhole = 0.98
 
 // forceClash is the force of the rebuttal "어/아 does not fit the vowel
 // before it" (먹아, 잡어), and of "a form with 으 does not fit the ㄹ
-// before it" (줄은): the reading is kept and comes later. It is a
-// placeholder chosen among a few values tried on a thousand sentences.
+// before it" (줄은): the reading is kept and comes later. It is chosen
+// among a few values tried on a thousand sentences for the first of the
+// two; nothing records a measurement for the second, which borrows it.
 const forceClash = 0.5
 
+// The costs of structure, in the units of preference (log10). They are
+// placeholders, not measured values: nothing in the tables says how
+// much a boundary, an unseen piece or a piece is worth. Each is paid
+// once: for every word after a unit's first, for every piece that
+// leaves no trace in the letters (어/아 fused into ㅏ ㅓ ㅐ ㅔ with
+// nothing after it), and for the stem of a word. The markers of the
+// index (particles, slots, closings, units, signs) pay no such cost:
+// a word read into its pieces is not dearer than the same word whole.
 const (
 	costBoundary = 1.0
 	costUnseen   = 1.0
 	costPiece    = 1.0
 )
+
+// not turns a yes/no rule round (rule.Not); one value serves every
+// node.
+var not = &rule.Not{}

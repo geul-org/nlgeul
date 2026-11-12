@@ -14,13 +14,13 @@ func TestMarkerGraph(t *testing.T) {
 		whole []string
 		edges int
 	}{
-		{entry{name: "보조사:은", form: "은", class: classParticle, after: afterBatchim}, nil, 3},
+		{entry{name: "보조사:은", form: "은", class: classParticle, after: rule.AfterBatchim}, nil, 3},
 		{entry{name: "부사격:에", form: "에", class: classParticle}, nil, 2},
-		{entry{name: "접미:이", form: "이", class: classParticle, after: afterBatchim, inner: true}, nil, 4},
+		{entry{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, inner: true}, nil, 4},
 		{entry{name: "선어말:었", form: "었", class: classSlot}, nil, 2},
-		{entry{name: "꾸밈:ㄴ", class: classClosing, lead: jongN}, nil, 2},
+		{entry{name: "꾸밈:ㄴ", class: classClosing, lead: rule.JongN}, nil, 2},
 		{entry{name: "맺음:고", form: "고", class: classClosing}, []string{"그리고"}, 2},
-		{entry{name: "맺음:ㄴ다", form: "다", class: classClosing, lead: jongN}, nil, 1},
+		{entry{name: "맺음:ㄴ다", form: "다", class: classClosing, lead: rule.JongN}, nil, 1},
 		{entry{name: "맺음:재(자고 해)", form: "재", class: classClosing, wide: true}, nil, 2},
 		{entry{name: "부사격:선(에서는)", form: "선", class: classParticle, wide: true}, nil, 2},
 		{entry{name: "맺음:어서", form: "어서", class: classClosing, head: headWhole}, nil, 2},
@@ -33,7 +33,7 @@ func TestMarkerGraph(t *testing.T) {
 			t.Errorf("%s: %d", e.name, got)
 		}
 	}
-	lone := entry{name: "꾸밈:ㄴ", class: classClosing, lead: jongN}
+	lone := entry{name: "꾸밈:ㄴ", class: classClosing, lead: rule.JongN}
 	if got := markerGraph(&lone, nil, true); got != 1 {
 		t.Fatal("with a word table a lone consonant's base is not the graph's to ask", got)
 	}
@@ -43,12 +43,12 @@ func TestMarkerGraph(t *testing.T) {
 	markerGraph(&loose, nil, true)
 	markerGraph(&tight, nil, true)
 	liquid := rule.Piece{Form: "은", HasStem: true, Prev: '줄', Next: -1}
-	v, _ := verdictOf(loose.g, liquid, "줄은")
-	w, _ := verdictOf(tight.g, liquid, "줄은")
+	v, _ := verdictOf(loose.g, liquid, "줄은", false)
+	w, _ := verdictOf(tight.g, liquid, "줄은", false)
 	if v <= 0 || v >= w {
 		t.Fatal("after a stem's ㄹ a loose form stands, rebutted below the same form read by the tables", v, w)
 	}
-	if v, _ = verdictOf(loose.g, rule.Piece{Form: "은", HasStem: true, Prev: '먹', Next: -1}, "먹은"); v > 0 {
+	if v, _ = verdictOf(loose.g, rule.Piece{Form: "은", HasStem: true, Prev: '먹', Next: -1}, "먹은", false); v > 0 {
 		t.Fatal("a loose form after another consonant", v)
 	}
 }

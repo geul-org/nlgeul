@@ -11,7 +11,7 @@ import (
 func TestFixed(t *testing.T) {
 	sc := scanOf("이게")
 	got := sc.fixed(2, -1)
-	if len(got) != 1 || got[0].start != 2 || got[0].only != "이게" || got[0].shown != "이것" || got[0].label != "줄임:이게" || got[0].pieces[0].text != "(이)" || got[0].pieces[0].names != "주격:이" || got[0].pieces[0].tail != rule.TailCase {
+	if len(got) != 1 || got[0].start != 2 || got[0].only != "이게" || got[0].shown != "이것" || got[0].label != "줄임:이게" || got[0].pieces[0].text != "(이)" || got[0].pieces[0].names != "주격:이" || got[0].pieces[0].tail != rule.TailCase || got[0].again != nil {
 		t.Fatal(got)
 	}
 	if got = sc.fixed(2, rule.LinkCase); len(got) != 0 {
@@ -51,7 +51,7 @@ func TestFixed(t *testing.T) {
 		t.Fatal("거 with a particle where no modifying closing ends", got)
 	}
 	bound.adnEnds[1] = true
-	if got = bound.fixed(2, -1); len(got) != 1 || got[0].shown != "거" || !got[0].adn || got[0].pieces[0].text != "(는)" {
+	if got = bound.fixed(2, -1); len(got) != 1 || got[0].shown != "거" || got[0].again == nil || got[0].facts == nil || !got[0].facts.Adn || got[0].pieces[0].text != "(는)" {
 		t.Fatal(got)
 	}
 	ge := scanOf("게")
@@ -59,7 +59,7 @@ func TestFixed(t *testing.T) {
 		t.Fatal("게 alone with nothing before it", got)
 	}
 	ge.attach = true
-	if got = ge.fixed(1, -1); len(got) != 1 || got[0].shown != "거" || !got[0].adn || got[0].only != "게" || got[0].pieces[0].text != "(이)" {
+	if got = ge.fixed(1, -1); len(got) != 1 || got[0].shown != "거" || got[0].again == nil || got[0].facts == nil || !got[0].facts.Adn || got[0].only != "게" || got[0].pieces[0].text != "(이)" {
 		t.Fatal("게 as a unit attaching to the modifying form before", got)
 	}
 	inner := scanOf("곰게")

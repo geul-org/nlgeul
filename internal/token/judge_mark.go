@@ -16,7 +16,7 @@ func (sc *scan) judgeMark(graphs []*entry, m rule.Mark, text string) (string, fl
 	for _, e := range graphs {
 		ctx := toulmin.NewContext()
 		ctx.Set(rule.KeyMark, m)
-		v, why := evaluate(e.g, ctx)
+		v, why := evaluate(e.g, ctx, sc.trace != nil)
 		note := "통과"
 		if v <= 0 {
 			note = "기각: " + strings.Join(why, ", ")

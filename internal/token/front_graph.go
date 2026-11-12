@@ -10,9 +10,9 @@ import (
 func frontGraph(name string, digits *rule.Bits, front bool) *entry {
 	g := toulmin.NewGraph(name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "기호"})
-	g.Except(rule.MarkRight).With(digits).Attacks(claim)
+	except(g, rule.MarkRight, whyNoDigits, digits).Attacks(claim)
 	if front {
-		g.Except(rule.MarkAfterWord).Attacks(claim)
+		except(g, rule.MarkIs, whyAfterWord, &rule.Bits{Of: "mark", Mask: rule.MarkAfterWord}).Attacks(claim)
 	}
 	return &entry{name: name, g: g}
 }

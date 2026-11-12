@@ -23,14 +23,14 @@ func (ix *index) addWide() {
 	sort.Slice(letters, func(a, b int) bool { return letters[a] < letters[b] })
 	ix.wide = map[rune]*entry{}
 	for _, r := range letters {
-		e := &entry{name: wideLetters[r], form: string(r), after: afterVowel, wide: true}
+		e := &entry{name: wideLetters[r], form: string(r), after: rule.AfterVowel, wide: true}
 		g := toulmin.NewGraph(e.name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
-		g.Except(rule.PieceNoStem).Attacks(claim)
-		g.Except(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
-		g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightOther}).Attacks(claim)
+		except(g, rule.PieceIs, whyNoStem, fact(rule.PieceStem), not).Attacks(claim)
+		except(g, rule.PieceAfter, whyAfter, &rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
+		except(g, rule.PieceRight, whyRight, &rule.Bits{Of: "right", Mask: rule.RightOther}).Attacks(claim)
 		if r != nounHonor && r != vowelHonor {
-			g.Except(rule.PieceRight).With(&rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
+			except(g, rule.PieceRight, whyRight, &rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
 			ix.edges++
 		}
 		e.g, ix.wide[r] = g, e
@@ -51,7 +51,7 @@ func (ix *index) addWide() {
 	}
 	noun := toulmin.NewGraph(nounAuxName)
 	naming := noun.Rule(rule.PieceRead).With(&rule.Claim{Name: nounAuxName, Concludes: "표지"})
-	noun.Except(rule.FormUnlisted).With(toulmin.NewStringListSpec("naming", nounHeads)).Attacks(naming)
+	except(noun, rule.Listed, whyNotAfter, listed("naming", rule.ListBefore, nounHeads), not).Attacks(naming)
 	ix.nounAux, ix.graphs, ix.edges = &entry{name: nounAuxName, g: noun}, ix.graphs+1, ix.edges+1
 	for i := range shortSlots {
 		e := shortSlots[i]

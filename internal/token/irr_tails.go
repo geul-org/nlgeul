@@ -10,7 +10,7 @@ func (sc *scan) irrTails(j int, more bool) []tail {
 	var out []tail
 	for _, e := range sc.entriesAt(j) {
 		start, p, ok := sc.place(e, j, more)
-		if !ok || e.class != classClosing || e.lead != 0 || (e.after != afterBatchim && e.after != rule.AfterHard) || start < 1 || rule.Fits(sc.s[start-1], e.after) {
+		if !ok || e.class != classClosing || e.lead != 0 || (e.after != rule.AfterBatchim && e.after != rule.AfterHard) || start < 1 || rule.Fits(sc.s[start-1], e.after) {
 			continue
 		}
 		for _, a := range sc.ix.irrEnds[sc.s[start-1]] {

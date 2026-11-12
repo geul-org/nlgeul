@@ -5,8 +5,6 @@ package token
 import (
 	"reflect"
 	"testing"
-
-	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func TestReaderBundles(t *testing.T) {
@@ -51,7 +49,7 @@ func TestReaderBundles(t *testing.T) {
 	if !reflect.DeepEqual(a[1].Branches[0].Words, subject) || len(a[1].Branches) != 5 || a[1].Branches[4].String() != "고양이가" {
 		t.Fatalf("고양이가: %+v", a[1].Branches)
 	}
-	drinks := []Eojeol{{Parts: []Part{{Text: "마시", Names: []Name{{"열쇠", "동사"}}, Stem: true}, {Text: "다", Hidden: "ㄴ", Names: []Name{{"맺음", "ㄴ다"}}, Ends: rule.KindFinal}}, End: 3}}
+	drinks := []Eojeol{{Parts: []Part{{Text: "마시", Names: []Name{{"열쇠", "동사"}}, Stem: true}, {Text: "다", Hidden: "ㄴ", Names: []Name{{"맺음", "ㄴ다"}}}}, End: 3}}
 	if !reflect.DeepEqual(a[3].Branches[0].Words, drinks) || len(a[3].Branches) != 5 {
 		t.Fatalf("마신다: %+v", a[3].Branches)
 	}
@@ -69,8 +67,8 @@ func TestReaderBundles(t *testing.T) {
 		t.Fatalf("3개를: %+v", c[2].Branches[0])
 	}
 	tried := []Eojeol{
-		{Parts: []Part{{Text: "먹", Names: []Name{{"열쇠", "동사"}}, Stem: true}, {Text: "어", Names: []Name{{"맺음", "어"}}, Ends: rule.KindFinal | rule.KindLink}}, End: 2},
-		{Parts: []Part{{Text: "보", Names: []Name{{"보조 용언", "보"}}, Stem: true}, {Text: "다", Names: []Name{{"맺음", "다"}}, Ends: rule.KindFinal}}, End: 4},
+		{Parts: []Part{{Text: "먹", Names: []Name{{"열쇠", "동사"}}, Stem: true}, {Text: "어", Names: []Name{{"맺음", "어"}}}}, End: 2},
+		{Parts: []Part{{Text: "보", Names: []Name{{"보조 용언", "보"}}, Stem: true}, {Text: "다", Names: []Name{{"맺음", "다"}}}}, End: 4},
 	}
 	if !reflect.DeepEqual(c[3].Branches[0].Words, tried) {
 		t.Fatalf("먹어보다: %+v", c[3].Branches[0])
@@ -97,7 +95,7 @@ func TestReaderBundles(t *testing.T) {
 	copula := []Eojeol{{Parts: []Part{
 		{Text: "학교", Names: []Name{{"열쇠", "체언"}}, Stem: true},
 		{Text: "", Hidden: "이", Names: []Name{{"서술격", "이(빠짐)"}}, Unseen: true},
-		{Text: "다", Names: []Name{{"맺음", "다"}}, Ends: rule.KindFinal},
+		{Text: "다", Names: []Name{{"맺음", "다"}}},
 	}, End: 3}}
 	if len(f) < 1 || len(f[0].Branches) < 1 || !reflect.DeepEqual(f[0].Branches[0].Words, copula) {
 		t.Fatalf("학교다: %+v", f)

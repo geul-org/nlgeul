@@ -15,7 +15,7 @@ func TestAddWide(t *testing.T) {
 	graphs := ix.graphs
 	ix.addWide()
 	ok := func(e *entry, right int) bool {
-		v, _ := verdictOf(e.g, rule.Piece{HasStem: true, Prev: '가', Next: -1, Right: right}, "x")
+		v, _ := verdictOf(e.g, rule.Piece{HasStem: true, Prev: '가', Next: -1, Right: right}, "x", false)
 		return v > 0
 	}
 	if !ok(ix.wide['신'], rule.RightDone) || ok(ix.wide['신'], rule.RightParticle) || ok(ix.wide['신'], rule.RightOther) {
@@ -53,19 +53,19 @@ func TestAddWide(t *testing.T) {
 	if eul.form != "을" || eul.class != classClosing || eul.gate != ix.pred || eul.after != rule.AfterLiquid || eul.head != 0 || !eul.noYo {
 		t.Fatal("을 after a stem's ㄹ", eul)
 	}
-	if v, _ := verdictOf(eun.g, rule.Piece{Form: "은", HasStem: true, Prev: '줄', Next: -1}, "줄은"); v <= 0 || v >= 1 {
+	if v, _ := verdictOf(eun.g, rule.Piece{Form: "은", HasStem: true, Prev: '줄', Next: -1}, "줄은", false); v <= 0 || v >= 1 {
 		t.Fatal("은 after a stem's ㄹ stands, rebutted", v)
 	}
-	if v, _ := verdictOf(eul.g, rule.Piece{Form: "을", HasStem: true, Prev: '먹', Next: -1}, "먹을"); v > 0 {
+	if v, _ := verdictOf(eul.g, rule.Piece{Form: "을", HasStem: true, Prev: '먹', Next: -1}, "먹을", false); v > 0 {
 		t.Fatal("을 of this entry after another consonant", v)
 	}
 	if ix.nounAux == nil || ix.nounAux.name != nounAuxName {
 		t.Fatal("the graph of a particle chain after 기", ix.nounAux)
 	}
-	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "이름:기", HasStem: true, Next: -1}, ""); v <= 0 {
+	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "는", Before: "이름:기", HasStem: true, Next: -1}, "", false); v <= 0 {
 		t.Fatal("a particle chain after 이름:기", v)
 	}
-	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "맺음:지", HasStem: true, Next: -1}, ""); v > 0 {
+	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "는", Before: "맺음:지", HasStem: true, Next: -1}, "", false); v > 0 {
 		t.Fatal("no particle chain after another closing", v)
 	}
 }

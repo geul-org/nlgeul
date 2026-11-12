@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what dotFacts — the facts of the dot after the k-th run of a dotted name: the runs on its two sides, the name's last run, whether the name is numbers, and its dots
+//ff:what dotFacts — the facts of the dot after the k-th run of a dotted name: the runs on its two sides, the run to its right and the name's last run in lower case (as the lists of extensions and domains have them), and whether the name is numbers
 package token
 
 import (
@@ -10,11 +10,11 @@ import (
 
 func dotFacts(labels []string, k int) rule.Mark {
 	m := rule.Mark{
-		Left: sideOf(labels[k]), Right: sideOf(labels[k+1]), Ext: labels[k+1], Last: labels[len(labels)-1],
-		Dots: len(labels) - 1, Run: 1, Numeric: true,
+		Left: sideOf(labels[k]), Right: sideOf(labels[k+1]),
+		Ext: strings.ToLower(labels[k+1]), Last: strings.ToLower(labels[len(labels)-1]),
+		Run: 1, Numeric: true,
 	}
 	head := strings.TrimLeft(labels[0], "vV")
-	m.VHead = head != labels[0] && head != ""
 	for i, l := range labels {
 		if i == 0 {
 			l = head

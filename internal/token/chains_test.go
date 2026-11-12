@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestChains — 학교에서는 gives 는 alone and 에서+는; 결과가 gives 가 alone and not 과+가; 마당에서 gives 에서 and 서 but not 에+서; nothing at the start, nothing past three particles; 이건요 reads the fused form before 요; with a word table 선 is read after a nominal's place with its gate, and a particle after 심 takes the honorific noun form; a particle after a unit takes the unit with it
+//ff:what TestChains — 학교에서는 gives 는 alone and 에서+는; 결과가 gives 가 alone and not 과+가; 마당에서 gives 에서 and 서 but not 에+서; nothing at the start; a chain is as long as its particles follow one another (에게서+부터+는+요); 이건요 reads the fused form before 요; with a word table 선 is read after a nominal's place with its gate, and a particle after 심 takes the honorific noun form; a particle after a unit takes the unit with it
 package token
 
 import "testing"
@@ -22,8 +22,15 @@ func TestChains(t *testing.T) {
 			t.Fatal("에+서 read as a chain", c)
 		}
 	}
-	if sc.chains(0, 0, -1) != nil || sc.chains(5, 3, -1) != nil {
+	if sc.chains(0, 0, -1) != nil {
 		t.Fatal("limits")
+	}
+	var four bool
+	for _, c := range scanOf("친구에게서부터는요").chains(9, 0, -1) {
+		four = four || (c.start == 2 && len(c.pieces) == 4 && c.pieces[0].text == "에게서")
+	}
+	if !four {
+		t.Fatal("no chain of four particles")
 	}
 	var fixed bool
 	for _, c := range scanOf("이건요").chains(3, 0, -1) {

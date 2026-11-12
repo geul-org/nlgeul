@@ -1,5 +1,10 @@
 package token
 
+import (
+	"github.com/geul-org/nlgeul/internal/parse"
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
+
 // Letters that hold two grammar pieces (decision 014-29, the simple
 // ones: one reading, rare inside words, the stem ends before them).
 //
@@ -7,18 +12,19 @@ package token
 // (시+었), 셔 (시+어…), 십 (시+ㅂ…). Wherever such a letter is read as a
 // stem's last syllable 시 with a piece fused into it, it is read as
 // the honorific too. After a consonant the link vowel 으 stands before
-// it (읽으셨다).
+// it (읽으셨다). honorCount and euCount are the observed counts of 시
+// and of the link vowel 으 in the tables; nothing in this repository
+// records where they were taken from.
 const (
-	honorName     = "선어말:시"
-	honorCount    = 19566
-	euName        = "이음:으"
-	linkVowel     = '으'
-	euCount       = 225409
-	negName       = "합침:잖"
-	negLetter     = '잖'
-	jiName        = "맺음:지"
-	yoName        = "보조사:요"
-	closingPrefix = "맺음:"
+	honorName  = "선어말:시"
+	honorCount = 19566
+	euName     = "이음:으"
+	linkVowel  = '으'
+	euCount    = 225409
+	negName    = "합침:잖"
+	negLetter  = '잖'
+	jiName     = "맺음:지"
+	yoName     = "보조사:요"
 )
 
 // An auxiliary particle is written onto a linking closing (보지도,
@@ -26,10 +32,11 @@ const (
 // ending is written onto it too). auxClosings are the closings and
 // auxParticles the particles this is read for. A pair that is itself a
 // closing of the tables (어도, 어야, 고도, 지만) is read as that closing
-// only.
+// only. The lists of names are made from the closings' rows
+// (closingNames).
 const linkAuxName = "사슬:맺음 뒤 보조사"
 
-var auxClosings = []string{"맺음:지", "맺음:고", "맺음:게", "맺음:어", "맺음:아", "맺음:여", "맺음:어(합침)", "맺음:어서", "맺음:아서", "맺음:여서", "맺음:어서(합침)", "맺음:면서", "맺음:으면서"}
+var auxClosings = closingNames(parse.Marker{Form: "지"}, parse.Marker{Form: "고"}, parse.Marker{Form: "게"}, parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "서", Lead: rule.LeadVowel}, parse.Marker{Form: "면서", Eu: true})
 var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "보조사:야"}
 
 var honorLetters = []rune{'셨', '셔', '십'}
@@ -40,7 +47,7 @@ var honorLetters = []rune{'셨', '셔', '십'}
 // the auxiliary 하, which the slot and the closing after it attach to.
 const guessName = "선어말:겠"
 
-var mustNames = []string{"맺음:어야", "맺음:아야", "맺음:여야", "맺음:어야(합침)"}
+var mustNames = closingNames(parse.Marker{Form: "야", Lead: rule.LeadVowel})
 var mustPart = split{"(하)", "보조:하"}
 
 // unspelt are the syllables a stem ends in after which an 어 is often
@@ -49,6 +56,12 @@ var mustPart = split{"(하)", "보조:하"}
 // 돼도, 돼서, 돼야, 돼요 and 됐다). Such a syllable is read as 가, 서,
 // 내 and 세 are, with an 어/아 fused in that does not show.
 var unspelt = []rune{'되'}
+
+// latinBases are the syllables a piece is taken out of even right
+// after a letter that is no Hangul: 하 and 되, which make a predicate
+// of the word before them, and 이, the copula's stem (push해, merge된,
+// api인데).
+var latinBases = []string{"하", "되", "이"}
 
 // negParts is what 잖 is written out as: the closing 지 and the stem
 // of 않다, which the closing after it attaches to.
@@ -60,9 +73,9 @@ var negParts = []split{{"지", jiName}, {"(않)", "부정:않"}}
 // out is the same reading as its pieces read one by one, and is sent
 // up once.
 var splits = map[string][]split{
-	"맺음:죠":    {{"지", jiName}, {"(요)", "보조사:요"}},
-	"맺음:세요":   {{"시", honorName}, {"(어)", vowelName}, {"요", "보조사:요"}},
-	"맺음:으세요":  {{"으", euName}, {"시", honorName}, {"(어)", vowelName}, {"요", "보조사:요"}},
+	"맺음:죠":    {{"지", jiName}, {"(요)", yoName}},
+	"맺음:세요":   {{"시", honorName}, {"(어)", vowelName}, {"요", yoName}},
+	"맺음:으세요":  {{"으", euName}, {"시", honorName}, {"(어)", vowelName}, {"요", yoName}},
 	"맺음:더라":   {{"더", "선어말:더"}, {"라", "맺음:라"}},
 	"맺음:십시오":  {{"시", honorName}, {"(ㅂ)시오", "맺음:ㅂ시오"}},
 	"맺음:으십시오": {{"으", euName}, {"시", honorName}, {"(ㅂ)시오", "맺음:ㅂ시오"}},
@@ -117,13 +130,13 @@ var shortPronouns = []contract{
 
 // Auxiliary verbs written onto the 어/아 form of a main verb (clause 47
 // of the orthography lets them be). connNames are the readings of that
-// form. auxAfter are the stems read so, on top of the closed set of the
-// grammar tables (지 apart): the boundary before one of them costs
-// nothing, and an 어/아 that leaves no trace is read right before one.
-// helpers are 지 (어지다) and 하 (어하다), which are always written
-// onto the main verb: they are read as pieces of the same word
-// (지우+(어)+지+(ㄴ)다, 예쁘+(어)+하+(ㄴ)다).
-var connNames = []string{"맺음:어", "맺음:아", "맺음:여", "맺음:어(합침)"}
-var auxAfter = []string{"주", "보", "버리", "놓", "두", "있"}
+// form. The stems read so are those of the closed set of the grammar
+// tables (parse.ClosedWords; 지 apart) and, with a word table, auxMore
+// (addAux): the boundary before one of them costs nothing, and an 어/아
+// that leaves no trace is read right before one. helpers are 지
+// (어지다) and 하 (어하다), which are always written onto the main
+// verb: they are read as pieces of the same word (지우+(어)+지+(ㄴ)다,
+// 예쁘+(어)+하+(ㄴ)다).
+var connNames = closingNames(parse.Marker{Lead: rule.LeadVowel})
 var auxMore = []string{"가", "내", "드리"}
 var helpers = map[rune]string{'지': "보조:지", '하': "보조:하"}

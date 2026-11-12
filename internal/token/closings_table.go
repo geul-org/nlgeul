@@ -65,12 +65,15 @@ var moreClosings = []parse.Marker{
 // (먹기, 있기), which without that would be read at the end of every
 // word that ends in 기. nounHeads are the naming closings a particle
 // chain is read right after (있기+는, 받기+도): the word so made is a
-// nominal. 음 and ㅁ are not among them.
+// nominal. 음 and ㅁ are not among them. Their names are those of the
+// gated closings' entries, and every other list that speaks of a
+// naming closing is made from this one (dropNaming, dropAdn,
+// droppableKnown, namingEnd).
 var gatedClosings = []parse.Marker{
 	{Form: "기", Kind: rule.KindNoun, NoYo: true},
 }
 
-var nounHeads = []string{"이름:기"}
+var nounHeads = closingNames(gatedClosings...)
 
 // looseClosings are the modifying closings 은 and 을 written onto a
 // stem that ends in ㄹ without dropping the ㄹ (줄은 for 준, 줄을 for
@@ -84,7 +87,4 @@ var looseClosings = []parse.Marker{
 	{Form: "을", After: rule.AfterLiquid, Kind: rule.KindAdn, NoIda: true, NoYo: true},
 }
 
-const (
-	nounAuxName = "사슬:이름 꼴 뒤 조사"
-	nounLetter  = '기'
-)
+const nounAuxName = "사슬:이름 꼴 뒤 조사"

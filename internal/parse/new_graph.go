@@ -33,7 +33,6 @@ import (
 func newGraph() (*toulmin.Graph, map[string]*toulmin.Rule) {
 	g := toulmin.NewGraph("nlgeul:parse")
 	c := map[string]*toulmin.Rule{}
-	list := toulmin.NewStringListSpec
 	claim(g, c, "subjectCase", labelSubj, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseSubj})
 	claim(g, c, "topicSubject", labelSubj, rule.ChainNoCase)
 	claim(g, c, "objectCase", labelObj, rule.ChainCase, &rule.Bits{Of: "case", Mask: caseObj})
@@ -45,17 +44,17 @@ func newGraph() (*toulmin.Graph, map[string]*toulmin.Rule) {
 	claim(g, c, "closingPredicate", labelPred, rule.ClosingKind, &rule.Bits{Of: "kind", Mask: kindFinal | kindLink})
 	claim(g, c, "lastPredicate", labelPred, lastPredicate)
 	claim(g, c, "adnominalClosing", labelAdn, rule.ClosingKind, &rule.Bits{Of: "kind", Mask: kindAdn})
-	claim(g, c, "adverbialClosing", labelAdv, rule.ClosingListed, list("adverbialClosings", adverbialClosings))
-	claim(g, c, "rangeAdverbial", labelAdv, rule.ChainListed, list("rangeParticles", rangeParticles))
-	claim(g, c, "determinerWord", labelAdn, rule.WordListed, list("determiners", determiners))
-	claim(g, c, "conjunctiveWord", labelVoc, rule.WordListed, list("conjunctions", conjunctions))
+	claim(g, c, "adverbialClosing", labelAdv, rule.Listed, &rule.List{Name: "adverbialClosings", Of: rule.ListClosing, Items: adverbialClosings})
+	claim(g, c, "rangeAdverbial", labelAdv, rule.ChainListed, toulmin.NewStringListSpec("rangeParticles", rangeParticles))
+	claim(g, c, "determinerWord", labelAdn, rule.Listed, &rule.List{Name: "determiners", Of: rule.ListWord, Items: determiners})
+	claim(g, c, "conjunctiveWord", labelVoc, rule.Listed, &rule.List{Name: "conjunctions", Of: rule.ListWord, Items: conjunctions})
 
 	last := g.Except(rule.WordIs).With(&rule.Bits{Of: "word", Mask: rule.WordLast})
 	chainLonger := g.Except(rule.Longer).With(&rule.Versus{Mine: rule.SideTail, Rival: rule.SideChain})
 	tailLonger := g.Except(rule.Longer).With(&rule.Versus{Mine: rule.SideChain, Rival: rule.SideLongest})
 	cut := g.Except(rule.Longer).With(&rule.Versus{Mine: rule.SideTail, Rival: rule.SideLongest})
 	chainSeen, tailSeen := g.Counter(rule.ChainSeenMore), g.Counter(rule.TailSeenMore)
-	whole := g.Except(rule.WordListed).With(list("wholeWords", append(append([]string{}, determiners...), conjunctions...)))
+	whole := g.Except(rule.Listed).With(&rule.List{Name: "wholeWords", Of: rule.ListWord, Items: append(append([]string{}, determiners...), conjunctions...)})
 	modifies := g.Except(beforeBound)
 	for _, name := range chainClaims {
 		last.Attacks(c[name])

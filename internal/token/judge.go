@@ -10,7 +10,7 @@ import (
 )
 
 func (sc *scan) judge(e *entry, start, j int, p rule.Piece) float64 {
-	v, why := verdictOf(e.g, p, string(sc.s[:j]))
+	v, why := verdictOf(e.g, p, string(sc.s[:j]), sc.trace != nil)
 	if sc.trace == nil {
 		return v
 	}

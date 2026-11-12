@@ -43,11 +43,11 @@ func TestAddClosings(t *testing.T) {
 		t.Fatal("the forms of moreClosings among the closings")
 	}
 	for _, form := range []string{"맺음:어서", "맺음:아서", "맺음:면서", "맺음:고", "맺음:지"} {
-		if v, _ := verdictOf(ix.linkAux.g, rule.Piece{Form: form, After: "보조사:는", HasStem: true, Next: -1}, ""); v <= 0 {
+		if v, _ := verdictOf(ix.linkAux.g, rule.Piece{Form: "는", Before: form, HasStem: true, Next: -1}, "", false); v <= 0 {
 			t.Errorf("%s takes 는", form)
 		}
 	}
-	if v, _ := verdictOf(ix.linkAux.g, rule.Piece{Form: "맺음:다", After: "보조사:는", HasStem: true, Next: -1}, ""); v > 0 {
+	if v, _ := verdictOf(ix.linkAux.g, rule.Piece{Form: "는", Before: "맺음:다", HasStem: true, Next: -1}, "", false); v > 0 {
 		t.Fatal("다 takes no auxiliary particle")
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})

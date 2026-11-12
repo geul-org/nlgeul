@@ -12,7 +12,7 @@ import (
 // graph of a lone final consonant keeps to the few syllables itself.
 func (sc *scan) asksStem(e *entry, start int, stem rune) bool {
 	prev := sc.s[start-1]
-	if e.lead == leadVowel || e.lead == jongSS {
+	if e.lead == rule.LeadVowel || e.lead == rule.JongSS {
 		return prev != '해' && prev != '했'
 	}
 	return e.form == "" && !slices.Contains(rule.BareBases(e.lead), string(stem))

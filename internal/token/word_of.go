@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what wordOf — one word of a reading: the stem from b (a known word, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference
+//ff:what wordOf — one word of a reading: the stem from b (a known word, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference; a stem no table lists stands as the new word's graph judges it, and a word whose stem does not stand has a verdict of 0 or less
 package token
 
 import (
@@ -18,9 +18,11 @@ import (
 // 는, not 주 the noun before the particle 는).
 func (sc *scan) wordOf(b, end int, t tail) step {
 	stem, name, v := sc.stemOf(b, t)
-	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: sc.ix.unknown}
+	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: v}
 	if v > 0 {
-		e.verdict, e.word.Parts[0].Names = v, namesOf(name)
+		e.word.Parts[0].Names = namesOf(name)
+	} else {
+		e.verdict = sc.unlisted(b, end, stem, t)
 	}
 	e.pref = sc.ix.stemPref(stem, tailClass(t.pieces), v > 0, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
 	if t.as != "" {
@@ -29,11 +31,11 @@ func (sc *scan) wordOf(b, end int, t tail) step {
 	last := ""
 	for _, p := range t.pieces {
 		hidden, shown := hiddenOf(p.text)
-		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen, Ends: closesOf(t, p)})
+		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen})
 		e.verdict, e.pref, last = math.Min(e.verdict, p.verdict), e.pref+p.pref, p.names
 	}
 	e.sig = e.word.String()
-	e.adn = strings.HasPrefix(last, "꾸밈:")
+	e.adn = strings.HasPrefix(last, adnPrefix)
 	e.conn = slices.Contains(connNames, last)
 	if b > 0 && v > 0 && tailClass(t.pieces)&predTails != 0 && slices.Contains(sc.ix.auxStems(), stem) {
 		e.back = sc.ix.structure(b, nil) - sc.ix.structure(0, nil)

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what verdictOf — evaluate one graph for one piece: the claim's verdict, and the exceptions that applied
+//ff:what verdictOf — evaluate one graph for one piece: the claim's verdict, and when a trace is kept the reasons of the exceptions that applied
 package token
 
 import (
@@ -9,9 +9,9 @@ import (
 
 // word is the unit's text up to the piece's end, which a closed-set
 // exception compares.
-func verdictOf(g *toulmin.Graph, p rule.Piece, word string) (float64, []string) {
+func verdictOf(g *toulmin.Graph, p rule.Piece, word string, traced bool) (float64, []string) {
 	ctx := toulmin.NewContext()
 	ctx.Set(rule.KeyPiece, p)
 	ctx.Set(rule.KeyWord, &rule.Word{Text: word, Sent: &rule.Sentence{}})
-	return evaluate(g, ctx)
+	return evaluate(g, ctx, traced)
 }

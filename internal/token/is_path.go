@@ -1,8 +1,9 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what isPath — is a text a path: it begins with a path's head (/, ~/, ./, ../), or it has two slashes or more with a name's letter (Latin letter, digit, . ~ _ -) on both sides and is not numbers and slashes only
+//ff:what isPath — is a text a path: it begins with a path's head (pathHeads: /, ~/, ./, ../), or it has two slashes or more with a name's letter (Latin letter, digit, . ~ _ -) on both sides and is not numbers and slashes only
 package token
 
 import (
+	"slices"
 	"strings"
 	"unicode"
 
@@ -11,7 +12,7 @@ import (
 
 func isPath(s []rune) bool {
 	text := string(s)
-	if strings.HasPrefix(text, "/") || strings.HasPrefix(text, "~/") || strings.HasPrefix(text, "./") || strings.HasPrefix(text, "../") {
+	if slices.ContainsFunc(pathHeads, func(head string) bool { return strings.HasPrefix(text, head) }) {
 		return true
 	}
 	slashes, letters := 0, false

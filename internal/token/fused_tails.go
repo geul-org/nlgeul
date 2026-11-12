@@ -10,7 +10,7 @@ func (sc *scan) fusedTails(pc piece, e *entry, start int) []tail {
 		p := pc
 		p.text = "(" + o.piece + ")" + e.form
 		p.pref = sc.ix.fusedPref(e, o.piece, pc.pref)
-		p.unseen = e.lead == leadVowel && e.form == "" && (!rule.FusedVowel(sc.s[start-1], false) || o.stem == sc.s[start-1])
+		p.unseen = e.lead == rule.LeadVowel && e.form == "" && (!rule.FusedVowel(sc.s[start-1], false) || o.stem == sc.s[start-1])
 		t := tail{start: start, pieces: []piece{p}, base: o.stem, noYo: e.noYo, head: e.head}
 		if sc.asksStem(e, start, o.stem) {
 			t.gate = sc.ix.pred

@@ -24,7 +24,7 @@ func (ix *index) addDots() {
 	for _, sign := range linkOrder {
 		l := toulmin.NewGraph(linkSigns[sign])
 		c := l.Rule(rule.PieceRead).With(&rule.Claim{Name: linkSigns[sign], Concludes: "기호"})
-		l.Except(rule.MarkSides).With(&rule.Bits{Of: "sides", Mask: rule.SideAlnum | rule.SideHangul}).Attacks(c)
+		except(l, rule.MarkBoth, whySides, &rule.Bits{Of: "sides", Mask: rule.SideAlnum | rule.SideHangul}, not).Attacks(c)
 		ix.links[sign] = append(ix.links[sign], &entry{name: linkSigns[sign], g: l})
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	}
@@ -32,5 +32,5 @@ func (ix *index) addDots() {
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: runName, Concludes: "열쇠"})
 	g.Counter(rule.PieceRead).With(&rule.Claim{Name: noKey, Concludes: "반박"}).Attacks(claim, forceRun)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
-	ix.run, _ = verdictOf(g, rule.Piece{}, "")
+	ix.run = verdict(g, rule.Piece{})
 }

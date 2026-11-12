@@ -14,7 +14,7 @@ func TestFrontGraph(t *testing.T) {
 	run := func(e *entry, m rule.Mark) float64 {
 		ctx := toulmin.NewContext()
 		ctx.Set(rule.KeyMark, m)
-		v, _ := evaluate(e.g, ctx)
+		v, _ := evaluate(e.g, ctx, false)
 		return v
 	}
 	front, any := frontGraph("부호:-", digits, true), frontGraph("범위:~", digits, false)

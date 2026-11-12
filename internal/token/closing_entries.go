@@ -9,7 +9,7 @@ import (
 
 func closingEntries(m parse.Marker) []*entry {
 	name := closingLabel(m.Kind) + ":"
-	base := entry{class: classClosing, ends: m.Kind & (rule.KindFinal | rule.KindLink), noYo: m.NoYo, bars: m.NoIda, needs: m.NeedIda, holds: m.SelfIda}
+	base := entry{class: classClosing, noYo: m.NoYo, bars: m.NoIda, needs: m.NeedIda, holds: m.SelfIda}
 	make1 := func(form string, lead, after int, shown string) *entry {
 		e := base
 		e.name, e.form, e.lead, e.after = name+shown, form, lead, after
@@ -19,14 +19,14 @@ func closingEntries(m parse.Marker) []*entry {
 	switch {
 	case m.Lead == 0 && m.Eu:
 		base.eu = true
-		return []*entry{make1(m.Form, 0, afterOpen, m.Form), make1("으"+m.Form, 0, rule.AfterHard, "으"+m.Form)}
+		return []*entry{make1(m.Form, 0, rule.AfterOpen, m.Form), make1("으"+m.Form, 0, rule.AfterHard, "으"+m.Form)}
 	case m.Lead == 0:
 		return []*entry{make1(m.Form, 0, euAfter(m.Form, m.After), m.Form)}
 	case m.Lead < 0:
 		return []*entry{
-			make1("어"+m.Form, 0, afterAny, "어"+m.Form), make1("아"+m.Form, 0, afterAny, "아"+m.Form),
-			make1("여"+m.Form, 0, afterAny, "여"+m.Form), make1(m.Form, leadVowel, afterAny, "어"+m.Form+"(합침)"),
+			make1("어"+m.Form, 0, rule.AfterAny, "어"+m.Form), make1("아"+m.Form, 0, rule.AfterAny, "아"+m.Form),
+			make1("여"+m.Form, 0, rule.AfterAny, "여"+m.Form), make1(m.Form, rule.LeadVowel, rule.AfterAny, "어"+m.Form+"(합침)"),
 		}
 	}
-	return []*entry{make1(m.Form, m.Lead, afterAny, rule.LeadText(m.Lead)+m.Form)}
+	return []*entry{make1(m.Form, m.Lead, rule.AfterAny, rule.LeadText(m.Lead)+m.Form)}
 }

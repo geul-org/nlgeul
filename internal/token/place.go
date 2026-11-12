@@ -25,10 +25,10 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	case e.lead == 0:
 		p.Prev = sc.s[start-1]
 		return start, p, true
-	case e.lead == leadVowel:
+	case e.lead == rule.LeadVowel:
 		open := len(f) > 0 || more || j == len(sc.s) || sc.auxNext(j)
 		return start, p, rule.FusedVowel(sc.s[start-1], open) || unspeltAt(sc.s[start-1], e.lead, open)
-	case e.lead == jongSS:
+	case e.lead == rule.JongSS:
 		return start, p, rule.FusedPast(sc.s[start-1]) || unspeltAt(sc.s[start-1], e.lead, false)
 	}
 	base, ok := under(sc.s[start-1], e.lead)

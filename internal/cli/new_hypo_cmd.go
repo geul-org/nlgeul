@@ -36,7 +36,9 @@ nlgeul token이 찍는 읽기 그대로다.
 
 가설이 1000000개를 넘는 문장은 가설 수만 찍고 나열하지 않으며 오류로 끝난다.
 
-낱말 표는 nlgeul token과 같이 --words 또는 환경 변수 NLGEUL_WORDS로 준다.`,
+낱말 표는 nlgeul token과 같이 --words 또는 환경 변수 NLGEUL_WORDS로 준다.
+붙임표(-)로 시작하는 문장은 옵션으로 읽히지 않게 "--" 뒤에 준다
+(nlgeul hypo -- "-3").`,
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			words, _ := cmd.Flags().GetString("words")

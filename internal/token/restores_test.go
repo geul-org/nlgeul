@@ -14,7 +14,7 @@ func TestRestores(t *testing.T) {
 		lead int
 		want string
 	}{
-		{'신', jongN, "시ㄴ"}, {'합', rule.JongB, "하ㅂ"}, {'갔', jongSS, "가았그았"}, {'했', jongSS, "하였"}, {'됐', jongSS, "되었"}, {'봐', leadVowel, "보아"},
+		{'신', rule.JongN, "시ㄴ"}, {'합', rule.JongB, "하ㅂ"}, {'갔', rule.JongSS, "가았그았"}, {'했', rule.JongSS, "하였"}, {'됐', rule.JongSS, "되었"}, {'봐', rule.LeadVowel, "보아"},
 	}
 	for _, c := range cases {
 		got := ""

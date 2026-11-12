@@ -10,9 +10,11 @@ func (sc *scan) linked(start int, ps []piece, after string, slots bool) []tail {
 	if at < 1 || sc.s[at] != '으' {
 		return nil
 	}
-	all := append([]piece{{"으", euName, 1, sc.ix.pref(euCount, "으"), rule.TailPred, false}}, ps...)
+	eu := piece{"으", euName, 0, sc.ix.pref(euCount, "으"), rule.TailPred, false}
 	facts := rule.Piece{Form: "으", HasStem: true, Prev: sc.s[at-1], Next: -1, After: after}
-	if sc.judge(sc.ix.eu, at, start, facts) > 0 {
+	if v := sc.judge(sc.ix.eu, at, start, facts); v > 0 {
+		eu.verdict = v
+		all := append([]piece{eu}, ps...)
 		out := []tail{{start: at, pieces: all, head: headEuForm}}
 		if slots {
 			out = append(out, joined(sc.slots(at, rule.SlotClosing), all...)...)
@@ -22,8 +24,9 @@ func (sc *scan) linked(start int, ps []piece, after string, slots bool) []tail {
 	var out []tail
 	for _, a := range sc.ix.irrEnds[sc.s[at-1]] {
 		facts.Prev = []rune(a.stem)[0]
-		if sc.judge(sc.ix.eu, at, start, facts) > 0 {
-			out = append(out, tail{start: at, pieces: all, head: headEuForm, irr: a.kind})
+		if v := sc.judge(sc.ix.eu, at, start, facts); v > 0 {
+			eu.verdict = v
+			out = append(out, tail{start: at, pieces: append([]piece{eu}, ps...), head: headEuForm, irr: a.kind})
 		}
 	}
 	return out

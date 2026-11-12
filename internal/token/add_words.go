@@ -32,11 +32,12 @@ func (ix *index) addWords() {
 			ix.takes[w] |= closedTails[kind]
 			g := toulmin.NewGraph(name)
 			claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
-			g.Except(rule.StemTail).With(&rule.Bits{Of: "tail", Mask: ix.takes[w]}).Attacks(claim)
+			except(g, rule.StemTail, whyStemTail, &rule.Bits{Of: "tail", Mask: ix.takes[w]}).Attacks(claim)
 			ix.words[w] = &entry{name: name, form: w, class: classKey, g: g}
 		}
 	}
 	ix.graphs, ix.edges = ix.graphs+len(ix.words), ix.edges+len(ix.words)
+	ix.addAux(sets[auxSet])
 	for _, w := range pronounWords {
 		ix.closed[w] |= kindNominal
 	}

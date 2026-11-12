@@ -4,7 +4,9 @@ package token
 // a reading of its own, and after a vowel the stem may be dropped
 // before the closings listed here (학교다, 학교고, 학교며, 학교면,
 // 학교지만, 학교라서, 학교라면, 학교지, 누군지, 뭔데, 누군가, 뭘까),
-// and before 잖 (학교잖아: 지 and 않). copulaCount is its observed count in the tables.
+// and before 잖 (학교잖아: 지 and 않). copulaCount is its observed
+// count in the tables; nothing in this repository records where that
+// count was taken from.
 const (
 	copulaName  = "서술격:이"
 	droppedName = "서술격:이(빠짐)"
@@ -12,9 +14,12 @@ const (
 )
 
 var droppable = []string{
-	"맺음:다", "맺음:고", "맺음:며", "맺음:면", "맺음:지만", "꾸밈:ㄴ", "맺음:ㅂ니다",
+	"맺음:다", "맺음:고", "맺음:며", "맺음:면", "맺음:지만", bareAdn, "맺음:ㅂ니다",
 	"맺음:라서", "맺음:라면", "맺음:지", "맺음:ㄴ지", "맺음:ㄴ데", "맺음:ㄴ가", "맺음:ㄹ까",
 }
+
+// bareAdn is the modifying closing ㄴ put under the syllable before it.
+const bareAdn = "꾸밈:ㄴ"
 
 // droppableKnown are more closings the stem is dropped before (거네,
 // 뭐냐, 사과구나, 뭐야, and the quoting 라는, 라며, 라면서, 라니:
@@ -23,28 +28,27 @@ var droppable = []string{
 // naming form. They are short and common at the end of other words, so
 // the dropped stem is read before them only with a word table, after a
 // nominal of the table or a dependent noun.
-// The naming closing 기 is among them (문제기도 하다): before it the
-// dropped stem is read only when a particle follows the 기
-// (dropNaming, and the particle chain right after a naming closing).
-var droppableKnown = []string{
+// The naming closings a particle chain is read after are among them
+// (nounHeads: 문제기도 하다): before one the dropped stem is read only
+// when a particle follows it (dropNaming, and the particle chain right
+// after a naming closing).
+var droppableKnown = append([]string{
 	"맺음:네", "맺음:냐", "맺음:니", "맺음:라", "맺음:거든", "맺음:구나", "맺음:군",
 	"맺음:야", "맺음:니까", "맺음:죠", "맺음:냐고",
 	"꾸밈:라는", "맺음:라며", "맺음:라면서", "맺음:라니",
 	"맺음:더라도", "맺음:거나", "맺음:든지", "맺음:든가",
-	"이름:기",
-}
+}, nounHeads...)
 
 // dropAdn are the closings before which a dropped stem is rebutted: in
 // front of a modifying or a naming form the stem mostly stays (의사인,
 // not 의산; 의사이기, not 의사기). forceDropAdn is the rebuttal's force,
-// a placeholder chosen among a few values tried on a thousand
-// sentences.
-var dropAdn = []string{"꾸밈:ㄴ", "이름:기"}
+// chosen among a few values tried on a thousand sentences.
+var dropAdn = append([]string{bareAdn}, nounHeads...)
 
-// dropNaming is the naming closing before which a dropped stem does
+// dropNaming are the naming closings before which a dropped stem does
 // not stand, unless a particle is written right after the closing
 // (문제기도, 문제기는: not 문제기 by itself).
-var dropNaming = []string{"이름:기"}
+var dropNaming = nounHeads
 
 // droppableRun are the closings a dropped stem is read before when the
 // letter before it is no Hangul syllable (a run of Latin letters and

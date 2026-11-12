@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what numerals — the numbers that end at a place and are no run of digits: every run of Hangul numerals that ends there, and a Latin letter of the table that is a run by itself
+//ff:what numerals — the numbers that end at a place and are no run of digits: every run of Hangul numerals that ends there, however long (as far back as the letters of numerals go), and a Latin letter of the table that is a run by itself
 package token
 
 import (
@@ -11,7 +11,7 @@ import (
 // letter as one of the letters.
 func (sc *scan) numerals(end int) []numeral {
 	var out []numeral
-	for n := 1; n <= 6 && n <= end; n++ {
+	for n := 1; n <= end && numeralLetter(sc.s[end-n]); n++ {
 		text := string(sc.s[end-n : end])
 		if k := max(nativeTokens(text), sinoTokens(text)); k > 0 {
 			out = append(out, numeral{text, float64(k) * math.Log10(1.0/numeralCount)})

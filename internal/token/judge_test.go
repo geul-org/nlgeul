@@ -27,7 +27,7 @@ func TestJudge(t *testing.T) {
 	if len(notes) != 2 || !strings.HasSuffix(notes[0], "통과") || !strings.Contains(notes[1], "기각: 앞 토큰의 끝이 맞지 않는다") {
 		t.Fatal(notes)
 	}
-	fused := &entry{name: "맺음:ㄴ다", form: "다", lead: jongN, g: e.g}
+	fused := &entry{name: "맺음:ㄴ다", form: "다", lead: rule.JongN, g: e.g}
 	scanOf("마신다").judge(fused, 2, 3, rule.Piece{HasStem: true, Next: -1})
 	sc2 := scanOf("마신다")
 	sc2.judge(fused, 2, 3, rule.Piece{HasStem: true, Next: -1})

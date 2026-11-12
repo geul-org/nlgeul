@@ -54,9 +54,6 @@ var irrHeads = map[int]int{
 	irrU:   headFused,
 }
 
-// irrOrder is the order the kinds are gone through in.
-var irrOrder = []int{irrL, irrD, irrS, irrB, irrBO, irrH, irrHE, irrReu, irrReo, irrU}
-
 // roundB are the two ㅂ stems whose 어 is 아 (도와, 고와); every other
 // one takes 워. wideH are the ㅎ stems whose fused 어 gives ㅐ whatever
 // their vowel (그래, 어때). eoStems are stems the table calls regular
@@ -64,6 +61,10 @@ var irrOrder = []int{irrL, irrD, irrS, irrB, irrBO, irrH, irrHE, irrReu, irrReo,
 var roundB = []string{"돕", "곱"}
 var wideH = []string{"그렇", "이렇", "저렇", "어떻"}
 var eoStems = map[string]string{"그러": "그래", "이러": "이래", "저러": "저래", "어쩌": "어째"}
+
+// euLetters are the letters a form with the link vowel 으 in it begins
+// with (으면, 은, 을, 음, 읍시다).
+const euLetters = "으은을음읍"
 
 // linkTakers are the closings of the tables that take the link vowel
 // 으 as a piece of its own (읽으니, 먹었으나); the others that take it

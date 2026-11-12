@@ -22,7 +22,7 @@ func auxHead(rest, stem []rune) bool {
 		return true
 	}
 	for _, o := range vowelRestores(open) {
-		if o.stem == last && (rule.JongOf(r) == 0 || rule.JongOf(r) == jongSS) {
+		if o.stem == last && (rule.JongOf(r) == 0 || rule.JongOf(r) == rule.JongSS) {
 			return true
 		}
 	}

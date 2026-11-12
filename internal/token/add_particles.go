@@ -29,11 +29,11 @@ var directional = []string{"으로", "로", "으로부터", "로부터"}
 var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보단"}
 
 var ownParticles = []entry{
-	{name: "접미:이", form: "이", class: classParticle, after: afterBatchim, slot: rule.LinkSuffix, inner: true},
-	{name: "보조사:야", form: "야", class: classParticle, after: afterVowel, slot: rule.LinkTopic},
+	{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkSuffix, inner: true},
+	{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic},
 	{name: emphName, form: "가", class: classParticle, slot: rule.LinkEmph, count: 2},
-	{name: "보조사:은커녕", form: "은커녕", class: classParticle, after: afterBatchim, slot: rule.LinkTopic, count: 66},
-	{name: "보조사:는커녕", form: "는커녕", class: classParticle, after: afterVowel, slot: rule.LinkTopic, count: 66},
+	{name: "보조사:은커녕", form: "은커녕", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic, count: 66},
+	{name: "보조사:는커녕", form: "는커녕", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic, count: 66},
 }
 
 func (ix *index) addParticles() {

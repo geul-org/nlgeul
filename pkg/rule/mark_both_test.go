@@ -1,5 +1,5 @@
 //ff:func feature=rule type=rule control=sequence
-//ff:what TestMarkBoth — applies when both sides are of the kind; not when one is not
+//ff:what TestMarkBoth — applies when both sides are of the kind; not when one is not, or when the context has no sign
 package rule
 
 import (
@@ -12,7 +12,8 @@ func TestMarkBoth(t *testing.T) {
 	specs := toulmin.Specs{&Bits{Of: "sides", Mask: SideDigit}}
 	yes, _ := MarkBoth(markCtx(Mark{Left: SideAlnum | SideDigit, Right: SideDigit}), specs)
 	no, _ := MarkBoth(markCtx(Mark{Left: SideAlnum, Right: SideDigit}), specs)
-	if yes != 1 || no != -1 {
-		t.Fatal(yes, no)
+	empty, _ := MarkBoth(toulmin.NewContext(), specs)
+	if yes != 1 || no != -1 || empty != -1 {
+		t.Fatal(yes, no, empty)
 	}
 }

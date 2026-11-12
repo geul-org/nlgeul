@@ -9,7 +9,7 @@ import (
 )
 
 func euAfter(form string, after int) int {
-	if after == afterBatchim && strings.ContainsRune("으은을음읍", []rune(form)[0]) {
+	if after == rule.AfterBatchim && strings.ContainsRune(euLetters, []rune(form)[0]) {
 		return rule.AfterHard
 	}
 	return after

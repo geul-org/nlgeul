@@ -14,7 +14,7 @@ func TestNameGraph(t *testing.T) {
 	judge := func(m rule.Mark) float64 {
 		ctx := toulmin.NewContext()
 		ctx.Set(rule.KeyMark, m)
-		v, _ := evaluate(e.g, ctx)
+		v, _ := evaluate(e.g, ctx, false)
 		return v
 	}
 	digits := rule.SideAlnum | rule.SideDigit

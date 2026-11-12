@@ -10,6 +10,6 @@ import (
 func gateOf(name string, kinds int) *entry {
 	g := toulmin.NewGraph(name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
-	g.Except(rule.StemKind).With(&rule.Bits{Of: "kinds", Mask: kinds}).Attacks(claim)
+	except(g, rule.StemKind, whyKind, &rule.Bits{Of: "kinds", Mask: kinds}, not).Attacks(claim)
 	return &entry{name: name, g: g}
 }

@@ -10,14 +10,14 @@ func (sc *scan) restoresAt(start, lead int) []restore {
 	if !sc.ix.lexed {
 		return out
 	}
-	if lead == leadVowel && r == '마' {
+	if lead == rule.LeadVowel && r == '마' {
 		out = append(out, restore{'말', "아"})
 	}
-	if lead == leadVowel && rule.JungOf(r) == jungYeo {
+	if lead == rule.LeadVowel && rule.JungOf(r) == jungYeo {
 		out = append(out, restore{r, "어"})
 	}
-	if lead == jongSS && rule.JungOf(r) == jungYeo {
-		out = append(out, restore{r - rune(jongSS), "었"})
+	if lead == rule.JongSS && rule.JungOf(r) == jungYeo {
+		out = append(out, restore{r - rune(rule.JongSS), "었"})
 	}
 	return out
 }

@@ -21,8 +21,7 @@ import (
 func (ix *index) known(stem string, tail int) (string, float64) {
 	c, closed := ix.words[stem]
 	if ix.layers == layerNone && closed {
-		v, _ := verdictOf(c.g, rule.Piece{Form: stem, Tail: tail}, "")
-		return pronounName(c.name, stem, tail), v
+		return pronounName(c.name, stem, tail), verdict(c.g, rule.Piece{Form: stem, Tail: tail})
 	}
 	if ix.layers == layerNone {
 		return "", 0
@@ -32,8 +31,8 @@ func (ix *index) known(stem string, tail int) (string, float64) {
 	best, passed := 0.0, 0
 	for i, k := range kindOrder {
 		v := 1.0
-		if ix.layers >= layerKind {
-			v = ix.stemVerdict(k, tail, countOf(w, k, i), stem)
+		if (ix.closed[stem]|w.kinds)&k != 0 && ix.layers >= layerKind {
+			v = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Count: countOf(w, k, i)})
 		}
 		if (ix.closed[stem]|w.kinds)&k != 0 && v > 0 {
 			names, best, passed = append(names, kindLabel[k]), max(best, v), passed|k

@@ -25,7 +25,7 @@ func (sc *scan) helped(tails []tail) []tail {
 		for i := range rest {
 			rest[i].tail = rule.TailPred
 		}
-		for _, l := range sc.closings(at, true) {
+		for _, l := range sc.closings(at, true, false) {
 			if len(l.pieces) != 1 || !slices.Contains(connNames, l.pieces[0].names) {
 				continue
 			}

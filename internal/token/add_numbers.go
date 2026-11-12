@@ -17,7 +17,7 @@ import (
 func (ix *index) addNumbers() {
 	g := toulmin.NewGraph(numGraph)
 	g.Rule(rule.PieceRead).With(&rule.Claim{Name: numGraph, Concludes: "열쇠"})
-	ix.number, _ = verdictOf(g, rule.Piece{}, "")
+	ix.number = verdict(g, rule.Piece{})
 	ix.graphs++
 	ix.signs = map[rune][]*entry{'.': ix.joins}
 	for _, sign := range signOrder {
@@ -39,7 +39,7 @@ func (ix *index) addNumbers() {
 	ix.tilde = frontGraph(tildeName, digits, false)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	ix.after = map[rune][]*entry{}
-	ix.afterPrefs = map[bool]float64{false: math.Log10(1 / float64(len(unitWords)+2)), true: math.Log10(1 / float64(len([]rune(sinoBigs))))}
+	ix.afterPrefs = map[bool]float64{false: math.Log10(1 / float64(len(unitWords)+afterOthers)), true: math.Log10(1 / float64(len([]rune(sinoBigs))))}
 	for _, r := range sinoBigs {
 		ix.addAfter(bigName+string(r), string(r), placeBig)
 	}

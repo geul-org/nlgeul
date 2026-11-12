@@ -8,7 +8,7 @@ func (sc *scan) tailsAt(j int) []tail {
 	if stop, start, ok := sc.stopAt(j); ok {
 		return append(joined(sc.tailsAt(start), stop), tail{start: start, pieces: []piece{stop}})
 	}
-	out := append(sc.chains(j, 0, -1), sc.closings(j, false)...)
+	out := append(sc.chains(j, 0, -1), sc.closings(j, false, false)...)
 	out = append(out, sc.fixed(j, -1)...)
 	out = append(out, sc.units(j, 0, true)...)
 	out = append(out, sc.tildeAt(j)...)
@@ -17,7 +17,7 @@ func (sc *scan) tailsAt(j int) []tail {
 	}
 	yo := piece{"요", yoName, 1, sc.ix.pref(sc.ix.named('요', yoName).count, "요"), rule.TailPred, false}
 	out = append(out, joined(sc.loneHonors(j-1, true), yo)...)
-	for _, t := range sc.closings(j-1, true) {
+	for _, t := range sc.closings(j-1, true, false) {
 		if !t.noYo {
 			out = append(out, joined([]tail{t}, yo)...)
 		}

@@ -16,7 +16,7 @@ func TestAddFused(t *testing.T) {
 	ix.addSlots()
 	graphs, edges, total := ix.graphs, ix.edges, ix.total
 	ix.addFused()
-	ok := func(e *entry, p rule.Piece) bool { v, _ := verdictOf(e.g, p, "x"); return v > 0 }
+	ok := func(e *entry, p rule.Piece) bool { v, _ := verdictOf(e.g, p, "x", false); return v > 0 }
 	if ix.graphs != graphs+2+len(contracts) || ix.edges != edges+4+len(contracts)+3 || ix.total != total || len(ix.fixed) != len(contracts) {
 		t.Fatal(ix.graphs-graphs, ix.edges-edges)
 	}

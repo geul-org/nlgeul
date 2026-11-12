@@ -1,34 +1,55 @@
 package token
 
-// reasons says, for a trace, why an exception defeated a claim, by the
-// exception's rule function.
-var reasons = map[string]string{
-	"PieceNoStem":   "앞에 줄기가 없다",
-	"PieceAfter":    "앞 토큰의 끝이 맞지 않는다",
-	"ChainLinks":    "조사 사슬에 맞지 않는다",
-	"SlotOrder":     "선어말 칸의 순서가 어긋난다",
-	"PieceBase":     "받침만 붙은 꼴을 읽는 음절이 아니다",
-	"WordListed":    "통째로 닫힌 집합의 낱말이다",
-	"PieceRight":    "바로 뒤에 선 것이 이 조각 뒤에 오지 못한다",
-	"StemKind":      "앞말이 낱말 표에서 그 갈래의 줄기가 아니다",
-	"PartsShape":    "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다",
-	"PieceNoNumber": "바로 앞이 수가 아니다",
-	"PieceLone":     "낱말 표 없이 홀로 선 한자어 한 음절 수사다",
-	"MarkRight":     "기호의 오른쪽이 수가 아니다",
-	"MarkAfterWord": "기호의 왼쪽에 글자가 붙어 있다",
-	"NextListed":    "뒤의 맺음은 서술격 이에 붙지 않는다",
-	"NextUnlisted":  "뒤의 조각이 이 뒤에 오는 것이 아니다",
-	"FormUnlisted":  "이 조각 뒤에 붙는 것이 아니다",
-	"PieceMarked":   "경계 뒤의 통짜 새 낱말이 표지로 읽힌다",
-	"PieceLast":     "뒤에 조사가 없다",
-	"PieceNoAdn":    "앞 어절이 꾸밈 맺음으로 끝나지 않는다",
-	"PieceAdn":      "앞 어절이 꾸밈 맺음으로 끝난다",
-	"StemCoda":      "새 낱말의 줄기가 ㅆ 받침으로 끝난다",
-	"MarkSides":     "양쪽이 맞는 글자 열이 아니다",
-	"MarkBoth":      "양쪽이 모두 그 글자 열이다",
-	"MarkAlone":     "점이 하나뿐이다",
-	"MarkRepeated":  "점이 이어진다",
-	"ExtUnlisted":   "확장자 목록에 없다",
-	"LastUnlisted":  "최상위 도메인 목록에 없다",
-	"VersionShape":  "버전의 꼴이 아니다",
-}
+// Why an exception defeats what it attacks, as a trace prints it. Each
+// exception carries its reason on its own node (except), so that one
+// rule function says what it means where it is put.
+const (
+	exceptLabel = "예외"
+
+	whyNoStem     = "앞에 줄기가 없다"
+	whyAfter      = "앞 토큰의 끝이 맞지 않는다"
+	whyNoHangul   = "앞 글자가 한글 음절이 아니다"
+	whyChain      = "조사 사슬에 맞지 않는다"
+	whySlot       = "선어말 칸의 순서가 어긋난다"
+	whyBase       = "받침만 붙은 꼴을 읽는 음절이 아니다"
+	whyWhole      = "통째로 닫힌 집합의 낱말이다"
+	whyRight      = "바로 뒤에 선 것이 이 조각 뒤에 오지 못한다"
+	whyKind       = "앞말이 낱말 표에서 그 갈래의 줄기가 아니다"
+	whyShape      = "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다"
+	whyNoNumber   = "바로 앞이 수가 아니다"
+	whyLone       = "낱말 표 없이 홀로 선 한자어 한 음절 수사다"
+	whyNoDigits   = "기호의 오른쪽이 수가 아니다"
+	whyAfterWord  = "기호의 왼쪽에 글자가 붙어 있다"
+	whyBarred     = "뒤의 맺음은 서술격 이에 붙지 않는다"
+	whyKept       = "뒤의 맺음 앞에서는 이가 빠지지 않는다"
+	whyRunTakes   = "한글 아닌 글자 뒤의 빠진 이가 붙는 맺음이다"
+	whyNaming     = "뒤가 이름 꼴 맺음이다"
+	whyParticle   = "이름 꼴 맺음 바로 뒤에 조사가 붙는다"
+	whyNotBefore  = "뒤의 조각이 이 뒤에 오는 것이 아니다"
+	whyNotAfter   = "이 조각 뒤에 붙는 것이 아니다"
+	whyMarked     = "경계 뒤의 통짜 새 낱말이 표지로 읽힌다"
+	whyLast       = "뒤에 조사가 없다"
+	whyNoAdn      = "앞 어절이 꾸밈 맺음으로 끝나지 않는다"
+	whyAdn        = "앞 어절이 꾸밈 맺음으로 끝난다"
+	whyBoundAux   = "의존 명사에 하다·싶다가 붙은 보조 용언의 줄기다"
+	whyCoda       = "새 낱말의 줄기가 ㅆ 받침으로 끝난다"
+	whyKnown      = "표가 아는 낱말이다"
+	whyPredicate  = "표에서 용언 줄기이기도 하다"
+	whyNoPredTail = "뒤가 서술어 꼬리가 아니다"
+	whyUntold     = "낱말 표가 없으면 표지가 붙은 줄기에는 묻지 않는다"
+	whyStemHead   = "줄기의 첫 음절이다"
+	whyMakes      = "하·되·이는 한글 아닌 글자 뒤에서도 뗀다"
+	whyKeeps      = "표가 르·러 불규칙으로 적은 줄기다"
+	whyClash      = "어/아가 앞 음절의 모음과 어긋난다"
+	whyOne        = "한 음절 줄기의 ㅡ 뒤는 어뿐이다"
+	whyLonger     = "줄기에 앞 음절이 있다"
+	whyTurned     = "그 낱말 자신이 꾸밈꼴·이름꼴이다"
+	whyStemTail   = "줄기의 갈래가 뒤에 붙은 것을 받지 않는다"
+	whySides      = "양쪽이 맞는 글자 열이 아니다"
+	whyBoth       = "양쪽이 모두 그 글자 열이다"
+	whyAlone      = "점이 하나뿐이다"
+	whyRepeated   = "점이 이어진다"
+	whyExtension  = "확장자 목록에 없다"
+	whyDomain     = "최상위 도메인 목록에 없다"
+	whyVersion    = "버전의 꼴이 아니다"
+)

@@ -6,7 +6,7 @@ import "testing"
 
 func TestSignFacts(t *testing.T) {
 	labels, signs := []string{"2026", "11", "10", "12"}, []rune{'-', '-', '~'}
-	if m := signFacts(labels, signs, 0); len(m.Parts) != 3 || m.Dots != 2 || m.Parts[2] != "10" {
+	if m := signFacts(labels, signs, 0); len(m.Parts) != 3 || m.Parts[2] != "10" {
 		t.Fatal(m)
 	}
 	if m := signFacts(labels, signs, 1); len(m.Parts) != 3 || m.Ext != "10" {

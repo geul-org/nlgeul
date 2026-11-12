@@ -14,7 +14,7 @@ func (sc *scan) obliged(tails []tail) []tail {
 			continue
 		}
 		rest := append(partsOf(t.pieces[0], []split{mustPart, {t.pieces[0].text, guessName}}), t.pieces[1:]...)
-		for _, l := range sc.closings(t.start, false) {
+		for _, l := range sc.closings(t.start, false, false) {
 			if l.only != "" || !slices.Contains(mustNames, l.pieces[len(l.pieces)-1].names) {
 				continue
 			}

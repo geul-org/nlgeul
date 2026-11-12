@@ -18,23 +18,23 @@ func dotGraph(name string) (*toulmin.Graph, int) {
 	alnum, digits := &rule.Bits{Of: "sides", Mask: rule.SideAlnum}, &rule.Bits{Of: "sides", Mask: rule.SideDigit}
 	switch name {
 	case "마침표":
-		g.Except(rule.MarkBoth).With(alnum).Attacks(claim)
-		g.Except(rule.MarkRepeated).Attacks(claim)
+		except(g, rule.MarkBoth, whyBoth, alnum).Attacks(claim)
+		except(g, rule.MarkIs, whyRepeated, &rule.Bits{Of: "mark", Mask: rule.MarkRepeated}).Attacks(claim)
 	case "줄임표":
-		g.Except(rule.MarkAlone).Attacks(claim)
+		except(g, rule.MarkIs, whyAlone, &rule.Bits{Of: "mark", Mask: rule.MarkRepeated}, not).Attacks(claim)
 		return g, 1
 	case "파일명":
-		g.Except(rule.MarkSides).With(alnum).Attacks(claim)
-		g.Except(rule.ExtUnlisted).With(toulmin.NewStringListSpec("extensions", extensions)).Attacks(claim)
+		except(g, rule.MarkBoth, whySides, alnum, not).Attacks(claim)
+		except(g, rule.Listed, whyExtension, listed("extensions", rule.ListExt, extensions), not).Attacks(claim)
 	case "도메인":
-		g.Except(rule.MarkSides).With(alnum).Attacks(claim)
-		g.Except(rule.LastUnlisted).With(toulmin.NewStringListSpec("topDomains", topDomains)).Attacks(claim)
+		except(g, rule.MarkBoth, whySides, alnum, not).Attacks(claim)
+		except(g, rule.Listed, whyDomain, listed("topDomains", rule.ListLast, topDomains), not).Attacks(claim)
 	case "소수점":
-		g.Except(rule.MarkSides).With(digits).Attacks(claim)
-		g.Except(rule.PartsShape).With(&rule.Shape{Of: "소수점:.", Min: 2, Max: 2}).Attacks(claim)
+		except(g, rule.MarkBoth, whySides, digits, not).Attacks(claim)
+		except(g, rule.PartsShape, whyShape, &rule.Shape{Of: "소수점:.", Min: 2, Max: 2}).Attacks(claim)
 	case "버전":
-		g.Except(rule.MarkSides).With(alnum).Attacks(claim)
-		g.Except(rule.VersionShape).Attacks(claim)
+		except(g, rule.MarkBoth, whySides, alnum, not).Attacks(claim)
+		except(g, rule.MarkIs, whyVersion, &rule.Bits{Of: "mark", Mask: rule.MarkNumeric}, not).Attacks(claim)
 	}
 	return g, 2
 }

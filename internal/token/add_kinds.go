@@ -10,12 +10,12 @@ import (
 // Words are rows of a table, not graphs: a stem found in the table
 // hands its kind, count and length to one of these few graphs.
 func (ix *index) addKinds() {
-	ix.kinds, ix.seen = map[int]*toulmin.Graph{}, map[[4]int]float64{}
+	ix.kinds, ix.seen = map[int]*toulmin.Graph{}, map[stemKey]float64{}
 	for _, kind := range kindOrder {
 		name := "열쇠:" + kindLabel[kind]
 		g := toulmin.NewGraph(name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
-		g.Except(rule.StemTail).With(&rule.Bits{Of: "tail", Mask: kindTails[kind]}).Attacks(claim)
+		except(g, rule.StemTail, whyStemTail, &rule.Bits{Of: "tail", Mask: kindTails[kind]}).Attacks(claim)
 		g.Counter(rule.SeenFew).With(&rule.Bits{Of: "enough", Mask: seenEnough}).Attacks(claim, forceFew)
 		g.Counter(rule.ShortKey).With(&rule.Bits{Of: "syllables", Mask: shortKey}).Attacks(claim, forceShort)
 		ix.kinds[kind] = g

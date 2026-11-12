@@ -1,8 +1,9 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAfterClosings — 도 right after the linking closing 지 is one more piece of the predicate's tail (also after a dropped copula); not after a closing that takes none (다), not for a pair that is a closing of the tables itself (어도), not for a particle that is not one of the few, nor inside a longer chain; 어서 and 면서 take one too (먹+어서+는, 가+면서+는) but 으면서도, a closing itself, is read as that closing only; with a word table any particle, inside a chain too, right after the naming closing 기 is one more piece under its own name (먹+기+는, 먹+기+에+는), and without one 기 takes none; before a particle after 기 a dropped copula stands before the 기 (문제+(이)+기+도), the scan is chained only during that lookup, and the same lookup outside it has no such copula; end to end a noun of the table that ends in 기 still stands as the noun, and a stem no table has takes no 기
+//ff:what TestAfterClosings — 도 right after the linking closing 지 is one more piece of the predicate's tail (also after a dropped copula); not after a closing that takes none (다), not for a pair that is a closing of the tables itself (어도), not for a particle that is not one of the few, nor inside a longer chain; 어서 and 면서 take one too (먹+어서+는, 가+면서+는) but 으면서도, a closing itself, is read as that closing only; with a word table any particle, inside a chain too, right after the naming closing 기 is one more piece under its own name (먹+기+는, 먹+기+에+는), and without one 기 takes none; before a particle after 기 a dropped copula stands before the 기 (문제+(이)+기+도), the tails are looked up there as chained, and the same lookup not chained has no such copula; end to end a noun of the table that ends in 기 still stands as the noun, and a stem no table has takes no 기
 package token
 
 import (
+	"slices"
 	"strings"
 	"testing"
 )
@@ -65,12 +66,13 @@ func TestAfterClosings(t *testing.T) {
 			dropped++
 		}
 	}
-	if dropped != 1 || ws.chained {
-		t.Fatal("a dropped copula before 기 and 도 after it, the scan no longer chained after the lookup", dropped, ws.chained)
+	if dropped != 1 {
+		t.Fatal("a dropped copula before 기 and 도 after it", dropped)
 	}
-	for _, c := range ws.closings(3, false) {
-		if c.pieces[0].names == droppedName {
-			t.Fatal("the same lookup outside afterClosings has no dropped copula before 기", c)
+	for _, chained := range []bool{false, true} {
+		got := ws.closings(3, false, chained)
+		if has := slices.ContainsFunc(got, func(c tail) bool { return c.pieces[0].names == droppedName }); has != chained {
+			t.Fatal("a dropped copula before 기 only in the lookup that is chained", chained, got)
 		}
 	}
 
@@ -88,7 +90,8 @@ func TestAfterClosings(t *testing.T) {
 	if got := strings.Join(r.Lines("곰기는", false), "\n"); strings.Contains(got, "[이름:기]") {
 		t.Fatal("기 after a stem no table has\n" + got)
 	}
-	if got := strings.Join(Lines("먹기는 먹기에는", false), "\n"); strings.Contains(got, "[이름:기]") {
+	bare, _ := New(Options{})
+	if got := strings.Join(bare.Lines("먹기는 먹기에는", false), "\n"); strings.Contains(got, "[이름:기]") {
 		t.Fatal("기 without a word table\n" + got)
 	}
 }

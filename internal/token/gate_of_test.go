@@ -10,8 +10,8 @@ import (
 
 func TestGateOf(t *testing.T) {
 	e := gateOf("앞말:x", kindVerb|kindAdj)
-	yes, _ := verdictOf(e.g, rule.Piece{Stem: kindVerb | kindNominal}, "")
-	no, _ := verdictOf(e.g, rule.Piece{Stem: kindNominal}, "")
+	yes, _ := verdictOf(e.g, rule.Piece{Stem: kindVerb | kindNominal}, "", false)
+	no, _ := verdictOf(e.g, rule.Piece{Stem: kindNominal}, "", false)
 	if e.name != "앞말:x" || yes <= 0 || no > 0 {
 		t.Fatal(yes, no)
 	}

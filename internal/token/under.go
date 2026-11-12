@@ -6,7 +6,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 
 func under(r rune, lead int) (rune, bool) {
 	jong := rule.JongOf(r)
-	if lead == jongM && jong == jongLM {
+	if lead == rule.JongM && jong == jongLM {
 		return r - rune(jongLM-rule.JongL), true
 	}
 	return r - rune(lead), lead > 0 && jong == lead

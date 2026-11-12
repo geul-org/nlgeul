@@ -20,7 +20,9 @@ func newParseCmd() *cobra.Command {
 입력 문장의 전제조건:
   1. 동사 서술은 반드시 마지막에 온다.
   2. 띄어쓰기를 올바로 한다.
-  3. 조사를 반드시 올바로 붙인다.`,
+  3. 조사를 반드시 올바로 붙인다.
+붙임표(-)로 시작하는 문장은 옵션으로 읽히지 않게 "--" 뒤에 준다
+(nlgeul parse -- "-3도였다").`,
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return runParse(cmd.OutOrStdout(), args[0])

@@ -82,6 +82,12 @@ const (
 	tildeName = "범위:~(단위 뒤)"
 )
 
+// afterOthers is how many pieces besides the unit words are counted
+// among the entries a piece after a number is taken as one of: 여 and
+// 째. The three unitSuffixes are not counted; nothing records why (the
+// count was set before they were added and left as it was).
+const afterOthers = 2
+
 // unitSuffixes stand after a number and its unit, where 째 stands
 // (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are.
 var unitSuffixes = []string{"짜리", "가량", "당"}

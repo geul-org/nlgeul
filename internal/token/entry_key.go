@@ -8,7 +8,7 @@ func entryKey(e *entry) rune {
 	if f := []rune(e.form); len(f) > 0 {
 		return f[len(f)-1]
 	}
-	if e.lead == leadVowel {
+	if e.lead == rule.LeadVowel {
 		return keyVowel
 	}
 	return []rune(rule.LeadText(e.lead))[0]

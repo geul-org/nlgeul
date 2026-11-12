@@ -16,46 +16,46 @@ func TestPlace(t *testing.T) {
 	if _, p, ok := sc.place(&entry{form: "다"}, 1, false); !ok || p.HasStem {
 		t.Fatal(p, ok)
 	}
-	if start, p, ok := sc.place(&entry{form: "다", lead: jongN}, 6, false); !ok || start != 5 || p.Base != "가" {
+	if start, p, ok := sc.place(&entry{form: "다", lead: rule.JongN}, 6, false); !ok || start != 5 || p.Base != "가" {
 		t.Fatal(start, p, ok)
 	}
 	if _, _, ok := sc.place(&entry{form: "다", lead: rule.JongL}, 6, false); ok {
 		t.Fatal("wrong consonant")
 	}
-	if start, _, ok := sc.place(&entry{form: "서", lead: leadVowel}, 8, false); !ok || start != 7 {
+	if start, _, ok := sc.place(&entry{form: "서", lead: rule.LeadVowel}, 8, false); !ok || start != 7 {
 		t.Fatal(start, ok)
 	}
-	if _, _, ok := scanOf("있다").place(&entry{lead: jongSS}, 1, false); ok {
+	if _, _, ok := scanOf("있다").place(&entry{lead: rule.JongSS}, 1, false); ok {
 		t.Fatal("ㅆ under a vowel 었/았 does not fuse into")
 	}
-	if _, _, ok := scanOf("갔다").place(&entry{lead: jongSS}, 1, false); !ok {
+	if _, _, ok := scanOf("갔다").place(&entry{lead: rule.JongSS}, 1, false); !ok {
 		t.Fatal("갔")
 	}
-	if _, _, ok := scanOf("가다").place(&entry{lead: leadVowel}, 1, false); ok {
+	if _, _, ok := scanOf("가다").place(&entry{lead: rule.LeadVowel}, 1, false); ok {
 		t.Fatal("an unseen fusion inside a unit")
 	}
-	if _, _, ok := scanOf("가보다").place(&entry{lead: leadVowel}, 1, false); !ok {
+	if _, _, ok := scanOf("가보다").place(&entry{lead: rule.LeadVowel}, 1, false); !ok {
 		t.Fatal("an unseen fusion right before an auxiliary verb's stem")
 	}
-	if _, _, ok := scanOf("가").place(&entry{lead: leadVowel}, 1, false); !ok {
+	if _, _, ok := scanOf("가").place(&entry{lead: rule.LeadVowel}, 1, false); !ok {
 		t.Fatal("an unseen fusion at the unit's end")
 	}
-	if start, _, ok := scanOf("되도").place(&entry{form: "도", lead: leadVowel}, 2, false); !ok || start != 1 {
+	if start, _, ok := scanOf("되도").place(&entry{form: "도", lead: rule.LeadVowel}, 2, false); !ok || start != 1 {
 		t.Fatal("an 어 left out after 되 with more of the tail", start, ok)
 	}
-	if _, _, ok := scanOf("보도").place(&entry{form: "도", lead: leadVowel}, 2, false); ok {
+	if _, _, ok := scanOf("보도").place(&entry{form: "도", lead: rule.LeadVowel}, 2, false); ok {
 		t.Fatal("no 어 left out after a syllable not of unspelt")
 	}
-	if _, _, ok := scanOf("되요").place(&entry{lead: leadVowel}, 1, true); !ok {
+	if _, _, ok := scanOf("되요").place(&entry{lead: rule.LeadVowel}, 1, true); !ok {
 		t.Fatal("an 어 left out after 되 before 요")
 	}
-	if _, _, ok := scanOf("되").place(&entry{lead: leadVowel}, 1, false); !ok {
+	if _, _, ok := scanOf("되").place(&entry{lead: rule.LeadVowel}, 1, false); !ok {
 		t.Fatal("an 어 left out after 되 at the unit's end")
 	}
-	if _, _, ok := scanOf("되다").place(&entry{lead: leadVowel}, 1, false); ok {
+	if _, _, ok := scanOf("되다").place(&entry{lead: rule.LeadVowel}, 1, false); ok {
 		t.Fatal("no 어 left out after 되 inside a unit")
 	}
-	if start, _, ok := scanOf("됬다").place(&entry{lead: jongSS}, 1, false); !ok || start != 1 {
+	if start, _, ok := scanOf("됬다").place(&entry{lead: rule.JongSS}, 1, false); !ok || start != 1 {
 		t.Fatal("a fused ㅆ under 되 with the 어 left out", start, ok)
 	}
 	if _, _, ok := sc.place(&entry{form: "로써"}, 4, false); ok {
@@ -64,7 +64,7 @@ func TestPlace(t *testing.T) {
 	if _, _, ok := sc.place(&entry{form: "다음으로간"}, 3, false); ok {
 		t.Fatal("longer than the text")
 	}
-	if _, _, ok := sc.place(&entry{lead: jongN}, 0, false); ok {
+	if _, _, ok := sc.place(&entry{lead: rule.JongN}, 0, false); ok {
 		t.Fatal("a fused piece at the start")
 	}
 	lone := scanOf("로")

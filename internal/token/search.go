@@ -17,7 +17,7 @@ func (sc *scan) search() []*path {
 		for _, t := range tails {
 			cands = sc.extend(cands, best, t, j)
 		}
-		best[j] = sc.ix.top(sc.whole(cands, best, j, sc.marks[j]), beam)
+		best[j] = sc.ix.top(sc.whole(cands, best, j), beam)
 	}
 	return sc.ix.top(append(best[n], sc.attached()...), beam)
 }

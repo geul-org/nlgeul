@@ -1,16 +1,17 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what stemVerdict — the verdict of a kind's graph for a stem with what follows it, its observed count and its length; the same facts are judged once and remembered
+//ff:what stemVerdict — the verdict of a kind's graph for a stem with the facts given (what follows it, its observed count, its letters, the word before it); the same facts are judged once and remembered
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
 
-func (ix *index) stemVerdict(kind, tail, count int, stem string) float64 {
-	n := len([]rune(stem))
-	key := [4]int{kind, tail, count, min(n, shortKey+1)}
+// The key holds every fact the graph is given, so that a rule added to
+// the graph is never answered from another stem's verdict.
+func (ix *index) stemVerdict(kind int, p rule.Piece) float64 {
+	key := stemKey{kind, p}
 	if v, ok := ix.seen[key]; ok {
 		return v
 	}
-	v, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: stem, Tail: tail, Count: count}, "")
+	v := verdict(ix.kinds[kind], p)
 	ix.seen[key] = v
 	return v
 }

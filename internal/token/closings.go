@@ -4,10 +4,11 @@ package token
 
 import "sort"
 
-// more tells that 요 follows. A closing that sits in the stem's last
+// more tells that 요 follows, chained that a particle is being read
+// right after the tail (the copula's graph is told so). A closing that sits in the stem's last
 // syllable takes no slot before it. A closing that attaches only to
 // the copula stem stands otherwise only after 아니.
-func (sc *scan) closings(j int, more bool) []tail {
+func (sc *scan) closings(j int, more, chained bool) []tail {
 	if j < 1 {
 		return nil
 	}
@@ -26,5 +27,5 @@ func (sc *scan) closings(j int, more bool) []tail {
 	out = append(out, sc.helped(out)...)
 	out = append(out, sc.negated(out)...)
 	out = append(out, sc.obliged(out)...)
-	return append(out, sc.copulas(out)...)
+	return append(out, sc.copulas(out, chained)...)
 }

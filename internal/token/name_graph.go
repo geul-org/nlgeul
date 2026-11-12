@@ -10,7 +10,7 @@ import (
 func nameGraph(name string) *entry {
 	g := toulmin.NewGraph(name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "기호"})
-	g.Except(rule.MarkSides).With(&rule.Bits{Of: "sides", Mask: rule.SideAlnum}).Attacks(claim)
-	g.Except(rule.MarkBoth).With(&rule.Bits{Of: "sides", Mask: rule.SideDigit}).Attacks(claim)
+	except(g, rule.MarkBoth, whySides, &rule.Bits{Of: "sides", Mask: rule.SideAlnum}, not).Attacks(claim)
+	except(g, rule.MarkBoth, whyBoth, &rule.Bits{Of: "sides", Mask: rule.SideDigit}).Attacks(claim)
 	return &entry{name: name, g: g}
 }

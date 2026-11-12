@@ -10,6 +10,6 @@ import (
 func shapeGraph(s rule.Shape) *entry {
 	g := toulmin.NewGraph(s.Of)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: s.Of, Concludes: "기호"})
-	g.Except(rule.PartsShape).With(&s).Attacks(claim)
+	except(g, rule.PartsShape, whyShape, &s).Attacks(claim)
 	return &entry{name: s.Of, g: g}
 }

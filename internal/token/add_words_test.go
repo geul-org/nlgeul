@@ -36,7 +36,8 @@ func TestAddWords(t *testing.T) {
 	if got := strings.Join(r.Lines("네가 내가", false), "\n"); !strings.Contains(got, "네[열쇠:체언]+가[주격:가|보격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[주격:가|보격:가]") {
 		t.Fatal("네가 내가\n" + got)
 	}
-	if got := strings.Join(Lines("네가", false), "\n"); strings.Contains(got, "네[") {
+	bare, _ := New(Options{})
+	if got := strings.Join(bare.Lines("네가", false), "\n"); strings.Contains(got, "네[") {
 		t.Fatal("네 without a word table\n" + got)
 	}
 }
