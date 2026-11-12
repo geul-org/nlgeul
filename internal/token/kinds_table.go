@@ -1,6 +1,9 @@
 package token
 
-import "github.com/geul-org/nlgeul/pkg/rule"
+import (
+	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
 
 // kindOrder is the order kinds are named in; kindLabel their names in
 // a graph's name (열쇠:체언).
@@ -54,17 +57,18 @@ var closedTails = map[string]int{
 
 var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, "관형사": kindDeterminer, "접속 부사": kindAdverb}
 
+// closingSets are the lists of closings by what they take, as their
+// table gives them (closing-sets.tsv), and wordSets this layer's own
+// closed sets of words (closed-words-more.tsv).
+var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul))
+var wordSets = data.Must(data.Sets("closed-words-more", setBoundAux, setAuxMore, setPronounWord, setSpoken))
+
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
 // (also before a quotation's 고, 면, 는), 는구나, 는군, 느냐, 느라; the
 // proposal 자, ㅂ시다/읍시다; purpose and intent 러, 려, 려고, 려면,
 // 려다, 고자. The modifying 는 and 는데, 는지, 는가 are not here: 있다
 // and 없다 take them.
-var verbClosings = []string{
-	"맺음:ㄴ다", "맺음:ㄴ다고", "맺음:ㄴ다면", "꾸밈:ㄴ다는", "맺음:는다", "맺음:는다고", "맺음:는다면", "꾸밈:는다는",
-	"맺음:는구나", "맺음:는군", "맺음:느냐", "맺음:느라", "맺음:느라고",
-	"맺음:자", "맺음:자마자", "맺음:자고", "맺음:ㅂ시다", "맺음:읍시다",
-	"맺음:러", "맺음:으러", "맺음:려", "맺음:으려", "맺음:려고", "맺음:으려고", "맺음:려면", "맺음:으려면", "맺음:려다", "맺음:으려다", "맺음:고자",
-}
+var verbClosings = closingSets[setVerbOnly]
 
 // boundAux are the stems of the auxiliaries made of a dependent noun
 // and 하다 or 싶다 (듯하다, 만하다, 법하다, 성싶다, 척하다 of the
@@ -72,7 +76,7 @@ var verbClosings = []string{
 // of that make): each is written right after a modifying closing (올
 // 듯하다, 아는 척한다), where no other predicate stands. 직하다 is not
 // here: it follows the naming closing ㅁ.
-var boundAux = []string{"듯하", "듯싶", "만하", "법하", "뻔하", "성싶", "성부르", "성하", "척하", "체하", "양하"}
+var boundAux = wordSets[setBoundAux]
 
 // adnPrefix and namingPrefix begin the names of the modifying closings
 // (꾸밈:은) and of the naming closings (이름:기, 이름:ㅁ).
@@ -98,7 +102,7 @@ var pronouns = []string{"이", "그", "저"}
 // nominal whatever rows the table has for it (네 is there only as a
 // determiner), named as the table's nominals are; without one they are
 // not read (each would cut every word that begins with it).
-var pronounWords = []string{"네", "내", "제"}
+var pronounWords = wordSets[setPronounWord]
 
 const (
 	determinerLabel = "관형사"

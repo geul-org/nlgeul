@@ -1,5 +1,9 @@
 package token
 
+import (
+	"github.com/geul-org/nlgeul/data"
+)
+
 // The readings of the full stop that join the runs on its two sides
 // into one name, and those that end what stands before it. Each is a
 // graph of its own (dotGraph). A joining reading's graph is named with
@@ -11,12 +15,8 @@ var stopNames = []string{"마침표", "줄임표"}
 // extensions are the file-name extensions the reading 파일명 knows, and
 // topDomains the top-level domains the reading 도메인 knows. They are
 // closed tables of common ones, not complete.
-var extensions = []string{
-	"py", "go", "md", "json", "tsv", "csv", "txt", "yaml", "yml", "toml", "js", "ts", "tsx", "jsx", "html", "css",
-	"sh", "c", "h", "cpp", "rs", "java", "kt", "rb", "sql", "xml", "pdf", "png", "jpg", "jpeg", "gif", "svg", "webp",
-	"zip", "gz", "tar", "log", "lock", "mod", "sum", "env", "ini", "conf", "ipynb", "docx", "xlsx", "pptx", "hurl",
-}
-var topDomains = []string{"com", "org", "net", "io", "dev", "ai", "app", "co", "kr", "jp", "uk", "us", "de", "fr", "cn", "edu", "gov", "info", "me", "tv", "xyz", "py"}
+var extensions = data.Must(data.Column("extensions", 1))
+var topDomains = data.Must(data.Column("top-domains", 1))
 
 // linkSigns are signs that bind two words written with no space into
 // one stem: a slash sets two things side by side (입력/출력), a hyphen

@@ -69,7 +69,7 @@ const euLetters = "으은을음읍"
 // linkTakers are the closings of the tables that take the link vowel
 // 으 as a piece of its own (읽으니, 먹었으나); the others that take it
 // have a form with 으 in the tables (으면, 은, 을).
-var linkTakers = []string{"맺음:니", "맺음:니까", "맺음:나", "맺음:냐"}
+var linkTakers = closingSets[setLinkTaker]
 
 // Final consonants and vowels the changes turn on.
 const (

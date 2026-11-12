@@ -49,6 +49,6 @@ func (ix *index) addNumbers() {
 		ix.addAfter("접미:"+s, s, placeOrder)
 	}
 	for _, u := range unitWords {
-		ix.addAfter("단위:"+u, u, placeUnit)
+		ix.addAfter(unitLabel+unitNames[u], u, placeUnit)
 	}
 }

@@ -1,5 +1,9 @@
 package token
 
+import (
+	"github.com/geul-org/nlgeul/data"
+)
+
 // Signs that open and close a pair (written with no space inside:
 // opening signs onto the word after, closing signs onto the word
 // before). A sentence is cut at them as it is read from its first
@@ -12,23 +16,10 @@ package token
 // as a sign of a pair), and what keeps it from being such a sign
 // (bar…). A quotation mark written the same way at both ends opens
 // when none of its kind may stand open, and closes when one may.
-var pairRows = map[rune]pairRow{
-	'(': {kind: '(', opens: true}, ')': {kind: '(', shuts: true},
-	'{': {kind: '{', opens: true}, '}': {kind: '{', shuts: true},
-	'[': {kind: '[', opens: true}, ']': {kind: '[', shuts: true},
-	'<': {kind: '<', opens: true, unsure: true, bars: barApart}, '>': {kind: '<', shuts: true, unsure: true, bars: barApart},
-	'"':  {kind: '"', opens: true, shuts: true, bars: barDigit},
-	'\'': {kind: '\'', opens: true, shuts: true, unsure: true, bars: barWord | barDigit},
-	'“':  {kind: '“', opens: true}, '”': {kind: '“', shuts: true},
-	'‘': {kind: '‘', opens: true}, '’': {kind: '‘', shuts: true, bars: barWord},
-	'「': {kind: '「', opens: true}, '」': {kind: '「', shuts: true},
-	'『': {kind: '『', opens: true}, '』': {kind: '『', shuts: true},
-	'《': {kind: '《', opens: true}, '》': {kind: '《', shuts: true},
-	'〈': {kind: '〈', opens: true}, '〉': {kind: '〈', shuts: true},
-}
+var pairRows = data.Must(loadPairs(data.Must(data.Rows("pairs", 4))))
 
 // pairOrder is the order the graphs of the signs are made in.
-var pairOrder = []rune{'(', ')', '{', '}', '[', ']', '<', '>', '"', '\'', '“', '”', '‘', '’', '「', '」', '『', '』', '《', '》', '〈', '〉'}
+var pairOrder = data.Must(data.Runes("pairs", 4))
 
 // What keeps a sign from being read as a sign of a pair: it stands
 // inside a word (it's, O'Brien); it stands right after a digit

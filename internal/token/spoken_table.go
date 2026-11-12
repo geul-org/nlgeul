@@ -5,4 +5,4 @@ package token
 // counted from written text has few of the spoken form and many of the
 // word itself, so that the form was rarely seen there does not tell
 // against it. A closed table: only what is listed is read so.
-var spoken = []string{"거"}
+var spoken = wordSets[setSpoken]

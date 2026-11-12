@@ -20,3 +20,79 @@
 - 불규칙 용언도 본디 줄기와 유형만 적는다. 바뀐 줄기는 표에 없다.
 - 조사, 어미, 접사 같은 문법 조각은 이 표에 없다.
 - 정렬: 키의 코드포인트 순, 같으면 갈래, 불규칙 유형 순.
+
+## tables/
+
+문법의 닫힌 표를 두는 폴더다. 파일 하나가 표 하나이고(22개), `data` 꾸러미가 `//go:embed tables/*.tsv`로 실행 파일에 품는다. 실행할 때 바깥 파일로 덮어쓰는 옵션은 없다. 실행할 때 읽는 바깥 파일은 낱말 표(`words.tsv`)뿐이고, `words.tsv`는 품지 않는다.
+
+### 공통 형식
+
+- UTF-8, 줄바꿈 `\n`, 칸은 탭으로 나눈다.
+- 첫 줄은 `# 칸(탭으로 나눔): 이름, 이름, …` 꼴이다. 칸 이름을 쉼표와 빈칸으로 이어 적고, 그 수가 읽는 코드가 부르는 칸 수와 맞아야 한다.
+- `# `로 시작하는 줄과 빈 줄은 건너뛴다. 줄 번호는 건너뛴 줄도 센다.
+- 칸은 비워 둘 수 없다. 값이 없는 칸은 `-`를 적는다.
+- 한 칸에 값을 여럿 적는 칸(갈래, 조건, 격 들)은 `|`로 잇는다. 같은 이름을 두 번 적으면 오류다.
+- 같은 줄을 두 번 적으면 오류다.
+- 맺음의 꼴 칸: 온 음절은 그대로 적는다(`면`). 앞 음절 밑에 받침으로 붙는 꼴은 맨 앞에 그 받침을 적는다(`ㄴ다`는 받침 ㄴ 밑에 `다`; 받침은 ㄴ·ㄹ·ㅁ·ㅂ·ㅆ). 어·아·여로 시작하는 꼴은 맨 앞에 `어/아`를 적는다(`어/아서`). 받침으로 붙는 꼴과 `어/아` 꼴의 앞말 칸은 `-`다. 꼴에는 한글 음절만 적는다.
+- 줄의 차례에 뜻이 있다. 집합을 이루는 표(`closing-sets`, `closed-words`, `contracts` 들)와 한 칸 목록 표(`extensions` 들)는 적은 차례대로 목록이 된다. 기호 표(`signs`, `pairs`, `number-heads`)와 `units`는 줄의 차례가 그래프를 만드는 차례이고, 그래서 읽기를 찍는 차례다. 줄은 끝에 더하고 기존 줄의 차례를 바꾸지 않는다.
+
+### 쓸 수 있는 이름
+
+코드에 정해진 이름만 쓴다. 다른 이름은 오류이고, 오류 글귀가 쓸 수 있는 이름을 나열한다(`internal/parse/names_table.go`, `internal/token/table_names.go`).
+
+| 칸 | 이름 |
+|---|---|
+| 앞말 | `-`(조건 없음), `받침 뒤`, `ㄹ 아닌 받침 뒤`, `모음·ㄹ 뒤`, `모음 뒤`, `ㄹ 받침 뒤` |
+| 갈래(맺음) | `종결`, `연결`, `꾸밈`, `이름` |
+| 조건(맺음) | `으 붙음`, `서술격 안 됨`, `요 안 됨`, `서술격만`, `서술격 품음` |
+| 격(조사) | `주격`, `보격`, `목적격`, `관형격`, `부사격`, `호격` |
+| 줄기(줄임 꼴) | `형용사`, `동사`, `-`(어느 용언이든) |
+| 구실(짝 기호) | `열기`, `닫기` |
+| 조건(짝 기호) | `헷갈림`, `낱말 속 안 됨`, `숫자 뒤 안 됨`, `띄어 쓴 자리 안 됨` |
+| 집합(`closed-words`) | `의존명사`, `보조 용언`, `관형사`, `접속 부사` |
+| 집합(`contracts`) | `준말`, `한 음절 대명사`, `의존명사+서술격`, `오표기` |
+| 집합(`closing-sets`) | `동사만`, `서술격 빠짐`, `서술격 빠짐(낱말 표)`, `이음 으`, `한글 뒤만` |
+| 집합(`closed-words-more`) | `의존명사 보조 용언`, `붙여 쓰는 보조 용언`, `대명사`, `구어 꼴` |
+
+### 파일
+
+변수는 `internal/parse`(`parse`) 또는 `internal/token`(`token`)에 있고 `data.Must(…)`로 만든다. 예시는 실제 줄이다.
+
+| 파일 | 칸 | 읽는 변수 | 예시 |
+|---|---|---|---|
+| `closings.tsv` | 꼴, 앞말, 갈래, 조건, 횟수 | `endings` (parse, `endingOf`) | `고	-	종결\|연결	-	0` |
+| `particles.tsv` | 꼴(온 음절), 앞말, 사슬 자리(0에서 5), 격(`-`이면 없음), 횟수 | `particles` (parse, `particleOf`) | `이	받침 뒤	3	주격\|보격	5530000` |
+| `closed-words.tsv` | 집합, 낱말, 붙여 읽기(`붙여 읽음`은 `의존명사` 줄에만, 다른 줄은 `-`) | `closedSets` (parse, `loadClosed`) | `의존명사	거	붙여 읽음` |
+| `closing-pieces.tsv` | 맺음, 조각(`+`로 이은 찍는 꼴) | `closingPieces` (parse) | `다고	다+고` |
+| `closings-more.tsv` | 꼴, 앞말, 갈래, 조건 | `moreClosings` (token, `markerRow`) | `되	-	연결	-` |
+| `closing-counts.tsv` | 맺음 이름, 횟수 | `closingCounts` (token) | `맺음:다	8131589` |
+| `particle-counts.tsv` | 조사 꼴, 횟수 | `particleCounts` (token) | `이	3275337` |
+| `closing-sets.tsv` | 집합, 맺음 이름 | `closingSets` (token) | `동사만	맺음:ㄴ다` |
+| `closed-words-more.tsv` | 집합, 낱말 | `wordSets` (token) | `의존명사 보조 용언	듯하` |
+| `contracts.tsv` | 묶음, 꼴, 낱말, 조사, 조사 이름(`격:꼴`처럼 `:`이 든 색인 이름), 자리(`꾸밈 뒤` 또는 `-`), 적힌 낱말(틀리게 적은 글자, 없으면 `-`) | `contractLists` (token, `loadContracts`, `contractOf`) | `준말	이게	이것	(이)	주격:이	-	-` |
+| `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (token, `shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
+| `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (token, `shortParticleOf`) | `선	-	부사격	에서는` |
+| `short-slots.tsv` | 꼴, 앞말, 본말, 줄기 | `shortSlots` (token, `shortSlotOf`) | `댔	-	다고 했	형용사` |
+| `typo-closings.tsv` | 틀린 꼴, 바른 맺음(색인 이름) | `typoClosings` (token, `typoClosingOf`) | `ㄹ께	맺음:ㄹ게` |
+| `typo-words.tsv` | 틀린 꼴, 바른 낱말 | `typoKeys` (token) | `꺼	거` |
+| `signs.tsv` | 기호(글자 하나), 이름 | `signNames`, `signOrderNamed` (token, `loadSigns`) | `,	쉼표` |
+| `pairs.tsv` | 기호, 여는 기호, 구실, 조건 | `pairRows`, `pairOrder` (token, `loadPairs`, `pairOf`) | `)	(	닫기	-` |
+| `number-heads.tsv` | 기호, 갈래 | `headSigns`, `headOrder` (token, `loadHeads`) | `$	돈` |
+| `units.tsv` | 글자, 이름 | `unitWords`, `unitNames` (token) | `개	개` |
+| `unit-suffixes.tsv` | 접미사 | `unitSuffixes` (token) | `짜리` |
+| `extensions.tsv` | 확장자 | `extensions` (token) | `py` |
+| `top-domains.tsv` | 최상위 도메인 | `topDomains` (token) | `com` |
+
+- `closings.tsv`, `closings-more.tsv`, `short-closings.tsv`의 앞 네 칸은 같은 읽기(`parse.MarkerOf`)로 읽는다. 받침으로 붙는 꼴과 `어/아` 꼴의 앞말 칸은 `-`여야 하고, 갈래는 하나 이상 적는다.
+- `short-closings.tsv`의 조건에 `서술격 안 됨`을 적으면 그 줄은 서술격 이다 뒤에 서지 못한다. 줄기가 `-`이면 어느 용언 줄기 뒤에든 선다. 끝 네 줄(`달까`, `ㄴ달까`, `는달까`, `랄까`)은 다고 할까·ㄴ다고 할까·는다고 할까·라고 할까가 줄어든 맺음이다.
+- `short-slots.tsv`의 꼴은 온 음절이거나 받침 밑에 붙는 꼴이다(`ㄴ댔`). `어/아` 꼴은 쓰지 못한다.
+- `units.tsv`는 `글자<탭>이름`이다. 글자는 수 뒤에서 읽는 단위이고, 색인에서 그 단위의 이름표는 `단위:<이름>`으로 찍힌다. 지금은 모든 줄의 이름이 글자와 같다.
+- `closing-counts.tsv`에 줄이 없는 맺음은 횟수가 없는 것으로 친다. 횟수 0도 횟수 없음으로 친다.
+- `signs.tsv`, `pairs.tsv`, `number-heads.tsv`의 기호는 글자 하나다.
+
+### 줄을 더하는 방법
+
+1. 해당 파일에 줄 하나를 적는다. 칸 수와 쓸 수 있는 이름을 위 표에 맞춘다.
+2. `go build ./...`로 다시 짓는다. 표는 실행 파일에 품기 때문에 다시 지어야 반영된다.
+3. 틀린 줄이 있으면 프로그램이 시작할 때 `표 <파일> <몇>번째 줄 <몇>번째 칸(<이름>) "<적힌 글자>": <까닭>` 꼴의 오류로 멈춘다. 칸 수가 다르거나 같은 줄이 있으면 칸 이름이나 앞의 줄 번호를 대는 오류가 난다. 고쳐 다시 짓는다.
+4. `go test ./...`로 확인한다. 줄을 더하면 그래프나 항목의 수를 센 기존 테스트의 기대값이 바뀔 수 있다.

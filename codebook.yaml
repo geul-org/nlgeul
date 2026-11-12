@@ -4,6 +4,7 @@ required:
     rule: "pkg/rule — 여러 그래프가 함께 쓰는 toulmin 규칙 함수와 그 함수들이 읽는 사실 타입"
     parse: "어절 끝을 문법 표로 읽고 toulmin 그래프로 문장성분을 판정"
     token: "nlgeul token — 토큰 스트림을 색인과 표지별 판정 그래프로 읽어 어절로 끊어 올림"
+    data: "data — 실행 파일이 품는 닫힌 문법 표(tables/*.tsv)를 읽고 줄을 검사"
     hypo: "토큰 층의 읽기를 묶음마다 하나씩 골라 이은 가설을 세고 정렬해 나열"
   type:
     command: "cobra 명령 진입점"

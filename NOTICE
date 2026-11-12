@@ -37,7 +37,8 @@ The modules' LICENSE files hold the full texts.
 --------------------------------------------------------------------------------
 Grammar tables
 --------------------------------------------------------------------------------
-The tables in internal/parse (particles, endings, pieces) are our own work
-(CC0). They were written from the authors' own knowledge of Korean grammar and
+The tables in data/tables (tsv files held in the program) and those left in
+code in internal/parse and internal/token (particles, endings, pieces, and the
+closed lists of the token layer) are our own work (CC0). They were written from the authors' own knowledge of Korean grammar and
 checked against counts observed in our own corpus work; no dictionary or
 third-party list is copied into this repository.

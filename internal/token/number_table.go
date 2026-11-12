@@ -1,6 +1,9 @@
 package token
 
-import "github.com/geul-org/nlgeul/pkg/rule"
+import (
+	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
 
 // Numbers (decision 014-31). A run of digits is a number; a sign
 // between two runs of digits is judged by a graph for each of its
@@ -62,22 +65,19 @@ var signOrder = []rune{',', '~', '-', ':', '/', '.'}
 var shownAs = map[string]string{"자릿수": numName}
 
 // headSigns stand at the very front of a number: a sign, or money.
-var headSigns = map[rune]string{'-': "부호:-", '+': "부호:+", '$': "돈:$", '₩': "돈:₩"}
+var headSigns = data.Must(loadHeads(data.Must(data.Rows("number-heads", 2))))
 
-var headOrder = []rune{'-', '+', '$', '₩'}
+var headOrder = data.Must(data.Runes("number-heads", 2))
 
 // unitWords are read as units only right after a number (대, 분, 일,
 // 시, 자 and 배 are common inside words). The table is closed. A longer
 // unit and a shorter one that ends it are both read where they fit
-// (3개월 is 개월; 개 alone leaves 월 to the next word).
-var unitWords = []string{
-	"개", "명", "번", "건", "줄", "쪽", "장", "권", "대", "마리", "가지", "곳", "군데", "차", "회", "층", "배", "등", "위", "점",
-	"년", "월", "일", "시", "분", "초", "주", "개월", "시간", "살", "세",
-	"원", "달러", "엔",
-	"자", "글자", "단어", "문장", "토큰",
-	"비트", "바이트", "단계", "워드", "차원", "종", "라인", "픽셀", "턴", "세트",
-	"%", "℃", "kg", "cm", "km", "ms", "MB", "GB",
-}
+// (3개월 is 개월; 개 alone leaves 월 to the next word). unitWords are
+// the letters a unit is written with, in the order of the table's lines
+// (units.tsv), and unitNames what each is named with after unitLabel
+// (the table's second column).
+var unitWords = data.Must(data.Column("units", 2))
+var unitNames = data.Must(data.Map("units"))
 
 // Places after a number: a greater number (만, 천), 여 (more than), a
 // unit, 째 (an order).
@@ -89,6 +89,7 @@ const (
 )
 
 const (
+	unitLabel = "단위:"
 	overName  = "어림:여"
 	orderName = "차례:째"
 	tildeName = "범위:~(단위 뒤)"
@@ -102,4 +103,4 @@ const afterOthers = 2
 
 // unitSuffixes stand after a number and its unit, where 째 stands
 // (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are.
-var unitSuffixes = []string{"짜리", "가량", "당"}
+var unitSuffixes = data.Must(data.Column("unit-suffixes", 1))

@@ -2,7 +2,7 @@
 
 한국어 문장을 문법 표와 판정 그래프로 읽는 실험용 분석기다. 문장을 음절(토큰)의 흐름으로 보고, 조사·선어말 어미·어미 같은 표지를 찾아 어절과 그 조각으로 끊는다. 읽기가 하나로 정해지지 않으면 고르지 않고, 가능한 읽기를 근거의 세기와 함께 모두 내놓는다.
 
-Go 모듈 `github.com/geul-org/nlgeul`과 명령줄 도구 `nlgeul`이다. 학습한 모델이나 외부 형태소 분석기를 쓰지 않는다. 문법은 코드 안의 표와 [toulmin](https://github.com/park-jun-woo/toulmin) 그래프(주장, 예외, 반박)로 적혀 있고, 닫힌 집합 밖의 낱말은 따로 주는 낱말 표에서만 온다.
+Go 모듈 `github.com/geul-org/nlgeul`과 명령줄 도구 `nlgeul`이다. 학습한 모델이나 외부 형태소 분석기를 쓰지 않는다. 문법은 실행 파일에 품은 표(`data/tables/*.tsv`)와 코드 안에 남은 표, 그리고 [toulmin](https://github.com/park-jun-woo/toulmin) 그래프(주장, 예외, 반박)로 적혀 있고, 닫힌 집합 밖의 낱말은 따로 주는 낱말 표에서만 온다.
 
 ## 지금 상태
 
@@ -169,7 +169,7 @@ $ ./nlgeul token --trace "물을"
 | 횟수 | 관측한 횟수 |
 | 바른 꼴 | 오표기 줄에만 적는다. 그 줄의 키는 틀린 표기다(`맞기` → `맡기`). 다른 줄은 비어 있다 |
 
-- 실제 낱말 표는 이 저장소에 없다. `data/words.tsv`에 두는 파일이지만 git에서 제외되어 있어, 저장소를 받은 사람은 스스로 만들어 넣어야 한다. 형식은 [data/README.md](data/README.md)에 있다.
+- 낱말 표는 `data/words.tsv`로 이 저장소에 들어 있다. 실행 파일에 품지 않으므로 `--words data/words.tsv`처럼 준다. 형식은 [data/README.md](data/README.md)에 있다.
 - 저장소에 든 것은 테스트용으로 지은 작은 표 둘이다(`internal/token/testdata/words.tsv`, `internal/cli/testdata/words.tsv`). 이 글의 낱말 표 예시는 앞의 것으로 돌렸다.
 - 낱말 표가 없으면 문법 표의 닫힌 집합만 안다: 의존명사, 보조 용언, 지시·수 관형사, 접속 부사와 이 층의 닫힌 표(단위, 수사, 줄임 꼴 들)다.
 - 낱말 표가 있을 때만 읽는 닫힌 표도 있다: 틀린 표기로 적은 닫힌 집합 낱말(`꺼` → `거`, `껀`·`껄`).
@@ -184,16 +184,17 @@ internal/token  토큰 층: 색인, 표지별 판정 그래프, 스트림 읽기
 internal/hypo   토큰 층의 읽기를 이은 가설의 수, 정렬, 나열 (명령 없음)
 internal/parse  문법 표(조사, 어미, 닫힌 집합)와 문장성분 판정 (명령 없음)
 pkg/rule        그래프들이 함께 쓰는 규칙 함수와 조건식
-data            낱말 표 (words.tsv)
+data            닫힌 문법 표(tables/*.tsv, 실행 파일이 품는다)를 읽는 코드와 낱말 표(words.tsv)
 ```
 
 | 꾸러미 | 하는 일 | 기대는 꾸러미 |
 |---|---|---|
 | [cmd/nlgeul](cmd/nlgeul/README.md) | `cli.Execute`의 종료 코드(0, 오류면 1)로 끝난다 | `internal/cli` |
 | [internal/cli](internal/cli/README.md) | 옵션을 읽어 `token.Reader`를 만들고 줄을 찍는다 | `internal/token` |
-| [internal/token](internal/token/README.md) | `Reader.Bundles(문장)`이 묶음·읽기·어절·조각의 구조를, `Reader.Lines`가 그것을 찍은 글줄을 낸다 | `internal/parse`(문법 표), `pkg/rule`, toulmin |
+| [internal/token](internal/token/README.md) | `Reader.Bundles(문장)`이 묶음·읽기·어절·조각의 구조를, `Reader.Lines`가 그것을 찍은 글줄을 낸다 | `data`, `internal/parse`(문법 표), `pkg/rule`, toulmin |
 | [internal/hypo](internal/hypo/README.md) | `token.Reader.Bundles`의 구조에서 묶음마다 읽기를 하나씩 골라 이은 가설을 세고(`Count`) 정렬한다(`List`) | `internal/token` |
-| [internal/parse](internal/parse/README.md) | 조사·어미·닫힌 집합의 표를 갖고, `Lines(문장)`이 어절마다 `어절:문장성분` 줄을 낸다 | `pkg/rule`, toulmin |
+| [internal/parse](internal/parse/README.md) | 조사·어미·닫힌 집합의 표를 갖고, `Lines(문장)`이 어절마다 `어절:문장성분` 줄을 낸다 | `data`, `pkg/rule`, toulmin |
+| [data](data/README.md) | 닫힌 문법 표(`tables/*.tsv`)를 품고 읽어 줄을 검사한다. 낱말 표 형식도 적는다 | 없음 |
 | [pkg/rule](pkg/rule/README.md) | 규칙 함수, 그 함수가 읽는 사실 타입, 문법 조건식. `internal/`에 기대지 않는다 | toulmin |
 
 `internal/token`은 `internal/parse`의 조사 표와 어미 표를 읽어 그래프를 짠다. `internal/parse`의 문장성분 판정은 `nlgeul token`의 출력을 받지 않고 어절 끝을 스스로 읽으며, 입력이 세 조건을 지킨다고 믿는다(서술어가 마지막에 온다, 띄어쓰기가 바르다, 조사가 바르게 붙어 있다).
@@ -208,7 +209,7 @@ data            낱말 표 (words.tsv)
 - **주장.** "이 자리의 이 토큰 열은 이 표지다."
 - **예외.** 구조가 맞지 않으면 주장을 꺾어 그 읽기를 기각한다: 앞에 줄기가 없다, 앞 토큰의 끝이 맞지 않는다, 조사 사슬에 맞지 않는다, 선어말 칸의 순서가 어긋난다. 예외를 다시 꺾는 예외도 있다.
 - **반박.** 주장을 기각하지 않고 verdict를 낮춘다: 표에 없는 낱말이다, 관측이 적다, 한 음절이다, 어/아가 앞 모음과 어긋난다.
-- **닫힌 표.** 조사, 어미, 선어말 칸, 닫힌 집합의 낱말, 단위, 수사, 확장자, 줄임 꼴 들은 코드 안의 표다(`internal/parse`와 `internal/token`의 `*_table.go`). 실행할 때 읽는 바깥 파일은 낱말 표뿐이다.
+- **닫힌 표.** 조사, 어미, 닫힌 집합의 낱말, 단위, 확장자, 줄임 꼴 들은 값의 나열이라 `data/tables/`의 tsv 파일(22개)에 적고, 실행 파일이 품는다(`internal/parse`와 `internal/token`의 `*_table.go`가 `data` 꾸러미로 읽어 변수를 만든다). 틀린 줄이 있으면 시작할 때 파일 이름과 줄 번호를 대고 멈춘다. 선어말 칸, 수사, 불규칙 용언, 합쳐진 글자 들은 코드에 남은 표다. 실행할 때 읽는 바깥 파일은 여전히 낱말 표뿐이다. 표 파일의 칸과 줄을 더하는 법은 [data/README.md](data/README.md)에 있다.
 - **규칙 함수.** 모두 `func(Context, Specs) (float64, any)` 꼴이고 [pkg/rule](pkg/rule/README.md)에 25개가 있다. 같은 틀의 판정은 함수 하나가 기준(Spec)으로 갈라 맡고, 반대 방향은 기준 `Not`으로 준다. 그래서 규칙을 더하는 일은 대개 표의 줄이나 그래프의 간선을 더하는 일이다.
 
 예외와 반박은 왜 걸렸는지를 노드에 싣고, `--trace`가 그것을 기각 이유로 찍는다.
@@ -221,7 +222,7 @@ data            낱말 표 (words.tsv)
 
 ## 라이선스
 
-GEUL 프로젝트가 만든 것(코드, 문서, 문법 표)은 CC0 1.0 Universal이다. [LICENSE](LICENSE)는 CC0 1.0 전문이고, 범위는 [NOTICE](NOTICE)가 적는다. 문법 표는 직접 지은 것이고 사전이나 제3자 목록을 옮기지 않았다.
+GEUL 프로젝트가 만든 것(코드, 문서, 문법 표)은 CC0 1.0 Universal이다. [LICENSE](LICENSE)는 CC0 1.0 전문이고, 범위는 [NOTICE](NOTICE)가 적는다. 문법 표(`data/tables/`와 `internal/` 안의 표)는 직접 지은 것이고 사전이나 제3자 목록을 옮기지 않았다.
 
 제3자 구성요소는 CC0에 들지 않고 저마다의 라이선스를 따른다.
 

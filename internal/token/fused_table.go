@@ -1,6 +1,7 @@
 package token
 
 import (
+	"github.com/geul-org/nlgeul/data"
 	"github.com/geul-org/nlgeul/internal/parse"
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
@@ -110,25 +111,11 @@ var splits = map[string][]split{
 // 놓다, 어디다가 두다): they are read under the entries of 에다 and
 // 에다가, after these four words only (after any nominal they would
 // look the same as the copula's 다).
-var contracts = []contract{
-	{"이게", "이것", "(이)", "주격:이", '이', false, ""}, {"그게", "그것", "(이)", "주격:이", '이', false, ""}, {"저게", "저것", "(이)", "주격:이", '이', false, ""},
-	{"이건", "이것", "(은)", "보조사:은", '은', false, ""}, {"그건", "그것", "(은)", "보조사:은", '은', false, ""}, {"저건", "저것", "(은)", "보조사:은", '은', false, ""},
-	{"이걸", "이것", "(을)", "목적격:을", '을', false, ""}, {"그걸", "그것", "(을)", "목적격:을", '을', false, ""}, {"저걸", "저것", "(을)", "목적격:을", '을', false, ""},
-	{"뭘", "뭐", "(를)", "목적격:를", '를', false, ""}, {"무얼", "무엇", "(을)", "목적격:을", '을', false, ""},
-	{"누가", "누구", "가", "주격:가", '가', false, ""}, {"누굴", "누구", "(를)", "목적격:를", '를', false, ""},
-	{"여긴", "여기", "(는)", "보조사:는", '는', false, ""}, {"여길", "여기", "(를)", "목적격:를", '를', false, ""},
-	{"우린", "우리", "(는)", "보조사:는", '는', false, ""}, {"우릴", "우리", "(를)", "목적격:를", '를', false, ""},
-	{"그땐", "그때", "(는)", "보조사:는", '는', false, ""}, {"땐", "때", "(는)", "보조사:는", '는', false, ""},
-	{"누군", "누구", "(는)", "보조사:는", '는', false, ""},
-	{"내게", "내", "게", "부사격:에게", '게', false, ""}, {"네게", "네", "게", "부사격:에게", '게', false, ""}, {"제게", "제", "게", "부사격:에게", '게', false, ""},
-	{"어디다", "어디", "다", "부사격:에다", '다', false, ""}, {"여기다", "여기", "다", "부사격:에다", '다', false, ""},
-	{"거기다", "거기", "다", "부사격:에다", '다', false, ""}, {"저기다", "저기", "다", "부사격:에다", '다', false, ""},
-	{"어디다가", "어디", "다가", "부사격:에다가", '가', false, ""}, {"여기다가", "여기", "다가", "부사격:에다가", '가', false, ""},
-	{"거기다가", "거기", "다가", "부사격:에다가", '가', false, ""}, {"저기다가", "저기", "다가", "부사격:에다가", '가', false, ""},
-	{"게", "거", "(이)", "주격:이", '이', true, ""},
-	{"건", "거", "(는)", "보조사:는", '는', true, ""},
-	{"걸", "거", "(를)", "목적격:를", '를', true, ""},
-}
+// contractLists are the fused forms as their table gives them, set by
+// set (contracts.tsv).
+var contractLists = data.Must(loadContracts(data.Must(data.Rows("contracts", 7))))
+
+var contracts = contractLists[setContract]
 
 // nounCopulas are dependent nouns with the copula's stem fused into
 // their last vowel: 테 is 터 with 이 (할 테니, 갈 텐데, 할 테야 for
@@ -137,17 +124,13 @@ var contracts = []contract{
 // to the words of the same letters. The closing after it is one the
 // copula takes; the stem 이 leaves its trace in the vowel and is
 // written (이).
-var nounCopulas = []contract{{"테", "터", "(이)", copulaName, '이', true, ""}}
+var nounCopulas = contractLists[setNounCopula]
 
 // shortPronouns are one-syllable pronouns with a particle under them
 // (난 = 나+는, 날 = 나+를). The letters are common in other words, so
 // they are read only with a word table, next to the words of the same
 // letters (전, 날, 절).
-var shortPronouns = []contract{
-	{"난", "나", "(는)", "보조사:는", '는', false, ""}, {"넌", "너", "(는)", "보조사:는", '는', false, ""}, {"전", "저", "(는)", "보조사:는", '는', false, ""},
-	{"날", "나", "(를)", "목적격:를", '를', false, ""}, {"널", "너", "(를)", "목적격:를", '를', false, ""}, {"절", "저", "(를)", "목적격:를", '를', false, ""},
-	{"걘", "걔", "(는)", "보조사:는", '는', false, ""}, {"얜", "얘", "(는)", "보조사:는", '는', false, ""}, {"쟨", "쟤", "(는)", "보조사:는", '는', false, ""},
-}
+var shortPronouns = contractLists[setPronoun]
 
 // typoContracts are the forms of the dependent noun 거 with a particle
 // under it that are written with 꺼 for 거 (껀 for 건, 껄 for 걸): read
@@ -155,10 +138,7 @@ var shortPronouns = []contract{
 // written wrong (the last column is the letters of it). A closed
 // table, read with a word table as 꺼 is (typoKeys). 께 (거 with 이) is
 // not in it.
-var typoContracts = []contract{
-	{"껀", "거", "(는)", "보조사:는", '는', true, "꺼"},
-	{"껄", "거", "(를)", "목적격:를", '를', true, "꺼"},
-}
+var typoContracts = contractLists[setTypo]
 
 // Auxiliary verbs written onto the 어/아 form of a main verb (clause 47
 // of the orthography lets them be). connNames are the readings of that
@@ -170,7 +150,7 @@ var typoContracts = []contract{
 // verb: they are read as pieces of the same word (지우+(어)+지+(ㄴ)다,
 // 예쁘+(어)+하+(ㄴ)다).
 var connNames = closingNames(parse.Marker{Lead: rule.LeadVowel})
-var auxMore = []string{"가", "내", "드리"}
+var auxMore = wordSets[setAuxMore]
 var helpers = map[rune]string{'지': "보조:지", '하': "보조:하"}
 
 // yeoBases are the syllables a stem ends in that take 여 for 어/아 and

@@ -13,10 +13,7 @@ const (
 	copulaCount = 4520000
 )
 
-var droppable = []string{
-	"맺음:다", "맺음:고", "맺음:며", "맺음:면", "맺음:지만", bareAdn, "맺음:ㅂ니다",
-	"맺음:라서", "맺음:라면", "맺음:지", "맺음:ㄴ지", "맺음:ㄴ데", "맺음:ㄴ가", "맺음:ㄹ까",
-}
+var droppable = closingSets[setDrop]
 
 // bareAdn is the modifying closing ㄴ put under the syllable before it.
 const bareAdn = "꾸밈:ㄴ"
@@ -32,12 +29,7 @@ const bareAdn = "꾸밈:ㄴ"
 // (nounHeads: 문제기도 하다): before one the dropped stem is read only
 // when a particle follows it (dropNaming, and the particle chain right
 // after a naming closing).
-var droppableKnown = append([]string{
-	"맺음:네", "맺음:냐", "맺음:니", "맺음:라", "맺음:거든", "맺음:구나", "맺음:군",
-	"맺음:야", "맺음:니까", "맺음:죠", "맺음:냐고",
-	"꾸밈:라는", "맺음:라며", "맺음:라면서", "맺음:라니",
-	"맺음:더라도", "맺음:거나", "맺음:든지", "맺음:든가",
-}, nounHeads...)
+var droppableKnown = append(append([]string{}, closingSets[setDropKnown]...), nounHeads...)
 
 // dropAdn are the closings before which a dropped stem is rebutted: in
 // front of a modifying or a naming form the stem mostly stays (의사인,
