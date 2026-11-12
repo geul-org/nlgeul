@@ -27,6 +27,7 @@ const (
 	whyParticle   = "이름 꼴 맺음 바로 뒤에 조사가 붙는다"
 	whyNotBefore  = "뒤의 조각이 이 뒤에 오는 것이 아니다"
 	whyNotAfter   = "이 조각 뒤에 붙는 것이 아니다"
+	whyNotTaken   = "앞의 맺음이 받는 조사가 아니다"
 	whyMarked     = "경계 뒤의 통짜 새 낱말이 표지로 읽힌다"
 	whyLast       = "뒤에 조사가 없다"
 	whyNoAdn      = "앞 어절이 꾸밈 맺음으로 끝나지 않는다"
