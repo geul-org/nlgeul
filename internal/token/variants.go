@@ -17,7 +17,7 @@ func (sc *scan) variants(b int, t tail) []tail {
 		stem = string(sc.s[b:t.start-1]) + string(t.base)
 	}
 	for _, a := range sc.ix.alts[stem] {
-		if _, v := sc.ix.known(a.stem, tailClass(t.pieces)); v > 0 && irrHeads[a.kind]&t.head != 0 && (t.irr == 0 || t.irr == a.kind) {
+		if _, v := sc.ix.known(a.stem, tailClass(t.pieces), false); v > 0 && irrHeads[a.kind]&t.head != 0 && (t.irr == 0 || t.irr == a.kind) {
 			read := t
 			read.shown, read.irr = a.stem, 0
 			out = append(out, read)

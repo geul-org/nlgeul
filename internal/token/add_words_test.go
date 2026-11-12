@@ -28,7 +28,7 @@ func TestAddWords(t *testing.T) {
 		if _, key := ix.words[w]; key || ix.closed[w]&kindNominal == 0 {
 			t.Errorf("%s: %v %d", w, key, ix.closed[w])
 		}
-		if _, v := wordsScan(w, layerCost).ix.known(w, rule.TailCase); v <= 0 {
+		if _, v := wordsScan(w, layerCost).ix.known(w, rule.TailCase, false); v <= 0 {
 			t.Errorf("%s before a particle with a word table", w)
 		}
 	}

@@ -6,7 +6,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) whole(cands []*path, best [][]*path, j int) []*path {
 	for b := 0; b < j && !sc.inside[j]; b++ {
-		_, v := sc.ix.known(string(sc.s[b:j]), rule.TailBare)
+		_, v := sc.ix.known(string(sc.s[b:j]), rule.TailBare, false)
 		if len(best[b]) == 0 || (v <= 0 && j < len(sc.s) && !sc.change(j)) || (v <= 0 && sc.unlisted(b, j, string(sc.s[b:j]), tail{start: j}) <= 0) {
 			continue
 		}

@@ -46,6 +46,7 @@ const (
 	whyTurned     = "그 낱말 자신이 꾸밈꼴·이름꼴이다"
 	whyStemTail   = "줄기의 갈래가 뒤에 붙은 것을 받지 않는다"
 	whySpoken     = "닫힌 표의 구어 꼴이다"
+	whySole       = "줄기의 낱말이 단위 전체다"
 	whyFusedIn    = "뒤의 조각이 이 글자의 모음에 합쳐진 어/아나 ㅆ이다"
 	whySides      = "양쪽이 맞는 글자 열이 아니다"
 	whyBoth       = "양쪽이 모두 그 글자 열이다"

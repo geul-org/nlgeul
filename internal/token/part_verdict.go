@@ -9,7 +9,7 @@ import (
 )
 
 func (ix *index) partVerdict(part string, tail int) float64 {
-	if _, v := ix.known(part, tail); v > 0 {
+	if _, v := ix.known(part, tail, false); v > 0 {
 		return v
 	}
 	if strings.IndexFunc(part, func(r rune) bool { return !rule.RunRune(r) }) < 0 {

@@ -19,7 +19,9 @@ package rule
 // that the piece's own word is a modifying or a naming form. Marked
 // tells that the letters of a new word after a boundary read as markers
 // of the index. Keeps tells that the word table gives a stem as one
-// that keeps its last vowel before 어/아 (a 르 or 러 irregular).
+// that keeps its last vowel before 어/아 (a 르 or 러 irregular). Sole
+// tells that the piece is a stem whose word is the whole of its unit:
+// the stem begins the unit and nothing but its own markers follows it.
 type Piece struct {
 	Form    string
 	HasStem bool
@@ -40,4 +42,5 @@ type Piece struct {
 	Turned  bool
 	Marked  bool
 	Keeps   bool
+	Sole    bool
 }

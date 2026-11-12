@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what known — is a stem a known word with what follows it: its name and its verdict, the best among the kinds a table gives it (0 when no table has it, or no kind of it takes that tail)
+//ff:what known — is a stem a known word with what follows it: its name and its verdict, the best among the kinds a table gives it (0 when no table has it, or no kind of it takes that tail); the kind's graph is told whether the stem's word is the whole of its unit (sole)
 package token
 
 import (
@@ -18,7 +18,7 @@ import (
 // named by its set only when it stands as that set's kind: 이 before a
 // particle stands as the table's noun, not as the determiner, and is
 // named so.
-func (ix *index) known(stem string, tail int) (string, float64) {
+func (ix *index) known(stem string, tail int, sole bool) (string, float64) {
 	c, closed := ix.words[stem]
 	if ix.layers == layerNone && closed {
 		return pronounName(c.name, stem, tail), verdict(c.g, rule.Piece{Form: stem, Tail: tail})
@@ -32,7 +32,7 @@ func (ix *index) known(stem string, tail int) (string, float64) {
 	for i, k := range kindOrder {
 		v := 1.0
 		if (ix.closed[stem]|w.kinds)&k != 0 && ix.layers >= layerKind {
-			v = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Count: countOf(w, k, i)})
+			v = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Count: countOf(w, k, i), Sole: sole})
 		}
 		if (ix.closed[stem]|w.kinds)&k != 0 && v > 0 {
 			names, best, passed = append(names, kindLabel[k]), max(best, v), passed|k

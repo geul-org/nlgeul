@@ -135,6 +135,7 @@ const (
 	PieceMarked             // it is a new word after a boundary whose letters read as markers
 	PieceLast               // no piece follows it
 	PieceKeeps              // it is a stem that keeps its last vowel before 어/아 (a 르 or 러 irregular)
+	PieceSole               // it is a stem whose word is the whole of its unit
 )
 
 // Yes/no facts of a sign that MarkIs tests.

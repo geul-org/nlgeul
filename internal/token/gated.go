@@ -8,7 +8,7 @@ func (sc *scan) gated(b int, t tail) bool {
 	if t.gate == nil {
 		return true
 	}
-	stem, _, _ := sc.stemOf(b, t)
+	stem, _, _ := sc.stemOf(b, t, false)
 	kinds := sc.ix.lex[stem].kinds | sc.ix.closed[stem]
 	return sc.judge(t.gate, b, t.start, rule.Piece{Form: stem, HasStem: true, Next: -1, Stem: kinds}) > 0
 }

@@ -17,7 +17,7 @@ import (
 // back only when the stem stands as a predicate (주 before the modifying
 // 는, not 주 the noun before the particle 는).
 func (sc *scan) wordOf(b, end int, t tail) step {
-	stem, name, v := sc.stemOf(b, t)
+	stem, name, v := sc.stemOf(b, t, b == 0 && end == len(sc.s))
 	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: v}
 	if v > 0 {
 		e.word.Parts[0].Names = namesOf(name)

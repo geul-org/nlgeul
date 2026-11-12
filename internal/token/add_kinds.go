@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows, the rebuttals that it was rarely seen (lifted for a spoken form of the closed table: 거) and that it is one syllable long, and for a verb's or an adjective's stem the exception that a word ending in a modifying closing stands right before it (adnExcept)
+//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows, the rebuttals that it was rarely seen and that it is one syllable long with what lifts each (kindRebuttals), and for a verb's or an adjective's stem the exception that a word ending in a modifying closing stands right before it (adnExcept)
 package token
 
 import (
@@ -16,12 +16,8 @@ func (ix *index) addKinds() {
 		g := toulmin.NewGraph(name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "열쇠"})
 		except(g, rule.StemTail, whyStemTail, &rule.Bits{Of: "tail", Mask: kindTails[kind]}).Attacks(claim)
-		few := g.Counter(rule.SeenFew).With(&rule.Bits{Of: "enough", Mask: seenEnough})
-		few.Attacks(claim, forceFew)
-		except(g, rule.Listed, whySpoken, listed("spoken", rule.ListForm, spoken)).Attacks(few)
-		g.Counter(rule.ShortKey).With(&rule.Bits{Of: "syllables", Mask: shortKey}).Attacks(claim, forceShort)
 		ix.kinds[kind] = g
-		ix.graphs, ix.edges = ix.graphs+1, ix.edges+4
+		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1+kindRebuttals(g, claim)
 		if kind&(kindVerb|kindAdj) != 0 {
 			ix.edges += adnExcept(g, claim)
 		}
