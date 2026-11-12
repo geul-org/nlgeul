@@ -144,9 +144,18 @@ const (
 
 // Yes/no facts of a sign that MarkIs tests.
 const (
-	MarkRepeated  = 1 << iota // two dots or more stand in a row
-	MarkAfterWord             // a letter stands right before the sign
-	MarkNumeric               // every run of the dotted name is digits
+	MarkRepeated   = 1 << iota // two of the sign or more stand in a row
+	MarkAfterWord              // a letter stands right before the sign
+	MarkNumeric                // every run of the dotted name is digits
+	MarkAfterDigit             // a digit stands right before the sign
+	MarkAlone                  // the sign (with the same sign in a row) is the whole of its unit
+	MarkEnds                   // it stands after the letters of its unit that are read (at a word's end)
+	MarkLeads                  // the letters of its unit that are read begin right after it
+	MarkHeads                  // it stands at the very start of an input line
+	MarkSpaced                 // a space stands right after it
+	MarkOpened                 // a sign of its pair's kind may stand open before it
+	MarkApart                  // a space, or the sentence's edge, stands on both sides of it
+	MarkArrow                  // a hyphen or an equals sign stands right next to it (->, =>, <=)
 )
 
 // The facts a list is asked for (List.Of).

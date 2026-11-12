@@ -3,6 +3,8 @@
 package token
 
 import (
+	"slices"
+
 	"github.com/geul-org/nlgeul/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
@@ -11,10 +13,15 @@ import (
 // row. 줄임표 is dots in a row. 파일명 joins a name and a listed
 // extension, 도메인 the parts of a name whose last is a listed domain,
 // 소수점 two numbers, 버전 numbers with a leading v or more dots than
-// one. The number of edges is returned.
+// one. A closing reading (마침표, 줄임표) is named with no sign after it.
+// The number of edges is returned.
 func dotGraph(name string) (*toulmin.Graph, int) {
-	g := toulmin.NewGraph(name + ":.")
-	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name + ":.", Concludes: "기호"})
+	full := name + ":."
+	if slices.Contains(stopNames, name) {
+		full = name
+	}
+	g := toulmin.NewGraph(full)
+	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: full, Concludes: "기호"})
 	alnum, digits := &rule.Bits{Of: "sides", Mask: rule.SideAlnum}, &rule.Bits{Of: "sides", Mask: rule.SideDigit}
 	switch name {
 	case "마침표":

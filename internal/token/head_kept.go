@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=selection
-//ff:what headKept — where a unit's core begins when the signs right before it belong to it: the head of a path (/, ~/, ./, ../, with the dot of a hidden name), the dashes of an option before a Latin letter, or one of @ # $ _ . before a Latin letter or digit; else where it began
+//ff:what headKept — where a unit's core begins when the signs right before it belong to it: the head of a path (/, ~/, ./, ../, with the dot of a hidden name), the dashes of an option before a Latin letter, or one of $ _ . before a Latin letter or digit (# and @ are signs of their own); else where it began
 package token
 
 import (
@@ -22,7 +22,7 @@ func headKept(all []rune, from int) int {
 		return stop
 	case (head == "-" || head == "--") && latin && !unicode.IsDigit(next):
 		return stop
-	case latin && strings.ContainsRune("@#$_.", all[from-1]):
+	case latin && strings.ContainsRune("$_.", all[from-1]):
 		return from - 1
 	}
 	return from

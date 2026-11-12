@@ -7,7 +7,7 @@ package token
 // their readings. Lines prints the same bundles.
 func (r *Reader) Bundles(sentence string) []Bundle {
 	var out []Bundle
-	for i, u := range unitsOf(sentence) {
+	for i, u := range unitsOf(r.ix, sentence, false) {
 		bundles, _ := readUnit(r.ix, u, false)
 		for _, b := range bundles {
 			b.Unit = i

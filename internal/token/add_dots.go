@@ -17,7 +17,7 @@ func (ix *index) addDots() {
 	}
 	for _, name := range stopNames {
 		g, edges := dotGraph(name)
-		ix.stops = append(ix.stops, &entry{name: name + ":.", g: g})
+		ix.stops = append(ix.stops, &entry{name: name, g: g})
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+edges
 	}
 	ix.links = map[rune][]*entry{}

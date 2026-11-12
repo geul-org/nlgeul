@@ -17,7 +17,7 @@ func TestUnitScan(t *testing.T) {
 		{unit{text: "문제야"}, "문제야", false},
 		{unit{text: "문제야..."}, "문제야", false},
 		{unit{text: "문제야,"}, "문제야", false},
-		{unit{text: ")야.", head: 1, name: "닫는 묶음표"}, ")야", true},
+		{unit{text: ")야.", head: 1, name: pairName}, ")야", true},
 		{unit{text: "?"}, "", false},
 	}
 	for _, c := range cases {

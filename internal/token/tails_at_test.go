@@ -29,7 +29,7 @@ func TestTailsAt(t *testing.T) {
 	stops := scanOf("했다.그").tailsAt(3)
 	var bare, after bool
 	for _, x := range stops {
-		bare = bare || (len(x.pieces) == 1 && x.start == 2 && x.pieces[0].names == "마침표:.")
+		bare = bare || (len(x.pieces) == 1 && x.start == 2 && x.pieces[0].names == "마침표")
 		after = after || (len(x.pieces) == 2 && x.start == 1)
 	}
 	if !bare || !after {

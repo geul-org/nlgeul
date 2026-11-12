@@ -62,7 +62,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
-| `MarkIs` | except | 기호가 기준의 사실을 갖는다(`Mark…`): 점이 둘 이상 이어진다(`MarkRepeated`), 왼쪽에 글자가 붙어 있다(`MarkAfterWord`), 이름의 마디가 모두 숫자다(`MarkNumeric`) | `Bits`(mark), 뒤집으려면 `Not` |
+| `MarkIs` | except | 기호가 기준의 사실을 갖는다(`Mark…`): 같은 기호가 둘 이상 이어진다(`MarkRepeated`), 왼쪽에 글자가 붙어 있다(`MarkAfterWord`), 이름의 마디가 모두 숫자다(`MarkNumeric`), 숫자 바로 뒤에 있다(`MarkAfterDigit`), 단위 전체다(`MarkAlone`), 읽는 글자 뒤에 있다(`MarkEnds`), 읽는 글자가 바로 뒤에서 시작한다(`MarkLeads`), 입력 줄의 맨 처음이다(`MarkHeads`), 바로 뒤가 빈칸이다(`MarkSpaced`), 같은 종류의 여는 기호가 열려 있을 수 있다(`MarkOpened`), 앞뒤가 모두 빈칸이다(`MarkApart`), 붙임표나 등호와 맞닿아 있다(`MarkArrow`). `MarkAlone`부터는 글자만으로 알 수 없어 읽는 쪽이 `Mark.Facts`에 싣는다 | `Bits`(mark), 뒤집으려면 `Not` |
 | `MarkBoth` | except | 기호의 양쪽이 모두 기준의 글자 갈래다 | `Bits`(sides), 뒤집으려면 `Not`(한쪽이라도 아니다) |
 | `MarkRight` | except | 기호의 오른쪽이 기준의 글자 갈래가 아니다 | `Bits`(sides) |
 | `PartsShape` | except | 기호가 잇는 숫자 마디들이 기준 꼴이 아니다(`FitsShape`) | `Shape` |

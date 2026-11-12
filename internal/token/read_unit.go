@@ -1,17 +1,18 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what readUnit — one unit (the text between fixed boundaries: spaces and the signs of a pair) read into bundles: the stretches its readings agree on, then the dots that close it; and its trace when asked for
+//ff:what readUnit — one unit (the text between fixed boundaries: spaces and the signs of a pair) read into bundles: the signs before its letters, the stretches its readings agree on (a sign of a pair at its head once for each way it is read: spread), then the signs after its letters; and its trace when asked for
 package token
 
-// A unit with nothing to read (signs only) is one bundle with its
-// letters as they are.
+// A unit with nothing to read (signs only) is the bundles of its
+// signs.
 func readUnit(ix *index, u unit, trace bool) ([]Bundle, []string) {
 	sc := unitScan(ix, u)
-	if len(sc.s) == 0 {
-		return []Bundle{{Text: u.text, Branches: []Branch{{Words: []Eojeol{{Parts: []Part{{Text: u.text, Stem: true}}}}, Verdict: 1}}}}, nil
-	}
 	var notes []string
 	if trace {
+		notes = append(notes, u.notes...)
 		sc.trace = &notes
 	}
-	return append(sc.bundles(sc.search()), sc.closingDots(u.text)...), notes
+	lead, trail, at := edgesOf(u, sc.s)
+	out := sc.signBundles(u, lead, 0, false)
+	out = append(out, spread(sc.bundles(sc.search()), u)...)
+	return append(out, sc.signBundles(u, trail, at, true)...), notes
 }

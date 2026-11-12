@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a part of two readings, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only, and a unit with no space whose readings all agree on one cut only (after 에서) come up as the structure says; a stretch holds every way its unit's readings read it (고양이가 five, the new word whole last)
+//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a part of two readings, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only (named, as ...), and a unit with no space whose readings all agree on one cut only (after 에서) come up as the structure says; a stretch holds every way its unit's readings read it (고양이가 five, the new word whole last)
 package token
 
 import (
@@ -53,7 +53,7 @@ func TestReaderBundles(t *testing.T) {
 	if !reflect.DeepEqual(a[3].Branches[0].Words, drinks) || len(a[3].Branches) != 5 {
 		t.Fatalf("마신다: %+v", a[3].Branches)
 	}
-	dot := []Eojeol{{Parts: []Part{{Text: ".", Names: []Name{{"마침표", "."}}, Stem: false}}, End: 3}}
+	dot := []Eojeol{{Parts: []Part{{Text: ".", Names: []Name{{"마침표", ""}}, Stem: false}}, End: 3}}
 	if len(a[4].Branches) != 1 || !reflect.DeepEqual(a[4].Branches[0].Words, dot) {
 		t.Fatalf("closing dot: %+v", a[4].Branches)
 	}
@@ -78,11 +78,11 @@ func TestReaderBundles(t *testing.T) {
 	if len(d) != 7 || d[1].Text != "(" || d[3].Text != ")을" || d[4].Text != "~/a/b를" || d[5].Unit != 5 {
 		t.Fatalf("%s: %+v", third, d)
 	}
-	opening := []Eojeol{{Parts: []Part{{Text: "(", Names: []Name{{"여는 묶음표", ""}}, Stem: true}}, End: 1}}
+	opening := []Eojeol{{Parts: []Part{{Text: "(", Names: []Name{{"열기", "1"}}, Depth: 1, Stem: true}}, End: 1}}
 	if len(d[1].Branches) != 1 || !reflect.DeepEqual(d[1].Branches[0].Words, opening) {
 		t.Fatalf("(: %+v", d[1].Branches)
 	}
-	closing := []Eojeol{{Parts: []Part{{Text: ")", Names: []Name{{"닫는 묶음표", ""}}, Stem: true}, {Text: "을", Names: []Name{{"목적격", "을"}}}}, End: 2}}
+	closing := []Eojeol{{Parts: []Part{{Text: ")", Names: []Name{{"닫기", "1"}}, Depth: 1, Stem: true}, {Text: "을", Names: []Name{{"목적격", "을"}}}}, End: 2}}
 	if !reflect.DeepEqual(d[3].Branches[0].Words, closing) {
 		t.Fatalf(")을: %+v", d[3].Branches[0])
 	}
@@ -102,7 +102,7 @@ func TestReaderBundles(t *testing.T) {
 	}
 
 	g := r.Bundles("...")
-	signs := []Eojeol{{Parts: []Part{{Text: "...", Stem: true}}}}
+	signs := []Eojeol{{Parts: []Part{{Text: "...", Names: []Name{{"줄임표", ""}}}}}}
 	if len(g) != 1 || g[0].Text != "..." || len(g[0].Branches) != 1 || !reflect.DeepEqual(g[0].Branches[0].Words, signs) || g[0].Contest() {
 		t.Fatalf("signs only: %+v", g)
 	}
