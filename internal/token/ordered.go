@@ -4,10 +4,10 @@ package token
 
 import "sort"
 
-func ordered(reads []pairing) []pairing {
+func ordered(candidates []pairing) []pairing {
 	var out []pairing
 	seen := map[pairing]bool{}
-	for _, rd := range reads {
+	for _, rd := range candidates {
 		if !seen[rd] {
 			seen[rd] = true
 			out = append(out, rd)

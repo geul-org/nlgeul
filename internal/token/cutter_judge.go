@@ -13,7 +13,7 @@ import (
 // A closing sign closes the nearest sign of its kind and with it what
 // was opened after that and not closed.
 func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, []string, []string) {
-	var reads []pairing
+	var candidates []pairing
 	var after, notes []string
 	stack := []rune(way)
 	at := strings.LastIndex(way, string(row.kind))
@@ -35,7 +35,7 @@ func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, 
 		if e.form == shutName {
 			rd, next = pairing{shutName, at + 1}, string(stack[:at])
 		}
-		reads, after = append(reads, rd), append(after, next)
+		candidates, after = append(candidates, rd), append(after, next)
 	}
-	return reads, after, notes
+	return candidates, after, notes
 }

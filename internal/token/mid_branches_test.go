@@ -6,8 +6,8 @@ import "testing"
 
 func TestMidBranches(t *testing.T) {
 	sc := scanOf("가·나")
-	sc.mid[1] = midSign{reads: []Part{{Text: "·", Name: Name{Kind: "가"}}, {Text: "·", Name: Name{Kind: "나"}}}}
-	sc.mid[3] = midSign{reads: []Part{{Text: "ㆍ", Name: Name{Kind: "다"}}}}
+	sc.mid[1] = midSign{candidates: []Part{{Text: "·", Name: Name{Kind: "가"}}, {Text: "·", Name: Name{Kind: "나"}}}}
+	sc.mid[3] = midSign{candidates: []Part{{Text: "ㆍ", Name: Name{Kind: "다"}}}}
 	mid := func(end int) Eojeol {
 		return Eojeol{Parts: []Part{{Text: "x", Name: Name{Kind: midName}}}, End: end}
 	}

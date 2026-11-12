@@ -11,7 +11,7 @@ import (
 
 // With typos a word that does not stand as it is may stand as the right
 // form of a word of the word table it is a wrong way to write (partRight).
-func (sc *scan) boundOf(stem string, tail int, typos bool) (string, []markRead) {
+func (sc *scan) boundOf(stem string, tail int, typos bool) (string, []markCandidate) {
 	parts := partsBound(stem)
 	if len(parts) < 2 {
 		return stem, nil
@@ -31,10 +31,10 @@ func (sc *scan) boundOf(stem string, tail int, typos bool) (string, []markRead) 
 		rights[i], pv = sc.ix.partRight(part, takes, typos)
 		least = math.Min(least, pv)
 	}
-	var out []markRead
+	var out []markCandidate
 	for _, mk := range marks {
 		if v := math.Min(mk.v, least); v > 0 {
-			out = append(out, markRead{mk.name, v})
+			out = append(out, markCandidate{mk.name, v})
 		}
 	}
 	if len(out) == 0 {

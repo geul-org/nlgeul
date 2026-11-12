@@ -10,8 +10,8 @@ import (
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 
-func (sc *scan) judgeMark(graphs []*entry, m rule.Mark, text string) []markRead {
-	var reads []markRead
+func (sc *scan) judgeMark(graphs []*entry, m rule.Mark, text string) []markCandidate {
+	var candidates []markCandidate
 	for _, e := range graphs {
 		ctx := toulmin.NewContext()
 		ctx.Set(rule.KeyMark, m)
@@ -24,8 +24,8 @@ func (sc *scan) judgeMark(graphs []*entry, m rule.Mark, text string) []markRead 
 			*sc.trace = append(*sc.trace, fmt.Sprintf("  · %s\t%s\t%.2f\t%s", text, e.name, v, note))
 		}
 		if v > 0 {
-			reads = append(reads, markRead{e.name, v})
+			candidates = append(candidates, markCandidate{e.name, v})
 		}
 	}
-	return reads
+	return candidates
 }

@@ -8,7 +8,7 @@ func (c *cutter) next(i int) (unit, int) {
 	u := unit{first: i == 0 || c.r[i-1] == '\n'}
 	end := i + 1
 	j, coded := c.code[i]
-	reads, bare, open, notes := c.reads(i)
+	candidates, bare, open, notes := c.candidates(i)
 	cut, cutNotes := c.cuts(i)
 	c.at = i
 	switch {
@@ -17,10 +17,10 @@ func (c *cutter) next(i int) (unit, int) {
 		u.head, u.name, end = j+1-i, codeName, c.ontoEnd(j+1)
 	case cut:
 		u.notes = cutNotes
-	case len(reads) > 0:
-		u.head, u.name, u.reads, u.bare, u.notes = 1, pairName, reads, bare, notes
+	case len(candidates) > 0:
+		u.head, u.name, u.candidates, u.bare, u.notes = 1, pairName, candidates, bare, notes
 		c.at = i + 1
-		end = c.afterSign(i+1, reads)
+		end = c.afterSign(i+1, candidates)
 		c.open, u.measure = c.opened(i, open)
 	default:
 		end = c.wordEnd(i + 1)

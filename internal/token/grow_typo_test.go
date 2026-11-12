@@ -7,7 +7,7 @@ import "testing"
 func TestGrowTypo(t *testing.T) {
 	kept := []*path{{verdict: 1}, {verdict: 1, last: step{adn: true}}, {verdict: 1, last: step{det: true}}}
 	sc := typoScan("역활", layerCost)
-	tl := sc.typoReads(nil, "역활", tail{start: 2})[0]
+	tl := sc.typoCandidates(nil, "역활", tail{start: 2})[0]
 	e := sc.stepsOf(0, 2, tl)[0]
 	got := sc.growTypo(nil, kept, tl, e, 0, 2)
 	if len(got) != 3 || got[0].prev != kept[0] || got[2].prev != kept[2] || got[0].last.sig != "역할[열쇠:체언,오타정정:역활]" || sc.detEnds[2] {
@@ -31,12 +31,12 @@ func TestGrowTypo(t *testing.T) {
 	alone.prepare()
 	alone.adnEnds[0], alone.detEnds[0] = true, true
 	at := tail{start: 3, boundTypo: false}
-	reads := alone.typoReads(nil, "아이구", at)
-	if len(reads) != 1 {
-		t.Fatal(reads)
+	candidates := alone.typoCandidates(nil, "아이구", at)
+	if len(candidates) != 1 {
+		t.Fatal(candidates)
 	}
-	e = alone.stepsOf(0, 3, reads[0])[0]
-	got = alone.growTypo(nil, kept, reads[0], e, 0, 3)
+	e = alone.stepsOf(0, 3, candidates[0])[0]
+	got = alone.growTypo(nil, kept, candidates[0], e, 0, 3)
 	if len(got) != 1 || got[0].prev != kept[0] || got[0].last.sig != "아이고[열쇠:홀로,오타정정:아이구]" {
 		t.Fatal("a right form that only stands alone grows only the candidates that end in no modifying closing and no determiner", got)
 	}

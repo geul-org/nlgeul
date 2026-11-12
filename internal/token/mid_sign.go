@@ -3,5 +3,5 @@
 package token
 
 type midSign struct {
-	reads []Part
+	candidates []Part
 }

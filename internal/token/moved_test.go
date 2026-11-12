@@ -6,7 +6,7 @@ import "testing"
 
 func TestMoved(t *testing.T) {
 	ix, _ := newIndex(Options{})
-	sc := unitScan(ix, unit{text: ")를", head: 1, name: pairName, reads: []pairing{{shutName, 1}}})
+	sc := unitScan(ix, unit{text: ")를", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}})
 	got := sc.moved(sc.search(), 1)
 	if len(got) == 0 {
 		t.Fatal("none carried over")

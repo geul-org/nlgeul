@@ -3,10 +3,10 @@
 package token
 
 func atomIn(sc *scan, b, end int) (string, float64) {
-	reads := sc.atomStem(b, end)
-	names := make([]kindRead, len(reads))
-	for i, r := range reads {
-		names[i] = kindRead{0, r.name, r.v}
+	candidates := sc.atomStem(b, end)
+	names := make([]kindCandidate, len(candidates))
+	for i, r := range candidates {
+		names[i] = kindCandidate{0, r.name, r.v}
 	}
-	return readsIn(names)
+	return candidatesIn(names)
 }

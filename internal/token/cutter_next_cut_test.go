@@ -22,7 +22,7 @@ func TestCutterNextCut(t *testing.T) {
 	}
 	seven, _ := c.next(4)
 	quote, end := c.next(5)
-	if seven.text != "7" || quote.text != "\"" || !quote.measure || quote.head != 1 || !reflect.DeepEqual(quote.reads, []pairing{{openName, 1}}) || end != 6 || !reflect.DeepEqual(c.open, []string{"\"", ""}) {
+	if seven.text != "7" || quote.text != "\"" || !quote.measure || quote.head != 1 || !reflect.DeepEqual(quote.candidates, []pairing{{openName, 1}}) || end != 6 || !reflect.DeepEqual(c.open, []string{"\"", ""}) {
 		t.Fatal("the quote after a digit", quote, end, c.open)
 	}
 	c.next(7)

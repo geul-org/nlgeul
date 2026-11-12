@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what signBrief — a bundle of signs in short: each branch as the first part's names, whether it is a stem, its depth and where its word ends, the branches joined by "; "
+//ff:what signBrief — a contest of signs in short: each branch as the first part's names, whether it is a stem, its depth and where its word ends, the branches joined by "; "
 package token
 
 import (
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func signBrief(b Bundle) string {
+func signBrief(b Contest) string {
 	var out []string
 	for _, br := range b.Branches {
 		p := br.Words[0].Parts[0]

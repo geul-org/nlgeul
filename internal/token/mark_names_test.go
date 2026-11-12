@@ -8,7 +8,7 @@ import (
 )
 
 func TestMarkNames(t *testing.T) {
-	got := markNames([]markRead{{"파일명", 1}, {"도메인", 0.5}})
+	got := markNames([]markCandidate{{"파일명", 1}, {"도메인", 0.5}})
 	if !reflect.DeepEqual(got, []string{"파일명", "도메인"}) {
 		t.Fatal(got)
 	}

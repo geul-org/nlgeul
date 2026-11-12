@@ -43,7 +43,7 @@ func TestMisspelt(t *testing.T) {
 		t.Fatal("the verdict of its candidate", got, v0)
 	}
 	best := ix.misspelt("물", kindNominal|kindVerb, rule.TailBare, true)
-	for _, r := range ix.misspeltReads("물", kindNominal|kindVerb, rule.TailBare, true) {
+	for _, r := range ix.misspeltCandidates("물", kindNominal|kindVerb, rule.TailBare, true) {
 		if r.v > best {
 			t.Fatal("the best of its candidates", best, r.v)
 		}

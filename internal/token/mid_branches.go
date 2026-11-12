@@ -6,7 +6,7 @@ func (sc *scan) midBranches(br Branch) []Branch {
 	out := []Branch{br}
 	for k, w := range br.Words {
 		if m, ok := sc.midOf(w); ok {
-			out = crossParts(out, k, m.reads)
+			out = crossParts(out, k, m.candidates)
 		}
 	}
 	return out

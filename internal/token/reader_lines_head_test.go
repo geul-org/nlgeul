@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderLinesHead — a contest of more candidates than head prints its first head candidates and the count left out; the trace lines are not cut; Lines prints all; and Bundles gives the same candidates whatever head is
+//ff:what TestReaderLinesHead — a contest of more candidates than head prints its first head candidates and the count left out; the trace lines are not cut; Lines prints all; and Contests gives the same candidates whatever head is
 package token
 
 import (
@@ -15,7 +15,7 @@ func TestReaderLinesHead(t *testing.T) {
 	}
 	s := "20m²"
 	all := r.Lines(s, false)
-	n := len(r.Bundles(s)[0].Branches)
+	n := len(r.Contests(s)[0].Branches)
 	if n < 4 || len(all) != n+1 || slices.Contains(all, "  (1개 생략됨)") {
 		t.Fatal(n, all)
 	}
@@ -29,7 +29,7 @@ func TestReaderLinesHead(t *testing.T) {
 	if zero := r.LinesHead(s, false, 0); !slices.Equal(zero, all) {
 		t.Fatal(zero)
 	}
-	if got := len(r.Bundles(s)[0].Branches); got != n {
+	if got := len(r.Contests(s)[0].Branches); got != n {
 		t.Fatal(got)
 	}
 	traced := r.LinesHead(s, true, 3)

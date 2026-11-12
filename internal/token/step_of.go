@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func (sc *scan) stepOf(b, end int, t tail, r stemRead) step {
+func (sc *scan) stepOf(b, end int, t tail, r stemCandidate) step {
 	e := step{end: end, word: Eojeol{Parts: []Part{{Text: r.stem, Stem: true}}, End: end}, verdict: r.v, kind: r.kind}
 	if r.v > 0 {
 		e.word.Parts[0].Name, e.word.Parts[0].Written = nameOf(r.name), r.wrote

@@ -7,16 +7,16 @@ import (
 	"strings"
 )
 
-func shownNames(reads []markRead) []markRead {
-	var out []markRead
-	for _, r := range reads {
+func shownNames(candidates []markCandidate) []markCandidate {
+	var out []markCandidate
+	for _, r := range candidates {
 		label, _, _ := strings.Cut(r.name, ":")
 		if as, ok := shownAs[label]; ok {
 			label = as
 		}
-		i := slices.IndexFunc(out, func(o markRead) bool { return o.name == label })
+		i := slices.IndexFunc(out, func(o markCandidate) bool { return o.name == label })
 		if i < 0 {
-			out = append(out, markRead{label, r.v})
+			out = append(out, markCandidate{label, r.v})
 			continue
 		}
 		out[i].v = max(out[i].v, r.v)

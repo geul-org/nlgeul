@@ -4,12 +4,12 @@ package token
 
 func (sc *scan) growWord(cands []*path, kept []*path, t tail, e step, b, j int) []*path {
 	adn, det := sc.afterAdn(b, t, false, e.kind), sc.afterAdn(b, t, true, e.kind)
-	reads := sc.numberReads(e, b, t.start)
+	candidates := sc.numberCandidates(e, b, t.start)
 	for _, p := range kept {
 		if e.verdict <= 0 || !sc.again(t, p.last.adn) || (adn && p.last.adn) || (det && p.last.det) {
 			continue
 		}
-		for _, r := range reads {
+		for _, r := range candidates {
 			cands = append(cands, grow(p, r))
 		}
 		sc.adnEnds[j] = sc.adnEnds[j] || e.adn

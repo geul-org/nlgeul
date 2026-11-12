@@ -6,10 +6,10 @@ import "testing"
 
 func TestFindMid(t *testing.T) {
 	sc := scanOf("가·나ㆍ다・라")
-	if len(sc.mid) != 3 || sc.mid[1].reads[0].Text != "·" || sc.mid[3].reads[0].Text != "ㆍ" || sc.mid[5].reads[0].Text != "・" {
+	if len(sc.mid) != 3 || sc.mid[1].candidates[0].Text != "·" || sc.mid[3].candidates[0].Text != "ㆍ" || sc.mid[5].candidates[0].Text != "・" {
 		t.Fatal(sc.mid)
 	}
-	if r := sc.mid[1].reads; len(r) != 1 || r[0].Name.Kind != "가운뎃점" || r[0].Stem {
+	if r := sc.mid[1].candidates; len(r) != 1 || r[0].Name.Kind != "가운뎃점" || r[0].Stem {
 		t.Fatal("the candidate", r)
 	}
 	for _, text := range []string{"가··나", "·가", "가·", "가나", "가.나"} {
@@ -23,7 +23,7 @@ func TestFindMid(t *testing.T) {
 	head := scanOf(")·가·나")
 	head.head = 1
 	head.prepare()
-	if len(head.mid) != 1 || head.mid[3].reads[0].Text != "·" {
+	if len(head.mid) != 1 || head.mid[3].candidates[0].Text != "·" {
 		t.Fatal("not right after the head", head.mid)
 	}
 	if len(scanOf("A·B").mid) != 1 || len(scanOf("3·5").mid) != 1 {

@@ -6,11 +6,11 @@ func (sc *scan) wholeTypos(cands []*path, best [][]*path, b, j int) []*path {
 	if len(best[b]) == 0 {
 		return cands
 	}
-	reads := sc.typoReads(nil, string(sc.s[b:j]), tail{start: j})
+	candidates := sc.typoCandidates(nil, string(sc.s[b:j]), tail{start: j})
 	if sc.ix.boundWrong(string(sc.s[b:j])) {
-		reads = append(reads, tail{start: j, boundTypo: true})
+		candidates = append(candidates, tail{start: j, boundTypo: true})
 	}
-	for _, t := range reads {
+	for _, t := range candidates {
 		for _, e := range sc.stepsOf(b, j, t) {
 			cands = sc.growTypo(cands, best[b], t, e, b, j)
 		}

@@ -3,7 +3,7 @@
 package token
 
 // A unit is read without looking outside it, so the same unit always
-// gives the same lines. The bundles are those Bundles gives.
+// gives the same lines. The contests are those Contests gives.
 func (r *Reader) Lines(sentence string, trace bool) []string {
 	return r.LinesHead(sentence, trace, 0)
 }

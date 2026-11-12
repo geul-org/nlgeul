@@ -4,12 +4,12 @@ package token
 
 func (sc *scan) growAlone(cands []*path, kept []*path, e step, b, j int) []*path {
 	adn, det := sc.afterAdn(b, tail{start: j}, false, e.kind), sc.afterAdn(b, tail{start: j}, true, e.kind)
-	reads := sc.numberReads(e, b, j)
+	candidates := sc.numberCandidates(e, b, j)
 	for _, p := range kept {
 		if (adn && p.last.adn) || (det && p.last.det) {
 			continue
 		}
-		for _, r := range reads {
+		for _, r := range candidates {
 			cands = append(cands, grow(p, r))
 		}
 		sc.detEnds[j] = sc.detEnds[j] || e.det

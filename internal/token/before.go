@@ -8,7 +8,7 @@ import "math"
 // place is its preference plus log10 of its verdict, so that a candidate
 // much less well founded comes later, and no candidate is left out for
 // its verdict alone. The verdict's log10 is weighed once (a weight of
-// 1, written nowhere as a number); nlgeul hypo weighs it hypo.Lambda
+// 1, written nowhere as a number); internal/combo weighs it combo.Lambda
 // times. Nothing records a measurement for the weight used here.
 func (ix *index) before(a, b *path) bool {
 	if ix.layers != layerNone {

@@ -19,10 +19,10 @@ func (sc *scan) variants(b int, t tail) []tail {
 		stem = string(sc.s[b:t.start-1]) + string(t.base)
 	}
 	if t.head != 0 {
-		out = sc.changedReads(out, stem, t)
+		out = sc.changedCandidates(out, stem, t)
 	}
 	if t.irr == 0 {
-		out = sc.typoReads(out, stem, t)
+		out = sc.typoCandidates(out, stem, t)
 	}
 	return out
 }

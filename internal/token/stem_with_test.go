@@ -8,9 +8,9 @@ import (
 )
 
 func TestStemWith(t *testing.T) {
-	reads := []kindRead{{kindNominal, "열쇠:체언", 1}, {kindAdj, "열쇠:형용사", 0.5}}
-	got := stemWith("역할", "역활", reads)
-	want := []stemRead{{reads[0], "역할", "역활"}, {reads[1], "역할", "역활"}}
+	candidates := []kindCandidate{{kindNominal, "열쇠:체언", 1}, {kindAdj, "열쇠:형용사", 0.5}}
+	got := stemWith("역할", "역활", candidates)
+	want := []stemCandidate{{candidates[0], "역할", "역활"}, {candidates[1], "역할", "역활"}}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatal(got)
 	}

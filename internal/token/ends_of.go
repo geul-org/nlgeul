@@ -8,13 +8,13 @@ import (
 )
 
 func endsOf(paths []*path) string {
-	var readings []string
+	var candidates []string
 	for _, p := range paths {
 		var ends []string
 		for _, e := range wordsOf(p) {
 			ends = append(ends, strconv.Itoa(e.end))
 		}
-		readings = append(readings, strings.Join(ends, ","))
+		candidates = append(candidates, strings.Join(ends, ","))
 	}
-	return strings.Join(readings, ";")
+	return strings.Join(candidates, ";")
 }

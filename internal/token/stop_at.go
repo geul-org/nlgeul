@@ -6,7 +6,7 @@ import "strings"
 
 // The piece costs nothing in preference: the tables give it no count,
 // and it is not a syllable of a stem. Something must stand before it in
-// the unit: a sign at a unit's edge is sent up on its own (signBundles).
+// the unit: a sign at a unit's edge is sent up on its own (signContests).
 func (sc *scan) stopAt(j int) ([]piece, int) {
 	if j < 1 || !strings.ContainsRune(stopSigns, sc.s[j-1]) || (j < len(sc.s) && sc.s[j] == sc.s[j-1]) {
 		return nil, 0

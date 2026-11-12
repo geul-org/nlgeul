@@ -17,12 +17,12 @@ func TestCutterNext(t *testing.T) {
 		open []string
 	}{
 		{0, unit{text: "곰", first: true}, 1, []string{""}},
-		{1, unit{text: "(", head: 1, name: pairName, reads: []pairing{{openName, 1}}}, 2, []string{"("}},
+		{1, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1}}}, 2, []string{"("}},
 		{2, unit{text: "`a`를", head: 3, name: codeName}, 6, []string{"("}},
-		{6, unit{text: ")이", head: 1, name: pairName, reads: []pairing{{shutName, 1}}, spaced: true}, 8, []string{""}},
-		{9, unit{text: "'", head: 1, name: pairName, reads: []pairing{{openName, 1}}, bare: true, first: true}, 10, []string{"'", ""}},
+		{6, unit{text: ")이", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}, spaced: true}, 8, []string{""}},
+		{9, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{openName, 1}}, bare: true, first: true}, 10, []string{"'", ""}},
 		{10, unit{text: "가", spaced: false}, 11, []string{"'", ""}},
-		{11, unit{text: "'", head: 1, name: pairName, reads: []pairing{{openName, 1}, {shutName, 1}}, bare: true, spaced: true}, 12, []string{"", "'"}},
+		{11, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{openName, 1}, {shutName, 1}}, bare: true, spaced: true}, 12, []string{"", "'"}},
 		{13, unit{text: "x", spaced: true}, 14, []string{"", "'"}},
 		{15, unit{text: "<", spaced: true}, 16, []string{"", "'"}},
 	}

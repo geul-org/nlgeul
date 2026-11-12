@@ -1,8 +1,8 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what kindsOf — the first name of the first part of each candidate of a bundle, as kind:form (a candidate with no name gives "")
+//ff:what kindsOf — the first name of the first part of each candidate of a contest, as kind:form (a candidate with no name gives "")
 package token
 
-func kindsOf(b Bundle) []string {
+func kindsOf(b Contest) []string {
 	var out []string
 	for _, br := range b.Branches {
 		if len(br.Words) == 0 || len(br.Words[0].Parts) == 0 || br.Words[0].Parts[0].Name == (Name{}) {

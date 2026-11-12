@@ -16,7 +16,7 @@ func TestUnitsOf(t *testing.T) {
 			if u.name != "" {
 				s += "/" + u.name
 			}
-			for _, rd := range u.reads {
+			for _, rd := range u.candidates {
 				s += "/" + rd.name
 				s += string(rune('0' + rd.depth))
 			}

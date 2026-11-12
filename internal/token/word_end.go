@@ -7,9 +7,9 @@ import "unicode"
 func (c *cutter) wordEnd(from int) int {
 	for ; from < len(c.r) && !unicode.IsSpace(c.r[from]); from++ {
 		_, coded := c.code[from]
-		reads, _, _, _ := c.reads(from)
+		candidates, _, _, _ := c.candidates(from)
 		cut, _ := c.cuts(from)
-		if coded || len(reads) > 0 || cut {
+		if coded || len(candidates) > 0 || cut {
 			break
 		}
 	}

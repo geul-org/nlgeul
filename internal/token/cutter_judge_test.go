@@ -11,11 +11,11 @@ import (
 func TestCutterJudge(t *testing.T) {
 	ix, _ := newIndex(Options{})
 	cases := []struct {
-		text  string
-		at    int
-		way   string
-		reads []pairing
-		after []string
+		text       string
+		at         int
+		way        string
+		candidates []pairing
+		after      []string
 	}{
 		{"(", 0, "", []pairing{{openName, 1}}, []string{"("}},
 		{"(", 0, "{[", []pairing{{openName, 3}}, []string{"{[("}},
@@ -31,9 +31,9 @@ func TestCutterJudge(t *testing.T) {
 	}
 	for _, c := range cases {
 		cut := newCutter(ix, c.text, false)
-		reads, after, notes := cut.judge(c.at, pairRows[cut.r[c.at]], cut.facts(c.at), c.way)
-		if !reflect.DeepEqual(reads, c.reads) || !reflect.DeepEqual(after, c.after) || len(notes) != 0 {
-			t.Errorf("%q with %q open: %v after %q notes %q", c.text, c.way, reads, after, notes)
+		candidates, after, notes := cut.judge(c.at, pairRows[cut.r[c.at]], cut.facts(c.at), c.way)
+		if !reflect.DeepEqual(candidates, c.candidates) || !reflect.DeepEqual(after, c.after) || len(notes) != 0 {
+			t.Errorf("%q with %q open: %v after %q notes %q", c.text, c.way, candidates, after, notes)
 		}
 	}
 	cut := newCutter(ix, ")", true)

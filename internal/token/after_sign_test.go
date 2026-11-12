@@ -8,10 +8,10 @@ func TestAfterSign(t *testing.T) {
 	ix, _ := newIndex(Options{})
 	opens, shuts := []pairing{{openName, 1}}, []pairing{{shutName, 1}}
 	cases := []struct {
-		text  string
-		from  int
-		reads []pairing
-		want  int
+		text       string
+		from       int
+		candidates []pairing
+		want       int
 	}{
 		{"(가", 1, opens, 1},
 		{"(가", 1, append(append([]pairing{}, opens...), shuts...), 2},
@@ -22,7 +22,7 @@ func TestAfterSign(t *testing.T) {
 		{"(가)를(나)", 3, shuts, 4},
 	}
 	for _, c := range cases {
-		if got := newCutter(ix, c.text, false).afterSign(c.from, c.reads); got != c.want {
+		if got := newCutter(ix, c.text, false).afterSign(c.from, c.candidates); got != c.want {
 			t.Errorf("%q from %d: %d, want %d", c.text, c.from, got, c.want)
 		}
 	}

@@ -1,10 +1,10 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what render — the lines of one bundle: a single candidate on one line; a contest as a head line with what its first two branches are called, then each branch with its verdict and preference, only the first head of them when head is above 0, with a last line telling how many were left out (a count of what is shown, not of what is read)
+//ff:what render — the lines of one contest: a single candidate on one line; more than one as a head line with what its first two branches are called, then each branch with its verdict and preference, only the first head of them when head is above 0, with a last line telling how many were left out (a count of what is shown, not of what is read)
 package token
 
 import "fmt"
 
-func render(b Bundle, head int) []string {
+func render(b Contest, head int) []string {
 	if len(b.Branches) == 1 {
 		return []string{b.Branches[0].String()}
 	}

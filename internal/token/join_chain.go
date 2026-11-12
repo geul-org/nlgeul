@@ -15,7 +15,7 @@ func (sc *scan) joinChain(chain [][2]int) {
 	start, names, num := chain[0][0], []string(nil), true
 	for k, r := range chain {
 		num = num && sideOf(labels[k])&rule.SideDigit != 0
-		var joined []markRead
+		var joined []markCandidate
 		if k < len(signs) {
 			joined = sc.judgeMark(sc.ix.signs[signs[k]], signFacts(labels, signs, k), string(signs[k]))
 		}

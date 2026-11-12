@@ -5,13 +5,13 @@ package token
 // head is 0 and name "" for a plain unit, which is the text between
 // two spaces or signs of a pair.
 type unit struct {
-	text    string
-	head    int
-	name    string
-	reads   []pairing
-	bare    bool
-	first   bool
-	spaced  bool
-	notes   []string
-	measure bool
+	text       string
+	head       int
+	name       string
+	candidates []pairing
+	bare       bool
+	first      bool
+	spaced     bool
+	notes      []string
+	measure    bool
 }

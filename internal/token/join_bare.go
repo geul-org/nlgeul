@@ -1,8 +1,8 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what joinBare — some bundles of signs with one more: a bundle of letters with no name right after another such bundle is joined to it (-> is one bundle), any other is added
+//ff:what joinBare — some contests of signs with one more: a contest of letters with no name right after another such contest is joined to it (-> is one contest), any other is added
 package token
 
-func joinBare(out []Bundle, b Bundle) []Bundle {
+func joinBare(out []Contest, b Contest) []Contest {
 	if len(out) == 0 || !bareSign(b) || !bareSign(out[len(out)-1]) {
 		return append(out, b)
 	}

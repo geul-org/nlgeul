@@ -16,9 +16,9 @@ func TestEuForms(t *testing.T) {
 			t.Errorf("%s: a form with 으 after a stem that ends in ㄹ\n%s", bad, got)
 		}
 	}
-	verdict := func(in, reading string) float64 {
+	verdict := func(in, candidate string) float64 {
 		for _, l := range r.Lines(in, false) {
-			if rest, ok := strings.CutPrefix(l, "  "+reading+"\t성립 "); ok {
+			if rest, ok := strings.CutPrefix(l, "  "+candidate+"\t성립 "); ok {
 				v, _ := strconv.ParseFloat(strings.Fields(rest)[0], 64)
 				return v
 			}

@@ -16,11 +16,11 @@ func TestUnlistedLines(t *testing.T) {
 	if got := strings.Join(bare.Lines("떨어졌다", false), "\n"); !strings.Contains(got, "  떨어졌+다[맺음:다]\t") || !strings.Contains(got, " 졌+다[맺음:다]\t") {
 		t.Fatal("떨어졌다 without a word table\n" + got)
 	}
-	bundles := r.Bundles("곰졌다 곰졌도 곰졌")
-	if len(bundles) != 3 {
-		t.Fatalf("%+v", bundles)
+	contests := r.Contests("곰졌다 곰졌도 곰졌")
+	if len(contests) != 3 {
+		t.Fatalf("%+v", contests)
 	}
-	for _, b := range bundles {
+	for _, b := range contests {
 		if len(b.Branches) != 1 || len(b.Branches[0].Words) != 1 || b.Branches[0].String() != b.Text || b.Branches[0].Words[0].Parts[0].Name != (Name{}) || !b.Branches[0].Words[0].Parts[0].Stem {
 			t.Fatalf("%s: a whole new word only, %+v", b.Text, b.Branches)
 		}

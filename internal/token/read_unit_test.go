@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReadUnit — a unit's bundles as lines; with a trace the judgments first; the full stop that closes the unit as a last line; a unit of signs only comes back as the bundles of its signs (...[줄임표]; ->, signs no candidate stands for, as their letters with no name); every candidate the search keeps is printed (아버지가방에들어가신다: a contest of every candidate no graph rejects, more than any fixed number kept before, the whole unit as one new word among them); a unit that begins with a sign of a pair keeps the sign as its stem, once for each way it is read; the signs before and after the letters are lines of their own; the lines of the graphs that judged the head come first with a trace
+//ff:what TestReadUnit — a unit's contests as lines; with a trace the judgments first; the full stop that closes the unit as a last line; a unit of signs only comes back as the contests of its signs (...[줄임표]; ->, signs no candidate stands for, as their letters with no name); every candidate the search keeps is printed (아버지가방에들어가신다: a contest of every candidate no graph rejects, more than any fixed number kept before, the whole unit as one new word among them); a unit that begins with a sign of a pair keeps the sign as its stem, once for each way it is read; the signs before and after the letters are lines of their own; the lines of the graphs that judged the head come first with a trace
 package token
 
 import (
@@ -11,8 +11,8 @@ import (
 func TestReadUnit(t *testing.T) {
 	ix, _ := newIndex(Options{})
 	lines := func(ix *index, u unit, trace bool) []string {
-		bundles, notes := readUnit(ix, u, trace)
-		for _, b := range bundles {
+		contests, notes := readUnit(ix, u, trace)
+		for _, b := range contests {
 			notes = append(notes, render(b, 0)...)
 		}
 		return notes
@@ -37,17 +37,17 @@ func TestReadUnit(t *testing.T) {
 	if got := lines(ix, unit{text: "뭐?!"}, false); len(got) < 2 || got[len(got)-2] != "?[물음표]" || got[len(got)-1] != "![느낌표]" {
 		t.Fatal("the signs after the letters", got)
 	}
-	if got := lines(ix, unit{text: "(", head: 1, name: pairName, reads: []pairing{{openName, 1}}, notes: []string{"  · (\t열기:(\t1.00\t통과"}}, true); len(got) != 2 || got[0] != "  · (\t열기:(\t1.00\t통과" || got[1] != "([열기:1]" {
+	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1}}, notes: []string{"  · (\t열기:(\t1.00\t통과"}}, true); len(got) != 2 || got[0] != "  · (\t열기:(\t1.00\t통과" || got[1] != "([열기:1]" {
 		t.Fatal("the lines of the graphs that judged the head come first with a trace", got)
 	}
-	if got := lines(ix, unit{text: "(", head: 1, name: pairName, reads: []pairing{{openName, 2}}, bare: true}, false); len(got) != 3 || got[2] != "  (\t성립 1.00 선호 -5.05" || got[0] != "(\t경합(열기:2 / ()" || got[1] != "  ([열기:2]\t성립 1.00 선호 -5.05" {
+	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 2}}, bare: true}, false); len(got) != 3 || got[2] != "  (\t성립 1.00 선호 -5.05" || got[0] != "(\t경합(열기:2 / ()" || got[1] != "  ([열기:2]\t성립 1.00 선호 -5.05" {
 		t.Fatal("a head read as a pair at depth 2 and as its letter", got)
 	}
 	long := "아버지가방에들어가신다"
-	if got := lines(ix, unit{text: ")를", head: 1, name: pairName, reads: []pairing{{shutName, 1}}}, false); len(got) < 3 || got[0] != ")[닫기:1]" || !strings.HasPrefix(got[2], "  +를[목적격:를]\t성립 1.00") {
-		t.Fatal("a particle written onto a closing sign is a bundle of its own, after the sign's", got)
+	if got := lines(ix, unit{text: ")를", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}, false); len(got) < 3 || got[0] != ")[닫기:1]" || !strings.HasPrefix(got[2], "  +를[목적격:를]\t성립 1.00") {
+		t.Fatal("a particle written onto a closing sign is a contest of its own, after the sign's", got)
 	}
-	if got := lines(ix, unit{text: "(", head: 1, name: pairName, reads: []pairing{{openName, 1}}}, false); len(got) != 1 || got[0] != "([열기:1]" {
+	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1}}}, false); len(got) != 1 || got[0] != "([열기:1]" {
 		t.Fatal("an opening sign alone", got)
 	}
 	if got := lines(ix, unit{text: long}, false); len(got) <= 1+16 || !strings.HasPrefix(got[0], long+"\t경합(") || !slices.ContainsFunc(got, func(l string) bool {

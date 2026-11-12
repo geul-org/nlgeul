@@ -9,12 +9,12 @@ import (
 
 func TestJudgeMark(t *testing.T) {
 	sc := scanOf("x")
-	reads := sc.judgeMark(sc.ix.joins, dotFacts([]string{"task", "py"}, 0), ".")
-	if len(reads) != 2 || reads[0].name != "파일명:." || reads[1].name != "도메인:." || reads[0].v != 1 || reads[1].v != 1 || len(*sc.trace) != 4 || !strings.Contains((*sc.trace)[2], "기각: 양쪽이 맞는 글자 열이 아니다") {
-		t.Fatal(reads, *sc.trace)
+	candidates := sc.judgeMark(sc.ix.joins, dotFacts([]string{"task", "py"}, 0), ".")
+	if len(candidates) != 2 || candidates[0].name != "파일명:." || candidates[1].name != "도메인:." || candidates[0].v != 1 || candidates[1].v != 1 || len(*sc.trace) != 4 || !strings.Contains((*sc.trace)[2], "기각: 양쪽이 맞는 글자 열이 아니다") {
+		t.Fatal(candidates, *sc.trace)
 	}
 	sc.trace = nil
-	if reads = sc.judgeMark(sc.ix.joins, dotFacts([]string{"a", "b"}, 0), "."); len(reads) != 0 {
-		t.Fatal(reads)
+	if candidates = sc.judgeMark(sc.ix.joins, dotFacts([]string{"a", "b"}, 0), "."); len(candidates) != 0 {
+		t.Fatal(candidates)
 	}
 }

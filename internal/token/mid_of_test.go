@@ -7,7 +7,7 @@ import "testing"
 func TestMidOf(t *testing.T) {
 	sc := scanOf("가·나")
 	word := Eojeol{Parts: []Part{{Text: "·", Name: Name{Kind: midName}}}, End: 2}
-	if m, ok := sc.midOf(word); !ok || len(m.reads) != 1 {
+	if m, ok := sc.midOf(word); !ok || len(m.candidates) != 1 {
 		t.Fatal(m, ok)
 	}
 	word.End = 3

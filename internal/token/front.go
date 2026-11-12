@@ -16,9 +16,9 @@ func (sc *scan) front(start int, names []string) (int, []string) {
 	if start >= 2 {
 		m.Left = sideOf(string(sc.s[start-2]))
 	}
-	reads := sc.judgeMark([]*entry{e}, m, string(sc.s[start-1]))
-	if len(reads) == 0 {
+	candidates := sc.judgeMark([]*entry{e}, m, string(sc.s[start-1]))
+	if len(candidates) == 0 {
 		return start, names
 	}
-	return start - 1, union(markNames(shownNames(reads)), names)
+	return start - 1, union(markNames(shownNames(candidates)), names)
 }
