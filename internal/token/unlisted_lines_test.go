@@ -21,7 +21,7 @@ func TestUnlistedLines(t *testing.T) {
 		t.Fatalf("%+v", bundles)
 	}
 	for _, b := range bundles {
-		if len(b.Branches) != 1 || len(b.Branches[0].Words) != 1 || b.Branches[0].String() != b.Text || len(b.Branches[0].Words[0].Parts[0].Names) != 0 || !b.Branches[0].Words[0].Parts[0].Stem {
+		if len(b.Branches) != 1 || len(b.Branches[0].Words) != 1 || b.Branches[0].String() != b.Text || b.Branches[0].Words[0].Parts[0].Name != (Name{}) || !b.Branches[0].Words[0].Parts[0].Stem {
 			t.Fatalf("%s: a whole new word only, %+v", b.Text, b.Branches)
 		}
 	}

@@ -9,7 +9,7 @@ import (
 
 func TestRenderHead(t *testing.T) {
 	br := func(kind string) Branch {
-		return Branch{Words: []Eojeol{{Parts: []Part{{Text: "곰", Stem: true}, {Text: "이", Names: []Name{{kind, "이"}}}}}}, Verdict: 1, Pref: -2}
+		return Branch{Words: []Eojeol{{Parts: []Part{{Text: "곰", Stem: true}, {Text: "이", Name: Name{kind, "이"}}}}}, Verdict: 1, Pref: -2}
 	}
 	b := Bundle{Text: "곰이", Branches: []Branch{br("주격"), br("보격"), br("서술격"), br("접미"), br("보조사")}}
 	got := render(b, 2)

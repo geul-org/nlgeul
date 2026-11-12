@@ -6,35 +6,35 @@ import "testing"
 
 func TestStopAt(t *testing.T) {
 	sc := scanOf("했다.그리고")
-	if p, start, ok := sc.stopAt(3); !ok || start != 2 || p.names != "마침표" || p.text != "." {
-		t.Fatal(p, start, ok)
+	if p, start := sc.stopAt(3); len(p) != 1 || start != 2 || p[0].names != "마침표" || p[0].text != "." {
+		t.Fatal(p, start)
 	}
 	sc = scanOf("글쎄...모르")
-	if p, start, ok := sc.stopAt(5); !ok || start != 2 || p.names != "줄임표" || p.text != "..." {
-		t.Fatal(p, start, ok)
+	if p, start := sc.stopAt(5); len(p) != 1 || start != 2 || p[0].names != "줄임표" || p[0].text != "..." {
+		t.Fatal(p, start)
 	}
-	if _, _, ok := sc.stopAt(4); ok {
+	if p, _ := sc.stopAt(4); len(p) > 0 {
 		t.Fatal("inside a row of dots")
 	}
-	if _, _, ok := scanOf("task.py").stopAt(5); ok {
+	if p, _ := scanOf("task.py").stopAt(5); len(p) > 0 {
 		t.Fatal("a dot inside a name")
 	}
-	if _, _, ok := scanOf(".가").stopAt(1); ok {
+	if p, _ := scanOf(".가").stopAt(1); len(p) > 0 {
 		t.Fatal("at the unit's start")
 	}
-	if p, start, ok := scanOf("사과,포도").stopAt(3); !ok || start != 2 || p.names != "쉼표" || p.text != "," {
-		t.Fatal("a comma closes the word before it", p, start, ok)
+	if p, start := scanOf("사과,포도").stopAt(3); len(p) != 1 || start != 2 || p[0].names != "쉼표" || p[0].text != "," {
+		t.Fatal("a comma closes the word before it", p, start)
 	}
-	if _, _, ok := scanOf(",가").stopAt(1); ok {
+	if p, _ := scanOf(",가").stopAt(1); len(p) > 0 {
 		t.Fatal("a comma at the unit's start")
 	}
-	if _, _, ok := scanOf("가,,나").stopAt(3); ok {
+	if p, _ := scanOf("가,,나").stopAt(3); len(p) > 0 {
 		t.Fatal("commas in a row")
 	}
-	if _, _, ok := sc.stopAt(1); ok {
+	if p, _ := sc.stopAt(1); len(p) > 0 {
 		t.Fatal("no dot")
 	}
-	if _, _, ok := sc.stopAt(0); ok {
+	if p, _ := sc.stopAt(0); len(p) > 0 {
 		t.Fatal("place 0")
 	}
 }

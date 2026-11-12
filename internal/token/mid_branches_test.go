@@ -6,14 +6,14 @@ import "testing"
 
 func TestMidBranches(t *testing.T) {
 	sc := scanOf("가·나")
-	sc.mid[1] = midSign{reads: []Part{{Text: "·", Names: []Name{{Kind: "가"}}}, {Text: "·", Names: []Name{{Kind: "나"}}}}}
-	sc.mid[3] = midSign{reads: []Part{{Text: "ㆍ", Names: []Name{{Kind: "다"}}}}}
+	sc.mid[1] = midSign{reads: []Part{{Text: "·", Name: Name{Kind: "가"}}, {Text: "·", Name: Name{Kind: "나"}}}}
+	sc.mid[3] = midSign{reads: []Part{{Text: "ㆍ", Name: Name{Kind: "다"}}}}
 	mid := func(end int) Eojeol {
-		return Eojeol{Parts: []Part{{Text: "x", Names: []Name{{Kind: midName}}}}, End: end}
+		return Eojeol{Parts: []Part{{Text: "x", Name: Name{Kind: midName}}}, End: end}
 	}
 	br := Branch{Words: []Eojeol{mid(2), {Parts: []Part{{Text: "z"}}, End: 3}, mid(4)}, Verdict: 1}
 	got := sc.midBranches(br)
-	if len(got) != 2 || got[0].Words[0].Parts[0].Names[0].Kind != "가" || got[1].Words[0].Parts[0].Names[0].Kind != "나" || got[0].Words[2].Parts[0].Text != "ㆍ" || got[0].Words[1].Parts[0].Text != "z" {
+	if len(got) != 2 || got[0].Words[0].Parts[0].Name.Kind != "가" || got[1].Words[0].Parts[0].Name.Kind != "나" || got[0].Words[2].Parts[0].Text != "ㆍ" || got[0].Words[1].Parts[0].Text != "z" {
 		t.Fatal(got)
 	}
 	if br.Words[0].Parts[0].Text != "x" {

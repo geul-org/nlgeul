@@ -14,7 +14,7 @@ func TestChains(t *testing.T) {
 		t.Fatal(starts)
 	}
 	got := scanOf("결과가").chains(3, 0, -1)
-	if len(got) != 1 || got[0].start != 2 {
+	if len(got) != 2 || got[0].start != 2 || got[1].start != 2 || got[0].pieces[0].names == got[1].pieces[0].names {
 		t.Fatal(got)
 	}
 	for _, c := range scanOf("마당에서").chains(4, 0, -1) {

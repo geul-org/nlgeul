@@ -23,13 +23,13 @@ func (sc *scan) findMid() {
 			continue
 		}
 		text := string(sc.s[q:end])
-		joined, _ := sc.judgeMark(sc.ix.marks[sc.s[q]], sc.midFacts(q, end), text)
-		if joined == "" {
+		marks := sc.judgeMark(sc.ix.marks[sc.s[q]], sc.midFacts(q, end), text)
+		if len(marks) == 0 {
 			continue
 		}
 		var reads []Part
-		for _, name := range strings.Split(joined, "|") {
-			reads = append(reads, Part{Text: text, Names: []Name{{Kind: name}}})
+		for _, m := range marks {
+			reads = append(reads, Part{Text: text, Name: Name{Kind: m.name}})
 		}
 		sc.mid[q] = midSign{reads: reads}
 	}

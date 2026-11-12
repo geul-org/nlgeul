@@ -12,22 +12,22 @@ func (sc *scan) joinChain(chain [][2]int) {
 			signs[i] = sc.s[r[1]]
 		}
 	}
-	start, names, num := chain[0][0], "", true
+	start, names, num := chain[0][0], []string(nil), true
 	for k, r := range chain {
 		num = num && sideOf(labels[k])&rule.SideDigit != 0
-		joined := ""
+		var joined []markRead
 		if k < len(signs) {
-			joined, _ = sc.judgeMark(sc.ix.signs[signs[k]], signFacts(labels, signs, k), string(signs[k]))
+			joined = sc.judgeMark(sc.ix.signs[signs[k]], signFacts(labels, signs, k), string(signs[k]))
 		}
-		if joined != "" {
-			names = union(names, shownNames(joined))
+		if len(joined) > 0 {
+			names = union(names, markNames(shownNames(joined)))
 			continue
 		}
-		if names == "" && start == r[0] && hexRun(labels[k]) {
-			sc.closeAtom(start, r[1], hexName, true)
+		if len(names) == 0 && start == r[0] && hexRun(labels[k]) {
+			sc.closeAtom(start, r[1], []string{hexName}, true)
 		} else {
 			sc.closeAtom(start, r[1], names, num)
 		}
-		start, names, num = r[1]+1, "", true
+		start, names, num = r[1]+1, nil, true
 	}
 }

@@ -20,7 +20,7 @@ func TestTailsAt(t *testing.T) {
 			t.Fatal(x)
 		}
 	}
-	if got := scanOf("곰이").tailsAt(2); len(got) != 1 {
+	if got := scanOf("곰이").tailsAt(2); len(got) != 2 || got[0].pieces[0].names == got[1].pieces[0].names {
 		t.Fatal(got)
 	}
 	if got := scanOf("요").tailsAt(1); len(got) != 0 {

@@ -21,7 +21,7 @@ func TestReaderBundlesMarks(t *testing.T) {
 		t.Fatal("units", units, plus)
 	}
 	signs := plus[1]
-	if signs.Text != "+" || len(signs.Branches) != 2 || signs.Branches[0].Words[0].Parts[0].Names[0].Kind != "더하기" || signs.Branches[1].Words[0].Parts[0].Names[0].Kind != "연결" || signs.Branches[0].Verdict != signs.Branches[1].Verdict || signs.Branches[0].Pref != signs.Branches[1].Pref {
+	if signs.Text != "+" || len(signs.Branches) != 2 || signs.Branches[0].Words[0].Parts[0].Name.Kind != "더하기" || signs.Branches[1].Words[0].Parts[0].Name.Kind != "연결" || signs.Branches[0].Verdict != signs.Branches[1].Verdict || signs.Branches[0].Pref != signs.Branches[1].Pref {
 		t.Fatal("the plus", signs)
 	}
 	for k, want := range []bool{false, true, true, true, true, false} {
@@ -45,7 +45,7 @@ func TestReaderBundlesMarks(t *testing.T) {
 	}
 	var apart, kept bool
 	for _, br := range dot[0].Branches {
-		apart = apart || len(br.Words) == 3 && br.Words[1].Parts[0].Names[0].Kind == "가운뎃점" && br.Words[2].Parts[len(br.Words[2].Parts)-1].Text == "을"
+		apart = apart || len(br.Words) == 3 && br.Words[1].Parts[0].Name.Kind == "가운뎃점" && br.Words[2].Parts[len(br.Words[2].Parts)-1].Text == "을"
 		kept = kept || len(br.Words) == 1 && br.Words[0].Parts[0].Text == "밥·국"
 	}
 	if !apart || !kept {
@@ -62,7 +62,7 @@ func TestReaderBundlesMarks(t *testing.T) {
 	}
 	kinds := []string{}
 	for _, br := range quote[2].Branches {
-		n := br.Words[0].Parts[0].Names[0]
+		n := br.Words[0].Parts[0].Name
 		kinds = append(kinds, n.Kind+":"+n.Form)
 	}
 	if kinds[0] != "닫기:1" || kinds[1] != "단위:인치" || kinds[2] != "단위:초" {

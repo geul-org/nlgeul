@@ -4,7 +4,7 @@ package token
 
 func (sc *scan) changedReads(out []tail, stem string, t tail) []tail {
 	for _, a := range sc.ix.alts[stem] {
-		if _, v := sc.ix.known(a.stem, tailClass(t.pieces), false); v > 0 && irrHeads[a.kind]&t.head != 0 && (t.irr == 0 || t.irr == a.kind) {
+		if v := sc.ix.known(a.stem, tailClass(t.pieces), false); v > 0 && irrHeads[a.kind]&t.head != 0 && (t.irr == 0 || t.irr == a.kind) {
 			read := t
 			read.shown, read.irr = a.stem, 0
 			out = append(out, read)

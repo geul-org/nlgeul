@@ -29,7 +29,7 @@ func TestReaderLinesHangulBound(t *testing.T) {
 		{"v2나", []string{"v2[열:영숫자]+나[보조사:나]"}, []string{"[맺음:나]"}, false},
 		{"`run`는", []string{"`run`[코드]+는[보조사:는]"}, []string{"[꾸밈:는]"}, false},
 		{"a/b어", []string{"a/b[경로]"}, []string{"[맺음:어]"}, false},
-		{"task.py여", []string{"task.py[파일명|도메인]+여[호격:여]"}, []string{"[맺음:여]"}, false},
+		{"task.py여", []string{"task.py[파일명]+여[호격:여]", "task.py[도메인]+여[호격:여]"}, []string{"[맺음:여]"}, false},
 		{"3는", []string{"3[수]+는[보조사:는]"}, []string{"[꾸밈:는]"}, false},
 		{"OK아", []string{"OK[열:영숫자]+아[호격:아]"}, []string{"[맺음:아]"}, false},
 		{"abc다", []string{"abc[열:영숫자]+다[맺음:다]"}, nil, false},

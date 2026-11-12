@@ -12,16 +12,16 @@ import (
 func TestKnownSole(t *testing.T) {
 	fits := map[int]int{kindNominal: rule.TailCase, kindVerb: rule.TailPred, kindAdj: rule.TailAdj, kindAdverb: rule.TailAux, kindDeterminer: rule.TailBare, kindAlone: rule.TailBare}
 	same := func(ix *index, stem string, tail int) bool {
-		n, v := ix.known(stem, tail, false)
-		m, w := ix.known(stem, tail, true)
+		n, v := knownIn(ix, stem, tail, false)
+		m, w := knownIn(ix, stem, tail, true)
 		return n == m && v == w
 	}
 	ix := wordsScan("x", layerCost).ix
 	ones := 0
 	for stem, w := range ix.lex {
 		k := fits[w.kinds&-w.kinds]
-		name, in := ix.known(stem, k, false)
-		sole, v := ix.known(stem, k, true)
+		name, in := knownIn(ix, stem, k, false)
+		sole, v := knownIn(ix, stem, k, true)
 		one := utf8.RuneCountInString(stem) == 1
 		if in <= 0 || sole != name || (one && v <= in) || (!one && v != in) {
 			t.Error(stem, name, in, sole, v)
@@ -33,10 +33,10 @@ func TestKnownSole(t *testing.T) {
 	if ones == 0 || ones == len(ix.lex) {
 		t.Fatal("the table has stems of one syllable and of more", ones, len(ix.lex))
 	}
-	if _, v := ix.known("하", rule.TailVerb, true); v != 1 {
+	if _, v := knownIn(ix, "하", rule.TailVerb, true); v != 1 {
 		t.Fatal("하 seen enough, as the whole of its unit", v)
 	}
-	if _, v := ix.known("가", rule.TailPred, true); v != 1 {
+	if _, v := knownIn(ix, "가", rule.TailPred, true); v != 1 {
 		t.Fatal("가 seen enough, as the whole of its unit", v)
 	}
 	none := scanOf("x").ix
@@ -45,7 +45,7 @@ func TestKnownSole(t *testing.T) {
 			t.Error("without a word table", stem)
 		}
 	}
-	if _, v := none.known("고양이", rule.TailCase, true); none.layers != layerNone || len(none.words) == 0 || !same(none, "고양이", rule.TailCase) || v != 0 {
+	if _, v := knownIn(none, "고양이", rule.TailCase, true); none.layers != layerNone || len(none.words) == 0 || !same(none, "고양이", rule.TailCase) || v != 0 {
 		t.Fatal("a word no set has, without a word table", v)
 	}
 }

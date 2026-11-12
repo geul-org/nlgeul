@@ -8,8 +8,8 @@ import (
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
-func (sc *scan) afterClosings(start, depth int, pc piece, entries []*entry) []tail {
-	name := auxName(entries)
+func (sc *scan) afterClosings(start, depth int, pc piece, e *entry) []tail {
+	name := auxName(e)
 	noun := sc.ix.nounAux != nil && start >= 2 && namingEnd(sc.s[start-1])
 	ask := start >= 2 && askEnd(sc.s[start-1])
 	if start < 2 || (!noun && !ask && (name == "" || depth != 0)) {

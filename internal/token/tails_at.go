@@ -5,8 +5,13 @@ package token
 import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) tailsAt(j int) []tail {
-	if stop, start, ok := sc.stopAt(j); ok {
-		return append(joined(sc.tailsAt(start), stop), tail{start: start, pieces: []piece{stop}})
+	if stops, start := sc.stopAt(j); len(stops) > 0 {
+		var out []tail
+		for _, stop := range stops {
+			out = append(out, joined(sc.tailsAt(start), stop)...)
+			out = append(out, tail{start: start, pieces: []piece{stop}})
+		}
+		return out
 	}
 	out := append(sc.chains(j, 0, -1), sc.closings(j, false, false)...)
 	out = append(out, sc.fixed(j, -1)...)

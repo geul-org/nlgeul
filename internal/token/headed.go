@@ -6,6 +6,5 @@ func headed(br Branch) bool {
 	if len(br.Words) == 0 || len(br.Words[0].Parts) == 0 {
 		return false
 	}
-	names := br.Words[0].Parts[0].Names
-	return len(names) == 1 && names[0].Kind == pairName
+	return br.Words[0].Parts[0].Name.Kind == pairName
 }

@@ -10,7 +10,7 @@ func (sc *scan) wholeAtom() int {
 	if end == 0 {
 		return 0
 	}
-	sc.atoms[0] = atom{end, name, false}
+	sc.atoms[0] = atom{end, []string{name}, false}
 	sc.fill(0, end)
 	return end
 }

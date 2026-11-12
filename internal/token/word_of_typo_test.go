@@ -3,7 +3,6 @@
 package token
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -14,7 +13,7 @@ func TestWordOfTypo(t *testing.T) {
 	conn := []piece{{"(어)", "맺음:어(합침)", 1, 0, rule.TailPred, false, ""}}
 	e := sc.wordOf(0, 2, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: conn})
 	stem := e.word.Parts[0]
-	if stem.Text != "맡기" || stem.Written != "맞기" || !stem.Stem || !reflect.DeepEqual(stem.Names, []Name{{"열쇠", "동사"}}) {
+	if stem.Text != "맡기" || stem.Written != "맞기" || !stem.Stem || stem.Name != (Name{"열쇠", "동사"}) {
 		t.Fatal(stem)
 	}
 	if e.sig != "맡기[열쇠:동사,오타정정:맞기]+(어)[맺음:어(합침)]" || e.verdict < 0.54 || e.verdict > 0.56 {
@@ -27,7 +26,7 @@ func TestWordOfTypo(t *testing.T) {
 	if right.sig != "맡기[열쇠:동사]+(어)[맺음:어(합침)]" || right.word.Parts[0].Written != "" || right.verdict <= e.verdict {
 		t.Fatal(right.sig, right.verdict)
 	}
-	if e = sc.wordOf(0, 2, tail{start: 2, shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{"이", "주격:이", 1, -1, rule.TailCase, false, ""}}}); e.word.Parts[0].Written != "" || e.word.Parts[0].Names != nil {
+	if e = sc.wordOf(0, 2, tail{start: 2, shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{"이", "주격:이", 1, -1, rule.TailCase, false, ""}}}); e.word.Parts[0].Written != "" || e.word.Parts[0].Name != (Name{}) {
 		t.Fatal("a misspelt verb stem before a particle", e)
 	}
 }

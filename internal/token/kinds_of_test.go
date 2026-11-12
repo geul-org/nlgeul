@@ -5,11 +5,11 @@ package token
 func kindsOf(b Bundle) []string {
 	var out []string
 	for _, br := range b.Branches {
-		if len(br.Words) == 0 || len(br.Words[0].Parts) == 0 || len(br.Words[0].Parts[0].Names) == 0 {
+		if len(br.Words) == 0 || len(br.Words[0].Parts) == 0 || br.Words[0].Parts[0].Name == (Name{}) {
 			out = append(out, "")
 			continue
 		}
-		n := br.Words[0].Parts[0].Names[0]
+		n := br.Words[0].Parts[0].Name
 		out = append(out, n.Kind+":"+n.Form)
 	}
 	return out

@@ -5,8 +5,8 @@ package token
 import "testing"
 
 func TestHeaded(t *testing.T) {
-	branch := func(names ...Name) Branch {
-		return Branch{Words: []Eojeol{{Parts: []Part{{Text: "(", Names: names}}}}}
+	branch := func(name Name) Branch {
+		return Branch{Words: []Eojeol{{Parts: []Part{{Text: "(", Name: name}}}}}
 	}
 	cases := []struct {
 		br   Branch
@@ -14,8 +14,7 @@ func TestHeaded(t *testing.T) {
 	}{
 		{branch(Name{Kind: pairName}), true},
 		{branch(Name{Kind: openName, Form: "1"}), false},
-		{branch(Name{Kind: pairName}, Name{Kind: "열쇠"}), false},
-		{branch(), false},
+		{branch(Name{}), false},
 		{Branch{Words: []Eojeol{{}}}, false},
 		{Branch{}, false},
 	}

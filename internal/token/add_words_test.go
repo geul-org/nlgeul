@@ -28,12 +28,12 @@ func TestAddWords(t *testing.T) {
 		if _, key := ix.words[w]; key || ix.closed[w]&kindNominal == 0 {
 			t.Errorf("%s: %v %d", w, key, ix.closed[w])
 		}
-		if _, v := wordsScan(w, layerCost).ix.known(w, rule.TailCase, false); v <= 0 {
+		if v := wordsScan(w, layerCost).ix.known(w, rule.TailCase, false); v <= 0 {
 			t.Errorf("%s before a particle with a word table", w)
 		}
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	if got := strings.Join(r.Lines("네가 내가", false), "\n"); !strings.Contains(got, "네[열쇠:체언]+가[주격:가|보격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[주격:가|보격:가]") {
+	if got := strings.Join(r.Lines("네가 내가", false), "\n"); !strings.Contains(got, "네[열쇠:체언]+가[주격:가]") || !strings.Contains(got, "네[열쇠:체언]+가[보격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[주격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[보격:가]") {
 		t.Fatal("네가 내가\n" + got)
 	}
 	bare, _ := New(Options{})

@@ -9,8 +9,7 @@ func (sc *scan) moved(paths []*path, head int) []*path {
 		if len(words) == 0 || len(words[0].word.Parts) == 0 {
 			continue
 		}
-		names := words[0].word.Parts[0].Names
-		if len(names) != 1 || names[0].Kind != pairName {
+		if words[0].word.Parts[0].Name.Kind != pairName {
 			continue
 		}
 		if np := sc.movedOne(words, head); np != nil {

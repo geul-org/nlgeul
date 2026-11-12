@@ -11,7 +11,7 @@ func (sc *scan) attached() []*path {
 	for _, t := range at.tailsAt(n) {
 		switch {
 		case t.again != nil && (t.only == string(sc.s) || (t.close != nil && t.only == string(sc.s[:t.start]))):
-			out = append(out, grow(root, at.wordOf(0, n, t)))
+			out = append(out, at.rootGrown(root, n, t)...)
 		case t.start == 0 && t.base == 0 && t.gate == nil && t.as == "" && t.only == "" && t.shown == "" && tailClass(t.pieces)&predTails == 0:
 			out = append(out, grow(root, at.loneOf(t, n)))
 		}

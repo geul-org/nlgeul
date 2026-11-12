@@ -6,9 +6,9 @@ import "testing"
 
 func TestMovedOne(t *testing.T) {
 	sc := scanOf(")를 가")
-	sc.atoms = map[int]atom{0: {1, pairName, false}}
+	sc.atoms = map[int]atom{0: {1, []string{pairName}, false}}
 	words := []step{
-		{end: 2, word: Eojeol{Parts: []Part{{Text: ")", Stem: true, Names: []Name{{Kind: pairName}}}, {Text: "를"}}, End: 2}, verdict: 1, pref: -6},
+		{end: 2, word: Eojeol{Parts: []Part{{Text: ")", Stem: true, Name: Name{Kind: pairName}}, {Text: "를"}}, End: 2}, verdict: 1, pref: -6},
 		{end: 4, word: Eojeol{Parts: []Part{{Text: "가"}}, End: 4}, verdict: 0.5, pref: -2, sig: "가"},
 	}
 	got := sc.movedOne(words, 1)

@@ -6,7 +6,7 @@ package token
 // not multiply with the right forms of its words.
 func (ix *index) partTypo(part string, tail int) (string, float64) {
 	for _, ty := range ix.typos[part] {
-		if _, v := ix.misspelt(ty.right, ty.kinds, tail, false); v > 0 {
+		if v := ix.misspelt(ty.right, ty.kinds, tail, false); v > 0 {
 			return ty.right, v
 		}
 	}

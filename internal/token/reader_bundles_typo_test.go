@@ -25,7 +25,7 @@ func TestReaderBundlesTypo(t *testing.T) {
 	}
 	first := bs[0].Branches[0].Words[0]
 	stem := first.Parts[0]
-	if stem.Text != "맡기" || stem.Written != "맞기" || !stem.Stem || !reflect.DeepEqual(stem.Names, []Name{{"열쇠", "동사"}}) {
+	if stem.Text != "맡기" || stem.Written != "맞기" || !stem.Stem || stem.Name != (Name{"열쇠", "동사"}) {
 		t.Fatal(stem)
 	}
 	if first.Parts[1].Written != "" || first.Parts[1].Text != "어" && first.Parts[1].Hidden != "어" {

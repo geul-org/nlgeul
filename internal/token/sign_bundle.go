@@ -5,19 +5,19 @@ package token
 import (
 	"slices"
 	"strconv"
-	"strings"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func (sc *scan) signBundle(text string, m rule.Mark, end int) Bundle {
 	b := Bundle{Text: text}
-	joined, _ := sc.judgeMark(sc.ix.marks[[]rune(text)[0]], m, text)
+	marks := sc.judgeMark(sc.ix.marks[[]rune(text)[0]], m, text)
 	role := true
-	for _, name := range strings.FieldsFunc(joined, func(r rune) bool { return r == '|' }) {
-		p := Part{Text: text, Names: []Name{{Kind: name}}}
+	for _, mk := range marks {
+		name := mk.name
+		p := Part{Text: text, Name: Name{Kind: name}}
 		if name == headingName {
-			p.Names[0].Kind, p.Depth = name+strconv.Itoa(m.Run), m.Run
+			p.Name.Kind, p.Depth = name+strconv.Itoa(m.Run), m.Run
 		}
 		role = role && slices.Contains(roleNames, name)
 		b.Branches = append(b.Branches, signBranch(p, end))

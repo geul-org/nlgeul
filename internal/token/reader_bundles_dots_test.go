@@ -30,7 +30,7 @@ func TestReaderBundlesDots(t *testing.T) {
 	three := r.Bundles("곰·솔·별")[0]
 	two := false
 	for _, br := range three.Branches {
-		two = two || len(br.Words) == 5 && br.Words[1].Parts[0].Names[0].Kind == "가운뎃점" && br.Words[3].Parts[0].Names[0].Kind == "가운뎃점"
+		two = two || len(br.Words) == 5 && br.Words[1].Parts[0].Name.Kind == "가운뎃점" && br.Words[3].Parts[0].Name.Kind == "가운뎃점"
 	}
 	if !two {
 		t.Fatal(three)

@@ -1,5 +1,5 @@
-//ff:func feature=token type=reader control=iteration dimension=2
-//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each reading of a particle is followed back by its own kind; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing); the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit), and each run asks the word before it to pass the graph its readings share (sharedGate)
+//ff:func feature=token type=reader control=iteration dimension=1
+//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each reading of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing); the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -11,26 +11,22 @@ func (sc *scan) chains(j, depth, next int) []tail {
 		return nil
 	}
 	pieces, from, starts := sc.readGroup(classParticle, j, next, false)
-	forms, merged, kinds := byForm(pieces, from)
-	ends, endKinds := sc.onStem(j, next, merged, kinds)
+	ends, endFrom := sc.onStem(j, next, pieces, from)
 	var out []tail
-	for _, f := range forms {
-		pc, start := merged[f], starts[entryGroup(kinds[f][0])]
-		if end, ok := ends[f]; ok && kinds[f][0].slot != rule.LinkEmph {
-			out = append(out, withGate([]tail{{start: start, pieces: []piece{end}}}, sharedGate(endKinds[f]))...)
+	for _, k := range sc.groupKeys(pieces, from, j) {
+		pc, e, start := pieces[k], from[k], starts[k]
+		if end, ok := ends[k]; ok && e.slot != rule.LinkEmph {
+			out = append(out, withGate([]tail{{start: start, pieces: []piece{end}}}, endFrom[k].gate)...)
 		}
-		var here []tail
-		for _, slot := range slotsOf(kinds[f]) {
-			here = append(here, joined(sc.chains(start, depth+1, slot), pc)...)
-			here = append(here, joined(sc.fixed(start, slot), pc)...)
-		}
-		out = append(out, withGate(here, sharedGate(kinds[f]))...)
-		if kinds[f][0].slot == rule.LinkEmph {
+		here := joined(sc.chains(start, depth+1, e.slot), pc)
+		here = append(here, joined(sc.fixed(start, e.slot), pc)...)
+		out = append(out, withGate(here, e.gate)...)
+		if e.slot == rule.LinkEmph {
 			continue
 		}
 		out = append(out, joined(sc.loneHonors(start, false), pc)...)
 		out = append(out, joined(sc.units(start, 0, false), pc)...)
-		out = append(out, sc.afterClosings(start, depth, pc, kinds[f])...)
+		out = append(out, sc.afterClosings(start, depth, pc, e)...)
 	}
 	return out
 }

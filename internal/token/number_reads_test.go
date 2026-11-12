@@ -13,8 +13,8 @@ func TestNumberReads(t *testing.T) {
 	if len(two) != 2 || two[0].sig != "1010[수]" || two[1].sig != "1010[수:2진법]" || two[0].verdict != two[1].verdict || two[0].pref != two[1].pref || two[0].end != two[1].end {
 		t.Fatalf("%+v", two)
 	}
-	if two[0].word.Parts[0].Names[0] != (Name{"수", ""}) || two[1].word.Parts[0].Names[0] != (Name{"수", "2진법"}) {
-		t.Fatal("the first reading is not changed by the second", two[0].word.Parts[0].Names)
+	if two[0].word.Parts[0].Name != (Name{"수", ""}) || two[1].word.Parts[0].Name != (Name{"수", "2진법"}) {
+		t.Fatal("the first reading is not changed by the second", two[0].word.Parts[0].Name)
 	}
 	for _, c := range []struct {
 		text string
@@ -26,7 +26,7 @@ func TestNumberReads(t *testing.T) {
 	}
 	sc := scanOf("10개")
 	e := sc.wordOf(0, 3, tail{start: 2, pieces: []piece{{text: "개", names: "단위:개", verdict: 1, tail: 1}}})
-	if got := sc.numberReads(e, 0, 2); len(got) != 2 || got[1].word.Parts[1].Names[0] != (Name{"단위", "개"}) || got[1].sig != "10[수:2진법]+개[단위:개]" {
+	if got := sc.numberReads(e, 0, 2); len(got) != 2 || got[1].word.Parts[1].Name != (Name{"단위", "개"}) || got[1].sig != "10[수:2진법]+개[단위:개]" {
 		t.Fatalf("%+v", got)
 	}
 }

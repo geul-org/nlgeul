@@ -13,7 +13,7 @@ func TestWordOfTypoMarker(t *testing.T) {
 	pc := piece{"(ㄹ)게", "맺음:ㄹ게", 0.6, -3, rule.TailPred, false, "ㄹ께"}
 	e := sc.wordOf(0, 2, tail{start: 1, base: '하', pieces: []piece{pc}})
 	last := e.word.Parts[1]
-	if last.Text != "게" || last.Hidden != "ㄹ" || last.Written != "ㄹ께" || last.Stem || len(last.Names) != 1 || last.Names[0] != (Name{"맺음", "ㄹ게"}) {
+	if last.Text != "게" || last.Hidden != "ㄹ" || last.Written != "ㄹ께" || last.Stem || last.Name != (Name{"맺음", "ㄹ게"}) {
 		t.Fatal(last)
 	}
 	if e.sig != "하[열쇠:동사]+(ㄹ)게[맺음:ㄹ게,오타정정:ㄹ께]" || e.word.Parts[0].Written != "" {

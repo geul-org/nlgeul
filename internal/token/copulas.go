@@ -41,6 +41,7 @@ func (sc *scan) copulas(tails []tail, chained bool) []tail {
 		}
 		out = append(out, read)
 		out = append(out, sc.afterUnits(read)...)
+		out = append(out, sc.afterSuffixes(read)...)
 	}
 	return out
 }

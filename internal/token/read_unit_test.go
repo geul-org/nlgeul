@@ -18,7 +18,7 @@ func TestReadUnit(t *testing.T) {
 		return notes
 	}
 	plain := lines(ix, unit{text: "아버지가"}, false)
-	if len(plain) < 2 || !strings.HasPrefix(plain[1], "  아버지+가[주격:가|보격:가]\t") {
+	if len(plain) < 2 || !strings.HasPrefix(plain[1], "  아버지+가[주격:가]\t") {
 		t.Fatal(plain)
 	}
 	traced := lines(ix, unit{text: "아버지가."}, true)
@@ -51,7 +51,7 @@ func TestReadUnit(t *testing.T) {
 		t.Fatal("an opening sign alone", got)
 	}
 	if got := lines(ix, unit{text: long}, false); len(got) <= 1+16 || !strings.HasPrefix(got[0], long+"\t경합(") || !slices.ContainsFunc(got, func(l string) bool {
-		return strings.HasPrefix(l, "  아버지+가[주격:가|보격:가] 방에+들[접미:들] 어가신+다[맺음:다]\t")
+		return strings.HasPrefix(l, "  아버지+가[주격:가] 방에+들[접미:들] 어가신+다[맺음:다]\t")
 	}) || !slices.ContainsFunc(got, func(l string) bool { return strings.HasPrefix(l, "  "+long+"\t") }) {
 		t.Fatal("every reading the search keeps", got)
 	}

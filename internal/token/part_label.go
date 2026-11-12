@@ -5,11 +5,11 @@ package token
 import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (p Part) Label() string {
-	if p.Stem && len(p.Names) == 0 && len(rule.Trim(p.Text)) == 0 {
+	if p.Stem && p.Name == (Name{}) && len(rule.Trim(p.Text)) == 0 {
 		return p.Text
 	}
-	if p.Stem && len(p.Names) == 0 {
+	if p.Stem && p.Name == (Name{}) {
 		return newWord
 	}
-	return corrected(namesText(p.Names), p.Written)
+	return corrected(p.Name.String(), p.Written)
 }

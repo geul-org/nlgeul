@@ -11,7 +11,7 @@ func signBrief(b Bundle) string {
 	var out []string
 	for _, br := range b.Branches {
 		p := br.Words[0].Parts[0]
-		out = append(out, fmt.Sprintf("%q/stem=%v/depth=%d/end=%d", namesText(p.Names), p.Stem, p.Depth, br.Words[0].End))
+		out = append(out, fmt.Sprintf("%q/stem=%v/depth=%d/end=%d", p.Name.String(), p.Stem, p.Depth, br.Words[0].End))
 	}
 	return strings.Join(out, "; ")
 }

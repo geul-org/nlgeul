@@ -11,8 +11,8 @@ func TestSignWords(t *testing.T) {
 	if len(got) != 1 || got[0].last.end != 3 || got[0].last.word.End != 3 || got[0].last.pref != 0 || got[0].verdict != got[0].prev.verdict || got[0].last.verdict != 1 {
 		t.Fatal(got)
 	}
-	n := got[0].last.word.Parts[0].Names
-	if len(n) != 1 || n[0].Kind != midName || got[0].last.word.Parts[0].Text != "·" {
+	n := got[0].last.word.Parts[0].Name
+	if n.Kind != midName || got[0].last.word.Parts[0].Text != "·" {
 		t.Fatal("named until the stretches are made", n)
 	}
 	if got = sc.signWords(nil, best, 2); len(got) != 0 {

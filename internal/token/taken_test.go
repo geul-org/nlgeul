@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestTaken — a key of two kinds has the count of the kind that takes what follows; the key's greatest count when no kind of it takes that, and when kinds are not looked at
+//ff:what TestTaken — a key of two kinds has the count of the kind it stands as, or else of the kind that takes what follows; the key's greatest count when no kind of it takes that, and when kinds are not looked at
 package token
 
 import (
@@ -10,10 +10,13 @@ import (
 
 func TestTaken(t *testing.T) {
 	ix := wordsScan("x", layerCost).ix
-	if ix.taken("작", rule.TailCase) != 400 || ix.taken("작", rule.TailPred) != 7000 || ix.taken("고양이", rule.TailPred) != 1000 || ix.taken("없는말", rule.TailBare) != 0 {
-		t.Fatal(ix.taken("작", rule.TailCase), ix.taken("작", rule.TailPred))
+	if ix.taken("작", rule.TailCase, 0) != 400 || ix.taken("작", rule.TailPred, 0) != 7000 || ix.taken("고양이", rule.TailPred, 0) != 1000 || ix.taken("없는말", rule.TailBare, 0) != 0 {
+		t.Fatal(ix.taken("작", rule.TailCase, 0), ix.taken("작", rule.TailPred, 0))
 	}
-	if wordsScan("x", layerKnown).ix.taken("작", rule.TailCase) != 7000 {
+	if wordsScan("x", layerKnown).ix.taken("작", rule.TailCase, 0) != 7000 {
 		t.Fatal("kinds are not looked at in the first layer")
+	}
+	if ix.taken("작", rule.TailCase, kindAdj) != 7000 || ix.taken("작", rule.TailPred, kindNominal) != 400 || ix.taken("고양이", rule.TailBare, kindVerb) != 1000 {
+		t.Fatal("the count of the kind it stands as, the key's greatest when that kind has none", ix.taken("작", rule.TailCase, kindAdj), ix.taken("작", rule.TailPred, kindNominal), ix.taken("고양이", rule.TailBare, kindVerb))
 	}
 }

@@ -17,7 +17,7 @@ func TestFirstName(t *testing.T) {
 		{tail{pieces: []piece{past, {text: "다", names: "맺음:다"}}}, "선어말:었"},
 		{tail{pieces: []piece{{text: "다", names: "맺음:다"}}}, "맺음:다"},
 		{tail{pieces: []piece{{text: "습니다", names: "맺음:습니다"}}, close: &entry{name: "맺음:습니다"}}, "맺음:습니다"},
-		{tail{pieces: []piece{{text: "나", names: "보조사:나|맺음:나"}}, close: &entry{name: "맺음:나"}}, "맺음:나"},
+		{tail{pieces: []piece{{text: "나", names: "맺음:나"}}, close: &entry{name: "맺음:나"}}, "맺음:나"},
 		{tail{pieces: []piece{past, {text: "습니다", names: "맺음:습니다"}}, close: &entry{name: "맺음:습니다"}}, "선어말:었"},
 		{tail{pieces: []piece{{text: "(었)", names: "선어말:ㅆ"}, {text: "다", names: "맺음:다"}}, base: '이', close: da}, "선어말:ㅆ"},
 		{tail{pieces: []piece{{text: "으", names: euName}, {text: "며", names: "맺음:며"}}, close: &entry{name: "맺음:며"}}, euName},

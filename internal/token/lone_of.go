@@ -9,7 +9,7 @@ func (sc *scan) loneOf(t tail, end int) step {
 	e.pref = -sc.ix.structure(0, append([]piece{{unseen: true}}, t.pieces...))
 	for _, p := range t.pieces {
 		hidden, shown := hiddenOf(p.text)
-		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen, Written: p.wrote})
+		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Name: nameOf(p.names), Unseen: p.unseen, Written: p.wrote})
 		e.verdict, e.pref = math.Min(e.verdict, p.verdict), e.pref+p.pref
 	}
 	e.sig = e.word.String()

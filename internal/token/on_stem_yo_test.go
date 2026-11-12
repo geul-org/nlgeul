@@ -13,9 +13,8 @@ func TestOnStemYo(t *testing.T) {
 		sc := scanOf(text)
 		sc.attach = attach
 		pieces, from, _ := sc.readGroup(classParticle, j, next, false)
-		_, merged, kinds := byForm(pieces, from)
-		ends, _ := sc.onStem(j, next, merged, kinds)
-		return merged["에"].verdict, ends["에"].verdict
+		ends, _ := sc.onStem(j, next, pieces, from)
+		return pieceNamed(pieces, "부사격:에").verdict, pieceNamed(ends, "부사격:에").verdict
 	}
 	if given, ends := verdictAt("결과에요", 3, rule.LinkYo, false); given != 1 || ends >= 0.34 || ends <= 0 {
 		t.Fatal("after a vowel", given, ends)

@@ -14,10 +14,10 @@ func TestLoneOf(t *testing.T) {
 	if e.end != 2 || e.word.End != 2 || !e.word.Attach || len(e.word.Parts) != 2 {
 		t.Fatal(e)
 	}
-	if p := e.word.Parts[0]; p.Stem || p.Text != "이" || p.Hidden != "" || len(p.Names) != 1 || p.Names[0] != (Name{"서술격", "이"}) {
+	if p := e.word.Parts[0]; p.Stem || p.Text != "이" || p.Hidden != "" || p.Name != (Name{"서술격", "이"}) {
 		t.Fatal(p)
 	}
-	if p := e.word.Parts[1]; p.Stem || p.Text != "데" || p.Hidden != "ㄴ" || p.Names[0] != (Name{"맺음", "ㄴ데"}) {
+	if p := e.word.Parts[1]; p.Stem || p.Text != "데" || p.Hidden != "ㄴ" || p.Name != (Name{"맺음", "ㄴ데"}) {
 		t.Fatal(p)
 	}
 	if e.verdict != sc.ix.unknown || e.pref != -(costPiece+costUnseen)-1-2 || e.sig != "+이[서술격:이]+(ㄴ)데[맺음:ㄴ데]" || e.sig != e.word.String() {

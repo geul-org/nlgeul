@@ -1,17 +1,20 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestShownNames — readings are shown without their sign, a thousands separator as a number, and none twice
+//ff:what TestShownNames — readings are shown without their sign, a thousands separator as a number, and none twice (the higher verdict stays); each keeps its own verdict
 package token
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestShownNames(t *testing.T) {
-	if got := shownNames("시각::|비율::"); got != "시각|비율" {
+	if got := shownNames([]markRead{{"시각::", 1}, {"비율::", 0.5}}); !reflect.DeepEqual(got, []markRead{{"시각", 1}, {"비율", 0.5}}) {
 		t.Fatal(got)
 	}
-	if got := shownNames("자릿수:,"); got != numName {
+	if got := shownNames([]markRead{{"자릿수:,", 1}}); !reflect.DeepEqual(got, []markRead{{numName, 1}}) {
 		t.Fatal(got)
 	}
-	if got := shownNames("버전:.|IP:."); got != "버전|IP" {
+	if got := shownNames([]markRead{{"버전:.", 0.4}, {"IP:.", 1}, {"버전:/", 0.9}}); !reflect.DeepEqual(got, []markRead{{"버전", 0.9}, {"IP", 1}}) {
 		t.Fatal(got)
 	}
 }

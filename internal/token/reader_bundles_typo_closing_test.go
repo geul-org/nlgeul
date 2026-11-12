@@ -23,7 +23,7 @@ func TestReaderBundlesTypoClosing(t *testing.T) {
 		t.Fatal(parts)
 	}
 	end := parts[1]
-	if end.Text != "게" || end.Hidden != "ㄹ" || end.Written != "ㄹ께" || end.Stem || !reflect.DeepEqual(end.Names, []Name{{"맺음", "ㄹ게"}}) {
+	if end.Text != "게" || end.Hidden != "ㄹ" || end.Written != "ㄹ께" || end.Stem || end.Name != (Name{"맺음", "ㄹ게"}) {
 		t.Fatal(end)
 	}
 	right := r.Bundles("할게")[0].Branches[0]
@@ -34,7 +34,7 @@ func TestReaderBundlesTypoClosing(t *testing.T) {
 		t.Fatal("written right", got)
 	}
 	noun := r.Bundles("역활")[0].Branches[0].Words[0].Parts[0]
-	if noun.Text != "역할" || noun.Written != "역활" || !noun.Stem || !reflect.DeepEqual(noun.Names, []Name{{"열쇠", "체언"}}) {
+	if noun.Text != "역할" || noun.Written != "역활" || !noun.Stem || noun.Name != (Name{"열쇠", "체언"}) {
 		t.Fatal(noun)
 	}
 	var lines []string

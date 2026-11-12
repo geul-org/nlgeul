@@ -1,17 +1,25 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what shownNames — the readings of a sign as an atom is named with them: without the sign, and a thousands separator as a number
+//ff:what shownNames — the readings of a sign as an atom is named with them: without the sign, and a thousands separator as a number; a name that comes twice is one reading, with the higher verdict
 package token
 
-import "strings"
+import (
+	"slices"
+	"strings"
+)
 
-func shownNames(joined string) string {
-	out := ""
-	for _, n := range strings.Split(joined, "|") {
-		label, _, _ := strings.Cut(n, ":")
+func shownNames(reads []markRead) []markRead {
+	var out []markRead
+	for _, r := range reads {
+		label, _, _ := strings.Cut(r.name, ":")
 		if as, ok := shownAs[label]; ok {
 			label = as
 		}
-		out = union(out, label)
+		i := slices.IndexFunc(out, func(o markRead) bool { return o.name == label })
+		if i < 0 {
+			out = append(out, markRead{label, r.v})
+			continue
+		}
+		out[i].v = max(out[i].v, r.v)
 	}
 	return out
 }

@@ -6,7 +6,7 @@ import "testing"
 
 func TestRender(t *testing.T) {
 	word := func(stem, marker, kind string) Eojeol {
-		return Eojeol{Parts: []Part{{Text: stem, Stem: true}, {Text: marker, Names: []Name{{kind, marker}}}}}
+		return Eojeol{Parts: []Part{{Text: stem, Stem: true}, {Text: marker, Name: Name{kind, marker}}}}
 	}
 	one := render(Bundle{Text: "곰이", Branches: []Branch{{Words: []Eojeol{word("곰", "이", "주격")}}}}, 0)
 	if len(one) != 1 || one[0] != "곰+이[주격:이]" {

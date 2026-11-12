@@ -11,10 +11,10 @@ import (
 func TestReadGroup(t *testing.T) {
 	sc := scanOf("곰이")
 	pieces, from, starts := sc.readGroup(classParticle, 2, -1, false)
-	if len(pieces) != 1 || pieces["·이·1"].names != "주격:이|보격:이" || pieces["·이·1"].verdict != 1 || starts["·이·1"] != 1 || from["·이·1"].slot != rule.LinkCase {
-		t.Fatal(pieces)
+	if len(pieces) != 2 || pieces["·이·1·주격:이"].names != "주격:이" || pieces["·이·1·보격:이"].names != "보격:이" || pieces["·이·1·주격:이"].verdict != 1 || starts["·이·1·보격:이"] != 1 || from["·이·1·주격:이"].slot != rule.LinkCase {
+		t.Fatal("one piece for each name", pieces)
 	}
-	if inner, _, _ := sc.readGroup(classParticle, 2, rule.LinkCase, false); len(inner) != 1 || inner["·이·0"].names != "접미:이" {
+	if inner, _, _ := sc.readGroup(classParticle, 2, rule.LinkCase, false); len(inner) != 1 || inner["·이·0·접미:이"].names != "접미:이" {
 		t.Fatal(inner)
 	}
 	if pieces, _, _ = sc.readGroup(classParticle, 1, -1, false); len(pieces) != 0 {
@@ -27,10 +27,10 @@ func TestReadGroup(t *testing.T) {
 		t.Fatal(pieces)
 	}
 	wide := wordsScan("하래가", layerCost)
-	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, false); pieces["·래·0"].names != "" {
+	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, false); pieces["·래·0·맺음:래(라고 해)"].names != "" {
 		t.Fatal("before a particle", pieces)
 	}
-	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, true); pieces["·래·0"].names != "맺음:래(라고 해)" {
+	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, true); pieces["·래·0·맺음:래(라고 해)"].names != "맺음:래(라고 해)" {
 		t.Fatal("before 요", pieces)
 	}
 }

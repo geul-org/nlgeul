@@ -3,5 +3,5 @@
 package token
 
 func bareSign(b Bundle) bool {
-	return len(b.Branches) == 1 && len(b.Branches[0].Words) == 1 && len(b.Branches[0].Words[0].Parts) == 1 && len(b.Branches[0].Words[0].Parts[0].Names) == 0
+	return len(b.Branches) == 1 && len(b.Branches[0].Words) == 1 && len(b.Branches[0].Words[0].Parts) == 1 && b.Branches[0].Words[0].Parts[0].Name == (Name{})
 }

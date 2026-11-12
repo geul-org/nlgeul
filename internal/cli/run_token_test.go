@@ -14,7 +14,7 @@ func TestRunToken(t *testing.T) {
 	r, _ := token.New(token.Options{})
 	var out bytes.Buffer
 	runToken(&out, r, []string{"아버지가"}, false, false, 0)
-	if !strings.Contains(out.String(), "\n  아버지+가[주격:가|보격:가]\t성립 0.33") || strings.HasSuffix(out.String(), "\n\n") {
+	if !strings.Contains(out.String(), "\n  아버지+가[주격:가]\t성립 0.33") || strings.HasSuffix(out.String(), "\n\n") {
 		t.Fatalf("%q", out.String())
 	}
 	out.Reset()

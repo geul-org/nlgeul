@@ -11,7 +11,7 @@ func (ix *index) measured(bundles []Bundle, u unit) []Bundle {
 		if row.Cells[0] != sign {
 			continue
 		}
-		p := Part{Text: sign, Names: namesOf(unitLabel + row.Cells[1])}
+		p := Part{Text: sign, Name: nameOf(unitLabel + row.Cells[1])}
 		bundles[0].Branches = append(bundles[0].Branches, Branch{Words: []Eojeol{{Parts: []Part{p}, End: u.head}}, Verdict: 1, Pref: ix.afterPrefs[false]})
 	}
 	return bundles

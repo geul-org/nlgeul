@@ -22,7 +22,7 @@ func TestReadOnto(t *testing.T) {
 	if whole.Words[0].Attach || whole.Words[0].Parts[0].Text != "를" || len(whole.Words[0].Parts) != 1 {
 		t.Fatal("the letters as a new word", whole)
 	}
-	if len(got[0].Branches) != 1 || got[0].Branches[0].Words[0].Parts[0].Names[0].Kind != shutName {
+	if len(got[0].Branches) != 1 || got[0].Branches[0].Words[0].Parts[0].Name.Kind != shutName {
 		t.Fatal("the sign", got[0])
 	}
 	only, _ := readOnto(ix, unit{text: ")?", head: 1, name: pairName, reads: []pairing{{shutName, 1}}}, false)
@@ -42,7 +42,7 @@ func TestReadOnto(t *testing.T) {
 	middle, _ := readOnto(ix, unit{text: ")밥·국", head: 1, name: pairName, reads: []pairing{{shutName, 1}}}, false)
 	found := false
 	for _, br := range middle[1].Branches {
-		found = found || len(br.Words) == 3 && br.Words[1].Parts[0].Names[0].Kind == "가운뎃점"
+		found = found || len(br.Words) == 3 && br.Words[1].Parts[0].Name.Kind == "가운뎃점"
 	}
 	if !found {
 		t.Fatal("a middle dot in the letters after the sign", middle)

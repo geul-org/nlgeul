@@ -7,12 +7,12 @@ import "testing"
 func TestBranchLabel(t *testing.T) {
 	b := Branch{Words: []Eojeol{
 		{Parts: []Part{
-			{Text: "고양이", Stem: true, Names: []Name{{"열쇠", "체언"}}},
-			{Text: "가", Names: []Name{{"주격", "가"}, {"보격", "가"}}},
+			{Text: "고양이", Stem: true, Name: Name{"열쇠", "체언"}},
+			{Text: "가", Name: Name{"주격", "가"}},
 		}, End: 4},
 		{Parts: []Part{{Text: "마신", Stem: true}}, End: 6},
 	}}
-	if got := b.Label(); got != "열쇠:체언 + 주격:가|보격:가 + 새 낱말" {
+	if got := b.Label(); got != "열쇠:체언 + 주격:가 + 새 낱말" {
 		t.Fatalf("got %q", got)
 	}
 	if got := (Branch{}).Label(); got != "" {

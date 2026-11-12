@@ -9,12 +9,12 @@ package token
 // before it is named by its signs' graphs and is read once.
 func (sc *scan) numberReads(e step, b, stemEnd int) []step {
 	a, ok := sc.atoms[b]
-	if !ok || a.end != stemEnd || !a.num || a.names != numName || !binaryRun(string(sc.s[b:stemEnd])) || len(e.word.Parts) == 0 || e.verdict <= 0 {
+	if !ok || a.end != stemEnd || !a.num || len(a.names) != 1 || a.names[0] != numName || !binaryRun(string(sc.s[b:stemEnd])) || len(e.word.Parts) == 0 || e.verdict <= 0 {
 		return []step{e}
 	}
 	two := e
 	two.word.Parts = append([]Part{}, e.word.Parts...)
-	two.word.Parts[0].Names = []Name{{numName, binForm}}
+	two.word.Parts[0].Name = Name{numName, binForm}
 	two.sig = two.word.String()
 	return []step{e, two}
 }

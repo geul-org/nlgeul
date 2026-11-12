@@ -4,7 +4,7 @@ package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
 
-func (sc *scan) front(start int, names string) (int, string) {
+func (sc *scan) front(start int, names []string) (int, []string) {
 	if start < 1 {
 		return start, names
 	}
@@ -16,9 +16,9 @@ func (sc *scan) front(start int, names string) (int, string) {
 	if start >= 2 {
 		m.Left = sideOf(string(sc.s[start-2]))
 	}
-	joined, _ := sc.judgeMark([]*entry{e}, m, string(sc.s[start-1]))
-	if joined == "" {
+	reads := sc.judgeMark([]*entry{e}, m, string(sc.s[start-1]))
+	if len(reads) == 0 {
 		return start, names
 	}
-	return start - 1, union(shownNames(joined), names)
+	return start - 1, union(markNames(shownNames(reads)), names)
 }

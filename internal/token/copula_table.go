@@ -54,3 +54,8 @@ const forceDropAdn = 0.5
 
 // notOnly is the one other stem the closings of the copula attach to.
 const notOnly = "아니"
+
+// copulaSuffixes are the suffixes the copula stands after (꽃들이다,
+// 배씩이다, 너희끼리다). 쯤 and the suffix 이 of a name are not among
+// them.
+var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리"}

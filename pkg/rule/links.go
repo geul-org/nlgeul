@@ -3,7 +3,7 @@
 package rule
 
 // linkable[left] is the mask of the kinds that may follow left. A
-// suffix takes any particle. A case particle and a topic particle
+// suffix takes any particle and the stem of the copula (꽃들이다). A case particle and a topic particle
 // take only 요. An adverbial particle takes a range or topic particle,
 // 의, a comparing particle and 과/와; a comparing particle and 과/와
 // take a range or topic particle and 의. A range particle takes a case
@@ -13,7 +13,7 @@ package rule
 // range or topic particle (께서는). The emphatic 가 follows an
 // adverbial particle and nothing else, and nothing follows it.
 var linkable = map[int]int{
-	LinkSuffix: 1<<LinkSuffix | 1<<LinkCase | 1<<LinkAdn | 1<<LinkAdv | 1<<LinkComp | 1<<LinkWith | 1<<LinkRange | 1<<LinkTopic | 1<<LinkVoc | 1<<LinkYo | 1<<LinkDir | 1<<LinkHonor,
+	LinkSuffix: 1<<LinkSuffix | 1<<LinkCase | 1<<LinkAdn | 1<<LinkAdv | 1<<LinkComp | 1<<LinkWith | 1<<LinkRange | 1<<LinkTopic | 1<<LinkVoc | 1<<LinkYo | 1<<LinkDir | 1<<LinkHonor | 1<<LinkCopula,
 	LinkCase:   1 << LinkYo,
 	LinkAdn:    1 << LinkYo,
 	LinkAdv:    1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkComp | 1<<LinkWith | 1<<LinkYo | 1<<LinkDir | 1<<LinkEmph,

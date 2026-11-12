@@ -12,34 +12,34 @@ import (
 func TestAfterAdnDet(t *testing.T) {
 	da := []piece{{text: "다", names: "맺음:다", verdict: 1, tail: rule.TailPred}}
 	sc := wordsScan("어떤마시다", layerCost)
-	if sc.afterAdn(2, tail{start: 4, pieces: da}, true) {
+	if sc.afterAdn(2, tail{start: 4, pieces: da}, true, 0) {
 		t.Fatal("no reading has a determiner end at 2")
 	}
 	sc.detEnds[2] = true
-	if !sc.afterAdn(2, tail{start: 4, pieces: da}, true) || sc.afterAdn(2, tail{start: 4, pieces: da}, false) {
+	if !sc.afterAdn(2, tail{start: 4, pieces: da}, true, 0) || sc.afterAdn(2, tail{start: 4, pieces: da}, false, 0) {
 		t.Fatal("마시, a verb of the table, before 다 right after 어떤")
 	}
-	if sc.afterAdn(2, tail{start: 4, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1, tail: rule.TailPred}}}, true) {
+	if sc.afterAdn(2, tail{start: 4, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1, tail: rule.TailPred}}}, true, 0) {
 		t.Fatal("마시+는 is itself a modifying form")
 	}
 	aux := wordsScan("어떤듯하다", layerCost)
 	aux.detEnds[2] = true
-	if !aux.afterAdn(2, tail{start: 4, pieces: da}, true) {
+	if !aux.afterAdn(2, tail{start: 4, pieces: da}, true, 0) {
 		t.Fatal("듯하 is written onto a modifying form, not onto a determiner")
 	}
 	noun := wordsScan("어떤사과를", layerCost)
 	noun.detEnds[2] = true
-	if noun.afterAdn(2, tail{start: 4, pieces: []piece{{text: "를", names: "목적격:를", verdict: 1, tail: rule.TailCase}}}, true) {
+	if noun.afterAdn(2, tail{start: 4, pieces: []piece{{text: "를", names: "목적격:를", verdict: 1, tail: rule.TailCase}}}, true, 0) {
 		t.Fatal("사과, a noun, before a particle")
 	}
 	alone := wordsScan("먹을아이고", layerCost)
 	alone.adnEnds[2], alone.detEnds[2] = true, true
-	if !alone.afterAdn(2, tail{start: 5}, false) || !alone.afterAdn(2, tail{start: 5}, true) {
+	if !alone.afterAdn(2, tail{start: 5}, false, 0) || !alone.afterAdn(2, tail{start: 5}, true, 0) {
 		t.Fatal("아이고, a word that only stands alone, right after what modifies a nominal")
 	}
 	adverb := wordsScan("먹을빨리", layerCost)
 	adverb.adnEnds[2], adverb.detEnds[2] = true, true
-	if adverb.afterAdn(2, tail{start: 4}, false) || adverb.afterAdn(2, tail{start: 4}, true) {
+	if adverb.afterAdn(2, tail{start: 4}, false, 0) || adverb.afterAdn(2, tail{start: 4}, true, 0) {
 		t.Fatal("빨리, an adverb, is let be")
 	}
 

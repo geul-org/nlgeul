@@ -1,4 +1,4 @@
-//ff:func feature=token type=reader control=sequence
+//ff:func feature=token type=reader control=iteration dimension=1
 //ff:what TestWordOf — a new word with its marker: the low verdict, the stem and marker printed with the graph name; a closed-set word as stem has verdict 1; a stem a piece is fused into is printed and looked up as it was before fusing; with a word table a stem is known only when its kind takes what follows, a stem the table knows only as a nominal does not stand as a new word before a predicate tail either (verdict 0 or less), and its preference comes from the table's count less the cost of structure; a stem read as a number has the preference the tail gives it; the boundary given back to an auxiliary verb's stem after a boundary only when a predicate tail follows it and it is known there (not before particles or the copula, not alone, not as the unit's first word, not for another verb; with a word table 있 before an adjective's closing is no known word, and as a new word that ends in ㅆ before markers it does not stand)
 package token
 
@@ -23,7 +23,7 @@ func TestWordOf(t *testing.T) {
 	if e.sig != "고양이[열쇠:체언]+가[주격:가]" || e.verdict <= ws.ix.unknown || math.Abs(e.pref-(math.Log10(1000/ws.ix.lexTotal)-1.2-costPiece)) > 1e-9 {
 		t.Fatal(e)
 	}
-	if e = ws.wordOf(4, 6, tail{start: 6, pieces: []piece{{"다", "맺음:다", 1, -4, rule.TailPred, false, ""}}}); e.verdict > 0 || e.word.Parts[0].Names != nil {
+	if e = ws.wordOf(4, 6, tail{start: 6, pieces: []piece{{"다", "맺음:다", 1, -4, rule.TailPred, false, ""}}}); e.verdict > 0 || e.word.Parts[0].Name != (Name{}) {
 		t.Fatal("a noun of the table before a closing stands neither as known nor as a new word", e)
 	}
 	rare := wordsScan("of", layerCost)
@@ -31,8 +31,14 @@ func TestWordOf(t *testing.T) {
 		t.Fatal("a rarely seen known word stands by its graph, above a new word", e)
 	}
 	at := scanOf("task.py에")
-	if e = at.wordOf(0, 8, tail{start: 7, pieces: []piece{{"에", "부사격:에", 1, -1.2, rule.TailCase, false, ""}}}); e.sig != "task.py[파일명|도메인]+에[부사격:에]" || e.verdict != 1 || math.Abs(e.pref-(math.Log10(1.0/syllables)-1.2-costPiece)) > 1e-9 {
-		t.Fatal(e)
+	two := at.stepsOf(0, 8, tail{start: 7, pieces: []piece{{"에", "부사격:에", 1, -1.2, rule.TailCase, false, ""}}})
+	if len(two) != 2 || two[0].sig != "task.py[파일명]+에[부사격:에]" || two[1].sig != "task.py[도메인]+에[부사격:에]" {
+		t.Fatal("an atom of two names is two readings", two)
+	}
+	for _, e = range two {
+		if e.verdict != 1 || math.Abs(e.pref-(math.Log10(1.0/syllables)-1.2-costPiece)) > 1e-9 {
+			t.Fatal("of the same verdict and preference", e)
+		}
 	}
 	sc = scanOf("마신다")
 	e = sc.wordOf(0, 3, tail{start: 2, base: '시', pieces: []piece{{"(ㄴ)다", "맺음:ㄴ다", 1, -4, 0, false, ""}}})
@@ -77,7 +83,7 @@ func TestWordOf(t *testing.T) {
 		t.Fatal("a known verb that is no auxiliary, after a boundary", e)
 	}
 	adj := []piece{{"다", "맺음:다", 1, -1, rule.TailAdj, false, ""}}
-	if e = wordsScan("열어있다", layerCost).wordOf(2, 4, tail{start: 3, pieces: adj}); e.back != 0 || e.verdict > 0 || e.word.Parts[0].Names != nil {
+	if e = wordsScan("열어있다", layerCost).wordOf(2, 4, tail{start: 3, pieces: adj}); e.back != 0 || e.verdict > 0 || e.word.Parts[0].Name != (Name{}) {
 		t.Fatal("an auxiliary verb's letters that stand as no known word before an adjective's closing, nor as a new word (a stem in ㅆ)", e)
 	}
 	if e = scanOf("열어있다").wordOf(2, 4, tail{start: 3, pieces: adj}); e.back != costBoundary || e.verdict != 1 {

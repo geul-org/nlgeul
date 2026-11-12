@@ -10,20 +10,20 @@ import (
 
 func TestMisspeltClosed(t *testing.T) {
 	ix := typoScan("x", layerCost).ix
-	name, v := ix.misspelt("거", kindNominal, rule.TailBare, true)
+	name, v := misspeltIn(ix, "거", kindNominal, rule.TailBare, true)
 	if name != "의존명사:거" || v <= 0 {
 		t.Fatal(name, v)
 	}
-	if _, right := ix.known("거", rule.TailBare, true); v >= right {
+	if _, right := knownIn(ix, "거", rule.TailBare, true); v >= right {
 		t.Fatal("below the same word written right", v, right)
 	}
-	if name, v = ix.misspelt("거", kindNominal, rule.TailCase, false); name != "의존명사:거" || v <= 0 {
+	if name, v = misspeltIn(ix, "거", kindNominal, rule.TailCase, false); name != "의존명사:거" || v <= 0 {
 		t.Fatal("before a particle", name, v)
 	}
-	if name, v = ix.misspelt("거", kindVerb, rule.TailBare, true); name != "" || v != 0 {
+	if name, v = misspeltIn(ix, "거", kindVerb, rule.TailBare, true); name != "" || v != 0 {
 		t.Fatal("a kind the closed-set word does not have", name, v)
 	}
-	if name, v = ix.misspelt("역할", kindNominal, rule.TailBare, true); name != "열쇠:체언" || v <= 0 {
+	if name, v = misspeltIn(ix, "역할", kindNominal, rule.TailBare, true); name != "열쇠:체언" || v <= 0 {
 		t.Fatal("a word only the table knows", name, v)
 	}
 }

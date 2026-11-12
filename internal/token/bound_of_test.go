@@ -10,27 +10,27 @@ import (
 
 func TestBoundOf(t *testing.T) {
 	sc := typoScan("x", layerCost)
-	right, name, v := sc.boundOf("입력/역활", rule.TailCase, true)
-	_, _, plain := sc.boundOf("입력/역할", rule.TailCase, true)
-	if right != "입력/역할" || name != "대비:/" || v <= 0 || v >= plain {
-		t.Fatal(right, name, v, plain)
+	right, reads := sc.boundOf("입력/역활", rule.TailCase, true)
+	_, plain := sc.boundOf("입력/역할", rule.TailCase, true)
+	if right != "입력/역할" || len(reads) != 1 || reads[0].name != "대비:/" || reads[0].v <= 0 || reads[0].v >= plain[0].v {
+		t.Fatal(right, reads, plain)
 	}
-	if got, name, v := sc.boundOf("입력/역활", rule.TailCase, false); got != "입력/역활" || name != "" || v != 0 {
-		t.Fatal(got, name, v)
+	if got, reads := sc.boundOf("입력/역활", rule.TailCase, false); got != "입력/역활" || len(reads) != 0 {
+		t.Fatal(got, reads)
 	}
-	if got, name, v := sc.boundOf("입력/출력", rule.TailCase, true); got != "입력/출력" || name != "대비:/" || v <= 0 {
-		t.Fatal(got, name, v)
+	if got, reads := sc.boundOf("입력/출력", rule.TailCase, true); got != "입력/출력" || len(reads) != 1 || reads[0].name != "대비:/" || reads[0].v <= 0 {
+		t.Fatal(got, reads)
 	}
-	if got, _, v := sc.boundOf("입력/역활", rule.TailPred, true); got != "입력/역활" || v != 0 {
-		t.Fatal("the last word must take what follows", got, v)
+	if got, reads := sc.boundOf("입력/역활", rule.TailPred, true); got != "입력/역활" || len(reads) != 0 {
+		t.Fatal("the last word must take what follows", got, reads)
 	}
-	if got, _, v := sc.boundOf("입력/없는말", rule.TailCase, true); got != "입력/없는말" || v != 0 {
-		t.Fatal(got, v)
+	if got, reads := sc.boundOf("입력/없는말", rule.TailCase, true); got != "입력/없는말" || len(reads) != 0 {
+		t.Fatal(got, reads)
 	}
-	if name, v := sc.bound("입력/역활", rule.TailCase); name != "" || v != 0 {
-		t.Fatal("bound reads no word written wrong", name, v)
+	if reads := sc.bound("입력/역활", rule.TailCase); len(reads) != 0 {
+		t.Fatal("bound reads no word written wrong", reads)
 	}
-	if got, name, v := sc.boundOf("입력", rule.TailCase, true); got != "입력" || name != "" || v != 0 {
-		t.Fatal("a stem with no bound sign is not a bound stem", got, name, v)
+	if got, reads := sc.boundOf("입력", rule.TailCase, true); got != "입력" || len(reads) != 0 {
+		t.Fatal("a stem with no bound sign is not a bound stem", got, reads)
 	}
 }

@@ -5,7 +5,7 @@ package token
 import "testing"
 
 func TestMovedFirst(t *testing.T) {
-	w := Eojeol{Parts: []Part{{Text: ")", Stem: true}, {Text: "를", Names: []Name{{Kind: "목적격", Form: "를"}}}}, End: 2}
+	w := Eojeol{Parts: []Part{{Text: ")", Stem: true}, {Text: "를", Name: Name{Kind: "목적격", Form: "를"}}}, End: 2}
 	e := step{end: 2, word: w, verdict: 1, pref: -6, sig: "x"}
 	got, ok := movedFirst(e, 1, -5)
 	if !ok || got.end != 1 || got.word.End != 1 || !got.word.Attach || len(got.word.Parts) != 1 || got.verdict != 1 || got.pref != -1 || got.sig != "+를[목적격:를]" {

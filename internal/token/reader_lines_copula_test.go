@@ -34,7 +34,7 @@ func TestReaderLinesCopula(t *testing.T) {
 		}
 	}
 	bare, _ := New(Options{})
-	if got := strings.Join(bare.Lines("abc야", false), "\n"); !strings.Contains(got, "  abc[열:영숫자]+야[보조사:야|호격:야]\t") || strings.Contains(got, "(이)[서술격:이(빠짐)]") {
+	if got := strings.Join(bare.Lines("abc야", false), "\n"); !strings.Contains(got, "  abc[열:영숫자]+야[보조사:야]\t") || !strings.Contains(got, "  abc[열:영숫자]+야[호격:야]\t") || strings.Contains(got, "(이)[서술격:이(빠짐)]") {
 		t.Fatal("abc야 without a word table\n" + got)
 	}
 }

@@ -7,7 +7,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 func (ix *index) partsPref(parts []string) float64 {
 	sum := 0.0
 	for _, part := range parts {
-		sum += ix.stemPref(part, rule.TailBare, true, partTokens(part))
+		sum += ix.stemPref(part, rule.TailBare, 0, true, partTokens(part))
 	}
 	return sum
 }

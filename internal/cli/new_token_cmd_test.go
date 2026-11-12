@@ -19,7 +19,7 @@ func TestNewTokenCmd(t *testing.T) {
 		root.SetArgs(append([]string{"token"}, args...))
 		return root.Execute()
 	}
-	if err := run("", "아버지가"); err != nil || !strings.Contains(out.String(), "\n  아버지+가[주격:가|보격:가]\t성립 0.33") {
+	if err := run("", "아버지가"); err != nil || !strings.Contains(out.String(), "\n  아버지+가[주격:가]\t성립 0.33") {
 		t.Fatalf("%v %q", err, out.String())
 	}
 	if err := run("", "--cuts", "아버지가"); err != nil || !strings.HasPrefix(out.String(), "아버지가\t4;") {
@@ -31,7 +31,7 @@ func TestNewTokenCmd(t *testing.T) {
 	if err := run("아버지가\n아버지가\n", "--stdin", "--cuts"); err != nil || strings.Count(out.String(), "아버지가\t4;") != 2 {
 		t.Fatalf("%v %q", err, out.String())
 	}
-	if err := run("", "--words", "testdata/words.tsv", "마당에서"); err != nil || !strings.Contains(out.String(), "\n  마당[열쇠:체언]+에서[주격:에서|부사격:에서]\t성립 ") {
+	if err := run("", "--words", "testdata/words.tsv", "마당에서"); err != nil || !strings.Contains(out.String(), "\n  마당[열쇠:체언]+에서[주격:에서]\t성립 ") {
 		t.Fatalf("%v %q", err, out.String())
 	}
 	t.Setenv("NLGEUL_WORDS", "testdata/words.tsv")

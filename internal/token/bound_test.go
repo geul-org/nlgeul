@@ -10,25 +10,25 @@ import (
 
 func TestBound(t *testing.T) {
 	sc := wordsScan("x", layerCost)
-	if name, v := sc.bound("입력/출력", rule.TailCase); name != "대비:/" || v <= 0 || v > 1 {
-		t.Fatal(name, v)
+	if r := sc.bound("입력/출력", rule.TailCase); len(r) != 1 || r[0].name != "대비:/" || r[0].v <= 0 || r[0].v > 1 {
+		t.Fatal(r)
 	}
-	if name, v := sc.bound("고양이-마당", rule.TailBare); name != "붙임:-" || v <= 0 {
-		t.Fatal(name, v)
+	if r := sc.bound("고양이-마당", rule.TailBare); len(r) != 1 || r[0].name != "붙임:-" || r[0].v <= 0 {
+		t.Fatal(r)
 	}
-	if name, v := sc.bound("abc/출력", rule.TailBare); name != "대비:/" || v != sc.ix.run {
-		t.Fatal("a run of Latin letters as a word", name, v)
+	if r := sc.bound("abc/출력", rule.TailBare); len(r) != 1 || r[0].name != "대비:/" || r[0].v != sc.ix.run {
+		t.Fatal("a run of Latin letters as a word", r)
 	}
-	if _, v := sc.bound("입력/없는말", rule.TailBare); v != 0 {
+	if r := sc.bound("입력/없는말", rule.TailBare); len(r) != 0 {
 		t.Fatal("an unknown word")
 	}
-	if _, v := sc.bound("입력/출력", rule.TailPred); v != 0 {
+	if r := sc.bound("입력/출력", rule.TailPred); len(r) != 0 {
 		t.Fatal("a noun before a closing")
 	}
-	if _, v := sc.bound("입력출력", rule.TailBare); v != 0 {
+	if r := sc.bound("입력출력", rule.TailBare); len(r) != 0 {
 		t.Fatal("no sign")
 	}
-	if _, v := scanOf("x").bound("입력/출력", rule.TailBare); v != 0 {
+	if r := scanOf("x").bound("입력/출력", rule.TailBare); len(r) != 0 {
 		t.Fatal("no word table")
 	}
 }

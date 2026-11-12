@@ -9,7 +9,7 @@ func TestFindMid(t *testing.T) {
 	if len(sc.mid) != 3 || sc.mid[1].reads[0].Text != "·" || sc.mid[3].reads[0].Text != "ㆍ" || sc.mid[5].reads[0].Text != "・" {
 		t.Fatal(sc.mid)
 	}
-	if r := sc.mid[1].reads; len(r) != 1 || len(r[0].Names) != 1 || r[0].Names[0].Kind != "가운뎃점" || r[0].Stem {
+	if r := sc.mid[1].reads; len(r) != 1 || r[0].Name.Kind != "가운뎃점" || r[0].Stem {
 		t.Fatal("the reading", r)
 	}
 	for _, text := range []string{"가··나", "·가", "가·", "가나", "가.나"} {

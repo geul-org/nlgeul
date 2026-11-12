@@ -3,7 +3,7 @@
 package token
 
 func (sc *scan) midOf(w Eojeol) (midSign, bool) {
-	if len(w.Parts) != 1 || len(w.Parts[0].Names) != 1 || w.Parts[0].Names[0].Kind != midName {
+	if len(w.Parts) != 1 || w.Parts[0].Name.Kind != midName {
 		return midSign{}, false
 	}
 	m, ok := sc.mid[w.End-1]

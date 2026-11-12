@@ -4,7 +4,7 @@ package token
 
 func (sc *scan) typoReads(out []tail, stem string, t tail) []tail {
 	for _, ty := range sc.ix.typos[stem] {
-		if _, v := sc.ix.misspelt(ty.right, ty.kinds, tailClass(t.pieces), false); v > 0 {
+		if v := sc.ix.misspelt(ty.right, ty.kinds, tailClass(t.pieces), false); v > 0 {
 			read := t
 			read.shown, read.wrote, read.kinds = ty.right, stem, ty.kinds
 			out = append(out, read)

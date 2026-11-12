@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestEntryGroup — the lead, the form and the kind, parted by dots
+//ff:what TestEntryGroup — the lead, the form, the kind and the name, parted by dots; readings of different names have different keys
 package token
 
 import (
@@ -9,7 +9,10 @@ import (
 )
 
 func TestEntryGroup(t *testing.T) {
-	if entryGroup(&entry{form: "이", slot: 1}) != "·이·1" || entryGroup(&entry{form: "다", lead: rule.JongN, slot: 0}) != "ㄴ·다·0" {
-		t.Fatal(entryGroup(&entry{form: "이", slot: 1}))
+	if entryGroup(&entry{form: "이", slot: 1, name: "주격:이"}) != "·이·1·주격:이" || entryGroup(&entry{form: "다", lead: rule.JongN, slot: 0, name: "맺음:다"}) != "ㄴ·다·0·맺음:다" {
+		t.Fatal(entryGroup(&entry{form: "이", slot: 1, name: "주격:이"}))
+	}
+	if entryGroup(&entry{form: "이", slot: 1, name: "주격:이"}) == entryGroup(&entry{form: "이", slot: 1, name: "보격:이"}) {
+		t.Fatal("readings of different names are never filed together")
 	}
 }

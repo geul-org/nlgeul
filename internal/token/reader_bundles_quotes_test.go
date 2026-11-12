@@ -33,7 +33,7 @@ func TestReaderBundlesQuotes(t *testing.T) {
 	var unit, whole bool
 	for _, br := range feet[0].Branches {
 		if len(br.Words) == 2 && len(br.Words[0].Parts) == 2 {
-			unit = unit || br.Words[0].Parts[1].Names[0].Form == "피트" && br.Words[0].Parts[0].Text == "5"
+			unit = unit || br.Words[0].Parts[1].Name.Form == "피트" && br.Words[0].Parts[0].Text == "5"
 		}
 		whole = whole || len(br.Words) == 1 && br.Words[0].Parts[0].Text == "5'10"
 	}

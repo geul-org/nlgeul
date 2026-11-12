@@ -30,7 +30,7 @@ func TestSearch(t *testing.T) {
 	for _, p := range scanOf("이").search() {
 		sigs[p.sig] = true
 	}
-	if !sigs["+이[주격:이|보격:이]"] || !sigs["이[관형사:이]"] {
+	if !sigs["+이[주격:이]"] || !sigs["+이[보격:이]"] || !sigs["이[관형사:이]"] {
 		t.Fatal("이: the attached reading next to the word's", sigs)
 	}
 }

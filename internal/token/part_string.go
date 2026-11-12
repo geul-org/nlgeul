@@ -7,8 +7,8 @@ func (p Part) String() string {
 	if p.Hidden != "" {
 		text = "(" + p.Hidden + ")" + text
 	}
-	if p.Stem && len(p.Names) == 0 {
+	if p.Stem && p.Name == (Name{}) {
 		return text
 	}
-	return text + "[" + corrected(namesText(p.Names), p.Written) + "]"
+	return text + "[" + corrected(p.Name.String(), p.Written) + "]"
 }

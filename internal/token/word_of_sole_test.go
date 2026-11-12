@@ -19,17 +19,17 @@ func TestWordOfSole(t *testing.T) {
 		t.Fatal("a one-syllable stem and its modifying closing as the whole unit", e)
 	}
 	ws := wordsScan("입력하자", layerCost)
-	_, ha := ws.ix.known("하", rule.TailVerb, false)
+	ha := ws.ix.known("하", rule.TailVerb, false)
 	if e := ws.wordOf(2, 4, tail{start: 3, pieces: ja.pieces}); e.sig != "하[열쇠:동사]+자[맺음:자]" || e.verdict != ha || ha >= 1 || ha <= 0 {
 		t.Fatal("the same word after another word in its unit", e, ha)
 	}
 	ws = wordsScan("학교가는", layerCost)
-	_, ga := ws.ix.known("가", rule.TailVerb, false)
+	ga := ws.ix.known("가", rule.TailVerb, false)
 	if e := ws.wordOf(2, 4, tail{start: 3, pieces: neun.pieces}); e.sig != "가[열쇠:동사]+는[꾸밈:는]" || e.verdict != ga || ga >= 1 || ga <= 0 {
 		t.Fatal("the same word after another word in its unit", e, ga)
 	}
 	ws = wordsScan("하고먹자", layerCost)
-	_, link := ws.ix.known("하", rule.TailPred, false)
+	link := ws.ix.known("하", rule.TailPred, false)
 	if e := ws.wordOf(0, 2, tail{start: 1, pieces: []piece{{"고", "맺음:고", 1, -1, rule.TailPred, false, ""}}}); e.sig != "하[열쇠:동사]+고[맺음:고]" || e.verdict != link || link >= 1 {
 		t.Fatal("the same stem at the unit's head with another word after it", e, link)
 	}

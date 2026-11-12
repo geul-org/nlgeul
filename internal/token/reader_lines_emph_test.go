@@ -30,12 +30,12 @@ func TestReaderLinesEmph(t *testing.T) {
 		{"마당에가", []string{"마당[열쇠:체언]+에[부사격:에]+" + emph}, nil, true},
 		{"3건가", nil, []string{emph}, false},
 		{"3건이", []string{"3[수]+건[단위:건]+이["}, nil, false},
-		{"7개가", []string{"7[수]+개[단위:개]+가[주격:가|보격:가]"}, []string{emph}, false},
-		{"두개가", []string{"두[수]+개[단위:개]+가[주격:가|보격:가]"}, []string{emph}, true},
+		{"7개가", []string{"7[수]+개[단위:개]+가[주격:가]"}, []string{emph}, false},
+		{"두개가", []string{"두[수]+개[단위:개]+가[주격:가]"}, []string{emph}, true},
 		{"가심가", nil, []string{emph}, true},
-		{"먹기가", []string{"먹[열쇠:동사]+기[이름:기]+가[주격:가|보격:가]"}, []string{emph}, true},
-		{"먹는지가", []string{"먹[열쇠:동사]+는지[맺음:는지]+가[주격:가|보격:가]"}, []string{emph}, true},
-		{"살지가", []string{"+가[주격:가|보격:가]"}, []string{emph}, true},
+		{"먹기가", []string{"먹[열쇠:동사]+기[이름:기]+가[주격:가]"}, []string{emph}, true},
+		{"먹는지가", []string{"먹[열쇠:동사]+는지[맺음:는지]+가[주격:가]"}, []string{emph}, true},
+		{"살지가", []string{"+가[주격:가]"}, []string{emph}, true},
 	}
 	for _, c := range cases {
 		readers := []*Reader{lexed}

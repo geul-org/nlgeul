@@ -8,14 +8,14 @@ func TestBundles(t *testing.T) {
 	sc := scanOf("아버지가방에들어가신다")
 	paths := sc.search()
 	got := sc.bundles(paths)
-	best := "아버지+가[주격:가|보격:가] 방+에[부사격:에] 들어+가[주격:가|보격:가] 신+다[맺음:다]"
-	whole := "아버지+가[주격:가|보격:가] 방에+들[접미:들] 어가신+다[맺음:다]"
+	best := "아버지+가[주격:가] 방+에[부사격:에] 들어+가[주격:가] 신+다[맺음:다]"
+	whole := "아버지+가[주격:가] 방에+들[접미:들] 어가신+다[맺음:다]"
 	if len(got) != 1 || got[0].Text != "아버지가방에들어가신다" || len(paths) < 8 || len(got[0].Branches) != len(paths) || got[0].Branches[0].String() != best || !hasBranch(got[0].Branches, whole) || !branchesInOrder(got[0].Branches) {
 		t.Fatalf("%+v", got)
 	}
 	cut := scanOf("고양이가마당에서물을마신다")
 	parts := cut.bundles(cut.search())
-	right := "고양이+가[주격:가|보격:가] 마당+에서[주격:에서|부사격:에서] 물+을[목적격:을] 마신+다[맺음:다]"
+	right := "고양이+가[주격:가] 마당+에서[주격:에서] 물+을[목적격:을] 마신+다[맺음:다]"
 	if len(parts) != 1 || parts[0].Text != "고양이가마당에서물을마신다" || len(parts[0].Branches) < 4 || !hasBranch(parts[0].Branches, right) || !branchesInOrder(parts[0].Branches) {
 		t.Fatalf("%+v", parts)
 	}

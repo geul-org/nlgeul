@@ -6,7 +6,7 @@ import "testing"
 
 func TestBareSign(t *testing.T) {
 	bare := signBranch(Part{Text: "->", Stem: true}, 0)
-	named := signBranch(Part{Text: "?", Names: []Name{{Kind: "물음표"}}}, 0)
+	named := signBranch(Part{Text: "?", Name: Name{Kind: "물음표"}}, 0)
 	two := Branch{Words: []Eojeol{{Parts: []Part{{Text: "a"}, {Text: "b"}}}}, Verdict: 1}
 	cases := []struct {
 		b    Bundle

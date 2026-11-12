@@ -17,10 +17,10 @@ func spread(bundles []Bundle, u unit) []Bundle {
 			continue
 		}
 		for _, rd := range u.reads {
-			out = append(out, withHead(br, []Name{{Kind: rd.name, Form: strconv.Itoa(rd.depth)}}, rd.depth))
+			out = append(out, withHead(br, Name{Kind: rd.name, Form: strconv.Itoa(rd.depth)}, rd.depth))
 		}
 		if u.bare {
-			out = append(out, withHead(br, nil, 0))
+			out = append(out, withHead(br, Name{}, 0))
 		}
 	}
 	bundles[0].Branches = out
