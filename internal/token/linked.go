@@ -10,7 +10,7 @@ func (sc *scan) linked(start int, ps []piece, after string, slots bool) []tail {
 	if at < 1 || sc.s[at] != '으' {
 		return nil
 	}
-	eu := piece{"으", euName, 0, sc.ix.pref(euCount, "으"), rule.TailPred, false}
+	eu := piece{"으", euName, 0, sc.ix.pref(euCount, "으"), rule.TailPred, false, ""}
 	facts := rule.Piece{Form: "으", HasStem: true, Prev: sc.s[at-1], Next: -1, After: after}
 	if v := sc.judge(sc.ix.eu, at, start, facts); v > 0 {
 		eu.verdict = v

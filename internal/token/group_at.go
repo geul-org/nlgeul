@@ -22,7 +22,7 @@ func (sc *scan) groupAt(class, j, next int, more, closed bool) (map[string]piece
 			continue
 		}
 		key := entryGroup(e)
-		pieces[key] = joinPieces(pieces[key], piece{string(sc.s[start:j]), e.name, v, sc.ix.pref(e.count, e.form), tailOf(e), false})
+		pieces[key] = joinPieces(pieces[key], sc.entryPiece(e, string(sc.s[start:j]), v))
 		from[key], starts[key] = e, start
 	}
 	return pieces, from, starts

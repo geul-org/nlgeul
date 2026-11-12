@@ -20,7 +20,7 @@ func TestExtend(t *testing.T) {
 	if got := sc.extend(nil, best, tail{start: 2, only: "아니", pieces: []piece{{text: "x", verdict: 1}}}, 2); len(got) != 0 {
 		t.Fatal("a tail of 아니 after another stem", got)
 	}
-	got := sc.extend(nil, best, tail{start: 1, pieces: []piece{{"이", "주격:이", 1, -1, 0, false}}}, 2)
+	got := sc.extend(nil, best, tail{start: 1, pieces: []piece{{"이", "주격:이", 1, -1, 0, false, ""}}}, 2)
 	if len(got) != 1 || got[0].sig != "곰+이[주격:이]" {
 		t.Fatal(got)
 	}

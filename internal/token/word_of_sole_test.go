@@ -10,8 +10,8 @@ import (
 )
 
 func TestWordOfSole(t *testing.T) {
-	ja := tail{start: 1, pieces: []piece{{"자", "맺음:자", 1, -1, rule.TailVerb, false}}}
-	neun := tail{start: 1, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false}}}
+	ja := tail{start: 1, pieces: []piece{{"자", "맺음:자", 1, -1, rule.TailVerb, false, ""}}}
+	neun := tail{start: 1, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false, ""}}}
 	if e := wordsScan("하자", layerCost).wordOf(0, 2, ja); e.sig != "하[열쇠:동사]+자[맺음:자]" || e.verdict != 1 {
 		t.Fatal("a one-syllable stem and its closing as the whole unit", e)
 	}
@@ -30,7 +30,7 @@ func TestWordOfSole(t *testing.T) {
 	}
 	ws = wordsScan("하고먹자", layerCost)
 	_, link := ws.ix.known("하", rule.TailPred, false)
-	if e := ws.wordOf(0, 2, tail{start: 1, pieces: []piece{{"고", "맺음:고", 1, -1, rule.TailPred, false}}}); e.sig != "하[열쇠:동사]+고[맺음:고]" || e.verdict != link || link >= 1 {
+	if e := ws.wordOf(0, 2, tail{start: 1, pieces: []piece{{"고", "맺음:고", 1, -1, rule.TailPred, false, ""}}}); e.sig != "하[열쇠:동사]+고[맺음:고]" || e.verdict != link || link >= 1 {
 		t.Fatal("the same stem at the unit's head with another word after it", e, link)
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})

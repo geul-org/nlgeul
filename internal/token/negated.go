@@ -18,7 +18,7 @@ func (sc *scan) negated(tails []tail) []tail {
 		if v <= 0 {
 			continue
 		}
-		ji := piece{"지", jiName, v, sc.ix.pref(sc.ix.ji.count, "지"), rule.TailPred, false}
+		ji := piece{"지", jiName, v, sc.ix.pref(sc.ix.ji.count, "지"), rule.TailPred, false, ""}
 		ps := append(partsOf(ji, negParts), t.pieces...)
 		out = append(out, tail{start: at, pieces: ps, noYo: t.noYo, close: sc.ix.ji})
 		for _, l := range joined(sc.slots(at, rule.SlotClosing), ps...) {

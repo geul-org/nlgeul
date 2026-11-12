@@ -34,7 +34,7 @@ func (sc *scan) units(j, next int, open bool) []tail {
 		if v <= 0 {
 			continue
 		}
-		pc := piece{e.form, e.name, v, sc.ix.afterPrefs[e.slot == placeBig], rule.TailAux, false}
+		pc := piece{e.form, e.name, v, sc.ix.afterPrefs[e.slot == placeBig], rule.TailAux, false, ""}
 		if sc.numEnds[start] {
 			out = append(out, tail{start: start, pieces: []piece{pc}})
 		}

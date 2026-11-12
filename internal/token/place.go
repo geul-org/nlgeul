@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=selection
-//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph; a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
+//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph (a closing written wrong tells its graph that it is a misspelt form); a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -18,7 +18,7 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	if start < 0 || string(sc.s[start:j]) != e.form {
 		return 0, rule.Piece{}, false
 	}
-	p := rule.Piece{Form: e.form, HasStem: start >= 1 || sc.attach, Slot: e.slot, Next: -1}
+	p := rule.Piece{Form: e.form, HasStem: start >= 1 || sc.attach, Slot: e.slot, Next: -1, Misspelt: e.wrote != ""}
 	switch {
 	case start == 0:
 		return start, p, e.lead == 0

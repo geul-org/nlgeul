@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what extend — every reading that ends with tail t at j: each reading kept at a place before the tail's stem, grown by the word from there, once for each way the tail is read after those letters (as they stand, or as a changed form of a stem of the word table); no word begins or has its stem end inside an atom
+//ff:what extend — every reading that ends with tail t at j: each reading kept at a place before the tail's stem, grown by the word from there, once for each way the tail is read after those letters (as they stand, or as a changed form of a stem of the word table, and when the stem is words bound by a slash or a hyphen with a word written wrong, as the right form of that word); no word begins or has its stem end inside an atom
 package token
 
 func (sc *scan) extend(cands []*path, best [][]*path, t tail, j int) []*path {
@@ -10,6 +10,7 @@ func (sc *scan) extend(cands []*path, best [][]*path, t tail, j int) []*path {
 		for _, read := range sc.variants(b, t) {
 			cands = sc.grown(cands, best[b], read, b, j)
 		}
+		cands = sc.boundTails(cands, best[b], t, b, j)
 	}
 	return cands
 }

@@ -22,7 +22,7 @@ func (sc *scan) nounCopula(t tail) []tail {
 		if string(letter) != c.form || sc.judge(e, at, t.start, facts) <= 0 {
 			continue
 		}
-		pc := piece{c.text, c.name, 1, sc.ix.pref(e.count, "이"), rule.TailCopula, false}
+		pc := piece{c.text, c.name, 1, sc.ix.pref(e.count, "이"), rule.TailCopula, false, ""}
 		out = append(out, tail{start: t.start, pieces: append([]piece{pc}, t.pieces...), noYo: t.noYo, close: t.close, only: string(sc.s[at:t.start]), shown: c.stem, label: e.name, again: e, facts: &facts})
 	}
 	return out

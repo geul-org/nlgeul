@@ -17,10 +17,10 @@ import (
 // back only when the stem stands as a predicate (주 before the modifying
 // 는, not 주 the noun before the particle 는).
 func (sc *scan) wordOf(b, end int, t tail) step {
-	stem, name, v := sc.stemOf(b, t, b == 0 && end == len(sc.s))
-	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: v}
+	stem, name, v, wrote := sc.stemOf(b, t, b == 0 && end == len(sc.s))
+	e := step{end: end, word: Eojeol{Parts: []Part{{Text: stem, Stem: true}}, End: end}, verdict: v, typo: wrote != ""}
 	if v > 0 {
-		e.word.Parts[0].Names, e.word.Parts[0].Written = namesOf(name), t.wrote
+		e.word.Parts[0].Names, e.word.Parts[0].Written = namesOf(name), wrote
 	} else {
 		e.verdict = sc.unlisted(b, end, stem, t)
 	}
@@ -31,8 +31,9 @@ func (sc *scan) wordOf(b, end int, t tail) step {
 	last := ""
 	for _, p := range t.pieces {
 		hidden, shown := hiddenOf(p.text)
-		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen})
+		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen, Written: p.wrote})
 		e.verdict, e.pref, last = math.Min(e.verdict, p.verdict), e.pref+p.pref, p.names
+		e.typo = e.typo || p.wrote != ""
 	}
 	e.sig = e.word.String()
 	e.adn = strings.HasPrefix(last, adnPrefix)

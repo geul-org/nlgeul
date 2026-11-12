@@ -31,7 +31,7 @@ func (sc *scan) copulas(tails []tail, chained bool) []tail {
 		if v <= 0 {
 			continue
 		}
-		pc := piece{"이", e.name, v, sc.ix.pref(e.count, "이"), rule.TailCopula, e == sc.ix.dropped}
+		pc := piece{"이", e.name, v, sc.ix.pref(e.count, "이"), rule.TailCopula, e == sc.ix.dropped, ""}
 		if pc.unseen {
 			pc.text = "(이)"
 		}

@@ -22,7 +22,7 @@ func (sc *scan) honors(p piece, start int, bare bool) []tail {
 	}
 	var out []tail
 	if v := sc.judge(e, at, start, facts); v > 0 {
-		h := piece{"시", honorName, v, sc.ix.pref(honorCount, "시"), rule.TailPred, false}
+		h := piece{"시", honorName, v, sc.ix.pref(honorCount, "시"), rule.TailPred, false, ""}
 		out = append(out, tail{start: at, pieces: []piece{h, p}, gate: gate, head: headEuOpen | headS})
 		out = append(out, withGate(sc.linked(at, []piece{h, p}, honorName, false), gate)...)
 	}

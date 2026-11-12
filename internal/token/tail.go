@@ -15,23 +15,27 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // syllable, not by the letter that stands there. wrote is the letters of
 // a stem that the word table gives as a wrong way to write another
 // word (shown is that word, and kinds the kinds the table gives the
-// wrong form); "" for any other tail.
+// wrong form); "" for any other tail. boundTypo tells that a stem of words
+// bound by a slash or a hyphen is read with the words of it that are a
+// wrong way to write another word as the right form (the tail otherwise
+// reads the stem as it stands).
 type tail struct {
-	start  int
-	pieces []piece
-	base   rune
-	noYo   bool
-	close  *entry
-	only   string
-	shown  string
-	label  string
-	as     string
-	weight float64
-	gate   *entry
-	again  *entry
-	facts  *rule.Piece
-	head   int
-	irr    int
-	wrote  string
-	kinds  int
+	start     int
+	pieces    []piece
+	base      rune
+	noYo      bool
+	close     *entry
+	only      string
+	shown     string
+	label     string
+	as        string
+	weight    float64
+	gate      *entry
+	again     *entry
+	facts     *rule.Piece
+	head      int
+	irr       int
+	wrote     string
+	kinds     int
+	boundTypo bool
 }

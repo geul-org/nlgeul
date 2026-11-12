@@ -27,8 +27,9 @@ package rule
 // the piece fused into it left no trace. Closed tells that the piece stands right on its stem and ends its
 // unit, and that a full stop, a question mark or an exclamation mark
 // stands right after it in the unit's letters. Misspelt tells that the
-// stem's letters are what the word table gives as a wrong way to write
-// another word, whose form the stem then is.
+// stem's or the marker's letters are a wrong way to write another word (a
+// stem the word table gives so, whose form the stem then is; a closing
+// of the table of closings written wrong, whose form the closing then is).
 type Piece struct {
 	Form     string
 	HasStem  bool

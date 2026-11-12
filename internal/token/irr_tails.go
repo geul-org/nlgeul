@@ -16,7 +16,7 @@ func (sc *scan) irrTails(j int, more bool) []tail {
 		for _, a := range sc.ix.irrEnds[sc.s[start-1]] {
 			p.Prev = []rune(a.stem)[0]
 			if v := sc.judge(e, start, j, p); v > 0 {
-				pc := piece{string(sc.s[start:j]), e.name, v, sc.ix.pref(e.count, e.form), tailOf(e), false}
+				pc := sc.entryPiece(e, string(sc.s[start:j]), v)
 				out = append(out, tail{start: start, pieces: partsOf(pc, splits[e.name]), head: e.head, irr: a.kind, noYo: e.noYo, close: e})
 			}
 		}

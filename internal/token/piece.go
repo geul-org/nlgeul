@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what piece — one marker read at one place: its text, the names of the graphs that stand for it, their highest verdict and its preference, what kind of tail it makes after a stem, and whether it leaves no trace in the letters
+//ff:what piece — one marker read at one place: its text, the names of the graphs that stand for it, their highest verdict and its preference, what kind of tail it makes after a stem, whether it leaves no trace in the letters, and for a marker written wrong the letters it is written with
 package token
 
 type piece struct {
@@ -9,4 +9,5 @@ type piece struct {
 	pref    float64
 	tail    int
 	unseen  bool
+	wrote   string
 }

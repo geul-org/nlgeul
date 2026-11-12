@@ -18,7 +18,7 @@ func (sc *scan) fixed(j, next int) []tail {
 		if v <= 0 {
 			continue
 		}
-		pc := piece{c.text, c.name, v, sc.ix.pref(e.count, c.text), tailOf(e), false}
+		pc := piece{c.text, c.name, v, sc.ix.pref(e.count, c.text), tailOf(e), false, ""}
 		read := tail{start: j, pieces: []piece{pc}, only: c.form, shown: c.stem, label: e.name}
 		if c.adn {
 			read.again, read.facts = e, &facts

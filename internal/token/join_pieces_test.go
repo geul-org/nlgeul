@@ -5,11 +5,11 @@ package token
 import "testing"
 
 func TestJoinPieces(t *testing.T) {
-	a := piece{"이", "주격:이", 1, -1.2, 0, false}
+	a := piece{"이", "주격:이", 1, -1.2, 0, false, ""}
 	if joinPieces(piece{}, a) != a {
 		t.Fatal("first")
 	}
-	if got := joinPieces(a, piece{"이", "보격:이", 0.5, -1.0, 0, false}); got != (piece{"이", "주격:이|보격:이", 1, -1.0, 0, false}) {
+	if got := joinPieces(a, piece{"이", "보격:이", 0.5, -1.0, 0, false, ""}); got != (piece{"이", "주격:이|보격:이", 1, -1.0, 0, false, ""}) {
 		t.Fatal(got)
 	}
 }

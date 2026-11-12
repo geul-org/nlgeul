@@ -22,7 +22,7 @@ func TestNounCopula(t *testing.T) {
 	}
 	ni := tail{start: 2, pieces: []piece{{text: "니", names: "맺음:니"}}, close: &entry{name: "맺음:니"}, noYo: true}
 	sc := adn("갈테니", 1)
-	stem := piece{"(이)", copulaName, 1, sc.ix.pref(copulaCount, "이"), rule.TailCopula, false}
+	stem := piece{"(이)", copulaName, 1, sc.ix.pref(copulaCount, "이"), rule.TailCopula, false, ""}
 	got := sc.nounCopula(ni)
 	if len(got) != 1 || got[0].start != 2 || len(got[0].pieces) != 2 || got[0].pieces[0] != stem || got[0].pieces[1] != ni.pieces[0] || got[0].close != ni.close || !got[0].noYo || len(ni.pieces) != 1 {
 		t.Fatal(got)

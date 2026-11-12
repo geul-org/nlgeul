@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what fusedTails — the tails a piece fused into the stem's last syllable begins: one for each stem the syllable may come from, with the piece written in brackets as it was before fusing; an 어/아 that leaves no trace in the letters, and a lone final consonant under a syllable other than the few it is always read under, ask with a word table for a predicate's stem of the table before them (asksStem)
+//ff:what fusedTails — the tails a piece fused into the stem's last syllable begins: one for each stem the syllable may come from, with the piece written in brackets as it was before fusing (a closing written wrong is the right closing, as it is printed); an 어/아 that leaves no trace in the letters, and a lone final consonant under a syllable other than the few it is always read under, ask with a word table for a predicate's stem of the table before them (asksStem)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -9,6 +9,9 @@ func (sc *scan) fusedTails(pc piece, e *entry, start int) []tail {
 	for _, o := range sc.restoresAt(start, e.lead) {
 		p := pc
 		p.text = "(" + o.piece + ")" + e.form
+		if e.wrote != "" {
+			p.text = e.right
+		}
 		p.pref = sc.ix.fusedPref(e, o.piece, pc.pref)
 		p.unseen = e.lead == rule.LeadVowel && e.form == "" && (!rule.FusedVowel(sc.s[start-1], false) || o.stem == sc.s[start-1])
 		t := tail{start: start, pieces: []piece{p}, base: o.stem, noYo: e.noYo, head: e.head}

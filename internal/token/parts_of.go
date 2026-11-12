@@ -8,7 +8,7 @@ func partsOf(pc piece, parts []split) []piece {
 	}
 	var out []piece
 	for i, p := range parts {
-		q := piece{p.text, p.name, pc.verdict, 0, pc.tail, false}
+		q := piece{p.text, p.name, pc.verdict, 0, pc.tail, false, ""}
 		if i == 0 {
 			q.pref = pc.pref
 		}

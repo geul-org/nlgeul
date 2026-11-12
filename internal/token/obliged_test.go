@@ -10,8 +10,8 @@ import (
 )
 
 func TestObliged(t *testing.T) {
-	gyet := piece{"겠", guessName, 0.5, -3, rule.TailPred, false}
-	da := piece{"다", "맺음:다", 1, -1, rule.TailPred, false}
+	gyet := piece{"겠", guessName, 0.5, -3, rule.TailPred, false, ""}
+	da := piece{"다", "맺음:다", 1, -1, rule.TailPred, false, ""}
 	end := &entry{name: "맺음:다"}
 	got := scanOf("가야겠다").obliged([]tail{{start: 2, pieces: []piece{gyet, da}, noYo: true, close: end}})
 	if len(got) != 2 || got[0].base != '가' || got[1].base != '그' {
@@ -22,7 +22,7 @@ func TestObliged(t *testing.T) {
 		if l.start != 1 || !l.noYo || l.close != end || len(ps) != 4 || ps[0].text != "(아)야" || ps[0].names != "맺음:어야(합침)" || ps[3] != da {
 			t.Fatal(l)
 		}
-		if ps[1] != (piece{"(하)", "보조:하", 0.5, -3, rule.TailPred, false}) || ps[2] != (piece{"겠", guessName, 0.5, 0, rule.TailPred, false}) {
+		if ps[1] != (piece{"(하)", "보조:하", 0.5, -3, rule.TailPred, false, ""}) || ps[2] != (piece{"겠", guessName, 0.5, 0, rule.TailPred, false, ""}) {
 			t.Fatal("(하) between the closing and 겠, with 겠's preference", ps)
 		}
 	}
@@ -41,7 +41,7 @@ func TestObliged(t *testing.T) {
 			t.Errorf("%s: %v", c.text, got)
 		}
 	}
-	slot := scanOf("갔어야겠지").obliged([]tail{{start: 3, pieces: []piece{gyet, {"지", "맺음:지", 1, -1, rule.TailPred, false}}, close: end}})
+	slot := scanOf("갔어야겠지").obliged([]tail{{start: 3, pieces: []piece{gyet, {"지", "맺음:지", 1, -1, rule.TailPred, false, ""}}, close: end}})
 	past := func(l tail) bool {
 		return l.start == 1 && l.base == '가' && len(l.pieces) == 5 && l.pieces[0].names == "선어말:ㅆ" && l.pieces[1].names == "맺음:어야" && l.pieces[2].text == "(하)"
 	}
@@ -58,7 +58,7 @@ func TestObliged(t *testing.T) {
 		{"가야겠다", tail{start: 2, pieces: []piece{gyet, da}, as: numName}},
 		{"가야겠다", tail{start: 2, pieces: []piece{gyet, da}, irr: irrL}},
 		{"가야겠다", tail{start: 2, pieces: []piece{gyet}}},
-		{"가야겠다", tail{start: 2, pieces: []piece{{"었", "선어말:었", 1, -1, rule.TailPred, false}, da}}},
+		{"가야겠다", tail{start: 2, pieces: []piece{{"었", "선어말:었", 1, -1, rule.TailPred, false, ""}, da}}},
 		{"야겠다", tail{start: 1, pieces: []piece{gyet, da}}},
 		{"먹고겠다", tail{start: 2, pieces: []piece{gyet, da}}},
 	}

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what markerGraph — the judgment graph of one marker reading, stamped from its table row and its exception list: the claim "this token sequence is this marker" and the structural exceptions against it
+//ff:what markerGraph — the judgment graph of one marker reading, stamped from its table row and its exception list: the claim "this token sequence is this marker" and the structural exceptions against it (and for a closing written wrong the rebuttal of a misspelt form)
 package token
 
 import (
@@ -21,7 +21,9 @@ import (
 // ends a sentence closing the unit after it; a closing written only
 // onto a Hangul stem (hangulBound) whether a Hangul syllable stands
 // before it; and a form that ends a
-// closed-set word yields to that word. The number of edges is returned.
+// closed-set word yields to that word. The graph of a closing written
+// wrong (wrote) also rebuts its claim as a misspelt form, as the graphs
+// of the kinds of stem do, and no exception lifts that. The number of edges is returned.
 func markerGraph(e *entry, whole []string, lexed bool) int {
 	g := toulmin.NewGraph(e.name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
@@ -70,6 +72,9 @@ func markerGraph(e *entry, whole []string, lexed bool) int {
 	if len(whole) > 0 {
 		except(g, rule.Listed, whyWhole, listed("wholeWords", rule.ListWord, whole)).Attacks(claim)
 		edges++
+	}
+	if e.wrote != "" {
+		edges += misspeltRebuttal(g, claim)
 	}
 	e.g = g
 	return edges

@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, its observed count, and its judgment graph
+//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
 package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -14,7 +14,12 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // that a closing takes the link vowel 으 after a consonant, and head
 // what a slot or closing begins with (head…). loose marks a form read
 // where the tables do not let it attach (은 after a stem's ㄹ): its
-// graph rebuts it.
+// graph rebuts it. wrote is, for an entry that reads a closing written
+// wrong (typoClosings), its written form with its lead (ㄹ께, 을께, 읍니다),
+// and right the right closing as it is printed ((ㄹ)게, 습니다); both
+// are "" for any other entry. Such an entry has the name, the class and
+// every way of attaching of the right closing, so that each list and
+// exception that asks for the name holds for it as it does for the right one.
 type entry struct {
 	name  string
 	form  string
@@ -35,5 +40,7 @@ type entry struct {
 	tail  int
 	gate  *entry
 	count int
+	wrote string
+	right string
 	g     *toulmin.Graph
 }

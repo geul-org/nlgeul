@@ -21,7 +21,7 @@ func (sc *scan) helped(tails []tail) []tail {
 		if !ok || !sc.ix.lexed || at < 1 || t.only != "" || t.shown != "" || t.as != "" || t.irr != 0 || (t.gate != nil && t.gate != sc.ix.pred) {
 			continue
 		}
-		rest := append([]piece{{string(sc.helper(t)), name, 1, 0, rule.TailPred, false}}, t.pieces...)
+		rest := append([]piece{{string(sc.helper(t)), name, 1, 0, rule.TailPred, false, ""}}, t.pieces...)
 		for i := range rest {
 			rest[i].tail = rule.TailPred
 		}
