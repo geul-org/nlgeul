@@ -39,6 +39,13 @@ var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보�
 // table: only the readings listed are held back.
 var leading = []string{"보조사:이야", "보조사:야"}
 
+// echoes are the particle readings whose letters, right on a stem that
+// ends in a syllable with no final consonant and before the auxiliary 요,
+// are those of a closing written wrong: 고양이에요 has 에 and 요 as
+// well as 예요 written 에요. The reading is rebutted there (forceClash)
+// and stays. A closed table: only the readings listed are rebutted.
+var echoes = []string{"부사격:에"}
+
 // vocName is the vocative 야, written onto the name of who is called
 // (철수야). A dependent noun names no one that can be called, so the
 // word before it must pass the graph callGate.

@@ -3,5 +3,5 @@
 package token
 
 func (sc *scan) readGroup(class, j, next int, more bool) (map[string]piece, map[string]*entry, map[string]int) {
-	return sc.groupAt(class, j, next, more, false)
+	return sc.groupAt(class, j, next, more, false, false)
 }

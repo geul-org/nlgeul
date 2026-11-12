@@ -13,7 +13,7 @@ func TestBoundTails(t *testing.T) {
 	kept := []*path{{verdict: 1}}
 	eul := []piece{{"을", "목적격:을", 1, -1, rule.TailCase, false, ""}}
 	got := sc.boundTails(nil, kept, tail{start: 5, pieces: eul}, 0, 6)
-	if len(got) != 1 || got[0].sig != "입력/역할[대비:/,오타정정:입력/역활]+을[목적격:을]" || !got[0].typo {
+	if len(got) != 1 || got[0].sig != "입력/역할[대비:/,오타정정:입력/역활]+을[목적격:을]" {
 		t.Fatal(got)
 	}
 	for n, tl := range []tail{{start: 5, pieces: eul, base: '활'}, {start: 5, pieces: eul, shown: "x"}, {start: 5, pieces: eul, as: numName}, {start: 5, pieces: eul, irr: irrS}} {

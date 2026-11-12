@@ -21,7 +21,7 @@ func TestLoadWordsTypo(t *testing.T) {
 	if _, ok := lex["맞기"]; ok || len(lex) != len(plain)+3+8 || total != plainTotal+34000+80000+6400+22100 {
 		t.Fatal("a misspelt line is no word", len(lex), len(plain), total, plainTotal)
 	}
-	if got := typos["맞기"]; len(got) != 1 || got[0] != (typo{"맡기", kindVerb}) || len(typos) != 5 {
+	if got := typos["맞기"]; len(got) != 1 || got[0] != (typo{"맡기", kindVerb}) || len(typos) != 4 {
 		t.Fatal(typos)
 	}
 	if got := typos["역활"]; len(got) != 1 || got[0] != (typo{"역할", kindNominal}) {

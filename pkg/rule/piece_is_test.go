@@ -35,6 +35,8 @@ func TestPieceIs(t *testing.T) {
 		{Piece{Form: "솥", HasStem: true, Next: -1}, PieceSole, -1},
 		{Piece{Misspelt: true}, PieceMisspelt, 1},
 		{Piece{HasStem: true}, PieceMisspelt, -1},
+		{Piece{YoOpen: true}, PieceYoOpen, 1},
+		{Piece{HasStem: true, Misspelt: true}, PieceYoOpen, -1},
 		{Piece{Whole: true}, PieceNum | PieceWhole, 1},
 		{Piece{HasStem: true, Adn: true, Next: -1}, PieceLone | PieceMarked, -1},
 	}

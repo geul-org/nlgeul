@@ -30,6 +30,11 @@ package rule
 // stem's or the marker's letters are a wrong way to write another word (a
 // stem the word table gives so, whose form the stem then is; a closing
 // of the table of closings written wrong, whose form the closing then is).
+// YoOpen tells that the auxiliary particle 요 stands right after the
+// piece and that the piece stands right on its stem, the stem ending in a
+// Hangul syllable with no final consonant, or right after the suffix 이
+// that stands on a stem (에요 after 고양이 and after 고양+이: the letters
+// are those of the closing 예요 written wrong).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -55,4 +60,5 @@ type Piece struct {
 	Closed   bool
 	Same     bool
 	Misspelt bool
+	YoOpen   bool
 }

@@ -6,8 +6,8 @@ import "testing"
 
 func TestGroupAtWide(t *testing.T) {
 	sc := wordsScan("마당선", layerCost)
-	now, _, _ := sc.groupAt(classParticle, 3, -1, false, false)
-	more, _, _ := sc.groupAt(classParticle, 3, -1, true, false)
+	now, _, _ := sc.groupAt(classParticle, 3, -1, false, false, false)
+	more, _, _ := sc.groupAt(classParticle, 3, -1, true, false, false)
 	if len(now) != 1 || len(more) != 1 {
 		t.Fatal(now, more)
 	}

@@ -23,7 +23,7 @@ func TestStemOf(t *testing.T) {
 		t.Fatal(stem, name, v)
 	}
 	ts := typoScan("맞겨", layerCost)
-	if stem, name, v, _ := ts.stemOf(0, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 8}}}, false); stem != "맡기" || name != "열쇠:동사" || v <= 0 || v < 0.59 || v > 0.61 {
+	if stem, name, v, _ := ts.stemOf(0, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 8}}}, false); stem != "맡기" || name != "열쇠:동사" || v <= 0 || v < 0.54 || v > 0.56 {
 		t.Fatal("a misspelt stem is judged as a misspelt form", stem, name, v)
 	}
 	if _, name, v, _ := ts.stemOf(0, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 2}}}, false); v > 0 || name != "" {

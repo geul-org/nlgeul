@@ -17,7 +17,7 @@ func TestWordOfTypo(t *testing.T) {
 	if stem.Text != "맡기" || stem.Written != "맞기" || !stem.Stem || !reflect.DeepEqual(stem.Names, []Name{{"열쇠", "동사"}}) {
 		t.Fatal(stem)
 	}
-	if e.sig != "맡기[열쇠:동사,오타정정:맞기]+(어)[맺음:어(합침)]" || e.verdict < 0.59 || e.verdict > 0.61 {
+	if e.sig != "맡기[열쇠:동사,오타정정:맞기]+(어)[맺음:어(합침)]" || e.verdict < 0.54 || e.verdict > 0.56 {
 		t.Fatal(e.sig, e.verdict)
 	}
 	if e.word.Parts[1].Written != "" {

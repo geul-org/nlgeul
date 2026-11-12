@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what path — a reading of a unit up to one place, as a chain of words: the last word, the reading before it, the whole printed so far, the least verdict and the summed preference, and whether any word of it is read from letters written wrong
+//ff:what path — a reading of a unit up to one place, as a chain of words: the last word, the reading before it, the whole printed so far, and the least verdict and the summed preference
 package token
 
 type path struct {
@@ -8,5 +8,4 @@ type path struct {
 	sig     string
 	verdict float64
 	pref    float64
-	typo    bool
 }

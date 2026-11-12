@@ -11,7 +11,6 @@ func (sc *scan) loneOf(t tail, end int) step {
 		hidden, shown := hiddenOf(p.text)
 		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Names: namesOf(p.names), Unseen: p.unseen, Written: p.wrote})
 		e.verdict, e.pref = math.Min(e.verdict, p.verdict), e.pref+p.pref
-		e.typo = e.typo || p.wrote != ""
 	}
 	e.sig = e.word.String()
 	return e

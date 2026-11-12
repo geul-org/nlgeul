@@ -18,11 +18,6 @@ const (
 // here.
 const keyVowel = 'ㅓ'
 
-// beam is how many partial readings are kept at each place while a
-// unit is read, and how many readings of a unit are sent up. Nothing
-// records why it is 16 (no measurement, no decision).
-const beam = 16
-
 // syllables is the number of Hangul syllables: with no key table, a
 // stem syllable may be any of them, so each costs log10(1/syllables)
 // of preference.
@@ -111,14 +106,14 @@ const forceClash = 0.5
 // forceTypo is the force of the rebuttal "the letters are a misspelling
 // of the word" against a stem that the word table gives as a wrong way
 // to write another word (misspeltRebuttal). With only that rebuttal the
-// verdict is 2/(1+0.24)-1, about 0.61, below the verdict of the word
+// verdict is 2/(1+0.28)-1, about 0.56, below the verdict of the word
 // written right, so that the right reading of the same letters comes
 // first. forceClash (먹아, 줄은) is not used: those forms
 // have another reading of the same letters that fits the norm, and the
 // reading is sent behind it; a misspelt stem has no right reading of
 // those letters to give way to. It is a placeholder, not a measured
 // value.
-const forceTypo = 0.24
+const forceTypo = 0.28
 
 // The costs of structure, in the units of preference (log10). They are
 // placeholders, not measured values: nothing in the tables says how

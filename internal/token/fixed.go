@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what fixed — the fused forms with a fixed first word that end at j (이게 → 이것+(이)): each is a word and the particle under it, judged as that particle is before the one that follows; a form read only right after a modifying closing is judged here by whether some reading has such a word end before it, and keeps its graph and facts to be asked again on each reading (again)
+//ff:what fixed — the fused forms with a fixed first word that end at j (이게 → 이것+(이)): each is a word (written wrong, as 껄 for 걸, when the form is a wrong way to write it: the letters and the kinds of the closed-set word come with the read) and the particle under it, judged as that particle is before the one that follows; a form read only right after a modifying closing is judged here by whether some reading has such a word end before it, and keeps its graph and facts to be asked again on each reading (again)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -20,6 +20,9 @@ func (sc *scan) fixed(j, next int) []tail {
 		}
 		pc := piece{c.text, c.name, v, sc.ix.pref(e.count, c.text), tailOf(e), false, ""}
 		read := tail{start: j, pieces: []piece{pc}, only: c.form, shown: c.stem, label: e.name}
+		if c.wrote != "" {
+			read.wrote, read.kinds = c.wrote, sc.ix.closed[c.stem]
+		}
 		if c.adn {
 			read.again, read.facts = e, &facts
 		}

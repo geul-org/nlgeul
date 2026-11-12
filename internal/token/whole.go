@@ -12,11 +12,14 @@ func (sc *scan) whole(cands []*path, best [][]*path, j int) []*path {
 			continue
 		}
 		e, adn, det := sc.wordOf(b, j, tail{start: j}), sc.afterAdn(b, tail{start: j}, false), sc.afterAdn(b, tail{start: j}, true)
+		reads := sc.numberReads(e, b, j)
 		for _, p := range best[b] {
 			if (adn && p.last.adn) || (det && p.last.det) {
 				continue
 			}
-			cands = append(cands, grow(p, e))
+			for _, r := range reads {
+				cands = append(cands, grow(p, r))
+			}
 			sc.detEnds[j] = sc.detEnds[j] || e.det
 		}
 	}

@@ -1,8 +1,9 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReadUnit — a unit's bundles as lines; with a trace the judgments first; the full stop that closes the unit as a last line; a unit of signs only comes back as the bundles of its signs (...[줄임표]; ->, signs no reading stands for, as their letters with no name); every reading the search keeps is printed (아버지가방에들어가신다: a contest of as many branches as the beam holds, the least last); a unit that begins with a sign of a pair keeps the sign as its stem, once for each way it is read; the signs before and after the letters are lines of their own; the lines of the graphs that judged the head come first with a trace
+//ff:what TestReadUnit — a unit's bundles as lines; with a trace the judgments first; the full stop that closes the unit as a last line; a unit of signs only comes back as the bundles of its signs (...[줄임표]; ->, signs no reading stands for, as their letters with no name); every reading the search keeps is printed (아버지가방에들어가신다: a contest of every reading no graph rejects, more than any fixed number kept before, the whole unit as one new word among them); a unit that begins with a sign of a pair keeps the sign as its stem, once for each way it is read; the signs before and after the letters are lines of their own; the lines of the graphs that judged the head come first with a trace
 package token
 
 import (
+	"slices"
 	"strings"
 	"testing"
 )
@@ -49,7 +50,9 @@ func TestReadUnit(t *testing.T) {
 	if got := lines(ix, unit{text: "(", head: 1, name: pairName, reads: []pairing{{openName, 1}}}, false); len(got) != 1 || got[0] != "([열기:1]" {
 		t.Fatal("an opening sign alone", got)
 	}
-	if got := lines(ix, unit{text: long}, false); len(got) != 1+beam || !strings.HasPrefix(got[0], long+"\t경합(") || !strings.HasPrefix(got[beam], "  아버지+가[주격:가|보격:가] 방에+들[접미:들] 어가신+다[맺음:다]\t") {
+	if got := lines(ix, unit{text: long}, false); len(got) <= 1+16 || !strings.HasPrefix(got[0], long+"\t경합(") || !slices.ContainsFunc(got, func(l string) bool {
+		return strings.HasPrefix(l, "  아버지+가[주격:가|보격:가] 방에+들[접미:들] 어가신+다[맺음:다]\t")
+	}) || !slices.ContainsFunc(got, func(l string) bool { return strings.HasPrefix(l, "  "+long+"\t") }) {
 		t.Fatal("every reading the search keeps", got)
 	}
 }

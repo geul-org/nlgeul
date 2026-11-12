@@ -6,7 +6,7 @@ import "testing"
 
 func TestGroupAtTypo(t *testing.T) {
 	sc := typoScan("거에요", layerCost)
-	got, from, _ := sc.groupAt(classClosing, 3, -1, false, false)
+	got, from, _ := sc.groupAt(classClosing, 3, -1, false, false, false)
 	var right, wrong piece
 	for key, pc := range got {
 		if from[key].wrote == "" && pc.text == "에요" {
@@ -23,7 +23,7 @@ func TestGroupAtTypo(t *testing.T) {
 		t.Fatal("the closing written wrong", got)
 	}
 	sc = typoScan("할께", layerCost)
-	got, _, starts := sc.groupAt(classClosing, 2, -1, false, false)
+	got, _, starts := sc.groupAt(classClosing, 2, -1, false, false, false)
 	found := false
 	for key, pc := range got {
 		if pc.wrote == "ㄹ께" {

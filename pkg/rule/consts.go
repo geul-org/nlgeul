@@ -140,6 +140,7 @@ const (
 	PieceClosed               // it stands right on its stem and ends its unit, and a sign that ends a sentence (. ? !) stands right after it
 	PieceSame                 // it is a restored syllable that stands in the letters as it is (the piece fused into it left no trace)
 	PieceMisspelt             // it is a stem or a marker whose letters are a wrong way to write another word (the word table gives the stem so; the marker is a closing of the table of closings written wrong)
+	PieceYoOpen               // the particle 요 stands right after it, and it stands right on a stem that ends in a Hangul syllable with no final consonant or right after the suffix 이 on a stem
 )
 
 // Yes/no facts of a sign that MarkIs tests.

@@ -12,6 +12,18 @@ const (
 	numGraph = "수:숫자열"
 )
 
+// hexName and binForm name the other ways a run reads as a number: a
+// run that is 0x and then hexadecimal digits is the number named
+// 수:16진법 (the only reading of it); a number of digits 0 and 1 only
+// is read a second time as 수:2진법. The prefix is the lower case 0x
+// only.
+const (
+	hexName  = "수:16진법"
+	binForm  = "2진법"
+	hexLead  = "0x"
+	hexDigit = "0123456789abcdefABCDEF"
+)
+
 // signShapes give, sign by sign, the readings that join runs of digits
 // and the shape each asks of them, in the order they are named.
 // 자릿수 is shown as a number (shownAs).

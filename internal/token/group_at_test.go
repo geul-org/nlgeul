@@ -6,8 +6,8 @@ import "testing"
 
 func TestGroupAt(t *testing.T) {
 	sc := scanOf("학교야")
-	open, _, _ := sc.groupAt(classParticle, 3, -1, false, false)
-	shut, _, starts := sc.groupAt(classParticle, 3, -1, false, true)
+	open, _, _ := sc.groupAt(classParticle, 3, -1, false, false, false)
+	shut, _, starts := sc.groupAt(classParticle, 3, -1, false, true, false)
 	if len(open) != 2 || len(shut) != 1 {
 		t.Fatal(open, shut)
 	}
@@ -17,14 +17,14 @@ func TestGroupAt(t *testing.T) {
 		}
 	}
 	sc = scanOf("마당이야")
-	open, _, _ = sc.groupAt(classParticle, 4, -1, false, false)
-	shut, _, _ = sc.groupAt(classParticle, 4, -1, false, true)
+	open, _, _ = sc.groupAt(classParticle, 4, -1, false, false, false)
+	shut, _, _ = sc.groupAt(classParticle, 4, -1, false, true, false)
 	if _, ok := shut["·이야·7"]; ok || open["·이야·7"].names != "보조사:이야" {
 		t.Fatal(open, shut)
 	}
 	sc = scanOf("마당도")
-	open, _, _ = sc.groupAt(classParticle, 3, -1, false, false)
-	shut, _, _ = sc.groupAt(classParticle, 3, -1, false, true)
+	open, _, _ = sc.groupAt(classParticle, 3, -1, false, false, false)
+	shut, _, _ = sc.groupAt(classParticle, 3, -1, false, true, false)
 	if len(open) != 1 || len(shut) != 1 {
 		t.Fatal(open, shut)
 	}

@@ -20,7 +20,9 @@ import (
 // of it (leading) whether it stands right on its stem with a sign that
 // ends a sentence closing the unit after it; a closing written only
 // onto a Hangul stem (hangulBound) whether a Hangul syllable stands
-// before it; and a form that ends a
+// before it; a particle whose letters are a closing written wrong's
+// (echoes) the rebuttal that it stands right on a stem with no final
+// consonant before 요; and a form that ends a
 // closed-set word yields to that word. The graph of a closing written
 // wrong (wrote) also rebuts its claim as a misspelt form, as the graphs
 // of the kinds of stem do, and no exception lifts that. The number of edges is returned.
@@ -63,6 +65,10 @@ func markerGraph(e *entry, whole []string, lexed bool) int {
 	}
 	if e.head&headWhole != 0 {
 		g.Counter(rule.PieceClash).Attacks(claim, forceClash)
+		edges++
+	}
+	if slices.Contains(echoes, e.name) {
+		g.Counter(rule.PieceIs).With(fact(rule.PieceYoOpen)).Attacks(claim, forceClash)
 		edges++
 	}
 	if e.loose {

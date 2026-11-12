@@ -15,7 +15,7 @@ func TestMarkerGraph(t *testing.T) {
 		edges int
 	}{
 		{entry{name: "보조사:은", form: "은", class: classParticle, after: rule.AfterBatchim}, nil, 3},
-		{entry{name: "부사격:에", form: "에", class: classParticle}, nil, 2},
+		{entry{name: "부사격:에", form: "에", class: classParticle}, nil, 3},
 		{entry{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, inner: true}, nil, 4},
 		{entry{name: "선어말:었", form: "었", class: classSlot}, nil, 2},
 		{entry{name: "꾸밈:ㄴ", class: classClosing, lead: rule.JongN}, nil, 2},

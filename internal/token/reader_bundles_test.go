@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a part of two readings, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only (named, as ...), and a unit with no space whose readings all agree on one cut only (after 에서) come up as the structure says; a stretch holds every way its unit's readings read it (고양이가 five, the new word whole last)
+//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a part of two readings, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only (named, as ...), and a unit with no space whose readings agree on no cut come up as the structure says, as one stretch holding every way the unit is read (none dropped for a limit), best first
 package token
 
 import (
@@ -112,7 +112,8 @@ func TestReaderBundles(t *testing.T) {
 		t.Fatal(err)
 	}
 	e := bare.Bundles("고양이가마당에서물을마신다")
-	if len(e) != 2 || e[0].Text != "고양이가마당에서" || e[1].Text != "물을마신다" || e[0].Unit != 0 || e[1].Unit != 0 || !e[0].Contest() || !e[1].Contest() || len(e[1].Branches) != 4 {
-		t.Fatalf("a unit cut where all its readings agree: %+v", e)
+	right := "고양이+가[주격:가|보격:가] 마당+에서[주격:에서|부사격:에서] 물+을[목적격:을] 마신+다[맺음:다]"
+	if len(e) != 1 || e[0].Text != "고양이가마당에서물을마신다" || e[0].Unit != 0 || !e[0].Contest() || len(e[0].Branches) < 4 || !hasBranch(e[0].Branches, right) || !branchesInOrder(e[0].Branches) {
+		t.Fatalf("a unit whose readings agree on no cut is one stretch: %+v", e)
 	}
 }

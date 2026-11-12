@@ -37,8 +37,8 @@ func TestAddFused(t *testing.T) {
 	lexed.addClosings()
 	lexed.addSlots()
 	lexed.addFused()
-	if len(lexed.fixed) != len(contracts)+len(shortPronouns) || len(lexed.contracts) != len(lexed.fixed) || len(ix.contracts) != len(contracts) || lexed.fixed[len(contracts)].name != "줄임:난" {
-		t.Fatal("with a word table the one-syllable pronouns are read too", len(lexed.fixed))
+	if len(lexed.fixed) != len(contracts)+len(shortPronouns)+len(typoContracts) || len(lexed.contracts) != len(lexed.fixed) || len(ix.contracts) != len(contracts) || lexed.fixed[len(contracts)].name != "줄임:난" || lexed.fixed[len(contracts)+len(shortPronouns)].name != "줄임:껀" {
+		t.Fatal("with a word table the one-syllable pronouns and the forms of 거 written with 꺼 are read too", len(lexed.fixed))
 	}
 	fixedOf := func(form string) *entry {
 		return ix.fixed[slices.IndexFunc(ix.contracts, func(c contract) bool { return c.form == form })]

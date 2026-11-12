@@ -8,7 +8,7 @@ func TestWholeTypos(t *testing.T) {
 	sc := typoScan("역활", layerCost)
 	best := [][]*path{{{verdict: 1}}, nil, nil}
 	got := sc.wholeTypos(nil, best, 0, 2)
-	if len(got) != 1 || got[0].sig != "역할[열쇠:체언,오타정정:역활]" || !got[0].typo {
+	if len(got) != 1 || got[0].sig != "역할[열쇠:체언,오타정정:역활]" {
 		t.Fatal(got)
 	}
 	if got := sc.wholeTypos(nil, [][]*path{nil, nil, nil}, 0, 2); len(got) != 0 {

@@ -7,11 +7,14 @@ func (sc *scan) grown(cands []*path, kept []*path, t tail, b, j int) []*path {
 		return cands
 	}
 	e, adn, det := sc.wordOf(b, j, t), sc.afterAdn(b, t, false), sc.afterAdn(b, t, true)
+	reads := sc.numberReads(e, b, t.start)
 	for _, p := range kept {
 		if e.verdict <= 0 || !sc.again(t, p.last.adn) || (adn && p.last.adn) || (det && p.last.det) {
 			continue
 		}
-		cands = append(cands, grow(p, e))
+		for _, r := range reads {
+			cands = append(cands, grow(p, r))
+		}
 		sc.adnEnds[j] = sc.adnEnds[j] || e.adn
 	}
 	return cands

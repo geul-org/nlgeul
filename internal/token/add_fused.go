@@ -32,7 +32,7 @@ func (ix *index) addFused() {
 	ix.honor, ix.eu, ix.neg, ix.ji = ix.named('시', honorName), rows[0], rows[1], ix.named('지', jiName)
 	ix.contracts = contracts
 	if ix.lexed {
-		ix.contracts = append(append([]contract{}, contracts...), shortPronouns...)
+		ix.contracts = append(append(append([]contract{}, contracts...), shortPronouns...), typoContracts...)
 	}
 	for _, c := range ix.contracts {
 		name := "줄임:" + c.form
