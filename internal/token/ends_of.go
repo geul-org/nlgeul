@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what endsOf — for measuring: the word ends (token offsets) of each reading, joined with ",", the readings joined with ";"
+//ff:what endsOf — for measuring: the word ends (token offsets) of each candidate, joined with ",", the candidates joined with ";"
 package token
 
 import (

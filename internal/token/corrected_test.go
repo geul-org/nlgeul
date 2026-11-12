@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestCorrected — a part written right keeps its readings as they are; a part written wrong gets the sign, 오타정정: and the written form after its readings, and both the sign and the name come from the two constants
+//ff:what TestCorrected — a part written right keeps its candidates as they are; a part written wrong gets the sign, 오타정정: and the written form after its candidates, and both the sign and the name come from the two constants
 package token
 
 import "testing"

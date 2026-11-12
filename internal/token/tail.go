@@ -8,7 +8,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // of a predicate tail. only names the one stem the tail attaches to
 // ("" for any). again and facts are the graph and the facts of a tail
 // whose word is read only right after a word that ends in a modifying
-// closing: the graph is asked again on each reading (nil for any other
+// closing: the graph is asked again on each candidate (nil for any other
 // tail). head is what the tail begins with (head…, of its first piece),
 // and irr the kind of change the stem before it must have gone through
 // (0 for none): its first piece was judged by the stem's own last

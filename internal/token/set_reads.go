@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what setReads — a closed-set word with no word table: one reading for each set it is in (a pronoun named so before particles or the copula), with the verdict of its graph, which is one for the word; none when the word is in no set or its set does not take what follows
+//ff:what setReads — a closed-set word with no word table: one candidate for each set it is in (a pronoun named so before particles or the copula), with the verdict of its graph, which is one for the word; none when the word is in no set or its set does not take what follows
 package token
 
 import (

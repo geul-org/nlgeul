@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesTypoNoun — end to end with the table of testdata that has nouns written wrong (역활 for 역할, 설겆이, 컨텐츠; 꺼 for 거 is not in the table but in the closed table of this layer, and is named as the dependent noun): a noun written wrong is read as the right form with no marker after it (alone, written together with a noun, before 하, between a slash and a particle, as 꺼 after a modifying ㄹ), the letters kept, next to the readings it had; a verb stem written wrong (맞기) is read nowhere without a marker
+//ff:what TestReaderLinesTypoNoun — end to end with the table of testdata that has nouns written wrong (역활 for 역할, 설겆이, 컨텐츠; 꺼 for 거 is not in the table but in the closed table of this layer, and is named as the dependent noun): a noun written wrong is read as the right form with no marker after it (alone, written together with a noun, before 하, between a slash and a particle, as 꺼 after a modifying ㄹ), the letters kept, next to the candidates it had; a verb stem written wrong (맞기) is read nowhere without a marker
 package token
 
 import (

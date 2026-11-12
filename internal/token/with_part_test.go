@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestWithPart — a copy of a reading has the one part given as its word k, and the reading itself is not changed
+//ff:what TestWithPart — a copy of a candidate has the one part given as its word k, and the candidate itself is not changed
 package token
 
 import "testing"

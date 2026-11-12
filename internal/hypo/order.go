@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=sequence
-//ff:what order — the sorting formula of nlgeul hypo, all of it: score makes a hypothesis's score from the readings picked for it, and before says which of two scores comes first
+//ff:what order — the sorting formula of nlgeul hypo, all of it: score makes the score of a combination of candidates from the candidates picked for it, and before says which of two scores comes first
 package hypo
 
 import (
@@ -8,22 +8,22 @@ import (
 	"github.com/geul-org/nlgeul/internal/token"
 )
 
-// To sort the hypotheses another way, change this function and nothing
+// To sort the combinations another way, change this function and nothing
 // else: List sorts with what it gives, and the lines print the Score.
 //
-// score: the place of a hypothesis is the sum, over its readings, of
-// the reading's preference plus Lambda times log10 of its verdict. Its
-// verdict is the least verdict of its readings and its preference the
+// score: the place of a combination is the sum, over its candidates, of
+// the candidate's preference plus Lambda times log10 of its verdict. Its
+// verdict is the least verdict of its candidates and its preference the
 // sum of their preferences: they are printed, not sorted by. A bundle
-// with one reading counts like any other, with the verdict and the
-// preference the token layer gave that reading (signs and closing dots
+// with one candidate counts like any other, with the verdict and the
+// preference the token layer gave that candidate (signs and closing dots
 // come with verdict 1 and preference 0, so they change nothing). A
-// reading whose verdict is 0 or less has no log10: it counts as minus
-// infinity, and so does the place of every hypothesis that picks it.
+// candidate whose verdict is 0 or less has no log10: it counts as minus
+// infinity, and so does the place of every combination that picks it.
 //
 // before: the greater place first. Two places that are equal are left
 // in the order of their numbers (List sorts stably), so the output is
-// always the same; the hypotheses whose place is minus infinity come
+// always the same; the combinations whose place is minus infinity come
 // last, in the order of their numbers.
 func order() (score func(picked []token.Branch) Score, before func(a, b Score) bool) {
 	score = func(picked []token.Branch) Score {

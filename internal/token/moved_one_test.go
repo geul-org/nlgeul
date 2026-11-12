@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestMovedOne — the words of a reading are carried over to the letters after the sign: the first without the sign, the others with their ends moved back; a reading of the sign alone is nil
+//ff:what TestMovedOne — the words of a candidate are carried over to the letters after the sign: the first without the sign, the others with their ends moved back; a candidate of the sign alone is nil
 package token
 
 import "testing"

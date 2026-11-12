@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what grow — a reading with one more word: the least verdict so far (section 12: a reading holds as much as its weakest piece) and the summed preference; an auxiliary verb written right after the 어/아 form of its main verb has the cost of the boundary between them given back
+//ff:what grow — a candidate with one more word: the least verdict so far (section 12: a candidate holds as much as its weakest piece) and the summed preference; an auxiliary verb written right after the 어/아 form of its main verb has the cost of the boundary between them given back
 package token
 
 import "math"

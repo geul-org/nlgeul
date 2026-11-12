@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=selection
-//ff:what linkOf — the kind of a particle reading for chains, from its case reading, its form and its place in the particle table
+//ff:what linkOf — the kind of a particle candidate for chains, from its case candidate, its form and its place in the particle table
 package token
 
 import (
@@ -8,7 +8,7 @@ import (
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
-// Readings of one particle go their own ways: 에서 as a subject marker
+// Candidates of one particle go their own ways: 에서 as a subject marker
 // is a case particle, as a place an adverbial one. The shortened forms
 // that end in 는 (엔, 에선, 까진 …) close a chain as a topic particle
 // does.

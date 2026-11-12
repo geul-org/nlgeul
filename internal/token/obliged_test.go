@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestObliged — 겠 right after 어야 (가야겠다) is read once more after each reading of that closing that ends before it, with (하) written out between: the closing keeps its start and its stem's restored syllable, (하) takes 겠's verdict and preference, 겠 keeps its verdict with none, and the reading takes 요 and the closing of the slot's tail; so too after 어야, 아야 and 여야 written whole and after a slot before 어야 (갔어야겠지); a 야 that attaches only to the copula, a closing that is not 어야, and a tail fused into the letter, with its own stem, shown word, name or change, at the start or right after it, of 겠 alone or of another slot give nothing
+//ff:what TestObliged — 겠 right after 어야 (가야겠다) is read once more after each candidate of that closing that ends before it, with (하) written out between: the closing keeps its start and its stem's restored syllable, (하) takes 겠's verdict and preference, 겠 keeps its verdict with none, and the candidate takes 요 and the closing of the slot's tail; so too after 어야, 아야 and 여야 written whole and after a slot before 어야 (갔어야겠지); a 야 that attaches only to the copula, a closing that is not 어야, and a tail fused into the letter, with its own stem, shown word, name or change, at the start or right after it, of 겠 alone or of another slot give nothing
 package token
 
 import (
@@ -15,7 +15,7 @@ func TestObliged(t *testing.T) {
 	end := &entry{name: "맺음:다"}
 	got := scanOf("가야겠다").obliged([]tail{{start: 2, pieces: []piece{gyet, da}, noYo: true, close: end}})
 	if len(got) != 2 || got[0].base != '가' || got[1].base != '그' {
-		t.Fatal("one reading for each stem the fused 어야 may come from, and none after the copula's 야", got)
+		t.Fatal("one candidate for each stem the fused 어야 may come from, and none after the copula's 야", got)
 	}
 	for _, l := range got {
 		ps := l.pieces

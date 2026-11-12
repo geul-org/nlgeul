@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestEndsOf — the word ends of each reading joined with ",", the readings with ";"; no readings give an empty text
+//ff:what TestEndsOf — the word ends of each candidate joined with ",", the candidates with ";"; no candidates give an empty text
 package token
 
 import "testing"

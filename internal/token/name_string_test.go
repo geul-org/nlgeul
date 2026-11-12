@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestNameString — a reading prints as kind:form, a kind alone without a colon, a form that is a colon after the kind's colon, and nothing for the empty reading
+//ff:what TestNameString — a candidate prints as kind:form, a kind alone without a colon, a form that is a colon after the kind's colon, and nothing for the empty candidate
 package token
 
 import "testing"

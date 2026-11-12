@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what honors — the readings of a letter as the honorific 시 with a piece fused under it: the stem ends before the letter, or before the link vowel 으 that stands before it (linked)
+//ff:what honors — the candidates of a letter as the honorific 시 with a piece fused under it: the stem ends before the letter, or before the link vowel 으 that stands before it (linked)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

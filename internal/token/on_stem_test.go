@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestOnStem — a unit that no sign closes is read as it is (보조사:야 and 호격:야 are two readings, each its own piece and entry); where a sign that ends a sentence closes the unit, the graphs are asked again and only the vocative 야 stands, with the gate of the vocative (a called word before it); the pieces given are left as they were; a place inside the unit is not asked again; 이야 right on a stem before such a sign is turned down while 야 stands
+//ff:what TestOnStem — a unit that no sign closes is read as it is (보조사:야 and 호격:야 are two candidates, each its own piece and entry); where a sign that ends a sentence closes the unit, the graphs are asked again and only the vocative 야 stands, with the gate of the vocative (a called word before it); the pieces given are left as they were; a place inside the unit is not asked again; 이야 right on a stem before such a sign is turned down while 야 stands
 package token
 
 import "testing"
@@ -25,7 +25,7 @@ func TestOnStem(t *testing.T) {
 		}
 	}
 	if len(pieces) != 2 || len(from) != 2 {
-		t.Fatal("the readings given are left as they were")
+		t.Fatal("the candidates given are left as they were")
 	}
 	inner, innerFrom, _ := sc.readGroup(classParticle, 2, -1, false)
 	if got, _ := sc.onStem(2, -1, inner, innerFrom); len(got) != len(inner) {

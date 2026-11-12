@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestNameOf — a name with a colon is a kind and a form, one with none a kind alone, the form keeps a colon of its own, and no name gives the empty reading
+//ff:what TestNameOf — a name with a colon is a kind and a form, one with none a kind alone, the form keeps a colon of its own, and no name gives the empty candidate
 package token
 
 import "testing"

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what loadSigns — the names of the signs read from their table: a sign and one of its readings a line, the readings of a sign in the order of their lines
+//ff:what loadSigns — the names of the signs read from their table: a sign and one of its candidates a line, the candidates of a sign in the order of their lines
 package token
 
 import "github.com/geul-org/nlgeul/data"

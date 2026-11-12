@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddPairs — each sign of a pair gets a graph for each of its readings: an opening bracket one, a closing bracket one, a quotation mark written the same way at both ends two (열기 first); 22 signs give 24 graphs
+//ff:what TestAddPairs — each sign of a pair gets a graph for each of its candidates: an opening bracket one, a closing bracket one, a quotation mark written the same way at both ends two (열기 first); 22 signs give 24 graphs
 package token
 
 import (

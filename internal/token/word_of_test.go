@@ -33,7 +33,7 @@ func TestWordOf(t *testing.T) {
 	at := scanOf("task.py에")
 	two := at.stepsOf(0, 8, tail{start: 7, pieces: []piece{{"에", "부사격:에", 1, -1.2, rule.TailCase, false, ""}}})
 	if len(two) != 2 || two[0].sig != "task.py[파일명]+에[부사격:에]" || two[1].sig != "task.py[도메인]+에[부사격:에]" {
-		t.Fatal("an atom of two names is two readings", two)
+		t.Fatal("an atom of two names is two candidates", two)
 	}
 	for _, e = range two {
 		if e.verdict != 1 || math.Abs(e.pref-(math.Log10(1.0/syllables)-1.2-costPiece)) > 1e-9 {

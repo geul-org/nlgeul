@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderLinesShortClosing — end to end with the small table of testdata: the shortened closings 달까, ㄴ달까, 는달까 and 랄까 are read after the stems they follow (좋달까, 간달까, 먹는달까, 학생이랄까), and with no word table no reading holds their names
+//ff:what TestReaderLinesShortClosing — end to end with the small table of testdata: the shortened closings 달까, ㄴ달까, 는달까 and 랄까 are read after the stems they follow (좋달까, 간달까, 먹는달까, 학생이랄까), and with no word table no candidate holds their names
 package token
 
 import (

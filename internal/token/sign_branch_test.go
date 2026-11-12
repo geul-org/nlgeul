@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestSignBranch — a sign is a reading of its own: one word of the one part given, ending where it is told to, standing (verdict 1) and costing nothing
+//ff:what TestSignBranch — a sign is a candidate of its own: one word of the one part given, ending where it is told to, standing (verdict 1) and costing nothing
 package token
 
 import (

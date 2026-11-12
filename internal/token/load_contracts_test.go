@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestLoadContracts — the fused forms are listed set by set in the order of their lines; a line that is wrong ends the reading with its error
+//ff:what TestLoadContracts — the fused forms are listed set by set in the order of their lines; a line that is wrong ends the candidate with its error
 package token
 
 import "testing"

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestLoneOfTypo — a unit read as markers alone, one of them written wrong, keeps the letters it is written with in its part and is a reading with letters written wrong
+//ff:what TestLoneOfTypo — a unit read as markers alone, one of them written wrong, keeps the letters it is written with in its part and is a candidate with letters written wrong
 package token
 
 import "testing"

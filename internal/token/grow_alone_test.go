@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestGrowAlone — each kept reading is grown by the word that stands alone (a number written in binary has two readings); a word that is a determiner marks where it ends; the readings that end in a modifying closing or a determiner are not grown by a word that only stands alone
+//ff:what TestGrowAlone — each kept candidate is grown by the word that stands alone (a number written in binary has two candidates); a word that is a determiner marks where it ends; the candidates that end in a modifying closing or a determiner are not grown by a word that only stands alone
 package token
 
 import "testing"
@@ -17,7 +17,7 @@ func TestGrowAlone(t *testing.T) {
 	noun.adnEnds[2], noun.detEnds[2] = true, true
 	e = noun.stepsOf(2, 4, tail{start: 4})[0]
 	if got := noun.growAlone(nil, kept, e, 2, 4); len(got) != 3 {
-		t.Fatal("사과 grows every reading", got)
+		t.Fatal("사과 grows every candidate", got)
 	}
 	det := wordsScan("어떤사과", layerCost)
 	e = det.stepsOf(0, 2, tail{start: 2})[0]
@@ -31,7 +31,7 @@ func TestGrowAlone(t *testing.T) {
 	bin := scanOf("1010")
 	e = bin.stepsOf(0, 4, tail{start: 4})[0]
 	if got := bin.growAlone(nil, kept[:1], e, 0, 4); len(got) != 2 || got[0].last.sig != "1010[수]" || got[1].last.sig != "1010[수:2진법]" {
-		t.Fatal("a number in binary has two readings", got)
+		t.Fatal("a number in binary has two candidates", got)
 	}
 	if got := bin.growAlone(nil, nil, e, 0, 4); len(got) != 0 {
 		t.Fatal("nothing kept", got)

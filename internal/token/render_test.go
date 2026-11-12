@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestRender — a single reading is one line; a contest a head line with what its first two branches are called and a line for each branch, the third and later too
+//ff:what TestRender — a single candidate is one line; a contest a head line with what its first two branches are called and a line for each branch, the third and later too
 package token
 
 import "testing"

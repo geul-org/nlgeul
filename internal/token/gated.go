@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what gated — does the word before a tail pass the tail's graph, when it has one: the kind its stem stands as in this reading is handed to it (all the kinds the word table gives the stem when the reading has no kind)
+//ff:what gated — does the word before a tail pass the tail's graph, when it has one: the kind its stem stands as in this candidate is handed to it (all the kinds the word table gives the stem when the candidate has no kind)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

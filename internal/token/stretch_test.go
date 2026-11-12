@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStretch — the words of a reading within a stretch, with their least verdict and summed preference
+//ff:what TestStretch — the words of a candidate within a stretch, with their least verdict and summed preference
 package token
 
 import "testing"

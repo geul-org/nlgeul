@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what Line — a hypothesis printed on one line: its rank, its verdict and preference as nlgeul token writes them, and the reading picked for each bundle as nlgeul token writes a reading, parted by " | "
+//ff:what Line — a combination of candidates printed on one line: its rank, its verdict and preference as nlgeul token writes them, and the candidate picked for each bundle as nlgeul token writes a candidate, parted by " | "
 package hypo
 
 import (
@@ -9,7 +9,7 @@ import (
 	"github.com/geul-org/nlgeul/internal/token"
 )
 
-// A reading may hold a space (a boundary inside the bundle), so the
+// A candidate may hold a space (a boundary inside the bundle), so the
 // bundles are parted by " | ".
 func Line(rank int, h Hypothesis, choices []token.Bundle) string {
 	picked := Picked(choices, h.Number)

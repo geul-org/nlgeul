@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestMidBranches — a word named 기호 is read by the readings of its sign; two such words give every pairing; a reading with none is given back as it is
+//ff:what TestMidBranches — a word named 기호 is read by the candidates of its sign; two such words give every pairing; a candidate with none is given back as it is
 package token
 
 import "testing"

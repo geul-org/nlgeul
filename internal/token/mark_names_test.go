@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestMarkNames — the names of some readings of a sign come back in order; no readings, no names
+//ff:what TestMarkNames — the names of some candidates of a sign come back in order; no candidates, no names
 package token
 
 import (

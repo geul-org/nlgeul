@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestDeterminer — a reading named as a determiner is one, by the closed set (관형사:이) or by the word table's kind (열쇠:관형사); no name, a nominal, another kind of the table and a determiner named as a pronoun are not
+//ff:what TestDeterminer — a candidate named as a determiner is one, by the closed set (관형사:이) or by the word table's kind (열쇠:관형사); no name, a nominal, another kind of the table and a determiner named as a pronoun are not
 package token
 
 import "testing"

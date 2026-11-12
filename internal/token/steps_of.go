@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what stepsOf — the readings of one word: the stem from b (a known word, a known word written wrong, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference; one reading for each way the stem stands (stemReads: each kind of a known word, each set of a closed-set word, each name of an atom or a sign); a stem no table lists stands as the new word's graph judges it, and a word whose stem does not stand has a verdict of 0 or less
+//ff:what stepsOf — the candidates of one word: the stem from b (a known word, a known word written wrong, an atom or a new word) and the markers after it as the parts of a word, with its verdict and preference; one candidate for each way the stem stands (stemReads: each kind of a known word, each set of a closed-set word, each name of an atom or a sign); a stem no table lists stands as the new word's graph judges it, and a word whose stem does not stand has a verdict of 0 or less
 package token
 
 // A stem the word table has stands as its kind's graph judges it; the

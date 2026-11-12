@@ -12,7 +12,7 @@ const (
 const KeyPiece = "piece"
 
 // KeyMark is the context key of the sign under judgment (Mark), for
-// graphs that judge one reading of a sign such as the full stop.
+// graphs that judge one candidate of a sign such as the full stop.
 const KeyMark = "mark"
 
 // What stands on one side of a sign.

@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what ordered — the readings of a sign of a pair, each once: those that open before those that close, each kind from the least depth up
+//ff:what ordered — the candidates of a sign of a pair, each once: those that open before those that close, each kind from the least depth up
 package token
 
 import "sort"

@@ -7,4 +7,4 @@
 | [parse/](parse/README.md) | (명령 없음) 어절 끝을 문법 표로 읽어 사실을 내고 toulmin 그래프로 문장성분을 판정 |
 | [cli/](cli/README.md) | cobra 루트 명령 `nlgeul`과 하위 명령 `token` |
 | [token/](token/README.md) | `nlgeul token`: 토큰 스트림을 색인과 표지별 판정 그래프로 읽어 어절로 끊어 올림(실험) |
-| [hypo/](hypo/README.md) | (명령 없음) 토큰 층의 읽기를 묶음마다 하나씩 골라 이은 가설을 세고 정렬해 나열(실험) |
+| [hypo/](hypo/README.md) | (명령 없음) 토큰 층의 후보를 경합마다 하나씩 골라 이은 조합을 세고 정렬해 나열(실험) |

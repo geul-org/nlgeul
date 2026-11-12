@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestNounCopula — a closing right after 테 (갈테니), fused under it (올텐데) or one that takes only the copula's stem (할테야) is read after 터 with the stem (이) in it: the stem counted as the copula and leaving a trace in the letter, the tail ending in the closing, the letter as the only stem, 터 shown, the graph's name as the label, and the graph and facts kept to be asked again on each reading; a unit read as attaching takes the modifying form to stand before it; no reading where no modifying closing ends before 테 (also inside a unit read as attaching), before a closing the copula does not take, before ㅆ fused into its vowel, after another letter (and 텐 with no consonant read under it), for a tail with no closing, a closing that holds the copula, a tail that asks for a changed stem, or nothing before it, and only the graph's misses are judged and traced with their reasons
+//ff:what TestNounCopula — a closing right after 테 (갈테니), fused under it (올텐데) or one that takes only the copula's stem (할테야) is read after 터 with the stem (이) in it: the stem counted as the copula and leaving a trace in the letter, the tail ending in the closing, the letter as the only stem, 터 shown, the graph's name as the label, and the graph and facts kept to be asked again on each candidate; a unit read as attaching takes the modifying form to stand before it; no candidate where no modifying closing ends before 테 (also inside a unit read as attaching), before a closing the copula does not take, before ㅆ fused into its vowel, after another letter (and 텐 with no consonant read under it), for a tail with no closing, a closing that holds the copula, a tail that asks for a changed stem, or nothing before it, and only the graph's misses are judged and traced with their reasons
 package token
 
 import (
@@ -31,7 +31,7 @@ func TestNounCopula(t *testing.T) {
 		t.Fatal("the noun's letter, the noun, its graph and its facts", g)
 	}
 	if sc.again(got[0], false) || !sc.again(got[0], true) {
-		t.Fatal("asked again on a reading, it stands only where the reading's last word ends in a modifying closing")
+		t.Fatal("asked again on a candidate, it stands only where the candidate's last word ends in a modifying closing")
 	}
 	sc = adn("올텐데", 1)
 	got = sc.nounCopula(tail{start: 2, base: '테', pieces: []piece{{text: "(ㄴ)데", names: "맺음:ㄴ데"}}, close: &entry{name: "맺음:ㄴ데"}})

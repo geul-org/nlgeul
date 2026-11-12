@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what branchesInOrder — whether branches stand best first: a reading never has a higher verdict, or at the same verdict a higher preference, than the one before it (the order of a reading with no word table)
+//ff:what branchesInOrder — whether branches stand best first: a candidate never has a higher verdict, or at the same verdict a higher preference, than the one before it (the order of a candidate with no word table)
 package token
 
 func branchesInOrder(bs []Branch) bool {

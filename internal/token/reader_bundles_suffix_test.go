@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderBundlesSuffix — with the word table of testdata, the structure holds the copula after the suffix 들, 씩 or 끼리 (학교들이다, 마당씩이다, 우리끼리다 with a dropped stem, 학교들일까, 문제끼리인데); the subject reading of 학교들이 stays and has no copula reading; after 쯤 and the suffix 이 of a name no copula is read; 학교이다 and 3명당이다 keep their readings
+//ff:what TestReaderBundlesSuffix — with the word table of testdata, the structure holds the copula after the suffix 들, 씩 or 끼리 (학교들이다, 마당씩이다, 우리끼리다 with a dropped stem, 학교들일까, 문제끼리인데); the subject candidate of 학교들이 stays and has no copula candidate; after 쯤 and the suffix 이 of a name no copula is read; 학교이다 and 3명당이다 keep their candidates
 package token
 
 import "testing"
@@ -20,7 +20,7 @@ func TestReaderBundlesSuffix(t *testing.T) {
 		"3명당이다":  "수:+단위:명+접미:당+서술격:이+맺음:다",
 	} {
 		if !hasNames(r.Bundles(in), want) {
-			t.Errorf("%s: no reading %s", in, want)
+			t.Errorf("%s: no candidate %s", in, want)
 		}
 	}
 	for in, not := range map[string]string{
@@ -29,7 +29,7 @@ func TestReaderBundlesSuffix(t *testing.T) {
 		"영숙이이다": "열쇠:체언+접미:이+서술격:이+맺음:다",
 	} {
 		if hasNames(r.Bundles(in), not) {
-			t.Errorf("%s: reading %s", in, not)
+			t.Errorf("%s: candidate %s", in, not)
 		}
 	}
 }

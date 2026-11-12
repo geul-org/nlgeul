@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestSignWords — a sign between letters is a word of its own after the readings kept before it, named 기호, with preference 0 and its own verdict 1 (the reading holds as much as its weakest piece); a place with no such sign adds nothing
+//ff:what TestSignWords — a sign between letters is a word of its own after the candidates kept before it, named 기호, with preference 0 and its own verdict 1 (the candidate holds as much as its weakest piece); a place with no such sign adds nothing
 package token
 
 import "testing"

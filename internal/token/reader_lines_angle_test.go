@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderLinesAngle — with no word table, < and > are read as a sign of a pair beside their letters: <명사>은 gives 열기:1 or the letter, and 닫기:1+보조사 beside + 보조사 and the whole; a > with nothing written onto it is 닫기:1 or the letter; a particle that the closing reading cannot take stays in the whole word
+//ff:what TestReaderLinesAngle — with no word table, < and > are read as a sign of a pair beside their letters: <명사>은 gives 열기:1 or the letter, and 닫기:1+보조사 beside + 보조사 and the whole; a > with nothing written onto it is 닫기:1 or the letter; a particle that the closing candidate cannot take stays in the whole word
 package token
 
 import (

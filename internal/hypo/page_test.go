@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what TestPage — page 0 or below is the whole list; a page is cut by its place in the list, with the number of hypotheses before it; the last page holds what is left, full or not; a page past the last one, and any page of an empty list, is empty with the length of the list before it; a page size past the list makes one page; the greatest page and page size do not overflow
+//ff:what TestPage — page 0 or below is the whole list; a page is cut by its place in the list, with the number of combinations before it; the last page holds what is left, full or not; a page past the last one, and any page of an empty list, is empty with the length of the list before it; a page size past the list makes one page; the greatest page and page size do not overflow
 package hypo
 
 import (
@@ -9,7 +9,7 @@ import (
 )
 
 func TestPage(t *testing.T) {
-	// Seven hypotheses in the order List would give them. Their numbers
+	// Seven combinations in the order List would give them. Their numbers
 	// are not their places, so a page cut by number would show.
 	listed := []Hypothesis{
 		{Number: 4, Score: Score{Place: 6, Verdict: 1, Pref: 6}},
@@ -56,7 +56,7 @@ func TestPage(t *testing.T) {
 	for _, c := range cases {
 		first, got := Page(listed[:c.n], c.page, c.perPage)
 		if first != c.first || !slices.Equal(got, listed[c.first:c.end]) {
-			t.Errorf("page %d of %d of %d hypotheses: %d before, %+v; want %d before, %+v", c.page, c.perPage, c.n, first, got, c.first, listed[c.first:c.end])
+			t.Errorf("page %d of %d of %d combinations: %d before, %+v; want %d before, %+v", c.page, c.perPage, c.n, first, got, c.first, listed[c.first:c.end])
 		}
 	}
 }

@@ -5,7 +5,7 @@ import (
 )
 
 // Fused letters that are common inside words too (decision 014-30).
-// Their readings are raised next to the others, never instead of them,
+// Their candidates are raised next to the others, never instead of them,
 // and only with a word table: the word before must be a stem of the
 // table, a predicate's or (for a shortened particle) a nominal.
 //

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestRenderHead — a contest of more readings than head prints the first head and a line of how many were left out, with the indent of a reading; one of exactly head readings, or head 0, prints all with no such line; a single reading is never cut
+//ff:what TestRenderHead — a contest of more candidates than head prints the first head and a line of how many were left out, with the indent of a candidate; one of exactly head candidates, or head 0, prints all with no such line; a single candidate is never cut
 package token
 
 import (

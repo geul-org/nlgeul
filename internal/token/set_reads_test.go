@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestSetReads — without a word table a closed-set word is read once for each set it is in, with the verdict of its one graph; a pronoun's letters before a particle are named the pronoun; a word whose set does not take what follows, and a word of no set, have no reading
+//ff:what TestSetReads — without a word table a closed-set word is read once for each set it is in, with the verdict of its one graph; a pronoun's letters before a particle are named the pronoun; a word whose set does not take what follows, and a word of no set, have no candidate
 package token
 
 import (

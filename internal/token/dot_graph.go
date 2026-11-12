@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=selection
-//ff:what dotGraph — the judgment graph of one reading of the full stop: the claim "this dot is that", and the structural exceptions against it
+//ff:what dotGraph — the judgment graph of one candidate of the full stop: the claim "this dot is that", and the structural exceptions against it
 package token
 
 import (
@@ -13,7 +13,7 @@ import (
 // row. 줄임표 is dots in a row. 파일명 joins a name and a listed
 // extension, 도메인 the parts of a name whose last is a listed domain,
 // 소수점 two numbers, 버전 numbers with a leading v or more dots than
-// one. A closing reading (마침표, 줄임표) is named with no sign after it.
+// one. A closing candidate (마침표, 줄임표) is named with no sign after it.
 // The number of edges is returned.
 func dotGraph(name string) (*toulmin.Graph, int) {
 	full := name + ":."

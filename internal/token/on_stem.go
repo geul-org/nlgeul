@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what onStem — the particle readings that end at j as they stand right on a stem, by key (as groupAt gives them): those given, unless the unit ends at j and a sign that ends a sentence closes it, or the particle 요 follows; there the graphs are asked once more, told so, and the readings that still stand come back (문제야. keeps the vocative 야 and not the auxiliary one; 에 before 요 is told that it stands on its stem, and what the stem ends in)
+//ff:what onStem — the particle candidates that end at j as they stand right on a stem, by key (as groupAt gives them): those given, unless the unit ends at j and a sign that ends a sentence closes it, or the particle 요 follows; there the graphs are asked once more, told so, and the candidates that still stand come back (문제야. keeps the vocative 야 and not the auxiliary one; 에 before 요 is told that it stands on its stem, and what the stem ends in)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

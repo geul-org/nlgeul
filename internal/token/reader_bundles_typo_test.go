@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderBundlesTypo — the structure of a stem written wrong: its stem part has the right form as Text, the form it is written in as Written, and only the word's own kind in Names (the mark is not a reading); the same stem written right has no Written; the bundles printed again are the lines Lines gives
+//ff:what TestReaderBundlesTypo — the structure of a stem written wrong: its stem part has the right form as Text, the form it is written in as Written, and only the word's own kind in Names (the mark is not a candidate); the same stem written right has no Written; the bundles printed again are the lines Lines gives
 package token
 
 import (

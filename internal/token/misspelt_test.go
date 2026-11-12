@@ -40,12 +40,12 @@ func TestMisspelt(t *testing.T) {
 		t.Fatal("known is as before", name, v)
 	}
 	if got := ix.misspelt("맡기", kindVerb, rule.TailPred, false); got != v0 || got <= 0 {
-		t.Fatal("the verdict of its reading", got, v0)
+		t.Fatal("the verdict of its candidate", got, v0)
 	}
 	best := ix.misspelt("물", kindNominal|kindVerb, rule.TailBare, true)
 	for _, r := range ix.misspeltReads("물", kindNominal|kindVerb, rule.TailBare, true) {
 		if r.v > best {
-			t.Fatal("the best of its readings", best, r.v)
+			t.Fatal("the best of its candidates", best, r.v)
 		}
 	}
 	if best <= 0 {

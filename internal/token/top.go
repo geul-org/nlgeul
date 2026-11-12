@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what top — the readings in order, best first, the same reading only once (none is left out for its place)
+//ff:what top — the candidates in order, best first, the same candidate only once (none is left out for its place)
 package token
 
 import "sort"

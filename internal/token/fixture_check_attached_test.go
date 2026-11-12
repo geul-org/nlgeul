@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what checkAttached — the readings of a unit as markers written apart from their word are those given, in order, each a word with no stem that attaches to the unit before, and no higher than a new word
+//ff:what checkAttached — the candidates of a unit as markers written apart from their word are those given, in order, each a word with no stem that attaches to the unit before, and no higher than a new word
 package token
 
 import "testing"

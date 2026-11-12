@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what reads — the readings of the sign at place i as a sign of a pair, for every way the signs before it may stand open: each reading that stands (열기 or 닫기, with its depth) once, whether the sign is also read as its letter alone (it is unsure, or in some way no reading stands), the ways the signs may stand open after it, and the trace lines; nothing when the letter is no sign of a pair, stands in a span of code, or stands as such a sign in no way
+//ff:what reads — the candidates of the sign at place i as a sign of a pair, for every way the signs before it may stand open: each candidate that stands (열기 or 닫기, with its depth) once, whether the sign is also read as its letter alone (it is unsure, or in some way no candidate stands), the ways the signs may stand open after it, and the trace lines; nothing when the letter is no sign of a pair, stands in a span of code, or stands as such a sign in no way
 package token
 
 // The cutter is not changed: next moves it when the sign is cut off.

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestWordOfSole — with the word table of testdata a one-syllable verb stem and its closing that make up the whole unit (하자, 가는) stand fully and are printed so (성립 1.00); the same word after another word in its unit (입력하자 read as 입력 하+자, 학교가는 as 학교 가+는), or before another (하고먹자 read from 하+고), stands as the stem does when it is not the whole of its unit, below 1, and the reading of 입력 하+자 or of 학교 가+는 is printed below 1
+//ff:what TestWordOfSole — with the word table of testdata a one-syllable verb stem and its closing that make up the whole unit (하자, 가는) stand fully and are printed so (성립 1.00); the same word after another word in its unit (입력하자 read as 입력 하+자, 학교가는 as 학교 가+는), or before another (하고먹자 read from 하+고), stands as the stem does when it is not the whole of its unit, below 1, and the candidate of 입력 하+자 or of 학교 가+는 is printed below 1
 package token
 
 import (

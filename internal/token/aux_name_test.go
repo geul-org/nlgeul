@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestAuxName — the name of a particle reading that is an auxiliary particle read after a linking closing; "" for a reading that is not one (a vocative 야, a case particle)
+//ff:what TestAuxName — the name of a particle candidate that is an auxiliary particle read after a linking closing; "" for a candidate that is not one (a vocative 야, a case particle)
 package token
 
 import "testing"

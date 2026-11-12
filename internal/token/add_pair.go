@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what addPair — put the graph of one reading of a sign of a pair in the index, and count it
+//ff:what addPair — put the graph of one candidate of a sign of a pair in the index, and count it
 package token
 
 func (ix *index) addPair(sign rune, row pairRow, name string) {

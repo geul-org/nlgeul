@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderBundlesSigns — the signs of a sentence as bundles: a nested bracket reading has the names 열기/닫기 with the depth as the form and as Part.Depth, a sign read both as a pair and as its letter has the letter as a part with no name and depth 0, # heads a line as 제목 with its count as the depth, the signs are a bundle of their own in the unit of the word they stand at, and the bundles printed again are the lines Lines gives
+//ff:what TestReaderBundlesSigns — the signs of a sentence as bundles: a nested bracket candidate has the names 열기/닫기 with the depth as the form and as Part.Depth, a sign read both as a pair and as its letter has the letter as a part with no name and depth 0, # heads a line as 제목 with its count as the depth, the signs are a bundle of their own in the unit of the word they stand at, and the bundles printed again are the lines Lines gives
 package token
 
 import (

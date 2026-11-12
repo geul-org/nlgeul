@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderLinesLoose — with the word table of testdata: 내게 and 네게도 read the pronoun and 에게's 게, 어디다 and 여기다가 the place word and 에다 or 에다가, 가야겠다, 먹어야겠네 and 갔어야겠지 (하) between 어야 and 겠, 되도, 되요 and 됬다 an 어 left out after 되 next to 되 and the particle 도, and 줄은 the modifying 은 after 줄 as the second reading, behind the table's 줄+은 and with a lower verdict; without it 내게 and 어디다 read the fused form's name; 학교다 has no 에다, a 겠다 written apart no (하), and without a word table 줄은 no modifying 은
+//ff:what TestReaderLinesLoose — with the word table of testdata: 내게 and 네게도 read the pronoun and 에게's 게, 어디다 and 여기다가 the place word and 에다 or 에다가, 가야겠다, 먹어야겠네 and 갔어야겠지 (하) between 어야 and 겠, 되도, 되요 and 됬다 an 어 left out after 되 next to 되 and the particle 도, and 줄은 the modifying 은 after 줄 as the second candidate, behind the table's 줄+은 and with a lower verdict; without it 내게 and 어디다 read the fused form's name; 학교다 has no 에다, a 겠다 written apart no (하), and without a word table 줄은 no modifying 은
 package token
 
 import (
@@ -68,6 +68,6 @@ func TestReaderLinesLoose(t *testing.T) {
 		t.Fatal(err)
 	}
 	if _, err = fmt.Sscan(second, &loose); err != nil || loose <= 0 || loose >= table {
-		t.Fatal("the modifying 은 after 줄 stands, rebutted below the table's reading", table, loose, err)
+		t.Fatal("the modifying 은 after 줄 stands, rebutted below the table's candidate", table, loose, err)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what Count — how many hypotheses the bundles give: the product of their numbers of readings, as a number of any size; none when there is no bundle
+//ff:what Count — how many combinations of candidates the bundles give: the product of their numbers of candidates, as a number of any size; none when there is no bundle
 package hypo
 
 import (

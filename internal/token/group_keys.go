@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what groupKeys — the keys of the readings groupAt gave at j, in order: by their place or kind (groupBase), and the readings of one place or kind in the order their entries are in the index
+//ff:what groupKeys — the keys of the candidates groupAt gave at j, in order: by their place or kind (groupBase), and the candidates of one place or kind in the order their entries are in the index
 package token
 
 import (

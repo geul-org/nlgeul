@@ -12,7 +12,7 @@ import (
 // the like are written onto a modifying form and stand there. A word
 // that is itself a modifying form modifies the same nominal (작은 예쁜
 // 꽃), and a naming form stands as a nominal. A determiner modifies a
-// nominal as a modifying form does (세 보+아 is no reading of 세봐;
+// nominal as a modifying form does (세 보+아 is no candidate of 세봐;
 // 이 작은 꽃 stands).
 func adnExcept(g *toulmin.Graph, claim *toulmin.Rule) int {
 	after := except(g, rule.PieceIs, whyAdn, fact(rule.PieceAdn))

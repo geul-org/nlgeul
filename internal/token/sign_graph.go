@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=selection
-//ff:what signGraph — the judgment graph of one reading of a sign at a unit's edge: the claim "this sign is that", and the exceptions against it by where the sign stands and how many stand in a row; the number of edges is returned
+//ff:what signGraph — the judgment graph of one candidate of a sign at a unit's edge: the claim "this sign is that", and the exceptions against it by where the sign stands and how many stand in a row; the number of edges is returned
 package token
 
 import (

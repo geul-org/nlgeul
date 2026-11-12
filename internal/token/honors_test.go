@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestHonors — 가셨 reads 가+시 under the letter; 읽으셨 also 읽+으+시; a letter that is not listed, a consonant before it, or nothing before it give no such reading; with a word table 신 is read so too, at the unit's end or under a whole closing, not before a particle
+//ff:what TestHonors — 가셨 reads 가+시 under the letter; 읽으셨 also 읽+으+시; a letter that is not listed, a consonant before it, or nothing before it give no such candidate; with a word table 신 is read so too, at the unit's end or under a whole closing, not before a particle
 package token
 
 import "testing"

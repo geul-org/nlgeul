@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestFindMid — a middle dot between letters is found at each place (가·나·다 has two), also ㆍ and ・; none for dots in a run, at an edge, or right after the head of a unit; the readings are one 가운뎃점 part printing the dot; none where an atom is noted to begin
+//ff:what TestFindMid — a middle dot between letters is found at each place (가·나·다 has two), also ㆍ and ・; none for dots in a run, at an edge, or right after the head of a unit; the candidates are one 가운뎃점 part printing the dot; none where an atom is noted to begin
 package token
 
 import "testing"
@@ -10,7 +10,7 @@ func TestFindMid(t *testing.T) {
 		t.Fatal(sc.mid)
 	}
 	if r := sc.mid[1].reads; len(r) != 1 || r[0].Name.Kind != "가운뎃점" || r[0].Stem {
-		t.Fatal("the reading", r)
+		t.Fatal("the candidate", r)
 	}
 	for _, text := range []string{"가··나", "·가", "가·", "가나", "가.나"} {
 		if got := scanOf(text); len(got.mid) != 0 {

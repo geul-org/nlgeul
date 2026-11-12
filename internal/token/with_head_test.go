@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestWithHead — a copy of a reading whose first part has the names and the depth given; the reading itself, its other parts and its other words are not changed
+//ff:what TestWithHead — a copy of a candidate whose first part has the names and the depth given; the candidate itself, its other parts and its other words are not changed
 package token
 
 import "testing"
@@ -18,7 +18,7 @@ func TestWithHead(t *testing.T) {
 		t.Fatal("the rest is kept", got)
 	}
 	if br.Words[0].Parts[0].Name.Kind != pairName || br.Words[0].Parts[0].Depth != 0 {
-		t.Fatal("the reading is changed", br)
+		t.Fatal("the candidate is changed", br)
 	}
 	if bare := withHead(br, Name{}, 0); bare.Words[0].Parts[0].Name != (Name{}) || bare.Words[0].Parts[0].Depth != 0 {
 		t.Fatal("the head as its letter", bare)

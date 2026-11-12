@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestMarkerGraphEcho — the graph of the particle 에 holds a rebuttal that it stands right on a stem with no final consonant before 요, of force forceClash: with the fact the verdict is 2/(1+forceClash)-1 and the reading is not rejected; without it 1; a particle that is not listed (echoes) has none
+//ff:what TestMarkerGraphEcho — the graph of the particle 에 holds a rebuttal that it stands right on a stem with no final consonant before 요, of force forceClash: with the fact the verdict is 2/(1+forceClash)-1 and the candidate is not rejected; without it 1; a particle that is not listed (echoes) has none
 package token
 
 import (

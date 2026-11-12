@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what readsIn — the names of some readings of a stem joined with "," and the best verdict among them
+//ff:what readsIn — the names of some candidates of a stem joined with "," and the best verdict among them
 package token
 
 import "strings"

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what helped — the readings of 지 and 하 written onto a main verb's 어/아 form (지워진다, 예뻐한다): each tail that attaches to such a stem, read once more after each 어/아 form that ends right before the stem, the stem as a piece between them; only with a word table, whose predicate the main verb must be
+//ff:what helped — the candidates of 지 and 하 written onto a main verb's 어/아 form (지워진다, 예뻐한다): each tail that attaches to such a stem, read once more after each 어/아 form that ends right before the stem, the stem as a piece between them; only with a word table, whose predicate the main verb must be
 package token
 
 import (

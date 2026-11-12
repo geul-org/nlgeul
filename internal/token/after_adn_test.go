@@ -14,7 +14,7 @@ func TestAfterAdn(t *testing.T) {
 	past := []piece{{text: "었", names: "선어말:었", verdict: 1, tail: rule.TailPred}, da[0]}
 	sc := wordsScan("먹을마시다", layerCost)
 	if sc.afterAdn(2, tail{start: 4, pieces: da}, false, 0) {
-		t.Fatal("no reading has a word that ends in a modifying closing end at 2")
+		t.Fatal("no candidate has a word that ends in a modifying closing end at 2")
 	}
 	sc.adnEnds[2] = true
 	if !sc.afterAdn(2, tail{start: 4, pieces: da}, false, 0) {

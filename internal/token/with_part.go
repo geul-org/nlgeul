@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what withPart — a copy of a reading whose word k has the one part given in place of its own; the reading itself is not changed
+//ff:what withPart — a copy of a candidate whose word k has the one part given in place of its own; the candidate itself is not changed
 package token
 
 func withPart(br Branch, k int, p Part) Branch {

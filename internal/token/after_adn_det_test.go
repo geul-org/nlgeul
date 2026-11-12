@@ -13,7 +13,7 @@ func TestAfterAdnDet(t *testing.T) {
 	da := []piece{{text: "다", names: "맺음:다", verdict: 1, tail: rule.TailPred}}
 	sc := wordsScan("어떤마시다", layerCost)
 	if sc.afterAdn(2, tail{start: 4, pieces: da}, true, 0) {
-		t.Fatal("no reading has a determiner end at 2")
+		t.Fatal("no candidate has a determiner end at 2")
 	}
 	sc.detEnds[2] = true
 	if !sc.afterAdn(2, tail{start: 4, pieces: da}, true, 0) || sc.afterAdn(2, tail{start: 4, pieces: da}, false, 0) {

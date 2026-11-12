@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what addParticles — one entry, and so one graph, for each case reading of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate)
+//ff:what addParticles — one entry, and so one graph, for each case candidate of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate)
 package token
 
 import (
@@ -36,14 +36,14 @@ var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보�
 // read (문제야. is 문제+(이)+야). After another particle or a closing it
 // stays (에서야, 하고 나서야).
 // Dots in a row trail off and close nothing (나야 뭐...). A closed
-// table: only the readings listed are held back.
+// table: only the candidates listed are held back.
 var leading = []string{"보조사:이야", "보조사:야"}
 
-// echoes are the particle readings whose letters, right on a stem that
+// echoes are the particle candidates whose letters, right on a stem that
 // ends in a syllable with no final consonant and before the auxiliary 요,
 // are those of a closing written wrong: 고양이에요 has 에 and 요 as
-// well as 예요 written 에요. The reading is rebutted there (forceClash)
-// and stays. A closed table: only the readings listed are rebutted.
+// well as 예요 written 에요. The candidate is rebutted there (forceClash)
+// and stays. A closed table: only the candidates listed are rebutted.
 var echoes = []string{"부사격:에"}
 
 // vocName is the vocative 야, written onto the name of who is called

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAfterAdnKind — a stem of two kinds right after a word that ends in a modifying closing is turned down by the kind a reading gives it: as the kind that only stands alone it is, as the noun it also is it is not; with no kind given it stands when any of them does
+//ff:what TestAfterAdnKind — a stem of two kinds right after a word that ends in a modifying closing is turned down by the kind a candidate gives it: as the kind that only stands alone it is, as the noun it also is it is not; with no kind given it stands when any of them does
 package token
 
 import "testing"

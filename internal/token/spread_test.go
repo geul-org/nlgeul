@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestSpread — a unit headed by a sign of a pair gives each reading that names the head once for each way the sign is read (열기:1, 열기:2, …, with its depth), and once more with the head as its letter alone when the sign is also read so; a reading that does not name the head stays as it is; a unit of another kind, and no bundle, are given back as they are
+//ff:what TestSpread — a unit headed by a sign of a pair gives each candidate that names the head once for each way the sign is read (열기:1, 열기:2, …, with its depth), and once more with the head as its letter alone when the sign is also read so; a candidate that does not name the head stays as it is; a unit of another kind, and no bundle, are given back as they are
 package token
 
 import (
@@ -19,14 +19,14 @@ func TestSpread(t *testing.T) {
 	for i, depth := range []int{1, 2} {
 		p := br[i].Words[0].Parts[0]
 		if p.Name != (Name{Kind: openName, Form: string(rune('0' + depth))}) || p.Depth != depth || br[i].Verdict != 1 || br[i].Pref != -5 {
-			t.Errorf("reading %d: %+v", i, br[i])
+			t.Errorf("candidate %d: %+v", i, br[i])
 		}
 	}
 	if p := br[2].Words[0].Parts[0]; p.Name != (Name{}) || p.Depth != 0 || p.Text != "(" || br[2].Pref != -5 {
 		t.Fatal("the head as its letter", br[2])
 	}
 	if !reflect.DeepEqual(br[3], whole) {
-		t.Fatal("a reading of the whole unit stays", br[3])
+		t.Fatal("a candidate of the whole unit stays", br[3])
 	}
 	plain := []Bundle{{Text: "곰", Branches: []Branch{headedBranch}}}
 	if got = spread(plain, unit{text: "곰"}); !reflect.DeepEqual(got, plain) {

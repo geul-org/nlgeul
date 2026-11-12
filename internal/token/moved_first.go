@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what movedFirst — the first word of a reading with its sign (the first part) taken off: no stem, so Attach is true; it keeps its verdict, its preference less the sign's own (signPref), and its end counted from the letters after the sign; false when no part is left
+//ff:what movedFirst — the first word of a candidate with its sign (the first part) taken off: no stem, so Attach is true; it keeps its verdict, its preference less the sign's own (signPref), and its end counted from the letters after the sign; false when no part is left
 package token
 
 func movedFirst(e step, head int, signPref float64) (step, bool) {

@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestAfterSign — a sign of a pair that only opens ends its unit right after it; one with a closing reading takes in what is written onto it (the particle up to the next space or sign); a closing sign with a space or another sign after it ends there
+//ff:what TestAfterSign — a sign of a pair that only opens ends its unit right after it; one with a closing candidate takes in what is written onto it (the particle up to the next space or sign); a closing sign with a space or another sign after it ends there
 package token
 
 import "testing"

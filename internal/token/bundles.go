@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what bundles — cut a unit at the agreed boundaries and gather, for each stretch, the different ways the surviving readings read it, best first
+//ff:what bundles — cut a unit at the agreed boundaries and gather, for each stretch, the different ways the surviving candidates read it, best first
 package token
 
 func (sc *scan) bundles(paths []*path) []Bundle {

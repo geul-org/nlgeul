@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestUnitsOf — a sentence is cut from its first letter on at spaces and at the signs of a pair: an opening bracket alone, a closing one with the particle written onto it, a pair that spans a space, a span of code with its spaces as one unit, a sign with no partner as an opening sign, a sign not read as a sign of a pair (x < y) in its word; each sign carries its readings with depths and whether it is also its letter; an empty sentence has no units
+//ff:what TestUnitsOf — a sentence is cut from its first letter on at spaces and at the signs of a pair: an opening bracket alone, a closing one with the particle written onto it, a pair that spans a space, a span of code with its spaces as one unit, a sign with no partner as an opening sign, a sign not read as a sign of a pair (x < y) in its word; each sign carries its candidates with depths and whether it is also its letter; an empty sentence has no units
 package token
 
 import (

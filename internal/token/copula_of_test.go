@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestCopulaOf — the stem said as a syllable 이 or under a fused piece, the stem dropped after any letter before the closing of a whole tail or under a fused piece that asks for no stem, and no reading for a tail with no closing, a closing that holds the stem, nothing before it, a fused piece that asks for a predicate's stem, or a tail that asks for a changed stem; what the stem is dropped before (a closing it allows, not a slot, the closings of droppableKnown only with a word table) and whether a vowel stands before it are left to the dropped stem's graph, so the reading is offered for those alike (TestCopulas sees the graph turn them down)
+//ff:what TestCopulaOf — the stem said as a syllable 이 or under a fused piece, the stem dropped after any letter before the closing of a whole tail or under a fused piece that asks for no stem, and no candidate for a tail with no closing, a closing that holds the stem, nothing before it, a fused piece that asks for a predicate's stem, or a tail that asks for a changed stem; what the stem is dropped before (a closing it allows, not a slot, the closings of droppableKnown only with a word table) and whether a vowel stands before it are left to the dropped stem's graph, so the candidate is offered for those alike (TestCopulas sees the graph turn them down)
 package token
 
 import "testing"
@@ -68,7 +68,7 @@ func TestCopulaOf(t *testing.T) {
 		t.Fatal("dropped before 야 after a digit, with a word table", at)
 	}
 	if at, e, ok := scanOf("abc다").copulaOf(tail{start: 3, pieces: one, close: da}); !ok || at != 3 || e == nil || e.name != droppedName {
-		t.Fatal("before 다 after a letter that is no Hangul syllable the reading is offered, and its graph decides", at)
+		t.Fatal("before 다 after a letter that is no Hangul syllable the candidate is offered, and its graph decides", at)
 	}
 	gi := tail{start: 2, pieces: one, close: &entry{name: "이름:기"}}
 	if at, e, ok := wordsScan("문제기", layerCost).copulaOf(gi); !ok || at != 2 || e == nil || e.name != droppedName {

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestSignBundles — the signs at one edge of a unit sent up, none dropped: each stretch of one sign in a row is a bundle of its own with the readings that stand (?! is ? and !, ... is one 줄임표, a lead # is 샵 and 태그); stretches no reading stands for are joined into one bundle of letters with no name (->); the end of a reading is 0 before the letters and the letters' end after them
+//ff:what TestSignBundles — the signs at one edge of a unit sent up, none dropped: each stretch of one sign in a row is a bundle of its own with the candidates that stand (?! is ? and !, ... is one 줄임표, a lead # is 샵 and 태그); stretches no candidate stands for are joined into one bundle of letters with no name (->); the end of a candidate is 0 before the letters and the letters' end after them
 package token
 
 import (

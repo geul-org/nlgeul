@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what loadWords — read a word table: tab-separated key, part of speech, irregular type, count and (for a misspelt key) the right form on each line, lines that begin with # skipped; a key's readings are folded into one entry, and a line with a right form goes to the misspelt forms instead
+//ff:what loadWords — read a word table: tab-separated key, part of speech, irregular type, count and (for a misspelt key) the right form on each line, lines that begin with # skipped; a key's candidates are folded into one entry, and a line with a right form goes to the misspelt forms instead
 package token
 
 import (

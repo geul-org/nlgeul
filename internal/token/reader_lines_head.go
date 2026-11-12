@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what LinesHead — read a token stream and print what is sent up: each unit's trace when asked for, then its bundles one after another (render), a contest printing only its first head readings (0 prints all); the readings are all made and Bundles gives all of them
+//ff:what LinesHead — read a token stream and print what is sent up: each unit's trace when asked for, then its bundles one after another (render), a contest printing only its first head candidates (0 prints all); the candidates are all made and Bundles gives all of them
 package token
 
 // head only limits the lines printed for a contest; the trace lines

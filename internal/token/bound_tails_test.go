@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestBoundTails — the readings kept at b are grown once more by the word of a bound stem with a word written wrong, read as the right form; not for a stem written right, a tail fused into the stem, a stem a table names, or a changed stem
+//ff:what TestBoundTails — the candidates kept at b are grown once more by the word of a bound stem with a word written wrong, read as the right form; not for a stem written right, a tail fused into the stem, a stem a table names, or a changed stem
 package token
 
 import (

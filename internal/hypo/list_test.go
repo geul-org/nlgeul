@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what TestList — as many hypotheses as Count, every number once; the greater place first; equal places in the order of their numbers; the hypotheses that pick a reading of verdict 0 last, in the order of their numbers; a bundle of one reading among them; no bundle gives none
+//ff:what TestList — as many combinations as Count, every number once; the greater place first; equal places in the order of their numbers; the combinations that pick a candidate of verdict 0 last, in the order of their numbers; a bundle of one candidate among them; no bundle gives none
 package hypo
 
 import (
@@ -11,9 +11,9 @@ import (
 
 func TestList(t *testing.T) {
 	// Verdicts are 1 (log10 0) or 0 (minus infinity), so the order is
-	// the same whatever Lambda is. Numbers: the first bundle's reading
-	// *3 + the last bundle's reading (the middle bundle has one
-	// reading, so its digit is always 0).
+	// the same whatever Lambda is. Numbers: the first bundle's candidate
+	// *3 + the last bundle's candidate (the middle bundle has one
+	// candidate, so its digit is always 0).
 	//   0: a0 b c0 → place 0+0+1 = 1
 	//   1: a0 b c1 → place minus infinity (c1 has verdict 0)
 	//   2: a0 b c2 → place 0+0+1 = 1
@@ -36,7 +36,7 @@ func TestList(t *testing.T) {
 	}
 	got := List(choices)
 	if int64(len(got)) != Count(choices).Int64() || len(got) != len(want) {
-		t.Fatalf("%d hypotheses, want %d (Count %s)", len(got), len(want), Count(choices))
+		t.Fatalf("%d combinations, want %d (Count %s)", len(got), len(want), Count(choices))
 	}
 	seen := map[int]bool{}
 	for i, h := range got {

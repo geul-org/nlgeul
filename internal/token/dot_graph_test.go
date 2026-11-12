@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestDotGraph — each reading of the full stop gets its exceptions: two for all but 줄임표, which has one
+//ff:what TestDotGraph — each candidate of the full stop gets its exceptions: two for all but 줄임표, which has one
 package token
 
 import "testing"

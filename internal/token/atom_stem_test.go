@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAtomStem — a stem that is one joined atom has its readings and verdict 1; one run the run's name and verdict; anything else nothing; a number has its name and the number's verdict
+//ff:what TestAtomStem — a stem that is one joined atom has its candidates and verdict 1; one run the run's name and verdict; anything else nothing; a number has its name and the number's verdict
 package token
 
 import "testing"

@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what String — a part printed: what the letters do not show in brackets, its letters, and its readings in square brackets (with the form it is written in when that is wrong); a stem no table knows is printed bare
+//ff:what String — a part printed: what the letters do not show in brackets, its letters, and its candidates in square brackets (with the form it is written in when that is wrong); a stem no table knows is printed bare
 package token
 
 func (p Part) String() string {

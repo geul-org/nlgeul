@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestOrdered — each reading once; those that open before those that close, each kind from the least depth up
+//ff:what TestOrdered — each candidate once; those that open before those that close, each kind from the least depth up
 package token
 
 import (
@@ -14,6 +14,6 @@ func TestOrdered(t *testing.T) {
 		t.Fatal(got)
 	}
 	if got = ordered(nil); len(got) != 0 {
-		t.Fatal("no readings", got)
+		t.Fatal("no candidates", got)
 	}
 }

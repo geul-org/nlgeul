@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=2
-//ff:what addSigns — a graph for each reading of each named sign (signNames), by the sign; the full stop's are its closing readings (마침표, 줄임표)
+//ff:what addSigns — a graph for each candidate of each named sign (signNames), by the sign; the full stop's are its closing candidates (마침표, 줄임표)
 package token
 
 func (ix *index) addSigns() {

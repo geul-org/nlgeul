@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestLoadSigns — the readings of a sign are listed in the order of their lines; a sign of more than one letter is an error
+//ff:what TestLoadSigns — the candidates of a sign are listed in the order of their lines; a sign of more than one letter is an error
 package token
 
 import (

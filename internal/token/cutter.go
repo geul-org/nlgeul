@@ -3,7 +3,7 @@
 package token
 
 // open begins as one way with nothing open. A sign that may be read in
-// more ways than one leaves more ways than one; the depth of a reading
+// more ways than one leaves more ways than one; the depth of a candidate
 // is how many signs stand open in the way it is read in.
 type cutter struct {
 	ix     *index

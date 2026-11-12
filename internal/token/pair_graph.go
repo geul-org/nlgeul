@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what pairGraph — the judgment graph of one reading of a sign of a pair: the claim "this sign opens a pair" or "this sign closes a pair", and the exceptions against it: for a closing reading that no sign of its kind may stand open, for the opening reading of a quotation mark written the same way at both ends that one of its kind may stand open, and what the sign's row bars (it stands inside a word, right after a digit, apart with a space on both sides, or next to a hyphen or an equals sign); the number of edges is returned
+//ff:what pairGraph — the judgment graph of one candidate of a sign of a pair: the claim "this sign opens a pair" or "this sign closes a pair", and the exceptions against it: for a closing candidate that no sign of its kind may stand open, for the opening candidate of a quotation mark written the same way at both ends that one of its kind may stand open, and what the sign's row bars (it stands inside a word, right after a digit, apart with a space on both sides, or next to a hyphen or an equals sign); the number of edges is returned
 package token
 
 import (

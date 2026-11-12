@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestCutterReads — the readings of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a sign that no reading stands for in its word, a letter, a sign in a span of code and a closing sign with nothing open give nothing; the cutter is not moved; a trace keeps the lines of the graphs
+//ff:what TestCutterReads — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a sign that no candidate stands for in its word, a letter, a sign in a span of code and a closing sign with nothing open give nothing; the cutter is not moved; a trace keeps the lines of the graphs
 package token
 
 import (

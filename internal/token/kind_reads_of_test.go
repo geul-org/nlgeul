@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestKindReadsOf — each reading of a sign becomes a reading of kind 0 with its own name and verdict, in order; no readings, none
+//ff:what TestKindReadsOf — each candidate of a sign becomes a candidate of kind 0 with its own name and verdict, in order; no candidates, none
 package token
 
 import (

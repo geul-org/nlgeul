@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what readParts — a reading given once for each of the parts, with its word k holding that one part (withPart)
+//ff:what readParts — a candidate given once for each of the parts, with its word k holding that one part (withPart)
 package token
 
 func readParts(br Branch, k int, parts []Part) []Branch {

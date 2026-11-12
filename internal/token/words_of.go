@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what wordsOf — the words of a reading, first to last
+//ff:what wordsOf — the words of a candidate, first to last
 package token
 
 func wordsOf(p *path) []step {

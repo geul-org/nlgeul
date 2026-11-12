@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReadGroup — the two case readings of 이 after a stem come back as one piece, and before another particle only the suffix 이 stands; an entry of another class, one that is not placed and one that is defeated are left out; a shortened closing is not read right before a particle, but is before 요
+//ff:what TestReadGroup — the two case candidates of 이 after a stem come back as one piece, and before another particle only the suffix 이 stands; an entry of another class, one that is not placed and one that is defeated are left out; a shortened closing is not read right before a particle, but is before 요
 package token
 
 import (

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what joinChain — judge each sign of a chain of runs and note the atoms: runs stay joined across a sign that a joining reading stands for; an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
+//ff:what joinChain — judge each sign of a chain of runs and note the atoms: runs stay joined across a sign that a joining candidate stands for; an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

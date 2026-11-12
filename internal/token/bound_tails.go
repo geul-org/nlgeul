@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what boundTails — the readings kept at b grown once more by the word that tail t makes when its stem is words bound by a slash or a hyphen with a word written wrong, read as the right form of that word (next to the reading that takes the letters as they are, which variants gives)
+//ff:what boundTails — the candidates kept at b grown once more by the word that tail t makes when its stem is words bound by a slash or a hyphen with a word written wrong, read as the right form of that word (next to the candidate that takes the letters as they are, which variants gives)
 package token
 
 // Only a tail whose stem is the letters from b to its start as they

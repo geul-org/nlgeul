@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what growAlone — the readings kept at b, each grown by one word from b to j of no markers; a word of the word table that only stands alone grows none of the readings whose last word ends in a modifying closing or is a determiner (afterAdn, for the kind the stem stands as), and where a determiner ends is kept
+//ff:what growAlone — the candidates kept at b, each grown by one word from b to j of no markers; a word of the word table that only stands alone grows none of the candidates whose last word ends in a modifying closing or is a determiner (afterAdn, for the kind the stem stands as), and where a determiner ends is kept
 package token
 
 func (sc *scan) growAlone(cands []*path, kept []*path, e step, b, j int) []*path {

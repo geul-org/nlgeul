@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestCutterJudge — the graphs of a sign of a pair for one way the signs before it may stand open: an opening sign reads one deeper than what stands open and adds itself to the way; a closing sign reads as deep as the nearest sign of its kind that stands open and closes what was opened after it; a closing sign with none of its kind open has no reading; a quotation mark opens when none of its kind stands open and closes when one does; a trace keeps a line for each graph with its reason
+//ff:what TestCutterJudge — the graphs of a sign of a pair for one way the signs before it may stand open: an opening sign reads one deeper than what stands open and adds itself to the way; a closing sign reads as deep as the nearest sign of its kind that stands open and closes what was opened after it; a closing sign with none of its kind open has no candidate; a quotation mark opens when none of its kind stands open and closes when one does; a trace keeps a line for each graph with its reason
 package token
 
 import (
@@ -39,6 +39,6 @@ func TestCutterJudge(t *testing.T) {
 	cut := newCutter(ix, ")", true)
 	_, _, notes := cut.judge(0, pairRows[')'], cut.facts(0), "[")
 	if len(notes) != 1 || !strings.Contains(notes[0], "닫기:)") || !strings.Contains(notes[0], "기각: 같은 종류의 여는 기호가 열려 있지 않다") || !strings.Contains(notes[0], `열린 기호 "["`) {
-		t.Fatal("the trace of a defeated reading", notes)
+		t.Fatal("the trace of a defeated candidate", notes)
 	}
 }

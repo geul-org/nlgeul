@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what judge — run the graphs of a sign of a pair for one way the signs before it may stand open: the readings that stand, each with its depth (an opening sign one deeper than what stands open, a closing sign as deep as the nearest sign of its kind that stands open), the way the signs stand open after each, and the trace lines when a trace is kept
+//ff:what judge — run the graphs of a sign of a pair for one way the signs before it may stand open: the candidates that stand, each with its depth (an opening sign one deeper than what stands open, a closing sign as deep as the nearest sign of its kind that stands open), the way the signs stand open after each, and the trace lines when a trace is kept
 package token
 
 import (

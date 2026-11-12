@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestKeptAt — the readings before a sign between letters are those kept there with the words of no markers that end there (a new word stands though no change of script shows its end), worked out once for a place
+//ff:what TestKeptAt — the candidates before a sign between letters are those kept there with the words of no markers that end there (a new word stands though no change of script shows its end), worked out once for a place
 package token
 
 import "testing"

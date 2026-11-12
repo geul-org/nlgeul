@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestCrossParts — each reading given is read by each part: the first reading's parts come first
+//ff:what TestCrossParts — each candidate given is read by each part: the first candidate's parts come first
 package token
 
 import "testing"

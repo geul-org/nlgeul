@@ -24,7 +24,7 @@ const keyVowel = 'ㅓ'
 const syllables = 11172
 
 // newWord and noKey name the graph of a stem that is not in any table.
-// keyKind is the kind of a stem's reading that a word table gives.
+// keyKind is the kind of a stem's candidate that a word table gives.
 const (
 	newWord = "새 낱말"
 	noKey   = "열쇠 표에 없다"
@@ -32,7 +32,7 @@ const (
 )
 
 // typoSign and typoName mark a part written in a wrong form: the sign
-// that joins the mark to the part's readings, and the mark's name
+// that joins the mark to the part's candidates, and the mark's name
 // (corrected). 열쇠:동사 written 맞기 is 열쇠:동사,오타정정:맞기.
 const (
 	typoSign = ","
@@ -92,13 +92,13 @@ const (
 // forceWhole is the force of the rebuttal "the number and the unit
 // together are a word of the table" against a unit read after a lone
 // Hangul numeral (이건, 세대). It is chosen among a few values tried on
-// a thousand sentences: below about 0.94 the unit reading still comes
+// a thousand sentences: below about 0.94 the unit candidate still comes
 // first, and at 1 it is not kept at all.
 const forceWhole = 0.98
 
 // forceClash is the force of the rebuttal "어/아 does not fit the vowel
 // before it" (먹아, 잡어), and of "a form with 으 does not fit the ㄹ
-// before it" (줄은): the reading is kept and comes later. It is chosen
+// before it" (줄은): the candidate is kept and comes later. It is chosen
 // among a few values tried on a thousand sentences for the first of the
 // two; nothing records a measurement for the second, which borrows it.
 const forceClash = 0.5
@@ -107,10 +107,10 @@ const forceClash = 0.5
 // of the word" against a stem that the word table gives as a wrong way
 // to write another word (misspeltRebuttal). With only that rebuttal the
 // verdict is 2/(1+0.28)-1, about 0.56, below the verdict of the word
-// written right, so that the right reading of the same letters comes
+// written right, so that the right candidate of the same letters comes
 // first. forceClash (먹아, 줄은) is not used: those forms
-// have another reading of the same letters that fits the norm, and the
-// reading is sent behind it; a misspelt stem has no right reading of
+// have another candidate of the same letters that fits the norm, and the
+// candidate is sent behind it; a misspelt stem has no right candidate of
 // those letters to give way to. It is a placeholder, not a measured
 // value.
 const forceTypo = 0.28

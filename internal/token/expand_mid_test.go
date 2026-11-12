@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestExpandMid — the branches of every bundle are read by the readings of the signs between letters, and the bundles given are not changed; a unit with no such sign gives its bundles back
+//ff:what TestExpandMid — the branches of every bundle are read by the candidates of the signs between letters, and the bundles given are not changed; a unit with no such sign gives its bundles back
 package token
 
 import "testing"

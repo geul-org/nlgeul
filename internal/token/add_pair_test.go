@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddPair — the graph of one reading of a sign of a pair is put under the sign with the reading as its form and the sign after a colon in its name, and the graphs and edges are counted
+//ff:what TestAddPair — the graph of one candidate of a sign of a pair is put under the sign with the candidate as its form and the sign after a colon in its name, and the graphs and edges are counted
 package token
 
 import "testing"

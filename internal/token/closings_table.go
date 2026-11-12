@@ -38,7 +38,7 @@ var nounHeads = closingNames(gatedClosings...)
 // 줄), against clause 18 of the orthography (a stem's ㄹ goes before
 // ㄴ and ㄹ, and such a stem takes no 으). They are read only with a
 // word table, after a predicate's stem of the table that ends in ㄹ,
-// next to the readings the tables give, and are rebutted as a form
+// next to the candidates the tables give, and are rebutted as a form
 // that does not fit what stands before it is (forceClash).
 var looseClosings = []parse.Marker{
 	{Form: "은", After: rule.AfterLiquid, Kind: rule.KindAdn, NoIda: true, NoYo: true},

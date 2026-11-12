@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderLinesPlainSigns — with no word table, signs no reading stands for come up as their letters with no name: x < y and A -> B have < and -> as lines of their own, 5'10" is the word 5'10 and a ", 가,나 keeps the comma-closed reading 가+,[쉼표] 나 beside the whole word and the reading with 나 as a particle
+//ff:what TestReaderLinesPlainSigns — with no word table, signs no candidate stands for come up as their letters with no name: x < y and A -> B have < and -> as lines of their own, 5'10" is the word 5'10 and a ", 가,나 keeps the comma-closed candidate 가+,[쉼표] 나 beside the whole word and the candidate with 나 as a particle
 package token
 
 import (

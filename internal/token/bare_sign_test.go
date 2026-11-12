@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestBareSign — a bundle of one reading of one word of one part with no name is signs sent up as their letters; a named sign, a contest, a word of two parts, and a bundle with no branch are not
+//ff:what TestBareSign — a bundle of one candidate of one word of one part with no name is signs sent up as their letters; a named sign, a contest, a word of two parts, and a bundle with no branch are not
 package token
 
 import "testing"

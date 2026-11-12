@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesTypo — end to end with the table of testdata that has a misspelt form (맞기 for 맡기): the misspelt stem is printed as the right form with 오타정정 and the written form, below the same tail written right, with the readings it had before still there (the new word, the verb and the naming 기 with the particle); a bare 맞기 and 맞기가 have no such reading; the right form is printed as before; with no word table or a table of four columns there is none either
+//ff:what TestReaderLinesTypo — end to end with the table of testdata that has a misspelt form (맞기 for 맡기): the misspelt stem is printed as the right form with 오타정정 and the written form, below the same tail written right, with the candidates it had before still there (the new word, the verb and the naming 기 with the particle); a bare 맞기 and 맞기가 have no such candidate; the right form is printed as before; with no word table or a table of four columns there is none either
 package token
 
 import (

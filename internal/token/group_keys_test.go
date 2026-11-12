@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestGroupKeys — the keys of the readings at a place come back by their place or kind, and the readings of one place or kind in the order their entries are in the index (주격 before 보격)
+//ff:what TestGroupKeys — the keys of the candidates at a place come back by their place or kind, and the candidates of one place or kind in the order their entries are in the index (주격 before 보격)
 package token
 
 import (

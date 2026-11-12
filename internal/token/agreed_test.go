@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAgreed — only the ends every reading has, in order
+//ff:what TestAgreed — only the ends every candidate has, in order
 package token
 
 import "testing"

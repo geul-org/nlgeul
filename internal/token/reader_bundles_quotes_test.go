@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderBundlesQuotes — a sentence with two pairs of quotes after digits and letters: the second pair opens at depth 1 and closes at depth 1 (the quote after the first digit leaves the ways it stood open); feet and inches stand with no word table (5'10": the unit of feet beside the pair's readings, the quote after the ten a bundle of its own); the old whole-unit reading stays
+//ff:what TestReaderBundlesQuotes — a sentence with two pairs of quotes after digits and letters: the second pair opens at depth 1 and closes at depth 1 (the quote after the first digit leaves the ways it stood open); feet and inches stand with no word table (5'10": the unit of feet beside the pair's candidates, the quote after the ten a bundle of its own); the old whole-unit candidate stays
 package token
 
 import "testing"

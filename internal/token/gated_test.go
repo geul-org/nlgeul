@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestGated — a tail with no gate always passes; a tail with the predicate gate passes the stem of a verb and not a noun's, and with the nominal gate the noun's; a stem of two kinds passes by the kind its reading is given and, with no kind given, by any of them
+//ff:what TestGated — a tail with no gate always passes; a tail with the predicate gate passes the stem of a verb and not a noun's, and with the nominal gate the noun's; a stem of two kinds passes by the kind its candidate is given and, with no kind given, by any of them
 package token
 
 import "testing"
@@ -19,6 +19,6 @@ func TestGated(t *testing.T) {
 		t.Fatal("nominal")
 	}
 	if !sc.gated(0, tail{start: 1, gate: sc.ix.pred}, stem("가", kindVerb)) || sc.gated(0, tail{start: 1, gate: sc.ix.pred}, stem("가", kindNominal)) {
-		t.Fatal("a stem of two kinds passes by the kind its reading is given")
+		t.Fatal("a stem of two kinds passes by the kind its candidate is given")
 	}
 }

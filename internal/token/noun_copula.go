@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what nounCopula — one predicate tail read after a dependent noun the copula's stem is fused into (nounCopulas): the tail's closing stands right after the noun's letter (테니) or is fused under it (텐데), the noun's graph judges it by whether some reading has a word ending in a modifying closing before it and by the closing, and the reading is the noun (터), the stem (이) and the tail, asked again on each reading (again); a tail that holds the copula or asks for a changed stem has no such reading
+//ff:what nounCopula — one predicate tail read after a dependent noun the copula's stem is fused into (nounCopulas): the tail's closing stands right after the noun's letter (테니) or is fused under it (텐데), the noun's graph judges it by whether some candidate has a word ending in a modifying closing before it and by the closing, and the candidate is the noun (터), the stem (이) and the tail, asked again on each candidate (again); a tail that holds the copula or asks for a changed stem has no such candidate
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

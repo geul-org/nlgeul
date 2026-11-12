@@ -4,16 +4,16 @@ import (
 	"github.com/geul-org/nlgeul/data"
 )
 
-// The readings of the full stop that join the runs on its two sides
+// The candidates of the full stop that join the runs on its two sides
 // into one name, and those that end what stands before it. Each is a
-// graph of its own (dotGraph). A joining reading's graph is named with
-// the sign (파일명:.); a closing reading is named as it is printed, with
+// graph of its own (dotGraph). A joining candidate's graph is named with
+// the sign (파일명:.); a closing candidate is named as it is printed, with
 // no sign after it (마침표).
 var joinNames = []string{"파일명", "도메인", "소수점", "버전"}
 var stopNames = []string{"마침표", "줄임표"}
 
-// extensions are the file-name extensions the reading 파일명 knows, and
-// topDomains the top-level domains the reading 도메인 knows. They are
+// extensions are the file-name extensions the candidate 파일명 knows, and
+// topDomains the top-level domains the candidate 도메인 knows. They are
 // closed tables of common ones, not complete.
 var extensions = data.Must(data.Column("extensions", 1))
 var topDomains = data.Must(data.Column("top-domains", 1))

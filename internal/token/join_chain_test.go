@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestJoinChain — 0x1234 is one number named 수:16진법, 0x12G4 and 0X1F stay runs; task.py becomes one atom with its readings; a.b stays two runs; in a.b.com every dot joins; 10:30 is one number read two ways, 25:70 only a ratio, 1,00 two numbers, and 2026.11.10 a version and a date
+//ff:what TestJoinChain — 0x1234 is one number named 수:16진법, 0x12G4 and 0X1F stay runs; task.py becomes one atom with its candidates; a.b stays two runs; in a.b.com every dot joins; 10:30 is one number read two ways, 25:70 only a ratio, 1,00 two numbers, and 2026.11.10 a version and a date
 package token
 
 import "testing"

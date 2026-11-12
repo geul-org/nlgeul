@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what shapeGraph — the judgment graph of one reading of a sign between runs of digits: the claim "this sign is that", and the exception that the runs it joins are not of the reading's shape
+//ff:what shapeGraph — the judgment graph of one candidate of a sign between runs of digits: the claim "this sign is that", and the exception that the runs it joins are not of the candidate's shape
 package token
 
 import (

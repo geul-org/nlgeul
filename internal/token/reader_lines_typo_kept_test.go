@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesTypoKept — the readings a form written right had are all still there: 할게, 먹을게, 가려고, 했습니다, 있음, 좋구먼, 학생이에요, 거예요 and the rest (a reading of a closing written wrong may be added, never taken away), and the readings of the letters of a closing written wrong as a word of their own (구만, 있슴, 좋구만) stand as they did; 갈려고 keeps the 려고 after 갈
+//ff:what TestReaderLinesTypoKept — the candidates a form written right had are all still there: 할게, 먹을게, 가려고, 했습니다, 있음, 좋구먼, 학생이에요, 거예요 and the rest (a candidate of a closing written wrong may be added, never taken away), and the candidates of the letters of a closing written wrong as a word of their own (구만, 있슴, 좋구만) stand as they did; 갈려고 keeps the 려고 after 갈
 package token
 
 import (

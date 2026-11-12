@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestStemWith — each reading of a stem is given the stem's letters and the letters it is written with, in order; none for no readings
+//ff:what TestStemWith — each candidate of a stem is given the stem's letters and the letters it is written with, in order; none for no candidates
 package token
 
 import (

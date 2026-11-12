@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddSigns — each named sign gets a graph for each of its readings in the order they are printed; the full stop's graphs are the closing readings of the stops; 16 readings in all
+//ff:what TestAddSigns — each named sign gets a graph for each of its candidates in the order they are printed; the full stop's graphs are the closing candidates of the stops; 16 candidates in all
 package token
 
 import (

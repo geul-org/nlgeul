@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what boundOf — the reading of a stem words bound by a slash or a hyphen: the stem with each word that is written wrong as its right form (the stem itself when typos is false or none is), a reading for each reading of the sign that stands, with its verdict no higher than that of the weakest word (none when the stem holds no such sign, or a word of it is not known; the last word must take what follows the stem)
+//ff:what boundOf — the candidate of a stem words bound by a slash or a hyphen: the stem with each word that is written wrong as its right form (the stem itself when typos is false or none is), a candidate for each candidate of the sign that stands, with its verdict no higher than that of the weakest word (none when the stem holds no such sign, or a word of it is not known; the last word must take what follows the stem)
 package token
 
 import (

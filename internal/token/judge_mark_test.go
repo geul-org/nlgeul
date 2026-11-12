@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestJudgeMark — the readings that stand come back one by one, each with its own verdict; each is noted in the trace, a defeated one with its reason; without a trace nothing is noted
+//ff:what TestJudgeMark — the candidates that stand come back one by one, each with its own verdict; each is noted in the trace, a defeated one with its reason; without a trace nothing is noted
 package token
 
 import (

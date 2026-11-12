@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what agreed — the boundaries every surviving reading puts: the places where the unit is cut and sent up (section 12: cut by agreement, not by a threshold)
+//ff:what agreed — the boundaries every surviving candidate puts: the places where the unit is cut and sent up (section 12: cut by agreement, not by a threshold)
 package token
 
 import "sort"

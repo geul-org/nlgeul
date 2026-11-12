@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=sequence
-//ff:what TestOrder — score's place is the sum of each reading's preference plus Lambda times log10 of its verdict, its verdict the least and its preference the sum; none gives place 0, verdict 1, preference 0, and a reading of verdict 1 and preference 0 changes nothing; a verdict of 0 or less gives minus infinity, not NaN; before puts the greater place first whatever the verdict and the preference, equal places neither way, and a weaker reading with more preference comes first only when the preference makes up for Lambda times the gap in log10 verdict
+//ff:what TestOrder — score's place is the sum of each candidate's preference plus Lambda times log10 of its verdict, its verdict the least and its preference the sum; none gives place 0, verdict 1, preference 0, and a candidate of verdict 1 and preference 0 changes nothing; a verdict of 0 or less gives minus infinity, not NaN; before puts the greater place first whatever the verdict and the preference, equal places neither way, and a weaker candidate with more preference comes first only when the preference makes up for Lambda times the gap in log10 verdict
 package hypo
 
 import (
@@ -22,7 +22,7 @@ func TestOrder(t *testing.T) {
 		t.Fatalf("score %+v, want place %v verdict 0.25 preference -0.75", got, place)
 	}
 	if got, want := score(nil), (Score{Place: 0, Verdict: 1, Pref: 0}); got != want {
-		t.Fatalf("score of no reading %+v, want %+v", got, want)
+		t.Fatalf("score of no candidate %+v, want %+v", got, want)
 	}
 	withSign := []token.Branch{{Verdict: 1, Pref: 0}, {Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}, {Verdict: 1, Pref: 0}}
 	if with := score(withSign); math.Abs(with.Place-got.Place) > 1e-9 || with.Verdict != got.Verdict || with.Pref != got.Pref {
@@ -53,7 +53,7 @@ func TestOrder(t *testing.T) {
 		t.Fatalf("a place that is a number is not before minus infinity: %+v %+v", got, zero)
 	}
 
-	// A weak reading (verdict 0.33) against a strong one (verdict 0.6,
+	// A weak candidate (verdict 0.33) against a strong one (verdict 0.6,
 	// preference 0): the gap in log10 verdict times Lambda is what the
 	// weak one's preference must make up.
 	gap := Lambda * (math.Log10(0.6) - math.Log10(0.33))
@@ -61,9 +61,9 @@ func TestOrder(t *testing.T) {
 	short := score([]token.Branch{{Verdict: 0.33, Pref: gap / 2}})
 	enough := score([]token.Branch{{Verdict: 0.33, Pref: gap * 2}})
 	if !before(strong, short) || before(short, strong) {
-		t.Fatalf("a weak reading with too little preference comes first: %+v %+v", short, strong)
+		t.Fatalf("a weak candidate with too little preference comes first: %+v %+v", short, strong)
 	}
 	if !before(enough, strong) || before(strong, enough) {
-		t.Fatalf("a weak reading with preference enough does not come first: %+v %+v", enough, strong)
+		t.Fatalf("a weak candidate with preference enough does not come first: %+v %+v", enough, strong)
 	}
 }

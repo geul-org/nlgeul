@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what markerGraph — the judgment graph of one marker reading, stamped from its table row and its exception list: the claim "this token sequence is this marker" and the structural exceptions against it (and for a closing written wrong the rebuttal of a misspelt form)
+//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row and its exception list: the claim "this token sequence is this marker" and the structural exceptions against it (and for a closing written wrong the rebuttal of a misspelt form)
 package token
 
 import (

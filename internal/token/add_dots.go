@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addDots — a graph for each reading of the full stop, a graph for each sign that sets two words side by side in one stem, and the graph of a run of Latin letters and digits that no table lists
+//ff:what addDots — a graph for each candidate of the full stop, a graph for each sign that sets two words side by side in one stem, and the graph of a run of Latin letters and digits that no table lists
 package token
 
 import (

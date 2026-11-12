@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestNounCopulasLines — end to end with the word table of testdata, which has no 터 or 테 (the stem is printed with the form's name, 줄임:테): 테 after a modifying form written apart (할 테니까, 갈 텐데, 할 테고) or onto it (갈테니, 갈텐데, 할테야) reads 터 with the copula's stem (이) before the closing, as a word that does not attach; a word that begins with 테 (테스트, 테이블), 테 after a word that ends in no modifying closing (나테니, 곰테니), before ㅆ fused into its vowel (텠다) or before a closing the copula does not take (테자) has no such reading; without a word table 할 테니까 still reads it
+//ff:what TestNounCopulasLines — end to end with the word table of testdata, which has no 터 or 테 (the stem is printed with the form's name, 줄임:테): 테 after a modifying form written apart (할 테니까, 갈 텐데, 할 테고) or onto it (갈테니, 갈텐데, 할테야) reads 터 with the copula's stem (이) before the closing, as a word that does not attach; a word that begins with 테 (테스트, 테이블), 테 after a word that ends in no modifying closing (나테니, 곰테니), before ㅆ fused into its vowel (텠다) or before a closing the copula does not take (테자) has no such candidate; without a word table 할 테니까 still reads it
 package token
 
 import (

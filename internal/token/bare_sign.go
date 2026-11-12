@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what bareSign — is a bundle one reading of one part with no name: signs sent up as their letters
+//ff:what bareSign — is a bundle one candidate of one part with no name: signs sent up as their letters
 package token
 
 func bareSign(b Bundle) bool {

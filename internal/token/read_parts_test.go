@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestReadParts — a reading is given once for each part, in the parts' order, with its word k holding that part
+//ff:what TestReadParts — a candidate is given once for each part, in the parts' order, with its word k holding that part
 package token
 
 import "testing"

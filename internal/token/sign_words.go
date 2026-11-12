@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what signWords — the readings that end at j with a sign between letters (sc.mid) read as a word of its own: each reading kept before the sign (keptAt), grown by the sign alone, with its preference 0 as a sign at a unit's edge has; the sign is named 기호 until the stretches are made (expandMid)
+//ff:what signWords — the candidates that end at j with a sign between letters (sc.mid) read as a word of its own: each candidate kept before the sign (keptAt), grown by the sign alone, with its preference 0 as a sign at a unit's edge has; the sign is named 기호 until the stretches are made (expandMid)
 package token
 
 func (sc *scan) signWords(cands []*path, best [][]*path, j int) []*path {

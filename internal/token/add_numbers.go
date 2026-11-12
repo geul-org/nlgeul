@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each reading of each sign between runs of digits (the full stop keeps its own and gets two more), the readings of a slash and a hyphen that join the runs of a name, the signs at a number's front, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop keeps its own and gets two more), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
 package token
 
 import (

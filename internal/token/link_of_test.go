@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestLinkOf — each reading gets its kind: a suffix, a vocative, 의, a case particle, 께서, 요, a shortened topic form, a directional, a comparing and a company particle, a range particle, an adverbial one, and a topic particle
+//ff:what TestLinkOf — each candidate gets its kind: a suffix, a vocative, 의, a case particle, 께서, 요, a shortened topic form, a directional, a comparing and a company particle, a range particle, an adverbial one, and a topic particle
 package token
 
 import (

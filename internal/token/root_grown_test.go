@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestRootGrown — the root is grown once by each way the stem from 0 to n stands (a word of two kinds has two readings, a new word one), each a path from the root with that word as its last
+//ff:what TestRootGrown — the root is grown once by each way the stem from 0 to n stands (a word of two kinds has two candidates, a new word one), each a path from the root with that word as its last
 package token
 
 import "testing"
@@ -14,6 +14,6 @@ func TestRootGrown(t *testing.T) {
 	}
 	one := scanOf("고양이").rootGrown(root, 3, tail{start: 3})
 	if len(one) != 1 || one[0].prev != root || one[0].sig != "고양이" || one[0].last.end != 3 {
-		t.Fatal("a new word is one reading", one)
+		t.Fatal("a new word is one candidate", one)
 	}
 }

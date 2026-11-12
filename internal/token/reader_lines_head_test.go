@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderLinesHead — a contest of more readings than head prints its first head readings and the count left out; the trace lines are not cut; Lines prints all; and Bundles gives the same readings whatever head is
+//ff:what TestReaderLinesHead — a contest of more candidates than head prints its first head candidates and the count left out; the trace lines are not cut; Lines prints all; and Bundles gives the same candidates whatever head is
 package token
 
 import (

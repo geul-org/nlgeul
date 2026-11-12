@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what stepOf — the word from b to end that tail t makes when its stem stands as the reading given: the stem and the markers after it as the parts of a word, with its verdict (the least of its pieces' and the stem's; the new word's graph for a stem that does not stand), its preference, the kind of the stem, and whether it ends in a modifying closing, is a determiner, or ends in the linking closing 어/아
+//ff:what stepOf — the word from b to end that tail t makes when its stem stands as the candidate given: the stem and the markers after it as the parts of a word, with its verdict (the least of its pieces' and the stem's; the new word's graph for a stem that does not stand), its preference, the kind of the stem, and whether it ends in a modifying closing, is a determiner, or ends in the linking closing 어/아
 package token
 
 import (

@@ -4,7 +4,7 @@ package token
 
 // A layer above reads this instead of the printed lines: each bundle
 // holds its branches, each branch its words, each word its parts with
-// their readings. Lines prints the same bundles.
+// their candidates. Lines prints the same bundles.
 func (r *Reader) Bundles(sentence string) []Bundle {
 	var out []Bundle
 	spaced := true

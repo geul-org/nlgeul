@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStepsOf — a word whose stem stands as two kinds is two readings, each with its own kind, verdict and preference (the kind's count); in the first layer both stand whole; a closed-set word of two sets and an atom of two names are two readings of one verdict and preference; a word of one way is one reading
+//ff:what TestStepsOf — a word whose stem stands as two kinds is two candidates, each with its own kind, verdict and preference (the kind's count); in the first layer both stand whole; a closed-set word of two sets and an atom of two names are two candidates of one verdict and preference; a word of one way is one candidate
 package token
 
 import (
@@ -34,6 +34,6 @@ func TestStepsOf(t *testing.T) {
 		t.Fatal("an atom of two names", atom)
 	}
 	if one := scanOf("고양이").stepsOf(0, 3, tail{start: 3}); len(one) != 1 || one[0].word.Parts[0].Name != (Name{}) {
-		t.Fatal("a new word is one reading", one)
+		t.Fatal("a new word is one candidate", one)
 	}
 }

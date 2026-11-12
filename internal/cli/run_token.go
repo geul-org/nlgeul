@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=iteration dimension=1
-//ff:what runToken — read each sentence with the reader and print its lines (a contest cut to its first head readings, 0 for all), or its word ends when those are asked for; several sentences are parted by an empty line
+//ff:what runToken — read each sentence with the reader and print its lines (a contest cut to its first head candidates, 0 for all), or its word ends when those are asked for; several sentences are parted by an empty line
 package cli
 
 import (

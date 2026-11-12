@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestNounCopulas — of the tails given, each one read after 테 gives its reading in order and the others none (no closing, another letter); no tails give none; the predicate tails of a unit (closings) carry 터+(이) before 니 (갈테니), before ㄴ데 fused under 텐 (올텐데) and before 야 (할테야) where a word that ends in a modifying closing ends before the letter, and not where none does
+//ff:what TestNounCopulas — of the tails given, each one read after 테 gives its candidate in order and the others none (no closing, another letter); no tails give none; the predicate tails of a unit (closings) carry 터+(이) before 니 (갈테니), before ㄴ데 fused under 텐 (올텐데) and before 야 (할테야) where a word that ends in a modifying closing ends before the letter, and not where none does
 package token
 
 import "testing"

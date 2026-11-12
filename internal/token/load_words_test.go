@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestLoadWords — the table of testdata is read with comment lines skipped and a key's readings folded into one; a missing file and a bad line are errors that say which
+//ff:what TestLoadWords — the table of testdata is read with comment lines skipped and a key's candidates folded into one; a missing file and a bad line are errors that say which
 package token
 
 import (

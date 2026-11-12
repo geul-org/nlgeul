@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestEntryForm — two readings of one particle form share a key; a closing of the same letters, and a fused piece, have their own
+//ff:what TestEntryForm — two candidates of one particle form share a key; a closing of the same letters, and a fused piece, have their own
 package token
 
 import (

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a particle of two cases, one reading each, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only (named, as ...), and a unit with no space whose readings agree on no cut come up as the structure says, as one stretch holding every way the unit is read (none dropped for a limit), best first
+//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a particle of two cases, one candidate each, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only (named, as ...), and a unit with no space whose candidates agree on no cut come up as the structure says, as one stretch holding every way the unit is read (none dropped for a limit), best first
 package token
 
 import (
@@ -119,6 +119,6 @@ func TestReaderBundles(t *testing.T) {
 	e := bare.Bundles("고양이가마당에서물을마신다")
 	right := "고양이+가[주격:가] 마당+에서[주격:에서] 물+을[목적격:을] 마신+다[맺음:다]"
 	if len(e) != 1 || e[0].Text != "고양이가마당에서물을마신다" || e[0].Unit != 0 || !e[0].Contest() || len(e[0].Branches) < 4 || !hasBranch(e[0].Branches, right) || !branchesInOrder(e[0].Branches) {
-		t.Fatalf("a unit whose readings agree on no cut is one stretch: %+v", e)
+		t.Fatalf("a unit whose candidates agree on no cut is one stretch: %+v", e)
 	}
 }

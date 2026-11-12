@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestBundles — a unit is cut only where all its readings agree: 아버지가방에들어가신다, where some readings put no boundary after 에, is one stretch holding every reading (none dropped for a limit), best first (the best one named, the whole-word new reading among them); 고양이가마당에서물을마신다, where some reading puts no boundary after 에서, is one stretch too, and holds the right reading of it; 다음으로써 is one contest
+//ff:what TestBundles — a unit is cut only where all its candidates agree: 아버지가방에들어가신다, where some candidates put no boundary after 에, is one stretch holding every candidate (none dropped for a limit), best first (the best one named, the whole-word new candidate among them); 고양이가마당에서물을마신다, where some candidate puts no boundary after 에서, is one stretch too, and holds the right candidate of it; 다음으로써 is one contest
 package token
 
 import "testing"

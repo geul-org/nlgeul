@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what Bundle — what is sent up for one stretch of a sentence: which unit of the sentence it is in, whether no space stood before it (Glued, not printed), its letters, and its branches, best first; one branch is a settled reading, more than one a contest (one of them holds)
+//ff:what Bundle — what is sent up for one stretch of a sentence: which unit of the sentence it is in, whether no space stood before it (Glued, not printed), its letters, and its branches, best first; one branch is a settled candidate, more than one a contest (one of them holds)
 package token
 
 // The stretches of a unit come in order, and last the dots that close

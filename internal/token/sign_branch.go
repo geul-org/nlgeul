@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what signBranch — a sign as a reading of its own: one word of one part, which stands (verdict 1) and costs nothing in preference
+//ff:what signBranch — a sign as a candidate of its own: one word of one part, which stands (verdict 1) and costs nothing in preference
 package token
 
 func signBranch(p Part, end int) Branch {

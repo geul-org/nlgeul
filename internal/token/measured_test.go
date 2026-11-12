@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestMeasured — a sign of a pair alone right after a digit gets a branch for each line of the unit table that has it (인치, 초 for ", 피트, 분 for '), sure and with a unit's preference, after the readings it already has; another sign, and no bundle, are given back as they are
+//ff:what TestMeasured — a sign of a pair alone right after a digit gets a branch for each line of the unit table that has it (인치, 초 for ", 피트, 분 for '), sure and with a unit's preference, after the candidates it already has; another sign, and no bundle, are given back as they are
 package token
 
 import "testing"

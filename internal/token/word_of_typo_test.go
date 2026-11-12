@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestWordOfTypo — a stem written wrong is printed and looked up as the right form with the letters it is written with kept apart (Written) and its readings those of the right form's kind alone; a word written right and a new word have no written form; a misspelt stem the right form does not take carries no written form
+//ff:what TestWordOfTypo — a stem written wrong is printed and looked up as the right form with the letters it is written with kept apart (Written) and its candidates those of the right form's kind alone; a word written right and a new word have no written form; a misspelt stem the right form does not take carries no written form
 package token
 
 import (

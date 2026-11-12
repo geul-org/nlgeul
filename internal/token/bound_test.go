@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestBound — two known words with a slash or a hyphen between them are one stem named by the sign's reading, no better founded than the weaker word; a run of Latin letters counts as a word; not when a word is unknown, when the last word does not take what follows, without such a sign, or without a word table
+//ff:what TestBound — two known words with a slash or a hyphen between them are one stem named by the sign's candidate, no better founded than the weaker word; a run of Latin letters counts as a word; not when a word is unknown, when the last word does not take what follows, without such a sign, or without a word table
 package token
 
 import (

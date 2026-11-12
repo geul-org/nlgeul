@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestWordsOf — the words of a reading in order; none for the empty reading
+//ff:what TestWordsOf — the words of a candidate in order; none for the empty candidate
 package token
 
 import "testing"

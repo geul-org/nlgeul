@@ -1,9 +1,9 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what readOnto — a unit whose head is a sign of a pair with letters written onto it, read as the bundles of the sign alone, then the bundles of the letters: those read on their own, with the readings that took the sign as their first word moved over with the sign taken off (the first word then has no stem: +를[목적격:를]); then the signs after the letters
+//ff:what readOnto — a unit whose head is a sign of a pair with letters written onto it, read as the bundles of the sign alone, then the bundles of the letters: those read on their own, with the candidates that took the sign as their first word moved over with the sign taken off (the first word then has no stem: +를[목적격:를]); then the signs after the letters
 package token
 
-// The sign's bundles are read as a sign alone is. The readings of the
-// letters are those of a unit with no head, beside the readings of the
+// The sign's bundles are read as a sign alone is. The candidates of the
+// letters are those of a unit with no head, beside the candidates of the
 // whole unit that have the sign as a word of its own; those that took
 // the sign into a word's letters are not moved (the letters read alone
 // stand for them).

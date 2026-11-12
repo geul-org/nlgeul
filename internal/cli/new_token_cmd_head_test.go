@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdHead — --head limits the readings printed for one contest (20 by default) and counts the rest; 0 prints all; a negative number is refused; --cuts and the trace lines are not cut
+//ff:what TestNewTokenCmdHead — --head limits the candidates printed for one contest (20 by default) and counts the rest; 0 prints all; a negative number is refused; --cuts and the trace lines are not cut
 package cli
 
 import (

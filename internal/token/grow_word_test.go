@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestGrowWord — each kept reading is grown by the word that tail t makes; a word of no verdict grows none; a tail read only after a modifying closing grows only the readings on which its graph stands; the readings that end in a modifying closing or a determiner are not grown by a predicate; a word that ends in a modifying closing marks where it ends; a number in binary has two readings
+//ff:what TestGrowWord — each kept candidate is grown by the word that tail t makes; a word of no verdict grows none; a tail read only after a modifying closing grows only the candidates on which its graph stands; the candidates that end in a modifying closing or a determiner are not grown by a predicate; a word that ends in a modifying closing marks where it ends; a number in binary has two candidates
 package token
 
 import (
@@ -15,7 +15,7 @@ func TestGrowWord(t *testing.T) {
 	verb.adnEnds[2], verb.detEnds[2] = true, true
 	e := verb.stepsOf(2, 5, da)[0]
 	if got := verb.growWord(nil, kept, da, e, 2, 5); len(got) != 1 || got[0].prev != kept[0] || verb.adnEnds[5] {
-		t.Fatal("a predicate grows only the reading that ends in no modifying closing and no determiner", got)
+		t.Fatal("a predicate grows only the candidate that ends in no modifying closing and no determiner", got)
 	}
 	dead := e
 	dead.verdict = 0
@@ -32,7 +32,7 @@ func TestGrowWord(t *testing.T) {
 	nt := tail{start: 4, pieces: []piece{{text: "를", names: "목적격:를", verdict: 1, tail: rule.TailCase}}}
 	e = noun.stepsOf(2, 5, nt)[0]
 	if got := noun.growWord(nil, kept, nt, e, 2, 5); len(got) != 3 {
-		t.Fatal("a nominal grows every reading", got)
+		t.Fatal("a nominal grows every candidate", got)
 	}
 	bound := scanOf("한건")
 	bound.adnEnds[1] = true
@@ -44,6 +44,6 @@ func TestGrowWord(t *testing.T) {
 	bin := scanOf("1010")
 	e = bin.stepsOf(0, 4, tail{start: 4})[0]
 	if got := bin.growWord(nil, kept[:1], tail{start: 4}, e, 0, 4); len(got) != 2 {
-		t.Fatal("a number in binary has two readings", got)
+		t.Fatal("a number in binary has two candidates", got)
 	}
 }

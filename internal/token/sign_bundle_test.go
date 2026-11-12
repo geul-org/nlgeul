@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestSignBundle — one stretch of one sign as a bundle: a reading for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); the letters with no name when none stands; beside the readings when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵
+//ff:what TestSignBundle — one stretch of one sign as a bundle: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); the letters with no name when none stands; beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵
 package token
 
 import (

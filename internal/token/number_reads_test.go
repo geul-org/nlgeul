@@ -14,14 +14,14 @@ func TestNumberReads(t *testing.T) {
 		t.Fatalf("%+v", two)
 	}
 	if two[0].word.Parts[0].Name != (Name{"수", ""}) || two[1].word.Parts[0].Name != (Name{"수", "2진법"}) {
-		t.Fatal("the first reading is not changed by the second", two[0].word.Parts[0].Name)
+		t.Fatal("the first candidate is not changed by the second", two[0].word.Parts[0].Name)
 	}
 	for _, c := range []struct {
 		text string
 		end  int
 	}{{"102", 3}, {"1,000", 5}, {"1.01", 4}, {"10:10", 5}, {"-11", 3}, {"0x11", 4}, {"abc", 3}} {
 		if got := read(c.text, c.end); len(got) != 1 {
-			t.Errorf("%s: %d readings", c.text, len(got))
+			t.Errorf("%s: %d candidates", c.text, len(got))
 		}
 	}
 	sc := scanOf("10개")

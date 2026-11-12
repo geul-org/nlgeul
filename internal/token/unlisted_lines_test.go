@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestUnlistedLines — end to end, the new word's graph as wordOf and whole ask it: with a word table 떨어졌다 loses 떨어졌+다 and 졌+다 that the reading with no table keeps, and 곰졌다, 곰졌도, 곰졌 each stand as a whole new word only; 거네 and 뭐냐 keep the dropped copula and lose the new word before the closing, while 사과 before a particle and a word no table has before a predicate tail stand, and without a word table 거+네 stands; 먹었을걸 has no new word 으 before (ㄹ)걸, while 사과을걸, where 을걸 does not read as markers, keeps it; 서, a word the table knows, stands after 마당에 though its letters read as a marker there
+//ff:what TestUnlistedLines — end to end, the new word's graph as wordOf and whole ask it: with a word table 떨어졌다 loses 떨어졌+다 and 졌+다 that the candidate with no table keeps, and 곰졌다, 곰졌도, 곰졌 each stand as a whole new word only; 거네 and 뭐냐 keep the dropped copula and lose the new word before the closing, while 사과 before a particle and a word no table has before a predicate tail stand, and without a word table 거+네 stands; 먹었을걸 has no new word 으 before (ㄹ)걸, while 사과을걸, where 을걸 does not read as markers, keeps it; 서, a word the table knows, stands after 마당에 though its letters read as a marker there
 package token
 
 import (

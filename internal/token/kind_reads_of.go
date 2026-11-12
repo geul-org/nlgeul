@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what kindReadsOf — the readings of a sign as the readings of a stem that stands as no kind of the tables (kind 0)
+//ff:what kindReadsOf — the candidates of a sign as the candidates of a stem that stands as no kind of the tables (kind 0)
 package token
 
 func kindReadsOf(marks []markRead) []kindRead {

@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=sequence
-//ff:what TestLine — the whole line: rank, verdict and preference with two decimals, and the reading picked for each bundle parted by " | "; a reading of two words prints them with a space between
+//ff:what TestLine — the whole line: rank, verdict and preference with two decimals, and the candidate picked for each bundle parted by " | "; a candidate of two words prints them with a space between
 package hypo
 
 import (

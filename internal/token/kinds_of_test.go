@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what kindsOf — the first name of the first part of each reading of a bundle, as kind:form (a reading with no name gives "")
+//ff:what kindsOf — the first name of the first part of each candidate of a bundle, as kind:form (a candidate with no name gives "")
 package token
 
 func kindsOf(b Bundle) []string {

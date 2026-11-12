@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestKnownReads — a stem of two kinds is read once for each kind whose graph lets it stand, each with that kind's own verdict; a kind whose graph turns it down is not read; in the first layer every kind stands whole; a closed-set word that stands as the kind of its set is read under the set's name only; a stem no table lists has no reading
+//ff:what TestKnownReads — a stem of two kinds is read once for each kind whose graph lets it stand, each with that kind's own verdict; a kind whose graph turns it down is not read; in the first layer every kind stands whole; a closed-set word that stands as the kind of its set is read under the set's name only; a stem no table lists has no candidate
 package token
 
 import (

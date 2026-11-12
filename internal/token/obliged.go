@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what obliged — the readings of 겠 right after the closing 어야 (가야겠다, 먹어야겠네: 어야 하겠 with 하 left out): each tail that begins with the slot 겠, read once more after each tail that ends right before it with that closing, the auxiliary 하 written out between them
+//ff:what obliged — the candidates of 겠 right after the closing 어야 (가야겠다, 먹어야겠네: 어야 하겠 with 하 left out): each tail that begins with the slot 겠, read once more after each tail that ends right before it with that closing, the auxiliary 하 written out between them
 package token
 
 import "slices"

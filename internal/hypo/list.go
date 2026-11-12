@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what List — every hypothesis of the bundles with its score, sorted by the formula of order; equal scores stay in the order of their numbers
+//ff:what List — every combination of candidates of the bundles with its score, sorted by the formula of order; equal scores stay in the order of their numbers
 package hypo
 
 import (

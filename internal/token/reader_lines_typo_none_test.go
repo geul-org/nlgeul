@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderLinesTypoNone — with no word table a closing written wrong is read as the right closing's reading with the letters it is written with added (할께 as 할게's 하+(ㄹ)게 reading, the stem as the table-less reading gives it); no noun is read as written wrong, and no reading of a form written right has a mark
+//ff:what TestReaderLinesTypoNone — with no word table a closing written wrong is read as the right closing's candidate with the letters it is written with added (할께 as 할게's 하+(ㄹ)게 candidate, the stem as the table-less candidate gives it); no noun is read as written wrong, and no candidate of a form written right has a mark
 package token
 
 import (

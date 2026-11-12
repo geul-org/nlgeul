@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what tildeAt — the range sign that ends at j after a number and its unit and before another number (1월~3월): the tails it closes, as the full stop closes a word, one for each reading of the sign that stands
+//ff:what tildeAt — the range sign that ends at j after a number and its unit and before another number (1월~3월): the tails it closes, as the full stop closes a word, one for each candidate of the sign that stands
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

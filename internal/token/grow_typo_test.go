@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestGrowTypo — each kept reading is grown by a word written wrong; a word of no verdict grows none; the readings that end in a modifying closing or a determiner are not grown by a right form that only stands alone; a determiner marks where it ends
+//ff:what TestGrowTypo — each kept candidate is grown by a word written wrong; a word of no verdict grows none; the candidates that end in a modifying closing or a determiner are not grown by a right form that only stands alone; a determiner marks where it ends
 package token
 
 import "testing"
@@ -11,7 +11,7 @@ func TestGrowTypo(t *testing.T) {
 	e := sc.stepsOf(0, 2, tl)[0]
 	got := sc.growTypo(nil, kept, tl, e, 0, 2)
 	if len(got) != 3 || got[0].prev != kept[0] || got[2].prev != kept[2] || got[0].last.sig != "역할[열쇠:체언,오타정정:역활]" || sc.detEnds[2] {
-		t.Fatal("a nominal grows every reading", got)
+		t.Fatal("a nominal grows every candidate", got)
 	}
 	dead := e
 	dead.verdict = 0
@@ -38,6 +38,6 @@ func TestGrowTypo(t *testing.T) {
 	e = alone.stepsOf(0, 3, reads[0])[0]
 	got = alone.growTypo(nil, kept, reads[0], e, 0, 3)
 	if len(got) != 1 || got[0].prev != kept[0] || got[0].last.sig != "아이고[열쇠:홀로,오타정정:아이구]" {
-		t.Fatal("a right form that only stands alone grows only the readings that end in no modifying closing and no determiner", got)
+		t.Fatal("a right form that only stands alone grows only the candidates that end in no modifying closing and no determiner", got)
 	}
 }

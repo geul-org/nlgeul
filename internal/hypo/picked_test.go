@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what TestPicked — number 0 picks the first reading of every bundle; the last bundle's digit is the lowest; the last number picks the last reading of every bundle; the bundles have different numbers of readings
+//ff:what TestPicked — number 0 picks the first candidate of every bundle; the last bundle's digit is the lowest; the last number picks the last candidate of every bundle; the bundles have different numbers of candidates
 package hypo
 
 import (
@@ -9,7 +9,7 @@ import (
 )
 
 func TestPicked(t *testing.T) {
-	// Each reading is told apart by its preference: bundle*10 + reading.
+	// Each candidate is told apart by its preference: bundle*10 + candidate.
 	choices := []token.Bundle{
 		{Text: "가", Branches: []token.Branch{{Pref: 10}, {Pref: 11}}},
 		{Text: "나", Branches: []token.Branch{{Pref: 20}, {Pref: 21}, {Pref: 22}}},

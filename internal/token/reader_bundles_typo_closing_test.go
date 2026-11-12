@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderBundlesTypoClosing — the structure of a closing written wrong: the part has the right closing as Text (게), what the letters do not show as Hidden (ㄹ), the letters it is written with as Written (ㄹ께), and only the closing's own name in Names (the mark is not a reading); a noun written wrong has the right noun as Text and the letters as Written; where the right form stands with verdict 1 the one written wrong stands with 2/(1+forceTypo)-1; printed again by Lines
+//ff:what TestReaderBundlesTypoClosing — the structure of a closing written wrong: the part has the right closing as Text (게), what the letters do not show as Hidden (ㄹ), the letters it is written with as Written (ㄹ께), and only the closing's own name in Names (the mark is not a candidate); a noun written wrong has the right noun as Text and the letters as Written; where the right form stands with verdict 1 the one written wrong stands with 2/(1+forceTypo)-1; printed again by Lines
 package token
 
 import (

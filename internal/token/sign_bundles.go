@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what signBundles — the signs at one edge of a unit sent up, so that no letter of the sentence is dropped: each stretch of one sign in a row is a bundle of its own with the readings that stand for it (밥 먹었어? → ?[물음표], 글쎄... → ...[줄임표], #태그 → #[샵] and #[태그]), and stretches that no reading stands for are joined into one bundle of their letters with no name (->)
+//ff:what signBundles — the signs at one edge of a unit sent up, so that no letter of the sentence is dropped: each stretch of one sign in a row is a bundle of its own with the candidates that stand for it (밥 먹었어? → ?[물음표], 글쎄... → ...[줄임표], #태그 → #[샵] and #[태그]), and stretches that no candidate stands for are joined into one bundle of their letters with no name (->)
 package token
 
 // at is where the signs begin in the unit's letters, and after tells

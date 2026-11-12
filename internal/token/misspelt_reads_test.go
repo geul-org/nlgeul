@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestMisspeltReads — the readings of the right form of a misspelt stem, one for each kind both have whose graph lets it stand with what follows; none when no kind takes that tail or the two share no kind; every kind stands in the first layer; a closed-set word is named by its set
+//ff:what TestMisspeltReads — the candidates of the right form of a misspelt stem, one for each kind both have whose graph lets it stand with what follows; none when no kind takes that tail or the two share no kind; every kind stands in the first layer; a closed-set word is named by its set
 package token
 
 import (

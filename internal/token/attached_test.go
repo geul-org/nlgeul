@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAttached — a unit that is a particle chain (로, 에서, 까지는) or a tail of the copula (인데, 이다) is read as markers alone: one word with no stem part, attaching to the unit before, printed with a leading "+", its verdict no higher than a new word's; 게 alone is 거 with 이 under it; 테니까 and 텐데 are 터 with the copula's stem (이) at the unit's head before the rest as a predicate tail, which do not attach either; 건요 and 게요 (거 and a particle with more after it) are not read so; a closing alone (다, 고) and a unit with a stem (곰이) are not read so; the scan is no longer attaching afterwards; end to end a unit that is also a word (이) keeps its word reading next to the attached one
+//ff:what TestAttached — a unit that is a particle chain (로, 에서, 까지는) or a tail of the copula (인데, 이다) is read as markers alone: one word with no stem part, attaching to the unit before, printed with a leading "+", its verdict no higher than a new word's; 게 alone is 거 with 이 under it; 테니까 and 텐데 are 터 with the copula's stem (이) at the unit's head before the rest as a predicate tail, which do not attach either; 건요 and 게요 (거 and a particle with more after it) are not read so; a closing alone (다, 고) and a unit with a stem (곰이) are not read so; the scan is no longer attaching afterwards; end to end a unit that is also a word (이) keeps its word candidate next to the attached one
 package token
 
 import (
@@ -46,9 +46,9 @@ func TestAttached(t *testing.T) {
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	if got := strings.Join(r.Lines("곰 이", false), "\n"); !strings.Contains(got, "이[관형사:이]") || !strings.Contains(got, "+이[주격:이]") || !strings.Contains(got, "+이[보격:이]") {
-		t.Fatal("이 keeps its word reading next to the attached one\n" + got)
+		t.Fatal("이 keeps its word candidate next to the attached one\n" + got)
 	}
 	if got := strings.Join(r.Lines("곰 만", false), "\n"); !strings.Contains(got, "+만[보조사:만]") || !strings.Contains(got, "  만\t") {
-		t.Fatal("만 keeps its reading as a word next to the attached one\n" + got)
+		t.Fatal("만 keeps its candidate as a word next to the attached one\n" + got)
 	}
 }

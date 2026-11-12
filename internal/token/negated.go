@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what negated — the readings of 잖 before a closing: 지+않, the closing attached to 않, alone or after the slots before 지 (했잖아 → 하+(였)+지+(않)+아)
+//ff:what negated — the candidates of 잖 before a closing: 지+않, the closing attached to 않, alone or after the slots before 지 (했잖아 → 하+(였)+지+(않)+아)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

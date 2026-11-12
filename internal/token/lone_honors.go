@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what loneHonors — the honorific readings of 심 (시+ㅁ, the noun form) and of 세 (시+어) that end at j: the piece under the letter is one the tables' own graphs do not read there, so it is set here and the letter's graph judges
+//ff:what loneHonors — the honorific candidates of 심 (시+ㅁ, the noun form) and of 세 (시+어) that end at j: the piece under the letter is one the tables' own graphs do not read there, so it is set here and the letter's graph judges
 package token
 
 // vowel asks for 세, which stands only before 요; else for 심.

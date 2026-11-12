@@ -12,7 +12,7 @@ import (
 // stands between them is read on its own and a particle written onto a
 // closing sign is read as one (함수(인자)를). pairRows give, sign by
 // sign, the opening sign of its kind, whether it opens, whether it
-// closes, whether it is unsure (read as its letter beside its readings
+// closes, whether it is unsure (read as its letter beside its candidates
 // as a sign of a pair), and what keeps it from being such a sign
 // (bar…). A quotation mark written the same way at both ends opens
 // when none of its kind may stand open, and closes when one may.
@@ -44,5 +44,5 @@ const (
 
 // midName is what a sign between letters of a unit is called while the
 // unit is read, before the stretches are made (expandMid gives it the
-// names of its readings).
+// names of its candidates).
 const midName = "기호"

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what groupAt — judge every entry of one class that ends at j and file the readings that stand by their key (entryGroup: the same token sequence of the same place or kind, and the same name); two entries of one key keep the one with the higher verdict; the graphs are told whether the piece closes its unit and whether it stands right on its stem
+//ff:what groupAt — judge every entry of one class that ends at j and file the candidates that stand by their key (entryGroup: the same token sequence of the same place or kind, and the same name); two entries of one key keep the one with the higher verdict; the graphs are told whether the piece closes its unit and whether it stands right on its stem
 package token
 
 // The pieces come back by their keys, with the entry behind each and

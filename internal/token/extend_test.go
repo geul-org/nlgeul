@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestExtend — a tail grows every reading kept before its stem, from each place before it; a tail that attaches to one stem only grows no other; a tail that asks for a predicate's stem grows only after one; a tail read only after a modifying closing grows only the readings whose last word ends in one, and where such a word ends is kept
+//ff:what TestExtend — a tail grows every candidate kept before its stem, from each place before it; a tail that attaches to one stem only grows no other; a tail that asks for a predicate's stem grows only after one; a tail read only after a modifying closing grows only the candidates whose last word ends in one, and where such a word ends is kept
 package token
 
 import "testing"
@@ -8,7 +8,7 @@ func TestExtend(t *testing.T) {
 	sc := scanOf("곰이")
 	best := [][]*path{{{verdict: 1}}, nil, nil}
 	if got := sc.extend(nil, best, tail{start: 2, pieces: []piece{{text: "x", verdict: 1}}}, 2); len(got) != 1 {
-		t.Fatal("a place with no reading grown", got)
+		t.Fatal("a place with no candidate grown", got)
 	}
 	inner := scanOf("ab는")
 	if got := inner.extend(nil, [][]*path{{{verdict: 1}}, {{verdict: 1}}, nil, nil}, tail{start: 2, pieces: []piece{{text: "는", verdict: 1}}}, 3); len(got) != 1 {

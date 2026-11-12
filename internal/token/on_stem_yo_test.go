@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestOnStemYo — 에 right after the suffix 이 (영숙이에요) stands rebutted as it is given, not only when asked on a stem; before 요 the particle readings right on a stem are asked once more and told so: 에 after a syllable with no final consonant (고양이에요) stands rebutted, after one with a final consonant (집에요) or after nothing (a unit 에요 of its own, read as attached to the unit before) as it stood; with no 요 after it nothing is asked again
+//ff:what TestOnStemYo — 에 right after the suffix 이 (영숙이에요) stands rebutted as it is given, not only when asked on a stem; before 요 the particle candidates right on a stem are asked once more and told so: 에 after a syllable with no final consonant (고양이에요) stands rebutted, after one with a final consonant (집에요) or after nothing (a unit 에요 of its own, read as attached to the unit before) as it stood; with no 요 after it nothing is asked again
 package token
 
 import (

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesUnits — a unit is named by the standard Hangul name of the unit table (킬로미터, 기가바이트, 섭씨), whatever the letters; a letter on two lines (m) is a contest of two readings; a number and a Latin unit read as one run is named 열:영숫자; 도 after a number is a unit and a particle, both; the lines of a unit in the table are read right after a number, and no unit is read after a space
+//ff:what TestReaderLinesUnits — a unit is named by the standard Hangul name of the unit table (킬로미터, 기가바이트, 섭씨), whatever the letters; a letter on two lines (m) is a contest of two candidates; a number and a Latin unit read as one run is named 열:영숫자; 도 after a number is a unit and a particle, both; the lines of a unit in the table are read right after a number, and no unit is read after a space
 package token
 
 import (

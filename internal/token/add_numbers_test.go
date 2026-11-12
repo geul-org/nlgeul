@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddNumbers — a number stands with verdict 1; each sign has its readings (the full stop keeps its own first); the front signs, the range sign after a unit and the pieces after a number are there
+//ff:what TestAddNumbers — a number stands with verdict 1; each sign has its candidates (the full stop keeps its own first); the front signs, the range sign after a unit and the pieces after a number are there
 package token
 
 import "testing"

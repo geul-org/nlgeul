@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesClosed — where a full stop, a question mark or an exclamation mark closes a unit, the auxiliary 이야 and 야 right on a stem are not read (the copula reading and the vocative stay) and the vocative 야 is not read after a dependent noun; without such a sign, before dots in a row, after another particle and after a linking closing the auxiliary particle is read as before
+//ff:what TestReaderLinesClosed — where a full stop, a question mark or an exclamation mark closes a unit, the auxiliary 이야 and 야 right on a stem are not read (the copula candidate and the vocative stay) and the vocative 야 is not read after a dependent noun; without such a sign, before dots in a row, after another particle and after a linking closing the auxiliary particle is read as before
 package token
 
 import (
@@ -33,12 +33,12 @@ func TestReaderLinesClosed(t *testing.T) {
 		out := strings.Join(r.Lines(c.sentence, false), "\n")
 		for _, want := range c.has {
 			if !strings.Contains(out, want) {
-				t.Errorf("%s: no reading %s in\n%s", c.sentence, want, out)
+				t.Errorf("%s: no candidate %s in\n%s", c.sentence, want, out)
 			}
 		}
 		for _, not := range c.lacks {
 			if strings.Contains(out, not) {
-				t.Errorf("%s: a reading with %s in\n%s", c.sentence, not, out)
+				t.Errorf("%s: a candidate with %s in\n%s", c.sentence, not, out)
 			}
 		}
 	}

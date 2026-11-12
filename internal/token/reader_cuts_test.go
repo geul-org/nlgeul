@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderCuts — with the word table: 물을마신다 is cut after 물을 in its best reading, and its line holds the word ends of every reading the search keeps (none left out: more than a fixed number of them), after one tab; an empty sentence has no lines
+//ff:what TestReaderCuts — with the word table: 물을마신다 is cut after 물을 in its best candidate, and its line holds the word ends of every candidate the search keeps (none left out: more than a fixed number of them), after one tab; an empty sentence has no lines
 package token
 
 import (

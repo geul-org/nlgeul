@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestPartLabel — a stem no table knows is called 새 낱말; a known stem and a marker are called by their readings, a stem written wrong with the form it is written in, and signs with no name by their letters
+//ff:what TestPartLabel — a stem no table knows is called 새 낱말; a known stem and a marker are called by their candidates, a stem written wrong with the form it is written in, and signs with no name by their letters
 package token
 
 import "testing"

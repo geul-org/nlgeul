@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesRadix — 0x and hexadecimal digits is the one reading 수:16진법 (with a word table too), and what a number takes stands after it (면, 를); a number of 0 and 1 only is a contest of 수 and 수:2진법 (before a unit too); another digit, a sign, a number joined by a sign, 0x12G4, 0X1F are not
+//ff:what TestReaderLinesRadix — 0x and hexadecimal digits is the one candidate 수:16진법 (with a word table too), and what a number takes stands after it (면, 를); a number of 0 and 1 only is a contest of 수 and 수:2진법 (before a unit too); another digit, a sign, a number joined by a sign, 0x12G4, 0X1F are not
 package token
 
 import (

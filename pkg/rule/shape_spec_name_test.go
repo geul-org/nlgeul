@@ -1,5 +1,5 @@
 //ff:func feature=rule type=model control=sequence
-//ff:what TestShapeSpecName — the name carries the reading
+//ff:what TestShapeSpecName — the name carries the candidate
 package rule
 
 import "testing"

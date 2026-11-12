@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderLines — with the word table of testdata: 마당에서 and 마신다 put the known-word reading first, the stem looked up as it was before fusing, a reading that leans on a new word stays with its low verdict, a noun is not read before a closing, and 물을 puts the noun with its object particle first, the modifying 을 written onto the verb stem 물 (which ends in ㄹ) after it with a lower verdict
+//ff:what TestReaderLines — with the word table of testdata: 마당에서 and 마신다 put the known-word candidate first, the stem looked up as it was before fusing, a candidate that leans on a new word stays with its low verdict, a noun is not read before a closing, and 물을 puts the noun with its object particle first, the modifying 을 written onto the verb stem 물 (which ends in ㄹ) after it with a lower verdict
 package token
 
 import (
@@ -37,7 +37,7 @@ func TestReaderLines(t *testing.T) {
 	}
 	unit, n, v := at("물을\t"), at(noun), at(verb)
 	if unit < 0 || n != unit+1 || v <= n || verdict(v, verb) >= verdict(n, noun) {
-		t.Errorf("을 after a stem that ends in ㄹ stands after the noun reading of 물을, with a lower verdict, in\n%s", got)
+		t.Errorf("을 after a stem that ends in ㄹ stands after the noun candidate of 물을, with a lower verdict, in\n%s", got)
 	}
 	if strings.Contains(got, "마신[열쇠:체언]+다") || strings.Contains(got, "마[") {
 		t.Fatal(got)

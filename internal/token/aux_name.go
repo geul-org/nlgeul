@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what auxName — the name of a particle reading when it is one of the auxiliary particles read after a linking closing; "" when it is not
+//ff:what auxName — the name of a particle candidate when it is one of the auxiliary particles read after a linking closing; "" when it is not
 package token
 
 import "slices"

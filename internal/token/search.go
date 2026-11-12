@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what search — read a unit token by token: at each place look up the markers that end there, and grow every reading that reaches the place before them (only a reading a graph rejects is dropped; none is left out for its place among the others); the readings that reach the end come back, best first, with the readings of the whole unit as markers that attach to the unit before
+//ff:what search — read a unit token by token: at each place look up the markers that end there, and grow every candidate that reaches the place before them (only a candidate a graph rejects is dropped; none is left out for its place among the others); the candidates that reach the end come back, best first, with the candidates of the whole unit as markers that attach to the unit before
 package token
 
 func (sc *scan) search() []*path {

@@ -1,5 +1,5 @@
 //ff:func feature=hypo type=helper control=iteration dimension=1
-//ff:what TestCount — the product of the numbers of readings; none when there is no bundle; a product past int64 is exact
+//ff:what TestCount — the product of the numbers of candidates; none when there is no bundle; a product past int64 is exact
 package hypo
 
 import (

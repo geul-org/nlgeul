@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what stretch — one reading's way through the stretch (from, to]: its words there, with the least verdict and the summed preference
+//ff:what stretch — one candidate's way through the stretch (from, to]: its words there, with the least verdict and the summed preference
 package token
 
 import "math"

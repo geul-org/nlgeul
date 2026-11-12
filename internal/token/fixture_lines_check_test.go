@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what checkLines — report as test errors the lines a reading's output (joined with newlines) lacks of those it must hold and the ones it holds that it must not
+//ff:what checkLines — report as test errors the lines a candidate's output (joined with newlines) lacks of those it must hold and the ones it holds that it must not
 package token
 
 import (

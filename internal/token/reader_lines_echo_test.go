@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderLinesEcho — right on a stem that ends in a syllable with no final consonant, 에 before 요 is rebutted (the letters are also 예요 written 에요) and stays: 고양이에요 and 결과에요 hold the reading with 에 and 요 at 0.33 next to the closing 예요 written wrong (0.56); a stem with a final consonant (마당에요), 에 not before 요 (결과에는), another particle before 요 (고양이에서요), as it was; 에 after 접미 이 (물이에요) is rebutted too
+//ff:what TestReaderLinesEcho — right on a stem that ends in a syllable with no final consonant, 에 before 요 is rebutted (the letters are also 예요 written 에요) and stays: 고양이에요 and 결과에요 hold the candidate with 에 and 요 at 0.33 next to the closing 예요 written wrong (0.56); a stem with a final consonant (마당에요), 에 not before 요 (결과에는), another particle before 요 (고양이에서요), as it was; 에 after 접미 이 (물이에요) is rebutted too
 package token
 
 import (

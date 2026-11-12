@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what stopAt — the full stop, the dots or the comma that end at j inside a unit, read as a piece that closes the word before it (가,나 → 가+,[쉼표] 나): where it starts and a piece for each reading that stands, with that reading's verdict
+//ff:what stopAt — the full stop, the dots or the comma that end at j inside a unit, read as a piece that closes the word before it (가,나 → 가+,[쉼표] 나): where it starts and a piece for each candidate that stands, with that candidate's verdict
 package token
 
 import "strings"

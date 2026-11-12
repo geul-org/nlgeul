@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what newIndex — build the token index: the closed-set words, then a graph for every reading of every particle, closing and slot of the tables, the graphs of the signs, the graphs of a new word and of a stem's restored syllable, and with a word table its keys, the wrong ways to write a closed-set word, and a graph for each kind of stem
+//ff:what newIndex — build the token index: the closed-set words, then a graph for every candidate of every particle, closing and slot of the tables, the graphs of the signs, the graphs of a new word and of a stem's restored syllable, and with a word table its keys, the wrong ways to write a closed-set word, and a graph for each kind of stem
 package token
 
 // The graphs of a new word and of a stem's restored syllable are

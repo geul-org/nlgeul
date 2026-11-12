@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestPairGraph — the exceptions of one reading of a sign of a pair, counted and judged: a closing reading falls when no sign of its kind stands open; the opening reading of a quotation mark falls when one stands open; a sign that bars it falls inside a word, apart with a space on both sides, or next to a hyphen or an equals sign; a plain bracket has no exception on the opening side; a row that bars a digit before the sign adds one that falls right after a digit
+//ff:what TestPairGraph — the exceptions of one candidate of a sign of a pair, counted and judged: a closing candidate falls when no sign of its kind stands open; the opening candidate of a quotation mark falls when one stands open; a sign that bars it falls inside a word, apart with a space on both sides, or next to a hyphen or an equals sign; a plain bracket has no exception on the opening side; a row that bars a digit before the sign adds one that falls right after a digit
 package token
 
 import (

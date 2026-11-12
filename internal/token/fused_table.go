@@ -7,7 +7,7 @@ import (
 )
 
 // Letters that hold two grammar pieces (decision 014-29, the simple
-// ones: one reading, rare inside words, the stem ends before them).
+// ones: one candidate, rare inside words, the stem ends before them).
 //
 // honorLetters hold the honorific 시 and what is fused under it: 셨
 // (시+었), 셔 (시+어…), 십 (시+ㅂ…). Wherever such a letter is read as a
@@ -55,7 +55,7 @@ var askParticles = []string{"도", "는", "만", "야", "가", "를", "에", "�
 var honorLetters = []rune{'셨', '셔', '십'}
 
 // 겠 right after the closing 어야 is 어야 하겠 with 하 left out
-// (가야겠다, 먹어야겠네). mustNames are the readings of that closing,
+// (가야겠다, 먹어야겠네). mustNames are the candidates of that closing,
 // guessName the slot, and mustPart what is written out between them:
 // the auxiliary 하, which the slot and the closing after it attach to.
 const guessName = "선어말:겠"
@@ -83,7 +83,7 @@ var negParts = []split{{"지", jiName}, {"(않)", "부정:않"}}
 // splits are closings of the tables that are written out as their
 // pieces: 죠 is 지+요, 십시오 the honorific and ㅂ시오, 세요 the
 // honorific, 어 and 요, 더라 the slot 더 and 라. A closing so written
-// out is the same reading as its pieces read one by one, and is sent
+// out is the same candidate as its pieces read one by one, and is sent
 // up once.
 var splits = map[string][]split{
 	"맺음:죠":    {{"지", jiName}, {"(요)", yoName}},
@@ -98,7 +98,7 @@ var splits = map[string][]split{
 // set: only what is listed is read. A particle put under a pronoun as
 // a final consonant is read for the listed pronouns only (누군 here,
 // and the one-syllable ones of shortPronouns), not after any word (a
-// choice that keeps readings few: the particles ㄴ and ㄹ do attach to
+// choice that keeps candidates few: the particles ㄴ and ㄹ do attach to
 // any word that ends in a vowel). The last three are the dependent
 // noun 거 with a particle under it, written onto a modifying closing
 // (한건, 하는게, 할걸): they are read only right after such a closing,
@@ -141,7 +141,7 @@ var shortPronouns = contractLists[setPronoun]
 var typoContracts = contractLists[setTypo]
 
 // Auxiliary verbs written onto the 어/아 form of a main verb (clause 47
-// of the orthography lets them be). connNames are the readings of that
+// of the orthography lets them be). connNames are the candidates of that
 // form. The stems read so are those of the closed set of the grammar
 // tables (parse.ClosedWords; 지 apart) and, with a word table, auxMore
 // (addAux): the boundary before one of them costs nothing, and an 어/아
@@ -161,5 +161,5 @@ var yeoBases = []string{"하"}
 // copulaBars are the auxiliaries written onto a main predicate's 어/아
 // form (helpers) that do not follow the copula's stem: 하 of 어하다
 // stands after an adjective's (and some verbs') 어/아 form, never
-// after 이어 (학생이어하는 is no reading). A closed table.
+// after 이어 (학생이어하는 is no candidate). A closed table.
 var copulaBars = []string{"보조:하"}

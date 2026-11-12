@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what moved — the readings of a unit whose head is a sign of a pair, whose first word has the sign as its first part, carried over to the letters after the sign (movedOne); the readings that took the sign into a word's letters are left
+//ff:what moved — the candidates of a unit whose head is a sign of a pair, whose first word has the sign as its first part, carried over to the letters after the sign (movedOne); the candidates that took the sign into a word's letters are left
 package token
 
 func (sc *scan) moved(paths []*path, head int) []*path {

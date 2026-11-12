@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestEuForms — a form with 으 other than the modifying 은 and 을 does not attach to a stem that ends in ㄹ (살으면, 알음 have no such reading), the modifying 은 and 을 do attach to such a stem of the word table (살은, 살을) but stand lower than a closing of the tables after the same stem (살면), no 들 is read as a stem, and a form with 으 attaches where the ㄹ is what a ㄷ stem changed into (들은 = 듣+은, 들으면 = 듣+으면, 들으시고 = 듣+으+시+고)
+//ff:what TestEuForms — a form with 으 other than the modifying 은 and 을 does not attach to a stem that ends in ㄹ (살으면, 알음 have no such candidate), the modifying 은 and 을 do attach to such a stem of the word table (살은, 살을) but stand lower than a closing of the tables after the same stem (살면), no 들 is read as a stem, and a form with 으 attaches where the ㄹ is what a ㄷ stem changed into (들은 = 듣+은, 들으면 = 듣+으면, 들으시고 = 듣+으+시+고)
 package token
 
 import (

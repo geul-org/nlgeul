@@ -7,7 +7,7 @@ import (
 
 // Numbers (decision 014-31). A run of digits is a number; a sign
 // between two runs of digits is judged by a graph for each of its
-// readings, and a reading that stands joins the runs into one number.
+// candidates, and a candidate that stands joins the runs into one number.
 // numName is what a number is called in the output; numGraph names the
 // graph of a run of digits.
 const (
@@ -17,7 +17,7 @@ const (
 
 // hexName and binForm name the other ways a run reads as a number: a
 // run that is 0x and then hexadecimal digits is the number named
-// 수:16진법 (the only reading of it); a number of digits 0 and 1 only
+// 수:16진법 (the only candidate of it); a number of digits 0 and 1 only
 // is read a second time as 수:2진법. The prefix is the lower case 0x
 // only.
 const (
@@ -27,7 +27,7 @@ const (
 	hexDigit = "0123456789abcdefABCDEF"
 )
 
-// signShapes give, sign by sign, the readings that join runs of digits
+// signShapes give, sign by sign, the candidates that join runs of digits
 // and the shape each asks of them, in the order they are named.
 // 자릿수 is shown as a number (shownAs).
 var signShapes = map[rune][]rule.Shape{
@@ -77,7 +77,7 @@ var headOrder = data.Must(data.Runes("number-heads", 2))
 // (units.tsv), each once; unitRows are the table's lines, letters and
 // name (the second column) that follows unitLabel. One letter may stand
 // on two lines with two names (m is 미터 and 분): each line makes its
-// own graph, so that both readings are read.
+// own graph, so that both candidates are read.
 var unitWords = data.Must(data.Column("units", 2))
 var unitRows = data.Must(data.Rows("units", 2))
 

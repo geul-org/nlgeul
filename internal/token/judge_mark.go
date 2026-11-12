@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what judgeMark — run the graphs of a sign's readings for one place: each reading that stands, with its own verdict; each outcome is noted in the trace
+//ff:what judgeMark — run the graphs of a sign's candidates for one place: each candidate that stands, with its own verdict; each outcome is noted in the trace
 package token
 
 import (

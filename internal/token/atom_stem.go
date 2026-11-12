@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what atomStem — when the stem from b to end is exactly one atom: a reading for each name that joins it (or the run's own name) with the atom's verdict; or a whole run of digits and a unit that was cut in two (64GB): the run's own name and verdict
+//ff:what atomStem — when the stem from b to end is exactly one atom: a candidate for each name that joins it (or the run's own name) with the atom's verdict; or a whole run of digits and a unit that was cut in two (64GB): the run's own name and verdict
 package token
 
 func (sc *scan) atomStem(b, end int) []markRead {

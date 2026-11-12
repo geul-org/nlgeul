@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestHeaded — a reading begins with the sign of a pair at its unit's head when its first part has the one name 묶음; a part with another name, with two names, with none, a reading with no word and one with no part do not
+//ff:what TestHeaded — a candidate begins with the sign of a pair at its unit's head when its first part has the one name 묶음; a part with another name, with two names, with none, a candidate with no word and one with no part do not
 package token
 
 import "testing"

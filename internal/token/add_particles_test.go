@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAddParticles — a graph for each case reading: 이 has two (주격, 보격), 은 one; the suffix 이 and the emphatic 야 that only this layer reads are there too; the readings of one particle have their own kinds
+//ff:what TestAddParticles — a graph for each case candidate: 이 has two (주격, 보격), 은 one; the suffix 이 and the emphatic 야 that only this layer reads are there too; the candidates of one particle have their own kinds
 package token
 
 import (

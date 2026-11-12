@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what caseNames — the readings of a particle, one for each case it marks: 주격, 보격, 목적격, 관형격, 부사격, 호격; 보조사 when it marks none, 접미 for the suffix-like ones
+//ff:what caseNames — the candidates of a particle, one for each case it marks: 주격, 보격, 목적격, 관형격, 부사격, 호격; 보조사 when it marks none, 접미 for the suffix-like ones
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

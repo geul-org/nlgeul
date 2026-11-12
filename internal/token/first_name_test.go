@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestFirstName — a tail that begins with its closing gives the closing's name (one of the names of its first piece too), so does one that begins with the closing written out as its parts (죠 as 지+(요), 세요 as 시+(어)+요, 잖 whose closing is 지); a slot or the link vowel before the closing gives its own name, and a tail with no closing its first piece's; end to end, with a word table and without, 학생이었습니다, 학생이었다 and 학생이었는데 are read first as 학생+이+었+… with 이 the copula's stem, and 의사였다 has a reading with the copula's stem before the fused slot
+//ff:what TestFirstName — a tail that begins with its closing gives the closing's name (one of the names of its first piece too), so does one that begins with the closing written out as its parts (죠 as 지+(요), 세요 as 시+(어)+요, 잖 whose closing is 지); a slot or the link vowel before the closing gives its own name, and a tail with no closing its first piece's; end to end, with a word table and without, 학생이었습니다, 학생이었다 and 학생이었는데 are read first as 학생+이+었+… with 이 the copula's stem, and 의사였다 has a candidate with the copula's stem before the fused slot
 package token
 
 import (

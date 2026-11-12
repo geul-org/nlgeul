@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderBundlesMarks — the bundles of a sentence with a plus, a middle dot and a quote after a digit: a plus between letters cuts the unit (one unit for each piece, the plus two readings of the same verdict and preference), the middle dot is read as a word of its own beside the readings that keep it in the word, a quote right after a digit is a bundle of its own with the unit readings beside the pair readings, no bundle holds the place name 기호, and Glued tells what stood without a space
+//ff:what TestReaderBundlesMarks — the bundles of a sentence with a plus, a middle dot and a quote after a digit: a plus between letters cuts the unit (one unit for each piece, the plus two candidates of the same verdict and preference), the middle dot is read as a word of its own beside the candidates that keep it in the word, a quote right after a digit is a bundle of its own with the unit candidates beside the pair candidates, no bundle holds the place name 기호, and Glued tells what stood without a space
 package token
 
 import (

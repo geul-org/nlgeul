@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestShownNames — readings are shown without their sign, a thousands separator as a number, and none twice (the higher verdict stays); each keeps its own verdict
+//ff:what TestShownNames — candidates are shown without their sign, a thousands separator as a number, and none twice (the higher verdict stays); each keeps its own verdict
 package token
 
 import (

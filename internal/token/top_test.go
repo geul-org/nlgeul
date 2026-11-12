@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestTop — the best readings in order, the same reading once, none left out
+//ff:what TestTop — the best candidates in order, the same candidate once, none left out
 package token
 
 import "testing"

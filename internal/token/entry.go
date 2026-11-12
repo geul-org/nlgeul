@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what entry — one reading of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
+//ff:what entry — one candidate of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
 package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
