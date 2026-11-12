@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what addStems — the graph of a new word (a stem no table lists) and the graph of a stem's restored last syllable; the new word's claim is rebutted by "it is in no key table" and excepted when its letters read as markers after a boundary, and with a word table when it ends in ㅆ before markers and when the tables know it only as kinds that take no predicate tail before one; the restored syllable's claim is excepted when it stands right after a letter that is no Hangul, when the stem keeps its ㅡ, and when the 어/아 put back does not fit the stem
+//ff:what addStems — the graph of a new word (a stem no table lists) and the graph of a stem's restored last syllable; the new word's claim is rebutted by "it is in no key table" and excepted when its letters read as markers after a boundary, and with a word table when it ends in ㅆ before markers and when the tables know it only as kinds that take no predicate tail before one; the restored syllable's claim is excepted when it stands right after a letter that is no Hangul, when the stem keeps its ㅡ, when the 어/아 put back does not fit the stem, and when it is 하 as it stands in the letters (하 takes 여 and shows it: 해, 하여)
 package token
 
 import (
@@ -31,7 +31,9 @@ import (
 // stand when the word table gives the stem as 르 or 러 irregular (모르
 // goes to 몰라, never 모라), when the vowel does not follow the
 // syllable before the ㅡ, or when a stem of one syllable is read with
-// 아 (써, never 싸).
+// 아 (써, never 싸). After 하 the piece is 여 and the two are written 해
+// or 하여 (yeoBases): 하 as it stands holds no 어/아 that leaves no
+// trace (말하지는 is no 말하+아+지+는).
 func (ix *index) addStems() {
 	g := toulmin.NewGraph(newWord)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: newWord, Concludes: "열쇠"})
@@ -62,5 +64,8 @@ func (ix *index) addStems() {
 	one := except(r, rule.Listed, whyOne, listed("oneSyllable", rule.ListForm, []string{"아"}))
 	one.Attacks(claim)
 	except(r, rule.PieceIs, whyLonger, fact(rule.PieceStem)).Attacks(one)
-	ix.restore, ix.graphs, ix.edges = r, ix.graphs+1, ix.edges+7
+	yeo := except(r, rule.Listed, whyYeo, listed("yeoBases", rule.ListBase, yeoBases))
+	yeo.Attacks(claim)
+	except(r, rule.PieceIs, whyTrace, fact(rule.PieceSame), not).Attacks(yeo)
+	ix.restore, ix.graphs, ix.edges = r, ix.graphs+1, ix.edges+9
 }

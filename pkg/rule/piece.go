@@ -23,7 +23,8 @@ package rule
 // tells that the piece is a stem whose word is the whole of its unit:
 // the stem begins the unit and nothing but its own markers follows it.
 // Det tells that the word right before the piece is a determiner.
-// Closed tells that the piece stands right on its stem and ends its
+// Same tells that a restored syllable stands in the letters as it is:
+// the piece fused into it left no trace. Closed tells that the piece stands right on its stem and ends its
 // unit, and that a full stop, a question mark or an exclamation mark
 // stands right after it in the unit's letters.
 type Piece struct {
@@ -49,4 +50,5 @@ type Piece struct {
 	Sole    bool
 	Det     bool
 	Closed  bool
+	Same    bool
 }

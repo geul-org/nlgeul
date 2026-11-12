@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestCopulas — 곰이다 reads 이 as the copula stem before 다; 학교다 a dropped stem written (이); 누군 keeps the stem's syllable; 이다 alone and a tail without a closing give nothing; after a unit the copula takes the unit with it; before a closing of droppableKnown (네) the dropped stem is read only with a word table and asks for a nominal of it, while the stem said (곰이네) and the old closings (다) ask for nothing; after a letter that is no Hangul syllable a dropped stem stands before 야 asking for no nominal, and not before 다; before 기 it stands only while a particle is read after it (chained), asking for a nominal; the dropped stem's graph turns down a closing it is not dropped before (서, with a word table too), a slot before the closing, a consonant before it, and without a word table 야 and 기; a unit read as attaching has a stem before 이; end to end 거네 is 거+(이)+네 with a table and not without, a word no table has takes no dropped stem before 네 but does before 다
+//ff:what TestCopulas — 곰이다 reads 이 as the copula stem before 다; 학교다 a dropped stem written (이); 누군 keeps the stem's syllable; 이다 alone and a tail without a closing give nothing; after a unit the copula takes the unit with it; before a closing of droppableKnown (네) the dropped stem is read only with a word table and asks for a nominal of it, while the stem said (곰이네) and the old closings (다) ask for nothing; after a letter that is no Hangul syllable a dropped stem stands before 야 asking for no nominal, and not before 다; before 기 it stands only while a particle is read after it (chained), asking for a nominal; the dropped stem's graph turns down a closing it is not dropped before (서, with a word table too), a slot before the closing, a consonant before it, and without a word table 야 and 기; a unit read as attaching has a stem before 이; end to end 거네 is 거+(이)+네 with a table and not without, a word no table has takes no dropped stem before 네 but does before 다; the copula's stem, said or dropped, is not read before 하 of 어하다 written onto its 어/아 form (학교이어하는, 문제여하는), while 하 of 어하다 after a verb or an adjective (예뻐하는, 몰라하는) and the copula before another closing (학교이어서, 학교여서) stay, with a word table and without
 package token
 
 import (
@@ -95,6 +95,24 @@ func TestCopulas(t *testing.T) {
 	for _, in := range []string{"거네", "고래네"} {
 		if got := strings.Join(bare.Lines(in, false), "\n"); strings.Contains(got, "(이)[서술격:이(빠짐)]+네") {
 			t.Errorf("%s without a word table\n%s", in, got)
+		}
+	}
+	plain, _ := New(Options{})
+	for _, c := range []struct {
+		in, want string
+		dead     bool
+	}{
+		{"학교이어하는", "보조:하", true}, {"문제여하는", "보조:하", true},
+		{"학교이어서", "이[서술격:이]+어서[맺음:어서]", false}, {"학교여서", "이[서술격:이]+(어)서[맺음:어서(합침)]", false},
+	} {
+		got, withTable := strings.Join(plain.Lines(c.in, false), "\n"), strings.Join(r.Lines(c.in, false), "\n")
+		if strings.Contains(got, c.want) == c.dead || strings.Contains(withTable, c.want) == c.dead {
+			t.Errorf("%s: no auxiliary 하 right after the copula's 어/아, the copula before 어서 stays (dead: %v)\n%s\n%s", c.in, c.dead, got, withTable)
+		}
+	}
+	for in, want := range map[string]string{"예뻐하는": "예쁘[열쇠:형용사]+(어)[맺음:어(합침)]+하[보조:하]+는[꾸밈:는]", "몰라하는": "모르[열쇠:동사]+(아)[맺음:어(합침)]+하[보조:하]+는[꾸밈:는]"} {
+		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
+			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
 	}
 }

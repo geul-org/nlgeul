@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestRestored — a dropped ㅡ put back where the vowel follows the syllable before it (따라, 치러, 써, 바빠) stands; it does not for a stem the table gives as 르 or 러 irregular (모라, 이러), for the wrong vowel (따러) and for 아 after a stem of one syllable (싸, also after a boundary); a piece taken out of a syllable right after a Latin letter or digit inside the stem does not stand (api과, v2과), but 하, 되 and 이 (push해, merge된, api인데), a stem of one syllable after a boundary, a Hangul stem and a tail with nothing fused do; end to end the live ones are read and the dead ones are not, api과 has no api고+(아) and push해 keeps push하+(여)
+//ff:what TestRestored — a dropped ㅡ put back where the vowel follows the syllable before it (따라, 치러, 써, 바빠) stands; it does not for a stem the table gives as 르 or 러 irregular (모라, 이러), for the wrong vowel (따러) and for 아 after a stem of one syllable (싸, also after a boundary); a piece taken out of a syllable right after a Latin letter or digit inside the stem does not stand (api과, v2과), but 하, 되 and 이 (push해, merge된, api인데), a stem of one syllable after a boundary, a Hangul stem and a tail with nothing fused do; end to end the live ones are read and the dead ones are not, api과 has no api고+(아) and push해 keeps push하+(여); the graph is told whether the syllable stands in the letters as it is: 하 right before the tail's start stays 하 (말하, no 말하+아) and is not put back, while 해 is, and a syllable of any other stem (가, 서) is put back either way; end to end 하지는, 말하지는 and 하서 have no 하+(아) reading while 해, 해서, 가서 , 했다 and 가 keep theirs, with and without a word table
 package token
 
 import (
@@ -55,6 +55,16 @@ func TestRestored(t *testing.T) {
 		t.Fatal("nothing fused")
 	}
 
+	if scanOf("말하").restored(0, tail{start: 2, base: '하'}) || scanOf("하").restored(0, tail{start: 1, base: '하'}) || scanOf("push하").restored(0, tail{start: 5, base: '하'}) {
+		t.Fatal("하 in the letters hides no 어/아 that left no trace")
+	}
+	if !scanOf("말해").restored(0, tail{start: 2, base: '하'}) || !scanOf("해").restored(0, tail{start: 1, base: '하'}) {
+		t.Fatal("해 holds 하+여: the piece left its trace")
+	}
+	if !scanOf("가").restored(0, tail{start: 1, base: '가'}) || !scanOf("일서").restored(0, tail{start: 2, base: '서'}) {
+		t.Fatal("a syllable of another stem is put back whether or not it stands as it is")
+	}
+
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["따르"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
 	r.ix.lex["치르"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
@@ -77,6 +87,25 @@ func TestRestored(t *testing.T) {
 		}
 		if got := strings.Join(r.Lines("push해", false), "\n"); !strings.Contains(got, "push하+(여)[맺음:어(합침)]") {
 			t.Errorf("push해 (%q)\n%s", opt.Words, got)
+		}
+	}
+	plain, _ := New(Options{})
+	lexed, _ := New(Options{Words: "testdata/words.tsv"})
+	for _, c := range []struct {
+		in, want string
+		dead     bool
+	}{
+		{"하지는", "(아)", true}, {"말하지는", "(아)", true}, {"하서", "(아)", true},
+		{"해", "하+(여)[맺음:어(합침)]", false}, {"해서", "하+(여)서[맺음:어서(합침)]", false}, {"했다", "하+(였)[선어말:ㅆ]+다[맺음:다]", false},
+		{"가서", "가+(아)서[맺음:어서(합침)]", false}, {"가", "가+(아)[맺음:어(합침)]", false},
+	} {
+		got, withTable := strings.Join(plain.Lines(c.in, false), "\n"), strings.Join(lexed.Lines(c.in, false), "\n")
+		wantTable := c.want
+		if !c.dead {
+			wantTable = strings.Replace(c.want, "+(", "[열쇠:동사]+(", 1)
+		}
+		if strings.Contains(got, c.want) == c.dead || strings.Contains(withTable, wantTable) == c.dead {
+			t.Errorf("%s: 하 holds no 어/아 that leaves no trace, 해 and any other stem keep theirs (dead: %v)\n%s\n%s", c.in, c.dead, got, withTable)
 		}
 	}
 	bare, _ := New(Options{})

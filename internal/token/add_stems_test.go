@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddStems — two graphs, the new word's of three edges without a word table and of six with one, the restored syllable's of seven; a new word's verdict is 1/3; a new word whose letters read as markers does not stand whole, and without a word table stands with markers after it; with a word table a stem in ㅆ before markers and a word the tables know only as kinds that take no predicate tail before one do not stand, while a predicate's stem too and a tail of particles do; the restored syllable does not stand right after a letter that is no Hangul (but for 하, 되, 이 and at the stem's head), for a stem kept as 르 or 러 irregular, for 어/아 that does not fit the syllable before, nor for 아 under a stem of one syllable; each is turned down for the reason on its own node
+//ff:what TestAddStems — two graphs, the new word's of three edges without a word table and of six with one, the restored syllable's of nine; a new word's verdict is 1/3; a new word whose letters read as markers does not stand whole, and without a word table stands with markers after it; with a word table a stem in ㅆ before markers and a word the tables know only as kinds that take no predicate tail before one do not stand, while a predicate's stem too and a tail of particles do; the restored syllable does not stand right after a letter that is no Hangul (but for 하, 되, 이 and at the stem's head), for a stem kept as 르 or 러 irregular, for 어/아 that does not fit the syllable before, nor for 아 under a stem of one syllable; 하 as it stands in the letters takes no 어/아 that leaves no trace, but one that left its trace (해) and any other syllable (가, 서) stand, with the reason on its own node; each is turned down for the reason on its own node
 package token
 
 import (
@@ -14,7 +14,7 @@ func TestAddStems(t *testing.T) {
 	bare, lexed := &index{}, &index{lexed: true}
 	bare.addStems()
 	lexed.addStems()
-	if bare.graphs != 2 || bare.edges != 3+7 || lexed.graphs != 2 || lexed.edges != 6+7 || bare.stem == nil || bare.restore == nil || lexed.stem == nil || lexed.restore == nil {
+	if bare.graphs != 2 || bare.edges != 3+9 || lexed.graphs != 2 || lexed.edges != 6+9 || bare.stem == nil || bare.restore == nil || lexed.stem == nil || lexed.restore == nil {
 		t.Fatal(bare.graphs, bare.edges, lexed.graphs, lexed.edges)
 	}
 	if math.Abs(bare.unknown-1.0/3) > 1e-9 || math.Abs(lexed.unknown-1.0/3) > 1e-9 {

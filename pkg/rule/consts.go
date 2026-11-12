@@ -138,6 +138,7 @@ const (
 	PieceSole               // it is a stem whose word is the whole of its unit
 	PieceDet                // the word right before it is a determiner
 	PieceClosed             // it stands right on its stem and ends its unit, and a sign that ends a sentence (. ? !) stands right after it
+	PieceSame               // it is a restored syllable that stands in the letters as it is (the piece fused into it left no trace)
 )
 
 // Yes/no facts of a sign that MarkIs tests.

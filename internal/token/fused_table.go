@@ -161,3 +161,14 @@ var shortPronouns = []contract{
 var connNames = closingNames(parse.Marker{Lead: rule.LeadVowel})
 var auxMore = []string{"가", "내", "드리"}
 var helpers = map[rune]string{'지': "보조:지", '하': "보조:하"}
+
+// yeoBases are the syllables a stem ends in that take 여 for 어/아 and
+// show it in the letters (하여, 해): 하. Such a syllable as it stands in
+// the letters is not read with an 어/아 fused into it without a trace.
+var yeoBases = []string{"하"}
+
+// copulaBars are the auxiliaries written onto a main predicate's 어/아
+// form (helpers) that do not follow the copula's stem: 하 of 어하다
+// stands after an adjective's (and some verbs') 어/아 form, never
+// after 이어 (학생이어하는 is no reading). A closed table.
+var copulaBars = []string{"보조:하"}
