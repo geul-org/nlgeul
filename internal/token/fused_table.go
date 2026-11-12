@@ -118,6 +118,15 @@ var contracts = []contract{
 	{"걸", "거", "(를)", "목적격:를", '를', true},
 }
 
+// nounCopulas are dependent nouns with the copula's stem fused into
+// their last vowel: 테 is 터 with 이 (할 테니, 갈 텐데, 할 테야 for
+// 터이니, 터인데, 터이야). A closed set, read as 게, 건 and 걸 are:
+// only right after a modifying closing, written onto it or apart, next
+// to the words of the same letters. The closing after it is one the
+// copula takes; the stem 이 leaves its trace in the vowel and is
+// written (이).
+var nounCopulas = []contract{{"테", "터", "(이)", copulaName, '이', true}}
+
 // shortPronouns are one-syllable pronouns with a particle under them
 // (난 = 나+는, 날 = 나+를). The letters are common in other words, so
 // they are read only with a word table, next to the words of the same
