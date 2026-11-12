@@ -28,19 +28,9 @@ const (
 	afterVowel   = rule.AfterVowel
 )
 
-// beam is how many partial readings are kept at each place, and
-// branches how many readings of a unit are sent up at most
-// (token-stream-algorithm.md section 12 names four to seven). Only a
-// reading that is awake is sent up: one whose place (preference plus
-// log10 of verdict) is within wakeGap of the best reading's. The others
-// are asleep: kept, not sent up, for a layer above to wake. wakeGap is
-// a placeholder chosen among a few values tried on a thousand
-// sentences.
-const (
-	beam     = 16
-	branches = 7
-	wakeGap  = 11.0
-)
+// beam is how many partial readings are kept at each place while a
+// unit is read.
+const beam = 16
 
 // chainMax is how many particles a chain holds at most (the longest
 // chains observed hold three).

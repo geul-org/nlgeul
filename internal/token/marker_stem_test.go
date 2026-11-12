@@ -119,7 +119,7 @@ func TestMarkerStem(t *testing.T) {
 	if two.markerStem(1, 4, tail{start: 3, base: '으', pieces: geol}) {
 		t.Fatal("a fused stem of two syllables is judged by its first letter as written (가)")
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	got := strings.Join(r.Lines("먹었을걸", false), "\n")
 	if strings.Contains(got, " 으+(ㄹ)걸") || !strings.Contains(got, "먹[열쇠:동사]+었[선어말:었]+을걸[맺음:을걸]") {
 		t.Fatal("먹었을걸\n" + got)

@@ -48,7 +48,7 @@ func TestCopulas(t *testing.T) {
 	if got = lone.copulas([]tail{{start: 1, pieces: []piece{{text: "다"}}, close: da}}); len(got) != 1 || got[0].start != 0 || got[0].pieces[0].names != copulaName {
 		t.Fatal("a unit read as attaching has its stem in the unit before", got)
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	if got := strings.Join(r.Lines("거네", false), "\n"); !strings.Contains(got, "거[의존명사:거]+(이)[서술격:이(빠짐)]+네[맺음:네]") {
 		t.Fatal("거네 with a word table\n" + got)
 	}

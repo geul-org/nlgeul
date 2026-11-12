@@ -37,7 +37,7 @@ func TestKnownAsNew(t *testing.T) {
 		t.Fatal("a word no table has")
 	}
 
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["뭐"] = word{kinds: kindNominal, count: 50, by: [6]int{50}}
 	for in, want := range map[string][2]string{
 		"거네": {"거[의존명사:거]+(이)[서술격:이(빠짐)]+네[맺음:네]", "거+네["},

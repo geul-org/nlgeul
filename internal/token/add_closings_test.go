@@ -50,7 +50,7 @@ func TestAddClosings(t *testing.T) {
 	if v, _ := verdictOf(ix.linkAux.g, rule.Piece{Form: "맺음:다", After: "보조사:는", HasStem: true, Next: -1}, ""); v > 0 {
 		t.Fatal("다 takes no auxiliary particle")
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	for in, want := range map[string]string{
 		"먹되":    "먹[열쇠:동사]+되[맺음:되]",
 		"먹어서는":  "먹[열쇠:동사]+어서[맺음:어서]+는[보조사:는]",

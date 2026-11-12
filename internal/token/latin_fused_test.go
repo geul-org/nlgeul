@@ -23,7 +23,7 @@ func TestLatinFused(t *testing.T) {
 	if scanOf("api과").latinFused(0, tail{start: 4}) {
 		t.Fatal("nothing fused")
 	}
-	for _, opt := range []Options{{Asleep: true}, {Words: "testdata/words.tsv", Asleep: true}} {
+	for _, opt := range []Options{{}, {Words: "testdata/words.tsv"}} {
 		r, _ := New(opt)
 		if got := strings.Join(r.Lines("api과", false), "\n"); strings.Contains(got, "api고+(아)") || !strings.Contains(got, "api[열:영숫자]+과[부사격:과]") {
 			t.Errorf("api과 (%q)\n%s", opt.Words, got)

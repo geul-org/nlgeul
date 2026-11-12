@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what Lines — read a token stream and print what is sent up: each unit's trace when asked for, then its bundles one after another (render); the readings asleep are printed only when the reader is set to
+//ff:what Lines — read a token stream and print what is sent up: each unit's trace when asked for, then its bundles one after another (render)
 package token
 
 // A unit is read without looking outside it, so the same unit always
@@ -10,9 +10,7 @@ func (r *Reader) Lines(sentence string, trace bool) []string {
 		bundles, notes := readUnit(r.ix, u, trace)
 		out = append(out, notes...)
 		for _, b := range bundles {
-			if r.ix.asleep || !b.Asleep() {
-				out = append(out, render(b)...)
-			}
+			out = append(out, render(b)...)
 		}
 	}
 	return out

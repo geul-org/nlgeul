@@ -20,7 +20,7 @@ func TestAuxNext(t *testing.T) {
 	if scanOf("가조").auxNext(1) || scanOf("가버티다").auxNext(1) {
 		t.Fatal("조 for 주, or a stem that shares only the first letters")
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["빼"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
 	if got := strings.Join(r.Lines("빼줘", false), "\n"); !strings.Contains(got, "빼[열쇠:동사]+(어)[맺음:어(합침)] 주[보조 용언:주]+(어)[맺음:어(합침)]") {
 		t.Fatal("빼줘\n" + got)

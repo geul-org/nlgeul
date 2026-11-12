@@ -11,28 +11,31 @@ import (
 // To sort the hypotheses another way, change this function and nothing
 // else: List sorts with what it gives, and the lines print the Score.
 //
-// score: the verdict of a hypothesis is the least verdict of its
-// readings, and its preference the sum of their preferences. A bundle
+// score: the place of a hypothesis is the sum, over its readings, of
+// the reading's preference plus Lambda times log10 of its verdict. Its
+// verdict is the least verdict of its readings and its preference the
+// sum of their preferences: they are printed, not sorted by. A bundle
 // with one reading counts like any other, with the verdict and the
 // preference the token layer gave that reading (signs and closing dots
-// come with verdict 1 and preference 0, so they change nothing).
+// come with verdict 1 and preference 0, so they change nothing). A
+// reading whose verdict is 0 or less has no log10: it counts as minus
+// infinity, and so does the place of every hypothesis that picks it.
 //
-// before: the greater verdict first; among equal verdicts the greater
-// preference first. Two scores that are equal are left in the order of
-// their numbers (List sorts stably), so the output is always the same.
+// before: the greater place first. Two places that are equal are left
+// in the order of their numbers (List sorts stably), so the output is
+// always the same; the hypotheses whose place is minus infinity come
+// last, in the order of their numbers.
 func order() (score func(picked []token.Branch) Score, before func(a, b Score) bool) {
 	score = func(picked []token.Branch) Score {
 		s := Score{Verdict: 1}
 		for _, br := range picked {
+			s.Place += br.Pref + float64(Lambda*math.Log10(math.Max(br.Verdict, 0)))
 			s.Verdict, s.Pref = math.Min(s.Verdict, br.Verdict), s.Pref+br.Pref
 		}
 		return s
 	}
 	before = func(a, b Score) bool {
-		if a.Verdict != b.Verdict {
-			return a.Verdict > b.Verdict
-		}
-		return a.Pref > b.Pref
+		return a.Place > b.Place
 	}
 	return score, before
 }

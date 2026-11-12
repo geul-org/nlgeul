@@ -39,7 +39,7 @@ func TestEuDropped(t *testing.T) {
 		t.Fatal("a syllable not written with ㅏ or ㅓ")
 	}
 
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["따르"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
 	r.ix.lex["치르"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
 	r.ix.lex["쓰"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}

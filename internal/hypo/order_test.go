@@ -1,8 +1,9 @@
 //ff:func feature=hypo type=helper control=sequence
-//ff:what TestOrder — score is the least verdict and the summed preference of the readings picked, verdict 1 and preference 0 for none, and a reading of verdict 1 and preference 0 changes nothing; before puts the greater verdict first, then the greater preference, a lower verdict last whatever its preference, and equal scores neither way
+//ff:what TestOrder — score's place is the sum of each reading's preference plus Lambda times log10 of its verdict, its verdict the least and its preference the sum; none gives place 0, verdict 1, preference 0, and a reading of verdict 1 and preference 0 changes nothing; a verdict of 0 or less gives minus infinity, not NaN; before puts the greater place first whatever the verdict and the preference, equal places neither way, and a weaker reading with more preference comes first only when the preference makes up for Lambda times the gap in log10 verdict
 package hypo
 
 import (
+	"math"
 	"testing"
 
 	"github.com/geul-org/nlgeul/internal/token"
@@ -10,36 +11,59 @@ import (
 
 func TestOrder(t *testing.T) {
 	score, before := order()
+	if Lambda <= 0 {
+		t.Fatalf("Lambda %v, want more than 0", float64(Lambda))
+	}
 
 	picked := []token.Branch{{Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}}
-	if got, want := score(picked), (Score{Verdict: 0.25, Pref: -0.75}); got != want {
-		t.Fatalf("score %+v, want %+v", got, want)
+	place := -0.75 + Lambda*(math.Log10(0.5)+math.Log10(0.25)+math.Log10(0.75))
+	got := score(picked)
+	if math.Abs(got.Place-place) > 1e-9 || got.Verdict != 0.25 || got.Pref != -0.75 {
+		t.Fatalf("score %+v, want place %v verdict 0.25 preference -0.75", got, place)
 	}
-	if got, want := score(nil), (Score{Verdict: 1, Pref: 0}); got != want {
+	if got, want := score(nil), (Score{Place: 0, Verdict: 1, Pref: 0}); got != want {
 		t.Fatalf("score of no reading %+v, want %+v", got, want)
 	}
-	withSign := []token.Branch{{Verdict: 0.5, Pref: -2}, {Verdict: 1, Pref: 0}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}, {Verdict: 1, Pref: 0}}
-	if got, want := score(withSign), (Score{Verdict: 0.25, Pref: -0.75}); got != want {
-		t.Fatalf("score with signs %+v, want %+v", got, want)
-	}
-	if got, want := score([]token.Branch{{Verdict: 0.4, Pref: -3}}), (Score{Verdict: 0.4, Pref: -3}); got != want {
-		t.Fatalf("score of one reading %+v, want %+v", got, want)
+	withSign := []token.Branch{{Verdict: 1, Pref: 0}, {Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}, {Verdict: 1, Pref: 0}}
+	if with := score(withSign); math.Abs(with.Place-got.Place) > 1e-9 || with.Verdict != got.Verdict || with.Pref != got.Pref {
+		t.Fatalf("score with signs %+v, want %+v", with, got)
 	}
 
-	high, low := Score{Verdict: 0.5, Pref: -10}, Score{Verdict: 0.4, Pref: 5}
-	if !before(high, low) || before(low, high) {
-		t.Fatalf("the greater verdict is not first: %+v %+v", high, low)
+	zero := score([]token.Branch{{Verdict: 0.5, Pref: 3}, {Verdict: 0, Pref: 2}})
+	if !math.IsInf(zero.Place, -1) || zero.Verdict != 0 || zero.Pref != 5 {
+		t.Fatalf("score with a verdict of 0 %+v, want place -Inf verdict 0 preference 5", zero)
 	}
-	more, less := Score{Verdict: 0.5, Pref: 2}, Score{Verdict: 0.5, Pref: 1}
-	if !before(more, less) || before(less, more) {
-		t.Fatalf("among equal verdicts the greater preference is not first: %+v %+v", more, less)
+	below := score([]token.Branch{{Verdict: -0.5, Pref: 1}})
+	if !math.IsInf(below.Place, -1) || below.Verdict != -0.5 || below.Pref != 1 {
+		t.Fatalf("score with a verdict below 0 %+v, want place -Inf verdict -0.5 preference 1", below)
 	}
-	strong, rich := Score{Verdict: 0.4, Pref: -1000}, Score{Verdict: 0.3, Pref: 1000}
-	if before(rich, strong) || !before(strong, rich) {
-		t.Fatalf("a lower verdict comes first by its preference: %+v %+v", rich, strong)
+
+	first, second := Score{Place: -3, Verdict: 0.1, Pref: -50}, Score{Place: -4, Verdict: 0.9, Pref: 50}
+	if !before(first, second) || before(second, first) {
+		t.Fatalf("the greater place is not first: %+v %+v", first, second)
 	}
-	same := Score{Verdict: 0.5, Pref: -1.25}
-	if before(same, same) || before(same, Score{Verdict: 0.5, Pref: -1.25}) {
-		t.Fatalf("an equal score comes first: %+v", same)
+	same := Score{Place: -1.25, Verdict: 0.5, Pref: 2}
+	if before(same, same) || before(same, Score{Place: -1.25, Verdict: 0.9, Pref: 7}) {
+		t.Fatalf("an equal place comes first: %+v", same)
+	}
+	if before(zero, below) || before(below, zero) {
+		t.Fatalf("minus infinity comes before minus infinity: %+v %+v", zero, below)
+	}
+	if !before(got, zero) || before(zero, got) {
+		t.Fatalf("a place that is a number is not before minus infinity: %+v %+v", got, zero)
+	}
+
+	// A weak reading (verdict 0.33) against a strong one (verdict 0.6,
+	// preference 0): the gap in log10 verdict times Lambda is what the
+	// weak one's preference must make up.
+	gap := Lambda * (math.Log10(0.6) - math.Log10(0.33))
+	strong := score([]token.Branch{{Verdict: 0.6, Pref: 0}})
+	short := score([]token.Branch{{Verdict: 0.33, Pref: gap / 2}})
+	enough := score([]token.Branch{{Verdict: 0.33, Pref: gap * 2}})
+	if !before(strong, short) || before(short, strong) {
+		t.Fatalf("a weak reading with too little preference comes first: %+v %+v", short, strong)
+	}
+	if !before(enough, strong) || before(strong, enough) {
+		t.Fatalf("a weak reading with preference enough does not come first: %+v %+v", enough, strong)
 	}
 }

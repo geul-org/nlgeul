@@ -58,7 +58,7 @@ func TestAfterClosings(t *testing.T) {
 		t.Fatal("기 and 는 after it", got)
 	}
 
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["고기"] = word{kinds: kindNominal, count: 50, by: [6]int{50}}
 	for in, want := range map[string]string{
 		"먹기는":  "먹[열쇠:동사]+기[이름:기]+는[보조사:는]",

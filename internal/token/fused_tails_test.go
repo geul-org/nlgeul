@@ -47,7 +47,7 @@ func TestFusedTails(t *testing.T) {
 	if !honor {
 		t.Fatal("no honorific under 셨")
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	if got := strings.Join(r.Lines("쏴", false), "\n"); strings.Contains(got, "쏘+(아)") || strings.Contains(got, "쏘[") {
 		t.Fatal("쏘 is no predicate's stem of the table\n" + got)
 	}

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what readUnit — one unit (the text between fixed boundaries: spaces and the signs of a pair) read into bundles: the stretches its readings that are awake agree on, then the readings that are asleep, then the dots that close it; and its trace when asked for
+//ff:what readUnit — one unit (the text between fixed boundaries: spaces and the signs of a pair) read into bundles: the stretches its readings agree on, then the dots that close it; and its trace when asked for
 package token
 
 // A unit with nothing to read (signs only) is one bundle with its
@@ -13,7 +13,5 @@ func readUnit(ix *index, u unit, trace bool) ([]Bundle, []string) {
 	if trace {
 		sc.trace = &notes
 	}
-	awake, asleep := wake(sc.search())
-	out := append(sc.bundles(awake), sc.asleepBundle(asleep)...)
-	return append(out, sc.closingDots(u.text)...), notes
+	return append(sc.bundles(sc.search()), sc.closingDots(u.text)...), notes
 }

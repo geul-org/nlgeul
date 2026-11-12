@@ -30,7 +30,7 @@ func TestRestoresAt(t *testing.T) {
 	if got := wordsScan("만", layerCost).restoresAt(1, jongN); len(got) != 1 || got[0].stem != '마' {
 		t.Fatal("a lone ㄴ under 마 is no 말", got)
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["말"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
 	if got := strings.Join(r.Lines("하지 마", false), "\n"); !strings.Contains(got, "말[열쇠:동사]+(아)[맺음:어(합침)]") {
 		t.Fatal("하지 마\n" + got)

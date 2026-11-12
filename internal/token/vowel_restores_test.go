@@ -25,7 +25,7 @@ func TestVowelRestores(t *testing.T) {
 			t.Errorf("%c: %s", c.r, got)
 		}
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	if got := strings.Join(r.Lines("놔", false), "\n"); !strings.Contains(got, "놓[보조 용언:놓]+(아)[맺음:어(합침)]") {
 		t.Fatal("놔\n" + got)
 	}

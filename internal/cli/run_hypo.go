@@ -12,7 +12,7 @@ import (
 )
 
 func runHypo(out io.Writer, r *token.Reader, sentence string) error {
-	choices := hypo.Choices(r.Bundles(sentence))
+	choices := r.Bundles(sentence)
 	count := hypo.Count(choices)
 	fmt.Fprintf(out, "가설 %s\n", count)
 	if count.Cmp(big.NewInt(hypo.Limit)) > 0 {

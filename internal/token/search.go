@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what search — read a unit token by token: at each place look up the markers that end there, grow the readings kept so far, and keep the best; the readings that reach the end come back, best first, with the readings of the whole unit as markers that attach to the unit before (as many as are kept at a place; wake tells which of them are sent up)
+//ff:what search — read a unit token by token: at each place look up the markers that end there, grow the readings kept so far, and keep the best; the readings that reach the end come back, best first, with the readings of the whole unit as markers that attach to the unit before (as many as are kept at a place)
 package token
 
 func (sc *scan) search() []*path {

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReadUnit — a unit's bundles as lines; with a trace the judgments first; the full stop that closes the unit as a last line; a field of punctuation only comes back as it is; the readings asleep are printed only when asked for; a unit that begins with a sign of a pair keeps the sign as its stem
+//ff:what TestReadUnit — a unit's bundles as lines; with a trace the judgments first; the full stop that closes the unit as a last line; a field of punctuation only comes back as it is; every reading the search keeps is printed (아버지가방에들어가신다: a contest of as many branches as the beam holds, the least last); a unit that begins with a sign of a pair keeps the sign as its stem
 package token
 
 import (
@@ -12,9 +12,7 @@ func TestReadUnit(t *testing.T) {
 	lines := func(ix *index, u unit, trace bool) []string {
 		bundles, notes := readUnit(ix, u, trace)
 		for _, b := range bundles {
-			if ix.asleep || !b.Asleep() {
-				notes = append(notes, render(b)...)
-			}
+			notes = append(notes, render(b)...)
 		}
 		return notes
 	}
@@ -36,11 +34,7 @@ func TestReadUnit(t *testing.T) {
 	if got := lines(ix, unit{text: "(", head: 1, name: "여는 묶음표"}, false); len(got) != 1 || got[0] != "([여는 묶음표]" {
 		t.Fatal("an opening sign alone", got)
 	}
-	if strings.Contains(strings.Join(lines(ix, unit{text: long}, false), "\n"), "잠듦") {
-		t.Fatal("readings asleep printed unasked")
-	}
-	all, _ := newIndex(Options{Asleep: true})
-	if !strings.Contains(strings.Join(lines(all, unit{text: long}, false), "\n"), long+"\t잠듦(") {
-		t.Fatal("readings asleep not printed when asked for")
+	if got := lines(ix, unit{text: long}, false); len(got) != 1+beam || !strings.HasPrefix(got[0], long+"\t경합(") || !strings.HasPrefix(got[beam], "  아버지+가[주격:가|보격:가] 방에+들[접미:들] 어가신+다[맺음:다]\t") {
+		t.Fatal("every reading the search keeps", got)
 	}
 }

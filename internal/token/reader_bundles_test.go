@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a part of two readings, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only, and a unit's readings asleep come up as the structure says
+//ff:what TestReaderBundles — the bundles printed again are the lines Lines gives; units are numbered in order; a contest, a branch of two words, a part written out, a part of two readings, a number and its unit, the signs of a pair, a path, a closing dot, a part with no trace in the letters, a unit of signs only, and a unit with no space whose readings all agree on one cut only (after 에서) come up as the structure says; a stretch holds every way its unit's readings read it (고양이가 five, the new word whole last)
 package token
 
 import (
@@ -20,9 +20,7 @@ func TestReaderBundles(t *testing.T) {
 	for _, s := range []string{first, second, third} {
 		var lines []string
 		for _, b := range r.Bundles(s) {
-			if !b.Asleep() {
-				lines = append(lines, render(b)...)
-			}
+			lines = append(lines, render(b)...)
 		}
 		if want := r.Lines(s, false); !reflect.DeepEqual(lines, want) {
 			t.Errorf("%s: printed again\n%q\nLines\n%q", s, lines, want)
@@ -32,18 +30,14 @@ func TestReaderBundles(t *testing.T) {
 	a := r.Bundles(first)
 	var units []int
 	var texts []string
-	var asleep []bool
 	for _, b := range a {
-		units, texts, asleep = append(units, b.Unit), append(texts, b.Text), append(asleep, b.Asleep())
+		units, texts = append(units, b.Unit), append(texts, b.Text)
 	}
-	if want := []int{0, 1, 1, 2, 3, 3, 3}; !reflect.DeepEqual(units, want) {
+	if want := []int{0, 1, 2, 3, 3}; !reflect.DeepEqual(units, want) {
 		t.Fatalf("units %v, want %v", units, want)
 	}
-	if want := []string{"작은", "고양이가", "고양이가", "물을", "마신다", "마신다", "."}; !reflect.DeepEqual(texts, want) {
+	if want := []string{"작은", "고양이가", "물을", "마신다", "."}; !reflect.DeepEqual(texts, want) {
 		t.Fatalf("texts %q, want %q", texts, want)
-	}
-	if want := []bool{false, false, true, false, false, true, false}; !reflect.DeepEqual(asleep, want) {
-		t.Fatalf("asleep %v, want %v", asleep, want)
 	}
 	if !a[0].Contest() || len(a[0].Branches) < 2 {
 		t.Fatalf("작은 is not a contest: %+v", a[0])
@@ -54,16 +48,16 @@ func TestReaderBundles(t *testing.T) {
 		t.Fatalf("작은: %+v", a[0].Branches)
 	}
 	subject := []Eojeol{{Parts: []Part{{Text: "고양이", Names: []Name{{"열쇠", "체언"}}, Stem: true}, {Text: "가", Names: []Name{{"주격", "가"}, {"보격", "가"}}}}, End: 4}}
-	if !reflect.DeepEqual(a[1].Branches[0].Words, subject) {
-		t.Fatalf("고양이가: %+v", a[1].Branches[0])
+	if !reflect.DeepEqual(a[1].Branches[0].Words, subject) || len(a[1].Branches) != 5 || a[1].Branches[4].String() != "고양이가" {
+		t.Fatalf("고양이가: %+v", a[1].Branches)
 	}
 	drinks := []Eojeol{{Parts: []Part{{Text: "마시", Names: []Name{{"열쇠", "동사"}}, Stem: true}, {Text: "다", Hidden: "ㄴ", Names: []Name{{"맺음", "ㄴ다"}}, Ends: rule.KindFinal}}, End: 3}}
-	if !reflect.DeepEqual(a[4].Branches[0].Words, drinks) {
-		t.Fatalf("마신다: %+v", a[4].Branches[0])
+	if !reflect.DeepEqual(a[3].Branches[0].Words, drinks) || len(a[3].Branches) != 5 {
+		t.Fatalf("마신다: %+v", a[3].Branches)
 	}
 	dot := []Eojeol{{Parts: []Part{{Text: ".", Names: []Name{{"마침표", "."}}, Stem: false}}, End: 3}}
-	if len(a[6].Branches) != 1 || !reflect.DeepEqual(a[6].Branches[0].Words, dot) {
-		t.Fatalf("closing dot: %+v", a[6].Branches)
+	if len(a[4].Branches) != 1 || !reflect.DeepEqual(a[4].Branches[0].Words, dot) {
+		t.Fatalf("closing dot: %+v", a[4].Branches)
 	}
 
 	c := r.Bundles(second)
@@ -111,7 +105,7 @@ func TestReaderBundles(t *testing.T) {
 
 	g := r.Bundles("...")
 	signs := []Eojeol{{Parts: []Part{{Text: "...", Stem: true}}}}
-	if len(g) != 1 || g[0].Text != "..." || len(g[0].Branches) != 1 || !reflect.DeepEqual(g[0].Branches[0].Words, signs) || g[0].Contest() || g[0].Asleep() {
+	if len(g) != 1 || g[0].Text != "..." || len(g[0].Branches) != 1 || !reflect.DeepEqual(g[0].Branches[0].Words, signs) || g[0].Contest() {
 		t.Fatalf("signs only: %+v", g)
 	}
 
@@ -120,13 +114,7 @@ func TestReaderBundles(t *testing.T) {
 		t.Fatal(err)
 	}
 	e := bare.Bundles("고양이가마당에서물을마신다")
-	last := e[len(e)-1]
-	if len(e) != 4 || e[0].Asleep() || !last.Asleep() || last.Contest() || last.Text != "고양이가마당에서물을마신다" || last.Unit != 0 || len(last.Branches) < 2 {
-		t.Fatalf("readings asleep: %+v", e)
-	}
-	for _, br := range last.Branches {
-		if !br.Asleep {
-			t.Errorf("a branch of the bundle asleep is awake: %+v", br)
-		}
+	if len(e) != 2 || e[0].Text != "고양이가마당에서" || e[1].Text != "물을마신다" || e[0].Unit != 0 || e[1].Unit != 0 || !e[0].Contest() || !e[1].Contest() || len(e[1].Branches) != 4 {
+		t.Fatalf("a unit cut where all its readings agree: %+v", e)
 	}
 }

@@ -34,7 +34,7 @@ func TestAttached(t *testing.T) {
 	if got := scanOf("곰이").attached(); len(got) != 0 {
 		t.Fatal("a unit with a stem", got[0].sig)
 	}
-	r, _ := New(Options{Words: "testdata/words.tsv", Asleep: true})
+	r, _ := New(Options{Words: "testdata/words.tsv"})
 	if got := strings.Join(r.Lines("곰 이", false), "\n"); !strings.Contains(got, "이[관형사:이]") || !strings.Contains(got, "+이[주격:이|보격:이]") {
 		t.Fatal("이 keeps its word reading next to the attached one\n" + got)
 	}
