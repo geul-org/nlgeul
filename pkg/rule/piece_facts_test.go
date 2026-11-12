@@ -22,11 +22,12 @@ func TestPieceFacts(t *testing.T) {
 		{Piece{Keeps: true}, PieceKeeps},
 		{Piece{Sole: true}, PieceSole},
 		{Piece{Det: true}, PieceDet},
+		{Piece{Closed: true}, PieceClosed},
 		{Piece{Adn: true, Det: true}, PieceAdn | PieceDet},
 		{Piece{HasStem: true, Adn: true, Next: -1}, PieceStem | PieceAdn | PieceLast},
 		{Piece{Keeps: true, Sole: true}, PieceKeeps | PieceSole},
-		{Piece{HasStem: true, Num: true, Lone: true, Whole: true, Adn: true, Turned: true, Marked: true, Next: -1, Keeps: true, Sole: true, Det: true},
-			PieceStem | PieceNum | PieceLone | PieceWhole | PieceAdn | PieceTurned | PieceMarked | PieceLast | PieceKeeps | PieceSole | PieceDet},
+		{Piece{HasStem: true, Num: true, Lone: true, Whole: true, Adn: true, Turned: true, Marked: true, Next: -1, Keeps: true, Sole: true, Det: true, Closed: true},
+			PieceStem | PieceNum | PieceLone | PieceWhole | PieceAdn | PieceTurned | PieceMarked | PieceLast | PieceKeeps | PieceSole | PieceDet | PieceClosed},
 	}
 	for _, c := range cases {
 		if got := pieceFacts(c.p); got != c.want {

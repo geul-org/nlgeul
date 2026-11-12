@@ -5,7 +5,7 @@ package token
 // A unit with nothing to read (signs only) is one bundle with its
 // letters as they are.
 func readUnit(ix *index, u unit, trace bool) ([]Bundle, []string) {
-	sc := &scan{ix: ix, s: coreOf(u), head: u.head, headName: u.name}
+	sc := unitScan(ix, u)
 	if len(sc.s) == 0 {
 		return []Bundle{{Text: u.text, Branches: []Branch{{Words: []Eojeol{{Parts: []Part{{Text: u.text, Stem: true}}}}, Verdict: 1}}}}, nil
 	}

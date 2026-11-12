@@ -33,6 +33,8 @@ const (
 	whyNoAdn      = "앞 어절이 꾸밈 맺음으로 끝나지 않는다"
 	whyAdn        = "앞 어절이 꾸밈 맺음으로 끝난다"
 	whyDet        = "앞 어절이 관형사다"
+	whyClosed     = "문장을 닫는 부호가 바로 뒤에서 단위를 닫는다"
+	whyBound      = "앞말이 의존명사다"
 	whyBoundAux   = "의존 명사에 하다·싶다가 붙은 보조 용언의 줄기다"
 	whyCoda       = "새 낱말의 줄기가 ㅆ 받침으로 끝난다"
 	whyKnown      = "표가 아는 낱말이다"

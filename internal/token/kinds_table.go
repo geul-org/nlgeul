@@ -33,6 +33,9 @@ var partKinds = map[string]int{
 // grammar tables (parse.ClosedWords).
 const auxSet = "보조 용언"
 
+// boundSet is the name of the closed set of dependent nouns there.
+const boundSet = "의존명사"
+
 // closedKinds gives the kind of each closed set of the grammar tables.
 // The auxiliary verbs after an 어/아 form are all verbs (있다 as an
 // adjective is a main predicate, which the word table lists).

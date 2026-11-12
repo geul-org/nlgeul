@@ -5,7 +5,7 @@ package token
 func (r *Reader) Cuts(sentence string) []string {
 	var out []string
 	for _, u := range unitsOf(sentence) {
-		sc := &scan{ix: r.ix, s: coreOf(u), head: u.head, headName: u.name}
+		sc := unitScan(r.ix, u)
 		out = append(out, string(sc.s)+"\t"+endsOf(sc.search()))
 	}
 	return out

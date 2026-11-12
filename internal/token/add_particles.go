@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what addParticles — one entry, and so one graph, for each case reading of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads
+//ff:what addParticles — one entry, and so one graph, for each case reading of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate)
 package token
 
 import (
@@ -28,6 +28,25 @@ var together = []string{"과", "와", "이랑", "랑"}
 var directional = []string{"으로", "로", "으로부터", "로부터"}
 var shortTopics = []string{"엔", "에선", "에겐", "한텐", "까진", "보단"}
 
+// leading are the auxiliary particles that set a word forth for what
+// is then said of it (너야 물론 합격이지): 이야 after a consonant, 야
+// after a vowel. A sentence does not as a rule end on one, so where a
+// full stop, a question mark or an exclamation mark closes the unit
+// right after such a particle that stands right on its stem it is not
+// read (문제야. is 문제+(이)+야). After another particle or a closing it
+// stays (에서야, 하고 나서야).
+// Dots in a row trail off and close nothing (나야 뭐...). A closed
+// table: only the readings listed are held back.
+var leading = []string{"보조사:이야", "보조사:야"}
+
+// vocName is the vocative 야, written onto the name of who is called
+// (철수야). A dependent noun names no one that can be called, so the
+// word before it must pass the graph callGate.
+const (
+	vocName  = "호격:야"
+	callGate = "앞말:부르는 말"
+)
+
 var ownParticles = []entry{
 	{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkSuffix, inner: true},
 	{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic},
@@ -37,9 +56,15 @@ var ownParticles = []entry{
 }
 
 func (ix *index) addParticles() {
+	ix.call = calledGate()
+	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	for _, m := range parse.ParticleMarkers() {
 		for _, label := range caseNames(m.Kase, m.Slot) {
-			ix.add(&entry{name: label + ":" + m.Form, form: m.Form, class: classParticle, after: m.After, slot: linkOf(label, m.Form, m.Slot), kase: m.Kase, count: particleCount(m)})
+			e := &entry{name: label + ":" + m.Form, form: m.Form, class: classParticle, after: m.After, slot: linkOf(label, m.Form, m.Slot), kase: m.Kase, count: particleCount(m)}
+			if e.name == vocName {
+				e.gate = ix.call
+			}
+			ix.add(e)
 		}
 	}
 	for i := range ownParticles {
