@@ -39,7 +39,7 @@ func TestReaderBundlesTypoClosing(t *testing.T) {
 	}
 	var lines []string
 	for _, b := range bs {
-		lines = append(lines, render(b)...)
+		lines = append(lines, render(b, 0)...)
 	}
 	if want := r.Lines("할께", false); !reflect.DeepEqual(lines, want) {
 		t.Fatalf("printed again\n%q\nLines\n%q", lines, want)

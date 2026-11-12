@@ -41,3 +41,8 @@ const (
 	pairName = "묶음"
 	codeName = "코드"
 )
+
+// midName is what a sign between letters of a unit is called while the
+// unit is read, before the stretches are made (expandMid gives it the
+// names of its readings).
+const midName = "기호"

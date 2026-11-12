@@ -157,6 +157,7 @@ const (
 	MarkOpened                 // a sign of its pair's kind may stand open before it
 	MarkApart                  // a space, or the sentence's edge, stands on both sides of it
 	MarkArrow                  // a hyphen or an equals sign stands right next to it (->, =>, <=)
+	MarkBySign                 // a punctuation mark or symbol other than itself stands right next to it
 )
 
 // The facts a list is asked for (List.Of).

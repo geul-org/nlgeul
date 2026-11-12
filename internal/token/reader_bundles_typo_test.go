@@ -15,7 +15,7 @@ func TestReaderBundlesTypo(t *testing.T) {
 	var lines []string
 	bs := r.Bundles("맞겨")
 	for _, b := range bs {
-		lines = append(lines, render(b)...)
+		lines = append(lines, render(b, 0)...)
 	}
 	if want := r.Lines("맞겨", false); !reflect.DeepEqual(lines, want) {
 		t.Fatalf("printed again\n%q\nLines\n%q", lines, want)

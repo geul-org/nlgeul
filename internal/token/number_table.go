@@ -74,10 +74,12 @@ var headOrder = data.Must(data.Runes("number-heads", 2))
 // unit and a shorter one that ends it are both read where they fit
 // (3개월 is 개월; 개 alone leaves 월 to the next word). unitWords are
 // the letters a unit is written with, in the order of the table's lines
-// (units.tsv), and unitNames what each is named with after unitLabel
-// (the table's second column).
+// (units.tsv), each once; unitRows are the table's lines, letters and
+// name (the second column) that follows unitLabel. One letter may stand
+// on two lines with two names (m is 미터 and 분): each line makes its
+// own graph, so that both readings are read.
 var unitWords = data.Must(data.Column("units", 2))
-var unitNames = data.Must(data.Map("units"))
+var unitRows = data.Must(data.Rows("units", 2))
 
 // Places after a number: a greater number (만, 천), 여 (more than), a
 // unit, 째 (an order).

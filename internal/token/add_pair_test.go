@@ -14,7 +14,7 @@ func TestAddPair(t *testing.T) {
 	if len(ix.pairs['"']) != 1 || ix.pairs['"'][0].name != "닫기:\"" || ix.pairs['"'][0].form != shutName {
 		t.Fatal(ix.pairs['"'])
 	}
-	if ix.graphs != 2 || ix.edges != 2 {
+	if ix.graphs != 2 || ix.edges != 1 {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 }

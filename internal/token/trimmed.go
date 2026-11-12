@@ -11,7 +11,7 @@ import (
 )
 
 func trimmed(field string) (int, int) {
-	s := rule.Trim(field)
+	s := trimSigns(field)
 	if len(s) == 0 {
 		return 0, 0
 	}

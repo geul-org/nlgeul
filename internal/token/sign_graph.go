@@ -10,8 +10,10 @@ import (
 // 쉼표 is one comma. 물음표 and 느낌표 are any number of the sign. 쌍점
 // and 쌍반점 are one sign at a word's end or alone; 물결표 any number
 // there. 샵 and 골뱅이 are one sign with letters right after it or
-// alone; 태그 and 이름 one sign with letters right after it. 제목 is the
+// alone; 태그 and 명칭 one sign with letters right after it. 제목 is the
 // sign at the very start of an input line with a space right after it.
+// 가운뎃점 is one sign; 더하기 and 연결 are one sign with no other sign
+// right next to it.
 func signGraph(name string) (*toulmin.Graph, int) {
 	g := toulmin.NewGraph(name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "기호"})
@@ -32,9 +34,16 @@ func signGraph(name string) (*toulmin.Graph, int) {
 		repeated()
 		except(g, rule.MarkIs, whyNoLead, is(rule.MarkLeads|rule.MarkAlone), not).Attacks(claim)
 		return g, 2
-	case "태그", "이름":
+	case "태그", "명칭":
 		repeated()
 		except(g, rule.MarkIs, whyNoLetters, is(rule.MarkLeads), not).Attacks(claim)
+		return g, 2
+	case "가운뎃점":
+		repeated()
+		return g, 1
+	case "더하기", "연결":
+		repeated()
+		except(g, rule.MarkIs, whyBySign, is(rule.MarkBySign)).Attacks(claim)
 		return g, 2
 	case headingName:
 		except(g, rule.MarkIs, whyNoLineHead, is(rule.MarkHeads), not).Attacks(claim)

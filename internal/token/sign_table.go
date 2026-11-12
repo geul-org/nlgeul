@@ -18,7 +18,7 @@ var signOrderNamed = data.Must(data.Runes("signs", 2))
 // the sign itself. When only such readings stand, the sign's letters
 // with no name are sent up beside them. headingName is printed with
 // the number of the signs in a row and no colon (## is 제목2).
-var roleNames = []string{headingName, "태그", "이름"}
+var roleNames = []string{headingName, "태그", "명칭"}
 
 const headingName = "제목"
 
@@ -29,3 +29,12 @@ const arrowSigns = "-="
 // stopSigns are the signs that close the word before them inside a
 // unit, as a piece of that word (stopAt): the full stop and the comma.
 const stopSigns = ".,"
+
+// apartSigns are the signs that, between letters of a unit, are also read
+// as a word of their own (a reading added beside the one that keeps
+// them in the word): the middle dots. cutSigns are the signs that cut a
+// sentence into units where they stand between letters (cutter).
+const (
+	apartSigns = "·ㆍ・"
+	cutSigns   = "+"
+)

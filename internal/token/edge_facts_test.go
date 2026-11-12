@@ -15,7 +15,7 @@ func TestEdgeFacts(t *testing.T) {
 		t.Fatal("before the letters", m)
 	}
 	m = sc.edgeFacts(unit{text: "#@태그"}, 0, 1, false, false)
-	if m.Right != 0 || m.Facts != 0 {
+	if m.Right != 0 || m.Facts != rule.MarkBySign {
 		t.Fatal("the stretch is not the last before the letters", m)
 	}
 	m = scanOf("뭐").edgeFacts(unit{text: "뭐?!", spaced: true}, 1, 3, true, true)
@@ -23,7 +23,7 @@ func TestEdgeFacts(t *testing.T) {
 		t.Fatal("after the letters", m)
 	}
 	m = scanOf("뭐").edgeFacts(unit{text: "뭐?!"}, 1, 2, true, false)
-	if m.Run != 1 || m.Facts != rule.MarkEnds {
+	if m.Run != 1 || m.Facts != rule.MarkEnds|rule.MarkBySign {
 		t.Fatal("a stretch with another after it", m)
 	}
 	m = scanOf("").edgeFacts(unit{text: "...", first: true, spaced: true}, 0, 3, true, true)

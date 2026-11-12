@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what Bundles — read a sentence and send up its words as a structure: the sentence is cut into units at spaces and at the signs of a pair, and each unit comes back as bundles in order, each marked with which unit it is in
+//ff:what Bundles — read a sentence and send up its words as a structure: the sentence is cut into units at spaces and at the signs of a pair, and each unit comes back as bundles in order, each marked with which unit it is in and whether no space stood before it (Glued)
 package token
 
 // A layer above reads this instead of the printed lines: each bundle
@@ -7,12 +7,14 @@ package token
 // their readings. Lines prints the same bundles.
 func (r *Reader) Bundles(sentence string) []Bundle {
 	var out []Bundle
+	spaced := true
 	for i, u := range unitsOf(r.ix, sentence, false) {
 		bundles, _ := readUnit(r.ix, u, false)
-		for _, b := range bundles {
-			b.Unit = i
+		for k, b := range bundles {
+			b.Unit, b.Glued = i, k > 0 || (i > 0 && !spaced)
 			out = append(out, b)
 		}
+		spaced = u.spaced
 	}
 	return out
 }

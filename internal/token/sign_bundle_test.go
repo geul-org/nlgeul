@@ -18,7 +18,7 @@ func TestSignBundle(t *testing.T) {
 	}{
 		{"?", rule.Mark{Run: 1}, 4, `"물음표"/stem=false/depth=0/end=4`},
 		{"#", rule.Mark{Run: 1, Facts: rule.MarkLeads}, 2, `"샵"/stem=false/depth=0/end=2; "태그"/stem=false/depth=0/end=2`},
-		{"@", rule.Mark{Run: 1, Facts: rule.MarkLeads}, 2, `"골뱅이"/stem=false/depth=0/end=2; "이름"/stem=false/depth=0/end=2`},
+		{"@", rule.Mark{Run: 1, Facts: rule.MarkLeads}, 2, `"골뱅이"/stem=false/depth=0/end=2; "명칭"/stem=false/depth=0/end=2`},
 		{"##", rule.Mark{Run: 2, Facts: rule.MarkHeads | rule.MarkSpaced}, 0, `"제목2"/stem=false/depth=2/end=0; ""/stem=true/depth=0/end=0`},
 		{"#", rule.Mark{Run: 1, Facts: rule.MarkHeads | rule.MarkSpaced | rule.MarkAlone}, 0, `"제목1"/stem=false/depth=1/end=0; "샵"/stem=false/depth=0/end=0`},
 		{"::", rule.Mark{Run: 2, Facts: rule.MarkEnds}, 0, `""/stem=true/depth=0/end=0`},

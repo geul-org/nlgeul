@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmd — nlgeul token prints the words of a unit; --cuts word ends; --trace the judgments; --stdin reads lines; a word table comes from --words or NLGEUL_WORDS; no sentence and a table that cannot be read are refused
+//ff:what TestNewTokenCmd — nlgeul token prints the words of a unit; --cuts word ends; --trace the judgments; --stdin reads lines; a word table comes from --words or NLGEUL_WORDS; no sentence, a negative --head and a table that cannot be read are refused
 package cli
 
 import (
@@ -43,5 +43,8 @@ func TestNewTokenCmd(t *testing.T) {
 	}
 	if err := run(""); err == nil {
 		t.Fatal("no sentence accepted")
+	}
+	if err := run("", "--head", "-3", "아버지가"); err == nil || !strings.Contains(err.Error(), "--head") {
+		t.Fatal("a negative --head accepted", err)
 	}
 }

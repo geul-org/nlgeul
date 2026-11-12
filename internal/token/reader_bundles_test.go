@@ -18,7 +18,7 @@ func TestReaderBundles(t *testing.T) {
 	for _, s := range []string{first, second, third} {
 		var lines []string
 		for _, b := range r.Bundles(s) {
-			lines = append(lines, render(b)...)
+			lines = append(lines, render(b, 0)...)
 		}
 		if want := r.Lines(s, false); !reflect.DeepEqual(lines, want) {
 			t.Errorf("%s: printed again\n%q\nLines\n%q", s, lines, want)
@@ -75,20 +75,24 @@ func TestReaderBundles(t *testing.T) {
 	}
 
 	d := r.Bundles(third)
-	if len(d) != 7 || d[1].Text != "(" || d[3].Text != ")을" || d[4].Text != "~/a/b를" || d[5].Unit != 5 {
+	if len(d) != 8 || d[1].Text != "(" || d[3].Text != ")" || d[4].Text != "을" || d[5].Text != "~/a/b를" || d[6].Unit != 5 {
 		t.Fatalf("%s: %+v", third, d)
 	}
 	opening := []Eojeol{{Parts: []Part{{Text: "(", Names: []Name{{"열기", "1"}}, Depth: 1, Stem: true}}, End: 1}}
 	if len(d[1].Branches) != 1 || !reflect.DeepEqual(d[1].Branches[0].Words, opening) {
 		t.Fatalf("(: %+v", d[1].Branches)
 	}
-	closing := []Eojeol{{Parts: []Part{{Text: ")", Names: []Name{{"닫기", "1"}}, Depth: 1, Stem: true}, {Text: "을", Names: []Name{{"목적격", "을"}}}}, End: 2}}
+	closing := []Eojeol{{Parts: []Part{{Text: ")", Names: []Name{{"닫기", "1"}}, Depth: 1, Stem: true}}, End: 1}}
 	if !reflect.DeepEqual(d[3].Branches[0].Words, closing) {
 		t.Fatalf(")을: %+v", d[3].Branches[0])
 	}
+	onto := []Eojeol{{Parts: []Part{{Text: "을", Names: []Name{{"목적격", "을"}}}}, End: 1, Attach: true}}
+	if d[4].Unit != 3 || !d[4].Glued || !reflect.DeepEqual(d[4].Branches[0].Words, onto) || d[4].Branches[0].Verdict != 1 {
+		t.Fatalf(")을: %+v", d[4])
+	}
 	path := []Eojeol{{Parts: []Part{{Text: "~/a/b", Names: []Name{{"경로", ""}}, Stem: true}, {Text: "를", Names: []Name{{"목적격", "를"}}}}, End: 6}}
-	if len(d[4].Branches) != 2 || !reflect.DeepEqual(d[4].Branches[0].Words, path) && !reflect.DeepEqual(d[4].Branches[1].Words, path) {
-		t.Fatalf("~/a/b를: %+v", d[4].Branches)
+	if len(d[5].Branches) != 2 || !reflect.DeepEqual(d[5].Branches[0].Words, path) && !reflect.DeepEqual(d[5].Branches[1].Words, path) {
+		t.Fatalf("~/a/b를: %+v", d[5].Branches)
 	}
 
 	f := r.Bundles("학교다")

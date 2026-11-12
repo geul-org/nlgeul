@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestWordEnd — letters stop at a space, at a sign that is read as a sign of a pair in some way, at a span of code, or at the end; a sign that is no sign of a pair there (it's, x<y spaced apart, a closing sign with nothing open) stays in the letters
+//ff:what TestWordEnd — letters stop at a space, at a sign that is read as a sign of a pair in some way, at a span of code, or at the end; a plus between letters cuts it (not a run of them, one at the end, nor one next to another sign); a sign that is no sign of a pair there (it's, x<y spaced apart, a closing sign with nothing open) stays in the letters
 package token
 
 import "testing"
@@ -20,6 +20,11 @@ func TestWordEnd(t *testing.T) {
 		{"곰이\"가", 1, 2},
 		{"a<b", 0, 1},
 		{"a->b", 0, 4},
+		{"곰+돌", 0, 1},
+		{"가++나", 0, 4},
+		{"가+", 0, 2},
+		{"b+=7", 0, 4},
+		{"7\"", 0, 1},
 		{"", 0, 0},
 	}
 	for _, c := range cases {

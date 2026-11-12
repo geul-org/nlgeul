@@ -39,7 +39,7 @@ func (ix *index) addNumbers() {
 	ix.tilde = frontGraph(tildeName, digits, false)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	ix.after = map[rune][]*entry{}
-	ix.afterPrefs = map[bool]float64{false: math.Log10(1 / float64(len(unitWords)+afterOthers)), true: math.Log10(1 / float64(len([]rune(sinoBigs))))}
+	ix.afterPrefs = map[bool]float64{false: math.Log10(1 / float64(len(unitRows)+afterOthers)), true: math.Log10(1 / float64(len([]rune(sinoBigs))))}
 	for _, r := range sinoBigs {
 		ix.addAfter(bigName+string(r), string(r), placeBig)
 	}
@@ -48,7 +48,7 @@ func (ix *index) addNumbers() {
 	for _, s := range unitSuffixes {
 		ix.addAfter("접미:"+s, s, placeOrder)
 	}
-	for _, u := range unitWords {
-		ix.addAfter(unitLabel+unitNames[u], u, placeUnit)
+	for _, row := range unitRows {
+		ix.addAfter(unitLabel+row.Cells[1], row.Cells[0], placeUnit)
 	}
 }

@@ -75,10 +75,10 @@
 | `short-slots.tsv` | 꼴, 앞말, 본말, 줄기 | `shortSlots` (token, `shortSlotOf`) | `댔	-	다고 했	형용사` |
 | `typo-closings.tsv` | 틀린 꼴, 바른 맺음(색인 이름) | `typoClosings` (token, `typoClosingOf`) | `ㄹ께	맺음:ㄹ게` |
 | `typo-words.tsv` | 틀린 꼴, 바른 낱말 | `typoKeys` (token) | `꺼	거` |
-| `signs.tsv` | 기호(글자 하나), 이름 | `signNames`, `signOrderNamed` (token, `loadSigns`) | `,	쉼표` |
+| `signs.tsv` | 기호(글자 하나), 이름 | `signNames`, `signOrderNamed` (token, `loadSigns`) | `,	쉼표`, `·	가운뎃점`, `+	더하기` |
 | `pairs.tsv` | 기호, 여는 기호, 구실, 조건 | `pairRows`, `pairOrder` (token, `loadPairs`, `pairOf`) | `)	(	닫기	-` |
 | `number-heads.tsv` | 기호, 갈래 | `headSigns`, `headOrder` (token, `loadHeads`) | `$	돈` |
-| `units.tsv` | 글자, 이름 | `unitWords`, `unitNames` (token) | `개	개` |
+| `units.tsv` | 글자, 이름 | `unitWords`, `unitRows` (token) | `GB	기가바이트` |
 | `unit-suffixes.tsv` | 접미사 | `unitSuffixes` (token) | `짜리` |
 | `extensions.tsv` | 확장자 | `extensions` (token) | `py` |
 | `top-domains.tsv` | 최상위 도메인 | `topDomains` (token) | `com` |
@@ -86,9 +86,11 @@
 - `closings.tsv`, `closings-more.tsv`, `short-closings.tsv`의 앞 네 칸은 같은 읽기(`parse.MarkerOf`)로 읽는다. 받침으로 붙는 꼴과 `어/아` 꼴의 앞말 칸은 `-`여야 하고, 갈래는 하나 이상 적는다.
 - `short-closings.tsv`의 조건에 `서술격 안 됨`을 적으면 그 줄은 서술격 이다 뒤에 서지 못한다. 줄기가 `-`이면 어느 용언 줄기 뒤에든 선다. 끝 네 줄(`달까`, `ㄴ달까`, `는달까`, `랄까`)은 다고 할까·ㄴ다고 할까·는다고 할까·라고 할까가 줄어든 맺음이다.
 - `short-slots.tsv`의 꼴은 온 음절이거나 받침 밑에 붙는 꼴이다(`ㄴ댔`). `어/아` 꼴은 쓰지 못한다.
-- `units.tsv`는 `글자<탭>이름`이다. 글자는 수 뒤에서 읽는 단위이고, 색인에서 그 단위의 이름표는 `단위:<이름>`으로 찍힌다. 지금은 모든 줄의 이름이 글자와 같다.
+- `units.tsv`는 `글자<탭>이름`이다. 글자는 수 뒤에서 읽는 단위이고, 색인에서 그 단위의 이름표는 `단위:<이름>`으로 찍힌다. 이름 기준은 넷이다. ① 표준 한글 이름(외래어 표기법 꼴)을 쓴다. ② 줄임말을 쓰지 않는다(`킬로그램`이지 `킬로`가 아니다). ③ 같은 단위는 글자가 달라도 이름이 같다(`m²`와 `㎡`는 둘 다 `제곱미터`, `ml`·`mL`·`㎖`는 `밀리리터`). ④ 한글 단위는 그 글자가 이름이다(`개	개`). 글자가 같고 뜻이 다르면 줄을 따로 둔다(`m	미터`, `m	분`): 그러면 같은 글자에 그래프가 둘 서고 읽기가 따로 나온다(`5[수]+m[단위:미터]`, `5[수]+m[단위:분]`). 같은 글자·같은 이름의 줄을 두 번 적으면 오류다. 줄을 더할 때는 아래 방법대로 끝에 적고, 이름은 위 기준에 맞춘다. 줄 수가 늘면 수 뒤 조각의 선호(표의 줄 수로 고르게 나눈 값)가 내려간다.
 - `closing-counts.tsv`에 줄이 없는 맺음은 횟수가 없는 것으로 친다. 횟수 0도 횟수 없음으로 친다.
 - `signs.tsv`, `pairs.tsv`, `number-heads.tsv`의 기호는 글자 하나다.
+- `signs.tsv`의 `·` `ㆍ` `・`는 `가운뎃점`이다(`ㆍ`는 유니코드에서 글자라 토큰 층이 이름이 있는 기호도 가장자리에서 뗀다). `+`는 `더하기`와 `연결` 두 줄이다. 가운뎃점은 글자 사이에서 가르는 읽기를 후보로 더하고, `+`는 글자 사이에서 단위를 자른다.
+- `pairs.tsv`의 `"`와 `'`는 숫자 바로 뒤에도 여닫는 기호다(조건에서 `숫자 뒤 안 됨`을 뺐다). 조건 이름과 코드는 남아 있다(쓰는 줄이 없을 뿐). `units.tsv`의 `"`(인치·초)와 `'`(피트·분)는 숫자 뒤 따옴표의 단위 읽기다.
 
 ### 줄을 더하는 방법
 
