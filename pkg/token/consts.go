@@ -71,6 +71,15 @@ const (
 	layerCost
 )
 
+// judgedMax is how many verdicts an index remembers (judged) before it
+// drops them all and starts again. It bounds memory only and changes no
+// verdict. With no bound the number kept growing (270 to 390 thousand
+// after ten thousand sentences). Measured on ten thousand sentences of a
+// novel and of statutes, 100,000 read as fast as 250,000, 500,000 and
+// 2,000,000 (within the 3% two runs differ by) with the least memory (a
+// peak of 145MB against 210 to 260MB); 20,000 read 5 to 10% slower.
+const judgedMax = 100000
+
 // forceNew is the force of the rebuttal "it is in no key table"
 // against a new word: with it a new word's verdict is 2/(1+0.5)-1 =
 // 1/3, a low positive one. It is a placeholder, not a measured value.

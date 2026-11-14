@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestEntriesAt — the entries under a token and under its keys as a fused token
+//ff:what TestEntriesAt — the entries under a token and under its keys as a fused token, the same whether the index has worked them out (addEnds) or not
 package token
 
 import (
@@ -17,5 +17,10 @@ func TestEntriesAt(t *testing.T) {
 	}
 	if !fused || plain {
 		t.Fatal(plain, fused)
+	}
+	worked := len(sc.entriesAt(1))
+	sc.ix.ends = nil
+	if worked == 0 || len(sc.entriesAt(1)) != worked {
+		t.Fatal("an index that has not worked them out gives the same", worked)
 	}
 }

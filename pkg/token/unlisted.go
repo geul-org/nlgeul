@@ -6,5 +6,5 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 
 func (sc *scan) unlisted(b, j int, stem string, t tail) float64 {
 	kinds := sc.ix.lex[stem].kinds | sc.ix.closed[stem]
-	return verdict(sc.ix.stem, rule.Piece{Form: stem, Tail: tailClass(t.pieces), Stem: kinds, Marked: sc.marked(b, j, t)})
+	return sc.ix.judged(sc.ix.stem, rule.Piece{Form: stem, Tail: tailClass(t.pieces), Stem: kinds, Marked: sc.marked(b, j, t)}, "")
 }

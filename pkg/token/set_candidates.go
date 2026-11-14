@@ -12,7 +12,7 @@ func (ix *index) setCandidates(c *entry, stem string, tail int) []kindCandidate 
 	if c == nil {
 		return nil
 	}
-	v := verdict(c.g, rule.Piece{Form: stem, Tail: tail})
+	v := ix.judged(c.g, rule.Piece{Form: stem, Tail: tail}, "")
 	if v <= 0 {
 		return nil
 	}

@@ -21,11 +21,11 @@ func TestStemVerdict(t *testing.T) {
 	if ix.stemVerdict(kindNominal, rule.Piece{Form: "고양이", Tail: rule.TailPred, Count: 50000}) != -1 || ix.stemVerdict(kindAdj, rule.Piece{Form: "작", Tail: rule.TailVerb, Count: 50000}) != -1 || ix.stemVerdict(kindVerb, rule.Piece{Form: "마시", Tail: rule.TailVerb, Count: 50000}) != 1 {
 		t.Fatal("tails")
 	}
-	n := len(ix.seen)
-	if ix.stemVerdict(kindNominal, cat) != full || len(ix.seen) != n {
+	n := len(ix.memo)
+	if ix.stemVerdict(kindNominal, cat) != full || len(ix.memo) != n {
 		t.Fatal("not remembered")
 	}
-	if ix.stemVerdict(kindNominal, rule.Piece{Form: "마당이", Tail: rule.TailCase, Count: 50000}) != 1 || len(ix.seen) != n+1 {
-		t.Fatal("another stem is judged apart", len(ix.seen), n)
+	if ix.stemVerdict(kindNominal, rule.Piece{Form: "마당이", Tail: rule.TailCase, Count: 50000}) != 1 || len(ix.memo) != n+1 {
+		t.Fatal("another stem is judged apart", len(ix.memo), n)
 	}
 }

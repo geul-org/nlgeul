@@ -20,7 +20,7 @@ func (sc *scan) afterClosings(start, depth int, pc piece, e *entry) []tail {
 	var out []tail
 	for _, t := range sc.closings(start, false, noun) {
 		last := t.pieces[len(t.pieces)-1]
-		pair := strings.NewReplacer("(", "", ")", "").Replace(last.text) + pc.text
+		pair := strings.ReplaceAll(strings.ReplaceAll(last.text, "(", ""), ")", "") + pc.text
 		at := rule.Piece{Form: pc.text, Before: last.names, HasStem: true, Next: -1}
 		switch {
 		case sc.ix.closingSet[pair]:

@@ -8,5 +8,5 @@ func (sc *scan) again(t tail, adn bool) bool {
 	}
 	p := *t.facts
 	p.Adn = adn
-	return verdict(t.again.g, p) > 0
+	return sc.ix.judged(t.again.g, p, "") > 0
 }

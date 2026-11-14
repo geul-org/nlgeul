@@ -3,7 +3,7 @@ module github.com/geul-org/nlgeul
 go 1.27.3
 
 require (
-	github.com/park-jun-woo/toulmin/go v0.9.0
+	github.com/park-jun-woo/toulmin/go v0.9.1
 	github.com/spf13/cobra v1.10.2
 )
 

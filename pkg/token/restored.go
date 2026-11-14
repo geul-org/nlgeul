@@ -17,5 +17,5 @@ func (sc *scan) restored(b int, t tail) bool {
 		stem := string(sc.s[b:t.start-1]) + string(t.base)
 		p.Form, p.Keeps = map[int]string{jungA: "아", jungEo: "어"}[shown], sc.ix.lex[stem].irr&(irrReu|irrReo) != 0
 	}
-	return verdict(sc.ix.restore, p) > 0
+	return sc.ix.judged(sc.ix.restore, p, "") > 0
 }

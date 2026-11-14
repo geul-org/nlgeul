@@ -4,14 +4,6 @@ package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
 
-// The key holds every fact the graph is given, so that a rule added to
-// the graph is never answered from another stem's verdict.
 func (ix *index) stemVerdict(kind int, p rule.Piece) float64 {
-	key := stemKey{kind, p}
-	if v, ok := ix.seen[key]; ok {
-		return v
-	}
-	v := verdict(ix.kinds[kind], p)
-	ix.seen[key] = v
-	return v
+	return ix.judged(ix.kinds[kind], p, "")
 }

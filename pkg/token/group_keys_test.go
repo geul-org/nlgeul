@@ -17,6 +17,9 @@ func TestGroupKeys(t *testing.T) {
 	if want := []string{"주격:이", "보격:이"}; !reflect.DeepEqual(names, want) {
 		t.Fatal(names)
 	}
+	if got := sc.groupKeys(nil, nil, 2); got != nil {
+		t.Fatal("no candidate, no key", got)
+	}
 	apart := map[string]piece{"x": {}, "y": {}}
 	by := map[string]*entry{"x": {form: "을", slot: 1}, "y": {form: "가", slot: 1}}
 	if got := sc.groupKeys(apart, by, 2); !reflect.DeepEqual(got, []string{"y", "x"}) {

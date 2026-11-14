@@ -8,6 +8,9 @@ import (
 )
 
 func (sc *scan) groupKeys(pieces map[string]piece, from map[string]*entry, j int) []string {
+	if len(pieces) == 0 {
+		return nil
+	}
 	keys := make([]string, 0, len(pieces))
 	for k := range pieces {
 		keys = append(keys, k)

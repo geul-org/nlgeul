@@ -4,8 +4,8 @@ package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 
-// layers is layerNone when there is no word table. seen keeps the
-// verdict of a kind's graph for the facts it was last asked.
+// layers is layerNone when there is no word table. memo keeps the
+// verdicts of the graphs for what they were asked (judged).
 type index struct {
 	byKey       map[rune][]*entry
 	words       map[string]*entry
@@ -20,7 +20,7 @@ type index struct {
 	layers      int
 	lexed       bool
 	kinds       map[int]*toulmin.Graph
-	seen        map[stemKey]float64
+	memo        map[judgeKey]float64
 	barred      []string
 	copula      *entry
 	call        *entry
@@ -64,5 +64,6 @@ type index struct {
 	farBases    map[string]bool
 	keyPrefixes map[string]bool
 	keyMax      int
+	ends        map[rune][]*entry
 	noWindow    bool
 }

@@ -10,10 +10,10 @@ import (
 )
 
 func (sc *scan) judge(e *entry, start, j int, p rule.Piece) float64 {
-	v, why := verdictOf(e.g, p, sc.letters(0, j), sc.trace != nil)
 	if sc.trace == nil {
-		return v
+		return sc.ix.judged(e.g, p, sc.letters(0, j))
 	}
+	v, why := verdictOf(e.g, p, sc.letters(0, j), true)
 	text := sc.letters(start, j)
 	if e.lead != 0 {
 		text = "(" + restores(sc.s[start-1], e.lead)[0].piece + ")" + text

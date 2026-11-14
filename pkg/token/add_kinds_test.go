@@ -11,7 +11,7 @@ import (
 func TestAddKinds(t *testing.T) {
 	ix := &index{}
 	ix.addKinds()
-	if ix.graphs != 6 || ix.edges != 48 || len(ix.kinds) != 6 || ix.seen == nil {
+	if ix.graphs != 6 || ix.edges != 48 || len(ix.kinds) != 6 {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 	fits := map[int]int{kindNominal: rule.TailCase, kindVerb: rule.TailPred, kindAdj: rule.TailAdj, kindAdverb: rule.TailAux, kindDeterminer: rule.TailBare, kindAlone: rule.TailBare}

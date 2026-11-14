@@ -10,7 +10,7 @@ import (
 // Words are rows of a table, not graphs: a stem found in the table
 // hands its kind, count and length to one of these few graphs.
 func (ix *index) addKinds() {
-	ix.kinds, ix.seen = map[int]*toulmin.Graph{}, map[stemKey]float64{}
+	ix.kinds = map[int]*toulmin.Graph{}
 	for _, kind := range kindOrder {
 		name := "열쇠:" + kindLabel[kind]
 		g := toulmin.NewGraph(name)

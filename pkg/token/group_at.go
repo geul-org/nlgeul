@@ -9,7 +9,9 @@ package token
 // piece stands right on its stem (a piece before the particle 요 then
 // knows whether the stem ends in a vowel, or the suffix 이 stands left of it: YoOpen).
 func (sc *scan) groupAt(class, j, next int, more, closed, onStem bool) (map[string]piece, map[string]*entry, map[string]int) {
-	pieces, from, starts := map[string]piece{}, map[string]*entry{}, map[string]int{}
+	var pieces map[string]piece
+	var from map[string]*entry
+	var starts map[string]int
 	for _, e := range sc.entriesAt(j) {
 		start, p, ok := sc.place(e, j, more)
 		if !ok || e.class != class {
@@ -24,6 +26,9 @@ func (sc *scan) groupAt(class, j, next int, more, closed, onStem bool) (map[stri
 		key := entryGroup(e)
 		if v <= 0 || (from[key] != nil && pieces[key].verdict >= v) {
 			continue
+		}
+		if pieces == nil {
+			pieces, from, starts = map[string]piece{}, map[string]*entry{}, map[string]int{}
 		}
 		pieces[key] = sc.entryPiece(e, string(sc.s[start:j]), v)
 		from[key], starts[key] = e, start

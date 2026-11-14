@@ -3,7 +3,7 @@
 package token
 
 func (ix *index) add(e *entry) {
-	e.head = ix.headOf(e)
+	e.head, ix.ends = ix.headOf(e), nil
 	ix.edges += markerGraph(e, closedEnding(ix.words, e.form), ix.lexed)
 	ix.graphs++
 	if ix.counted == nil {

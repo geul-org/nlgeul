@@ -27,6 +27,7 @@ func newIndex(o Options) (*index, error) {
 	ix.addStems()
 	if o.Words == "" {
 		ix.addFarKeys()
+		ix.addEnds()
 		return ix, nil
 	}
 	lex, typos, total, err := loadWords(o.Words)
@@ -41,5 +42,6 @@ func newIndex(o Options) (*index, error) {
 	}
 	ix.addKinds()
 	ix.addFarKeys()
+	ix.addEnds()
 	return ix, nil
 }
