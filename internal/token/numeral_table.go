@@ -33,3 +33,7 @@ var numberLetters = []string{"N", "n", "X", "x", "K", "k"}
 // bigName is the name of a greater number after a run of digits (7만,
 // 3천): a piece of its own before the unit.
 const bigName = "큰 수:"
+
+// numeralReachMax is how far back from a place a numeral of the tables
+// is looked for (numeralReach).
+var numeralReachMax = numeralReach()

@@ -1,22 +1,11 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what branches — the candidates at a span, one for each way a word is printed there, in the order the words were made: the state's word as a branch of its own with its verdict and preference, and with them the number of its birth; of two states that print the same word with other values the one that comes first by the order candidates have (stepBefore, the first made when equal) stands, the other is left out, as the old reading keeps the better of two candidates printed the same
+//ff:what branches — the candidates at a span, one for each way a word is printed there, in the order the words were made (branchesOf for the states that stand at the span)
 package token
 
 func (w *weave) branches(node int) []Branch {
-	var out []Branch
-	at := map[string]int{}
-	var kept []step
+	states := make([]*path, 0, len(w.of[node]))
 	for _, id := range w.of[node] {
-		e := w.states[id].last
-		br := Branch{Words: []Eojeol{e.word}, Verdict: e.verdict, Pref: e.pref, scores: []wordScore{{verdict: e.verdict, pref: e.pref, born: e.born}}}
-		i, dup := at[e.sig]
-		switch {
-		case !dup:
-			at[e.sig] = len(out)
-			out, kept = append(out, br), append(kept, e)
-		case w.ix.stepBefore(e, kept[i]):
-			out[i], kept[i] = br, e
-		}
+		states = append(states, w.states[id])
 	}
-	return out
+	return branchesOf(w.ix, states)
 }

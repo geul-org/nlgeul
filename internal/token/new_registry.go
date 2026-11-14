@@ -9,5 +9,6 @@ func newRegistry(next int) *registry {
 		states: map[stateKey]*path{},
 		root:   &path{verdict: 1},
 		lone:   map[wordKey]bool{},
+		preds:  map[predKey]bool{},
 	}
 }

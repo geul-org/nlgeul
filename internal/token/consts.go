@@ -141,3 +141,23 @@ var not = &rule.Not{}
 // (a sign of an edge, a unit of measure): of the same lambda as another
 // it comes after it.
 const noBorn = math.MaxInt
+
+// newStemMax is the most tokens (tokens, for preference) the stem of a
+// new word may have: a stem no table lists is a candidate only up to it
+// (the stem alone, not the particles and closings after it), unless it
+// is the whole of its unit. A word of a table has no such limit.
+const newStemMax = 10
+
+// windowSize is the most tokens a stretch of a long unit is read ahead
+// before its first words are sent up (the window): the places the net has
+// worked out, counted from the last cut, must hold this many tokens before
+// a cut is tried. It is a second constant with the same value as
+// newStemMax, because it means another thing.
+const windowSize = 10
+
+// ontoBorn is the number of birth the words of the letters after a sign
+// of a pair begin with: the words carried over from the whole unit have
+// theirs, which are below it, so that of the same lambda such a word is
+// before the ones the letters make themselves, as when the letters
+// were read after the whole unit.
+const ontoBorn = 1 << 32

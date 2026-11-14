@@ -3,6 +3,9 @@
 package token
 
 func (sc *scan) keptBefore(best [][]*path, b, end int, t tail) []*path {
+	if b < sc.floor {
+		return nil
+	}
 	if t.base == 0 && t.shown == "" && t.as == "" && sc.shows[b][end] {
 		return sc.keptAt(best, b)
 	}

@@ -5,9 +5,9 @@ package token
 func newRegionNet(head Contest, at int, cs cells) *region {
 	delta := at - cs.from
 	nodes := make([]Node, 0, len(cs.nodes))
+	letters := []rune(head.Text)
 	for _, c := range cs.nodes {
 		sp := shiftSpans([]Span{c.span}, delta)[0]
-		letters := []rune(head.Text)
 		nodes = append(nodes, Node{Span: sp, Contest: Contest{Unit: head.Unit, Glued: sp.Start != at || head.Glued, Text: string(letters[sp.Start-at : sp.End-at]), Branches: c.branches}})
 	}
 	edges := make([]edge, 0, len(cs.edges))

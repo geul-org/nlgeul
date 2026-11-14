@@ -6,6 +6,7 @@ func (sc *scan) registered(p *path, k stateKey) *path {
 	reg := sc.registry()
 	p.preds, p.start, p.sig = []*path{sc.stateBefore(p)}, k.word.start, p.last.sig
 	p.prev = p.preds[0]
+	reg.preds[predKey{p, p.prev}] = true
 	if reg.lone[k.word] {
 		reg.twins++
 	}

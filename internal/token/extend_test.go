@@ -5,6 +5,7 @@ package token
 import "testing"
 
 func TestExtend(t *testing.T) {
+	driveAll(t)
 	sc := scanOf("곰이")
 	best := [][]*path{{{verdict: 1}}, nil, nil}
 	if got := sc.extend(nil, best, tail{start: 2, pieces: []piece{{text: "x", verdict: 1}}}, 2); len(got) != 1 {

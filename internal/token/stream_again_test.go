@@ -48,4 +48,13 @@ func TestStreamAgain(t *testing.T) {
 	if _, ok := dotted.Again(Span{11, 12}); ok {
 		t.Fatal("one way only")
 	}
+
+	cut := r.Stream(redoText)
+	cut.Next()
+	cut.Next()
+	one, _ := cut.Next()
+	two, ok := cut.Again(one.Region)
+	if want := redoWays(t, r, 3); !ok || segmentLine(two) != want[1] || two.Rank != 2 {
+		t.Fatal("a stretch a window cut off is read again", segmentLine(two), want)
+	}
 }

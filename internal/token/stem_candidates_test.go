@@ -9,7 +9,21 @@ import (
 )
 
 func TestStemCandidates(t *testing.T) {
-	sc := scanOf("마신 그는 ab는 이게")
+	driveAll(t)
+	far := streamReader(t, "words-far.tsv")
+	sc := &scan{ix: far.ix, s: []rune("가나다라마바사아자차카타했다")}
+	sc.prepare()
+	wrong := tail{start: 12, wrote: "wrote"}
+	if got := sc.stemCandidates(0, wrong, false); got != nil {
+		t.Fatal("a stem written wrong that is too long for a new word", got)
+	}
+	if got := sc.stemCandidates(0, wrong, true); len(got) != 1 || got[0].wrote != "wrote" {
+		t.Fatal("the same stem as the whole unit", got)
+	}
+	if got := sc.stemCandidates(2, wrong, false); len(got) != 1 {
+		t.Fatal("the same stem within ten tokens", got)
+	}
+	sc = scanOf("마신 그는 ab는 이게")
 	if stem, _, v, _ := stemIn(sc, 0, tail{start: 2, base: '시'}, false); stem != "마시" || v > 0 {
 		t.Fatal(stem, v)
 	}

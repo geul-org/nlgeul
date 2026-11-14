@@ -15,6 +15,11 @@ func TestKeptBefore(t *testing.T) {
 	if got := sc.keptBefore(best, 3, 5, tail{start: 5}); len(got) != 0 {
 		t.Fatal("no cue shows 겸총", got)
 	}
+	sc.floor = 4
+	if got := sc.keptBefore(best, 3, 4, tail{start: 4}); got != nil {
+		t.Fatal("before the first place", got)
+	}
+	sc.floor = 0
 	for _, t2 := range []tail{{start: 4, shown: "돌"}, {start: 4, as: "x"}, {start: 4, base: '가'}} {
 		if got := sc.keptBefore(best, 3, 4, t2); len(got) != 0 {
 			t.Fatal("a changed form", t2, got)

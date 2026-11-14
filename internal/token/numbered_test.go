@@ -5,6 +5,7 @@ package token
 import "testing"
 
 func TestNumbered(t *testing.T) {
+	driveAll(t)
 	sc := &scan{}
 	root := &path{verdict: 1}
 	x, y := grow(root, wordStep(1, "x", 1, -1)), grow(root, wordStep(1, "y", 1, -1))

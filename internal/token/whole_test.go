@@ -8,6 +8,7 @@ import (
 )
 
 func TestWhole(t *testing.T) {
+	driveAll(t)
 	sc := scanOf("것곰")
 	best := [][]*path{{{verdict: 1}}, nil, nil}
 	if got := sc.whole(nil, best, 1, false); len(got) != 1 || got[0].sig != "것[의존명사:것]" {

@@ -5,7 +5,7 @@ package token
 func netRegions(r *Reader, sentence string) []*region {
 	st := r.Stream(sentence)
 	for st.read < len(st.units) {
-		st.readNext()
+		pullUnit(st)
 	}
 	return st.queue
 }

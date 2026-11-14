@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what agreed — the places where every way of reading the unit puts a boundary: a place from 0 to the unit's end that no live state (a state on a way that reads the whole unit) lies across, with 0 first and the unit's end last; none at all when no way reads the unit
+//ff:what agreed — the places where every way of reading the unit puts a boundary: a place from 0 to the unit's end that no live state (a state on a way that reads the whole unit) lies across, with the place the letters begin at (0) first and the unit's end last; none at all when no way reads the unit
 package token
 
 func (l *lattice) agreed(live []*path) []int {
@@ -13,9 +13,9 @@ func (l *lattice) agreed(live []*path) []int {
 			across[p.last.end]--
 		}
 	}
-	out := []int{0}
+	out := []int{l.from}
 	run := 0
-	for q := 1; q < l.n; q++ {
+	for q := l.from + 1; q < l.n; q++ {
 		run += across[q]
 		if run == 0 {
 			out = append(out, q)

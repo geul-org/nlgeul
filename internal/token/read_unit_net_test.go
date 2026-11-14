@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReadUnitNet — a unit with signs at its edges is the sign contests of the old reading around the stretches the net read (the signs have no cells, the letters have); a sign of a pair with letters written onto it is the old reading as it is; the trace lines are the old reading's, once each
+//ff:what TestReadUnitNet — a unit with signs at its edges is the sign contests of the old reading around the stretches the net read (the signs have no cells, the letters have); a sign of a pair with letters written onto it is the sign and the signs after as the old reading gives them around the stretches the net read for the letters; the trace lines are the old reading's, once each
 package token
 
 import "testing"
@@ -14,7 +14,7 @@ func TestReadUnitNet(t *testing.T) {
 	onto := unit{text: ")를.", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}
 	old, _ := readUnit(r.ix, onto, false)
 	got, _ = readUnitNet(r.ix, onto, false)
-	if len(got) != len(old) || len(got) != 3 || got[1].cells != nil || got[1].contest.Text != old[1].Text || len(got[1].contest.Branches) != len(old[1].Branches) {
+	if len(got) != len(old) || len(got) != 3 || got[1].cells == nil || got[1].contest.Text != old[1].Text || got[0].cells != nil || got[2].cells != nil {
 		t.Fatal("written onto", got)
 	}
 	traced := unit{text: "아버지가방에", notes: []string{"head"}}

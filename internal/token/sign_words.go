@@ -4,7 +4,7 @@ package token
 
 func (sc *scan) signWords(cands []*path, best [][]*path, j int) []*path {
 	q := j - 1
-	if _, ok := sc.mid[q]; !ok {
+	if _, ok := sc.mid[q]; !ok || (sc.starts != nil && !sc.starts[q]) {
 		return cands
 	}
 	e := sc.wordOf(q, j, tail{start: j, as: midName})

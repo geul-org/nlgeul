@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what lattice — what the net of a unit gives: the states that end the unit (at its last letter, and the ones that are markers written apart from the unit before), every state in the order it was made, how many words a state-making read found with the same print and other values (twins), and the letters of the unit
+//ff:what lattice — what the net of a unit gives: the states that end the unit (at its last letter, and the ones that are markers written apart from the unit before), every state in the order it was made, how many words a state-making read found with the same print and other values (twins), and where the letters it covers begin (from: 0, or the place a window cut the net at)
 package token
 
 type lattice struct {
@@ -7,4 +7,5 @@ type lattice struct {
 	ends  []*path
 	all   []*path
 	twins int
+	from  int
 }

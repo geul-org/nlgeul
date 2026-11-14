@@ -26,6 +26,11 @@ func TestLatticeAgreed(t *testing.T) {
 	if got := lat.agreed(lat.live()); len(got) != 4 || got[1] != 1 || got[2] != 2 {
 		t.Fatal("words of one letter", got)
 	}
+	h := addState(sc, []*path{g}, wordStep(9, "h", 1, -1))
+	lat = &lattice{n: 9, from: 6, ends: []*path{h}, all: sc.registry().all}
+	if got := lat.agreed(lat.live()); len(got) != 2 || got[0] != 6 || got[1] != 9 {
+		t.Fatal("from a cut", got)
+	}
 	if got := (&lattice{n: 6}).agreed(nil); got != nil {
 		t.Fatal("no way", got)
 	}

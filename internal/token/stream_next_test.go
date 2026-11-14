@@ -15,8 +15,8 @@ func TestStreamNext(t *testing.T) {
 	if !ok || first.Rank != 1 || first.Ways.Cmp(big.NewInt(2)) != 0 || first.Region != (Span{0, 4}) || segmentLine(first) != "아버지가[0-4]" {
 		t.Fatal(first, ok)
 	}
-	if st.read != 1 || len(st.sent) != 1 || len(st.sent[0].out) != 1 || st.sent[0].sent != 1 || len(st.queue) != 0 {
-		t.Fatal("read ahead", st.read, len(st.sent[0].out))
+	if begun(st) != 1 || len(st.sent) != 1 || len(st.sent[0].out) != 1 || st.sent[0].sent != 1 || len(st.queue) != 0 {
+		t.Fatal("read ahead", begun(st), len(st.sent[0].out))
 	}
 	if _, ok := st.Again(first.Region); !ok {
 		t.Fatal("a second way")
@@ -42,5 +42,14 @@ func TestStreamNext(t *testing.T) {
 	}
 	if _, ok := empty.Again(Span{5, 7}); ok {
 		t.Fatal("no way for it")
+	}
+
+	far := streamReader(t, "words-far.tsv")
+	cut := far.Stream(windowText(5))
+	if sg, ok := cut.Next(); !ok || segmentLine(sg) != "고양이가[0-4]" || len(cut.sent) != 1 || cut.sent[0].nodes != nil || cut.sent[0].redo == nil || cut.sent[0].sent != 1 {
+		t.Fatal("a stretch cut off by a window is kept as the letters it covers and how to read it again", cut.sent)
+	}
+	if cut.cur == nil || cut.cur.run.j >= cut.cur.run.n {
+		t.Fatal("the rest of the unit is not read yet")
 	}
 }
