@@ -1,15 +1,26 @@
 nlgeul — Notice
 ================
 
-Scope of CC0
-------------
-The GEUL project's own work in this repository — code, documentation, data and
-other material we created — is dedicated to the public domain under CC0 1.0
-Universal. LICENSE holds the CC0 1.0 legal text verbatim (unmodified, so that
-it is recognised as CC0-1.0); this section states what it covers.
+License scope
+-------------
+Code in this repository is licensed under the MIT License (LICENSE).
 
-CC0 covers only our own work. Third-party material keeps its own license and is
-not covered by CC0: the Go modules listed below.
+CC0 data and documents in this repository:
+  - data/words.tsv (word table)
+  - data/tables/*.tsv (grammar tables: particles, endings, pieces, closed
+    lists and the other tsv files)
+  - the tables left in code in internal/parse and internal/token
+  - README.md, data/README.md and the documentation
+
+Data and documents that the GEUL project produced are dedicated to the public
+domain under CC0 1.0 Universal
+(https://creativecommons.org/publicdomain/zero/1.0/legalcode). No separate
+CC0 text file is kept here; the legal code at that address applies.
+
+Versions released before 2026-11-14 under CC0 remain CC0.
+
+Third-party material keeps its own license and is covered by neither MIT nor
+CC0 above: the Go modules listed below.
 
 --------------------------------------------------------------------------------
 Go (module: github.com/geul-org/nlgeul)
