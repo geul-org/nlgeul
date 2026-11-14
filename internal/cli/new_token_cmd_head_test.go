@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdHead — --head (with --plain) limits the candidates printed for one contest (20 by default) and counts the rest; 0 prints all; a negative number is refused; --cuts and the trace lines are not cut
+//ff:what TestNewTokenCmdHead — --head (with --format plain) limits the candidates printed for one contest (20 by default) and counts the rest; 0 prints all; a negative number is refused; --cuts and the trace lines are not cut
 package cli
 
 import (
@@ -20,14 +20,14 @@ func TestNewTokenCmdHead(t *testing.T) {
 		return root.Execute()
 	}
 	lines := func() []string { return strings.Split(strings.TrimSuffix(out.String(), "\n"), "\n") }
-	if err := run("--plain", "--head", "0", "100m²이다"); err != nil || len(lines()) < 25 || strings.Contains(out.String(), "생략됨") {
+	if err := run("--format", "plain", "--head", "0", "100m²이다"); err != nil || len(lines()) < 25 || strings.Contains(out.String(), "생략됨") {
 		t.Fatalf("%v %q", err, out.String())
 	}
 	all := len(lines())
-	if err := run("--plain", "100m²이다"); err != nil || len(lines()) != 22 || lines()[21] != "  ("+strconv.Itoa(all-21)+"개 생략됨)" {
+	if err := run("--format", "plain", "100m²이다"); err != nil || len(lines()) != 22 || lines()[21] != "  ("+strconv.Itoa(all-21)+"개 생략됨)" {
 		t.Fatalf("%v %q", err, out.String())
 	}
-	if err := run("--plain", "--head", "5", "100m²이다"); err != nil || len(lines()) != 7 || lines()[6] != "  ("+strconv.Itoa(all-6)+"개 생략됨)" {
+	if err := run("--format", "plain", "--head", "5", "100m²이다"); err != nil || len(lines()) != 7 || lines()[6] != "  ("+strconv.Itoa(all-6)+"개 생략됨)" {
 		t.Fatalf("%v %q", err, out.String())
 	}
 	if err := run("--head", "-1", "100m²이다"); err == nil || !strings.Contains(err.Error(), "--head") {

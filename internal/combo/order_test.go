@@ -6,7 +6,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 func TestOrder(t *testing.T) {

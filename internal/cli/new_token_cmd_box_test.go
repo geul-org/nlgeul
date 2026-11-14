@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdBox — nlgeul token draws boxes by default (a title, the right line of every box of the contest of ways in one cell, the line "1등 길:"), --plain gives the old lines, --head counts the ways left out as well as the candidates, --trace puts the lines of a unit before its boxes, --stdin parts the sentences by an empty line, --cuts stays as it was
+//ff:what TestNewTokenCmdBox — nlgeul token draws boxes by default (a title, the right line of every box of the contest of ways in one cell, the line "1등 길:"), --format plain gives the old lines, --head counts the ways left out as well as the candidates, --trace puts the lines of a unit before its boxes, --stdin parts the sentences by an empty line, --cuts stays as it was
 package cli
 
 import (
@@ -31,7 +31,7 @@ func TestNewTokenCmdBox(t *testing.T) {
 	if err := run("물을\n물을\n", "--stdin"); err != nil || strings.Count(out.String(), "1등 길: 물을") != 2 || !strings.Contains(out.String(), "\n\n┌") {
 		t.Fatalf("%v %q", err, out.String())
 	}
-	if err := run("", "--plain", "--trace", "물을"); err != nil || strings.Contains(out.String(), "┌") || !strings.Contains(out.String(), "\t경합(") {
+	if err := run("", "--format", "plain", "--trace", "물을"); err != nil || strings.Contains(out.String(), "┌") || !strings.Contains(out.String(), "\t경합(") {
 		t.Fatalf("%v %q", err, out.String())
 	}
 	if err := run("", "--cuts", "물을"); err != nil || strings.Contains(out.String(), "┌") || !strings.HasPrefix(out.String(), "물을\t") {

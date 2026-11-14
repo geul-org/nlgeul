@@ -38,7 +38,7 @@
 
 ### 쓸 수 있는 이름
 
-코드에 정해진 이름만 쓴다. 다른 이름은 오류이고, 오류 글귀가 쓸 수 있는 이름을 나열한다(`internal/parse/names_table.go`, `internal/token/table_names.go`).
+코드에 정해진 이름만 쓴다. 다른 이름은 오류이고, 오류 글귀가 쓸 수 있는 이름을 나열한다(`pkg/parse/names_table.go`, `pkg/token/table_names.go`).
 
 | 칸 | 이름 |
 |---|---|
@@ -57,7 +57,7 @@
 
 ### 파일
 
-변수는 `internal/parse`(`parse`) 또는 `internal/token`(`token`)에 있고 `data.Must(…)`로 만든다. 예시는 실제 줄이다.
+변수는 `pkg/parse`(`parse`) 또는 `pkg/token`(`token`)에 있고 `data.Must(…)`로 만든다. 예시는 실제 줄이다.
 
 | 파일 | 칸 | 읽는 변수 | 예시 |
 |---|---|---|---|
@@ -70,7 +70,7 @@
 | `particle-counts.tsv` | 조사 꼴, 횟수 | `particleCounts` (token) | `이	3275337` |
 | `closing-sets.tsv` | 집합, 맺음 이름 | `closingSets` (token) | `동사만	맺음:ㄴ다` |
 | `closed-words-more.tsv` | 집합, 낱말 | `wordSets` (token) | `의존명사 보조 용언	듯하` |
-| `spacing-words.tsv` | 집합, 낱말(출처는 자체 작성이다. 조항은 번호로만 부르고 집합마다 쓰는 조항은 `internal/token/README.md`의 "띄어쓰기 규칙"에 있다) | `spacingSets` (token) | `이음·열거	겸` |
+| `spacing-words.tsv` | 집합, 낱말(출처는 자체 작성이다. 조항은 번호로만 부르고 집합마다 쓰는 조항은 `pkg/token/README.md`의 "띄어쓰기 규칙"에 있다) | `spacingSets` (token) | `이음·열거	겸` |
 | `contracts.tsv` | 묶음, 꼴, 낱말, 조사, 조사 이름(`격:꼴`처럼 `:`이 든 색인 이름), 자리(`꾸밈 뒤` 또는 `-`), 적힌 낱말(틀리게 적은 글자, 없으면 `-`) | `contractLists` (token, `loadContracts`, `contractOf`) | `준말	이게	이것	(이)	주격:이	-	-` |
 | `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (token, `shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
 | `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (token, `shortParticleOf`) | `선	-	부사격	에서는` |

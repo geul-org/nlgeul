@@ -5,7 +5,7 @@ package combo
 import (
 	"math/big"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 func Count(choices []token.Contest) *big.Int {

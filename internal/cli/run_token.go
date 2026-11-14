@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 func runToken(out io.Writer, r *token.Reader, sentences []string, trace, cuts, marks, plain bool, head int) {

@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 func TestCount(t *testing.T) {

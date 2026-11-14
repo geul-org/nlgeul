@@ -6,7 +6,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 func TestTokenLines(t *testing.T) {

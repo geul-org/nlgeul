@@ -2,7 +2,7 @@
 //ff:what Picked — the candidates of the combination with the given number, one for every contest in order
 package combo
 
-import "github.com/geul-org/nlgeul/internal/token"
+import "github.com/geul-org/nlgeul/pkg/token"
 
 // The number is read as digits, one for each contest, the last contest's
 // digit lowest: each digit is which candidate of that contest is picked.

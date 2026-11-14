@@ -5,7 +5,7 @@ package cli
 import (
 	"strings"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 func spacingOption(v string) []string {

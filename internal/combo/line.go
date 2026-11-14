@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 // A candidate may hold a space (a boundary inside the contest), so the

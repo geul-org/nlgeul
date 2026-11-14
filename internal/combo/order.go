@@ -5,7 +5,7 @@ package combo
 import (
 	"math"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 // To sort the combinations another way, change this function and nothing

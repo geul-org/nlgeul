@@ -5,7 +5,7 @@ package combo
 import (
 	"sort"
 
-	"github.com/geul-org/nlgeul/internal/token"
+	"github.com/geul-org/nlgeul/pkg/token"
 )
 
 // All of them are held at once: the caller looks at Count first and
