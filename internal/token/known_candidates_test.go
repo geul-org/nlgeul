@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestKnownCandidates — a stem of two kinds is read once for each kind whose graph lets it stand, each with that kind's own verdict; a kind whose graph turns it down is not read; in the first layer every kind stands whole; a closed-set word that stands as the kind of its set is read under the set's name only; a stem no table lists has no candidate
+//ff:what TestKnownCandidates — a stem of two kinds is read once for each kind whose graph lets it stand, each with that kind's own verdict; a kind whose graph turns it down is not read; in the first layer every kind stands whole; a closed-set word that stands as the kind of its set is read under the set's name and under the table's kind for each passed kind the table lists for it; a stem no table lists has no candidate
 package token
 
 import (
@@ -31,8 +31,11 @@ func TestKnownCandidates(t *testing.T) {
 	if len(first) != 2 || first[0].v != 1 || first[1].v != 1 || first[0].name != "열쇠:체언" || first[1].name != "열쇠:형용사" {
 		t.Fatal("in the first layer every kind stands whole", first)
 	}
-	if got = ix.knownCandidates("이", rule.TailBare, false); len(got) != 1 || got[0].name != "관형사:이" || got[0].kind != kindDeterminer {
+	if got = ix.knownCandidates("이", rule.TailBare, false); len(got) != 2 || got[0].name != "관형사:이" || got[0].kind != kindDeterminer {
 		t.Fatal("a closed-set word under its set's name", got)
+	}
+	if got[1].name != "열쇠:체언" || got[1].kind != kindNominal || got[1].v <= 0 {
+		t.Fatal("and under the table's kind too, where the table lists it (the table has 이 as a noun)", got)
 	}
 	if got = ix.knownCandidates("이", rule.TailCase, false); len(got) != 1 || got[0].name != "열쇠:체언" {
 		t.Fatal("named by the table's kind where it does not stand as its set's", got)

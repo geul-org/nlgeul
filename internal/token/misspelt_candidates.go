@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what misspeltCandidates — the ways the right form of a misspelt stem is a known word with what follows it, one for each kind both the right form (in the word table or as a closed-set word) and the misspelt form have, whose graph lets it stand; none when no kind takes that tail; each kind's graph is told that the stem is a misspelt form; a closed-set word is named by its set when it stands as that set's kind
+//ff:what misspeltCandidates — the ways the right form of a misspelt stem is a known word with what follows it, one for each kind both the right form (in the word table or as a closed-set word) and the misspelt form have, whose graph lets it stand; none when no kind takes that tail; each kind's graph is told that the stem is a misspelt form; a closed-set word is named by its set when it stands as that set's kind, and by the word table's kind too when the table lists it as that kind
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -8,7 +8,8 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // layer every kind counts as standing. The right form's own count is the
 // stem's (the count of a misspelt line is 0, nothing was counted).
 // A right form that is a closed-set word has the kind of its set too,
-// and is named by the set as knownCandidates names it.
+// and is named by the set as knownCandidates names it (and by the
+// table's kind too, when the table lists the right form as that kind).
 func (ix *index) misspeltCandidates(right string, kinds, tail int, sole bool) []kindCandidate {
 	w := ix.lex[right]
 	have := ix.closed[right] | w.kinds
@@ -28,5 +29,5 @@ func (ix *index) misspeltCandidates(right string, kinds, tail int, sole bool) []
 	if passed == 0 {
 		return nil
 	}
-	return passedCandidates(ix.words[right], passed, vs)
+	return passedCandidates(ix.words[right], passed, w.kinds, vs)
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestWholeDet — where a determiner ends as a word of no markers is kept (어떤), and not where another word does (사과); a word that only stands alone (아이고) grows only the kept candidates whose last word neither ends in a modifying closing nor is a determiner, while a noun grows them all
+//ff:what TestWholeDet — where a determiner ends as a word of no markers is kept (어떤, under both its names: 관형사:어떤 and 열쇠:관형사), and not where another word does (사과); a word that only stands alone (아이고) grows only the kept candidates whose last word neither ends in a modifying closing nor is a determiner, while a noun grows them all
 package token
 
 import "testing"
@@ -8,7 +8,7 @@ func TestWholeDet(t *testing.T) {
 	sc := wordsScan("어떤사과", layerCost)
 	best := [][]*path{{{verdict: 1}}, nil, nil, nil, nil}
 	best[2] = sc.whole(nil, best, 2, false)
-	if len(best[2]) != 1 || !best[2][0].last.det || !sc.detEnds[2] {
+	if len(best[2]) != 2 || !best[2][0].last.det || !best[2][1].last.det || !sc.detEnds[2] {
 		t.Fatal("어떤, a determiner", best[2], sc.detEnds)
 	}
 	if got := sc.whole(nil, best, 4, false); len(got) == 0 || got[0].last.det || sc.detEnds[4] {

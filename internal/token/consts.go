@@ -1,6 +1,10 @@
 package token
 
-import "github.com/geul-org/nlgeul/pkg/rule"
+import (
+	"math"
+
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
 
 // Classes of index entry.
 const (
@@ -132,3 +136,8 @@ const (
 // not turns a yes/no rule round (rule.Not); one value serves every
 // node.
 var not = &rule.Not{}
+
+// noBorn is the number of birth of a branch that was not made by a scan
+// (a sign of an edge, a unit of measure): of the same lambda as another
+// it comes after it.
+const noBorn = math.MaxInt

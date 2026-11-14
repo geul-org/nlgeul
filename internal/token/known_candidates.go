@@ -13,7 +13,9 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // follows. From the second layer on each kind's graph judges the stem. A
 // closed-set word is named by its set only when it stands as that set's
 // kind: 이 before a particle stands as the table's noun, not as the
-// determiner, and is named so.
+// determiner, and is named so. A closed-set word the word table lists as
+// a kind that stands too is read under the table's name as well (수 as
+// 수[의존명사:수] and 수[열쇠:체언]).
 func (ix *index) knownCandidates(stem string, tail int, sole bool) []kindCandidate {
 	c := ix.words[stem]
 	if ix.layers == layerNone {
@@ -36,5 +38,5 @@ func (ix *index) knownCandidates(stem string, tail int, sole bool) []kindCandida
 	if passed == 0 {
 		return nil
 	}
-	return passedCandidates(c, passed, vs)
+	return passedCandidates(c, passed, w.kinds, vs)
 }

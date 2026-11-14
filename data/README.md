@@ -23,7 +23,7 @@
 
 ## tables/
 
-문법의 닫힌 표를 두는 폴더다. 파일 하나가 표 하나이고(22개), `data` 꾸러미가 `//go:embed tables/*.tsv`로 실행 파일에 품는다. 실행할 때 바깥 파일로 덮어쓰는 옵션은 없다. 실행할 때 읽는 바깥 파일은 낱말 표(`words.tsv`)뿐이고, `words.tsv`는 품지 않는다.
+문법의 닫힌 표를 두는 폴더다. 파일 하나가 표 하나이고(23개), `data` 꾸러미가 `//go:embed tables/*.tsv`로 실행 파일에 품는다. 실행할 때 바깥 파일로 덮어쓰는 옵션은 없다. 실행할 때 읽는 바깥 파일은 낱말 표(`words.tsv`)뿐이고, `words.tsv`는 품지 않는다.
 
 ### 공통 형식
 
@@ -53,6 +53,7 @@
 | 집합(`contracts`) | `준말`, `한 음절 대명사`, `의존명사+서술격`, `오표기` |
 | 집합(`closing-sets`) | `동사만`, `서술격 빠짐`, `서술격 빠짐(낱말 표)`, `이음 으`, `한글 뒤만` |
 | 집합(`closed-words-more`) | `의존명사 보조 용언`, `붙여 쓰는 보조 용언`, `대명사`, `구어 꼴` |
+| 집합(`spacing-words`) | `이음·열거`, `호칭·관직`, `성`, `의존 명사(체언 뒤)`, `의존 명사(꾸밈 뒤)`, `보조 용언` |
 
 ### 파일
 
@@ -69,6 +70,7 @@
 | `particle-counts.tsv` | 조사 꼴, 횟수 | `particleCounts` (token) | `이	3275337` |
 | `closing-sets.tsv` | 집합, 맺음 이름 | `closingSets` (token) | `동사만	맺음:ㄴ다` |
 | `closed-words-more.tsv` | 집합, 낱말 | `wordSets` (token) | `의존명사 보조 용언	듯하` |
+| `spacing-words.tsv` | 집합, 낱말(출처는 자체 작성이다. 조항은 번호로만 부르고 집합마다 쓰는 조항은 `internal/token/README.md`의 "띄어쓰기 규칙"에 있다) | `spacingSets` (token) | `이음·열거	겸` |
 | `contracts.tsv` | 묶음, 꼴, 낱말, 조사, 조사 이름(`격:꼴`처럼 `:`이 든 색인 이름), 자리(`꾸밈 뒤` 또는 `-`), 적힌 낱말(틀리게 적은 글자, 없으면 `-`) | `contractLists` (token, `loadContracts`, `contractOf`) | `준말	이게	이것	(이)	주격:이	-	-` |
 | `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (token, `shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
 | `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (token, `shortParticleOf`) | `선	-	부사격	에서는` |

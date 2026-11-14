@@ -6,7 +6,7 @@ func (sc *scan) keptAt(best [][]*path, q int) []*path {
 	if got, ok := sc.kept[q]; ok {
 		return got
 	}
-	got := sc.ix.top(sc.whole(append([]*path{}, best[q]...), best, q, true))
+	got := sc.settle(sc.whole(append([]*path{}, best[q]...), best, q, true))
 	sc.kept[q] = got
 	return got
 }

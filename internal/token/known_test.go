@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestKnown — without a word table only closed-set words are known, fully, when their set takes what follows (an auxiliary verb's stem not alone, a determiner not before a closing, a word of two sets as either), and 이, 그 and 저 before particles or the copula are named pronouns while alone, or with a table, they stay determiners; in the first layer any word of the table, fully; from the second by its kind's graph: not when no kind takes what follows, less when rarely seen or one syllable long; a closed-set word is named by its set only when it stands as that set's kind
+//ff:what TestKnown — without a word table only closed-set words are known, fully, when their set takes what follows (an auxiliary verb's stem not alone, a determiner not before a closing, a word of two sets as either), and 이, 그 and 저 before particles or the copula are named pronouns while alone, or with a table, they stay determiners; in the first layer any word of the table, fully; from the second by its kind's graph: not when no kind takes what follows, less when rarely seen or one syllable long; a closed-set word is named by its set only when it stands as that set's kind, and by the table's kind too when the table lists it as a kind that stands
 package token
 
 import (
@@ -75,8 +75,8 @@ func TestKnown(t *testing.T) {
 	if name, v := knownIn(two, "이", rule.TailCase, false); v <= 0 || name != "열쇠:체언" {
 		t.Fatal("a determiner's letters before a particle stand as the table's noun and are named so", name, v)
 	}
-	if name, v := knownIn(two, "이", rule.TailBare, false); v <= 0 || name != "관형사:이" {
-		t.Fatal("alone it is the determiner", name, v)
+	if name, v := knownIn(two, "이", rule.TailBare, false); v <= 0 || name != "관형사:이,열쇠:체언" {
+		t.Fatal("alone it is the determiner, and the table's noun too", name, v)
 	}
 	if name, v := knownIn(two, "그", rule.TailBare, false); v <= 0 || name != "관형사:그" {
 		t.Fatal("with a table 그 alone is the determiner", name, v)

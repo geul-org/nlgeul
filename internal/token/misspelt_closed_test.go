@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestMisspeltClosed — the right form of a misspelt stem that is a closed-set word (꺼 for the dependent noun 거) stands with its set's kind though the word table has no line for it, and is named by its set (의존명사:거) when it stands as that set's kind; the right form of a word the table alone knows is named by its kind as before
+//ff:what TestMisspeltClosed — the right form of a misspelt stem that is a closed-set word (꺼 for the dependent noun 거) stands with its set's kind though the word table has no line for it, and is named by its set (의존명사:거) when it stands as that set's kind, and by the table's kind too where the table lists the word (거 is there as a noun: 열쇠:체언, the same verdict); the right form of a word the table alone knows is named by its kind as before
 package token
 
 import (
@@ -11,13 +11,13 @@ import (
 func TestMisspeltClosed(t *testing.T) {
 	ix := typoScan("x", layerCost).ix
 	name, v := misspeltIn(ix, "거", kindNominal, rule.TailBare, true)
-	if name != "의존명사:거" || v <= 0 {
+	if name != "의존명사:거,열쇠:체언" || v <= 0 {
 		t.Fatal(name, v)
 	}
 	if _, right := knownIn(ix, "거", rule.TailBare, true); v >= right {
 		t.Fatal("below the same word written right", v, right)
 	}
-	if name, v = misspeltIn(ix, "거", kindNominal, rule.TailCase, false); name != "의존명사:거" || v <= 0 {
+	if name, v = misspeltIn(ix, "거", kindNominal, rule.TailCase, false); name != "의존명사:거,열쇠:체언" || v <= 0 {
 		t.Fatal("before a particle", name, v)
 	}
 	if name, v = misspeltIn(ix, "거", kindVerb, rule.TailBare, true); name != "" || v != 0 {

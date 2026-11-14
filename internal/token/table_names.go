@@ -49,5 +49,20 @@ const (
 
 var contractSets = map[string]int{setContract: 0, setPronoun: 0, setNounCopula: 0, setTypo: 0}
 
+// The sets of the table of the words the spacing rules stand on
+// (spacing-words.tsv): the words that link two nominals or close a
+// list, the titles and offices that follow a name, the family names
+// (only marked, never made to stand), the dependent nouns that follow
+// a nominal and those that follow a modifying closing, and the
+// auxiliaries that are written apart.
+const (
+	setLink      = "이음·열거"
+	setTitle     = "호칭·관직"
+	setSurname   = "성"
+	setBoundNoun = "의존 명사(체언 뒤)"
+	setBoundAdn  = "의존 명사(꾸밈 뒤)"
+	setAuxApart  = "보조 용언"
+)
+
 // slotLabel begins the name of a slot before a closing.
 const slotLabel = "선어말:"

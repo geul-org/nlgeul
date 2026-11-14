@@ -18,7 +18,7 @@ func (sc *scan) search() []*path {
 			cands = sc.extend(cands, best, t, j)
 		}
 		cands = sc.signWords(cands, best, j)
-		best[j] = sc.ix.top(sc.whole(cands, best, j, false))
+		best[j] = sc.settle(sc.whole(cands, best, j, false))
 	}
-	return sc.ix.top(append(best[n], sc.attached()...))
+	return sc.settle(append(best[n], sc.attached()...))
 }

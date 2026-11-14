@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestMisspeltCandidates — the candidates of the right form of a misspelt stem, one for each kind both have whose graph lets it stand with what follows; none when no kind takes that tail or the two share no kind; every kind stands in the first layer; a closed-set word is named by its set
+//ff:what TestMisspeltCandidates — the candidates of the right form of a misspelt stem, one for each kind both have whose graph lets it stand with what follows; none when no kind takes that tail or the two share no kind; every kind stands in the first layer; a closed-set word is named by its set, and by the table's kind where the table lists it
 package token
 
 import (
@@ -26,8 +26,8 @@ func TestMisspeltCandidates(t *testing.T) {
 	if got = ix.misspeltCandidates("물", kindNominal|kindVerb, rule.TailBare, true); len(got) == 0 {
 		t.Fatal("a word of two kinds", got)
 	}
-	if got = ix.misspeltCandidates("거", kindNominal, rule.TailBare, true); len(got) != 1 || got[0].name != "의존명사:거" {
-		t.Fatal("a closed-set word is named by its set", got)
+	if got = ix.misspeltCandidates("거", kindNominal, rule.TailBare, true); len(got) != 2 || got[0].name != "의존명사:거" || got[1].name != "열쇠:체언" || got[1].v != got[0].v {
+		t.Fatal("a closed-set word is named by its set, and by the table's kind where the table lists it, with the same verdict", got)
 	}
 	first := typoScan("x", layerKnown).ix.misspeltCandidates("맡기", kindVerb, rule.TailCase, false)
 	if len(first) != 1 || first[0].v != 1 {

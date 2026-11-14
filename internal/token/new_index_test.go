@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNewIndex — the index holds the words, particles, closings and slots, and a new word's verdict is the low positive 1/3; with a word table its keys and layers are set, and a table that cannot be read is an error; with a word table the new word's graph turns down a stem that ends in ㅆ with markers after it (떨어졌 before a predicate tail or particles), without one it does not, and it keeps 1/3 for such a stem with no marker (TailBare or none) and for a stem of another final consonant or none (곰갓, 떨어지)
+//ff:what TestNewIndex — the index holds the words, particles, closings and slots, and a new word's verdict is the low positive 1/3; with a word table its keys and layers are set, a table that cannot be read is an error, and so is a spacing rule that is not one of SpacingArticles; with a word table the new word's graph turns down a stem that ends in ㅆ with markers after it (떨어졌 before a predicate tail or particles), without one it does not, and it keeps 1/3 for such a stem with no marker (TailBare or none) and for a stem of another final consonant or none (곰갓, 떨어지)
 package token
 
 import (
@@ -20,6 +20,12 @@ func TestNewIndex(t *testing.T) {
 	}
 	if _, err := newIndex(Options{Words: "testdata/none.tsv"}); err == nil {
 		t.Fatal("a missing word table accepted")
+	}
+	if _, err := newIndex(Options{Spacing: []string{"99"}}); err == nil {
+		t.Fatal("a spacing rule that is not one accepted")
+	}
+	if on, err := newIndex(Options{Spacing: []string{"41"}}); err != nil || !on.spacing["41"] || on.spacing["42"] {
+		t.Fatal("a spacing rule is set", err)
 	}
 	ix, _ := newIndex(Options{})
 	if ix.graphs < 200 || ix.total <= 0 || len(ix.words) == 0 || ix.stem == nil || math.Abs(ix.unknown-1.0/3) > 1e-9 {
