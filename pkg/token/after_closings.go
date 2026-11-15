@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what afterClosings — the tails that end with a particle right after a closing: an auxiliary particle after a linking closing (보+지+도, 먹+고+는), not after another particle, with a word table any particle after a naming closing, 기 or 음 or ㅁ (있+기+는, 받+기+에+는, 있+음+을, 하+였+음+으로써), also when the stem and ㅁ are one syllable right before the particle (되+(ㅁ)+을, 하+(ㅁ)+을), and a particle after a closing that asks, inside a chain too (맞+는지+를, 가+(ㄹ)지+도); each predicate tail that ends before the particle with such a closing, judged by the graph of the pair, with the particle as one more piece; not for a pair that is a closing of the tables itself (어도, 지만); the tails before a particle after 기 are looked up as chained, so that a copula stem dropped before 기 is read there and nowhere else (문제+(이)+기+도)
+//ff:what afterClosings — the tails that end with a particle right after a closing: an auxiliary particle after a linking closing (보+지+도, 먹+고+는), not after another particle, with a word table any particle after a naming closing, 기 or 음 or ㅁ (있+기+는, 받+기+에+는, 있+음+을, 하+였+음+으로써), also when the stem and ㅁ are one syllable right before the particle (되+(ㅁ)+을, 하+(ㅁ)+을), and a particle after a closing that asks, inside a chain too (맞+는지+를, 가+(ㄹ)지+도), and a particle after one of the few closings it is written onto (끄+지+를, pickedClosings); each predicate tail that ends before the particle with such a closing, judged by the graph of the pair, with the particle as one more piece; not for a pair that is a closing of the tables itself (어도, 지만); the tails before a particle after 기 are looked up as chained, so that a copula stem dropped before 기 is read there and nowhere else (문제+(이)+기+도)
 package token
 
 import (
@@ -13,7 +13,8 @@ func (sc *scan) afterClosings(start, depth int, pc piece, e *entry) []tail {
 	noun := sc.ix.nounAux != nil && start >= 1 && namingEnd(sc.s[start-1])
 	ask := start >= 2 && askEnd(sc.s[start-1])
 	link := start >= 2 && name != "" && depth == 0
-	if !noun && !ask && !link {
+	picked := start >= 2 && sc.ix.pickedAux[pc.text] != nil && pickedEnd(pc.text, sc.s[start-1])
+	if !noun && !ask && !link && !picked {
 		return nil
 	}
 	aux, end := pc, start+len([]rune(pc.text))
@@ -31,6 +32,8 @@ func (sc *scan) afterClosings(start, depth int, pc piece, e *entry) []tail {
 			out = append(out, joined([]tail{t}, pc)...)
 		case link && sc.judge(sc.ix.linkAux, start, end, at) > 0:
 			out = append(out, joined([]tail{t}, aux)...)
+		case picked && sc.judge(sc.ix.pickedAux[pc.text], start, end, at) > 0:
+			out = append(out, joined([]tail{t}, pc)...)
 		}
 	}
 	return out

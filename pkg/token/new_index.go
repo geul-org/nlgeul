@@ -13,6 +13,7 @@ func newIndex(o Options) (*index, error) {
 	ix.addWords()
 	ix.addParticles()
 	ix.addClosings()
+	ix.addPicked()
 	ix.addSlots()
 	if o.Words != "" {
 		ix.addWide()
