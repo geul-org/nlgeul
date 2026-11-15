@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what glossedBy — are the letters of a unit that are read (after its head) the sound of the Han characters glossed right after them: Hangul syllables alone, as many as the characters the round bracket after the unit holds (han, glossAt), with no sign trimmed between them and the bracket (after: the signs after the letters)
+//ff:what glossedBy — are the letters of a unit that are read (after its head) the sound of the Han characters glossed right after them: Hangul syllables alone, as many as the characters the round bracket after the unit holds (han, glossAt) or as stand right before the bracket the unit stands alone in (soundAt), with no sign trimmed between them and the bracket (after: the signs after the letters)
 package token
 
 // A Hangul word glossed so is the sound of those characters, and none
