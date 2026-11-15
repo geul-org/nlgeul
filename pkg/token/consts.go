@@ -238,3 +238,13 @@ const bonusLinkBeforeAux = 3.0
 // right (none put wrong at any of them) were 2 at 0.5, 4 at 1.5, 5 at 3,
 // 6 at 3.5 and 6 at 6; the least value of the most is chosen.
 const bonusMalLinked = 3.5
+
+// bonusAuxLinked is what the rule "an auxiliary verb stands after a
+// linking form" (auxLinkedRule) adds; it had bonusSentence. Where the
+// auxiliary's letters are also another word (줄 the bound noun or 줄다,
+// 주기 the noun, 보아 the noun), that word's lambda is up to about 1.5
+// above the auxiliary's, which 0.5 does not carry. Measured on the answer
+// sheet against 0.5, the words put right (none put wrong at any of them)
+// were 6 at 1, 8 at 1.5, 2, 3, 4 and 6; the least value of the most is
+// chosen.
+const bonusAuxLinked = 1.5
