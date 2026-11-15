@@ -92,10 +92,13 @@ const (
 	whyNotHangulSides = "양쪽이 한글이 아니다"
 	whyNotLinked      = "앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다"
 	whyLinked         = "앞 어절이 연결 꼴(어/아, 고)로 끝난다"
+	whyNotAsked       = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝나지 않는다"
+	whyAsked          = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝난다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.
 const (
 	ruleAuxLinked    = "문장:연결 꼴 뒤 보조 용언"
 	ruleMainUnlinked = "문장:연결 꼴 뒤가 아닌 본용언"
+	ruleAuxAsked     = "문장:물음 꼴 뒤 보조 용언 보다"
 )

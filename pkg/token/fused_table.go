@@ -169,6 +169,13 @@ var auxMore = wordSets[setAuxMore]
 // (auxLinkedRule): 어/아/여, whole or fused, and 고 (먹어 보다, 먹고 있다).
 var linkNames = closingNames(parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "고"})
 
+// askNames are the question closings after which 보다 is an auxiliary
+// adjective (auxAskedRule), and askAux its stem: -나 보다, -은가/는가 보다
+// (a guess) and -을까 보다 (an intention).
+var askNames = closingNames(parse.Marker{Form: "나"}, parse.Marker{Form: "가", Lead: rule.JongN}, parse.Marker{Form: "은가"}, parse.Marker{Form: "는가"}, parse.Marker{Form: "까", Lead: rule.JongL}, parse.Marker{Form: "을까"})
+
+const askAux = "보"
+
 // mainKinds are the word table's kinds the stems an auxiliary verb
 // shares are read under as main predicates, where it is not the verb: 있
 // that tells of being or having is the adjective (mainKindOf).
