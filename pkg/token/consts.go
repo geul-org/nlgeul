@@ -378,3 +378,8 @@ const forceUnitWord = 0.5
 // 날짜:-, 날짜:/ print as 날짜), which a rule of a sentence prefers to a
 // version when the number is written with full stops (dateFirstRule).
 var dateNames = []string{"날짜"}
+
+// fractionNames are the names of numbers joined by a slash read as a
+// fraction (the shape 나눔:/ prints as 나눔), which a rule of a sentence
+// prefers to a date (fractionFirstRule).
+var fractionNames = []string{"나눔"}
