@@ -25,14 +25,14 @@ const (
 
 // shortClosings are closings a quotation or a particle is shortened
 // into: 대 (다고 해), 래 (라고 해), 재 (자고 해), 단 (다는), 란 (라는),
-// 잔 (자는), 냬 (냐고 해), and 진 (지는), 긴 (기는), 길 (기를). Each is one piece,
+// 잔 (자는), 냬 (냐고 해), and 진 (지는), 긴 (기는), 길 (기를), 곤 (고는). Each is one piece,
 // named with the form it is short for. 대 and 단 follow an adjective's
 // stem directly and a verb's as ㄴ대/는대, ㄴ단/는단; 래, 재, 란 and 잔
 // follow a verb's.
 var shortClosings = data.Must(data.Each("short-closings", 6, shortOf))
 
 // shortParticles are particles shortened with 는: 선 (에서는) and, after
-// a vowel or ㄹ, 론 (로는). They close a chain as 엔 and 에선 do.
+// a vowel or ㄹ, 론 (로는), and after another final consonant, 으론 (으로는). They close a chain as 엔 and 에선 do.
 var shortParticles = data.Must(data.Each("short-particles", 4, shortParticleOf))
 
 // shortSlots are the same quotations shortened with the past fused in:

@@ -115,7 +115,8 @@ var splits = map[string][]split{
 // gives after a few nominals of place as well as after 에 (여기다
 // 놓다, 어디다가 두다): they are read under the entries of 에다 and
 // 에다가, after these four words only (after any nominal they would
-// look the same as the copula's 다).
+// look the same as the copula's 다). 이젠 is 이제 with the particle 는 put
+// under it, listed like 그땐 and 여긴.
 // contractLists are the fused forms as their table gives them, set by
 // set (contracts.tsv).
 var contractLists = data.Must(loadContracts(data.Must(data.Rows("contracts", 7))))
