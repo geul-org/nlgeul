@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddKinds — a graph for each kind, each with its exception, two rebuttals, the exception of a spoken form against the first and the exceptions of a sole word and of an auxiliary's stem written right after the 어/아 form of its main verb against the second, on the verb's and the adjective's the exceptions of a modifying closing and of a determiner before the stem with what lifts them, and on the graph of words that only stand alone the same two exceptions, and on the adjective's what lifts its first exception for 있다, 없다 and 계시다 before 느냐 with the exception against that, and on all of them the rebuttal that the stem is a misspelt form of another word and the rebuttal that it begins right after a number with the letters of a unit and a word written after a unit (62 edges), which lowers its verdict and keeps it above 0: right after a modifying closing or a determiner those three graphs turn a stem down and the others judge it as before, and the verb's and the adjective's do not turn down a listed auxiliary (boundAux) after a modifying closing
+//ff:what TestAddKinds — a graph for each kind, each with its exception, two rebuttals, the exception of a spoken form against the first and the exceptions of a sole word, of an auxiliary's stem written right after the 어/아 form of its main verb and of the dependent noun 것 or 거 written right after a modifying closing against the second, on the verb's and the adjective's the exceptions of a modifying closing and of a determiner before the stem with what lifts them, and on the graph of words that only stand alone the same two exceptions, and on the adjective's what lifts its first exception for 있다, 없다 and 계시다 before 느냐 with the exception against that, and on all of them the rebuttal that the stem is a misspelt form of another word and the rebuttal that it begins right after a number with the letters of a unit and a word written after a unit (68 edges), which lowers its verdict and keeps it above 0: right after a modifying closing or a determiner those three graphs turn a stem down and the others judge it as before, and the verb's and the adjective's do not turn down a listed auxiliary (boundAux) after a modifying closing
 package token
 
 import (
@@ -11,7 +11,7 @@ import (
 func TestAddKinds(t *testing.T) {
 	ix := &index{}
 	ix.addKinds()
-	if ix.graphs != 6 || ix.edges != 62 || len(ix.kinds) != 6 {
+	if ix.graphs != 6 || ix.edges != 68 || len(ix.kinds) != 6 {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 	fits := map[int]int{kindNominal: rule.TailCase, kindVerb: rule.TailPred, kindAdj: rule.TailAdj, kindAdverb: rule.TailAux, kindDeterminer: rule.TailBare, kindAlone: rule.TailBare}

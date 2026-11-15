@@ -3,5 +3,5 @@
 package token
 
 func knownIn(ix *index, stem string, tail int, sole bool) (string, float64) {
-	return candidatesIn(ix.knownCandidates(stem, tail, sole, false, false))
+	return candidatesIn(ix.knownCandidates(stem, tail, sole, false, false, false))
 }

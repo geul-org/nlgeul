@@ -56,6 +56,10 @@ package rule
 // UnitWord tells that the piece is a stem that begins right after a
 // number and whose letters are a unit of the unit table and then a word
 // written after a unit (5년간: 년 and 간, 6월경: 월 and 경).
+// Bound tells that the piece is the stem of a dependent noun that the
+// token layer lets stand on the word it follows (것 and its spoken form
+// 거) and that the word right before it ends in a modifying closing (a
+// dependent noun written onto its modifier: 거 in 하는거).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -88,4 +92,5 @@ type Piece struct {
 	Change   bool
 	Glossed  bool
 	UnitWord bool
+	Bound    bool
 }
