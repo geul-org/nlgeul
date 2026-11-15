@@ -72,14 +72,14 @@ func TestAfterAdn(t *testing.T) {
 	}
 
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	got := strings.Join(r.Lines("먹을마시다 먹는작다", false), "\n")
-	if strings.Contains(got, "[꾸밈:을] 마시[열쇠:동사]") || strings.Contains(got, "[꾸밈:는] 작[열쇠:형용사]") || !strings.Contains(got, "  먹+을[목적격:을] 마시[열쇠:동사]+다[맺음:다]\t") {
+	got := netText(r, "먹을마시다 먹는작다")
+	if strings.Contains(got, "[꾸밈:을] 마시[열쇠:동사]") || strings.Contains(got, "[꾸밈:는] 작[열쇠:형용사]") || !strings.Contains(got, "\n먹+을[목적격:을] 마시[열쇠:동사]+다[맺음:다]\n") {
 		t.Fatal("a verb or an adjective right after a modifying form in one unit\n" + got)
 	}
-	if got := strings.Join(r.Lines("먹을사과를 먹을듯하다", false), "\n"); !strings.Contains(got, "  먹[열쇠:동사]+을[꾸밈:을] 사과[열쇠:체언]+를[목적격:를]\t") || !strings.Contains(got, "  먹[열쇠:동사]+을[꾸밈:을] 듯하[열쇠:형용사]+다[맺음:다]\t") {
+	if got := netText(r, "먹을사과를 먹을듯하다"); !strings.Contains(got, "\n먹[열쇠:동사]+을[꾸밈:을] 사과[열쇠:체언]+를[목적격:를]\n") || !strings.Contains(got, "\n먹[열쇠:동사]+을[꾸밈:을] 듯하[열쇠:형용사]+다[맺음:다]\n") {
 		t.Fatal("a noun and 듯하 right after a modifying form\n" + got)
 	}
-	if got := strings.Join(r.Lines("먹을 마시다", false), "\n"); !strings.Contains(got, "  먹[열쇠:동사]+을[꾸밈:을]\t") || !strings.Contains(got, "  마시[열쇠:동사]+다[맺음:다]\t") {
+	if got := netText(r, "먹을 마시다"); !strings.Contains(got, "\n먹[열쇠:동사]+을[꾸밈:을]\n") || !strings.Contains(got, "\n마시[열쇠:동사]+다[맺음:다]\n") {
 		t.Fatal("a verb in the unit after a modifying form\n" + got)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what waysMatch — what a stream gives for each stretch of a sentence, all of it (Next, then Again to the end), against the contests Reader.Contests gives: ranks in order with lambdas that never rise, each way once, the ways of cutting exactly those the branches of the contest make, Ways their number, every way tiling its stretch; the names of what does not hold
+//ff:what waysMatch — what a stream gives for each stretch of a sentence, all of it (Next, then Again to the end), against the contests of the old reading (unitContests: each unit read whole by readUnit): ranks in order with lambdas that never rise, each way once, the ways of cutting exactly those the branches of the contest make, Ways their number, every way tiling its stretch; the names of what does not hold
 package token
 
 import "math/big"

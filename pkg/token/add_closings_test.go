@@ -73,11 +73,11 @@ func TestAddClosings(t *testing.T) {
 		"먹고는":   "먹[열쇠:동사]+고[맺음:고]+는[보조사:는]",
 		"먹으면서도": "먹[열쇠:동사]+으면서도[맺음:으면서도]",
 	} {
-		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
+		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
 	}
-	if got := strings.Join(r.Lines("먹으면서도", false), "\n"); strings.Contains(got, "+으면서[맺음:으면서]+도") {
+	if got := streamText(r, "먹으면서도"); strings.Contains(got, "+으면서[맺음:으면서]+도") {
 		t.Fatal("으면서도 read as 으면서 and 도\n" + got)
 	}
 }

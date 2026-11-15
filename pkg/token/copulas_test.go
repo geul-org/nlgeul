@@ -82,18 +82,18 @@ func TestCopulas(t *testing.T) {
 		t.Fatal("a unit read as attaching has its stem in the unit before", got)
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	if got := strings.Join(r.Lines("거네", false), "\n"); !strings.Contains(got, "거[의존명사:거]+(이)[서술격:이(빠짐)]+네[맺음:네]") {
+	if got := streamText(r, "거네"); !strings.Contains(got, "거[의존명사:거]+(이)[서술격:이(빠짐)]+네[맺음:네]") {
 		t.Fatal("거네 with a word table\n" + got)
 	}
-	if got := strings.Join(r.Lines("고래네", false), "\n"); strings.Contains(got, "(이)[서술격:이(빠짐)]+네") {
+	if got := streamText(r, "고래네"); strings.Contains(got, "(이)[서술격:이(빠짐)]+네") {
 		t.Fatal("고래, a word no table has, before 네\n" + got)
 	}
-	if got := strings.Join(r.Lines("고래다", false), "\n"); !strings.Contains(got, "고래+(이)[서술격:이(빠짐)]+다[맺음:다]") {
+	if got := streamText(r, "고래다"); !strings.Contains(got, "고래+(이)[서술격:이(빠짐)]+다[맺음:다]") {
 		t.Fatal("고래 before 다, as before\n" + got)
 	}
 	bare, _ := New(Options{})
 	for _, in := range []string{"거네", "고래네"} {
-		if got := strings.Join(bare.Lines(in, false), "\n"); strings.Contains(got, "(이)[서술격:이(빠짐)]+네") {
+		if got := streamText(bare, in); strings.Contains(got, "(이)[서술격:이(빠짐)]+네") {
 			t.Errorf("%s without a word table\n%s", in, got)
 		}
 	}
@@ -105,13 +105,13 @@ func TestCopulas(t *testing.T) {
 		{"학교이어하는", "보조:하", true}, {"문제여하는", "보조:하", true},
 		{"학교이어서", "이[서술격:이]+어서[맺음:어서]", false}, {"학교여서", "이[서술격:이]+(어)서[맺음:어서(합침)]", false},
 	} {
-		got, withTable := strings.Join(plain.Lines(c.in, false), "\n"), strings.Join(r.Lines(c.in, false), "\n")
+		got, withTable := streamText(plain, c.in), streamText(r, c.in)
 		if strings.Contains(got, c.want) == c.dead || strings.Contains(withTable, c.want) == c.dead {
 			t.Errorf("%s: no auxiliary 하 right after the copula's 어/아, the copula before 어서 stays (dead: %v)\n%s\n%s", c.in, c.dead, got, withTable)
 		}
 	}
 	for in, want := range map[string]string{"예뻐하는": "예쁘[열쇠:형용사]+(어)[맺음:어(합침)]+하[보조:하]+는[꾸밈:는]", "몰라하는": "모르[열쇠:동사]+(아)[맺음:어(합침)]+하[보조:하]+는[꾸밈:는]"} {
-		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
+		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
 	}

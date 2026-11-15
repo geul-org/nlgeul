@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStreamPull — the next unit (all its stretches pulled, pullUnit) is read into regions in order: each contest of it at its place counted without spaces, marked with its unit and Glued as Contests marks them (a unit after a space is not glued, a sign written right on it is), the cursor after its letters, the space after it noted for the next unit
+//ff:what TestStreamPull — the next unit (all its stretches pulled, pullUnit) is read into regions in order: each contest of it at its place counted without spaces, marked with its unit and Glued as the old reading marks them (unitContests) (a unit after a space is not glued, a sign written right on it is), the cursor after its letters, the space after it noted for the next unit
 package token
 
 import "testing"

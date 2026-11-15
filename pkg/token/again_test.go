@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAgain — 건 read as 거+(는) where a word that ends in a modifying closing ends is asked again on each candidate: it stands on one whose last word ends in such a closing and not on another, and the tail's own facts are left as they were; a tail with no graph to ask again stands on any candidate; end to end every candidate of 한건 with 거+(는) has the modifying 하+(ㄴ) before it
+//ff:what TestAgain — 건 read as 거+(는) where a word that ends in a modifying closing ends is asked again on each candidate: it stands on one whose last word ends in such a closing and not on another, and the tail's own facts are left as they were; a tail with no graph to ask again stands on any candidate; end to end every way through the net of 한건 (netLines) with 거+(는) has the modifying 하+(ㄴ) before it
 package token
 
 import (
@@ -27,7 +27,7 @@ func TestAgain(t *testing.T) {
 
 	r, _ := New(Options{})
 	seen := 0
-	for _, line := range r.Lines("한건", false) {
+	for _, line := range netLines(r, "한건") {
 		if !strings.Contains(line, " 거[의존명사:거]+(는)[보조사:는]") {
 			continue
 		}

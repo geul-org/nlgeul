@@ -2,10 +2,7 @@
 //ff:what TestGeondaeClosing — the linking closing 건대 (살피건대, 바라건대, 듣건대) is read after a verb stem as one word, and a name 건대 that stands alone or takes a particle keeps its reading as a noun
 package token
 
-import (
-	"strings"
-	"testing"
-)
+import "testing"
 
 func TestGeondaeClosing(t *testing.T) {
 	r, err := New(Options{Words: "testdata/words-geondae.tsv"})
@@ -19,15 +16,14 @@ func TestGeondaeClosing(t *testing.T) {
 		{"그는 건대에 다닌다.", "건대에", "건대[열쇠:체언]+에[부사격:에]"},
 		{"건대가 이겼다.", "건대가", "건대[열쇠:체언]+가[주격:가]"},
 	} {
-		got := "\n" + strings.Join(r.Lines(c.sentence, false), "\n")
-		_, rest, ok := strings.Cut(got, "\n"+c.word+"\t경합")
-		if !ok {
-			t.Errorf("%s: no contest for %s", c.sentence, c.word)
-			continue
+		var first []string
+		for _, sg := range streamFirsts(r.Stream(c.sentence)) {
+			first = append(first, firstsOf(sg, c.word)...)
 		}
-		_, first, _ := strings.Cut(rest, "\n")
-		if !strings.HasPrefix(strings.TrimSpace(first), c.want+"\t") {
-			t.Errorf("%s: first is %q, want %s", c.sentence, first, c.want)
+		if len(first) == 0 {
+			t.Errorf("%s: no word %s", c.sentence, c.word)
+		} else if first[0] != c.want {
+			t.Errorf("%s: first is %q, want %s", c.sentence, first[0], c.want)
 		}
 	}
 }

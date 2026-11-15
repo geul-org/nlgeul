@@ -34,14 +34,14 @@ func TestRestoresAt(t *testing.T) {
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["말"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
-	if got := strings.Join(r.Lines("하지 마", false), "\n"); !strings.Contains(got, "말[열쇠:동사]+(아)[맺음:어(합침)]") {
+	if got := streamText(r, "하지 마"); !strings.Contains(got, "말[열쇠:동사]+(아)[맺음:어(합침)]") {
 		t.Fatal("하지 마\n" + got)
 	}
-	if got := strings.Join(r.Lines("마라", false), "\n"); !strings.Contains(got, "말[열쇠:동사]+(아)라[맺음:어라(합침)]") {
+	if got := streamText(r, "마라"); !strings.Contains(got, "말[열쇠:동사]+(아)라[맺음:어라(합침)]") {
 		t.Fatal("마라\n" + got)
 	}
 	bare, _ := New(Options{})
-	if got := strings.Join(bare.Lines("하지 마 마라", false), "\n"); strings.Contains(got, "말[") || strings.Contains(got, "말+") {
+	if got := streamText(bare, "하지 마 마라"); strings.Contains(got, "말[") || strings.Contains(got, "말+") {
 		t.Fatal("no 말 without a word table\n" + got)
 	}
 }

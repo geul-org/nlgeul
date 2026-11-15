@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStreamAgain — 아버지가방에들어가신다 is one stretch with no agreed place inside, so a stretch of the whole letters, [0-11] (the stream does not cut it at 6); its ways come one after the other through Again, each better or as good as the one before, all of the ways of cutting its contest makes, once each, and then none; a stretch that is not one Next has sent (not yet, or not at all) gives nothing; Next after them gives the end; with a closing dot Next gives the dot's stretch
+//ff:what TestStreamAgain — 아버지가방에들어가신다 is one stretch with no agreed place inside, so a stretch of the whole letters, [0-11] (the stream does not cut it at 6); its ways come one after the other through Again, each better or as good as the one before, all of the ways of cutting its contest of the old reading makes (unitContests), once each, and then none; a stretch that is not one Next has sent (not yet, or not at all) gives nothing; Next after them gives the end; with a closing dot Next gives the dot's stretch
 package token
 
 import (
@@ -16,7 +16,7 @@ func TestStreamAgain(t *testing.T) {
 		t.Fatal(first, ok, segmentLine(first))
 	}
 	ways := streamWays(st, first)
-	contests := r.Contests(s)
+	contests := unitContests(r, s)
 	forms := formsOf(cutsOf(contests[0], 0))
 	keys := segmentKeys(ways)
 	if len(ways) != 60 || len(forms) != 60 || len(keys) != 60 || !ranked(ways) {

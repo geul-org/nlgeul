@@ -23,7 +23,7 @@ func TestNumeralsLong(t *testing.T) {
 	}
 	for _, opt := range []Options{{}, {Words: "testdata/words.tsv"}} {
 		r, _ := New(opt)
-		if lines := r.Lines("삼천오백육십칠명", false); len(lines) < 2 || !strings.HasPrefix(lines[1], "  삼천오백육십칠[수]+명[단위:명]\t") {
+		if lines := streamLines(r, "삼천오백육십칠명"); len(lines) == 0 || lines[0] != "삼천오백육십칠[수]+명[단위:명]" {
 			t.Errorf("삼천오백육십칠명 (%q)\n%s", opt.Words, strings.Join(lines, "\n"))
 		}
 	}

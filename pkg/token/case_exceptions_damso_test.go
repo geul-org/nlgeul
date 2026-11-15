@@ -21,7 +21,7 @@ func TestCaseExceptionsDamso(t *testing.T) {
 			t.Errorf("%s: %v", s, got)
 		}
 	}
-	if got := strings.Join(r.Lines("담소", true), "\n"); !strings.Contains(got, "\t맺음:소\t-1.00\t기각: 예외 표의 줄이다(담소) — 예외 표 2: 관찰 46/46, 29파일, 2026-11-15, rules/new-word 2483d7f\n") {
+	if got := strings.Join(r.BoxLines("담소", true, 0), "\n"); !strings.Contains(got, "\t맺음:소\t-1.00\t기각: 예외 표의 줄이다(담소) — 예외 표 2: 관찰 46/46, 29파일, 2026-11-15, rules/new-word 2483d7f\n") {
 		t.Errorf("the trace names the row:\n%s", got)
 	}
 	for _, c := range []struct{ sentence, word, first string }{

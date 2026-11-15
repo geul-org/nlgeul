@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdFormat — --format box is the default output as it is, --format json is one line of JSON for each sentence (numbered from 0, the Korean letters not escaped, a new word is not known), a value other than box and json and json with --format plain, --cuts or --marks are refused, and --format plain is the old lines, --plain is no longer an option
+//ff:what TestNewTokenCmdFormat — --format box is the default output as it is, --format json is one line of JSON for each sentence (numbered from 0, the Korean letters not escaped, a new word is not known), --format plain is refused (the old lines are gone) with an error that names box and json, another value (xml) and json with --cuts or --marks are refused, --plain is no longer an option
 package cli
 
 import (
@@ -28,8 +28,8 @@ func TestNewTokenCmdFormat(t *testing.T) {
 	if err := run("", "--format", "box", "아버지가"); err != nil || out.String() != box {
 		t.Fatalf("%v %q", err, out.String())
 	}
-	if err := run("", "--format", "plain", "물을"); err != nil || !strings.Contains(out.String(), "\t경합(") {
-		t.Fatalf("%v %q", err, out.String())
+	if err := run("", "--format", "plain", "물을"); err == nil || !strings.Contains(err.Error(), "box, json") {
+		t.Fatalf("plain stays: %v %q", err, out.String())
 	}
 	if err := run("", "--plain", "물을"); err == nil {
 		t.Fatal("--plain stays")

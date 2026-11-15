@@ -44,17 +44,17 @@ func TestAfterAdnDet(t *testing.T) {
 	}
 
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	got := strings.Join(r.Lines("어떤마시다 어떤아이고 먹을아이고", false), "\n")
-	if strings.Contains(got, "] 마시[열쇠:동사]+다") || strings.Contains(got, "어떤[관형사:어떤] 아이고[열쇠:홀로]") || strings.Contains(got, "[꾸밈:을] 아이고[열쇠:홀로]") || !strings.Contains(got, "  먹+을[목적격:을] 아이고[열쇠:홀로]\t") {
+	got := netText(r, "어떤마시다 어떤아이고 먹을아이고")
+	if strings.Contains(got, "] 마시[열쇠:동사]+다") || strings.Contains(got, "어떤[관형사:어떤] 아이고[열쇠:홀로]") || strings.Contains(got, "[꾸밈:을] 아이고[열쇠:홀로]") || !strings.Contains(got, "\n먹+을[목적격:을] 아이고[열쇠:홀로]\n") {
 		t.Fatal("a predicate or an interjection right after what modifies a nominal\n" + got)
 	}
-	got = strings.Join(r.Lines("어떤마시는 어떤사과를 사과아이고 먹을빨리", false), "\n")
-	for _, want := range []string{"  어떤[관형사:어떤] 마시[열쇠:동사]+는[꾸밈:는]\t", "  어떤[관형사:어떤] 사과[열쇠:체언]+를[목적격:를]\t", "  사과[열쇠:체언] 아이고[열쇠:홀로]\t", "  먹[열쇠:동사]+을[꾸밈:을] 빨리[열쇠:부사]\t"} {
+	got = netText(r, "어떤마시는 어떤사과를 사과아이고 먹을빨리")
+	for _, want := range []string{"\n어떤[관형사:어떤] 마시[열쇠:동사]+는[꾸밈:는]\n", "\n어떤[관형사:어떤] 사과[열쇠:체언]+를[목적격:를]\n", "\n사과[열쇠:체언] 아이고[열쇠:홀로]\n", "\n먹[열쇠:동사]+을[꾸밈:을] 빨리[열쇠:부사]\n"} {
 		if !strings.Contains(got, want) {
 			t.Errorf("no %s\n%s", want, got)
 		}
 	}
-	if got := strings.Join(r.Lines("어떤 마시다", false), "\n"); !strings.Contains(got, "어떤[관형사:어떤]") || !strings.Contains(got, "  마시[열쇠:동사]+다[맺음:다]\t") {
+	if got := netText(r, "어떤 마시다"); !strings.Contains(got, "어떤[관형사:어떤]") || !strings.Contains(got, "\n마시[열쇠:동사]+다[맺음:다]\n") {
 		t.Fatal("a verb in the unit after a determiner\n" + got)
 	}
 }

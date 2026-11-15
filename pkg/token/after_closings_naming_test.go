@@ -47,19 +47,19 @@ func TestAfterClosingsNaming(t *testing.T) {
 		}) {
 			t.Errorf("%s: none of %v first\n%v", c.text, c.best, nodes)
 		}
-		if lines := strings.Join(r.Lines(c.text, false), "\n"); c.also != "" && !strings.Contains(lines, "  "+c.also+"\t") {
+		if lines := streamText(r, c.text); c.also != "" && !strings.Contains(lines, "\n"+c.also+"\n") {
 			t.Errorf("%s: no %s\n%s", c.text, c.also, lines)
 		}
 	}
-	if lines := strings.Join(r.Lines("감을", false), "\n"); !strings.Contains(lines, "  감[열쇠:체언]+을[목적격:을]\t") || !strings.Contains(lines, "  가[열쇠:동사]+(ㅁ)[이름:ㅁ]+을[목적격:을]\t") {
+	if lines := streamText(r, "감을"); !strings.Contains(lines, "\n감[열쇠:체언]+을[목적격:을]\n") || !strings.Contains(lines, "\n가[열쇠:동사]+(ㅁ)[이름:ㅁ]+을[목적격:을]\n") {
 		t.Fatal("감을: the noun next to 가+(ㅁ)+을\n" + lines)
 	}
 	for _, in := range []string{"학굠을", "함께", "함에"} {
-		if lines := strings.Join(r.Lines(in, false), "\n"); strings.Contains(lines, droppedName+"]+(ㅁ)") {
+		if lines := streamText(r, in); strings.Contains(lines, droppedName+"]+(ㅁ)") {
 			t.Errorf("%s: a dropped copula stem before ㅁ\n%s", in, lines)
 		}
 	}
-	if lines := strings.Join(r.Lines("학굠을", false), "\n"); strings.Contains(lines, "[이름:ㅁ]") {
+	if lines := streamText(r, "학굠을"); strings.Contains(lines, "[이름:ㅁ]") {
 		t.Fatal("학굠을: ㅁ after a noun\n" + lines)
 	}
 }

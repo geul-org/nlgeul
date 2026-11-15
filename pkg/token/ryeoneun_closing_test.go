@@ -2,10 +2,7 @@
 //ff:what TestRyeoneunClosing — the modifying closings 려는 and 려던 (with 으 after a stem with a final consonant, which 짓 keeps as its own) are read after a verb stem as one word, and a noun that ends in 려 and takes 는 keeps its reading as a noun
 package token
 
-import (
-	"strings"
-	"testing"
-)
+import "testing"
 
 func TestRyeoneunClosing(t *testing.T) {
 	r, err := New(Options{Words: "testdata/words-ryeoneun.tsv"})
@@ -20,15 +17,14 @@ func TestRyeoneunClosing(t *testing.T) {
 		{"그 우려는 지나쳤다.", "우려는", "우려[열쇠:체언]+는[보조사:는]"},
 		{"배려는 고마운 일이다.", "배려는", "배려[열쇠:체언]+는[보조사:는]"},
 	} {
-		got := "\n" + strings.Join(r.Lines(c.sentence, false), "\n")
-		_, rest, ok := strings.Cut(got, "\n"+c.word+"\t경합")
-		if !ok {
-			t.Errorf("%s: no contest for %s", c.sentence, c.word)
-			continue
+		var first []string
+		for _, sg := range streamFirsts(r.Stream(c.sentence)) {
+			first = append(first, firstsOf(sg, c.word)...)
 		}
-		_, first, _ := strings.Cut(rest, "\n")
-		if !strings.HasPrefix(strings.TrimSpace(first), c.want+"\t") {
-			t.Errorf("%s: first is %q, want %s", c.sentence, first, c.want)
+		if len(first) == 0 {
+			t.Errorf("%s: no word %s", c.sentence, c.word)
+		} else if first[0] != c.want {
+			t.Errorf("%s: first is %q, want %s", c.sentence, first[0], c.want)
 		}
 	}
 }

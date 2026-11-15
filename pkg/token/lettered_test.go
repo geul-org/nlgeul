@@ -19,11 +19,11 @@ func TestLettered(t *testing.T) {
 		t.Fatal("a Hangul letter on either side")
 	}
 	bare, _ := New(Options{})
-	got := strings.Join(bare.Lines("곰이 '사자 호랑이'는 싫다", false), "\n")
-	if !strings.Contains(got, "'[열기:1]") || !strings.Contains(got, "'[닫기:1]\t성립") || !strings.Contains(got, "  +는[보조사:는]\t성립 1.00") {
+	got := streamText(bare, "곰이 '사자 호랑이'는 싫다")
+	if !strings.Contains(got, "'[열기:1]") || !strings.Contains(got, "\n'[닫기:1]\n") || !strings.Contains(got, "\n+는[보조사:는]\n") || !strings.HasPrefix(streamScore(bare, "곰이 '사자 호랑이'는 싫다", "+는[보조사:는]"), "1.00 ") {
 		t.Fatal("a quote closed with a particle on it\n" + got)
 	}
-	if got := strings.Join(bare.Lines("it's", false), "\n"); strings.Contains(got, "[열기") || strings.Contains(got, "[닫기") {
+	if got := streamText(bare, "it's"); strings.Contains(got, "[열기") || strings.Contains(got, "[닫기") {
 		t.Fatal("an apostrophe inside a Latin word\n" + got)
 	}
 }

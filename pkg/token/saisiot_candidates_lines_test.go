@@ -34,7 +34,7 @@ func TestSaisiotCandidatesLines(t *testing.T) {
 	}
 	for _, c := range cases {
 		nodes := flatNodes(r, c.text, true)
-		lines := strings.Join(r.Lines(c.text, false), "\n")
+		lines := streamText(r, c.text)
 		best := func(w string) bool {
 			return slices.ContainsFunc(strings.Split(w, "|"), func(alt string) bool {
 				return slices.ContainsFunc(nodes, func(n string) bool { return strings.HasSuffix(n, "} "+alt) })
@@ -43,7 +43,7 @@ func TestSaisiotCandidatesLines(t *testing.T) {
 		if i := slices.IndexFunc(c.first, func(w string) bool { return !best(w) }); i >= 0 {
 			t.Errorf("%s: %s not first\n%v", c.text, c.first[i], nodes)
 		}
-		if i := slices.IndexFunc(c.also, func(w string) bool { return !strings.Contains(lines, "  "+w+"\t") }); i >= 0 {
+		if i := slices.IndexFunc(c.also, func(w string) bool { return !strings.Contains(lines, "\n"+w+"\n") }); i >= 0 {
 			t.Errorf("%s: no %s\n%s", c.text, c.also[i], lines)
 		}
 		if want := len(c.first) > 0 && strings.Contains(c.first[0], saisiotName); strings.Contains(lines, saisiotName) != want {

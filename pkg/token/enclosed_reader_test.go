@@ -24,13 +24,12 @@ func TestEnclosedReader(t *testing.T) {
 		"①이다":  "①[수]+이[서술격:이]+다[맺음:다]",
 		"사실⑤":  " ⑤[수]",
 	} {
-		lines := r.Lines(text, false)
-		if !strings.Contains(strings.Join(lines, "\n"), want) {
-			t.Errorf("%s: want %s in\n%s", text, want, strings.Join(lines, "\n"))
+		if got := streamText(r, text); !strings.Contains(got, want) {
+			t.Errorf("%s: want %s in\n%s", text, want, got)
 		}
 	}
 	for _, text := range []string{"ⓐ", "㉠"} {
-		if got := strings.Join(r.Lines(text, false), "\n"); strings.Contains(got, "[수]") {
+		if got := streamText(r, text); strings.Contains(got, "[수]") {
 			t.Errorf("%s is no number: %s", text, got)
 		}
 	}

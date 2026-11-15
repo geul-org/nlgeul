@@ -60,8 +60,8 @@ func TestWhole(t *testing.T) {
 		t.Fatal("는 and then 게: two runs", got)
 	}
 	r, _ := New(Options{})
-	got := strings.Join(r.Lines("곰이는게", false), "\n")
-	if strings.Contains(got, "곰+이[주격:이|보격:이] 는게\t") || !strings.Contains(got, "곰이는게\t") {
+	got := streamText(r, "곰이는게")
+	if strings.Contains(got, "곰+이[주격:이|보격:이] 는게\n") || !strings.Contains(got, "\n곰이는게\n") {
 		t.Fatal("곰이는게\n" + got)
 	}
 }

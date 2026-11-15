@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what pull — take the next stretch of the unit being read (the next unit is begun when none is): it is marked as Contests marks it (the unit, Glued) and becomes a region at its place in the sentence, queued, with what is needed to read it again when a window cut it off; the trace lines made are kept; when the unit has no stretch left, the next unit is the one to read
+//ff:what pull — take the next stretch of the unit being read (the next unit is begun when none is): it is marked with its unit and Glued (true for every stretch of a unit after its first, and for the first after a unit with no space after it) and becomes a region at its place in the sentence, queued, with what is needed to read it again when a window cut it off; the trace lines made are kept; when the unit has no stretch left, the next unit is the one to read
 package token
 
 func (s *Stream) pull() {

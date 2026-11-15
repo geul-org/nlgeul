@@ -23,5 +23,5 @@ func TestReaderStreamOrderLetter(t *testing.T) {
 	for _, c := range cases {
 		checkLines(t, c.sentence, strings.Join(flatNodes(r, c.sentence, true), "\n")+"\n", c.has, c.lacks)
 	}
-	checkLines(t, "나목에", strings.Join(r.Lines("나목에", false), "\n")+"\n", []string{"  나[수]+목[단위:목]+에[부사격:에]\t"}, nil)
+	checkLines(t, "나목에", streamText(r, "나목에")+"\n", []string{"\n나[수]+목[단위:목]+에[부사격:에]\n"}, nil)
 }

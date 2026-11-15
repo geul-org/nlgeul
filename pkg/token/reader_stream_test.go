@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderStream — a stream over words written apart: Next gives the stretches in order (the units of Reader.Contests, as many), each tiles its region from node to node and holds one word in every candidate, the node that is the whole region holds the candidates of one word of the contest with their letters, verdict and preference, the ways of the units differ in number
+//ff:what TestReaderStream — a stream over words written apart: Next gives the stretches in order (the units of the old reading, unitContests, as many), each tiles its region from node to node and holds one word in every candidate, the node that is the whole region holds the candidates of one word of the contest with their letters, verdict and preference, the ways of the units differ in number
 package token
 
 import "testing"
@@ -19,7 +19,7 @@ func TestReaderStream(t *testing.T) {
 	if bad := waysCheck(segs, letters); len(bad) != 0 {
 		t.Fatal(bad)
 	}
-	if bad := regionMatches(st, r.Contests(s)); len(bad) != 0 {
+	if bad := regionMatches(st, unitContests(r, s)); len(bad) != 0 {
 		t.Fatal(bad)
 	}
 	if segmentLine(segs[2]) != "들어가신다[6-11]" || segs[2].Rank != 1 {

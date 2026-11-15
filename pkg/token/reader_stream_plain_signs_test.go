@@ -1,0 +1,29 @@
+//ff:func feature=token type=reader control=iteration dimension=1
+//ff:what TestReaderStreamPlainSigns — with no word table, signs no candidate stands for come up as their letters with no name: x < y and A -> B have < and -> as lines of their own, 5'10" is the word 5'10 and a ", 가,나 keeps the comma-closed candidate 가+,[쉼표] 나 beside the whole word and the candidate with 나 as a particle
+package token
+
+import (
+	"strings"
+	"testing"
+)
+
+func TestReaderStreamPlainSigns(t *testing.T) {
+	r, err := New(Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range []struct {
+		in   string
+		want []string
+	}{
+		{"x < y", []string{"x[열:영숫자]", "<", "y[열:영숫자]"}},
+		{"A -> B", []string{"A[열:영숫자]", "->", "B[열:영숫자]"}},
+		{"5'10\"", []string{"5'10", "\""}},
+		{"가,나", []string{"가,+나[보조사:나]", "가,나\t", "가+,[쉼표] 나+(아)[맺음:어(합침)]"}},
+	} {
+		lines := scoredLines(r, c.in)
+		if miss := missingLine(lines, c.want); miss != "" {
+			t.Errorf("%q: no line starts with %q in order, in\n%s", c.in, miss, strings.Join(lines, "\n"))
+		}
+	}
+}

@@ -45,10 +45,10 @@ func TestAttached(t *testing.T) {
 		t.Fatal("a unit with a stem", got[0].sig)
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	if got := strings.Join(r.Lines("곰 이", false), "\n"); !strings.Contains(got, "이[관형사:이]") || !strings.Contains(got, "+이[주격:이]") || !strings.Contains(got, "+이[보격:이]") {
+	if got := streamText(r, "곰 이"); !strings.Contains(got, "이[관형사:이]") || !strings.Contains(got, "+이[주격:이]") || !strings.Contains(got, "+이[보격:이]") {
 		t.Fatal("이 keeps its word candidate next to the attached one\n" + got)
 	}
-	if got := strings.Join(r.Lines("곰 만", false), "\n"); !strings.Contains(got, "+만[보조사:만]") || !strings.Contains(got, "  만[의존명사:만]\t") {
+	if got := streamText(r, "곰 만"); !strings.Contains(got, "+만[보조사:만]") || !strings.Contains(got, "\n만[의존명사:만]\n") {
 		t.Fatal("만 keeps its candidate as a word next to the attached one\n" + got)
 	}
 }

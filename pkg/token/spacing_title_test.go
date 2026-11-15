@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestSpacingTitle — article 48: 갑돌씨가 has the candidate 갑돌 씨+가 (갑돌 a new word, 씨 the title of the list) with the new word's value; the two words' preferences add up to the candidate's, and the stream gives the word 씨+가 the same preference
+//ff:what TestSpacingTitle — article 48: the stream of 갑돌씨가 has the way 갑돌 │ 씨+가 (갑돌 a new word with the new word's value, 씨 the title of the list), the way's lambda is the two words' best lambdas added up, and the word 씨+가 has the preference the stream gives it now (−5.2522)
 package token
 
 import (
@@ -8,29 +8,30 @@ import (
 )
 
 func TestSpacingTitle(t *testing.T) {
-	const line = "갑돌 씨[열쇠:체언]+가[주격:가]"
 	r := spacingReader(t, "words-spacing.tsv", "48")
-	var found *Branch
-	for _, b := range r.Contests("갑돌씨가")[0].Branches {
-		if b.String() == line {
-			found = &b
-		}
-	}
-	if found == nil || len(found.Words) != 2 || len(found.scores) != 2 || found.Verdict > 0.34 {
-		t.Fatal("no candidate", found)
-	}
-	if math.Abs(found.scores[0].pref+found.scores[1].pref-found.Pref) > 1e-9 {
-		t.Fatal("the preferences do not add up", found.scores, found.Pref)
+	if !branchLines(r, "갑돌씨가")["갑돌 씨[열쇠:체언]+가[주격:가]"] {
+		t.Fatal("no candidate", branchLines(r, "갑돌씨가"))
 	}
 	st := r.Stream("갑돌씨가")
 	first, _ := st.Next()
-	nodes := nodesAt(streamWays(st, first), Span{2, 4})
+	ways := streamWays(st, first)
+	stem, nodes := nodesAt(ways, Span{0, 2}), nodesAt(ways, Span{2, 4})
+	if len(stem) == 0 || stem[0].Contest.Branches[0].String() != "갑돌" || stem[0].Contest.Branches[0].Verdict > 0.34 {
+		t.Fatal("no new word 갑돌", stem)
+	}
 	if len(nodes) == 0 {
 		t.Fatal("no word 씨+가 in the stream")
 	}
-	for _, n := range nodes {
-		if pref, ok := branchPref(n.Contest.Branches, "씨[열쇠:체언]+가[주격:가]"); ok && math.Abs(pref-found.scores[1].pref) > 1e-9 {
-			t.Fatal("the word's preference", pref, found.scores[1].pref)
+	found := false
+	for _, w := range ways {
+		if len(w.Nodes) == 2 && w.Nodes[0].Span == (Span{0, 2}) && w.Nodes[1].Span == (Span{2, 4}) {
+			found = math.Abs(w.Nodes[0].Contest.Branches[0].Lambda()+w.Nodes[1].Contest.Branches[0].Lambda()-w.Lambda) < 1e-9
 		}
+	}
+	if !found {
+		t.Fatal("no way 갑돌 │ 씨+가 whose lambda adds up", ways)
+	}
+	if pref, ok := branchPref(nodes[0].Contest.Branches, "씨[열쇠:체언]+가[주격:가]"); !ok || math.Abs(pref-(-5.2522)) > 1e-4 {
+		t.Fatal("the word's preference", pref, ok)
 	}
 }

@@ -1,12 +1,9 @@
-//ff:func feature=token type=helper control=iteration dimension=2
-//ff:what hasUnitWord — whether some candidate of some contest of a sentence prints exactly as the given text
+//ff:func feature=token type=helper control=sequence
+//ff:what hasUnitWord — whether some line the stream of a sentence gives (streamLines) prints exactly as the given text
 package token
 
+import "slices"
+
 func hasUnitWord(r *Reader, s, text string) bool {
-	for _, c := range r.Contests(s) {
-		if hasBranch(c.Branches, text) {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(streamLines(r, s), text)
 }

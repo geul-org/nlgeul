@@ -32,11 +32,11 @@ func TestAskClosingsQuestion(t *testing.T) {
 		"가느냐도":  "가[열쇠:동사]+느냐[맺음:느냐]+도[보조사:도]",
 		"가는가에":  "가[열쇠:동사]+는가[맺음:는가]+에[부사격:에]",
 	} {
-		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
+		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
 	}
-	if got := strings.Join(r.Lines("옳은가에", false), "\n"); strings.Contains(got, "은가[맺음:은가]+에") || strings.Contains(got, "+(ㄴ)가[맺음:ㄴ가]+에") {
+	if got := streamText(r, "옳은가에"); strings.Contains(got, "은가[맺음:은가]+에") || strings.Contains(got, "+(ㄴ)가[맺음:ㄴ가]+에") {
 		t.Fatal("ㄴ가 and 은가 take no particle\n" + got)
 	}
 }

@@ -134,23 +134,23 @@ func TestAfterClosings(t *testing.T) {
 		"학교인지와":  "학교[열쇠:체언]+이[서술격:이]+(ㄴ)지[맺음:ㄴ지]+와[",
 		"먹었는지에는": "먹[열쇠:동사]+었[선어말:었]+는지[맺음:는지]+에[부사격:에]+는[보조사:는]",
 	} {
-		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
+		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
 	}
-	if got := strings.Join(r.Lines("곰기는", false), "\n"); strings.Contains(got, "[이름:기]") {
+	if got := streamText(r, "곰기는"); strings.Contains(got, "[이름:기]") {
 		t.Fatal("기 after a stem no table has\n" + got)
 	}
 	for _, in := range []string{"먹지를", "먹는지의", "먹는다를"} {
-		if got := strings.Join(r.Lines(in, false), "\n"); strings.Contains(got, "]+를[목적격:를]") && strings.Contains(got, "[맺음:지]+를") || strings.Contains(got, "[맺음:는지]+의") || strings.Contains(got, "다]+를") {
+		if got := streamText(r, in); strings.Contains(got, "]+를[목적격:를]") && strings.Contains(got, "[맺음:지]+를") || strings.Contains(got, "[맺음:는지]+의") || strings.Contains(got, "다]+를") {
 			t.Fatal("a particle after a closing that takes none\n" + got)
 		}
 	}
 	bare, _ := New(Options{})
-	if got := strings.Join(bare.Lines("먹기는 먹기에는", false), "\n"); strings.Contains(got, "[이름:기]") {
+	if got := streamText(bare, "먹기는 먹기에는"); strings.Contains(got, "[이름:기]") {
 		t.Fatal("기 without a word table\n" + got)
 	}
-	if got := strings.Join(bare.Lines("먹는지를", false), "\n"); !strings.Contains(got, "먹+는지[맺음:는지]+를[목적격:를]") {
+	if got := streamText(bare, "먹는지를"); !strings.Contains(got, "먹+는지[맺음:는지]+를[목적격:를]") {
 		t.Fatal("는지 and 를 without a word table\n" + got)
 	}
 }

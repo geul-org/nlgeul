@@ -12,7 +12,7 @@ func TestSpacingMyriad(t *testing.T) {
 	if !branchLines(on, "삼억오천만원을")["삼억 오천만[수]+원[단위:원]+을[목적격:을]"] || branchLines(off, "삼억오천만원을")["삼억 오천만[수]+원[단위:원]+을[목적격:을]"] {
 		t.Fatal(branchLines(on, "삼억오천만원을"))
 	}
-	if !slices.Equal(on.Lines("오천만원을", false), off.Lines("오천만원을", false)) {
+	if !slices.Equal(on.BoxLines("오천만원을", false, 0), off.BoxLines("오천만원을", false, 0)) {
 		t.Fatal("one group")
 	}
 }

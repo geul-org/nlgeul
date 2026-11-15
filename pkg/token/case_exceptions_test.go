@@ -21,18 +21,18 @@ func TestCaseExceptions(t *testing.T) {
 		{"먹소를", "맺음:소]", "  · 소\t맺음:소\t-1.00\t기각: 예외 표의 줄이다(먹소) — 예외 표 3: 관찰 시험 3/3"},
 		{"가오", "맺음:오]", "  · 오\t맺음:오\t-1.00\t기각: 예외 표의 줄이다(가오) — 예외 표 4: 규범 시험 조항"},
 	} {
-		got := strings.Join(r.Lines(c.in, true), "\n")
+		got := strings.Join(r.BoxLines(c.in, true, 0), "\n")
 		if strings.Contains(got, c.closing) || !strings.Contains(got, c.note+"\n") {
 			t.Errorf("%s:\n%s", c.in, got)
 		}
 	}
 	for _, c := range []struct{ in, want string }{
-		{"하겠소", "  하[열쇠:동사]+겠[선어말:겠]+소[맺음:소]\t"},
-		{"먹었소", "  먹[열쇠:동사]+었[선어말:었]+소[맺음:소]\t"},
-		{"가시오", "  가[열쇠:동사]+시[선어말:시]+오[맺음:오]\t"},
+		{"하겠소", "하[열쇠:동사]+겠[선어말:겠]+소[맺음:소]"},
+		{"먹었소", "먹[열쇠:동사]+었[선어말:었]+소[맺음:소]"},
+		{"가시오", "가[열쇠:동사]+시[선어말:시]+오[맺음:오]"},
 	} {
-		lines := r.Lines(c.in, false)
-		if len(lines) < 2 || !strings.HasPrefix(lines[1], c.want) {
+		lines := streamLines(r, c.in)
+		if len(lines) == 0 || lines[0] != c.want {
 			t.Errorf("%s: want first %q\n%s", c.in, c.want, strings.Join(lines, "\n"))
 		}
 	}

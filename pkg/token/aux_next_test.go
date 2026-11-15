@@ -22,13 +22,13 @@ func TestAuxNext(t *testing.T) {
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	r.ix.lex["빼"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
-	if got := strings.Join(r.Lines("빼줘", false), "\n"); !strings.Contains(got, "빼[열쇠:동사]+(어)[맺음:어(합침)] 주[보조 용언:주]+(어)[맺음:어(합침)]") {
+	if got := streamText(r, "빼줘"); !strings.Contains(got, "빼[열쇠:동사]+(어)[맺음:어(합침)] 주[보조 용언:주]+(어)[맺음:어(합침)]") {
 		t.Fatal("빼줘\n" + got)
 	}
-	if got := strings.Join(r.Lines("가볼까", false), "\n"); !strings.Contains(got, "가[열쇠:동사]+(아)[맺음:어(합침)] 보[보조 용언:보]+(ㄹ)까[맺음:ㄹ까]") {
+	if got := streamText(r, "가볼까"); !strings.Contains(got, "가[열쇠:동사]+(아)[맺음:어(합침)] 보[보조 용언:보]+(ㄹ)까[맺음:ㄹ까]") {
 		t.Fatal("가볼까\n" + got)
 	}
-	if got := strings.Join(r.Lines("가조", false), "\n"); strings.Contains(got, "가[열쇠:동사]+(아)") {
+	if got := streamText(r, "가조"); strings.Contains(got, "가[열쇠:동사]+(아)") {
 		t.Fatal("가조: an unseen 어/아 before a syllable that is no auxiliary verb's stem\n" + got)
 	}
 }

@@ -50,14 +50,14 @@ func TestFusedTails(t *testing.T) {
 		t.Fatal("no honorific under 셨")
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	if got := strings.Join(r.Lines("쏴", false), "\n"); strings.Contains(got, "쏘+(아)") || strings.Contains(got, "쏘[") {
+	if got := streamText(r, "쏴"); strings.Contains(got, "쏘+(아)") || strings.Contains(got, "쏘[") {
 		t.Fatal("쏘 is no predicate's stem of the table\n" + got)
 	}
-	if got := strings.Join(r.Lines("곰해", false), "\n"); !strings.Contains(got, "곰하+(여)[맺음:어(합침)]") {
+	if got := streamText(r, "곰해"); !strings.Contains(got, "곰하+(여)[맺음:어(합침)]") {
 		t.Fatal("해 asks for nothing\n" + got)
 	}
 	r.ix.lex["쏘"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
-	if got := strings.Join(r.Lines("쏴", false), "\n"); !strings.Contains(got, "쏘[열쇠:동사]+(아)[맺음:어(합침)]") {
+	if got := streamText(r, "쏴"); !strings.Contains(got, "쏘[열쇠:동사]+(아)[맺음:어(합침)]") {
 		t.Fatal("쏘 of the table\n" + got)
 	}
 }

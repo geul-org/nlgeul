@@ -9,10 +9,10 @@ import (
 
 func TestSpacingSign(t *testing.T) {
 	off, one, two := spacingReader(t, "words-spacing.tsv"), spacingReader(t, "words-spacing.tsv", "45"), spacingReader(t, "words-spacing.tsv", "45", "48")
-	if !slices.Equal(off.Lines("솔·겸총무", false), one.Lines("솔·겸총무", false)) {
+	if !slices.Equal(off.BoxLines("솔·겸총무", false, 0), one.BoxLines("솔·겸총무", false, 0)) {
 		t.Fatal("article 45 alone changes it")
 	}
-	if len(off.Contests("솔·겸총무")[0].Branches) != 4 || len(two.Contests("솔·겸총무")[0].Branches) != 6 || !branchLines(two, "솔·겸총무")["솔·겸 총무[열쇠:체언]"] {
+	if len(branchLines(off, "솔·겸총무")) != 4 || len(branchLines(two, "솔·겸총무")) != 6 || !branchLines(two, "솔·겸총무")["솔·겸 총무[열쇠:체언]"] {
 		t.Fatal(branchLines(two, "솔·겸총무"))
 	}
 }

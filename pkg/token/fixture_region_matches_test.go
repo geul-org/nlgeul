@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what regionMatches — the regions a stream has sent against the contests Reader.Contests gives: as many, each region's letters, unit and Glued those of its contest, and the node that is the whole region holds the candidates of one word the contest holds (letters, verdict, preference); the names of what does not match
+//ff:what regionMatches — the regions a stream has sent against the contests of the old reading (unitContests: each unit read whole by readUnit): as many, each region's letters, unit and Glued those of its contest, and the node that is the whole region holds the candidates of one word the contest holds (letters, verdict, preference); the names of what does not match
 package token
 
 func regionMatches(st *Stream, contests []Contest) []string {

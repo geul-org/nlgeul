@@ -3,6 +3,7 @@
 package token
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -33,21 +34,20 @@ func TestAddWords(t *testing.T) {
 		}
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	if got := strings.Join(r.Lines("네가 내가", false), "\n"); !strings.Contains(got, "네[열쇠:체언]+가[주격:가]") || !strings.Contains(got, "네[열쇠:체언]+가[보격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[주격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[보격:가]") {
+	if got := streamText(r, "네가 내가"); !strings.Contains(got, "네[열쇠:체언]+가[주격:가]") || !strings.Contains(got, "네[열쇠:체언]+가[보격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[주격:가]") || !strings.Contains(got, "내[열쇠:체언]+가[보격:가]") {
 		t.Fatal("네가 내가\n" + got)
 	}
-	got := r.Lines("니가 니 사과를 먹었니", false)
-	if all := strings.Join(got, "\n"); !strings.Contains(all, "  니[열쇠:체언]+가[주격:가]\t") || !strings.Contains(all, "  니[열쇠:체언]+가[보격:가]\t") || !strings.Contains(all, "\n니[열쇠:체언]\n") || !strings.Contains(all, "먹었니\t경합(열쇠:동사 + 선어말:었 + 맺음:니 /") {
+	if all := streamText(r, "니가 니 사과를 먹었니"); !strings.Contains(all, "\n니[열쇠:체언]+가[주격:가]\n") || !strings.Contains(all, "\n니[열쇠:체언]+가[보격:가]\n") || !strings.Contains(all, "\n니[열쇠:체언]\n") || streamLines(r, "먹었니")[0] != "먹[열쇠:동사]+었[선어말:었]+니[맺음:니]" {
 		t.Fatal("니가 니 사과를 먹었니\n" + all)
 	}
 	for _, c := range [][2]string{{"사과니", "사과[열쇠:체언]+(이)[서술격:이(빠짐)]+니[맺음:니]"}, {"어디니", "어디[열쇠:체언]+(이)[서술격:이(빠짐)]+니[맺음:니]"}} {
-		if got = r.Lines(c[0], false); len(got) < 3 || !strings.HasPrefix(got[1], "  "+c[1]+"\t") || !strings.Contains(strings.Join(got, "\n"), "  "+c[0][:len(c[0])-len("니")]+"[열쇠:체언] 니[열쇠:체언]\t") {
+		if got := streamLines(r, c[0]); len(got) < 2 || got[0] != c[1] || !slices.Contains(got, c[0][:len(c[0])-len("니")]+"[열쇠:체언] 니[열쇠:체언]") {
 			t.Errorf("%s\n%s", c[0], strings.Join(got, "\n"))
 		}
 	}
 	bare, _ := New(Options{})
 	for _, s := range []string{"네가", "니가"} {
-		if got := strings.Join(bare.Lines(s, false), "\n"); strings.Contains(got, s[:len(s)-len("가")]+"[") {
+		if got := streamText(bare, s); strings.Contains(got, s[:len(s)-len("가")]+"[") {
 			t.Fatal(s + " without a word table\n" + got)
 		}
 	}

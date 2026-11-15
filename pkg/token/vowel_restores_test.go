@@ -26,10 +26,10 @@ func TestVowelRestores(t *testing.T) {
 		}
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	if got := strings.Join(r.Lines("놔", false), "\n"); !strings.Contains(got, "놓[보조 용언:놓]+(아)[맺음:어(합침)]") {
+	if got := streamText(r, "놔"); !strings.Contains(got, "놓[보조 용언:놓]+(아)[맺음:어(합침)]") {
 		t.Fatal("놔\n" + got)
 	}
-	if got := strings.Join(r.Lines("놨다", false), "\n"); !strings.Contains(got, "놓[보조 용언:놓]+(았)[선어말:ㅆ]+다[맺음:다]") {
+	if got := streamText(r, "놨다"); !strings.Contains(got, "놓[보조 용언:놓]+(았)[선어말:ㅆ]+다[맺음:다]") {
 		t.Fatal("놨다\n" + got)
 	}
 }

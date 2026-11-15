@@ -21,14 +21,14 @@ func TestReaderBoundMarkerForm(t *testing.T) {
 		"올 듯 말 듯": {"듯[의존명사:듯]", "듯[열쇠:체언]"},
 		"십 년 만에":  {"만[의존명사:만]+에[부사격:에]", "만[열쇠:체언]+에[부사격:에]"},
 	} {
-		out := strings.Join(r.Lines(text, false), "\n")
+		out := streamText(r, text)
 		if bad := orderedLines(out, want); len(bad) > 0 {
 			t.Errorf("%q: %q is missing or out of order in\n%s", text, bad, out)
 		}
-		if first := lineScore(out, want[0]); first == "" || first != lineScore(out, want[1]) {
+		if first := streamScore(r, text, want[0]); first == "" || first != streamScore(r, text, want[1]) {
 			t.Errorf("%q: the two names have one score in\n%s", text, out)
 		}
-		if out := strings.Join(bare.Lines(text, false), "\n"); !strings.Contains(out, want[0]) {
+		if out := streamText(bare, text); !strings.Contains(out, want[0]) {
 			t.Errorf("%q: no dependent noun without a word table in\n%s", text, out)
 		}
 	}

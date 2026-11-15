@@ -2,10 +2,7 @@
 //ff:what TestShortenedWithNeun — 이젠 is 이제 with 는, 으론 is 으로 with 는 after a noun that ends in a final consonant other than ㄹ, and 곤 is 고 with 는 after a verb stem; a name that ends in 곤 and a word with 곤 inside keep their readings as nouns
 package token
 
-import (
-	"strings"
-	"testing"
-)
+import "testing"
 
 func TestShortenedWithNeun(t *testing.T) {
 	r, err := New(Options{Words: "testdata/words-ijen.tsv"})
@@ -21,15 +18,14 @@ func TestShortenedWithNeun(t *testing.T) {
 		{"재곤에게 주었다.", "재곤에게", "재곤[열쇠:체언]+에게[부사격:에게]"},
 		{"그는 피곤하다.", "피곤하다", "피곤[열쇠:체언] 하+다[맺음:다]"},
 	} {
-		got := "\n" + strings.Join(r.Lines(c.sentence, false), "\n")
-		_, rest, ok := strings.Cut(got, "\n"+c.word+"\t경합")
-		if !ok {
-			t.Errorf("%s: no contest for %s", c.sentence, c.word)
-			continue
+		var first []string
+		for _, sg := range streamFirsts(r.Stream(c.sentence)) {
+			first = append(first, firstsOf(sg, c.word)...)
 		}
-		_, first, _ := strings.Cut(rest, "\n")
-		if !strings.HasPrefix(strings.TrimSpace(first), c.want+"\t") {
-			t.Errorf("%s: first is %q, want %s", c.sentence, first, c.want)
+		if len(first) == 0 {
+			t.Errorf("%s: no word %s", c.sentence, c.word)
+		} else if first[0] != c.want {
+			t.Errorf("%s: first is %q, want %s", c.sentence, first[0], c.want)
 		}
 	}
 }

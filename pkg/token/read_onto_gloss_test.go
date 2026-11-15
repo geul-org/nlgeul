@@ -19,12 +19,8 @@ func TestReadOntoGloss(t *testing.T) {
 	}{{2, false}, {0, true}} {
 		u.gloss = c.gloss
 		got, _ := readOnto(r.ix, u, false)
-		var lines []string
-		for _, ct := range got {
-			lines = append(lines, render(ct, 0)...)
-		}
-		all := "\n" + strings.Join(lines, "\n") + "\n"
-		if strings.Contains(all, "관하[열쇠:동사]+치[맺음:지]") != c.marker || !strings.Contains(all, "\n  관치\t") || !strings.Contains(all, "\n  관[열쇠:체언] 치[열쇠:체언]\t") {
+		all := "\n" + strings.Join(contestLines(got), "\n") + "\n"
+		if strings.Contains(all, "관하[열쇠:동사]+치[맺음:지]") != c.marker || !strings.Contains(all, "\n관치\t") || !strings.Contains(all, "\n관[열쇠:체언] 치[열쇠:체언]\t") {
 			t.Errorf("gloss %d: marker %v\n%s", c.gloss, c.marker, all)
 		}
 	}

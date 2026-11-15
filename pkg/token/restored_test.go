@@ -71,12 +71,12 @@ func TestRestored(t *testing.T) {
 	r.ix.lex["쓰"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}}
 	r.ix.lex["바쁘"] = word{kinds: kindAdj, count: 50, by: [6]int{0, 0, 50}}
 	for in, want := range map[string]string{"따라": "따르[열쇠:동사]+(아)", "치러": "치르[열쇠:동사]+(어)", "써": "쓰[열쇠:동사]+(어)", "바빠": "바쁘[열쇠:형용사]+(아)"} {
-		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
+		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
 	}
 	for in, dead := range map[string]string{"모라": "모르[", "따러": "따르[", "싸": "쓰["} {
-		if got := strings.Join(r.Lines(in, false), "\n"); strings.Contains(got, dead) {
+		if got := streamText(r, in); strings.Contains(got, dead) {
 			t.Errorf("%s: a dropped ㅡ put back where the stem does not drop it\n%s", in, got)
 		}
 	}
@@ -85,13 +85,13 @@ func TestRestored(t *testing.T) {
 		push, gone string
 	}{
 		{Options{}, "push하+(여)[맺음:어(합침)]", ""},
-		{Options{Words: "testdata/words.tsv"}, "\n  하[열쇠:동사]+(여)[맺음:어(합침)]\t", "push하"},
+		{Options{Words: "testdata/words.tsv"}, "\n하[열쇠:동사]+(여)[맺음:어(합침)]\n", "push하"},
 	} {
 		r, _ := New(c.opt)
-		if got := strings.Join(r.Lines("api과", false), "\n"); strings.Contains(got, "api고+(아)") || !strings.Contains(got, "api[열:영숫자]+과[부사격:과]") {
+		if got := streamText(r, "api과"); strings.Contains(got, "api고+(아)") || !strings.Contains(got, "api[열:영숫자]+과[부사격:과]") {
 			t.Errorf("api과 (%q)\n%s", c.opt.Words, got)
 		}
-		if got := "\n" + strings.Join(r.Lines("push해", false), "\n") + "\n"; !strings.Contains(got, c.push) || c.gone != "" && strings.Contains(got, c.gone) {
+		if got := streamText(r, "push해"); !strings.Contains(got, c.push) || c.gone != "" && strings.Contains(got, c.gone) {
 			t.Errorf("push해 (%q)\n%s", c.opt.Words, got)
 		}
 	}
@@ -105,7 +105,7 @@ func TestRestored(t *testing.T) {
 		{"해", "하+(여)[맺음:어(합침)]", false}, {"해서", "하+(여)서[맺음:어서(합침)]", false}, {"했다", "하+(였)[선어말:ㅆ]+다[맺음:다]", false},
 		{"가서", "가+(아)서[맺음:어서(합침)]", false}, {"가", "가+(아)[맺음:어(합침)]", false},
 	} {
-		got, withTable := strings.Join(plain.Lines(c.in, false), "\n"), strings.Join(lexed.Lines(c.in, false), "\n")
+		got, withTable := streamText(plain, c.in), streamText(lexed, c.in)
 		wantTable := c.want
 		if !c.dead {
 			wantTable = strings.Replace(c.want, "+(", "[열쇠:동사]+(", 1)
@@ -115,13 +115,13 @@ func TestRestored(t *testing.T) {
 		}
 	}
 	bare, _ := New(Options{})
-	if got := strings.Join(bare.Lines("api과", false), "\n"); !strings.Contains(got, "api[열:영숫자] 고+(아)[맺음:어(합침)]") {
+	if got := streamText(bare, "api과"); !strings.Contains(got, "api[열:영숫자] 고+(아)[맺음:어(합침)]") {
 		t.Fatal("a stem of one syllable after the boundary where the script changes\n" + got)
 	}
-	if got := strings.Join(bare.Lines("따라", false), "\n"); !strings.Contains(got, "따르+(아)[맺음:어(합침)]") {
+	if got := streamText(bare, "따라"); !strings.Contains(got, "따르+(아)[맺음:어(합침)]") {
 		t.Fatal("without a word table 따르+(아) stands\n" + got)
 	}
-	if got := strings.Join(bare.Lines("싸 써", false), "\n"); strings.Contains(got, "쓰+(아)") || !strings.Contains(got, "쓰+(어)[맺음:어(합침)]") {
+	if got := streamText(bare, "싸 써"); strings.Contains(got, "쓰+(아)") || !strings.Contains(got, "쓰+(어)[맺음:어(합침)]") {
 		t.Fatal("without a word table too a stem of one syllable takes 어 only\n" + got)
 	}
 }

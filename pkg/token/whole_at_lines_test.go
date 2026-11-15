@@ -14,13 +14,13 @@ func TestWholeAtLines(t *testing.T) {
 		lines    []string
 		stream   []string
 	}{
-		{"제1-1 서식", []string{"\n제1-1\t경합(차례 / 범위)\n", "\n  제1-1[차례]\t", "\n  제1-1[범위]\t", "\n  제1-1[빼기]\t", "\n서식[열쇠:체언]\n"}, []string{"{0 4} 제1-1[차례]\n", "{4 6} 서식[열쇠:체언]\n"}},
-		{"제2-3", []string{"\n제2-3\t경합(차례 / 범위)\n", "\n  제2-3[차례]\t", "\n  제2-3[범위]\t", "\n  제2-3[빼기]\t"}, []string{"{0 4} 제2-3[차례]\n"}},
-		{"별지 제1-2 서식에 따른다.", []string{"\n  별지[열쇠:체언]\t", "\n  제1-2[차례]\t", "\n  제1-2[범위]\t", "서식[열쇠:체언]+에[부사격:에]"}, []string{"{2 6} 제1-2[차례]\n", "{6 9} 서식[열쇠:체언]+에[부사격:에]\n"}},
-		{"제1-1을 본다", []string{"\n  제1-1[차례]+을[목적격:을]\t", "\n  제1-1[범위]+을[목적격:을]\t"}, []string{"{0 5} 제1-1[차례]+을[목적격:을]\n"}},
+		{"제1-1 서식", []string{"\n제1-1[차례]\n", "\n제1-1[범위]\n", "\n제1-1[빼기]\n", "\n서식[열쇠:체언]\n"}, []string{"{0 4} 제1-1[차례]\n", "{4 6} 서식[열쇠:체언]\n"}},
+		{"제2-3", []string{"\n제2-3[차례]\n", "\n제2-3[범위]\n", "\n제2-3[빼기]\n"}, []string{"{0 4} 제2-3[차례]\n"}},
+		{"별지 제1-2 서식에 따른다.", []string{"\n별지[열쇠:체언]\n", "\n제1-2[차례]\n", "\n제1-2[범위]\n", "서식[열쇠:체언]+에[부사격:에]"}, []string{"{2 6} 제1-2[차례]\n", "{6 9} 서식[열쇠:체언]+에[부사격:에]\n"}},
+		{"제1-1을 본다", []string{"\n제1-1[차례]+을[목적격:을]\n", "\n제1-1[범위]+을[목적격:을]\n"}, []string{"{0 5} 제1-1[차례]+을[목적격:을]\n"}},
 	}
 	for _, c := range cases {
-		checkLines(t, c.sentence, "\n"+strings.Join(r.Lines(c.sentence, false), "\n")+"\n", c.lines, nil)
+		checkLines(t, c.sentence, streamText(r, c.sentence), c.lines, nil)
 		checkLines(t, c.sentence, strings.Join(flatNodes(r, c.sentence, true), "\n")+"\n", c.stream, nil)
 	}
 }

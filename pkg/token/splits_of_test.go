@@ -31,12 +31,12 @@ func TestSplitsOf(t *testing.T) {
 		in, want string
 		gone     string
 	}{
-		{plain, "어서 가시오.", "  가+시오[맺음:시오]\t", "맺음:오]"},
-		{plain, "먹으시오", "  먹+으시오[맺음:으시오]\t", "맺음:오]"},
-		{words, "어서 가시오.", "  가[열쇠:동사]+시[선어말:시]+오[맺음:오]\t", "맺음:시오]"},
-		{words, "먹으시오", "  먹[열쇠:동사]+으[이음:으]+시[선어말:시]+오[맺음:오]\t", "맺음:으시오]"},
+		{plain, "어서 가시오.", "\n가+시오[맺음:시오]\n", "맺음:오]"},
+		{plain, "먹으시오", "\n먹+으시오[맺음:으시오]\n", "맺음:오]"},
+		{words, "어서 가시오.", "\n가[열쇠:동사]+시[선어말:시]+오[맺음:오]\n", "맺음:시오]"},
+		{words, "먹으시오", "\n먹[열쇠:동사]+으[이음:으]+시[선어말:시]+오[맺음:오]\n", "맺음:으시오]"},
 	} {
-		got := strings.Join(c.r.Lines(c.in, false), "\n")
+		got := streamText(c.r, c.in)
 		if !strings.Contains(got, c.want) || strings.Contains(got, c.gone) {
 			t.Errorf("%s (word table: %v): want %q, no %q\n%s", c.in, c.r == words, c.want, c.gone, got)
 		}

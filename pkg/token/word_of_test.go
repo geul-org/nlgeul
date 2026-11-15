@@ -12,7 +12,7 @@ import (
 func TestWordOf(t *testing.T) {
 	sc := scanOf("곰이것")
 	e := sc.wordOf(0, 2, tail{start: 1, pieces: []piece{{"이", "주격:이", 1, -1.2, 0, false, ""}}})
-	if e.sig != "곰+이[주격:이]" || (Branch{Words: []Eojeol{e.word}}).Label() != "새 낱말 + 주격:이" || e.verdict != sc.ix.unknown || e.end != 2 {
+	if e.sig != "곰+이[주격:이]" || wordLabels(e.word) != "새 낱말 + 주격:이" || e.verdict != sc.ix.unknown || e.end != 2 {
 		t.Fatal(e)
 	}
 	if e = sc.wordOf(2, 3, tail{start: 3}); e.sig != "것[의존명사:것]" || e.verdict != 1 {

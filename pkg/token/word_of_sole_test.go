@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestWordOfSole — with the word table of testdata a one-syllable verb stem and its closing that make up the whole unit (하자, 가는) stand fully and are printed so (성립 1.00); the same word after another word in its unit (입력하자 read as 입력 하+자, 학교가는 as 학교 가+는), or before another (하고먹자 read from 하+고), stands as the stem does when it is not the whole of its unit, below 1, and the candidate of 입력 하+자 or of 학교 가+는 is printed below 1
+//ff:what TestWordOfSole — with the word table of testdata a one-syllable verb stem and its closing that make up the whole unit (하자, 가는) stand fully (the stream's word has the verdict 1.00); the same word after another word in its unit (입력하자 read as 입력 하+자, 학교가는 as 학교 가+는), or before another (하고먹자 read from 하+고), stands as the stem does when it is not the whole of its unit, below 1, and the stream has the ways 입력 │ 하+자 and 학교 │ 가+는 with the verdict of 하+자 and 가+는 below 1 (0.60)
 package token
 
 import (
@@ -34,15 +34,15 @@ func TestWordOfSole(t *testing.T) {
 		t.Fatal("the same stem at the unit's head with another word after it", e, link)
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
-	got := strings.Join(r.Lines("하자 가는 입력하자 학교가는", false), "\n")
-	for _, want := range []string{
-		"  하[열쇠:동사]+자[맺음:자]\t성립 1.00 ",
-		"  가[열쇠:동사]+는[꾸밈:는]\t성립 1.00 ",
-		"  입력[열쇠:체언] 하[열쇠:동사]+자[맺음:자]\t성립 0.60 ",
-		"  학교[열쇠:체언] 가[열쇠:동사]+는[꾸밈:는]\t성립 0.60 ",
+	got := streamText(r, "하자 가는 입력하자 학교가는")
+	for _, c := range []struct{ unit, line, word, verdict string }{
+		{"하자", "하[열쇠:동사]+자[맺음:자]", "하[열쇠:동사]+자[맺음:자]", "1.00"},
+		{"가는", "가[열쇠:동사]+는[꾸밈:는]", "가[열쇠:동사]+는[꾸밈:는]", "1.00"},
+		{"입력하자", "입력[열쇠:체언] 하[열쇠:동사]+자[맺음:자]", "하[열쇠:동사]+자[맺음:자]", "0.60"},
+		{"학교가는", "학교[열쇠:체언] 가[열쇠:동사]+는[꾸밈:는]", "가[열쇠:동사]+는[꾸밈:는]", "0.60"},
 	} {
-		if !strings.Contains(got, want) {
-			t.Errorf("missing %q in\n%s", want, got)
+		if !strings.Contains(got, "\n"+c.line+"\n") || !strings.HasPrefix(streamScore(r, c.unit, c.word), c.verdict+" ") {
+			t.Errorf("missing %q with %s in\n%s", c.line, c.verdict, got)
 		}
 	}
 }

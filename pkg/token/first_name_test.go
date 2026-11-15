@@ -3,6 +3,7 @@
 package token
 
 import (
+	"slices"
 	"strings"
 	"testing"
 )
@@ -48,17 +49,17 @@ func TestFirstName(t *testing.T) {
 		want  string
 		first bool
 	}{
-		{bare, "학생이었습니다", "  학생+이[서술격:이]+었[선어말:었]+습니다[맺음:습니다]\t", true},
-		{lexed, "학생이었습니다", "  학생+이[서술격:이]+었[선어말:었]+습니다[맺음:습니다]\t", true},
-		{bare, "학생이었다", "  학생+이[서술격:이]+었[선어말:었]+다[맺음:다]\t", true},
-		{lexed, "학생이었다", "  학생+이[서술격:이]+었[선어말:었]+다[맺음:다]\t", true},
-		{bare, "학생이었는데", "  학생+이[서술격:이]+었[선어말:었]+는데[맺음:는데]\t", true},
-		{lexed, "학생이었는데", "  학생+이[서술격:이]+었[선어말:었]+는데[맺음:는데]\t", true},
-		{bare, "의사였다", "  의사+이[서술격:이]+(었)[선어말:ㅆ]+다[맺음:다]\t", false},
-		{lexed, "의사였다", "  의사+이[서술격:이]+(었)[선어말:ㅆ]+다[맺음:다]\t", false},
+		{bare, "학생이었습니다", "학생+이[서술격:이]+었[선어말:었]+습니다[맺음:습니다]", true},
+		{lexed, "학생이었습니다", "학생+이[서술격:이]+었[선어말:었]+습니다[맺음:습니다]", true},
+		{bare, "학생이었다", "학생+이[서술격:이]+었[선어말:었]+다[맺음:다]", true},
+		{lexed, "학생이었다", "학생+이[서술격:이]+었[선어말:었]+다[맺음:다]", true},
+		{bare, "학생이었는데", "학생+이[서술격:이]+었[선어말:었]+는데[맺음:는데]", true},
+		{lexed, "학생이었는데", "학생+이[서술격:이]+었[선어말:었]+는데[맺음:는데]", true},
+		{bare, "의사였다", "의사+이[서술격:이]+(었)[선어말:ㅆ]+다[맺음:다]", false},
+		{lexed, "의사였다", "의사+이[서술격:이]+(었)[선어말:ㅆ]+다[맺음:다]", false},
 	} {
-		lines := c.r.Lines(c.in, false)
-		if got := strings.Join(lines, "\n"); !strings.Contains(got, c.want) || (c.first && !strings.HasPrefix(lines[1], c.want)) {
+		lines := streamLines(c.r, c.in)
+		if got := strings.Join(lines, "\n"); !slices.Contains(lines, c.want) || (c.first && lines[0] != c.want) {
 			t.Errorf("%s (word table: %v): no %q (first: %v)\n%s", c.in, c.r == lexed, c.want, c.first, got)
 		}
 	}
