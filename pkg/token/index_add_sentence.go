@@ -44,4 +44,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, boundAfterRule(boundNominal))
 	// The noun of a dependent noun's letters before a middle dot (nounListedRule).
 	ix.sentence = append(ix.sentence, nounListedRule(parse.ClosedWords()[boundSet]))
+	// The noun of a dependent noun's letters at the head of a sentence (nounHeadedRule).
+	ix.sentence = append(ix.sentence, nounHeadedRule(parse.ClosedWords()[boundSet]))
 }
