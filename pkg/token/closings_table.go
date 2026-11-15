@@ -17,9 +17,12 @@ import (
 // 려는 and 려던 (the dictionary's shortened 려고 하는, 려고 하던), and the quoting
 // endings that are shortened (냐는, 느냐는, 자는, 냐며, 느냐며, 냐면,
 // 느냐면, 냐면서, 느냐면서, 냐니까, 느냐니까, 자면, 자니, 자니까,
-// 다니까, ㄴ다니까, 는다니까, 라니까, 다더라, ㄴ다더라, 는다더라). Not
-// listed, though the dictionary has them: 든 and 는걸, ㄴ걸, 은걸, whose letters are
-// read as the particle 든 and as a modifying closing with 거 under 를.
+// 다니까, ㄴ다니까, 는다니까, 라니까, 다더라, ㄴ다더라, 는다더라), and
+// at the table's end 거라, 너라, 렴, 나이다, 나이까, 더이다, 소서, 노라고,
+// 노라면, 거니와, 던지, 다거나, 로구나, 로다, ㄴ걸 and 오리다, none of
+// them with an observed count. Not listed, though the dictionary has
+// them: 든 and 는걸, 은걸, whose letters are read as the particle 든 and
+// as a modifying closing with 거 under 를.
 var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))
 
 // gatedClosings are closings of this layer read only with a word
