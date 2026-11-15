@@ -80,6 +80,8 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `Listed` | rule, except | 바로 뒤 어절의 줄기 이름의 갈래(`ListNextKind`: `닫기:1`의 `닫기`, `ListPrevKind`의 짝)가 기준 목록에 있다. 뒤에 어절이 없으면 ""다 | `List`, 뒤집으려면 `Not` |
 | `SelfHas` | rule, except | 후보의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`에서는`의 `부사격:에서`). 볼 사실은 `ListSelfMarks`로 적는다(`Listed`는 이 사실을 읽지 않는다). 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |
 | `AroundIs` | rule, except | 후보와 둘레가 기준의 사실을 갖는다(`Around…`): 후보의 어절이 바로 앞 어절에 빈칸 없이 붙어 있다(`AroundGlued`), 바로 앞 어절이 체언으로 끝난다(`AroundAfterNominal`), 바로 뒤 어절이 꾸밈꼴 뒤에 설 수 있다(`AroundBeforeModifiable`). 앞이나 뒤에 어절이 없으면 그 사실은 없다 | `Bits`(around), 뒤집으려면 `Not` |
+| `KindListed` | rule, except | `Listed`와 같은 사실(`ListSelfKind`, `ListSelfLast`, `ListPrevLast` …)에서 쌍점 앞의 갈래(`꾸밈:ㄹ`의 `꾸밈`, `의존명사:수`의 `의존명사`)가 기준 목록에 있다. 쌍점이 없는 이름은 이름 자체가 갈래다. 증거는 그 갈래 | `List`(갈래 목록), 뒤집으려면 `Not` |
+| `Headed` | rule, except | 후보 앞에 어절이 없거나(문장 첫머리), 바로 앞 어절의 줄기 이름의 갈래가 기준 목록에 있다(여닫는 기호는 줄기 자리에 서서 `열기:1`이 줄기 이름이다). 줄기 이름이 없는 새 낱말은 첫머리가 아니다(`ListPrevKind`만으로는 새 낱말과 첫머리가 같은 ""라 가를 수 없다). 증거는 바로 앞 어절의 줄기 이름 | `List`(갈래 목록, 볼 사실은 `ListPrevKind`), 뒤집으려면 `Not` |
 
 ## 조건식과 도움 함수 (toulmin 규칙이 아니다)
 
