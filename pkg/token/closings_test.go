@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestClosings — 먹었다 gives 다 alone and 었+다; 간다 a closing under the consonant; nothing at the start; 곰이다 has the copula candidate too; 했잖아 has 지+(않) before the closing; 가야겠다 has (하) between the fused 어야 and 겠; with a word table 가심 has the honorific noun form
+//ff:what TestClosings — 먹었다 gives 다 alone and 었+다; 간다 a closing under the consonant; nothing at the start; 곰이다 has the copula candidate too; 했잖아 has 지+(않) before the closing; 가야겠다 has (하) between the fused 어야 and 겠; with a word table 가심 has the honorific noun form, and 원치 the closing 치 written with the ㅎ of 하 (clause 40)
 package token
 
 import "testing"
@@ -49,5 +49,12 @@ func TestClosings(t *testing.T) {
 	}
 	if !lone {
 		t.Fatal("no honorific under 심")
+	}
+	var ha bool
+	for _, c := range wordsScan("원치", layerCost).closings(2, false, false) {
+		ha = ha || (c.start == 1 && c.irr == irrHa && c.pieces[0].names == "맺음:지")
+	}
+	if !ha {
+		t.Fatal("no 치 of clause 40")
 	}
 }

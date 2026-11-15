@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestChanged — each kind of change gives its form: 살 → 사 with no type, 듣 → 들, 짓 → 지, 덥 → 더우, 돕 → 도우 and 도오, 파랗 → 파라 and 파래, 그렇 → 그러 and 그래, 모르 → 몰르, 이르 → 이르르, 푸 → 프; a regular stem that ends in no ㄹ has none; a type the stem's shape does not fit gives nothing
+//ff:what TestChanged — each kind of change gives its form: 살 → 사 with no type, 듣 → 들, 짓 → 지, 덥 → 더우, 돕 → 도우 and 도오, 파랗 → 파라 and 파래, 그렇 → 그러 and 그래, 모르 → 몰르, 이르 → 이르르, 푸 → 프, 원하 → 원 and 가능하 → 가능 with 하 dropped (clause 40), but not the one-syllable 하; a regular stem that ends in no ㄹ has none; a type the stem's shape does not fit gives nothing
 package token
 
 import (
@@ -21,6 +21,9 @@ func TestChanged(t *testing.T) {
 		fmt.Sprint(changed("모르", irrReu)):                                fmt.Sprint([]alt{{"몰르", irrReu}}),
 		fmt.Sprint(changed("이르", irrReo)):                                fmt.Sprint([]alt{{"이르르", irrReo}}),
 		fmt.Sprint(changed("푸", irrU)):                                   fmt.Sprint([]alt{{"프", irrU}}),
+		fmt.Sprint(changed("원하", 0)):                                     fmt.Sprint([]alt{{"원", irrHa}}),
+		fmt.Sprint(changed("가능하", 0)):                                    fmt.Sprint([]alt{{"가능", irrHa}}),
+		fmt.Sprint(changed("하", 0)):                                      fmt.Sprint([]alt(nil)),
 		fmt.Sprint(changed("먹", 0)):                                      fmt.Sprint([]alt(nil)),
 		fmt.Sprint(changed("먹", irrD|irrS|irrB|irrH|irrReu|irrReo|irrU)): fmt.Sprint([]alt(nil)),
 		fmt.Sprint(changed("르", irrReu)):                                 fmt.Sprint([]alt(nil)),

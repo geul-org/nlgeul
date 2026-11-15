@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what changed — the forms a predicate's stem changes into before some tails, each with the kind of change: ㄹ dropped (whatever the irregular types), and by the irregular types the table gives it ㄷ → ㄹ, ㅅ dropped, ㅂ → 우 (돕, 곱 also 오), ㅎ dropped (and with 어 fused), 르 → ㄹ르, 러, 우 → ㅡ
+//ff:what changed — the forms a predicate's stem changes into before some tails, each with the kind of change: ㄹ dropped (whatever the irregular types), and by the irregular types the table gives it ㄷ → ㄹ, ㅅ dropped, ㅂ → 우 (돕, 곱 also 오), ㅎ dropped (and with 어 fused), 르 → ㄹ르, 러, 우 → ㅡ; and a stem of two syllables or more that ends in 하 without its 하 (clause 40: 원하 → 원, read before 치, 케, 타, 토록, 코자, 컨대)
 package token
 
 import (
@@ -40,6 +40,9 @@ func changed(key string, irr int) []alt {
 	}
 	if irr&irrU != 0 && jong == 0 && rule.JungOf(last) == jungU {
 		out = append(out, alt{head + string(last+rune((jungEu-jungU)*28)), irrU})
+	}
+	if len(r) >= 2 && last == '하' {
+		out = append(out, alt{head, irrHa})
 	}
 	return out
 }

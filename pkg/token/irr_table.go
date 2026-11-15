@@ -7,6 +7,10 @@ package token
 // with a tail it changes before, and the word is printed, and looked
 // up, under the stem of the table (들었다 → 듣+었+다). A changed form
 // that is also another word stands next to that word, as a contest.
+// Clause 40: a stem of two syllables or more that ends in 하 loses the
+// ㅏ of 하, and its ㅎ fuses into the first consonant of some closings,
+// which are then written with an aspirate (원치 = 원하+치, 가능케,
+// 불쌍타, 연구토록, 달성코자, 단언컨대).
 //
 // Kinds of change, as bits. irrL is not irregular: every stem that
 // ends in ㄹ drops it before ㄴ, ㅂ, ㅅ and a fused ㄹ, whatever the
@@ -22,6 +26,7 @@ const (
 	irrReu             // 르: 모르 → 몰르 (몰라 = 몰르+아 with ㅡ dropped)
 	irrReo             // 러: 이르 → 이르르 (이르러)
 	irrU               // 우: 푸 → 프 (퍼)
+	irrHa              // 제40항: 원하 → 원 (원치 = 원하+치), ㅏ of 하 dropped, its ㅎ fused into the closing's first consonant
 )
 
 // typeIrr reads the irregular type a word table gives a predicate.
@@ -38,6 +43,7 @@ const (
 	headL                  // a fused ㄹ
 	headB                  // a fused ㅂ
 	headNe                 // 네, before which ㅎ stays or goes
+	headHa                 // a closing with the ㅎ of 하 fused into its first consonant (haPairs)
 )
 
 // irrHeads says before what each change happens.
@@ -52,6 +58,7 @@ var irrHeads = map[int]int{
 	irrReu: headFused,
 	irrReo: headFused,
 	irrU:   headFused,
+	irrHa:  headHa,
 }
 
 // roundB are the two ㅂ stems whose 어 is 아 (도와, 고와); every other
@@ -61,6 +68,11 @@ var irrHeads = map[int]int{
 var roundB = []string{"돕", "곱"}
 var wideH = []string{"그렇", "이렇", "저렇", "어떻"}
 var eoStems = map[string]string{"그러": "그래", "이러": "이래", "저러": "저래", "어쩌": "어째"}
+
+// haPairs are the closings written with the ㅎ of a stem's last 하
+// fused into their first consonant (clause 40): the name of the
+// closing, and the form it is then written in.
+var haPairs = [][2]string{{"맺음:지", "치"}, {"맺음:게", "케"}, {"맺음:다", "타"}, {"맺음:도록", "토록"}, {"맺음:고자", "코자"}, {"맺음:건대", "컨대"}}
 
 // euLetters are the letters a form with the link vowel 으 in it begins
 // with (으면, 은, 을, 음, 읍시다).
