@@ -353,8 +353,15 @@ const bonusBound = 2.5
 // 4, 5, 6 and 8 tried with that rule on the answer sheet: 0.5 gave none
 // right, 1 and 2.5 6 fewer than 3.5, 4 and 5 (the same words), 6 one
 // fewer; 8 gave 4 more, which were words of the dependent noun 거
-// written onto the modifying form (있는건지), read whole as a noun.
-const bonusBoundAfter = 3.5
+// written onto the modifying form (있는건지), read whole as a noun. With
+// the one-syllable rebuttal of 것 and 거 written onto a modifying closing
+// lifted (PieceBound) it was tried again among 3.5, 4.5, 5, 5.5, 6 and 8:
+// 4.5 gave 3 more right than 3.5 (거 with the dropped copula and ㄴ지
+// written onto the modifying form, which was read as the noun 건지), 5,
+// 5.5 and 6 the same 5 more (거 with 지 too, which was read as the noun
+// 거지), 8 one more wrong besides (수요 read as 수+요 after a modifying
+// form); 5 is chosen.
+const bonusBoundAfter = 5.0
 
 // bonusModified is what the rule of a sentence "a noun stands right after
 // a modifier" adds (nounModifiedRule). It is chosen among 0.5, 1, 1.5 and
