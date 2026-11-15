@@ -153,6 +153,7 @@ const (
 	PieceConn                 // the word right before it ends in the linking 어/아 and it is an auxiliary's stem with a predicate tail
 	PieceChange               // it is a new word over a place where a run of Latin letters and digits meets a Hangul syllable, and the two sides cut there each read as a known word or such a run
 	PieceGlossed              // its unit's letters are Hangul syllables, and right after them stands a round bracket that holds Han characters alone, as many as those syllables (the letters are their sound: 대곤(大棍))
+	PieceUnitWord             // it is a stem that begins right after a number, and its letters are a unit of the unit table and then a word written after a unit (5년간)
 )
 
 // Yes/no facts of a sign that MarkIs tests.

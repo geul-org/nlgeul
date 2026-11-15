@@ -11,7 +11,7 @@ import (
 func TestKnownCandidates(t *testing.T) {
 	ix := wordsScan("x", layerCost).ix
 	ix.lex["지금"] = word{kinds: kindNominal | kindAdverb, count: 100, by: [6]int{60, 0, 0, 40}}
-	got := ix.knownCandidates("지금", rule.TailBare, false, false)
+	got := ix.knownCandidates("지금", rule.TailBare, false, false, false)
 	if len(got) != 2 || got[0].kind != kindNominal || got[0].name != "열쇠:체언" || got[1].kind != kindAdverb || got[1].name != "열쇠:부사" {
 		t.Fatal(got)
 	}
@@ -21,46 +21,46 @@ func TestKnownCandidates(t *testing.T) {
 	if want := ix.stemVerdict(kindAdverb, rule.Piece{Form: "지금", Tail: rule.TailBare, Count: 40}); got[1].v != want || got[1].v == got[0].v {
 		t.Fatal("each kind has its own value", got[1].v, want)
 	}
-	if got = ix.knownCandidates("지금", rule.TailPred, false, false); len(got) != 0 {
+	if got = ix.knownCandidates("지금", rule.TailPred, false, false, false); len(got) != 0 {
 		t.Fatal("no kind takes a closing", got)
 	}
-	if got = ix.knownCandidates("지금", rule.TailCase, false, false); len(got) != 1 || got[0].kind != kindNominal {
+	if got = ix.knownCandidates("지금", rule.TailCase, false, false, false); len(got) != 1 || got[0].kind != kindNominal {
 		t.Fatal("only the kind that takes a particle is read", got)
 	}
-	first := wordsScan("x", layerKnown).ix.knownCandidates("작", rule.TailCase, false, false)
+	first := wordsScan("x", layerKnown).ix.knownCandidates("작", rule.TailCase, false, false, false)
 	if len(first) != 2 || first[0].v != 1 || first[1].v != 1 || first[0].name != "열쇠:체언" || first[1].name != "열쇠:형용사" {
 		t.Fatal("in the first layer every kind stands whole", first)
 	}
-	if got = ix.knownCandidates("이", rule.TailBare, false, false); len(got) != 2 || got[0].name != "관형사:이" || got[0].kind != kindDeterminer {
+	if got = ix.knownCandidates("이", rule.TailBare, false, false, false); len(got) != 2 || got[0].name != "관형사:이" || got[0].kind != kindDeterminer {
 		t.Fatal("a closed-set word under its set's name", got)
 	}
 	if got[1].name != "열쇠:체언" || got[1].kind != kindNominal || got[1].v <= 0 {
 		t.Fatal("and under the table's kind too, where the table lists it (the table has 이 as a noun)", got)
 	}
-	if got = ix.knownCandidates("이", rule.TailCase, false, false); len(got) != 1 || got[0].name != "열쇠:체언" {
+	if got = ix.knownCandidates("이", rule.TailCase, false, false, false); len(got) != 1 || got[0].name != "열쇠:체언" {
 		t.Fatal("named by the table's kind where it does not stand as its set's", got)
 	}
-	if got = ix.knownCandidates("없는말", rule.TailBare, false, false); len(got) != 0 {
+	if got = ix.knownCandidates("없는말", rule.TailBare, false, false, false); len(got) != 0 {
 		t.Fatal(got)
 	}
 	none := scanOf("x").ix
-	if got = none.knownCandidates("이", rule.TailBare, false, false); len(got) != 1 || got[0].kind != 0 || got[0].name != "관형사:이" {
+	if got = none.knownCandidates("이", rule.TailBare, false, false, false); len(got) != 1 || got[0].kind != 0 || got[0].name != "관형사:이" {
 		t.Fatal("with no word table only the closed-set words are known, under their set's names", got)
 	}
-	if got = none.knownCandidates("고양이", rule.TailBare, false, false); len(got) != 0 {
+	if got = none.knownCandidates("고양이", rule.TailBare, false, false, false); len(got) != 0 {
 		t.Fatal("a word only the table knows", got)
 	}
 	ix.lex["주"] = word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
-	apart := ix.knownCandidates("주", rule.TailPred, false, false)
-	onto := ix.knownCandidates("주", rule.TailPred, false, true)
+	apart := ix.knownCandidates("주", rule.TailPred, false, false, false)
+	onto := ix.knownCandidates("주", rule.TailPred, false, true, false)
 	if len(apart) != 2 || len(onto) != 2 || onto[0].name != "보조 용언:주" || onto[1].name != "열쇠:동사" || apart[0].name != onto[0].name || apart[1].name != onto[1].name {
 		t.Fatal("the same names", apart, onto)
 	}
 	if apart[0].v >= 1 || apart[1].v >= 1 || onto[0].v != 1 || onto[1].v != 1 {
 		t.Fatal("one syllable long does not hold against an auxiliary written onto its main verb", apart, onto)
 	}
-	bare, _ := candidatesIn(none.knownCandidates("주", rule.TailPred, false, false))
-	if lifted, v := candidatesIn(none.knownCandidates("주", rule.TailPred, false, true)); lifted != bare || lifted == "" || v != 1 {
+	bare, _ := candidatesIn(none.knownCandidates("주", rule.TailPred, false, false, false))
+	if lifted, v := candidatesIn(none.knownCandidates("주", rule.TailPred, false, true, false)); lifted != bare || lifted == "" || v != 1 {
 		t.Fatal("with no word table", bare, lifted, v)
 	}
 }

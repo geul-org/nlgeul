@@ -362,3 +362,14 @@ const bonusBoundAfter = 3.5
 // right words than 0.5, 1.5 and 2 (the more it adds, the more a
 // modifier stacked on another, 그의 검은, is read as a noun).
 const bonusModified = 1.0
+
+// forceUnitWord is the force of the rebuttal "the stem begins right
+// after a number, and its letters are a unit and a word written after a
+// unit" against a known word (5년간 read as 5 and 년간, 6월경 as 6 and
+// 월경): the number and its unit (5년, 6월) and the word after it (간,
+// 경) come first, as article 43 of the orthography writes a unit with
+// its number. It is chosen among a few values tried on the answer
+// sheet: 0.25 righted 2 words of the kind, 0.5 and 0.98 righted 17 each
+// (the same ones), so the least of those, which still keeps the known
+// word as a candidate behind them (a verdict of about 1/3).
+const forceUnitWord = 0.5

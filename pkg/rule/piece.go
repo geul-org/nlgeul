@@ -53,6 +53,9 @@ package rule
 // its head) are Hangul syllables, right after which a round bracket
 // holds nothing but Han characters, as many as those syllables: the
 // letters are the sound of the characters (대곤(大棍), 관치(官治)).
+// UnitWord tells that the piece is a stem that begins right after a
+// number and whose letters are a unit of the unit table and then a word
+// written after a unit (5년간: 년 and 간, 6월경: 월 and 경).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -84,4 +87,5 @@ type Piece struct {
 	Conn     bool
 	Change   bool
 	Glossed  bool
+	UnitWord bool
 }

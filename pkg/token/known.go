@@ -4,7 +4,7 @@ package token
 
 func (ix *index) known(stem string, tail int, sole bool) float64 {
 	best := 0.0
-	for _, r := range ix.knownCandidates(stem, tail, sole, false) {
+	for _, r := range ix.knownCandidates(stem, tail, sole, false, false) {
 		best = max(best, r.v)
 	}
 	return best
