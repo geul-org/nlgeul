@@ -10,7 +10,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // -게/-도록/-어야/-려고/-고자 하다 and of quoting (-다고 한); a
 // determiner takes none of them. A determiner is written apart from
 // the word before it (clause 2 of the orthography): 한 written onto a
-// word (무형한, 불쾌한) is not asked about.
+// word (스마트한) is not asked about.
 func determinerOneRule() sentenceRule {
 	g, claim := sentenceClaim(ruleDeterminerOne, rule.Listed, listed("관형사 한", rule.ListSelfKind, []string{oneDeterminer}))
 	except(g, rule.Listed, whyHaTakes, listed("하다가 받는 꼴", rule.ListPrevLast, haTakes)).Attacks(claim)
