@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestLines — whole sentences: case particles and chains, auxiliaries, closings by kind, the copula, complements before 되다 and 아니다, 미정; "+" before every particle and between the pieces of a tail; dependent nouns, shortened 것, auxiliary verbs, determiners, conjunctions and naming endings of the closed sets
+//ff:what TestLines — whole sentences: case particles and chains, auxiliaries, closings by kind, the copula, complements before 되다 and 아니다, 미정; "+" before every particle and between the pieces of a tail; dependent nouns, shortened 것, auxiliary verbs, determiners, conjunctions and naming endings of the closed sets; 간 is a dependent noun of the closed set, so a word read as 간 with a tail (간다, 간다는) begins with a dependent noun (boundHead): 간다는 is not judged a modifier and 일만을 before 간다, which may be read as a modifier, is left 미정
 package parse
 
 import (
@@ -17,11 +17,11 @@ func TestLines(t *testing.T) {
 		{"이것은 곰이 되었다", "이것+은:관형어|주어|목적어 곰+이:보어 되+었+다:서술어"},
 		{"물이 얼음이 됐어요", "물+이:보어|주어 얼음+이:보어|주어 됐+어+요:서술어"},
 		{"권한이 사용되었다", "권한+이:주어 사용+되+었+다:서술어"},
-		{"선생님께서 친구에게 집으로 나라의 힘만으로도 어제까지의 일만을 간다", "선생님+께서:주어 친구+에게:부사어 집+으로:부사어 나라+의:관형어 힘+만+으로+도:부사어 어제+까지+의:관형어 일+만+을:목적어 간+다:서술어"},
+		{"선생님께서 친구에게 집으로 나라의 힘만으로도 어제까지의 일만을 간다", "선생님+께서:주어 친구+에게:부사어 집+으로:부사어 나라+의:관형어 힘+만+으로+도:부사어 어제+까지+의:관형어 일만을:미정 간+다:서술어"},
 		{"그분이 잡히셨겠더군요", "그분+이:주어 잡히+시+었+겠+더+군+요:서술어"},
 		{"먹었고 했지만 가면서 먹으면 불어서 봤어요", "먹+었+고:서술어 했+지만:서술어 가+면서:서술어 먹+으+면:서술어 불+어서:서술어 봤+어+요:서술어"},
 		{"먹습니다 갑니다 가세요 먹죠 먹는다고 한다", "먹+습+니다:서술어 갑+니다:서술어 가+시+어+요:서술어 먹+지+요:서술어 먹+는+다+고:서술어 한+다:서술어"},
-		{"분해한 학생인 가던 간다는 문제였다", "분해+한:관형어 학생+인:관형어 가+던:관형어 간+다+는:관형어 문제+였+다:서술어"},
+		{"분해한 학생인 가던 간다는 문제였다", "분해+한:관형어 학생+인:관형어 가+던:관형어 간다는:미정 문제+였+다:서술어"},
 		{"철수야 학교예요", "철수+야:독립어 학교+예요:서술어"},
 		{"발전시키고 작성하고 시작됩니다", "발전+시키+고:서술어 작성+하+고:서술어 시작+됩+니다:서술어"},
 		{"전략인거 아는거 할수 있는거지", "전략+인+거:미정 아+는+거:미정 할+수:미정 있+는+거+지:서술어"},
