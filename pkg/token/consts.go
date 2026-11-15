@@ -248,3 +248,23 @@ const bonusMalLinked = 3.5
 // were 6 at 1, 8 at 1.5, 2, 3, 4 and 6; the least value of the most is
 // chosen.
 const bonusAuxLinked = 1.5
+
+// tableNoun is the name of a noun of the word table (열쇠:체언), and
+// nounNames the kinds of the names of the closed sets' nouns (의존명사:수,
+// 대명사:나): the rule of a sentence gluedShortRule speaks of such a noun
+// of one syllable, under any of the names its letters are read with.
+var (
+	tableNoun = keyKind + ":" + kindLabel[kindNominal]
+	nounNames = []string{"의존명사", "대명사"}
+)
+
+// bonusGluedShort is what the rule of a sentence gluedShortRule adds to a
+// noun of one syllable with its particle written onto a nominal: what the
+// rebuttal "one syllable long" alone takes from lambda (its verdict is
+// 2/(1+forceShort)-1, so the value is about 3.33), so that the
+// preferences of the noun with its particle and of the longer word of the
+// same letters decide. Measured on the answer sheet against no rule, in
+// words right more: 2 gave 28, 2.7 gave 37, this value 56 (65 fixed, 9
+// broken), 4 gave 58 (75 fixed, 17 broken), 5 gave 51 and 8 gave 19
+// fewer. It is kept for its reason and for half the words broken at 4.
+var bonusGluedShort = -Lambda * math.Log10(2/(1+forceShort)-1)

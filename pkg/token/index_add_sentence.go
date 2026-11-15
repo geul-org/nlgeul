@@ -13,4 +13,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, malLinkedRule())
 	// 보다 as an auxiliary in -다(가) 보니 and -다(가) 보면.
 	ix.sentence = append(ix.sentence, auxWhileRule())
+	// a noun of one syllable with its particle written onto a nominal
+	ix.sentence = append(ix.sentence, gluedShortRule())
 }

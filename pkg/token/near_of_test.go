@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestNearOf — a candidate as the rules of a sentence read it: a stem with a case particle gives the stem, its name and the particle's name and is no predicate; a stem with a closing (맺음) is a predicate, and so is one with a modifying (꾸밈) or naming (이름) closing; a new word alone gives its letters with no name and no last piece; a word that begins with no stem (attached to the word before) gives no stem; a branch with no word, or a word with no part, gives nothing
+//ff:what TestNearOf — a candidate as the rules of a sentence read it: a stem with a case particle gives the stem, its name and the particle's name and is no predicate; a stem with a closing (맺음) is a predicate, and so is one with a modifying (꾸밈) or naming (이름) closing; a new word alone gives its letters with no name and no last piece, and ends in a nominal; a word that begins with no stem (attached to the word before) gives no stem; a branch with no word, or a word with no part, gives nothing
 package token
 
 import (
@@ -27,7 +27,7 @@ func TestNearOf(t *testing.T) {
 	if !nearOf(word(verb, adn)).Pred || !nearOf(word(verb, naming, obj)).Pred || nearOf(word(verb, past)).Pred {
 		t.Fatal("꾸밈 and 이름 make a predicate; a pre-final ending alone does not")
 	}
-	if got := nearOf(word(Part{Text: "학생이", Stem: true})); got != (rule.Near{Stem: "학생이"}) {
+	if got := nearOf(word(Part{Text: "학생이", Stem: true})); got != (rule.Near{Stem: "학생이", Nominal: true}) {
 		t.Fatal("a new word alone", got)
 	}
 	if got := nearOf(word(Part{Text: "로", Name: Name{Kind: "부사격", Form: "로"}})); got != (rule.Near{Last: "부사격:로", Marks: "부사격:로"}) {

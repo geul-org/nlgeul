@@ -194,3 +194,10 @@ const (
 	ListPrevKind             // the kind of the name of the stem of the word before it (닫기 of 닫기:1)
 	ListPrevStem             // the stem of the word before it
 )
+
+// Yes/no facts of a candidate judged in its sentence that AroundIs
+// tests.
+const (
+	AroundGlued        = 1 << iota // no space stands between the candidate's word and the word before it
+	AroundAfterNominal             // the word right before it ends in a nominal (Near.Nominal)
+)

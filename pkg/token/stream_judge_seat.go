@@ -11,6 +11,7 @@ func (s *Stream) judgeSeat(seats []seat, i int) ([]lift, []string) {
 	var notes []string
 	for _, br := range n.Contest.Branches {
 		around.Self = nearIn(n, br)
+		around.Self.Text = n.Contest.Text
 		add, lines := s.judgeCandidate(br, around)
 		notes = append(notes, lines...)
 		if add != 0 {

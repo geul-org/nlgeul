@@ -8,5 +8,11 @@ type Near struct {
 	Last  string
 	Pred  bool
 	Marks string
-	Glued bool
+	// Glued tells that no space stands between the word and the word
+	// before it, Nominal that the word ends in a nominal (its last part
+	// is a nominal stem, an order or a unit after a number), and Text is
+	// the word's letters. The reader fills them.
+	Glued   bool
+	Nominal bool
+	Text    string
 }

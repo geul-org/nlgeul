@@ -149,3 +149,10 @@ const (
 // Why a slash at a unit's edge is a 빗금 although its sides are no
 // Hangul (signGraph).
 const whyAtEdge = "단위의 가장자리(어절 끝, 읽는 글자 바로 앞, 홀로)에 있다"
+
+// Why the rule of a sentence gluedShortRule does not stand, and its
+// name (its claim is that the word is written onto the word before it).
+const (
+	whyNotAfterNominal = "바로 앞 어절이 체언으로 끝나지 않는다"
+	ruleGluedShort     = "문장:체언에 붙은 한 음절 체언+조사"
+)
