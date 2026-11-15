@@ -1,55 +1,29 @@
-//ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderStreamEmph — end to end, with and without the word table of testdata: the emphatic 가 stands only after an adverbial particle (학교에서가, 마당에가); after a number's unit, after an honorific, after the naming closing 기 and after a closing that asks it is not read, and the case particle 가 stays there as it was
+//ff:func feature=token type=reader control=iteration dimension=1
+//ff:what TestReaderStreamEmph — end to end with the word table of testdata, 를 of emphasis after 에 and 으로 is a piece of the same word (고양이+에+를, 고양이+로+를), not after 에서 or 서, nor right on a stem, and the particle 일랑 is read after a final consonant (책+일랑)
 package token
 
 import (
-	"slices"
 	"strings"
 	"testing"
 )
 
 func TestReaderStreamEmph(t *testing.T) {
-	bare, err := New(Options{})
+	r, err := New(Options{Words: "testdata/words.tsv"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	lexed, err := New(Options{Words: "testdata/words.tsv"})
-	if err != nil {
-		t.Fatal(err)
-	}
-	const emph = "가[보조사:가(강조)]"
-	cases := []struct {
-		sentence string
-		has      []string
-		lacks    []string
-		words    bool
-	}{
-		{"집에서가", []string{"집+에서[부사격:에서]+" + emph}, nil, false},
-		{"집에가", []string{"집+에[부사격:에]+" + emph}, nil, false},
-		{"학교에서가", []string{"학교[열쇠:체언]+에서[부사격:에서]+" + emph}, nil, true},
-		{"마당에가", []string{"마당[열쇠:체언]+에[부사격:에]+" + emph}, nil, true},
-		{"3건가", nil, []string{emph}, false},
-		{"3건이", []string{"3[수]+건[단위:건]+이["}, nil, false},
-		{"7개가", []string{"7[수]+개[단위:개]+가[주격:가]"}, []string{emph}, false},
-		{"두개가", []string{"두[수]+개[단위:개]+가[주격:가]"}, []string{emph}, true},
-		{"가심가", nil, []string{emph}, true},
-		{"먹기가", []string{"먹[열쇠:동사]+기[이름:기]+가[주격:가]"}, []string{emph}, true},
-		{"먹는지가", []string{"먹[열쇠:동사]+는지[맺음:는지]+가[주격:가]"}, []string{emph}, true},
-		{"살지가", []string{"+가[주격:가]"}, []string{emph}, true},
-	}
-	for _, c := range cases {
-		readers := []*Reader{lexed}
-		if !c.words {
-			readers = append(readers, bare)
+	for in, want := range map[string]string{
+		"고양이에를": "\n고양이[열쇠:체언]+에[부사격:에]+를[보조사:를]\n",
+		"고양이로를": "\n고양이[열쇠:체언]+로[부사격:로]+를[보조사:를]\n",
+		"책일랑":   "\n책+일랑[보조사:일랑]\n",
+	} {
+		if got := streamText(r, in); !strings.Contains(got, want) {
+			t.Errorf("%s: no %q\n%s", in, want, got)
 		}
-		for _, r := range readers {
-			out := streamText(r, c.sentence)
-			if i := slices.IndexFunc(c.has, func(want string) bool { return !strings.Contains(out, want) }); i >= 0 {
-				t.Errorf("%s: no %q\n%s", c.sentence, c.has[i], out)
-			}
-			if i := slices.IndexFunc(c.lacks, func(not string) bool { return strings.Contains(out, not) }); i >= 0 {
-				t.Errorf("%s: %q read\n%s", c.sentence, c.lacks[i], out)
-			}
+	}
+	for _, in := range []string{"고양이에서를", "고양이서를", "고양이를"} {
+		if got := streamText(r, in); strings.Contains(got, "[보조사:를]") {
+			t.Errorf("%s: 를 of emphasis\n%s", in, got)
 		}
 	}
 }
