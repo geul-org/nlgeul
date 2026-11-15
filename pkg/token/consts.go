@@ -313,3 +313,9 @@ var (
 // 0.5 changed nothing, and the others gave the same seven more right
 // words and none fewer; 2.5 leaves room over the gap.
 const bonusCopula = 2.5
+
+// numberKinds are the names of the stem of a number (and of an ordinal
+// number with 제, so that the two readings of the same digits keep their
+// order) that a rule of a sentence reads 라고 after as the particle of
+// quotation (numberQuoteRule).
+var numberKinds = []string{"수", "차례"}

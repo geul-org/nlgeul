@@ -4,6 +4,8 @@
 //ff:what addSentence — the rules that judge a candidate with the words of its sentence around it, in the order they are asked: an auxiliary verb after a linking form (auxLinkedRule) and the main predicate elsewhere (mainUnlinkedRule), both of the closed set of auxiliary verbs of the grammar tables, and 보다 as an auxiliary after a question form (auxAskedRule); and 에서·서 as the adverbial particle before the nominative (adverbialFirstRule); and 이/가 right before 되다 or 아니다 as the complement particle (complementRule); and 라고·이라고 right after a closing quotation mark as the particle of direct quotation (quotedRule); and 이란·란 right after a closing sign as the topic particle (shutTopicRule)
 
 //ff:what addSentence — the rules that judge a candidate with the words of its sentence around it, in the order they are asked: an auxiliary verb after a linking form (auxLinkedRule) and the main predicate elsewhere (mainUnlinkedRule), both of the closed set of auxiliary verbs of the grammar tables, and 보다 as an auxiliary after a question form (auxAskedRule); and 에서·서 as the adverbial particle before the nominative (adverbialFirstRule); and 이/가 right before 되다 or 아니다 as the complement particle (complementRule); and 라고·이라고 right after a closing quotation mark as the particle of direct quotation (quotedRule); and 야 that ends a sentence as the ending of the copula (copulaEndRule)
+
+//ff:what addSentence — the rules that judge a candidate with the words of its sentence around it, in the order they are asked: an auxiliary verb after a linking form (auxLinkedRule) and the main predicate elsewhere (mainUnlinkedRule), both of the closed set of auxiliary verbs of the grammar tables, and 보다 as an auxiliary after a question form (auxAskedRule); and 에서·서 as the adverbial particle before the nominative (adverbialFirstRule); and 이/가 right before 되다 or 아니다 as the complement particle (complementRule); and 라고·이라고 right after a closing quotation mark as the particle of direct quotation (quotedRule); and 야 that ends a sentence as the ending of the copula (copulaEndRule); and 라고·이라고 after a number as the particle of quotation (numberQuoteRule)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/parse"
@@ -24,4 +26,5 @@ func (ix *index) addSentence() {
 	// 이란·란 right after a closing sign
 	ix.sentence = append(ix.sentence, shutTopicRule())
 	ix.sentence = append(ix.sentence, copulaEndRule())
+	ix.sentence = append(ix.sentence, numberQuoteRule())
 }
