@@ -181,3 +181,11 @@ const (
 	ruleCopulaComma = "문장:쉼표 앞 이나는 서술격"
 	ruleAlone       = "문장:괄호 안에 홀로 선 말은 의존명사·관형사가 아니다"
 )
+
+// The names and the reasons of the rules of a sentence about dependent
+// nouns and the modifying forms before them.
+const (
+	ruleBoundBefore = "문장:의존 명사 앞 꾸밈"
+
+	whyNoBoundNext = "바로 뒤 어절이 의존 명사가 아니다"
+)

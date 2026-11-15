@@ -335,3 +335,12 @@ var (
 // it, and a determiner only before the noun it modifies, and the bracket
 // holds neither.
 var aloneBarred = []string{"의존명사", "관형사"}
+
+// bonusBound is what the rule of a sentence "a modifying form stands
+// right before a dependent noun" adds (boundBeforeRule). The candidates
+// it tells apart are of different lambdas: 알 read as the noun stands
+// 1.7 above 알다 with the modifying ㄹ, and 꿀 2.0 above 꾸다 with it,
+// which bonusSentence does not carry over. It is chosen among 1, 1.5, 2,
+// 2.5 and 3 tried with that rule on the answer sheet: 2.5 gave 17, 15
+// and 2 more right words than 1, 1.5 and 2, and 3 one fewer.
+const bonusBound = 2.5

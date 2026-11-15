@@ -36,4 +36,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, copulaCommaRule())
 	// a word standing alone inside a pair of signs
 	ix.sentence = append(ix.sentence, aloneRule())
+	// A modifying form right before a dependent noun (boundBeforeRule).
+	ix.sentence = append(ix.sentence, boundBeforeRule(boundNext))
 }
