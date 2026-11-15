@@ -31,14 +31,15 @@ const (
 // An auxiliary particle is written onto a linking closing (보지도,
 // 먹고는, 조용하게는, 먹어서는, 하면서는; clause 41 of the orthography: a particle after an
 // ending is written onto it too; so is a quoting ending: 있다고는,
-// 좋다고만). auxClosings are the closings and auxParticles the
+// 좋다고만; and the linking 다가, 고서 and 려고: 했다가도, 하고서야,
+// 가려고는). auxClosings are the closings and auxParticles the
 // particles this is read for. A pair that is itself a
 // closing of the tables (어도, 어야, 고도, 지만) is read as that closing
 // only. The lists of names are made from the closings' rows
 // (closingNames).
 const linkAuxName = "사슬:맺음 뒤 보조사"
 
-var auxClosings = closingNames(parse.Marker{Form: "지"}, parse.Marker{Form: "고"}, parse.Marker{Form: "게"}, parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "서", Lead: rule.LeadVowel}, parse.Marker{Form: "면서", Eu: true}, parse.Marker{Form: "다고"}, parse.Marker{Form: "다고", Lead: rule.JongN}, parse.Marker{Form: "는다고", After: rule.AfterBatchim}, parse.Marker{Form: "라고"}, parse.Marker{Form: "자고"}, parse.Marker{Form: "냐고"}, parse.Marker{Form: "느냐고"})
+var auxClosings = closingNames(parse.Marker{Form: "지"}, parse.Marker{Form: "고"}, parse.Marker{Form: "게"}, parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "서", Lead: rule.LeadVowel}, parse.Marker{Form: "면서", Eu: true}, parse.Marker{Form: "다고"}, parse.Marker{Form: "다고", Lead: rule.JongN}, parse.Marker{Form: "는다고", After: rule.AfterBatchim}, parse.Marker{Form: "라고"}, parse.Marker{Form: "자고"}, parse.Marker{Form: "냐고"}, parse.Marker{Form: "느냐고"}, parse.Marker{Form: "다가"}, parse.Marker{Form: "고서"}, parse.Marker{Form: "려고", Eu: true})
 var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "보조사:야"}
 
 // A particle is written onto the closings that ask or wonder too
