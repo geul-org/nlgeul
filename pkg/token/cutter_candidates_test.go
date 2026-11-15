@@ -27,7 +27,7 @@ func TestCutterCandidates(t *testing.T) {
 		{"\"가\"", nil, 0, []pairing{{openName, 1}}, false, []string{"\""}},
 		{"\"가\"", []string{"\""}, 2, []pairing{{shutName, 1}}, false, []string{""}},
 		{"'가'", nil, 0, []pairing{{openName, 1}}, true, []string{"'", ""}},
-		{"'가'", []string{"'", ""}, 2, []pairing{{openName, 1}, {shutName, 1}}, true, []string{"", "'"}},
+		{"'가'", []string{"'", ""}, 2, []pairing{{shutName, 1}, {openName, 1}}, true, []string{"", "'"}},
 		{"it's", nil, 2, nil, false, nil},
 		{"x < y", nil, 2, nil, false, nil},
 		{"<가>", nil, 0, []pairing{{openName, 1}}, true, []string{"<", ""}},
@@ -37,7 +37,7 @@ func TestCutterCandidates(t *testing.T) {
 		{"\"좋다”고", []string{"\""}, 3, []pairing{{shutName, 0}}, false, []string{"\""}},
 		{"“가”고", []string{"“", ""}, 2, []pairing{{shutName, 1}}, true, []string{""}},
 		{"“가”고", []string{"(", "(“"}, 2, []pairing{{shutName, 2}}, true, []string{"("}},
-		{"'좋다'고", []string{"'", ""}, 3, []pairing{{openName, 1}, {shutName, 1}}, true, []string{"", "'"}},
+		{"'좋다'고", []string{"'", ""}, 3, []pairing{{shutName, 1}, {openName, 1}}, true, []string{"", "'"}},
 		{"좋다’고", nil, 2, []pairing{{shutName, 0}}, false, []string{""}},
 	}
 	for _, c := range cases {

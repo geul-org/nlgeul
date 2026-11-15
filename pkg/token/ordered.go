@@ -1,8 +1,6 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what ordered — the candidates of a sign of a pair, each once: those that open before those that close, each kind from the least depth up
+//ff:what ordered — the candidates of a sign of a pair, each once, in the order they first come: the ways the signs before it may stand open give them in turn, and the first way is the one in which the signs before were read as their first candidates, so a quotation mark written the same at both ends closes first where one of its kind was opened before it, and opens first where none was
 package token
-
-import "sort"
 
 func ordered(candidates []pairing) []pairing {
 	var out []pairing
@@ -13,11 +11,5 @@ func ordered(candidates []pairing) []pairing {
 			out = append(out, rd)
 		}
 	}
-	sort.SliceStable(out, func(a, b int) bool {
-		if out[a].name != out[b].name {
-			return out[a].name == openName
-		}
-		return out[a].depth < out[b].depth
-	})
 	return out
 }

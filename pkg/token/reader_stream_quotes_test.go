@@ -23,7 +23,7 @@ func TestReaderStreamQuotes(t *testing.T) {
 	if opens[0] != "열기:1" || opens[1] != "닫기:1" {
 		t.Fatal("the second pair opens at depth 1", opens)
 	}
-	if shut := kindsOf(quotes[3]); shut[0] != "열기:1" || shut[1] != "닫기:1" {
+	if shut := kindsOf(quotes[3]); shut[0] != "닫기:1" || shut[1] != "열기:1" {
 		t.Fatal("and closes at depth 1", shut)
 	}
 	feet := streamContests(r, "5'10\"")

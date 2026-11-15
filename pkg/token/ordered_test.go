@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestOrdered — each candidate once; those that open before those that close, each kind from the least depth up
+//ff:what TestOrdered — each candidate once, in the order they first come (the order of the ways the signs before may stand open): no kind and no depth is put before another
 package token
 
 import (
@@ -9,7 +9,7 @@ import (
 
 func TestOrdered(t *testing.T) {
 	got := ordered([]pairing{{shutName, 2}, {openName, 2}, {openName, 1}, {shutName, 1}, {openName, 1}, {shutName, 2}})
-	want := []pairing{{openName, 1}, {openName, 2}, {shutName, 1}, {shutName, 2}}
+	want := []pairing{{shutName, 2}, {openName, 2}, {openName, 1}, {shutName, 1}}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatal(got)
 	}

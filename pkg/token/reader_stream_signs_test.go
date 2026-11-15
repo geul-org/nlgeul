@@ -61,11 +61,11 @@ func TestReaderStreamSigns(t *testing.T) {
 	if p := part(quote[0], 1); p.Name != (Name{}) || p.Depth != 0 || p.Text != "'" || p.Label() != "'" {
 		t.Fatalf("the quote as its letter: %+v", p)
 	}
-	if last := quote[5]; len(last.Branches) != 3 || last.Branches[0].Words[0].Parts[0].Depth != 1 || last.Branches[1].Words[0].Parts[0].Name.Kind != "닫기" {
+	if last := quote[5]; len(last.Branches) != 3 || last.Branches[0].Words[0].Parts[0].Depth != 1 || last.Branches[0].Words[0].Parts[0].Name.Kind != "닫기" || last.Branches[1].Words[0].Parts[0].Name.Kind != "열기" {
 		t.Fatalf("the last quote: %+v", last)
 	}
 	paren := quote[2]
-	if len(paren.Branches) != 2 || part(paren, 0).Depth != 1 || part(paren, 1).Depth != 2 {
+	if len(paren.Branches) != 2 || part(paren, 0).Depth != 2 || part(paren, 1).Depth != 1 {
 		t.Fatalf("a bracket in a quote has two depths: %+v", paren)
 	}
 

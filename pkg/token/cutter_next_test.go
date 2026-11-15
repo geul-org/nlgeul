@@ -22,7 +22,7 @@ func TestCutterNext(t *testing.T) {
 		{6, unit{text: ")이", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}, spaced: true}, 8, []string{""}},
 		{9, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{openName, 1}}, bare: true, first: true}, 10, []string{"'", ""}},
 		{10, unit{text: "가", spaced: false}, 11, []string{"'", ""}},
-		{11, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{openName, 1}, {shutName, 1}}, bare: true, spaced: true}, 12, []string{"", "'"}},
+		{11, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{shutName, 1}, {openName, 1}}, bare: true, spaced: true}, 12, []string{"", "'"}},
 		{13, unit{text: "x", spaced: true}, 14, []string{"", "'"}},
 		{15, unit{text: "<", spaced: true}, 16, []string{"", "'"}},
 	}
