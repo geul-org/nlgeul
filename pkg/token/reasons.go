@@ -202,7 +202,5 @@ const (
 	whyNoModifier     = "앞 어절이 꾸밈 맺음이나 관형격 조사로 끝나지 않는다"
 	ruleDateFirst     = "문장:점으로 적은 연월일은 날짜 먼저"
 	ruleFractionFirst = "문장:빗금으로 이은 수는 나눔 먼저"
-	ruleDateFirst     = "문장:점으로 적은 연월일은 날짜 먼저"
-	ruleFractionFirst = "문장:빗금으로 이은 수는 나눔 먼저"
 	ruleDegreeUnit    = "문장:수 바로 뒤 어절 끝 도는 단위 먼저"
 )
