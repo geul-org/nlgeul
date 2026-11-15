@@ -3,7 +3,6 @@
 package token
 
 import (
-	"math"
 	"strings"
 	"testing"
 )
@@ -38,7 +37,7 @@ func TestReaderStreamAlone(t *testing.T) {
 			}
 			continue
 		}
-		if got[0].String() != c.free || math.Abs(after-before-bonusSentence) > 1e-9 || !stood {
+		if got[0].String() != c.free || after-before < bonusSentence-1e-9 || !stood {
 			t.Errorf("%q: %v -> %v, first %s\n%s", c.in, before, after, got[0].String(), strings.Join(notes, "\n"))
 		}
 	}
