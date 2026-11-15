@@ -1,5 +1,5 @@
 //ff:func feature=rule type=rule control=sequence
-//ff:what Headed — 쓰임: rule, except. 문장 안에서 판정하는 후보 앞에 어절이 없거나(문장 첫머리), 바로 앞 어절이 줄기 없는 기호 하나이고 그 이름의 갈래(열기:1의 열기)가 기준 목록에 있다. 기준: List(기호 이름의 갈래 목록; 볼 사실은 ListPrevLast), 뒤집으려면 Not을 함께. 값: 그렇다면 +1, 아니면 -1(Not이면 반대). 증거: 바로 앞 기호의 이름(첫머리면 "")
+//ff:what Headed — 쓰임: rule, except. 문장 안에서 판정하는 후보 앞에 어절이 없거나(문장 첫머리), 바로 앞 어절의 줄기 이름의 갈래(열기:1의 열기 — 여닫는 기호는 줄기 자리에 선다)가 기준 목록에 있다. 줄기 이름이 없는 새 낱말은 첫머리가 아니다. 기준: List(갈래 목록; 볼 사실은 ListPrevKind), 뒤집으려면 Not을 함께. 값: 그렇다면 +1, 아니면 -1(Not이면 반대). 증거: 바로 앞 어절의 줄기 이름(첫머리면 "")
 package rule
 
 import (
@@ -15,7 +15,6 @@ func Headed(ctx toulmin.Context, specs toulmin.Specs) (float64, any) {
 	if len(before) == 0 {
 		return Holds(true, specs), ""
 	}
-	b := before[0]
-	kind, _, _ := strings.Cut(b.Last, ":")
-	return Holds(b.Stem == "" && b.Kind == "" && b.Last == b.Marks && slices.Contains(l.Items, kind), specs), b.Last
+	kind, _, _ := strings.Cut(before[0].Kind, ":")
+	return Holds(kind != "" && slices.Contains(l.Items, kind), specs), before[0].Kind
 }

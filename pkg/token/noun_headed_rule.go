@@ -15,7 +15,7 @@ import (
 func nounHeadedRule(words []string) sentenceRule {
 	noun := keyKind + ":" + kindLabel[kindNominal]
 	g, claim := sentenceClaim(ruleNounHeaded, rule.Listed, listed("의존 명사", rule.ListSelfStem, words))
-	except(g, rule.Headed, whyNotHeaded, listed("여는 기호", rule.ListPrevLast, []string{openName}), not).Attacks(claim)
+	except(g, rule.Headed, whyNotHeaded, listed("여는 기호", rule.ListPrevKind, []string{openName}), not).Attacks(claim)
 	except(g, rule.Listed, whyDenyNext, listed("아니다", rule.ListNextStem, denyStems)).Attacks(claim)
 	is := func(n rule.Near) bool { return n.Kind == noun && slices.Contains(words, n.Stem) }
 	return sentenceRule{name: ruleNounHeaded, graph: g, bonus: bonusSentence, about: is, waits: is}
