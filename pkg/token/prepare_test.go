@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestPrepare — every run is an atom, joined runs one atom; a unit of Hangul has none
+//ff:what TestPrepare — every run is an atom, joined runs one atom; a number with 제 before it begins at 제 and its end is noted (제3조│제1항); a unit of Hangul has none
 package token
 
 import (
@@ -12,6 +12,11 @@ func TestPrepare(t *testing.T) {
 	sc.prepare()
 	if len(sc.atoms) != 2 || !reflect.DeepEqual(sc.atoms[0].names, []string{"버전"}) || sc.atoms[0].end != 6 || sc.atoms[9].end != 11 {
 		t.Fatal(sc.atoms)
+	}
+	sc = scanOf("제3조제1항")
+	sc.prepare()
+	if len(sc.atoms) != 2 || sc.atoms[0].end != 2 || sc.atoms[3].end != 5 || !sc.ordEnds[2] || !sc.ordEnds[5] || len(sc.ordEnds) != 2 {
+		t.Fatal(sc.atoms, sc.ordEnds)
 	}
 	sc = scanOf("한글만")
 	sc.prepare()

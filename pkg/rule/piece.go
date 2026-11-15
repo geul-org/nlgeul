@@ -34,7 +34,8 @@ package rule
 // piece and that the piece stands right on its stem, the stem ending in a
 // Hangul syllable with no final consonant, or right after the suffix 이
 // that stands on a stem (에요 after 고양이 and after 고양+이: the letters
-// are those of the closing 예요 written wrong).
+// are those of the closing 예요 written wrong). Order tells that the
+// number right before the piece begins with the prefix 제.
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -61,4 +62,5 @@ type Piece struct {
 	Same     bool
 	Misspelt bool
 	YoOpen   bool
+	Order    bool
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddAfter — a piece is kept by its last letter and stands only right after a number and not with letters running on after it; after a lone Sino-Korean digit with no word table it does not stand, and when the number and the piece together are a word it stands lower; a greater number has neither of the last two
+//ff:what TestAddAfter — a piece is kept by its last letter and stands only right after a number and not with letters running on after it; after a lone Sino-Korean digit with no word table it does not stand, and when the number and the piece together are a word it stands lower; a greater number has neither of the last two, and one that is also a unit (조) stands lower, but still stands, after a number that begins with 제
 package token
 
 import (
@@ -26,5 +26,15 @@ func TestAddAfter(t *testing.T) {
 	ix.addAfter(bigName+"만", "만", placeBig)
 	if big, _ := verdictOf(ix.after['만'][0].g, rule.Piece{Num: true, Right: rule.RightDone, Lone: true, Whole: true}, "", false); big != yes || ix.edges != 6 {
 		t.Fatal(big, ix.edges)
+	}
+	if big, _ := verdictOf(ix.after['만'][0].g, rule.Piece{Num: true, Right: rule.RightDone, Order: true}, "", false); big != yes {
+		t.Fatal("만 is no unit: a number with 제 does not lower it", big)
+	}
+	ix.addAfter(bigName+"조", "조", placeBig)
+	g := ix.after['조'][0].g
+	plain, _ := verdictOf(g, rule.Piece{Num: true, Right: rule.RightDone}, "", false)
+	order, _ := verdictOf(g, rule.Piece{Num: true, Right: rule.RightDone, Order: true}, "", false)
+	if plain != yes || order <= 0 || order >= 0.5 || ix.edges != 9 {
+		t.Fatal("조 after a number with 제 stands lower", plain, order, ix.edges)
 	}
 }

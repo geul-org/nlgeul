@@ -4,6 +4,7 @@ package token
 
 func (sc *scan) prepare() {
 	sc.inside, sc.atoms, sc.numEnds, sc.adnEnds, sc.detEnds = make([]bool, len(sc.s)+1), map[int]atom{}, map[int]bool{}, map[int]bool{}, map[int]bool{}
+	sc.ordEnds = map[int]bool{}
 	sc.marks = make([]map[int]bool, len(sc.s)+1)
 	whole := runsOf(sc.s)
 	sc.wide = wideRuns(sc.s, whole)

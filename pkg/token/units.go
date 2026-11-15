@@ -30,7 +30,7 @@ func (sc *scan) units(j, next int, open bool) []tail {
 		if len(lefts) == 0 && len(words) == 0 && !rule.RunRune(sc.s[start-1]) {
 			continue
 		}
-		facts := rule.Piece{Form: e.form, HasStem: true, Next: -1, Right: rule.RightDone, Num: sc.numEnds[start] || len(lefts)+len(words) > 0}
+		facts := rule.Piece{Form: e.form, HasStem: true, Next: -1, Right: rule.RightDone, Num: sc.numEnds[start] || len(lefts)+len(words) > 0, Order: sc.ordEnds[start]}
 		runs := open && sideOf(string(sc.at(j))) != 0
 		if runs && !sc.ix.lexed && !unicode.IsDigit(sc.at(j)) {
 			facts.Right = rule.RightOther

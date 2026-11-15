@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestUnits — 개 right after a number is a unit; 번째 is a unit and an order, 여개 more-than and a unit; a longer unit and none for the shorter that does not touch the number; a unit after a run that is no number, after a syllable, out of order, or at the start is not read; Hangul numerals and a letter of the table are numbers before a unit and name the stem; a greater number follows digits only; a unit with letters running on is not read where nothing is known to follow
+//ff:what TestUnits — 개 right after a number is a unit; 번째 is a unit and an order, 여개 more-than and a unit; a longer unit and none for the shorter that does not touch the number; a unit after a run that is no number, after a syllable, out of order, or at the start is not read; Hangul numerals and a letter of the table are numbers before a unit and name the stem; a greater number follows digits only, and 조 after a number with 제 stands lower than the unit 조; a unit with letters running on is not read where nothing is known to follow
 package token
 
 import "testing"
@@ -33,6 +33,14 @@ func TestUnits(t *testing.T) {
 	}
 	if got = scanOf("k번째").units(3, 0, true); len(got) != 1 || got[0].only != "k" || len(got[0].pieces) != 2 {
 		t.Fatal(got)
+	}
+	got = scanOf("제36조").units(4, 0, true)
+	if len(got) != 2 || got[0].pieces[0].names != "큰 수:조" || got[0].pieces[0].verdict <= 0 || got[0].pieces[0].verdict >= 0.5 || got[1].pieces[0].names != "단위:조" || got[1].pieces[0].verdict != 1 {
+		t.Fatal("after a number with 제 the greater number 조 stands lower than the unit 조", got)
+	}
+	got = scanOf("36조").units(3, 0, true)
+	if len(got) != 2 || got[0].pieces[0].names != "큰 수:조" || got[0].pieces[0].verdict != 1 || got[1].pieces[0].verdict != 1 {
+		t.Fatal("with no 제 the greater number 조 stands as the unit does", got)
 	}
 	got = scanOf("3천만원").units(4, 0, true)
 	if len(got) != 3 || got[0].only != "만" || got[1].only != "천만" || len(got[2].pieces) != 3 || got[2].pieces[0].names != "큰 수:천" {

@@ -1,8 +1,10 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what addAfter — one piece that stands after a number (여, a unit, 째), kept by its last letter: the claim, the exceptions that no number stands right before it and that letters run on right after it, and for all but a greater number the exception that the number is a lone Sino-Korean digit with no word table and the rebuttal that the number and the piece together are a word
+//ff:what addAfter — one piece that stands after a number (여, a unit, 째), kept by its last letter: the claim, the exceptions that no number stands right before it and that letters run on right after it, and for all but a greater number the exception that the number is a lone Sino-Korean digit with no word table and the rebuttal that the number and the piece together are a word; a greater number that is also a word of the unit table (조) has the rebuttal that the number before it begins with the prefix 제
 package token
 
 import (
+	"slices"
+
 	"github.com/geul-org/nlgeul/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
@@ -17,6 +19,10 @@ func (ix *index) addAfter(name, form string, place int) {
 		except(g, rule.PieceIs, whyLone, fact(rule.PieceLone)).Attacks(claim)
 		g.Counter(rule.PieceIs).With(fact(rule.PieceWhole)).Attacks(claim, forceWhole)
 		ix.edges += 2
+	}
+	if place == placeBig && slices.Contains(unitWords, form) {
+		g.Counter(rule.PieceIs).With(fact(rule.PieceOrder)).Attacks(claim, forceWhole)
+		ix.edges++
 	}
 	f := []rune(form)
 	key := f[len(f)-1]
