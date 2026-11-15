@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what cuts — whether the sentence is cut at place i, and the trace lines: a sign of cutSigns with a letter right before and right after it (no space, no sentence edge), not in a span of code and not inside an address, mail address, path or option, that a graph of the sign lets stand (not a run of it, not next to another sign)
+//ff:what cuts — whether the sentence is cut at place i, and the trace lines: a hyphen that is the minus between two amounts (minusCut); a sign of cutSigns with a letter right before and right after it (no space, no sentence edge), not in a span of code and not inside an address, mail address, path or option, that a graph of the sign lets stand (not a run of it, not next to another sign)
 package token
 
 import (
@@ -12,6 +12,9 @@ import (
 )
 
 func (c *cutter) cuts(i int) (bool, []string) {
+	if c.minusCut(i) {
+		return true, nil
+	}
 	if !strings.ContainsRune(cutSigns, c.r[i]) || c.inside[i] || i == 0 || i+1 >= len(c.r) {
 		return false, nil
 	}
