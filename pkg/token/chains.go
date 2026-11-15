@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each candidate of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing); a full stop right after a number is a piece of the number's word too (numberStop: 31.까지); the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
+//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each candidate of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing), 를 of emphasis only after 에 and 으로 (emphKept); a full stop right after a number is a piece of the number's word too (numberStop: 31.까지); the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -18,7 +18,7 @@ func (sc *scan) chains(j, depth, next int) []tail {
 		if end, ok := ends[k]; ok && e.slot != rule.LinkEmph {
 			out = append(out, withGate([]tail{{start: start, pieces: []piece{end}}}, endFrom[k].gate)...)
 		}
-		here := joined(sc.chains(start, depth+1, e.slot), pc)
+		here := joined(emphKept(e, sc.chains(start, depth+1, e.slot)), pc)
 		here = append(here, joined(sc.fixed(start, e.slot), pc)...)
 		out = append(out, withGate(here, e.gate)...)
 		if e.slot == rule.LinkEmph {

@@ -17,7 +17,8 @@ import (
 // as 이야. The tables give neither a count. 은커녕 and 는커녕 are one
 // particle each (the table has 커녕 alone); their count is 커녕's. 가
 // after an adverbial particle (에서가 아니라) is an auxiliary particle
-// of emphasis, read only there.
+// of emphasis, read only there; so is 를 after 에 and 으로 (집에를,
+// emphObjName).
 const emphName = "보조사:가(강조)"
 
 // comparing, together, directional and shortTopics tell kinds of particle apart for
@@ -60,6 +61,7 @@ var ownParticles = []entry{
 	{name: emphName, form: "가", class: classParticle, slot: rule.LinkEmph, count: 2},
 	{name: "보조사:은커녕", form: "은커녕", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic, count: 66},
 	{name: "보조사:는커녕", form: "는커녕", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic, count: 66},
+	{name: emphObjName, form: "를", class: classParticle, after: rule.AfterVowel, slot: rule.LinkEmph},
 }
 
 func (ix *index) addParticles() {
