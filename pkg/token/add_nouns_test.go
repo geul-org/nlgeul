@@ -38,7 +38,7 @@ func TestAddNouns(t *testing.T) {
 			t.Error(name, "fused into the vowel of 테", v, why)
 		}
 	}
-	if v, why := judged(rule.Piece{Form: "테", HasStem: true, Adn: true, After: "맺음:자"}); !slices.Contains(ix.barred, "맺음:자") || v > 0 || !slices.Contains(why, whyBarred) {
+	if v, why := judged(rule.Piece{Form: "테", HasStem: true, Adn: true, After: "맺음:자마자"}); !slices.Contains(ix.barred, "맺음:자마자") || v > 0 || !slices.Contains(why, whyBarred) {
 		t.Fatal("테 before a closing the copula does not take", v, why)
 	}
 }

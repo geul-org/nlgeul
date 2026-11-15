@@ -55,7 +55,7 @@ func TestNounCopula(t *testing.T) {
 	}{
 		{scanOf("나테니"), ni, whyNoAdn},
 		{lone("곰테니"), ni, whyNoAdn},
-		{adn("할테자", 1), tail{start: 2, pieces: []piece{{text: "자", names: "맺음:자"}}, close: &entry{name: "맺음:자"}}, whyBarred},
+		{adn("할테자마자", 1), tail{start: 2, pieces: []piece{{text: "자마자", names: "맺음:자마자"}}, close: &entry{name: "맺음:자마자"}}, whyBarred},
 		{adn("할텠다", 1), tail{start: 2, base: '테', pieces: []piece{{text: "(었)", names: "선어말:ㅆ"}, {text: "다", names: "맺음:다"}}, close: &entry{name: "맺음:다"}}, whyFusedIn},
 		{adn("갈가니", 1), ni, ""},
 		{adn("갈갠데", 1), tail{start: 2, base: '개', pieces: nde, close: &entry{name: "맺음:ㄴ데"}}, ""},
