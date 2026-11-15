@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAfterClosings — 도 right after the linking closing 지 is one more piece of the predicate's tail (also after a dropped copula); not after a closing that takes none (다), not for a pair that is a closing of the tables itself (어도), not for a particle that is not one of the few, nor inside a longer chain; 어서 and 면서 take one too (먹+어서+는, 가+면서+는) but 으면서도, a closing itself, is read as that closing only; with a word table any particle, inside a chain too, right after the naming closing 기 is one more piece under its own name (먹+기+는, 먹+기+에+는), and without one 기 takes none; before a particle after 기 a dropped copula stands before the 기 (문제+(이)+기+도), the tails are looked up there as chained, and the same lookup not chained has no such copula; a case particle right after a closing that asks is one more piece under its own name, inside a chain too (먹+는지+를, 먹+는지+에 before 는), also after a closing under a final consonant (가+(ㄹ)지+도) and after the copula (학교+이+(ㄴ)지+가), while 의, which such a closing does not take, and 를 after the plain 지 are not read so; end to end a noun of the table that ends in 기 still stands as the noun, and a stem no table has takes no 기
+//ff:what TestAfterClosings — 도 right after the linking closing 지 is one more piece of the predicate's tail (also after a dropped copula); not after a closing that takes none (다), not for a pair that is a closing of the tables itself (어도), not for a particle that is not one of the few, nor inside a longer chain; 어서 and 면서 take one too (먹+어서+는, 가+면서+는) but 으면서도, a closing itself, is read as that closing only; with a word table any particle, inside a chain too, right after the naming closing 기 is one more piece under its own name (먹+기+는, 먹+기+에+는), and without one 기 takes none; so after the naming closings 음 (먹+음+을) and ㅁ, also when ㅁ is fused under the one syllable before the particle (되+(ㅁ)+을), not without a word table, not after a first letter that ends no naming closing (가을) or with nothing before the particle, and a linking closing in the first letter takes none; before a particle after 기 a dropped copula stands before the 기 (문제+(이)+기+도), the tails are looked up there as chained, and the same lookup not chained has no such copula; a case particle right after a closing that asks is one more piece under its own name, inside a chain too (먹+는지+를, 먹+는지+에 before 는), also after a closing under a final consonant (가+(ㄹ)지+도) and after the copula (학교+이+(ㄴ)지+가), while 의, which such a closing does not take, and 를 after the plain 지 are not read so; end to end a noun of the table that ends in 기 still stands as the noun, and a stem no table has takes no 기
 package token
 
 import (
@@ -57,6 +57,33 @@ func TestAfterClosings(t *testing.T) {
 	neun := piece{text: "는", names: "보조사:는", verdict: 1}
 	if got = wordsScan("먹기는", layerCost).afterClosings(2, 0, neun, &entry{name: "보조사:는"}); len(got) == 0 || got[0].pieces[0].names != "이름:기" || got[0].pieces[1] != neun {
 		t.Fatal("기 and 는 after it", got)
+	}
+
+	eul := piece{text: "을", names: "목적격:을", verdict: 1}
+	objEul := &entry{name: "목적격:을"}
+	if got = wordsScan("됨을", layerCost).afterClosings(1, 0, eul, objEul); len(got) != 1 || got[0].start != 1 || len(got[0].pieces) != 2 || got[0].pieces[0].text != "(ㅁ)" || got[0].pieces[0].names != nounName || got[0].pieces[1] != eul || got[0].close == nil {
+		t.Fatal("ㅁ fused under the one syllable before 을, and 을 after it", got)
+	}
+	if got = scanOf("됨을").afterClosings(1, 0, eul, objEul); got != nil {
+		t.Fatal("without a word table ㅁ takes no particle", got)
+	}
+	um := 0
+	for _, c := range wordsScan("먹음을", layerCost).afterClosings(2, 0, eul, objEul) {
+		if c.start == 1 && len(c.pieces) == 2 && c.pieces[0].names == "이름:음" && c.pieces[1] == eul {
+			um++
+		}
+	}
+	if um != 1 {
+		t.Fatal("음 and 을 after it", um)
+	}
+	if got = wordsScan("가을", layerCost).afterClosings(1, 0, eul, objEul); got != nil {
+		t.Fatal("a first letter that ends no naming closing", got)
+	}
+	if got = wordsScan("을", layerCost).afterClosings(0, 0, eul, objEul); got != nil {
+		t.Fatal("nothing before the particle", got)
+	}
+	if got = scanOf("지도").afterClosings(1, 0, do, aux); got != nil {
+		t.Fatal("a linking closing in the first letter takes none", got)
 	}
 
 	ws := wordsScan("문제기도", layerCost)

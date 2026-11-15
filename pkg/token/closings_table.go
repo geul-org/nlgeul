@@ -21,17 +21,23 @@ var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))
 // gatedClosings are closings of this layer read only with a word
 // table, after a predicate's stem of the table: the naming closing 기
 // (먹기, 있기), which without that would be read at the end of every
-// word that ends in 기. nounHeads are the naming closings a particle
-// chain is read right after (있기+는, 받기+도): the word so made is a
-// nominal. 음 and ㅁ are not among them. Their names are those of the
-// gated closings' entries, and every other list that speaks of a
-// naming closing is made from this one (dropNaming, dropAdn,
-// droppableKnown, namingEnd).
+// word that ends in 기. nounHeads are the names of the gated closings'
+// entries: the naming closings a dropped copula stem stands before
+// (dropNaming, dropAdn, droppableKnown: 문제+(이)+기+도), 기 only.
 var gatedClosings = []parse.Marker{
 	{Form: "기", Kind: rule.KindNoun, NoYo: true},
 }
 
 var nounHeads = closingNames(gatedClosings...)
+
+// chainHeads are the naming closings a particle chain is read right
+// after (있기+는, 받기+도, 있음+을, 됨+을): the word so made is a
+// nominal. They are nounHeads with the naming closings 음 and ㅁ of the
+// closing table, and the graph of that chain and namingEnd are made
+// from this list. The copula's stem is not dropped before 음 or ㅁ
+// (이다 with ㅁ is written 임), so the three lists of a dropped stem
+// keep nounHeads.
+var chainHeads = append(append([]string{}, nounHeads...), namingPrefix+"음", nounName)
 
 // looseClosings are the modifying closings 은 and 을 written onto a
 // stem that ends in ㄹ without dropping the ㄹ (줄은 for 준, 줄을 for

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddWide — 신 stands as the honorific at a closing's end, not before a particle or something else; 심 stands before a particle; the shortened closings and particles are in the index with their gates; particles are found by their first letter; the naming closing 기 is in the index asking for a predicate's stem, with its count; the modifying closings 은 and 을 after a stem's ㄹ are in it asking for a predicate's stem, read against the tables (loose) and rebutted, with nothing an irregular stem changes before; and the graph of a particle chain after it takes 이름:기 and nothing else
+//ff:what TestAddWide — 신 stands as the honorific at a closing's end, not before a particle or something else; 심 stands before a particle; the shortened closings and particles are in the index with their gates; particles are found by their first letter; the naming closing 기 is in the index asking for a predicate's stem, with its count; the modifying closings 은 and 을 after a stem's ㄹ are in it asking for a predicate's stem, read against the tables (loose) and rebutted, with nothing an irregular stem changes before; and the graph of a particle chain after a naming closing takes 이름:기 and the closing table's 이름:음 and 이름:ㅁ (chainHeads) and nothing else
 package token
 
 import (
@@ -64,6 +64,15 @@ func TestAddWide(t *testing.T) {
 	}
 	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "는", Before: "이름:기", HasStem: true, Next: -1}, "", false); v <= 0 {
 		t.Fatal("a particle chain after 이름:기", v)
+	}
+	if !slices.Equal(chainHeads, []string{"이름:기", "이름:음", "이름:ㅁ"}) {
+		t.Fatal(chainHeads)
+	}
+	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "을", Before: "이름:음", HasStem: true, Next: -1}, "", false); v <= 0 {
+		t.Fatal("a particle chain after 이름:음", v)
+	}
+	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "을", Before: "이름:ㅁ", HasStem: true, Next: -1}, "", false); v <= 0 {
+		t.Fatal("a particle chain after 이름:ㅁ", v)
 	}
 	if v, _ := verdictOf(ix.nounAux.g, rule.Piece{Form: "는", Before: "맺음:지", HasStem: true, Next: -1}, "", false); v > 0 {
 		t.Fatal("no particle chain after another closing", v)

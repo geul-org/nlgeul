@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addWide — what is read only with a word table: the graphs of 신·실·심·세 as the honorific 시 (exceptions: no stem, not after a vowel, a particle right after (not for 심 and 세), a final consonant that makes no closing of the tables with what follows), the two graphs that ask the word before to be a predicate's stem or a nominal of the table, the shortened closings, slots and particles, the naming closing 기 with the graph of a particle chain right after it, the modifying closings 은 and 을 after a stem's ㄹ, and where particles begin
+//ff:what addWide — what is read only with a word table: the graphs of 신·실·심·세 as the honorific 시 (exceptions: no stem, not after a vowel, a particle right after (not for 심 and 세), a final consonant that makes no closing of the tables with what follows), the two graphs that ask the word before to be a predicate's stem or a nominal of the table, the shortened closings, slots and particles, the naming closing 기 with the graph of a particle chain right after a naming closing (기, and 음 and ㅁ of the closing table: chainHeads), the modifying closings 은 and 을 after a stem's ㄹ, and where particles begin
 package token
 
 import (
@@ -51,7 +51,7 @@ func (ix *index) addWide() {
 	}
 	noun := toulmin.NewGraph(nounAuxName)
 	naming := noun.Rule(rule.PieceRead).With(&rule.Claim{Name: nounAuxName, Concludes: "표지"})
-	except(noun, rule.Listed, whyNotAfter, listed("naming", rule.ListBefore, nounHeads), not).Attacks(naming)
+	except(noun, rule.Listed, whyNotAfter, listed("naming", rule.ListBefore, chainHeads), not).Attacks(naming)
 	ix.nounAux, ix.graphs, ix.edges = &entry{name: nounAuxName, g: noun}, ix.graphs+1, ix.edges+1
 	for i := range shortSlots {
 		e := shortSlots[i]

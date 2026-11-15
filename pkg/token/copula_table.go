@@ -25,10 +25,10 @@ const bareAdn = "꾸밈:ㄴ"
 // naming form. They are short and common at the end of other words, so
 // the dropped stem is read before them only with a word table, after a
 // nominal of the table or a dependent noun.
-// The naming closings a particle chain is read after are among them
-// (nounHeads: 문제기도 하다): before one the dropped stem is read only
-// when a particle follows it (dropNaming, and the particle chain right
-// after a naming closing).
+// The gated naming closing 기 is among them (nounHeads: 문제기도 하다;
+// not 음 and ㅁ, which a particle chain is read after as well): before
+// it the dropped stem is read only when a particle follows it
+// (dropNaming, and the particle chain right after a naming closing).
 var droppableKnown = append(append([]string{}, closingSets[setDropKnown]...), nounHeads...)
 
 // dropAdn are the closings before which a dropped stem is rebutted: in
