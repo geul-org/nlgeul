@@ -214,3 +214,12 @@ const windowSize = 10
 // before the ones the letters make themselves, as when the letters
 // were read after the whole unit.
 const ontoBorn = 1 << 32
+
+// bonusOne is what the rules of 한 standing alone add (determinerOneRule):
+// the word table's counts put 하다 with the modifying ㄴ 1.03 of
+// preference above the determiner 한 of the same letters, more than
+// bonusSentence can carry. Measured on the answer sheet, 1.1, 1.5, 2 and
+// 3 gave the same words right (the rule only turns the order among the
+// candidates of a 한 written apart); 1.5 is chosen to stay over that gap
+// if the counts move a little.
+const bonusOne = 1.5

@@ -103,6 +103,7 @@ const (
 	whyAsksSelf        = "의문 대명사다"
 	whyNoSubjectBefore = "바로 앞 어절이 이·가로 끝나지 않는다"
 	whyNotShut         = "바로 앞이 닫는 기호가 아니다"
+	whyHaTakes         = "앞 어절이 하다가 받는 꼴(목적격, 로·으로, -게·-도록·-다고 …)로 끝난다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.
@@ -113,4 +114,5 @@ const (
 	ruleAdverbialFirst = "문장:에서·서는 부사격 먼저"
 	ruleComplement     = "문장:되다·아니다 앞 보격"
 	ruleQuoted         = "문장:닫는 따옴표 뒤 인용 조사 라고"
+	ruleDeterminerOne  = "문장:홀로 선 한은 관형사"
 )
