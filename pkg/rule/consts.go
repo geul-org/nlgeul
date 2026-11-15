@@ -190,4 +190,5 @@ const (
 	ListSelfMarks            // the names of that candidate's markers, each (SelfHas reads them; Listed does not)
 	ListNextLast             // the name of the last piece of the word after it
 	ListNext2Stem            // the stem of the word after that
+	ListPrevKind             // the kind of the name of the stem of the word before it (닫기 of 닫기:1)
 )

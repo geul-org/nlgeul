@@ -100,6 +100,7 @@ const (
 	whyAsksBare        = "의문 대명사에 이·가가 붙지 않았다"
 	whyAsksSelf        = "의문 대명사다"
 	whyNoSubjectBefore = "바로 앞 어절이 이·가로 끝나지 않는다"
+	whyNotShut         = "바로 앞이 닫는 기호가 아니다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.
@@ -109,4 +110,5 @@ const (
 	ruleAuxAsked       = "문장:물음 꼴 뒤 보조 용언 보다"
 	ruleAdverbialFirst = "문장:에서·서는 부사격 먼저"
 	ruleComplement     = "문장:되다·아니다 앞 보격"
+	ruleQuoted         = "문장:닫는 따옴표 뒤 인용 조사 라고"
 )

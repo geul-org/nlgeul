@@ -150,6 +150,11 @@ var (
 	complementStems = []string{"되", "아니"}
 )
 
+// quoteNames are the names of 라고 and 이라고 as the particle of direct
+// quotation, which a rule of a sentence prefers right after a closing
+// quotation mark (quotedRule).
+var quoteNames = []string{"부사격:라고", "부사격:이라고"}
+
 // predKinds are the kinds of a closing's name: a word that carries one
 // is a predicate (a verb, an adjective or the copula with its ending),
 // which is where the rules of a sentence stop waiting.

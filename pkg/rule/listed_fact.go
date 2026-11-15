@@ -2,7 +2,11 @@
 //ff:what listedFact — the fact a list is asked for (List…), read from the piece, the sign, the word or the tail under judgment, or from the candidate judged in its sentence and the words around it
 package rule
 
-import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
+import (
+	"strings"
+
+	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
+)
 
 func listedFact(ctx toulmin.Context, of int) string {
 	switch of {
@@ -34,6 +38,9 @@ func listedFact(ctx toulmin.Context, of int) string {
 		return nearAt(AroundOf(ctx).After, 0).Last
 	case ListNext2Stem:
 		return nearAt(AroundOf(ctx).After, 1).Stem
+	case ListPrevKind:
+		kind, _, _ := strings.Cut(nearAt(AroundOf(ctx).Before, 0).Kind, ":")
+		return kind
 	}
 	return TailOf(ctx).Closing
 }
