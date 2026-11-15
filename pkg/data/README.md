@@ -64,7 +64,7 @@
 | `unit-suffixes.tsv` | 접미사 | `unitSuffixes` (token) | `짜리` |
 | `extensions.tsv` | 확장자 | `extensions` (token) | `py` |
 | `top-domains.tsv` | 최상위 도메인 | `topDomains` (token) | `com` |
-| `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (token, `loadCases`, `caseExceptionOf`) | `맺음:소	담소	담소[열쇠:체언]	지움	관찰	46/46, 29파일, 2026-11-15` |
+| `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (token, `loadCases`, `caseExceptionOf`) | `맺음:소	담소	담소[열쇠:체언]	지움	관찰	46/46, 29파일, 2026-11-15, rules/new-word 2483d7f` |
 
 - `closed-words-more.tsv`의 `대명사`(네, 내, 제, 니)는 낱말 표가 있을 때 표의 줄과 상관없이 체언 갈래로 치는 대명사다(`pronounWords`). 네·내·제는 사전에 대명사로 오른 꼴이고, 니는 네·너를 구어로 이르는 꼴이다(`니가`, `니 거`. 사전에는 니가 조사·어미로만 있다). `구어 꼴`(거)은 낱말 표가 센 횟수가 적다는 반박만 걷는 집합이라 표에 줄이 없는 니는 거기에 두지 않는다.
 - `closings.tsv`, `closings-more.tsv`, `short-closings.tsv`의 앞 네 칸은 같은 읽기(`parse.MarkerOf`)로 읽는다. 받침으로 붙는 꼴과 `어/아` 꼴의 앞말 칸은 `-`여야 하고, 갈래는 하나 이상 적는다.
