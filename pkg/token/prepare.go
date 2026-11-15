@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what prepare — find the atoms of a unit before it is read (and the circled and parenthesized numbers, each one atom; and then the signs between letters that are also read as a word of their own): an address, a mail address, a path or an option that the unit begins with (one atom, not read inside); then every run of Latin letters and digits (the first with the sign at the unit's head, when one was kept), and the names whose dots, slashes and hyphens a joining candidate stands for, and then the cues of the spacing rules that are on (findCues), and last what the places of the unit are to a stem (how many tokens lie up to each, the letters as one string, the words of a bound stem) and from where a word that has its stem end at a place may begin (beginnings)
+//ff:what prepare — find the atoms of a unit before it is read (and the circled and parenthesized numbers, each one atom; and then the signs between letters that are also read as a word of their own): an address, a mail address, a path or an option that the unit begins with (one atom, not read inside); then every run of Latin letters and digits (the first with the sign at the unit's head, when one was kept), and the names whose dots, slashes and hyphens a joining candidate stands for, a court case number the unit begins with (caseNumber: not read inside), and then the cues of the spacing rules that are on (findCues), and last what the places of the unit are to a stem (how many tokens lie up to each, the letters as one string, the words of a bound stem) and from where a word that has its stem end at a place may begin (beginnings)
 package token
 
 func (sc *scan) prepare() {
@@ -15,6 +15,7 @@ func (sc *scan) prepare() {
 		k += len(chain)
 	}
 	sc.enclosedAtoms()
+	sc.caseNumber()
 	sc.kept = map[int][]*path{}
 	sc.registry()
 	sc.findMid()
