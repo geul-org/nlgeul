@@ -3,7 +3,8 @@ package token
 // The copula 이다 (morphemes.md section 2). Its stem 이 after a noun is
 // a candidate of its own, and after a vowel the stem may be dropped
 // before the closings listed here (학교다, 학교고, 학교며, 학교면,
-// 학교지만, 학교라서, 학교라면, 학교지, 누군지, 뭔데, 누군가, 뭘까),
+// 학교지만, 학교라서, 학교라면, 학교지, 누군지, 뭔데, 누군가, 뭘까,
+// 학자리라),
 // and before 잖 (학교잖아: 지 and 않). copulaCount is its observed
 // count in the tables; nothing in this repository records where that
 // count was taken from.
