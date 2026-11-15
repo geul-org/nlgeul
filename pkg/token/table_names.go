@@ -67,3 +67,17 @@ const (
 
 // slotLabel begins the name of a slot before a closing.
 const slotLabel = "선어말:"
+
+// The names of the case exception table (case-exceptions.tsv) for what
+// a row does to the graph it attacks (지움: the reading the graph
+// claims is dropped, the only one) and for the kind of its ground (a
+// clause of the norms, or what was observed in the corpora).
+const (
+	caseDrop   = "지움"
+	groundNorm = "규범"
+	groundSeen = "관찰"
+)
+
+var caseStrengths = map[string]int{caseDrop: 0}
+
+var caseGrounds = map[string]int{groundNorm: 0, groundSeen: 0}

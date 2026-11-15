@@ -1,10 +1,11 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNewIndex — the index holds the words, particles, closings and slots, and a new word's verdict is the low positive 1/3; with a word table its keys and layers are set, a table that cannot be read is an error, and so is a spacing rule that is not one of SpacingArticles; with a word table the new word's graph turns down a stem that ends in ㅆ with markers after it (떨어졌 before a predicate tail or particles), without one it does not, and it keeps 1/3 for such a stem with no marker (TailBare or none) and for a stem of another final consonant or none (곰갓, 떨어지)
+//ff:what TestNewIndex — the index holds the words, particles, closings and slots, and a new word's verdict is the low positive 1/3; with a word table its keys and layers are set, a table that cannot be read is an error, and so is a spacing rule that is not one of SpacingArticles; with a word table the new word's graph turns down a stem that ends in ㅆ with markers after it (떨어졌 before a predicate tail or particles), without one it does not, and it keeps 1/3 for such a stem with no marker (TailBare or none) and for a stem of another final consonant or none (곰갓, 떨어지); with a word table a graph the case exception table names that is no marker graph is an error, without one it is not asked
 package token
 
 import (
 	"math"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -44,5 +45,12 @@ func TestNewIndex(t *testing.T) {
 		if v, why := verdictOf(withWords.stem, p, "", true); math.Abs(v-1.0/3) > 1e-9 || len(why) != 0 {
 			t.Fatal(p, v, why)
 		}
+	}
+	useCases(t, "testdata/case-exceptions-bad.tsv")
+	if _, err := newIndex(Options{Words: "testdata/words.tsv"}); err == nil || !strings.Contains(err.Error(), `"맺음:소오": 색인에 이 이름의 표지 그래프가 없다`) {
+		t.Fatal(err)
+	}
+	if _, err := newIndex(Options{}); err != nil {
+		t.Fatal(err)
 	}
 }

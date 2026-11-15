@@ -8,10 +8,10 @@ func TestMarkerGraphTypo(t *testing.T) {
 	right := entry{name: "맺음:고", form: "고", class: classClosing}
 	wrong := right
 	wrong.wrote, wrong.right = "고", "고"
-	if a, b := markerGraph(&right, []string{"그리고"}, false), markerGraph(&wrong, []string{"그리고"}, false); b != a+1 || right.g == nil || wrong.g == nil {
+	if a, b := markerGraph(&right, []string{"그리고"}, nil, false), markerGraph(&wrong, []string{"그리고"}, nil, false); b != a+1 || right.g == nil || wrong.g == nil {
 		t.Fatal(a, b)
 	}
-	if a, b := markerGraph(&right, nil, false), markerGraph(&wrong, nil, false); b != a+1 {
+	if a, b := markerGraph(&right, nil, nil, false), markerGraph(&wrong, nil, nil, false); b != a+1 {
 		t.Fatal(a, b)
 	}
 }

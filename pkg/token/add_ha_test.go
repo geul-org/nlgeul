@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddHa — with a word table the six written forms of clause 40 (치, 케, 타, 토록, 코자, 컨대) are kept by their last letter under the plain closings' names, read only with a word table (wide) and with no count, each with a graph of its own that is counted, and none of them under the index's keys; without a word table there are none; a plain closing the index does not have is passed over
+//ff:what TestAddHa — with a word table the six written forms of clause 40 (치, 케, 타, 토록, 코자, 컨대) are kept by their last letter under the plain closings' names, read only with a word table (wide) and with no count, each with a graph of its own that is counted, and none of them under the index's keys; without a word table there are none; a plain closing the index does not have is passed over; a written form gets the exception of the rows of the case exception table that name its plain closing (one edge more)
 package token
 
 import "testing"
@@ -32,5 +32,13 @@ func TestAddHa(t *testing.T) {
 	before.addHa()
 	if len(before.haEnds) != 1 || len(before.haEnds['치']) != 1 || before.graphs != 1 || before.edges < 2 {
 		t.Fatal("one plain closing, one written form with its graph", before.haEnds, before.graphs, before.edges)
+	}
+	old := caseExceptions
+	t.Cleanup(func() { caseExceptions = old })
+	caseExceptions = map[string][]caseException{"맺음:지": {{Graph: "맺음:지", Word: "편치"}}}
+	held := &index{byKey: before.byKey, lexed: true}
+	held.addHa()
+	if held.edges != before.edges+1 {
+		t.Fatal(held.edges, before.edges)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAddTypo — the entry of a closing written wrong is put under its key with a graph of one edge more than the right closing's (the rebuttal of a misspelt form), which stands the closing below the right one when it is told the closing is misspelt; its count is not added to the total, its form is not put into the set of closings, and the entry already there is not changed
+//ff:what TestAddTypo — the entry of a closing written wrong is put under its key with a graph of one edge more than the right closing's (the rebuttal of a misspelt form), which stands the closing below the right one when it is told the closing is misspelt; its count is not added to the total, its form is not put into the set of closings, and the entry already there is not changed; with a row of the case exception table for the right closing's name the entry gets that exception too, which turns down the row's word
 package token
 
 import (
@@ -35,5 +35,17 @@ func TestAddTypo(t *testing.T) {
 	p.Misspelt = false
 	if untold, _ := verdictOf(wrong.g, p, "할껄", false); untold != 1 {
 		t.Fatal("the rebuttal is for the facts that say the closing is misspelt", untold)
+	}
+	old := caseExceptions
+	t.Cleanup(func() { caseExceptions = old })
+	caseExceptions = map[string][]caseException{"맺음:ㄹ걸": {{Graph: "맺음:ㄹ걸", Word: "할껄"}}}
+	held := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}}
+	listed := typoClosingEntry(right, typoClosing{"껄", rule.JongL, "맺음:ㄹ걸"})
+	held.addTypo(listed)
+	if held.edges != edges+2 {
+		t.Fatal(held.edges, edges)
+	}
+	if v, _ := verdictOf(listed.g, p, "할껄", false); v != -1 {
+		t.Fatal("the row's word", v)
 	}
 }

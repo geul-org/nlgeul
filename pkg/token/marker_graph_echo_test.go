@@ -11,7 +11,7 @@ import (
 
 func TestMarkerGraphEcho(t *testing.T) {
 	e := entry{name: "부사격:에", form: "에", class: classParticle, slot: rule.LinkAdv}
-	markerGraph(&e, nil, true)
+	markerGraph(&e, nil, nil, true)
 	open := rule.Piece{Form: "에", HasStem: true, Prev: '이', Slot: rule.LinkAdv, Next: rule.LinkYo, YoOpen: true}
 	v, _ := verdictOf(e.g, open, "고양이에", false)
 	if math.Abs(v-(2/(1+forceClash)-1)) > 1e-9 {
@@ -23,7 +23,7 @@ func TestMarkerGraphEcho(t *testing.T) {
 		t.Fatal("without the fact", v)
 	}
 	other := entry{name: "부사격:에서", form: "에서", class: classParticle, slot: rule.LinkAdv}
-	markerGraph(&other, nil, true)
+	markerGraph(&other, nil, nil, true)
 	open.Form = "에서"
 	if v, _ = verdictOf(other.g, open, "고양이에서", false); v != 1 {
 		t.Fatal("a particle not listed", v)

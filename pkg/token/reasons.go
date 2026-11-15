@@ -13,6 +13,7 @@ const (
 	whySlot         = "선어말 칸의 순서가 어긋난다"
 	whyBase         = "받침만 붙은 꼴을 읽는 음절이 아니다"
 	whyWhole        = "통째로 닫힌 집합의 낱말이다"
+	whyCase         = "예외 표의 줄이다"
 	whyRight        = "바로 뒤에 선 것이 이 조각 뒤에 오지 못한다"
 	whyKind         = "앞말이 낱말 표에서 그 갈래의 줄기가 아니다"
 	whyJoinedWord   = "줄기와 접미를 합친 글자열이 낱말 표의 낱말이다"

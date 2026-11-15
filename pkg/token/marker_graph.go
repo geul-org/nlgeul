@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row and its exception list: the claim "this token sequence is this marker" and the structural exceptions against it, among them that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form)
+//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form)
 package token
 
 import (
@@ -25,10 +25,13 @@ import (
 // before it; a particle whose letters are a closing written wrong's
 // (echoes) the rebuttal that it stands right on a stem with no final
 // consonant before 요; and a form that ends a
-// closed-set word yields to that word. The graph of a closing written
+// closed-set word yields to that word. A graph the case exception table
+// names (cases) yields to the words of its rows, by an exception of its
+// own: its reason tells it from a closed-set word in a trace, and the
+// rows it carries (caseRows) tell which row applied. The graph of a closing written
 // wrong (wrote) also rebuts its claim as a misspelt form, as the graphs
 // of the kinds of stem do, and no exception lifts that. The number of edges is returned.
-func markerGraph(e *entry, whole []string, lexed bool) int {
+func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) int {
 	g := toulmin.NewGraph(e.name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
 	except(g, rule.PieceIs, whyNoStem, fact(rule.PieceStem), not).Attacks(claim)
@@ -80,6 +83,10 @@ func markerGraph(e *entry, whole []string, lexed bool) int {
 	}
 	if len(whole) > 0 {
 		except(g, rule.Listed, whyWhole, listed("wholeWords", rule.ListWord, whole)).Attacks(claim)
+		edges++
+	}
+	if len(cases) > 0 {
+		except(g, rule.Listed, whyCase, listed("caseExceptions", rule.ListWord, caseWords(cases)), &caseRows{Rows: cases}).Attacks(claim)
 		edges++
 	}
 	if e.wrote != "" {

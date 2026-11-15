@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what evaluate — evaluate one graph in a context: the claim's verdict, and when a trace is kept the reasons of the exceptions that applied
+//ff:what evaluate — evaluate one graph in a context: the claim's verdict, and when a trace is kept the reasons of the exceptions that applied (for a case exception with the word it matched and its row: caseNote)
 package token
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -14,7 +14,7 @@ func evaluate(g *toulmin.Graph, ctx toulmin.Context, traced bool) (float64, []st
 	var why []string
 	for _, t := range results[0].Trace {
 		if t.Role == "except" && t.RuleVerdict > -1 {
-			why = append(why, whyOf(t.Specs))
+			why = append(why, whyOf(t.Specs)+caseNote(t.Specs, t.Evidence))
 		}
 	}
 	return results[0].Verdict, why

@@ -1,10 +1,10 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what add — put one entry into the index under its key, with what it begins with noted and its graph stamped; its observed count is added to the total once for its form, however many candidates the form has
+//ff:what add — put one entry into the index under its key, with what it begins with noted and its graph stamped (with the rows of the case exception table that name it); its observed count is added to the total once for its form, however many candidates the form has
 package token
 
 func (ix *index) add(e *entry) {
 	e.head, ix.ends = ix.headOf(e), nil
-	ix.edges += markerGraph(e, closedEnding(ix.words, e.form), ix.lexed)
+	ix.edges += markerGraph(e, closedEnding(ix.words, e.form), caseExceptions[e.name], ix.lexed)
 	ix.graphs++
 	if ix.counted == nil {
 		ix.counted = map[string]bool{}

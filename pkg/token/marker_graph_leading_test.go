@@ -21,7 +21,7 @@ func TestMarkerGraphLeading(t *testing.T) {
 	}
 	for _, c := range cases {
 		e := c.e
-		if got := markerGraph(&e, nil, false); got != c.edges {
+		if got := markerGraph(&e, nil, nil, false); got != c.edges {
 			t.Errorf("%s: %d edges, want %d", e.name, got, c.edges)
 		}
 		prev := '교'

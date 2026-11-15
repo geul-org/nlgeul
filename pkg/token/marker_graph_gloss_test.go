@@ -26,7 +26,7 @@ func TestMarkerGraphGloss(t *testing.T) {
 	} {
 		for _, lexed := range []bool{false, true} {
 			e := c.e
-			markerGraph(&e, nil, lexed)
+			markerGraph(&e, nil, nil, lexed)
 			if v, _ := verdictOf(e.g, c.p, c.word, false); v <= 0 {
 				t.Errorf("%s in %s (word table %v): %v, want it to stand", e.name, c.word, lexed, v)
 			}
