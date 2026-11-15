@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=2
-//ff:what addWords — the closed-set words as keys: one graph each, with the exception that the word's set does not take what follows it (read when there is no word table); and this layer's own pronouns 네, 내 and 제, which are nominals wherever the kinds of a word are asked (with a word table)
+//ff:what addWords — the closed-set words as keys: one graph each, with the exception that the word's set does not take what follows it (read when there is no word table); and this layer's own pronouns 네, 내, 제 and 니, which are nominals wherever the kinds of a word are asked (with a word table)
 package token
 
 import (

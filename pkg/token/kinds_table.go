@@ -98,11 +98,14 @@ var pronouns = []string{"이", "그", "저"}
 
 // pronounWords are pronouns this layer knows on top of the word
 // table, which nlgeul parse does not read: 네 (너 before 가, and 너의),
-// 내 (나 before 가, and 나의) and 제 (저 before 가, and 저의). The
-// dictionary lists each as a pronoun. With a word table each is a
-// nominal whatever rows the table has for it (네 is there only as a
-// determiner), named as the table's nominals are; without one they are
-// not read (each would cut every word that begins with it).
+// 내 (나 before 가, and 나의), 제 (저 before 가, and 저의) and 니. The
+// dictionary lists the first three as pronouns. 니 is 네 and 너 as they
+// are said in speech (니가, 니 거, 니도); the dictionary has 니 only as a
+// particle and an ending, and the word table has no row for it. With a
+// word table each is a nominal whatever rows the table has for it (네
+// is there only as a determiner, 니 not at all), named as the table's
+// nominals are; without one they are not read (each would cut every
+// word that begins with it).
 var pronounWords = wordSets[setPronounWord]
 
 const (
