@@ -329,3 +329,9 @@ var (
 	contrastNames = []string{"맺음:나"}
 	commaNames    = []string{"쉼표"}
 )
+
+// aloneBarred are the parts of speech a word alone in a pair of brackets
+// is not (aloneRule): a bound noun stands only after a word that modifies
+// it, and a determiner only before the noun it modifies, and the bracket
+// holds neither.
+var aloneBarred = []string{"의존명사", "관형사"}

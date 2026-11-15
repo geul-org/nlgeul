@@ -107,6 +107,7 @@ const (
 	whyNeun            = "앞 어절이 꾸밈 맺음 는으로 끝난다"
 	whyNoNeun          = "앞 어절이 꾸밈 맺음 는으로 끝나지 않는다"
 	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
+	whyNotShutAfter    = "바로 뒤가 닫는 기호가 아니다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.
@@ -178,4 +179,5 @@ const (
 	ruleCopulaEnd   = "문장:문장 끝 야·라고는 맺음"
 	ruleNumberQuote = "문장:수 뒤 라고는 인용 조사"
 	ruleCopulaComma = "문장:쉼표 앞 이나는 서술격"
+	ruleAlone       = "문장:괄호 안에 홀로 선 말은 의존명사·관형사가 아니다"
 )
