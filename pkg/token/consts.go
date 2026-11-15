@@ -296,11 +296,11 @@ var topicNames = []string{"보조사:이란", "보조사:란"}
 const bonusShutTopic = 1.5
 
 // copulaEndNames are the names of the ending 야, which follows the
-// copula 이 only, and sentenceEnds the names of the last piece of the word
-// right after a word that ends its sentence: none (nothing follows), a
-// full stop or a question mark (copulaEndRule).
+// copula 이 only, and of the ending 라고, and sentenceEnds the names of
+// the last piece of the word right after a word that ends its sentence:
+// none (nothing follows), a full stop or a question mark (copulaEndRule).
 var (
-	copulaEndNames = []string{"맺음:야"}
+	copulaEndNames = []string{"맺음:야", "맺음:라고"}
 	sentenceEnds   = []string{"", "마침표", "물음표"}
 )
 

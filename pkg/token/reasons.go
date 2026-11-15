@@ -174,7 +174,7 @@ const (
 
 // The names of the rules of a sentence that read the copula.
 const (
-	ruleCopulaEnd   = "문장:문장 끝 야는 서술격"
+	ruleCopulaEnd   = "문장:문장 끝 야·라고는 맺음"
 	ruleNumberQuote = "문장:수 뒤 라고는 인용 조사"
 	ruleCopulaComma = "문장:쉼표 앞 이나는 서술격"
 )
