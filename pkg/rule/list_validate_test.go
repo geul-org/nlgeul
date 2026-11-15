@@ -1,5 +1,5 @@
 //ff:func feature=rule type=model control=iteration dimension=1
-//ff:what TestListValidate — a list with a name and a fact from ListForm to ListNextStem (the last fact, of the words around a candidate in its sentence) is valid, even with no items; one with no name, or a fact out of that range, is refused
+//ff:what TestListValidate — a list with a name and a fact from ListForm to ListPrevStem (the last fact, of the words around a candidate in its sentence) is valid, even with no items; one with no name, or a fact out of that range, is refused
 package rule
 
 import "testing"
@@ -20,7 +20,8 @@ func TestListValidate(t *testing.T) {
 		{List{Name: "marks", Of: ListSelfMarks, Items: []string{"부사격:에서"}}, true},
 		{List{Name: "after", Of: ListNext2Stem, Items: []string{"되"}}, true},
 		{List{Name: "before", Of: ListPrevKind, Items: []string{"닫기"}}, true},
-		{List{Name: "forms", Of: ListPrevKind + 1}, false},
+		{List{Name: "stems", Of: ListPrevStem, Items: []string{"관하"}}, true},
+		{List{Name: "forms", Of: ListPrevStem + 1}, false},
 	}
 	for _, c := range cases {
 		if err := c.l.Validate(); (err == nil) != c.ok {

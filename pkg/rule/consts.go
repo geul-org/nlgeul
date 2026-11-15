@@ -192,4 +192,5 @@ const (
 	ListNextLast             // the name of the last piece of the word after it
 	ListNext2Stem            // the stem of the word after that
 	ListPrevKind             // the kind of the name of the stem of the word before it (닫기 of 닫기:1)
+	ListPrevStem             // the stem of the word before it
 )

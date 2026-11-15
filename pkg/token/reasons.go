@@ -132,3 +132,6 @@ const (
 	ruleMalLinked   = "문장:지·고 뒤 보조 동사 말다"
 	whyNotMalLinked = "앞 어절이 지·고로 끝나지 않는다"
 )
+
+// Why the auxiliary verb's rules fall after 관하여.
+const whyRegard = "앞 어절이 관하다(…에 관하여)다"

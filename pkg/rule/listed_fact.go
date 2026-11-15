@@ -41,6 +41,8 @@ func listedFact(ctx toulmin.Context, of int) string {
 	case ListPrevKind:
 		kind, _, _ := strings.Cut(nearAt(AroundOf(ctx).Before, 0).Kind, ":")
 		return kind
+	case ListPrevStem:
+		return nearAt(AroundOf(ctx).Before, 0).Stem
 	}
 	return TailOf(ctx).Closing
 }
