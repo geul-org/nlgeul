@@ -42,6 +42,7 @@ type index struct {
 	heads       map[rune][]string
 	signs       map[rune][]*entry
 	fronts      map[rune]*entry
+	order       *entry
 	after       map[rune][]*entry
 	tilde       *entry
 	number      float64

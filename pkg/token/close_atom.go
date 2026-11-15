@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what closeAtom — note one atom: a number is named so and takes the sign at its very front (a minus or plus, money) when that sign's graph stands; the places inside are marked and a number's end is kept
+//ff:what closeAtom — note one atom: a number is named so and takes the sign at its very front (a minus or plus, money) when that sign's graph stands, or else the prefix 제 right before it when its graph stands; the places inside are marked and a number's end is kept
 package token
 
 func (sc *scan) closeAtom(start, end int, names []string, num bool) {
@@ -7,7 +7,11 @@ func (sc *scan) closeAtom(start, end int, names []string, num bool) {
 		names = []string{numName}
 	}
 	if num {
+		was := start
 		start, names = sc.front(start, names)
+		if start == was {
+			start, names = sc.orderFront(start, names)
+		}
 		sc.numEnds[end] = true
 	}
 	sc.atoms[start] = atom{end, names, num}

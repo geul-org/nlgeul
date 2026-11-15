@@ -20,6 +20,8 @@ const (
 	whyLone       = "낱말 표 없이 홀로 선 한자어 한 음절 수사다"
 	whyNoDigits   = "기호의 오른쪽이 수가 아니다"
 	whyAfterWord  = "기호의 왼쪽에 글자가 붙어 있다"
+	whyOrderRight = "제 바로 뒤가 숫자가 아니다"
+	whyOrderLeft  = "제 바로 앞에 수의 끝이 아닌 글자가 붙어 있다"
 	whyBarred     = "뒤의 맺음은 서술격 이에 붙지 않는다"
 	whyKept       = "뒤의 맺음 앞에서는 이가 빠지지 않는다"
 	whyRunTakes   = "한글 아닌 글자 뒤의 빠진 이가 붙는 맺음이다"

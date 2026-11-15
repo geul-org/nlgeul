@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop keeps its own and gets two more), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop keeps its own and gets two more), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
 package token
 
 import (
@@ -36,6 +36,8 @@ func (ix *index) addNumbers() {
 		ix.fronts[sign] = frontGraph(headSigns[sign], digits, true)
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
 	}
+	ix.order = orderGraph(digits)
+	ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
 	ix.tilde = frontGraph(tildeName, digits, false)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	ix.after = map[rune][]*entry{}

@@ -97,6 +97,16 @@ const (
 	tildeName = "범위:~(단위 뒤)"
 )
 
+// orderHead is the prefix 제 (第) right before a number (제1항, 제36조): it
+// tells an order, as 째 after a number does, and its graph orderHeadName
+// takes the branch of 째's name (차례). It joins the number where a word
+// begins (nothing or a sign before it) or right after the end of a number
+// (a digit, or a unit right after a digit: 제36조제1항, 제3조의2제1항).
+const (
+	orderHead     = '제'
+	orderHeadName = "차례:제"
+)
+
 // afterOthers is how many pieces besides the unit words are counted
 // among the entries a piece after a number is taken as one of: 여 and
 // 째. The three unitSuffixes are not counted; nothing records why (the
