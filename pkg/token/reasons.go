@@ -119,3 +119,10 @@ const (
 	ruleDeterminerOne  = "문장:홀로 선 한은 관형사"
 	ruleLimitOne       = "문장:꾸밈 는 뒤 한은 체언"
 )
+
+// The rule of a sentence that reads the auxiliary verb from the main
+// verb's side, and why it falls.
+const (
+	ruleLinkBeforeAux = "문장:보조 용언 앞 어/아 꼴"
+	whyNoAuxNext      = "바로 뒤 어절의 줄기가 보조 용언이 아니다"
+)

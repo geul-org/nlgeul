@@ -7,4 +7,6 @@ import "github.com/geul-org/nlgeul/pkg/parse"
 func (ix *index) addSentence() {
 	aux := parse.ClosedWords()[auxSet]
 	ix.sentence = []sentenceRule{auxLinkedRule(aux), mainUnlinkedRule(aux), auxAskedRule(), adverbialFirstRule(), complementRule(), quotedRule(), determinerOneRule(), limitOneRule()}
+	// The 어/아 form of a main verb right before an auxiliary verb.
+	ix.sentence = append(ix.sentence, linkBeforeAuxRule(aux))
 }

@@ -223,3 +223,10 @@ const ontoBorn = 1 << 32
 // candidates of a 한 written apart); 1.5 is chosen to stay over that gap
 // if the counts move a little.
 const bonusOne = 1.5
+
+// bonusLinkBeforeAux is what the rule "the word right before an
+// auxiliary verb is the 어/아 form of its main verb" (linkBeforeAuxRule)
+// adds. The 어/아 form it puts first is mostly a stem of one syllable
+// (남+아, 서+(어)) against a noun of the same letters (남아, 서), whose
+// lambda is about 2 to 2.5 above it, so bonusSentence does not carry it.
+const bonusLinkBeforeAux = 3.0
