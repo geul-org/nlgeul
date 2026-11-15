@@ -12,7 +12,7 @@ import (
 // quoting endings with 면서, 며 and 니 (다면서, ㄴ다면서, 는다면서,
 // 라면서, 자면서, ㄴ다며, 는다며, 라며, 자며, 다니, ㄴ다니, 는다니,
 // 라니), 길래, 든가, ㄴ들, ㄹ망정, ㄹ지라도, ㄹ뿐더러, ㄹ세라,
-// 으라고, 다만, ㄴ다만, 는다만, 건만, 느냐고, ㄴ지라,
+// 으라고, 다만, ㄴ다만, 는다만, 건만, 건대, 느냐고, ㄴ지라,
 // 는지라, 은지라, 답니다, ㄴ답니다, 는답니다, 랍니다, and the modifying
 // 려는 and 려던 (the dictionary's shortened 려고 하는, 려고 하던). Not
 // listed, though the dictionary has them: 든 and 는걸, ㄴ걸, 은걸, whose letters are
