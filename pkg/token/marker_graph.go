@@ -1,17 +1,22 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form)
+//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them, but for a suffix, that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form)
 package token
 
 import (
 	"slices"
+	"strings"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
 	"github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 )
 
-// Every marker needs a stem before it, and none stands in a unit of
-// Hangul syllables glossed right after with as many Han characters in a
-// round bracket (Glossed: 대곤(大棍), 관치(官治) read no 곤, no 치). A whole-syllable form checks
+// Every marker needs a stem before it, and no particle, slot or closing
+// stands in a unit of Hangul syllables glossed right after with as many
+// Han characters in a round bracket (Glossed: 대곤(大棍), 관치(官治) read
+// no 곤, no 치); a suffix (a graph named 접미:<form>) is no native
+// particle, closing or slot and may be a Sino-Korean one the gloss
+// holds (보장률(保障率): 보장+률), so it is not turned down so. A
+// whole-syllable form checks
 // how the token before it ends; a particle whether its kind takes the particle after it; a suffix that needs a particle after it that one follows; a
 // slot its order; a lone final consonant the syllable it sits under
 // (with a word table the word before it is asked instead, where the
@@ -35,8 +40,11 @@ func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) in
 	g := toulmin.NewGraph(e.name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
 	except(g, rule.PieceIs, whyNoStem, fact(rule.PieceStem), not).Attacks(claim)
-	except(g, rule.PieceIs, whyGlossed, fact(rule.PieceGlossed)).Attacks(claim)
-	edges := 2
+	edges := 1
+	if !strings.HasPrefix(e.name, "접미:") {
+		except(g, rule.PieceIs, whyGlossed, fact(rule.PieceGlossed)).Attacks(claim)
+		edges++
+	}
 	if e.lead == 0 && e.after != rule.AfterAny {
 		except(g, rule.PieceAfter, whyAfter, &rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
 		edges++

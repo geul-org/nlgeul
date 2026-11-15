@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestMarkerGraph — the exceptions a graph gets by its entry: every marker the stem check and the check of a unit glossed with Han characters; a particle its end and chain order; a slot its order; a lone consonant its base (not with a word table); a piece that begins with 어/아 the rebuttal of a vowel that does not fit; a form with 으 read after a stem's ㄹ (loose) the rebuttal of a consonant that does not fit, which leaves it standing after ㄹ below the same form not loose, and not after another consonant; a form that ends a closed-set word that word; a closing read only with a word table what stands right after it; a closing of hangulBound the exception that no Hangul syllable stands before it (counted); a graph the case exception table names one exception more, apart from the closed-set words' and with a reason of its own, which turns down the words of its rows (the trace naming the word and the row) and no other word
+//ff:what TestMarkerGraph — the exceptions a graph gets by its entry: every marker the stem check and, but for a suffix (접미:이), the check of a unit glossed with Han characters; a particle its end and chain order; a slot its order; a lone consonant its base (not with a word table); a piece that begins with 어/아 the rebuttal of a vowel that does not fit; a form with 으 read after a stem's ㄹ (loose) the rebuttal of a consonant that does not fit, which leaves it standing after ㄹ below the same form not loose, and not after another consonant; a form that ends a closed-set word that word; a closing read only with a word table what stands right after it; a closing of hangulBound the exception that no Hangul syllable stands before it (counted); a graph the case exception table names one exception more, apart from the closed-set words' and with a reason of its own, which turns down the words of its rows (the trace naming the word and the row) and no other word
 package token
 
 import (
@@ -18,7 +18,7 @@ func TestMarkerGraph(t *testing.T) {
 	}{
 		{entry{name: "보조사:은", form: "은", class: classParticle, after: rule.AfterBatchim}, nil, 4},
 		{entry{name: "부사격:에", form: "에", class: classParticle}, nil, 4},
-		{entry{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, inner: true}, nil, 5},
+		{entry{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, inner: true}, nil, 4},
 		{entry{name: "선어말:었", form: "었", class: classSlot}, nil, 3},
 		{entry{name: "꾸밈:ㄴ", class: classClosing, lead: rule.JongN}, nil, 3},
 		{entry{name: "맺음:고", form: "고", class: classClosing}, []string{"그리고"}, 3},
