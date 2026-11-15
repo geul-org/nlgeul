@@ -36,6 +36,10 @@ package rule
 // that stands on a stem (에요 after 고양이 and after 고양+이: the letters
 // are those of the closing 예요 written wrong). Order tells that the
 // number right before the piece begins with the prefix 제.
+// Apart tells that the letters of a new word hold, right after a run
+// of Latin letters at its head, a word the spacing articles write
+// apart (a title of article 48 or a dependent noun of article 42), and
+// that they read there as nothing else (A씨, B군, PD님).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -63,4 +67,5 @@ type Piece struct {
 	Misspelt bool
 	YoOpen   bool
 	Order    bool
+	Apart    bool
 }

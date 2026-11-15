@@ -143,6 +143,7 @@ const (
 	PieceMisspelt             // it is a stem or a marker whose letters are a wrong way to write another word (the word table gives the stem so; the marker is a closing of the table of closings written wrong)
 	PieceYoOpen               // the particle 요 stands right after it, and it stands right on a stem that ends in a Hangul syllable with no final consonant or right after the suffix 이 on a stem
 	PieceOrder                // the number right before it begins with the prefix 제
+	PieceApart                // its letters hold, right after a run of Latin letters, a word the spacing articles write apart
 )
 
 // Yes/no facts of a sign that MarkIs tests.

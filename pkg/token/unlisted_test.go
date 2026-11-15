@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestUnlisted — a stem no table lists has a new word's verdict; with a word table it does not stand as a word the table (사과) or a closed set (거) knows only as a nominal before a predicate tail, though it does before particles and as a predicate's stem too (물), nor when it ends in ㅆ before markers (곰졌), judged as it was before a piece was fused into it (곰지); without a word table all of these stand; after the search a new word whose letters read as markers after a boundary does not stand whole (에), and stands with markers after it only without a word table
+//ff:what TestUnlisted — a stem no table lists has a new word's verdict; with a word table it does not stand as a word the table (사과) or a closed set (거) knows only as a nominal before a predicate tail, though it does before particles and as a predicate's stem too (물), nor when it ends in ㅆ before markers (곰졌), judged as it was before a piece was fused into it (곰지); without a word table all of these stand; after the search a new word whose letters read as markers after a boundary does not stand whole (에), and stands with markers after it only without a word table; a new word whose letters hold, right after the atom at its head, only a title the spacing articles write apart (A씨 before 가, 씨 a noun of the table) does not stand, while without a word table, where 씨 is no known word, it does
 package token
 
 import (
@@ -65,5 +65,15 @@ func TestUnlisted(t *testing.T) {
 	}
 	if v := lexed.unlisted(0, 4, "마당에", tail{start: 3, pieces: seo}); v != lexed.ix.unknown {
 		t.Fatal("the unit's first word is not marked", v)
+	}
+
+	ga := []piece{{text: "가", names: "주격:가", verdict: 1, tail: rule.TailCase}}
+	title := wordsScan("A씨가", layerCost)
+	title.ix.lex["씨"] = word{kinds: kindNominal, count: 500, by: [6]int{500}}
+	if v := title.unlisted(0, 3, "A씨", tail{start: 2, pieces: ga}); v > 0 {
+		t.Fatal("A씨 before 가: 씨, a title the spacing articles write apart, right after the atom A", v)
+	}
+	if v := scanOf("A씨가").unlisted(0, 3, "A씨", tail{start: 2, pieces: ga}); v != title.ix.unknown {
+		t.Fatal("without a word table 씨 is no known word, and A씨 stands", v)
 	}
 }

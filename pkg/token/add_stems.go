@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what addStems — the graph of a new word (a stem no table lists) and the graph of a stem's restored last syllable; the new word's claim is rebutted by "it is in no key table" and excepted when its letters read as markers after a boundary, and with a word table when it ends in ㅆ before markers and when the tables know it only as kinds that take no predicate tail before one; the restored syllable's claim is excepted when it stands right after a letter that is no Hangul, when the stem keeps its ㅡ, when the 어/아 put back does not fit the stem, and when it is 하 as it stands in the letters (하 takes 여 and shows it: 해, 하여)
+//ff:what addStems — the graph of a new word (a stem no table lists) and the graph of a stem's restored last syllable; the new word's claim is rebutted by "it is in no key table" and excepted when its letters read as markers after a boundary and when they hold, right after a run of Latin letters at its head, only a word the spacing articles write apart (A씨), and with a word table when it ends in ㅆ before markers and when the tables know it only as kinds that take no predicate tail before one; the restored syllable's claim is excepted when it stands right after a letter that is no Hangul, when the stem keeps its ㅡ, when the 어/아 put back does not fit the stem, and when it is 하 as it stands in the letters (하 takes 여 and shows it: 해, 하여)
 package token
 
 import (
@@ -21,7 +21,11 @@ import (
 // table lists; any other ㅆ is the slot 았/었/겠), nor when the tables
 // know its letters, but only as kinds that take no predicate tail,
 // before such a tail (뭐+냐, 거+네): a word that is a predicate's stem
-// too is left to its kind's graph.
+// too is left to its kind's graph. A new word does not stand, with a
+// word table or without, when right after a run of Latin letters at its
+// head its letters hold a title of article 48 or a dependent noun of
+// article 42 of the spelling rules and read there as nothing else (A씨,
+// B군, PD님: the articles write the two apart).
 //
 // A piece is fused only into a Hangul stem's last syllable: right after
 // a letter that is no Hangul inside the stem the syllable is not taken
@@ -40,6 +44,7 @@ func (ix *index) addStems() {
 	g.Counter(rule.PieceRead).With(&rule.Claim{Name: noKey, Concludes: "반박"}).Attacks(claim, forceNew)
 	marked := except(g, rule.PieceIs, whyMarked, fact(rule.PieceMarked))
 	marked.Attacks(claim)
+	except(g, rule.PieceIs, whyWrittenApart, fact(rule.PieceApart)).Attacks(claim)
 	if ix.lexed {
 		except(g, rule.StemCoda, whyCoda, &rule.Bits{Of: "jong", Mask: rule.JongSS}).Attacks(claim)
 		known := except(g, rule.StemKind, whyKnown, &rule.Bits{Of: "kinds", Mask: kindAny})
@@ -51,7 +56,7 @@ func (ix *index) addStems() {
 		except(g, rule.StemTail, whyUntold, &rule.Bits{Of: "tail", Mask: rule.TailBare}).Attacks(marked)
 		ix.edges++
 	}
-	ix.stem, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+2
+	ix.stem, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+3
 	ix.unknown = verdict(g, rule.Piece{})
 	r := toulmin.NewGraph(restoreName)
 	claim = r.Rule(rule.PieceRead).With(&rule.Claim{Name: restoreName, Concludes: "줄기"})
