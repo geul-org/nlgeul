@@ -197,6 +197,7 @@ const (
 	ListPrevKind             // the kind of the name of the stem of the word before it (닫기 of 닫기:1)
 	ListPrevStem             // the stem of the word before it
 	ListNextKind             // the kind of the name of the stem of the word after it (닫기 of 닫기:1)
+	ListNextName             // the name of the stem of the word after it, whole (열쇠:동사)
 )
 
 // Yes/no facts of a candidate judged in its sentence that AroundIs

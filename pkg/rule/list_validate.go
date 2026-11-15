@@ -5,7 +5,7 @@ package rule
 import "errors"
 
 func (l *List) Validate() error {
-	if l.Name == "" || l.Of < ListForm || l.Of > ListNextKind {
+	if l.Name == "" || l.Of < ListForm || l.Of > ListNextName {
 		return errors.New("rule: list without a name or a fact")
 	}
 	return nil
