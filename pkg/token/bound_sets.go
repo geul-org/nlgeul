@@ -27,3 +27,7 @@ var adnBound = []string{"수", "줄"}
 // dependent noun even when the word before it is not read as a modifying
 // form (the standard dictionary's 줄: -ㄹ 줄 알다, -ㄴ 줄 모르다).
 var knowStems = []string{"알", "모르"}
+
+// middleDot is the name of the middle dot of the table of signs, which
+// joins words listed side by side (nounListedRule).
+const middleDot = "가운뎃점"

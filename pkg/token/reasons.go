@@ -188,9 +188,11 @@ const (
 	ruleBoundBefore    = "문장:의존 명사 앞 꾸밈"
 	ruleNounUnmodified = "문장:꾸밈 뒤가 아닌 수·줄은 체언"
 	ruleBoundAfter     = "문장:꾸밈 뒤 의존 명사"
+	ruleNounListed     = "문장:가운뎃점 앞 의존 명사 글자는 체언"
 
 	whyNoBoundNext = "바로 뒤 어절이 의존 명사가 아니다"
 	whyNominalNext = "바로 뒤 의존 명사가 체언 뒤에도 선다"
 	whyKnowNext    = "바로 뒤 어절이 알다·모르다다"
 	whyNominalSelf = "체언 뒤에도 서는 의존 명사다"
+	whyNoDotNext   = "바로 뒤가 가운뎃점이 아니다"
 )

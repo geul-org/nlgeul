@@ -42,4 +42,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, nounUnmodifiedRule(adnBound))
 	// A dependent noun right after a modifying form (boundAfterRule).
 	ix.sentence = append(ix.sentence, boundAfterRule(boundNominal))
+	// The noun of a dependent noun's letters before a middle dot (nounListedRule).
+	ix.sentence = append(ix.sentence, nounListedRule(parse.ClosedWords()[boundSet]))
 }
