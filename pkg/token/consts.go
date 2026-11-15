@@ -344,3 +344,14 @@ var aloneBarred = []string{"의존명사", "관형사"}
 // 2.5 and 3 tried with that rule on the answer sheet: 2.5 gave 17, 15
 // and 2 more right words than 1, 1.5 and 2, and 3 one fewer.
 const bonusBound = 2.5
+
+// bonusBoundAfter is what the rule of a sentence "a dependent noun stands
+// right after a modifying form" adds (boundAfterRule). The candidates it
+// tells apart are of different lambdas: 수도 read as one noun stands 0.9
+// above 수+도, 걸다+ㄴ 0.8 above 거+는, and 걸다+ㅂ니다 above 거 with a
+// dropped copula (겁니다) by more. It is chosen among 0.5, 1, 2.5, 3.5,
+// 4, 5, 6 and 8 tried with that rule on the answer sheet: 0.5 gave none
+// right, 1 and 2.5 6 fewer than 3.5, 4 and 5 (the same words), 6 one
+// fewer; 8 gave 4 more, which were words of the dependent noun 거
+// written onto the modifying form (있는건지), read whole as a noun.
+const bonusBoundAfter = 3.5
