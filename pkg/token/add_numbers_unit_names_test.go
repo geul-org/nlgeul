@@ -27,4 +27,11 @@ func TestAddNumbersUnitNames(t *testing.T) {
 	if len(names) != 2 || !names["단위:미터"] || !names["단위:분"] {
 		t.Error(names)
 	}
+	wide := map[string]bool{}
+	for _, e := range ix.after['ｍ'] {
+		wide[e.name] = true
+	}
+	if len(wide) != 2 || !wide["단위:미터"] || !wide["단위:분"] || len(ix.after['％']) != 1 || ix.after['％'][0].name != "단위:퍼센트" {
+		t.Error(wide)
+	}
 }

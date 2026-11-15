@@ -16,6 +16,8 @@ func TestUnitCut(t *testing.T) {
 		{"12", 2, false},
 		{"12xq", 2, false},
 		{"12개", 2, false},
+		{"5ｍ", 1, true},
+		{"5ｍｍ", 1, false},
 	} {
 		s := []rune(c.text)
 		cut, ok := unitCut(s, [2]int{0, len(s)})

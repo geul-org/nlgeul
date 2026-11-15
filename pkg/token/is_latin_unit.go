@@ -4,10 +4,8 @@ package token
 
 import (
 	"slices"
-	"unicode"
-	"unicode/utf8"
 )
 
 func isLatinUnit(text string) bool {
-	return text != "" && text[0] < utf8.RuneSelf && unicode.IsLetter(rune(text[0])) && slices.Contains(unitWords, text)
+	return text != "" && isLatinLetter(firstRune(text)) && slices.Contains(unitWords, text)
 }

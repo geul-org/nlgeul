@@ -33,6 +33,15 @@ const (
 var signShapes = map[rune][]rule.Shape{
 	',': {{Of: "자릿수:,", Min: 2, Lens: [][2]int{{1, 3}, {3, 3}}}},
 	'~': {{Of: "범위:~", Min: 2, Max: 2}},
+	'∼': {{Of: "범위:∼", Min: 2, Max: 2}},
+	'～': {{Of: "범위:～", Min: 2, Max: 2}},
+	'〜': {{Of: "범위:〜", Min: 2, Max: 2}},
+	'–': {
+		{Of: "범위:–", Min: 2, Max: 2},
+		{Of: "빼기:–", Min: 2, Max: 2},
+		{Of: "날짜:–", Min: 3, Max: 3, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}, {1, 31}}},
+		{Of: "전화:–", Min: 3, Max: 3, Lens: [][2]int{{2, 4}, {3, 4}, {4, 4}}, Head: "0"},
+	},
 	'-': {
 		{Of: "범위:-", Min: 2, Max: 2},
 		{Of: "빼기:-", Min: 2, Max: 2},
@@ -60,7 +69,7 @@ var signShapes = map[rune][]rule.Shape{
 var nameSigns = map[rune]string{'/': "경로:/", '-': "붙임:-"}
 var nameOrder = []rune{'/', '-'}
 
-var signOrder = []rune{',', '~', '-', ':', '/', '.'}
+var signOrder = []rune{',', '~', '-', ':', '/', '.', '∼', '～', '〜', '–'}
 
 var shownAs = map[string]string{"자릿수": numName}
 
@@ -89,6 +98,10 @@ const (
 	placeUnit
 	placeOrder
 )
+
+// tildeSigns are the range signs read after a number and its unit: the
+// tilde and its variants (tilde operator, fullwidth tilde, wave dash).
+const tildeSigns = "~∼～〜"
 
 const (
 	unitLabel = "단위:"
