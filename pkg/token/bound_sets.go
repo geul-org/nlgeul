@@ -17,3 +17,8 @@ var (
 	boundNext    = slices.Concat(parse.ClosedWords()[boundSet], spacingSets[setBoundAdn])
 	boundNominal = append(slices.Clone(afterNounWords), "만")
 )
+
+// adnBound are the dependent nouns that stand only after a predicate's
+// modifying form, whose letters are a noun elsewhere
+// (nounUnmodifiedRule): 수 and 줄.
+var adnBound = []string{"수", "줄"}
