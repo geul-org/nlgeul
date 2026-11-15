@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=selection
-//ff:what headOf — what a slot or closing begins with, for the changes of an irregular stem (head…): a fused 어/아 or ㅆ; a fused ㄴ, ㄹ, ㅁ or ㅂ, and whether it is the form after a vowel of a tail that takes 으 (the closing tables have its form with 으: 은데 for ㄴ데, 읍시다 for ㅂ시다; none for ㄴ다 and ㄴ답니다, whose other form is 는다, nor for ㅂ니다); a syllable 어/아/여; a form with 으; else its first consonant, whether it takes 으 after a consonant, and 네
+//ff:what headOf — what a slot or closing begins with, for the changes of an irregular stem (head…): a fused 어/아 or ㅆ; a fused ㄴ, ㄹ, ㅁ or ㅂ, and whether it is the form after a vowel of a tail that takes 으 (the closing tables have its form with 으: 은데 for ㄴ데, 읍시다 for ㅂ시다; none for ㄴ다 and ㄴ답니다, whose other form is 는다, nor for ㅂ니다); a syllable 어/아/여; a form with 으; else its first consonant, whether it takes 으 after a consonant, and 네, and for a closing before which 하 drops wholly (haWhole: 건대) that
 package token
 
 import (
@@ -39,6 +39,9 @@ func (ix *index) headOf(e *entry) int {
 	h := firstHead(f[0])
 	if e.eu || e.name == honorName || slices.Contains(linkTakers, e.name) {
 		h |= headEuOpen
+	}
+	if slices.Contains(haWhole, e.name) {
+		h |= headHaW
 	}
 	return h
 }

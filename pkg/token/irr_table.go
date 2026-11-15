@@ -10,7 +10,9 @@ package token
 // Clause 40: a stem of two syllables or more that ends in 하 loses the
 // ㅏ of 하, and its ㅎ fuses into the first consonant of some closings,
 // which are then written with an aspirate (원치 = 원하+치, 가능케,
-// 불쌍타, 연구토록, 달성코자, 단언컨대).
+// 불쌍타, 연구토록, 달성코자, 단언컨대). Clause 40, note 2: after a
+// final consonant that sounds [ㄱ], [ㄷ] or [ㅂ] the 하 drops wholly and
+// the closing stands right after it (생각건대 = 생각하+건대).
 //
 // Kinds of change, as bits. irrL is not irregular: every stem that
 // ends in ㄹ drops it before ㄴ, ㅂ, ㅅ and a fused ㄹ, whatever the
@@ -27,6 +29,7 @@ const (
 	irrReo             // 러: 이르 → 이르르 (이르러)
 	irrU               // 우: 푸 → 프 (퍼)
 	irrHa              // 제40항: 원하 → 원 (원치 = 원하+치), ㅏ of 하 dropped, its ㅎ fused into the closing's first consonant
+	irrHaW             // 제40항 붙임 2: 생각하 → 생각 (생각건대 = 생각하+건대), 하 dropped wholly after a voiceless final consonant
 )
 
 // typeIrr reads the irregular type a word table gives a predicate.
@@ -44,6 +47,7 @@ const (
 	headB                  // a fused ㅂ
 	headNe                 // 네, before which ㅎ stays or goes
 	headHa                 // a closing with the ㅎ of 하 fused into its first consonant (haPairs)
+	headHaW                // a closing before which 하 drops wholly (haWhole)
 )
 
 // irrHeads says before what each change happens.
@@ -59,6 +63,7 @@ var irrHeads = map[int]int{
 	irrReo: headFused,
 	irrU:   headFused,
 	irrHa:  headHa,
+	irrHaW: headHaW,
 }
 
 // roundB are the two ㅂ stems whose 어 is 아 (도와, 고와); every other
@@ -73,6 +78,13 @@ var eoStems = map[string]string{"그러": "그래", "이러": "이래", "저러"
 // fused into their first consonant (clause 40): the name of the
 // closing, and the form it is then written in.
 var haPairs = [][2]string{{"맺음:지", "치"}, {"맺음:게", "케"}, {"맺음:다", "타"}, {"맺음:도록", "토록"}, {"맺음:고자", "코자"}, {"맺음:건대", "컨대"}}
+
+// haWhole are the closings before which 하 drops wholly (clause 40,
+// note 2), and voicelessEnds the final consonants after which it does:
+// those that sound [ㄱ], [ㄷ] or [ㅂ] (Standard pronunciation, clauses 9
+// to 11: ㄱ ㄲ ㄳ ㄺ ㅋ, ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ, ㅂ ㅄ ㄿ ㅍ).
+var haWhole = []string{"맺음:건대"}
+var voicelessEnds = []int{1, 2, 3, 9, 24, 7, 19, 20, 22, 23, 25, 17, 18, 14, 26}
 
 // euLetters are the letters a form with the link vowel 으 in it begins
 // with (으면, 은, 을, 음, 읍시다).

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestChanged — each kind of change gives its form: 살 → 사 with no type, 듣 → 들, 짓 → 지, 덥 → 더우, 돕 → 도우 and 도오, 파랗 → 파라 and 파래, 그렇 → 그러 and 그래, 모르 → 몰르, 이르 → 이르르, 푸 → 프, 원하 → 원 and 가능하 → 가능 with 하 dropped (clause 40), but not the one-syllable 하; a regular stem that ends in no ㄹ has none; a type the stem's shape does not fit gives nothing
+//ff:what TestChanged — each kind of change gives its form: 살 → 사 with no type, 듣 → 들, 짓 → 지, 덥 → 더우, 돕 → 도우 and 도오, 파랗 → 파라 and 파래, 그렇 → 그러 and 그래, 모르 → 몰르, 이르 → 이르르, 푸 → 프, 원하 → 원 and 가능하 → 가능 with 하 dropped (clause 40), but not the one-syllable 하; 생각하 → 생각, 깨끗하 → 깨끗, 섭섭하 → 섭섭 also with 하 dropped wholly after a final consonant that sounds [ㄱ], [ㄷ], [ㅂ] (note 2), but not 가능하 (ㅇ) nor 깔끔하 (ㅁ) nor 넓하 (ㄼ, [ㄹ]); a regular stem that ends in no ㄹ has none; a type the stem's shape does not fit gives nothing
 package token
 
 import (
@@ -24,6 +24,11 @@ func TestChanged(t *testing.T) {
 		fmt.Sprint(changed("원하", 0)):                                     fmt.Sprint([]alt{{"원", irrHa}}),
 		fmt.Sprint(changed("가능하", 0)):                                    fmt.Sprint([]alt{{"가능", irrHa}}),
 		fmt.Sprint(changed("하", 0)):                                      fmt.Sprint([]alt(nil)),
+		fmt.Sprint(changed("생각하", 0)):                                    fmt.Sprint([]alt{{"생각", irrHa}, {"생각", irrHaW}}),
+		fmt.Sprint(changed("깨끗하", 0)):                                    fmt.Sprint([]alt{{"깨끗", irrHa}, {"깨끗", irrHaW}}),
+		fmt.Sprint(changed("섭섭하", 0)):                                    fmt.Sprint([]alt{{"섭섭", irrHa}, {"섭섭", irrHaW}}),
+		fmt.Sprint(changed("깔끔하", 0)):                                    fmt.Sprint([]alt{{"깔끔", irrHa}}),
+		fmt.Sprint(changed("넓하", 0)):                                     fmt.Sprint([]alt{{"넓", irrHa}}),
 		fmt.Sprint(changed("먹", 0)):                                      fmt.Sprint([]alt(nil)),
 		fmt.Sprint(changed("먹", irrD|irrS|irrB|irrH|irrReu|irrReo|irrU)): fmt.Sprint([]alt(nil)),
 		fmt.Sprint(changed("르", irrReu)):                                 fmt.Sprint([]alt(nil)),
