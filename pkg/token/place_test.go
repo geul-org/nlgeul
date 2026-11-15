@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestPlace — a whole form reports the end before it; a form at the unit's start has no stem; a piece under a consonant or fused into a vowel sits in the stem's last syllable; a fused ㅆ only on the vowels it fuses into, an unseen 어/아 only with more of the tail or at the unit's end; after 되 an 어 the writing leaves out, with more of the tail, before 요 or at the unit's end but not inside it, and a fused ㅆ under it (됬); a form that is not there is not placed; a form at the unit's start has a stem in the unit before while the unit is read as attaching
+//ff:what TestPlace — a whole form reports the end before it; a form at the unit's start has no stem; a piece under a consonant or fused into a vowel sits in the stem's last syllable; a fused ㅆ only on the vowels it fuses into, an unseen 어/아 only with more of the tail or at the unit's end; after 되 an 어 the writing leaves out, with more of the tail, before 요 or at the unit's end but not inside it, and a fused ㅆ under it (됬); a form that is not there is not placed; a form at the unit's start has a stem in the unit before while the unit is read as attaching; a whole form right after a middle dot (·, ㆍ, ‧) has no stem, right after another sign (/) it has
 package token
 
 import (
@@ -66,6 +66,18 @@ func TestPlace(t *testing.T) {
 	}
 	if _, _, ok := sc.place(&entry{lead: rule.JongN}, 0, false); ok {
 		t.Fatal("a fused piece at the start")
+	}
+	if start, p, ok := scanOf("갑·을").place(&entry{form: "을"}, 3, false); !ok || start != 2 || p.HasStem || p.Prev != '·' {
+		t.Fatal("no stem right after a middle dot", start, p, ok)
+	}
+	if _, p, ok := scanOf("읍ㆍ면").place(&entry{form: "면"}, 3, false); !ok || p.HasStem {
+		t.Fatal("no stem right after ㆍ", p)
+	}
+	if _, p, ok := scanOf("벽보‧를").place(&entry{form: "를"}, 4, false); !ok || p.HasStem {
+		t.Fatal("no stem right after a middle dot variant", p)
+	}
+	if _, p, ok := scanOf("갑/을").place(&entry{form: "을"}, 3, false); !ok || !p.HasStem || p.Prev != '/' {
+		t.Fatal("a stem before a form right after another sign", p)
 	}
 	lone := scanOf("로")
 	if _, p, ok := lone.place(&entry{form: "로"}, 1, false); !ok || p.HasStem {

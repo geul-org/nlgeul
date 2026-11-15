@@ -1,8 +1,9 @@
 //ff:func feature=token type=reader control=selection
-//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph (a closing written wrong tells its graph that it is a misspelt form); a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
+//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph (a closing written wrong tells its graph that it is a misspelt form; a whole form right after a middle dot has no stem); a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
 package token
 
 import (
+	"slices"
 	"unicode/utf8"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -15,7 +16,9 @@ import (
 // is asked for; inside a unit nothing would show the boundary, except
 // right before an auxiliary verb's stem (가보다 = 가+아 보다). A fused ㅆ is read only on the vowels 었/았 fuses into. After a
 // syllable of unspelt (되) both are read as well, with an 어 the
-// writing leaves out (되도, 됬다).
+// writing leaves out (되도, 됬다). A middle dot (a sign named 가운뎃점)
+// stands between two words and is no word itself, so a whole form right
+// after it has no stem before it (갑·을 has no 갑·+을).
 func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 	n := utf8.RuneCountInString(e.form)
 	start := j - n
@@ -28,6 +31,9 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 		return start, p, e.lead == 0
 	case e.lead == 0:
 		p.Prev = sc.s[start-1]
+		if slices.Contains(signNames[p.Prev], "가운뎃점") {
+			p.HasStem = false
+		}
 		return start, p, true
 	case e.lead == rule.LeadVowel:
 		open := n > 0 || more || j == len(sc.s) || sc.auxNext(j)
