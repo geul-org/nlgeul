@@ -28,3 +28,11 @@ var haTakes = append([]string{"목적격:을", "목적격:를", "부사격:로",
 	parse.Marker{Form: "다고"}, parse.Marker{Form: "다고", Lead: rule.JongN}, parse.Marker{Form: "는다고"},
 	parse.Marker{Form: "라고"}, parse.Marker{Form: "냐고"}, parse.Marker{Form: "자고"},
 )...)
+
+// oneNoun is the name of 한 read as a nominal of the word table, the
+// noun 한(限) of the construction -는 한 (limitOneRule), and neunAdn
+// the name of the modifying closing 는 that stands before it.
+var (
+	oneNoun = keyKind + ":" + kindLabel[kindNominal]
+	neunAdn = adnPrefix + "는"
+)
