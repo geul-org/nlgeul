@@ -10,13 +10,13 @@ func (s *Stream) judgeSeat(seats []seat, i int) ([]lift, []string) {
 	var lifts []lift
 	var notes []string
 	for _, br := range n.Contest.Branches {
-		around.Self = nearOf(br)
+		around.Self = nearIn(n, br)
 		add, lines := s.judgeCandidate(br, around)
 		notes = append(notes, lines...)
 		if add != 0 {
 			lifts = append(lifts, lift{span: n.Span, word: br.String(), add: add})
 		}
 	}
-	seats[i].near = nearOf(lifted(n, lifts).Contest.Branches[0])
+	seats[i].near = nearIn(n, lifted(n, lifts).Contest.Branches[0])
 	return lifts, notes
 }

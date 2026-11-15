@@ -5,7 +5,7 @@ package token
 func seatsIn(k int, nodes []Node) []seat {
 	out := make([]seat, 0, len(nodes))
 	for _, n := range nodes {
-		out = append(out, seat{region: k, node: n, near: nearOf(n.Contest.Branches[0])})
+		out = append(out, seat{region: k, node: n, near: nearIn(n, n.Contest.Branches[0])})
 	}
 	return out
 }
