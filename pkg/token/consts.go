@@ -409,3 +409,8 @@ const measureName = "단위:숫자 뒤 따옴표"
 // lambda of the closing, 0.5 (a verdict of 1/3, as forceUnitWord and
 // forceNumberAdn give) sends it behind with room.
 const forceMeasureOpen = 0.5
+
+// degreeNames are the names of the unit 도 (an angle, a temperature),
+// which a rule of a sentence prefers right after a number at the end of
+// its word to the particle 도 (degreeUnitRule).
+var degreeNames = []string{"단위:도"}
