@@ -41,11 +41,13 @@ const (
 	setPronounWord = "대명사"
 	setSpoken      = "구어 꼴"
 	setAskWord     = "의문 대명사"
+	setExistStem   = "있다·없다·계시다"
 	setVerbOnly    = "동사만"
 	setDrop        = "서술격 빠짐"
 	setDropKnown   = "서술격 빠짐(낱말 표)"
 	setLinkTaker   = "이음 으"
 	setHangul      = "한글 뒤만"
+	setVerbExist   = "동사·있다·없다·계시다"
 )
 
 var contractSets = map[string]int{setContract: 0, setPronoun: 0, setNounCopula: 0, setTypo: 0}

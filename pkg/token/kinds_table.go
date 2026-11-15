@@ -17,7 +17,7 @@ var kindLabel = map[int]string{kindNominal: "체언", kindVerb: "동사", kindAd
 // auxiliary particles; a determiner and the other words stand alone.
 var kindTails = map[int]int{
 	kindNominal:    rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
-	kindVerb:       rule.TailPred | rule.TailVerb,
+	kindVerb:       rule.TailPred | rule.TailVerb | rule.TailExist,
 	kindAdj:        rule.TailPred | rule.TailAdj,
 	kindAdverb:     rule.TailBare | rule.TailAux,
 	kindDeterminer: rule.TailBare,
@@ -50,7 +50,7 @@ const boundSet = "의존명사"
 // conjunction stands alone or takes auxiliary particles.
 var closedTails = map[string]int{
 	"의존명사":  rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
-	auxSet:  rule.TailPred | rule.TailVerb | rule.TailAdj,
+	auxSet:  rule.TailPred | rule.TailVerb | rule.TailAdj | rule.TailExist,
 	"관형사":   rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
 	"접속 부사": rule.TailBare | rule.TailAux,
 }
@@ -60,18 +60,30 @@ var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, 
 // closingSets are the lists of closings by what they take, as their
 // table gives them (closing-sets.tsv), and wordSets this layer's own
 // closed sets of words (closed-words-more.tsv).
-var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul))
-var wordSets = data.Must(data.Sets("closed-words-more", setBoundAux, setAuxMore, setPronounWord, setSpoken, setAskWord))
+var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul, setVerbExist))
+var wordSets = data.Must(data.Sets("closed-words-more", setBoundAux, setAuxMore, setPronounWord, setSpoken, setAskWord, setExistStem))
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
-// (also before a quotation's 고, 면, 는), 는구나, 는군, 느냐, 느라; the
+// (also before a quotation's 고, 면, 는), 는구나, 는군, 느라; the
 // proposal 자 (the copula's stem takes 자 too, as the linking ending
 // that joins two standings of one thing: 학자이자; the table cannot tell
-// that ending from the proposal, which shares its name), ㅂ시다/읍시다; the quoting 느냐는, 느냐며, 느냐면,
-// 느냐면서, 느냐니까, 자는, 자면, 자니, 자니까, ㄴ다니까, 는다니까,
-// ㄴ다더라, 는다더라; purpose and intent 러, 려, 려고, 려면, 려다, 려는, 려던, 고자. The modifying 는 and 는데, 는지, 는가 are not here: 있다
-// and 없다 take them.
+// that ending from the proposal, which shares its name), ㅂ시다/읍시다;
+// the quoting 자는, 자면, 자니, 자니까, ㄴ다니까, 는다니까, ㄴ다더라,
+// 는다더라; purpose and intent 러, 려, 려고, 려면, 려다, 려는, 려던,
+// 고자. The modifying 는 and 는데, 는지, 는가 are not here: 있다 and 없다
+// take them. 느냐 is not here either (existClosings).
 var verbClosings = closingSets[setVerbOnly]
+
+// existClosings are the closings verbs take and, of the adjectives, only
+// the stems of 있다, 없다 and 계시다 (existStems) take, and any stem
+// right after the slot 시, 었 or 겠 (existSlots): 느냐 and the quoting
+// 느냐는, 느냐며, 느냐면, 느냐면서, 느냐니까, as the dictionary gives
+// 느냐 (없느냐, 좋았느냐, 좋겠느냐).
+var existClosings = closingSets[setVerbExist]
+
+var existStems = wordSets[setExistStem]
+
+var existSlots = []string{honorName, slotLabel + "었", slotLabel + "았", slotLabel + "였", slotLabel + "ㅆ", slotLabel + "겠"}
 
 // boundAux are the stems of the auxiliaries made of a dependent noun
 // and 하다 or 싶다 (듯하다, 만하다, 법하다, 성싶다, 척하다 of the
@@ -90,7 +102,7 @@ const (
 
 // predTails are the tails a predicate takes: a stem before one of them
 // stands as a verb or an adjective.
-const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj
+const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj | rule.TailExist
 
 // pronouns are the determiners of the closed set that are pronouns
 // too (이, 그, 저): with no word table one of them before particles or
