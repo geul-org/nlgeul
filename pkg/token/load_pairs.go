@@ -2,7 +2,7 @@
 //ff:what loadPairs — the signs of a pair read from their table, sign by sign; a sign written on two lines is an error
 package token
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadPairs(rows []data.Row) (map[rune]pairRow, error) {
 	out := map[rune]pairRow{}

@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // Signs that open and close a pair (written with no space inside:

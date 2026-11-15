@@ -2,7 +2,7 @@
 //ff:what loadHeads — the signs at the front of a number read from their table: a sign and its kind a line, named with the kind and the sign (부호:-); a sign written on two lines is an error
 package token
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadHeads(rows []data.Row) (map[rune]string, error) {
 	out := map[rune]string{}

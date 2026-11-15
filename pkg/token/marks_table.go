@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // The candidates of the full stop that join the runs on its two sides

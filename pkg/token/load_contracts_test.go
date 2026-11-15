@@ -3,7 +3,7 @@
 package token
 
 import "testing"
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func TestLoadContracts(t *testing.T) {
 	got, err := loadContracts([]data.Row{

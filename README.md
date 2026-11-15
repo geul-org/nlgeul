@@ -2,7 +2,7 @@
 
 한국어 문장을 문법 표와 판정 그래프로 읽는 실험용 분석기다. 문장을 음절(토큰)의 흐름으로 보고, 조사·선어말 어미·어미 같은 표지를 찾아 어절과 그 조각으로 끊는다. 후보가 하나로 정해지지 않으면 고르지 않고, 가능한 후보를 근거의 세기와 함께 모두 내놓는다.
 
-Go 모듈 `github.com/geul-org/nlgeul`과 명령줄 도구 `nlgeul`이다. 학습한 모델이나 외부 형태소 분석기를 쓰지 않는다. 문법은 실행 파일에 품은 표(`data/tables/*.tsv`)와 코드 안에 남은 표, 그리고 [toulmin](https://github.com/park-jun-woo/toulmin) 그래프(주장, 예외, 반박)로 적혀 있고, 닫힌 집합 밖의 낱말은 따로 주는 낱말 표에서만 온다.
+Go 모듈 `github.com/geul-org/nlgeul`과 명령줄 도구 `nlgeul`이다. 학습한 모델이나 외부 형태소 분석기를 쓰지 않는다. 문법은 실행 파일에 품은 표(`pkg/data/*.tsv`)와 코드 안에 남은 표, 그리고 [toulmin](https://github.com/park-jun-woo/toulmin) 그래프(주장, 예외, 반박)로 적혀 있고, 닫힌 집합 밖의 낱말은 따로 주는 낱말 표에서만 온다.
 
 ## 지금 상태
 
@@ -45,7 +45,7 @@ nlgeul token "<문장>" [flags]
 | `--trace` | 단위마다 걸린 토큰 열, 그래프, verdict, 기각 이유를 그 단위의 상자들 앞에 함께 찍는다(`--format plain`이면 그 단위의 경합 앞에) |
 | `--cuts` | 측정용. 단위마다 살아남은 후보들의 어절 끝 자리(토큰 수)만 찍는다 |
 | `--marks` | 측정용. `--cuts`처럼 어절 끝 자리를 찍되 단위 안쪽 끝 자리마다 `:` 뒤에 그 경계가 자리인 띄어쓰기 조항 번호를 `/`로 이어 적는다(없으면 `-`) |
-| `--spacing <조항>` | 켤 띄어쓰기 조항(「한글 맞춤법」 제2항, 제41~50항. 번호는 `2`, `41`, `42`, `43`, `43다만`, `44`, `45`, `46`, `47`, `47다만`, `48`, `48다만`, `49`, `50`). `all`(기본, 전부), `none`(끔), 또는 쉼표로 이은 이름. 표준이 붙여 써도 된다고 한 자리도 띄는 자리로 보고 끊을 자리를 낸다. 알아보는 말은 `data/tables/spacing-words.tsv`다 |
+| `--spacing <조항>` | 켤 띄어쓰기 조항(「한글 맞춤법」 제2항, 제41~50항. 번호는 `2`, `41`, `42`, `43`, `43다만`, `44`, `45`, `46`, `47`, `47다만`, `48`, `48다만`, `49`, `50`). `all`(기본, 전부), `none`(끔), 또는 쉼표로 이은 이름. 표준이 붙여 써도 된다고 한 자리도 띄는 자리로 보고 끊을 자리를 낸다. 알아보는 말은 `pkg/data/spacing-words.tsv`다 |
 | `--head <n>` | 상자 하나의 후보 줄과 어절경합 하나의 갈래를 앞의 n개까지만 찍는다(기본 20, 0은 전부. `--format plain`이면 경합 하나의 후보 줄). 음수는 오류 |
 | `--layers <n>` | 측정용. 낱말 표를 몇 겹까지 쓸지(1 여부, 2 갈래 맞춤, 3 구조 값, 0은 전부) |
 
@@ -260,7 +260,8 @@ internal/combo  토큰 층의 후보를 이은 후보의 조합의 수, 정렬, 
 pkg/token       토큰 층: 색인, 표지별 판정 그래프, 스트림 읽기, 출력 (밖에서 import)
 pkg/parse       문법 표(조사, 어미, 닫힌 집합)와 문장성분 판정 (명령 없음, 밖에서 import)
 pkg/rule        그래프들이 함께 쓰는 규칙 함수와 조건식
-data            닫힌 문법 표(tables/*.tsv, 실행 파일이 품는다)를 읽는 코드와 낱말 표(words.tsv)
+pkg/data        닫힌 문법 표(*.tsv, 실행 파일이 품는다)를 읽는 코드
+data            낱말 표(words.tsv)
 ```
 
 | 꾸러미 | 하는 일 | 기대는 꾸러미 |
@@ -269,8 +270,9 @@ data            닫힌 문법 표(tables/*.tsv, 실행 파일이 품는다)를 �
 | [internal/cli](internal/cli/README.md) | 옵션을 읽어 `token.Reader`를 만들고 상자(`Reader.BoxLines`), `--format plain`의 줄(`Reader.LinesHead`), `--format json`의 JSON 줄(`Reader.JSONSentence`)을 찍는다 | `pkg/token` |
 | [pkg/token](pkg/token/README.md) | `Reader.Contests(문장)`이 경합·후보·어절·조각의 구조를, `Reader.Lines`가 그것을 찍은 글줄을, `Reader.Stream(문장)`이 구간별 갈래를 λ 차례로 한 번에 하나씩(`Next`·`Again`, 마디마다 후보 수 한도를 거는 `NextHead`·`AgainHead`) 내고, `Reader.BoxLines`가 그 스트림을 어절마다 상자로 그린다 | `data`, `pkg/parse`(문법 표), `pkg/rule`, toulmin |
 | [internal/combo](internal/combo/README.md) | `token.Reader.Contests`의 구조에서 경합마다 후보를 하나씩 골라 이은 조합을 세고(`Count`) 정렬한다(`List`) | `pkg/token` |
-| [pkg/parse](pkg/parse/README.md) | 조사·어미·닫힌 집합의 표를 갖고, `Lines(문장)`이 어절마다 `어절:문장성분` 줄을 낸다 | `data`, `pkg/rule`, toulmin |
-| [data](data/README.md) | 닫힌 문법 표(`tables/*.tsv`)를 품고 읽어 줄을 검사한다. 낱말 표 형식도 적는다 | 없음 |
+| [pkg/parse](pkg/parse/README.md) | 조사·어미·닫힌 집합의 표를 갖고, `Lines(문장)`이 어절마다 `어절:문장성분` 줄을 낸다 | `pkg/data`, `pkg/rule`, toulmin |
+| [pkg/data](pkg/data/README.md) | 닫힌 문법 표(`pkg/data/*.tsv`)를 품고 읽어 줄을 검사한다 | 없음 |
+| [data](data/README.md) | 낱말 표(`words.tsv`)와 그 형식 | 없음 |
 | [pkg/rule](pkg/rule/README.md) | 규칙 함수, 그 함수가 읽는 사실 타입, 문법 조건식. `internal/`에 기대지 않는다 | toulmin |
 
 `pkg/token`은 `pkg/parse`의 조사 표와 어미 표를 읽어 그래프를 짠다. 다른 모듈은 `pkg/token`을 import해 스트림을 함수로 읽는다([pkg/README.md](pkg/README.md)에 옮긴 것과 예가 있다). `pkg/parse`의 문장성분 판정은 `nlgeul token`의 출력을 받지 않고 어절 끝을 스스로 읽으며, 입력이 세 조건을 지킨다고 믿는다(서술어가 마지막에 온다, 띄어쓰기가 바르다, 조사가 바르게 붙어 있다).
@@ -285,7 +287,7 @@ data            닫힌 문법 표(tables/*.tsv, 실행 파일이 품는다)를 �
 - **주장.** "이 자리의 이 토큰 열은 이 표지다."
 - **예외.** 구조가 맞지 않으면 주장을 꺾어 그 후보를 기각한다: 앞에 줄기가 없다, 앞 토큰의 끝이 맞지 않는다, 조사 사슬에 맞지 않는다, 선어말 칸의 순서가 어긋난다. 예외를 다시 꺾는 예외도 있다.
 - **반박.** 주장을 기각하지 않고 verdict를 낮춘다: 표에 없는 낱말이다, 관측이 적다, 한 음절이다, 어/아가 앞 모음과 어긋난다.
-- **닫힌 표.** 조사, 어미, 닫힌 집합의 낱말, 단위, 확장자, 줄임 꼴 들은 값의 나열이라 `data/tables/`의 tsv 파일(22개)에 적고, 실행 파일이 품는다(`pkg/parse`와 `pkg/token`의 `*_table.go`가 `data` 꾸러미로 읽어 변수를 만든다). 틀린 줄이 있으면 시작할 때 파일 이름과 줄 번호를 대고 멈춘다. 선어말 칸, 수사, 불규칙 용언, 합쳐진 글자 들은 코드에 남은 표다. 실행할 때 읽는 바깥 파일은 여전히 낱말 표뿐이다. 표 파일의 칸과 줄을 더하는 법은 [data/README.md](data/README.md)에 있다.
+- **닫힌 표.** 조사, 어미, 닫힌 집합의 낱말, 단위, 확장자, 줄임 꼴 들은 값의 나열이라 `pkg/data/`의 tsv 파일(22개)에 적고, 실행 파일이 품는다(`pkg/parse`와 `pkg/token`의 `*_table.go`가 `data` 꾸러미로 읽어 변수를 만든다). 틀린 줄이 있으면 시작할 때 파일 이름과 줄 번호를 대고 멈춘다. 선어말 칸, 수사, 불규칙 용언, 합쳐진 글자 들은 코드에 남은 표다. 실행할 때 읽는 바깥 파일은 여전히 낱말 표뿐이다. 표 파일의 칸과 줄을 더하는 법은 [pkg/data/README.md](pkg/data/README.md)에 있다.
 - **규칙 함수.** 모두 `func(Context, Specs) (float64, any)` 꼴이고 [pkg/rule](pkg/rule/README.md)에 25개가 있다. 같은 틀의 판정은 함수 하나가 기준(Spec)으로 갈라 맡고, 반대 방향은 기준 `Not`으로 준다. 그래서 규칙을 더하는 일은 대개 표의 줄이나 그래프의 간선을 더하는 일이다.
 
 예외와 반박은 왜 걸렸는지를 노드에 싣고, `--trace`가 그것을 기각 이유로 찍는다.
@@ -298,7 +300,7 @@ data            닫힌 문법 표(tables/*.tsv, 실행 파일이 품는다)를 �
 
 ## 라이선스
 
-GEUL 프로젝트가 만든 것(코드, 문서, 문법 표)은 CC0 1.0 Universal이다. [LICENSE](LICENSE)는 CC0 1.0 전문이고, 범위는 [NOTICE](NOTICE)가 적는다. 문법 표(`data/tables/`와 `internal/` 안의 표)는 직접 지은 것이고 사전이나 제3자 목록을 옮기지 않았다.
+GEUL 프로젝트가 만든 것(코드, 문서, 문법 표)은 CC0 1.0 Universal이다. [LICENSE](LICENSE)는 CC0 1.0 전문이고, 범위는 [NOTICE](NOTICE)가 적는다. 문법 표(`pkg/data/`와 `internal/` 안의 표)는 직접 지은 것이고 사전이나 제3자 목록을 옮기지 않았다.
 
 제3자 구성요소는 CC0에 들지 않고 저마다의 라이선스를 따른다.
 

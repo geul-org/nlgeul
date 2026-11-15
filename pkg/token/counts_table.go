@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // closingCounts are the observed counts of the closings, form by form,

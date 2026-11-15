@@ -2,7 +2,7 @@
 //ff:what loadContracts — the fused forms read from their table, set by set, in the order of their lines
 package token
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadContracts(rows []data.Row) (map[string][]contract, error) {
 	out := map[string][]contract{}

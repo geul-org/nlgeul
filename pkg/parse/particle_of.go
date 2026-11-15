@@ -2,7 +2,7 @@
 //ff:what particleOf — one row of the particle table read from a line: the form in Hangul syllables, what must stand before it, its place in a chain (0 to 5), the cases it marks (- for none) and its observed count
 package parse
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func particleOf(row data.Row) (particle, error) {
 	lead, form, err := FormOf(row, 0)

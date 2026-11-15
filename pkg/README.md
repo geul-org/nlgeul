@@ -7,6 +7,7 @@
 | [token/](token/README.md) | 토큰 층. 낱말 표를 읽어 `Reader`를 만들고, 문장을 스트림으로 열어 구간마다 갈래를 λ 차례로 하나씩 받는다(`Next`·`Again`, 후보 수 한도를 거는 `NextHead`·`AgainHead`). `nlgeul token`이 이 패키지로 찍는다 |
 | [parse/](parse/README.md) | 문법 표(조사, 어미, 닫힌 집합)를 읽어 내놓고, 어절 끝으로 문장성분을 판정한다. `token`이 문법 표를 여기서 읽는다 |
 | [rule/](rule/README.md) | 여러 그래프가 함께 쓰는 toulmin 규칙 함수와 그 함수들이 읽는 사실 타입 |
+| [data/](data/README.md) | 닫힌 문법 표(tsv)를 실행 파일에 품고 읽어 줄을 검사한다. `parse`와 `token`이 읽는다 |
 
 ## 옮긴 것
 

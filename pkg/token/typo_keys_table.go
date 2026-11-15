@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // typoKeys is the closed table of the wrong ways to write a word of

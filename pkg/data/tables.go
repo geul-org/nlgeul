@@ -5,11 +5,11 @@ import (
 	"io/fs"
 )
 
-// held holds the closed grammar tables of the folder tables, one
+// held holds the closed grammar tables of the folder, one
 // tsv file a table. Only that folder is held: the word table
 // (words.tsv) is a file given when the program is run.
 //
-//go:embed tables/*.tsv
+//go:embed *.tsv
 var held embed.FS
 
 // tables is where the tables are read from: the folder held in the

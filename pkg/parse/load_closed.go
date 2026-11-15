@@ -2,7 +2,7 @@
 //ff:what loadClosed — the closed sets of words read from the lines of their table (set, word, and for a dependent noun whether it is read when written onto a modifying closing too): the words of each set in the order of their lines, and under joinedMark the dependent nouns so marked
 package parse
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadClosed(rows []data.Row) (map[string][]string, error) {
 	sets := map[string]int{boundSet: 0, helperSet: 0, determinerSet: 0, conjunctionSet: 0}

@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // The signs that are named where they stand at the edges of a unit or

@@ -1,7 +1,7 @@
 package parse
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // closingPieces tells how a closing of the table is printed when it is

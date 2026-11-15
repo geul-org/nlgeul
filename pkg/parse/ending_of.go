@@ -2,7 +2,7 @@
 //ff:what endingOf — one row of the closing table read from a line: the closing as MarkerOf reads it from the first four columns, and its observed count from the fifth
 package parse
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func endingOf(row data.Row) (ending, error) {
 	m, err := MarkerOf(row, 0)

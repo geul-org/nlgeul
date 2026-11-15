@@ -2,7 +2,7 @@
 //ff:what MarkerOf — a closing's row read from four columns of a table's line, beginning at the column given: its form, what must stand before it, its kinds and its ways of attaching; a form with a lead takes no condition on what stands before it
 package parse
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func MarkerOf(row data.Row, at int) (Marker, error) {
 	lead, form, err := FormOf(row, at)

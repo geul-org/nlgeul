@@ -1,7 +1,7 @@
 package parse
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // particles are the particles of the table particles.tsv in the data

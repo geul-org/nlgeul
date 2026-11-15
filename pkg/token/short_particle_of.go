@@ -3,7 +3,7 @@
 package token
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 	"github.com/geul-org/nlgeul/pkg/parse"
 	"github.com/geul-org/nlgeul/pkg/rule"
 )

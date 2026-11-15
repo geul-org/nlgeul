@@ -2,7 +2,7 @@
 //ff:what pairOf — one sign of a pair read from a line of its table: the sign, the opening sign of its kind, whether it opens and closes, whether it is unsure, and what keeps it from being such a sign
 package token
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func pairOf(row data.Row) (rune, pairRow, error) {
 	sign, err := row.Rune(0)

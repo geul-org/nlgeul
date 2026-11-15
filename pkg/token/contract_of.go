@@ -5,7 +5,7 @@ package token
 import (
 	"strings"
 
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 func contractOf(row data.Row) (contract, error) {

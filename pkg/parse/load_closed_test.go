@@ -3,7 +3,7 @@
 package parse
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 	"strings"
 	"testing"
 )

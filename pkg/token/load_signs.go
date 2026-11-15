@@ -2,7 +2,7 @@
 //ff:what loadSigns — the names of the signs read from their table: a sign and one of its candidates a line, the candidates of a sign in the order of their lines
 package token
 
-import "github.com/geul-org/nlgeul/data"
+import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadSigns(rows []data.Row) (map[rune][]string, error) {
 	out := map[rune][]string{}

@@ -5,7 +5,7 @@ package parse
 import (
 	"strings"
 
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 func FormOf(row data.Row, col int) (int, string, error) {

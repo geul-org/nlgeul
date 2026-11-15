@@ -7,10 +7,10 @@ Code in this repository is licensed under the MIT License (LICENSE).
 
 CC0 data and documents in this repository:
   - data/words.tsv (word table)
-  - data/tables/*.tsv (grammar tables: particles, endings, pieces, closed
+  - pkg/data/*.tsv (grammar tables: particles, endings, pieces, closed
     lists and the other tsv files)
   - the tables left in code in internal/parse and internal/token
-  - README.md, data/README.md and the documentation
+  - README.md, data/README.md, pkg/data/README.md and the documentation
 
 Data and documents that the GEUL project produced are dedicated to the public
 domain under CC0 1.0 Universal

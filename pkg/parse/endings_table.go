@@ -1,7 +1,7 @@
 package parse
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // endings are the closings of the table closings.tsv in the data

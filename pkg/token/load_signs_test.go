@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 func TestLoadSigns(t *testing.T) {

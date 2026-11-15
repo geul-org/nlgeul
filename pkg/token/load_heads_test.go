@@ -5,7 +5,7 @@ package token
 import (
 	"testing"
 
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 func TestLoadHeads(t *testing.T) {

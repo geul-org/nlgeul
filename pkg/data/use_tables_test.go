@@ -11,7 +11,7 @@ func useTables(t *testing.T, files map[string]string) {
 	t.Helper()
 	fsys := fstest.MapFS{}
 	for name, text := range files {
-		fsys["tables/"+name+".tsv"] = &fstest.MapFile{Data: []byte(text)}
+		fsys[name+".tsv"] = &fstest.MapFile{Data: []byte(text)}
 	}
 	old := tables
 	tables = fsys

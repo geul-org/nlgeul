@@ -1,7 +1,7 @@
 package parse
 
 import (
-	"github.com/geul-org/nlgeul/data"
+	"github.com/geul-org/nlgeul/pkg/data"
 )
 
 // The closed sets of morphemes.md section 8, which the table

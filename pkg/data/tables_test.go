@@ -17,7 +17,7 @@ func TestTables(t *testing.T) {
 		"signs": 2, "top-domains": 1, "typo-closings": 2, "typo-words": 2,
 		"unit-suffixes": 1, "units": 2,
 	}
-	entries, err := fs.ReadDir(held, "tables")
+	entries, err := fs.ReadDir(held, ".")
 	if err != nil || len(entries) != len(cols) {
 		t.Fatal(len(entries), len(cols), err)
 	}
