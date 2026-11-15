@@ -7,7 +7,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 - `KeyWord` → `*Word`(어절: 글, 조사 사슬 `Chain`, 꼬리 풀이들 `[]Tail`, 가장 긴 꼬리, 마지막 어절인지, 의존명사로 시작하는지, 문장 `*Sentence`).
 - `KeyTail` → `Tail`(판정 중인 꼬리 풀이 하나).
 - 읽는 쪽이 이 타입을 채워 컨텍스트에 넣는다. 규칙은 `WordOf`, `TailOf`로 꺼낸다.
-- `KeyAround` → `Around`(문장 안에서 판정하는 후보와 그 둘레: 후보 자신 `Self`, 앞 어절들 `Before`, 뒤 어절들 `After`. 앞뒤 모두 가까운 것부터이고 저마다 `Near`다). `Near`는 어절 하나를 그 후보 하나가 읽은 대로 적는다: 찍힌 줄기 `Stem`, 줄기의 이름 `Kind`(`열쇠:체언`, `보조 용언:있`. 새 낱말은 ""), 마지막 조각의 이름 `Last`(줄기뿐이면 ""), 서술어인가 `Pred`(맺음을 지녔다. 읽는 쪽이 채운다). 앞뒤 어절은 그 어절의 1위 후보로 적는다. 토큰 층의 문장 단위 규칙이 채우고(`pkg/token/README.md`의 "스트림 인터페이스"), 규칙은 `AroundOf`로 꺼낸다(없으면 빈 `Around`).
+- `KeyAround` → `Around`(문장 안에서 판정하는 후보와 그 둘레: 후보 자신 `Self`, 앞 어절들 `Before`, 뒤 어절들 `After`. 앞뒤 모두 가까운 것부터이고 저마다 `Near`다). `Near`는 어절 하나를 그 후보 하나가 읽은 대로 적는다: 찍힌 줄기 `Stem`, 줄기의 이름 `Kind`(`열쇠:체언`, `보조 용언:있`. 새 낱말은 ""), 마지막 조각의 이름 `Last`(줄기뿐이면 ""), 서술어인가 `Pred`(맺음을 지녔다. 읽는 쪽이 채운다), 표지들의 이름 `Marks`(줄기 뒤 조각의 이름을 차례대로 `+`로 이은 한 문자열. `MarksOf`가 낱낱으로 돌려준다. 두 `Near`를 `==`로 견줄 수 있게 문자열 하나로 둔다). 앞뒤 어절은 그 어절의 1위 후보로 적는다. 토큰 층의 문장 단위 규칙이 채우고(`pkg/token/README.md`의 "스트림 인터페이스"), 규칙은 `AroundOf`로 꺼낸다(없으면 빈 `Around`).
 
 ## 기준
 
@@ -57,7 +57,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 `Piece`의 `Before`와 `After`는 앞 조각과 뒤 조각의 이름이다. 서술격 `이`의 `After`는 이 바로 뒤에 선 것의 이름이다: 꼬리가 맺음으로 시작하면 그 맺음, 선어말이 먼저 서면 그 선어말이다.
 
-도움 함수: `PieceOf`, `MarkOf`, `AroundOf`, `Applies`(예/아니오 → ±1), `Holds`(기준에 `Not`이 있으면 뒤집은 ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
+도움 함수: `PieceOf`, `MarkOf`, `AroundOf`, `MarksOf`, `Applies`(예/아니오 → ±1), `Holds`(기준에 `Not`이 있으면 뒤집은 ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
 
 기호 하나를 풀이별로 판정하는 그래프(컨텍스트 열쇠 `KeyMark` → `Mark`)가 쓰는 함수:
 
@@ -73,7 +73,8 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
-| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 뒤 어절의 줄기(`ListNextStem`)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
+| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
+| `SelfHas` | rule, except | 후보의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`에서는`의 `부사격:에서`). 볼 사실은 `ListSelfMarks`로 적는다(`Listed`는 이 사실을 읽지 않는다). 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |
 
 ## 조건식과 도움 함수 (toulmin 규칙이 아니다)
 
