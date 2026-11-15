@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what joinChain — judge each sign of a chain of runs and note the atoms: runs stay joined across a sign that a joining candidate stands for; an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
+//ff:what joinChain — judge each sign of a chain of runs and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -26,7 +26,7 @@ func (sc *scan) joinChain(chain [][2]int) {
 		if len(names) == 0 && start == r[0] && hexRun(labels[k]) {
 			sc.closeAtom(start, r[1], []string{hexName}, true)
 		} else {
-			sc.closeAtom(start, r[1], names, num)
+			sc.closeAtom(start, r[1], hyphenLast(names), num)
 		}
 		start, names, num = r[1]+1, nil, true
 	}
