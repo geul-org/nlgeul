@@ -18,7 +18,8 @@ func TestListValidate(t *testing.T) {
 		{List{Name: "selves", Of: ListSelfStem}, true},
 		{List{Name: "nexts", Of: ListNextStem, Items: []string{"되"}}, true},
 		{List{Name: "marks", Of: ListSelfMarks, Items: []string{"부사격:에서"}}, true},
-		{List{Name: "forms", Of: ListSelfMarks + 1}, false},
+		{List{Name: "after", Of: ListNext2Stem, Items: []string{"되"}}, true},
+		{List{Name: "forms", Of: ListNext2Stem + 1}, false},
 	}
 	for _, c := range cases {
 		if err := c.l.Validate(); (err == nil) != c.ok {

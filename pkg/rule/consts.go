@@ -188,4 +188,6 @@ const (
 	ListPrevLast             // the name of the last piece of the word before it
 	ListNextStem             // the stem of the word after it
 	ListSelfMarks            // the names of that candidate's markers, each (SelfHas reads them; Listed does not)
+	ListNextLast             // the name of the last piece of the word after it
+	ListNext2Stem            // the stem of the word after that
 )

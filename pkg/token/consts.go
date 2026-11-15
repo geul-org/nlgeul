@@ -140,6 +140,16 @@ const bonusOrder = 0.01
 // nominative (adverbialFirstRule).
 var adverbialFirst = []string{"부사격:에서", "부사격:서"}
 
+// complementNames are the names of 이 and 가 as complement particles,
+// subjectNames those names and the nominative ones (any 이/가), and
+// complementStems the stems of the predicates a complement stands
+// before (complementRule): 되다 and 아니다.
+var (
+	complementNames = []string{"보격:이", "보격:가"}
+	subjectNames    = []string{"주격:이", "주격:가", "보격:이", "보격:가"}
+	complementStems = []string{"되", "아니"}
+)
+
 // predKinds are the kinds of a closing's name: a word that carries one
 // is a predicate (a verb, an adjective or the copula with its ending),
 // which is where the rules of a sentence stop waiting.

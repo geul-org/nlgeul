@@ -5,7 +5,7 @@ package token
 import "testing"
 
 func TestStreamSettle(t *testing.T) {
-	st := sentenceStream(t, "학생이 되었다", true, complementRule(), afterComplementRule())
+	st := sentenceStream(t, "학생이 되었다", true, waitingComplementRule(), afterComplementRule())
 	st.pull()
 	st.pull()
 	st.pull()

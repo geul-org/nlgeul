@@ -35,7 +35,7 @@ func TestStreamFill(t *testing.T) {
 		t.Fatal(st.read, len(st.queue))
 	}
 
-	held := sentenceStream(t, "학생이 밥을 먹었다 학생이", false, complementRule())
+	held := sentenceStream(t, "학생이 밥을 먹었다 학생이", false, waitingComplementRule())
 	held.fill()
 	if len(held.queue) != 3 || held.held || !held.queue[0].judged || !held.queue[2].judged || begun(held) != 3 {
 		t.Fatal("read on to the predicate, and no further", len(held.queue), held.held, begun(held))
@@ -45,7 +45,7 @@ func TestStreamFill(t *testing.T) {
 	if len(plain.queue) != 1 || plain.queue[0].judged {
 		t.Fatal("no rule, no wait", len(plain.queue))
 	}
-	open := sentenceStream(t, "학생이 밥을", false, complementRule())
+	open := sentenceStream(t, "학생이 밥을", false, waitingComplementRule())
 	open.fill()
 	if len(open.queue) != 2 || open.held || !open.queue[1].judged || open.read != 2 || open.cur != nil {
 		t.Fatal("no predicate: read to the end", len(open.queue), open.held)

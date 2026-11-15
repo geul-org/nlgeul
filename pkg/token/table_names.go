@@ -40,6 +40,7 @@ const (
 	setAuxMore     = "붙여 쓰는 보조 용언"
 	setPronounWord = "대명사"
 	setSpoken      = "구어 꼴"
+	setAskWord     = "의문 대명사"
 	setVerbOnly    = "동사만"
 	setDrop        = "서술격 빠짐"
 	setDropKnown   = "서술격 빠짐(낱말 표)"

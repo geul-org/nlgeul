@@ -18,7 +18,7 @@ func TestWaitsFor(t *testing.T) {
 	if !waitsFor(self, []sentenceRule{{about: yes}, {about: yes, waits: yes}}) {
 		t.Fatal("a rule waits for it")
 	}
-	if !waitsFor(self, []sentenceRule{complementRule()}) || waitsFor(rule.Near{Last: "주격:이"}, []sentenceRule{complementRule()}) {
-		t.Fatal("complementRule waits for 보격 only")
+	if !waitsFor(self, []sentenceRule{waitingComplementRule()}) || waitsFor(rule.Near{Last: "주격:이"}, []sentenceRule{waitingComplementRule()}) {
+		t.Fatal("waitingComplementRule waits for 보격 only")
 	}
 }

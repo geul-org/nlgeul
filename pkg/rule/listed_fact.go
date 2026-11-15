@@ -30,6 +30,10 @@ func listedFact(ctx toulmin.Context, of int) string {
 		return nearAt(AroundOf(ctx).Before, 0).Last
 	case ListNextStem:
 		return nearAt(AroundOf(ctx).After, 0).Stem
+	case ListNextLast:
+		return nearAt(AroundOf(ctx).After, 0).Last
+	case ListNext2Stem:
+		return nearAt(AroundOf(ctx).After, 1).Stem
 	}
 	return TailOf(ctx).Closing
 }

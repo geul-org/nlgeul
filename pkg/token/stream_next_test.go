@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestStreamNext — Next gives the first way of each stretch in turn and reads a unit only when it needs one (after the first Next the second unit is not read, and only that one way of the stretch is made); what is asked in between by Again does not change what Next gives later (two streams of the same sentence, one asked for more, give the same stretches after); a stretch with no candidate at all is given as it is, with no nodes; the trace lines a region holds are given with it (Notes after its Next), and those no region took with the last Next (false); a stretch a window cut off keeps what the rules of a sentence added to it after it is sent
+//ff:what TestStreamNext — Next gives the first way of each stretch in turn and, with no rule of a sentence that waits (the rules are taken off the stream), reads a unit only when it needs one (after the first Next the second unit is not read, and only that one way of the stretch is made); what is asked in between by Again does not change what Next gives later (two streams of the same sentence, one asked for more, give the same stretches after); a stretch with no candidate at all is given as it is, with no nodes; the trace lines a region holds are given with it (Notes after its Next), and those no region took with the last Next (false); a stretch a window cut off keeps what the rules of a sentence added to it after it is sent
 package token
 
 import (
@@ -13,6 +13,7 @@ func TestStreamNext(t *testing.T) {
 	r := streamReader(t, "words-stream.tsv")
 	s := "아버지가 방에 들어가신다"
 	st := r.Stream(s)
+	st.rules = nil
 	first, ok := st.Next()
 	if !ok || first.Rank != 1 || first.Ways.Cmp(big.NewInt(2)) != 0 || first.Region != (Span{0, 4}) || segmentLine(first) != "아버지가[0-4]" {
 		t.Fatal(first, ok)
@@ -24,7 +25,9 @@ func TestStreamNext(t *testing.T) {
 		t.Fatal("a second way")
 	}
 	rest := streamFirsts(st)
-	plain := streamFirsts(r.Stream(s))
+	bare := r.Stream(s)
+	bare.rules = nil
+	plain := streamFirsts(bare)
 	if len(rest) != 2 || len(plain) != 3 || !sameStrings(waysLines(rest), waysLines(plain[1:])) || rest[0].Lambda != plain[1].Lambda || rest[1].Ways.Cmp(big.NewInt(8)) != 0 {
 		t.Fatal(waysLines(rest), waysLines(plain))
 	}

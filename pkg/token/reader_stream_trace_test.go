@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderStreamTrace — a stream made with StreamTrace keeps the trace lines of each unit it reads, the lines readUnit gives for it, and Notes hands them out when the unit has been read (one unit read for each Next), once; a stream made with Stream keeps none
+//ff:what TestReaderStreamTrace — a stream made with StreamTrace (the rules of a sentence taken off, which add lines of their own and read ahead) keeps the trace lines of each unit it reads, the lines readUnit gives for it, and Notes hands them out when the unit has been read (one unit read for each Next), once; a stream made with Stream keeps none
 package token
 
 import (
@@ -17,6 +17,7 @@ func TestReaderStreamTrace(t *testing.T) {
 		t.Fatal("a trace has lines", len(want0), len(want1))
 	}
 	st := r.StreamTrace(s)
+	st.rules = nil
 	if len(st.Notes()) != 0 {
 		t.Fatal("nothing is read yet")
 	}

@@ -9,7 +9,7 @@ import (
 
 func TestStreamNextTrace(t *testing.T) {
 	plain := sentenceStream(t, "학생이 되었다", true)
-	st := sentenceStream(t, "학생이 되었다", true, complementRule(), afterComplementRule())
+	st := sentenceStream(t, "학생이 되었다", true, waitingComplementRule(), afterComplementRule())
 	plain.Next()
 	st.Next()
 	want := append(plain.Notes(), "  · 학생[열쇠:체언]+이[보격:이]\t보격 뒤 되\t1.00\t통과")
@@ -26,7 +26,7 @@ func TestStreamNextTrace(t *testing.T) {
 		t.Fatal("nothing left")
 	}
 
-	fell := sentenceStream(t, "학생이 밥을 먹었다", true, complementRule())
+	fell := sentenceStream(t, "학생이 밥을 먹었다", true, waitingComplementRule())
 	unruled := sentenceStream(t, "학생이 밥을 먹었다", true)
 	fell.Next()
 	unruled.Next()

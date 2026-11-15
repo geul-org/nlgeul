@@ -16,7 +16,7 @@ func TestNewStream(t *testing.T) {
 	if st.held || st.behind != nil || st.pending != nil || len(st.rules) != len(r.ix.sentence) {
 		t.Fatal(st.held, st.behind, st.pending)
 	}
-	r.ix.sentence = []sentenceRule{complementRule()}
+	r.ix.sentence = []sentenceRule{waitingComplementRule()}
 	if ruled := newStream(r.ix, "학생이", false); len(ruled.rules) != 1 || ruled.rules[0].name != "보격 뒤 되" {
 		t.Fatal(ruled.rules)
 	}

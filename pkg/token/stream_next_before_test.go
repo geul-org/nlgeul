@@ -22,7 +22,7 @@ func TestStreamNextBefore(t *testing.T) {
 		t.Fatal("after 주격 the rule falls", got.Pref, pred.Pref)
 	}
 
-	raise := sentenceRuleOf("보격", 1, complementRule().about, nil, listed("보격", rule.ListSelfLast, []string{"보격:이"}), nil, "")
+	raise := sentenceRuleOf("보격", 1, waitingComplementRule().about, nil, listed("보격", rule.ListSelfLast, []string{"보격:이"}), nil, "")
 	both := sentenceStream(t, "학생이 되었다", false, raise, afterComplementRule())
 	first, _ = both.Next()
 	if begun(both) != 1 || first.Nodes[0].Contest.Branches[0].String() != "학생[열쇠:체언]+이[보격:이]" {

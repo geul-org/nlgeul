@@ -88,12 +88,18 @@ const (
 	whyArrow        = "붙임표나 등호와 맞닿아 있다"
 	whyBySign       = "다른 기호와 맞닿아 있다"
 
-	whyHangulSides    = "양쪽이 한글이다"
-	whyNotHangulSides = "양쪽이 한글이 아니다"
-	whyNotLinked      = "앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다"
-	whyLinked         = "앞 어절이 연결 꼴(어/아, 고)로 끝난다"
-	whyNotAsked       = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝나지 않는다"
-	whyAsked          = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝난다"
+	whyHangulSides     = "양쪽이 한글이다"
+	whyNotHangulSides  = "양쪽이 한글이 아니다"
+	whyNotLinked       = "앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다"
+	whyLinked          = "앞 어절이 연결 꼴(어/아, 고)로 끝난다"
+	whyNotAsked        = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝나지 않는다"
+	whyAsked           = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝난다"
+	whyNoBecome        = "바로 뒤 어절이 되다·아니다가 아니다"
+	whyAsksNext        = "바로 뒤 어절이 의문 대명사다"
+	whyNoBecomeAfter   = "의문 대명사 뒤 어절이 되다·아니다가 아니다"
+	whyAsksBare        = "의문 대명사에 이·가가 붙지 않았다"
+	whyAsksSelf        = "의문 대명사다"
+	whyNoSubjectBefore = "바로 앞 어절이 이·가로 끝나지 않는다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.
@@ -102,4 +108,5 @@ const (
 	ruleMainUnlinked   = "문장:연결 꼴 뒤가 아닌 본용언"
 	ruleAuxAsked       = "문장:물음 꼴 뒤 보조 용언 보다"
 	ruleAdverbialFirst = "문장:에서·서는 부사격 먼저"
+	ruleComplement     = "문장:되다·아니다 앞 보격"
 )

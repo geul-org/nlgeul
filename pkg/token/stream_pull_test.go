@@ -33,7 +33,7 @@ func TestStreamPull(t *testing.T) {
 		t.Fatal("a stretch of a unit is queued as it is read, with what is needed to read it again", far.queue)
 	}
 
-	traced := sentenceStream(t, "학생이 되었다", true, complementRule())
+	traced := sentenceStream(t, "학생이 되었다", true, waitingComplementRule())
 	traced.pull()
 	if len(traced.queue) != 1 || len(traced.queue[0].notes) == 0 || traced.pending != nil || !traced.held {
 		t.Fatal("the lines of the stretch go with its region", traced.queue[0].notes, traced.pending, traced.held)

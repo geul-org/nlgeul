@@ -11,7 +11,7 @@ func TestStreamHold(t *testing.T) {
 	if bare.held {
 		t.Fatal("no rule, no wait")
 	}
-	st := sentenceStream(t, "학생이", false, complementRule())
+	st := sentenceStream(t, "학생이", false, waitingComplementRule())
 	st.hold(rgs[0])
 	if !st.held {
 		t.Fatal("학생이 waits")

@@ -9,7 +9,7 @@ import (
 )
 
 func TestStreamJudgeSeat(t *testing.T) {
-	st := sentenceStream(t, "", true, complementRule(), afterComplementRule())
+	st := sentenceStream(t, "", true, waitingComplementRule(), afterComplementRule())
 	seats := seatsOf(sentenceRegions(t, "학생이 되었다"))
 	if seats[0].near.Last != "주격:이" {
 		t.Fatal("주격 first before judging", seats[0].near)
