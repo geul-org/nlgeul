@@ -21,7 +21,7 @@ var linkable = map[int]int{
 	LinkHonor:  1<<LinkRange | 1<<LinkTopic | 1<<LinkYo,
 	LinkComp:   1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkYo,
 	LinkWith:   1<<LinkRange | 1<<LinkTopic | 1<<LinkAdn | 1<<LinkYo,
-	LinkRange:  1<<LinkCase | 1<<LinkAdn | 1<<LinkAdv | 1<<LinkComp | 1<<LinkWith | 1<<LinkRange | 1<<LinkTopic | 1<<LinkYo | 1<<LinkDir,
+	LinkRange:  1<<LinkCase | 1<<LinkAdn | 1<<LinkAdv | 1<<LinkComp | 1<<LinkWith | 1<<LinkRange | 1<<LinkTopic | 1<<LinkYo | 1<<LinkDir | 1<<LinkCopula,
 	LinkTopic:  1 << LinkYo,
 }
 

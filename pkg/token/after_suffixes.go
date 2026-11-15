@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what afterSuffixes — a copula tail read once more after each particle chain whose last piece is a suffix of copulaSuffixes and that ends where the tail starts (꽃+들+이+다): the tail keeps what it tells of its closing, and a dropped stem keeps the gate of the word before the suffix
+//ff:what afterSuffixes — a copula tail read once more after each particle chain whose last piece is a suffix of copulaSuffixes or a particle of copulaParticles (copulaBefore) and that ends where the tail starts (꽃+들+이+다, 뜻+대로+(이)+지): the tail keeps what it tells of its closing, and a dropped stem keeps the gate of the word before the suffix
 package token
 
 import (
@@ -14,7 +14,7 @@ func (sc *scan) afterSuffixes(t tail) []tail {
 	}
 	var out []tail
 	for _, l := range sc.chains(t.start, 1, rule.LinkCopula) {
-		if !slices.Contains(copulaSuffixes, l.pieces[len(l.pieces)-1].names) {
+		if !slices.Contains(copulaBefore, l.pieces[len(l.pieces)-1].names) {
 			continue
 		}
 		l = joined([]tail{l}, t.pieces...)[0]

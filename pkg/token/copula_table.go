@@ -60,3 +60,14 @@ const notOnly = "아니"
 // 배씩이다, 너희끼리다, and with a word table 보장률이다). 쯤 and the
 // suffix 이 of a name are not among them.
 var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리", "접미:률"}
+
+// copulaParticles are the particles the copula stands after: the
+// range particle 대로 (뜻대로지, 마음대로다), as the gold of the
+// evaluation reads it. The dictionary's 이다 lists no particle before
+// it; 뿐 is not here (the gold reads 뿐이다 after a noun both as the
+// particle and as the dependent noun), nor 까지 or 부터 (no such reading
+// was seen). copulaBefore are the last pieces of a chain the copula
+// follows.
+var copulaParticles = []string{"부사격:대로"}
+
+var copulaBefore = append(append([]string{}, copulaSuffixes...), copulaParticles...)
