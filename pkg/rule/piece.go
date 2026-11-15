@@ -45,6 +45,10 @@ package rule
 // the piece is the stem of an auxiliary verb with a predicate tail and
 // that the word right before it ends in the linking closing 어/아 (an
 // auxiliary verb written onto its main verb: 주 in 해줘).
+// Change tells that a new word stands over a place where a run of
+// Latin letters and digits meets a Hangul syllable (a place where a word
+// may end with no marker), and that the two sides cut there each read
+// as a known word or as such a run (A씨, K팝).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -74,4 +78,5 @@ type Piece struct {
 	Order    bool
 	Apart    bool
 	Conn     bool
+	Change   bool
 }

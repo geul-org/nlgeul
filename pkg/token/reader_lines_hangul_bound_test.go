@@ -44,7 +44,7 @@ func TestReaderLinesHangulBound(t *testing.T) {
 		{"먹어", []string{"먹[열쇠:동사]+어[맺음:어]"}, nil, true},
 		{"가나", []string{"가[열쇠:동사]+나[맺음:나]"}, nil, true},
 		{"하여", []string{"하[열쇠:동사]+여[맺음:여]"}, nil, true},
-		{"push하는", []string{"push[열:영숫자] 하[열쇠:동사]+는[꾸밈:는]"}, nil, true},
+		{"push하는", []string{"push[열:영숫자]\n", "  하[열쇠:동사]+는[꾸밈:는]\t"}, []string{"push하+"}, true},
 	}
 	for _, c := range cases {
 		readers := []*Reader{lexed}

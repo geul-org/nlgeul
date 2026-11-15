@@ -146,6 +146,7 @@ const (
 	PieceOrder                // the number right before it begins with the prefix 제
 	PieceApart                // its letters hold, right after a run of Latin letters, a word the spacing articles write apart
 	PieceConn                 // the word right before it ends in the linking 어/아 and it is an auxiliary's stem with a predicate tail
+	PieceChange               // it is a new word over a place where a run of Latin letters and digits meets a Hangul syllable, and the two sides cut there each read as a known word or such a run
 )
 
 // Yes/no facts of a sign that MarkIs tests.

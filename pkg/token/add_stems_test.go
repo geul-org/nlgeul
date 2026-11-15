@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddStems — two graphs, the new word's of four edges without a word table and of seven with one, the restored syllable's of nine; a new word's verdict is 1/3; a new word whose letters read as markers does not stand whole, and without a word table stands with markers after it; a new word whose letters hold, right after a run of Latin letters, only a word the spacing articles write apart does not stand, with markers after it or not, with a word table or without; with a word table a stem in ㅆ before markers and a word the tables know only as kinds that take no predicate tail before one do not stand, while a predicate's stem too and a tail of particles do; the restored syllable does not stand right after a letter that is no Hangul (but for 하, 되, 이 and at the stem's head), for a stem kept as 르 or 러 irregular, for 어/아 that does not fit the syllable before, nor for 아 under a stem of one syllable; 하 as it stands in the letters takes no 어/아 that leaves no trace, but one that left its trace (해) and any other syllable (가, 서) stand, with the reason on its own node; each is turned down for the reason on its own node
+//ff:what TestAddStems — two graphs, the new word's of five edges without a word table and of eight with one, the restored syllable's of nine; a new word's verdict is 1/3; a new word whose letters read as markers does not stand whole, and without a word table stands with markers after it; a new word whose letters hold, right after a run of Latin letters, only a word the spacing articles write apart does not stand, with markers after it or not, with a word table or without; a new word over a place where the script changes whose two sides each read as a known word or a run does not stand, with markers after it or not, with a word table or without; with a word table a stem in ㅆ before markers and a word the tables know only as kinds that take no predicate tail before one do not stand, while a predicate's stem too and a tail of particles do; the restored syllable does not stand right after a letter that is no Hangul (but for 하, 되, 이 and at the stem's head), for a stem kept as 르 or 러 irregular, for 어/아 that does not fit the syllable before, nor for 아 under a stem of one syllable; 하 as it stands in the letters takes no 어/아 that leaves no trace, but one that left its trace (해) and any other syllable (가, 서) stand, with the reason on its own node; each is turned down for the reason on its own node
 package token
 
 import (
@@ -14,7 +14,7 @@ func TestAddStems(t *testing.T) {
 	bare, lexed := &index{}, &index{lexed: true}
 	bare.addStems()
 	lexed.addStems()
-	if bare.graphs != 2 || bare.edges != 4+9 || lexed.graphs != 2 || lexed.edges != 7+9 || bare.stem == nil || bare.restore == nil || lexed.stem == nil || lexed.restore == nil {
+	if bare.graphs != 2 || bare.edges != 5+9 || lexed.graphs != 2 || lexed.edges != 8+9 || bare.stem == nil || bare.restore == nil || lexed.stem == nil || lexed.restore == nil {
 		t.Fatal(bare.graphs, bare.edges, lexed.graphs, lexed.edges)
 	}
 	if math.Abs(bare.unknown-1.0/3) > 1e-9 || math.Abs(lexed.unknown-1.0/3) > 1e-9 {
@@ -31,6 +31,8 @@ func TestAddStems(t *testing.T) {
 		{bare, rule.Piece{Form: "곰졌", Tail: rule.TailPred}, true, ""},
 		{bare, rule.Piece{Form: "A씨", Tail: rule.TailBare, Apart: true}, false, whyWrittenApart},
 		{bare, rule.Piece{Form: "A씨", Tail: rule.TailCase, Apart: true}, false, whyWrittenApart},
+		{bare, rule.Piece{Form: "A씨", Tail: rule.TailBare, Change: true}, false, whyChange},
+		{bare, rule.Piece{Form: "A씨", Tail: rule.TailCase, Change: true}, false, whyChange},
 		{bare, rule.Piece{Form: "사과", Tail: rule.TailPred, Stem: kindNominal}, true, ""},
 		{lexed, rule.Piece{Form: "곰", Tail: rule.TailPred}, true, ""},
 		{lexed, rule.Piece{Form: "에", Tail: rule.TailBare, Marked: true}, false, whyMarked},
@@ -38,6 +40,8 @@ func TestAddStems(t *testing.T) {
 		{lexed, rule.Piece{Form: "곰졌", Tail: rule.TailPred}, false, whyCoda},
 		{lexed, rule.Piece{Form: "A씨", Tail: rule.TailBare, Apart: true}, false, whyWrittenApart},
 		{lexed, rule.Piece{Form: "A씨", Tail: rule.TailCase, Apart: true}, false, whyWrittenApart},
+		{lexed, rule.Piece{Form: "A씨", Tail: rule.TailBare, Change: true}, false, whyChange},
+		{lexed, rule.Piece{Form: "K팝", Tail: rule.TailCase, Change: true}, false, whyChange},
 		{lexed, rule.Piece{Form: "K팝", Tail: rule.TailCase}, true, ""},
 		{lexed, rule.Piece{Form: "곰졌", Tail: rule.TailAux}, false, whyCoda},
 		{lexed, rule.Piece{Form: "곰졌", Tail: rule.TailBare}, true, ""},
