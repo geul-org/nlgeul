@@ -20,7 +20,9 @@ import (
 // 다니까, ㄴ다니까, 는다니까, 라니까, 다더라, ㄴ다더라, 는다더라), and
 // at the table's end 거라, 너라, 렴, 나이다, 나이까, 더이다, 소서, 노라고,
 // 노라면, 거니와, 던지, 다거나, 로구나, 로다, ㄴ걸 and 오리다, none of
-// them with an observed count. Not listed, though the dictionary has
+// them with an observed count. After them come endings of the 하오체 and
+// 하십시오체, with no count either: 습디다, ㅂ디다, 습디까, ㅂ디까, 구려,
+// 소이까, 오니까, 오리이까, 렷다, 리다, 리까 and 노니. Not listed, though the dictionary has
 // them: 든 and 는걸, 은걸, whose letters are read as the particle 든 and
 // as a modifying closing with 거 under 를.
 var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))
