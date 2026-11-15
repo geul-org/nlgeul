@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestJoinAt — a longer chain replaces the word's and tails are added; a shorter one changes nothing; a dependent noun of the table marked - is not read on a modifier (하는간)
+//ff:what TestJoinAt — a longer chain replaces the word's and tails are added; a shorter one changes nothing; a dependent noun of the table marked 붙여 읽음 is read on a modifier (먹은적이, 앉은채로), one marked - is not (하는간, 하는외)
 package parse
 
 import "testing"
@@ -17,6 +17,21 @@ func TestJoinAt(t *testing.T) {
 	}
 	w = &word{}
 	joinAt(w, []rune("하는간"), 2)
+	if w.chain.size != 0 {
+		t.Fatal(w.chain)
+	}
+	w = &word{}
+	joinAt(w, []rune("먹은적이"), 2)
+	if w.chain.marked != "먹+은+적+이" || w.chain.size != 6 {
+		t.Fatal(w.chain)
+	}
+	w = &word{}
+	joinAt(w, []rune("앉은채로"), 2)
+	if w.chain.marked != "앉+은+채+로" || w.chain.size != 6 {
+		t.Fatal(w.chain)
+	}
+	w = &word{}
+	joinAt(w, []rune("하는외"), 2)
 	if w.chain.size != 0 {
 		t.Fatal(w.chain)
 	}
