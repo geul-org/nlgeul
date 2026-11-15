@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestCutterCandidates — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a sign that no candidate stands for in its word, a letter, a sign in a span of code and a closing sign with nothing open give nothing; a quotation mark written onto a word with Hangul right after it closes as 닫기:0 with the ways left as they were when none of its kind stands open in any way, and not in a way with none open when one stands open in another way; the cutter is not moved; a trace keeps the lines of the graphs
+//ff:what TestCutterCandidates — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a sign that no candidate stands for in its word, a letter, a sign in a span of code a closing bracket right after a digit or with nothing written right before it give nothing, and one written onto a word with nothing open closes at loneBracketDepth with the way left as it was; a quotation mark written onto a word with Hangul right after it closes as 닫기:0 with the ways left as they were when none of its kind stands open in any way, and not in a way with none open when one stands open in another way; the cutter is not moved; a trace keeps the lines of the graphs (the usual closing's and the lone one's)
 package token
 
 import (
@@ -20,7 +20,9 @@ func TestCutterCandidates(t *testing.T) {
 	}{
 		{"(가)", nil, 0, []pairing{{openName, 1}}, false, []string{"("}},
 		{"(가)", []string{"("}, 2, []pairing{{shutName, 1}}, false, []string{""}},
-		{"(가)", nil, 2, nil, false, nil},
+		{"(가)", nil, 2, []pairing{{shutName, loneBracketDepth}}, false, []string{""}},
+		{"(1)", nil, 2, nil, false, nil},
+		{"( )", nil, 2, nil, false, nil},
 		{"(가)", nil, 1, nil, false, nil},
 		{"(\"가\")", []string{"(\""}, 3, []pairing{{shutName, 2}}, false, []string{"("}},
 		{"(\"가\")", []string{"(\""}, 4, []pairing{{shutName, 1}}, false, nil},
@@ -53,7 +55,7 @@ func TestCutterCandidates(t *testing.T) {
 	}
 	cut := newCutter(ix, "(가)", true)
 	cut.open = []string{"("}
-	if _, _, _, notes := cut.candidates(2); len(notes) != 1 || !strings.Contains(notes[0], "닫기:)") || !strings.Contains(notes[0], "통과") {
+	if _, _, _, notes := cut.candidates(2); len(notes) != 2 || !strings.Contains(notes[0], "닫기:)") || !strings.Contains(notes[0], "통과") || !strings.Contains(notes[1], whyOpenedAny) {
 		t.Fatal("the trace of a closing sign", notes)
 	}
 }

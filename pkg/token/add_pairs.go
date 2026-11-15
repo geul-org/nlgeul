@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addPairs — a graph for each candidate of each sign of a pair (pairRows): one for a sign that opens, one for a sign that closes, both for a quotation mark written the same way at both ends, and after them one more closing for a quotation mark that may close with none of its kind open (loneShuts)
+//ff:what addPairs — a graph for each candidate of each sign of a pair (pairRows): one for a sign that opens, one for a sign that closes, both for a quotation mark written the same way at both ends, and after them one more closing for a quotation mark that may close with none of its kind open (loneShuts) and for a closing bracket that may (loneBrackets)
 package token
 
 import "strings"
@@ -18,6 +18,9 @@ func (ix *index) addPairs() {
 		}
 		if row.shuts && strings.ContainsRune(loneShuts, sign) {
 			ix.addLoneShut(sign, row)
+		}
+		if row.shuts && strings.ContainsRune(loneBrackets, sign) {
+			ix.addLoneBracket(sign, row)
 		}
 	}
 }

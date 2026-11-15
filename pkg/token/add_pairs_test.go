@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddPairs — each sign of a pair gets a graph for each of its candidates: an opening bracket one, a closing bracket one, a quotation mark written the same way at both ends two (열기 first), and a quotation mark that may close with none of its kind open (" ' ” ’) one more closing last; 22 signs give 28 graphs; the last closing of such a mark is the lone closing, which stands with nothing open where the usual one falls
+//ff:what TestAddPairs — each sign of a pair gets a graph for each of its candidates: an opening bracket one, a closing bracket one, a quotation mark written the same way at both ends two (열기 first), a quotation mark that may close with none of its kind open (" ' ” ’) one more closing last, and so does a closing bracket that may (loneBrackets: ) } ] > 」 』 》 〉); 22 signs give 36 graphs; the last closing of such a sign is the lone closing, which stands with nothing open where the usual one falls
 package token
 
 import (
@@ -13,17 +13,17 @@ import (
 func TestAddPairs(t *testing.T) {
 	ix := &index{}
 	ix.addPairs()
-	if len(ix.pairs) != len(pairOrder) || ix.graphs != 28 {
+	if len(ix.pairs) != len(pairOrder) || ix.graphs != 36 {
 		t.Fatal(len(ix.pairs), ix.graphs)
 	}
-	for sign, want := range map[rune][]string{'(': {"열기:("}, ')': {"닫기:)"}, '"': {"열기:\"", "닫기:\"", "닫기:\""}, '\'': {"열기:'", "닫기:'", "닫기:'"}, '“': {"열기:“"}, '”': {"닫기:”", "닫기:”"}, '’': {"닫기:’", "닫기:’"}, '》': {"닫기:》"}} {
+	for sign, want := range map[rune][]string{'(': {"열기:("}, ')': {"닫기:)", "닫기:)"}, '"': {"열기:\"", "닫기:\"", "닫기:\""}, '\'': {"열기:'", "닫기:'", "닫기:'"}, '“': {"열기:“"}, '”': {"닫기:”", "닫기:”"}, '’': {"닫기:’", "닫기:’"}, '》': {"닫기:》", "닫기:》"}} {
 		if got := entryNames(ix.pairs[sign]); !reflect.DeepEqual(got, want) {
 			t.Errorf("%c: %q, want %q", sign, got, want)
 		}
 	}
 	ctx := toulmin.NewContext()
 	ctx.Set(rule.KeyMark, rule.Mark{Left: rule.SideHangul, Right: rule.SideHangul, Run: 1})
-	for _, sign := range loneShuts {
+	for _, sign := range loneShuts + loneBrackets {
 		es := ix.pairs[sign]
 		usual, _ := evaluate(es[len(es)-2].g, ctx, false)
 		lone, _ := evaluate(es[len(es)-1].g, ctx, false)

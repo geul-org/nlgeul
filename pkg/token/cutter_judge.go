@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what judge — run the graphs of a sign of a pair for one way the signs before it may stand open: the candidates that stand, each with its depth (an opening sign one deeper than what stands open, a closing sign as deep as the nearest sign of its kind that stands open, a quotation mark that closes with none of its kind open 0), the way the signs stand open after each (that of a quotation mark that closes with none of its kind open is the way as it was), and the trace lines when a trace is kept
+//ff:what judge — run the graphs of a sign of a pair for one way the signs before it may stand open: the candidates that stand, each with its depth (an opening sign one deeper than what stands open, a closing sign as deep as the nearest sign of its kind that stands open, a sign that closes with none of its kind open loneDepth's), the way the signs stand open after each (that of a sign that closes with none of its kind open is the way as it was), and the trace lines when a trace is kept
 package token
 
 import (
@@ -12,10 +12,11 @@ import (
 
 // A closing sign closes the nearest sign of its kind and with it what
 // was opened after that and not closed. A closing sign with none of its
-// kind open in the way (only loneShutGraph lets one stand) closes
-// nothing: its depth is counted as any closing sign's, the place of the
-// nearest sign of its kind plus one, which is 0 with none found, and
-// what stands open is left as it is.
+// kind open in the way (only loneShutGraph and loneBracketGraph let one
+// stand) closes nothing: what stands open is left as it is, and its
+// depth is loneDepth's (0 for a quotation mark, as the place of the
+// nearest sign of its kind plus one with none found; 1 for a bracket,
+// whose opening sign stood before the sentence).
 func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, []string, []string) {
 	var candidates []pairing
 	var after, notes []string
@@ -39,7 +40,7 @@ func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, 
 		if e.form == shutName && at >= 0 {
 			rd, next = pairing{shutName, at + 1}, string(stack[:at])
 		} else if e.form == shutName {
-			rd, next = pairing{shutName, at + 1}, way
+			rd, next = pairing{shutName, loneDepth(c.r[i])}, way
 		}
 		candidates, after = append(candidates, rd), append(after, next)
 	}

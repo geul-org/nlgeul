@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestCutterJudge — the graphs of a sign of a pair for one way the signs before it may stand open: an opening sign reads one deeper than what stands open and adds itself to the way; a closing sign reads as deep as the nearest sign of its kind that stands open and closes what was opened after it; a closing sign with none of its kind open has no candidate; a quotation mark opens when none of its kind stands open and closes when one does; a quotation mark written onto a word with Hangul right after it and none of its kind open in any way also closes, as 닫기:0, leaving the way as it was (beside the opening of a quotation mark written the same way at both ends); with one of its kind open in some way (MarkOpenedAny) it does not, nor with a space before or no Hangul after it; a trace keeps a line for each graph with its reason
+//ff:what TestCutterJudge — the graphs of a sign of a pair for one way the signs before it may stand open: an opening sign reads one deeper than what stands open and adds itself to the way; a closing sign reads as deep as the nearest sign of its kind that stands open and closes what was opened after it; a closing sign with none of its kind open has no candidate; a quotation mark opens when none of its kind stands open and closes when one does; a quotation mark written onto a word with Hangul right after it and none of its kind open in any way also closes, as 닫기:0, leaving the way as it was (beside the opening of a quotation mark written the same way at both ends); with one of its kind open in some way (MarkOpenedAny) it does not, nor with a space before or no Hangul after it; a closing bracket written onto a word with none of its kind open closes too, at loneBracketDepth, leaving the way as it was, and does not with one of its kind open in some way nor right after a digit; a trace keeps a line for each graph with its reason
 package token
 
 import (
@@ -39,6 +39,10 @@ func TestCutterJudge(t *testing.T) {
 		{"다”고", 1, "(", rule.MarkOpenedAny, nil, nil},
 		{" ”고", 1, "", 0, nil, nil},
 		{"다”.", 1, "", 0, nil, nil},
+		{"다)", 1, "", 0, []pairing{{shutName, loneBracketDepth}}, []string{""}},
+		{"다)", 1, "‘", 0, []pairing{{shutName, loneBracketDepth}}, []string{"‘"}},
+		{"다)", 1, "[", rule.MarkOpenedAny, nil, nil},
+		{"2)", 1, "", 0, nil, nil},
 	}
 	for _, c := range cases {
 		cut := newCutter(ix, c.text, false)
@@ -51,7 +55,7 @@ func TestCutterJudge(t *testing.T) {
 	}
 	cut := newCutter(ix, ")", true)
 	_, _, notes := cut.judge(0, pairRows[')'], cut.facts(0), "[")
-	if len(notes) != 1 || !strings.Contains(notes[0], "닫기:)") || !strings.Contains(notes[0], "기각: 같은 종류의 여는 기호가 열려 있지 않다") || !strings.Contains(notes[0], `열린 기호 "["`) {
+	if len(notes) != 2 || !strings.Contains(notes[0], "닫기:)") || !strings.Contains(notes[0], "기각: 같은 종류의 여는 기호가 열려 있지 않다") || !strings.Contains(notes[0], `열린 기호 "["`) || !strings.Contains(notes[1], "기각: "+whyNotOnWord) {
 		t.Fatal("the trace of a defeated candidate", notes)
 	}
 	cut = newCutter(ix, "다”고", true)
