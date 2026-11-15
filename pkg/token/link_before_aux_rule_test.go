@@ -17,11 +17,11 @@ func TestLinkBeforeAuxRule(t *testing.T) {
 		t.Fatalf("%+v", r)
 	}
 	for near, want := range map[rule.Near]bool{
-		nearOf(link):              true,
-		{Last: "맺음:어(합침)"}:       true,
-		{Last: "맺음:여"}:           true,
-		{Last: "맺음:고"}:           false,
-		nearOf(noun):              false,
+		nearOf(link):               true,
+		{Last: "맺음:어(합침)"}:         true,
+		{Last: "맺음:여"}:             true,
+		{Last: "맺음:고"}:             false,
+		nearOf(noun):               false,
 		{Stem: "집", Last: "부사격:에"}: false,
 	} {
 		if r.about(near) != want || r.waits(near) != want {
