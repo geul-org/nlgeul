@@ -41,5 +41,5 @@ func (ix *index) addSentence() {
 	// The noun 수 or 줄 where no modifying form stands before it (nounUnmodifiedRule).
 	ix.sentence = append(ix.sentence, nounUnmodifiedRule(adnBound))
 	// A dependent noun right after a modifying form (boundAfterRule).
-	ix.sentence = append(ix.sentence, boundAfterRule())
+	ix.sentence = append(ix.sentence, boundAfterRule(boundNominal))
 }
