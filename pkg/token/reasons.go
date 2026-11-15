@@ -200,4 +200,5 @@ const (
 	whyNotHeaded   = "문장 첫머리도 여는 기호 바로 뒤도 아니다"
 	whyDenyNext    = "바로 뒤 어절이 아니다다"
 	whyNoModifier  = "앞 어절이 꾸밈 맺음이나 관형격 조사로 끝나지 않는다"
+	ruleDateFirst  = "문장:점으로 적은 연월일은 날짜 먼저"
 )

@@ -373,3 +373,8 @@ const bonusModified = 1.0
 // (the same ones), so the least of those, which still keeps the known
 // word as a candidate behind them (a verdict of about 1/3).
 const forceUnitWord = 0.5
+
+// dateNames are the names of a number read as a date (the shapes 날짜:.,
+// 날짜:-, 날짜:/ print as 날짜), which a rule of a sentence prefers to a
+// version when the number is written with full stops (dateFirstRule).
+var dateNames = []string{"날짜"}
