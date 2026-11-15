@@ -81,7 +81,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `Links(left, right)` | 조사 사슬에서 갈래 left 뒤에 갈래 right가 올 수 있는가(갈래 표, `Link…`. 서술격 이다의 줄기 `LinkCopula`는 접미 뒤에만 선다) | `ChainLinks` |
 | `SlotOf(r)`, `SlotBefore(slot, next)` | 선어말 칸과 그 순서(시 < 었 < 겠 < 더 < 맺음, 었은 겹침) | `SlotOrder`, 읽기 코드 |
 | `BareBases(lead)` | 받침 하나뿐인 맺음을 읽는 음절 | `Listed`의 기준(`ListBase`), 읽기 코드 |
-| `JongOf`, `JungOf` | 음절의 받침·모음 번호 | 읽기 코드 |
+| `ChoOf`, `JongOf`, `JungOf` | 음절의 첫소리·받침·모음 번호 | 읽기 코드 |
 | `FusedVowel(r, more)` | 어/아가 합쳐진 음절인가 | 읽기 코드 |
 | `FusedPast(r)` | 었/았이 합쳐진 음절인가(받침 ㅆ과 모음 조건) | 읽기 코드 |
 | `LeadText(lead)` | 조각의 머리(받침, 합쳐지는 어)를 글자로 | 읽기 코드 |

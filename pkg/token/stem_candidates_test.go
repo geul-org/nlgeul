@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStemCandidates — the letters before the tail; the syllable before fusing; a closed-set word; an atom; the word of a fused form, known under the form's name without a table and under the table's name with one; a misspelt stem is the right form, judged by the kinds of the misspelt line as a misspelt form and by nothing else; a stem that a tail reads as a number is named so with the number's verdict; an auxiliary verb's stem with a predicate tail right after a word that ends in the linking 어/아 stands higher, fully when seen enough (the rebuttal that it is one syllable long does not hold), under the same names
+//ff:what TestStemCandidates — the letters before the tail; the syllable before fusing; a closed-set word; an atom; the word of a fused form, known under the form's name without a table and under the table's name with one; a misspelt stem is the right form, judged by the kinds of the misspelt line as a misspelt form and by nothing else; a stem that a tail reads as a number is named so with the number's verdict; a stem two nominals of the table make, bound by 사이시옷 (전셋값), is that nominal (사이시옷:ㅅ) and the new word of the same letters, and the first alone when the stem is too long for a new word and not the whole unit (대한민국임시정붓수립기념일); a stem too long for a new word with no such reading has no candidate; an auxiliary verb's stem with a predicate tail right after a word that ends in the linking 어/아 stands higher, fully when seen enough (the rebuttal that it is one syllable long does not hold), under the same names
 package token
 
 import (
@@ -74,5 +74,25 @@ func TestStemCandidates(t *testing.T) {
 	aux.connEnds[1] = true
 	if _, onto, v, _ := stemIn(aux, 1, jwo, false); stem != "주" || onto != apart || low >= 1 || v != 1 {
 		t.Fatal("an auxiliary's stem right after 어/아", stem, apart, low, onto, v)
+	}
+	sc = &scan{ix: streamReader(t, "words-saisiot.tsv").ix, s: []rune("전셋값이")}
+	sc.prepare()
+	i := []piece{{"이", "주격:이", 1, -1, rule.TailCase, false, ""}}
+	got := sc.stemCandidates(0, tail{start: 3, pieces: i}, false)
+	if len(got) != 2 || got[0].stem != "전셋값" || got[0].name != saisiotName || got[0].kind != kindNominal || got[0].v <= 0 || got[1].stem != "전셋값" || got[1].name != "" || got[1].v != 0 {
+		t.Fatal("a stem of 사이시옷 and the new word of the same letters", got)
+	}
+	sc = &scan{ix: far.ix, s: []rune("대한민국임시정붓수립기념일을")}
+	sc.prepare()
+	if got = sc.stemCandidates(0, tail{start: 13, pieces: eul}, false); len(got) != 1 || got[0].name != saisiotName || got[0].stem != "대한민국임시정붓수립기념일" {
+		t.Fatal("a stem of 사이시옷 too long for a new word stands alone", got)
+	}
+	if got = sc.stemCandidates(0, tail{start: 13, pieces: eul}, true); len(got) != 2 || got[1].name != "" {
+		t.Fatal("with its new word as the whole unit", got)
+	}
+	sc = &scan{ix: far.ix, s: []rune("가나다라마바사아자차카타했다")}
+	sc.prepare()
+	if got = sc.stemCandidates(0, tail{start: 12}, false); len(got) != 0 {
+		t.Fatal("a stem too long for a new word, of no 사이시옷", got)
 	}
 }

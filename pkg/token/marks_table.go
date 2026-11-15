@@ -28,6 +28,13 @@ var topDomains = data.Must(data.Column("top-domains", 1))
 var linkSigns = map[rune]string{'/': "대비:/", '-': "붙임:-"}
 var linkOrder = []rune{'/', '-'}
 
+// saisiotName names a stem of two nominals of the word table that a ㅅ
+// put under the last syllable of the first binds into one (사이시옷,
+// 「한글 맞춤법」 제30항: 전셋값[사이시옷:ㅅ]), named as the bound stems
+// are, by the kind of binding and the letter that binds
+// (saisiotCandidates).
+const saisiotName = "사이시옷:ㅅ"
+
 // run names the graph of a run of Latin letters and digits that no
 // table lists. forceRun is the force of the rebuttal "it is in no key
 // table" against it: lower than a new Hangul word's, because the
