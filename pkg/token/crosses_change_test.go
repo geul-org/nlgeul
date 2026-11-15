@@ -30,8 +30,8 @@ func TestCrossesChange(t *testing.T) {
 	if !past.crossesChange(0, 5, tail{start: 4, base: '하'}) {
 		t.Fatal("git했다: the place right before 했, the stem's last syllable a piece is fused into, is inside the stem git하")
 	}
-	if wordsScan("곰곰했다", layerCost).crossesChange(0, 5, tail{start: 4, base: '하'}) {
-		t.Fatal("곰곰했다: no place where the script changes")
+	if wordsScan("곰곰했다", layerCost).crossesChange(0, 4, tail{start: 3, base: '하'}) {
+		t.Fatal("곰곰했다: no place where the script changes, the place right before 했 among those asked")
 	}
 
 	two := wordsScan("AB씨", layerCost)
