@@ -230,3 +230,11 @@ const bonusOne = 1.5
 // (남+아, 서+(어)) against a noun of the same letters (남아, 서), whose
 // lambda is about 2 to 2.5 above it, so bonusSentence does not carry it.
 const bonusLinkBeforeAux = 3.0
+
+// bonusMalLinked is what the rule "말다 after -지 or -고 is the auxiliary
+// verb" (malLinkedRule) adds. The forms of 말다 that drop the ㄹ are the
+// letters of other words (마라, 마시고, 마소서) whose lambda is up to
+// about 3.2 above them. Measured on the answer sheet, the words put
+// right (none put wrong at any of them) were 2 at 0.5, 4 at 1.5, 5 at 3,
+// 6 at 3.5 and 6 at 6; the least value of the most is chosen.
+const bonusMalLinked = 3.5

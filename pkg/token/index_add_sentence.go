@@ -9,4 +9,6 @@ func (ix *index) addSentence() {
 	ix.sentence = []sentenceRule{auxLinkedRule(aux), mainUnlinkedRule(aux), auxAskedRule(), adverbialFirstRule(), complementRule(), quotedRule(), determinerOneRule(), limitOneRule()}
 	// The 어/아 form of a main verb right before an auxiliary verb.
 	ix.sentence = append(ix.sentence, linkBeforeAuxRule(aux))
+	// 말다 after -지 or -고.
+	ix.sentence = append(ix.sentence, malLinkedRule())
 }

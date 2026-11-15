@@ -126,3 +126,9 @@ const (
 	ruleLinkBeforeAux = "문장:보조 용언 앞 어/아 꼴"
 	whyNoAuxNext      = "바로 뒤 어절의 줄기가 보조 용언이 아니다"
 )
+
+// The rule of a sentence of 말다 as an auxiliary verb, and why it falls.
+const (
+	ruleMalLinked   = "문장:지·고 뒤 보조 동사 말다"
+	whyNotMalLinked = "앞 어절이 지·고로 끝나지 않는다"
+)
