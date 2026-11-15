@@ -77,4 +77,7 @@ const (
 	whyApart      = "앞뒤가 모두 빈칸이다"
 	whyArrow      = "붙임표나 등호와 맞닿아 있다"
 	whyBySign     = "다른 기호와 맞닿아 있다"
+
+	whyHangulSides    = "양쪽이 한글이다"
+	whyNotHangulSides = "양쪽이 한글이 아니다"
 )

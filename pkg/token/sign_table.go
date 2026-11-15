@@ -27,14 +27,18 @@ const headingName = "제목"
 const arrowSigns = "-="
 
 // stopSigns are the signs that close the word before them inside a
-// unit, as a piece of that word (stopAt): the full stop and the comma.
-const stopSigns = ".,"
+// unit, as a piece of that word (stopAt): the full stop, the comma and
+// the ellipsis (…, the same sign as ...).
+const stopSigns = ".,…"
 
 // apartSigns are the signs that, between letters of a unit, are also read
 // as a word of their own (a candidate added beside the one that keeps
-// them in the word): the middle dots. cutSigns are the signs that cut a
-// sentence into units where they stand between letters (cutter).
+// them in the word): the middle dots and their variants (‧ ․ •), the
+// slash, the tilde and its variants (∼ ～ 〜), and the dashes (― —);
+// the slash and the tildes only with Hangul on both sides (their graphs).
+// cutSigns are the signs that cut a sentence into units where they stand
+// between letters (cutter).
 const (
-	apartSigns = "·ㆍ・"
+	apartSigns = "·ㆍ・‧․•/~∼～〜―—"
 	cutSigns   = "+"
 )
