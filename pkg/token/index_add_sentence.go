@@ -11,4 +11,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, linkBeforeAuxRule(aux))
 	// 말다 after -지 or -고.
 	ix.sentence = append(ix.sentence, malLinkedRule())
+	// 보다 as an auxiliary in -다(가) 보니 and -다(가) 보면.
+	ix.sentence = append(ix.sentence, auxWhileRule())
 }

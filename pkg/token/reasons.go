@@ -135,3 +135,13 @@ const (
 
 // Why the auxiliary verb's rules fall after 관하여.
 const whyRegard = "앞 어절이 관하다(…에 관하여)다"
+
+// The rule of a sentence of 보다 as an auxiliary in -다(가) 보니 and
+// -다(가) 보면, and why it and the main predicate's rule fall.
+const (
+	ruleAuxWhile      = "문장:다·다가 뒤 보조 용언 보니·보면"
+	whyNotWhile       = "앞 어절이 다·다가로 끝나지 않는다"
+	whyWhile          = "앞 어절이 다·다가로 끝난다"
+	whyNoWhileClosing = "니·니까·면으로 끝나지 않는다"
+	whyNotSee         = "줄기가 보다가 아니다"
+)
