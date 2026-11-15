@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what judge — run an entry's graph for a piece at one place and note the outcome in the trace
+//ff:what judge — run an entry's graph for a piece at one place, told whether its unit's letters are glossed with Han characters (Glossed), and note the outcome in the trace
 package token
 
 import (
@@ -10,6 +10,7 @@ import (
 )
 
 func (sc *scan) judge(e *entry, start, j int, p rule.Piece) float64 {
+	p.Glossed = sc.glossed
 	if sc.trace == nil {
 		return sc.ix.judged(e.g, p, sc.letters(0, j))
 	}

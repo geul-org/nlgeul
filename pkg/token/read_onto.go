@@ -18,7 +18,7 @@ func readOnto(ix *index, u unit, trace bool) ([]Contest, []string) {
 	_, trail, at := edgesOf(u, sc.s)
 	paths := sc.search()
 	if len(sc.s) > u.head {
-		ps := &scan{ix: ix, s: sc.s[u.head:], closed: sc.closed, trace: sc.trace, reg: newRegistry(sc.registry().next)}
+		ps := &scan{ix: ix, s: sc.s[u.head:], closed: sc.closed, glossed: sc.glossed, trace: sc.trace, reg: newRegistry(sc.registry().next)}
 		onto := ps.search()
 		all := ix.top(append(sc.moved(paths, u.head), onto...))
 		out = append(out, ps.expandMid(ps.contests(all))...)

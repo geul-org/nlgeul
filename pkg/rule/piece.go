@@ -49,6 +49,10 @@ package rule
 // Latin letters and digits meets a Hangul syllable (a place where a word
 // may end with no marker), and that the two sides cut there each read
 // as a known word or as such a run (A씨, K팝).
+// Glossed tells that the piece stands in a unit whose letters (after
+// its head) are Hangul syllables, right after which a round bracket
+// holds nothing but Han characters, as many as those syllables: the
+// letters are the sound of the characters (대곤(大棍), 관치(官治)).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -79,4 +83,5 @@ type Piece struct {
 	Apart    bool
 	Conn     bool
 	Change   bool
+	Glossed  bool
 }

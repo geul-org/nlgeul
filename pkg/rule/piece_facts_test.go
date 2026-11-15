@@ -31,11 +31,13 @@ func TestPieceFacts(t *testing.T) {
 		{Piece{Apart: true}, PieceApart},
 		{Piece{Conn: true}, PieceConn},
 		{Piece{Change: true}, PieceChange},
+		{Piece{Glossed: true}, PieceGlossed},
+		{Piece{Closed: true, Glossed: true}, PieceClosed | PieceGlossed},
 		{Piece{Adn: true, Det: true}, PieceAdn | PieceDet},
 		{Piece{HasStem: true, Adn: true, Next: -1}, PieceStem | PieceAdn | PieceLast},
 		{Piece{Keeps: true, Sole: true}, PieceKeeps | PieceSole},
-		{Piece{HasStem: true, Num: true, Lone: true, Whole: true, Adn: true, Turned: true, Marked: true, Next: -1, Keeps: true, Sole: true, Det: true, Closed: true, Same: true, Misspelt: true, YoOpen: true, Order: true, Apart: true, Conn: true, Change: true},
-			PieceStem | PieceNum | PieceLone | PieceWhole | PieceAdn | PieceTurned | PieceMarked | PieceLast | PieceKeeps | PieceSole | PieceDet | PieceClosed | PieceSame | PieceMisspelt | PieceYoOpen | PieceOrder | PieceApart | PieceConn | PieceChange},
+		{Piece{HasStem: true, Num: true, Lone: true, Whole: true, Adn: true, Turned: true, Marked: true, Next: -1, Keeps: true, Sole: true, Det: true, Closed: true, Same: true, Misspelt: true, YoOpen: true, Order: true, Apart: true, Conn: true, Change: true, Glossed: true},
+			PieceStem | PieceNum | PieceLone | PieceWhole | PieceAdn | PieceTurned | PieceMarked | PieceLast | PieceKeeps | PieceSole | PieceDet | PieceClosed | PieceSame | PieceMisspelt | PieceYoOpen | PieceOrder | PieceApart | PieceConn | PieceChange | PieceGlossed},
 	}
 	for _, c := range cases {
 		if got := pieceFacts(c.p); got != c.want {

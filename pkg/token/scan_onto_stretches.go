@@ -3,7 +3,7 @@
 package token
 
 func (sc *scan) ontoStretches(u unit) []unitStretch {
-	ps := &scan{ix: sc.ix, s: sc.s[u.head:], closed: sc.closed, trace: sc.trace, reg: newRegistry(ontoBorn)}
+	ps := &scan{ix: sc.ix, s: sc.s[u.head:], closed: sc.closed, glossed: sc.glossed, trace: sc.trace, reg: newRegistry(ontoBorn)}
 	pl := newPlanter(sc, u.head)
 	best := ps.netStart()
 	for j := 1; j <= len(ps.s); j++ {

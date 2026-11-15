@@ -14,10 +14,10 @@ func TestMarkerGraphLeading(t *testing.T) {
 		edges  int
 		closed float64
 	}{
-		{entry{name: "보조사:이야", form: "이야", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic}, 4, -1},
-		{entry{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic}, 4, -1},
-		{entry{name: "호격:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkVoc}, 3, 1},
-		{entry{name: "보조사:도", form: "도", class: classParticle, slot: rule.LinkTopic}, 2, 1},
+		{entry{name: "보조사:이야", form: "이야", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic}, 5, -1},
+		{entry{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic}, 5, -1},
+		{entry{name: "호격:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkVoc}, 4, 1},
+		{entry{name: "보조사:도", form: "도", class: classParticle, slot: rule.LinkTopic}, 3, 1},
 	}
 	for _, c := range cases {
 		e := c.e
