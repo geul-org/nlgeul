@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what titleAfter — whether a title or an office of the list stands from place j and the unit ends right after it or a particle follows it (right: anything else after it does not count)
+//ff:what titleAfter — whether a title or an office of the list stands from place j and the unit ends right after it (a letter that is no Hangul syllable right after it counts as the end) or a particle follows it (right: any other Hangul syllable after it does not count)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"

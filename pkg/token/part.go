@@ -10,8 +10,8 @@ package token
 // then the marker as it is written (ㄹ께). Hidden is "ㄴ" for (ㄴ)다 and "이"
 // for a dropped (이). A stem no table knows has no names. Depth is the
 // depth of a sign of a pair (열기:2 and 닫기:2 are 2: one pair stands
-// open outside it) and the level of a heading (제목2 is 2); 0 for any
-// other part.
+// open outside it; a closing sign with no opening one, 닫기:0, is 0) and
+// the level of a heading (제목2 is 2); 0 for any other part.
 type Part struct {
 	Text    string
 	Hidden  string

@@ -41,7 +41,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
 | `PieceRead` | rule, counter | 색인에서 걸린 토큰 열이 이 자리에 있다(주장, 늘 서는 반박) | 없음 |
-| `PieceIs` | except, counter | 조각이 기준의 사실을 갖는다(`Piece…`): 앞에 줄기가 있다(`PieceStem`), 바로 앞이 수다(`PieceNum`), 그 수가 낱말 표 없이 홀로 선 한자어 한 음절 수사다(`PieceLone`), 수와 합쳐 통째로 낱말이다(`PieceWhole`), 앞 어절이 꾸밈 맺음으로 끝난다(`PieceAdn`), 그 낱말 자신이 꾸밈꼴·이름꼴이다(`PieceTurned`), 경계 뒤의 새 낱말이 표지로 읽힌다(`PieceMarked`), 뒤에 이어지는 조각이 없다(`PieceLast`), 줄기가 어/아 앞에서 끝 모음을 지킨다(`PieceKeeps`), 줄기의 낱말이 단위 전체다(`PieceSole`), 앞 어절이 관형사다(`PieceDet`), 조각이 줄기 바로 뒤에서 단위를 끝내고 바로 뒤에서 마침표·물음표·느낌표가 단위를 닫는다(`PieceClosed`), 되돌린 음절이 글자에 그대로 있다(합쳐진 조각이 흔적을 남기지 않았다, `PieceSame`), 줄기 또는 표지의 글자가 다른 낱말·맺음의 틀린 표기다(`PieceMisspelt`), 바로 뒤에 보조사 요가 오고 조각이 줄기 바로 뒤에서 받침 없는 한글 음절 다음에 서거나 줄기 위의 접미 이 바로 뒤에 선다(`PieceYoOpen`), 바로 앞의 수가 접두사 `제`로 시작한다(`PieceOrder`), 새 낱말의 글자가 영문 글자 열 바로 뒤에 띄어쓰기 조항이 띄어 쓰는 낱말(제48항 호칭어·관직명, 제42항 의존 명사) 하나만 품는다(`PieceApart`), 앞 어절이 어/아 맺음으로 끝나고 조각이 서술어 꼬리가 붙은 보조 용언의 줄기다(`PieceConn`), 새 낱말이 영숫자 열과 한글이 맞닿은 자리를 넘고 그 자리에서 가른 두 쪽이 모두 아는 낱말이나 영숫자 열로 읽힌다(`PieceChange`), 단위의 글자(머리 뒤)가 한글 음절이고 그 바로 뒤의 소괄호가 같은 수의 한자만 품는다(한자 병기, `PieceGlossed`) | `Bits`(piece), 뒤집으려면 `Not` |
+| `PieceIs` | except, counter | 조각이 기준의 사실을 갖는다(`Piece…`): 앞에 줄기가 있다(`PieceStem`), 바로 앞이 수다(`PieceNum`), 그 수가 낱말 표 없이 홀로 선 한자어 한 음절 수사다(`PieceLone`), 수와 합쳐 통째로 낱말이다(체언 뒤 접미는 앞 줄기와 합쳐 낱말 표의 낱말이다, `PieceWhole`), 앞 어절이 꾸밈 맺음으로 끝난다(`PieceAdn`), 그 낱말 자신이 꾸밈꼴·이름꼴이다(`PieceTurned`), 경계 뒤의 새 낱말이 표지로 읽힌다(`PieceMarked`), 뒤에 이어지는 조각이 없다(`PieceLast`), 줄기가 어/아 앞에서 끝 모음을 지킨다(`PieceKeeps`), 줄기의 낱말이 단위 전체다(`PieceSole`), 앞 어절이 관형사다(`PieceDet`), 조각이 줄기 바로 뒤에서 단위를 끝내고 바로 뒤에서 마침표·물음표·느낌표가 단위를 닫는다(`PieceClosed`), 되돌린 음절이 글자에 그대로 있다(합쳐진 조각이 흔적을 남기지 않았다, `PieceSame`), 줄기 또는 표지의 글자가 다른 낱말·맺음의 틀린 표기다(`PieceMisspelt`), 바로 뒤에 보조사 요가 오고 조각이 줄기 바로 뒤에서 받침 없는 한글 음절 다음에 서거나 줄기 위의 접미 이 바로 뒤에 선다(`PieceYoOpen`), 바로 앞의 수가 접두사 `제`로 시작한다(`PieceOrder`), 새 낱말의 글자가 영문 글자 열 바로 뒤에 띄어쓰기 조항이 띄어 쓰는 낱말(제48항 호칭어·관직명, 제42항 의존 명사) 하나만 품는다(`PieceApart`), 앞 어절이 어/아 맺음으로 끝나고 조각이 서술어 꼬리가 붙은 보조 용언의 줄기다(`PieceConn`), 새 낱말이 영숫자 열과 한글이 맞닿은 자리를 넘고 그 자리에서 가른 두 쪽이 모두 아는 낱말이나 영숫자 열로 읽힌다(`PieceChange`), 단위의 글자(머리 뒤)가 한글 음절이고 그 바로 뒤의 소괄호가 같은 수의 한자만 품는다(한자 병기, `PieceGlossed`) | `Bits`(piece), 뒤집으려면 `Not` |
 | `Listed` | except, counter | 조각의 꼴(`ListForm`), 앞 조각의 이름(`ListBefore`), 뒤 조각의 이름(`ListAfter`), 합쳐진 조각이 놓인 음절(`ListBase`)이 기준 목록에 있다 | `List`, 뒤집으려면 `Not` |
 | `PieceAfter` | except, counter | 앞 토큰의 끝이 붙는 조건과 안 맞는다(`Fits`) | `Bits`(after) |
 | `PieceRight` | except | 조각 바로 뒤에 선 것이 기준의 것이다(조사, 그 밖의 글자) | `Bits`(right) |
@@ -74,7 +74,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 뜻 | 쓰는 곳 |
 |---|---|---|
-| `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`: 받침, ㄹ 아닌 받침, 모음이나 ㄹ, 모음, ㄹ 받침, 한글 음절)과 맞는가 | `PieceAfter`, 읽기 코드 |
+| `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`: 받침, ㄹ 아닌 받침, 모음이나 ㄹ, 모음, ㄹ 받침, 한글 음절, ㄴ 아닌 받침(`AfterNotN`))과 맞는가 | `PieceAfter`, 읽기 코드 |
 | `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `nlgeul parse`의 읽기 코드 |
 | `Harmony(prev, first)` | 줄기 끝 음절 뒤에 어/아/여로 시작하는 조각이 모음에 맞는가(ㅏ·ㅑ·ㅗ 뒤 아, 그 밖 어, 하 뒤 여, ㅆ 받침 뒤 어) | `PieceClash` |
 | `FitsShape(parts, shape)`, `InRange` | 숫자 마디들이 꼴(마디 수, 자리 수, 값의 범위, 머리)에 맞는가 | `PartsShape` |

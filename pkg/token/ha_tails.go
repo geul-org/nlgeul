@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what haTails — the closings written with the ㅎ of a stem's last 하 fused into them (haEnds: 원치, 가능케) that end at j with a letter before them, judged by the 하 they took in (the syllable they are judged by is the stem's, as irrTails' are) and, with nothing after them, by what stands right after: each stands as a tail that asks for a stem whose 하 is so dropped (irrHa), its piece the letters as they stand under the plain closing's name
+//ff:what haTails — the closings written with the ㅎ of a stem's last 하 fused into them (haEnds: 원치, 가능케) that end at j with a letter before them, judged by the 하 they took in (the syllable they are judged by is the stem's, as irrTails' are) and, unless 요 follows them (more), by what stands right after: each stands as a tail that asks for a stem whose 하 is so dropped (irrHa), its piece the letters as they stand under the plain closing's name
 package token
 
 // Such a closing takes no slot before it. more tells that 요 follows.
