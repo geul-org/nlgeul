@@ -15,4 +15,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, auxWhileRule())
 	// a noun of one syllable with its particle written onto a nominal
 	ix.sentence = append(ix.sentence, gluedShortRule())
+	// a noun ending in 인 or 일 where nothing an adnominal modifies follows
+	ix.sentence = append(ix.sentence, unmodifiedRule())
 }

@@ -156,3 +156,8 @@ const (
 	whyNotAfterNominal = "바로 앞 어절이 체언으로 끝나지 않는다"
 	ruleGluedShort     = "문장:체언에 붙은 한 음절 체언+조사"
 )
+
+// The name of the rule of a sentence unmodifiedRule (its claim is that
+// the word after the candidate is not one an adnominal may stand
+// before).
+const ruleUnmodified = "문장:꾸밈받을 말이 뒤에 없는 인·일 체언"

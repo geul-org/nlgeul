@@ -268,3 +268,16 @@ var (
 // broken), 4 gave 58 (75 fixed, 17 broken), 5 gave 51 and 8 gave 19
 // fewer. It is kept for its reason and for half the words broken at 4.
 var bonusGluedShort = -Lambda * math.Log10(2/(1+forceShort)-1)
+
+// copulaAdnForms are the letters of the copula 이 with a modifying
+// closing fused into it (이+ㄴ, 이+ㄹ), and bonusUnmodified what the rule of
+// a sentence unmodifiedRule adds to a noun of the word table that ends in
+// them where nothing an adnominal modifies follows: as much as the
+// rebuttal "rarely seen" takes at most from lambda (a row seen once: its
+// verdict is 2/(1+forceFew)-1, so the value is about 3.19). Measured on
+// the answer sheet after gluedShortRule, in words right more: 1 gave 10,
+// 2 gave 13, this value and 5 gave 14, none broken.
+var (
+	copulaAdnForms  = []string{"인", "일"}
+	bonusUnmodified = -Lambda * math.Log10(2/(1+forceFew)-1)
+)

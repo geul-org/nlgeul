@@ -15,4 +15,9 @@ type Near struct {
 	Glued   bool
 	Nominal bool
 	Text    string
+	// Modifiable tells that a word ending in a modifying closing may
+	// stand right before the word: its stem is a nominal or a
+	// determiner, or it ends in a modifying or a naming form. The
+	// reader fills it.
+	Modifiable bool
 }

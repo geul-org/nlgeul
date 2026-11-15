@@ -198,6 +198,7 @@ const (
 // Yes/no facts of a candidate judged in its sentence that AroundIs
 // tests.
 const (
-	AroundGlued        = 1 << iota // no space stands between the candidate's word and the word before it
-	AroundAfterNominal             // the word right before it ends in a nominal (Near.Nominal)
+	AroundGlued            = 1 << iota // no space stands between the candidate's word and the word before it
+	AroundAfterNominal                 // the word right before it ends in a nominal (Near.Nominal)
+	AroundBeforeModifiable             // a word ending in a modifying closing may stand right before the word right after it (Near.Modifiable)
 )

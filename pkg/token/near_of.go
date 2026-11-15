@@ -30,5 +30,6 @@ func nearOf(br Branch) rule.Near {
 	}
 	n.Marks = strings.Join(marks, "+")
 	n.Nominal = nominalEnd(parts)
+	n.Modifiable = modifiable(parts)
 	return n
 }
