@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAddClosings — the closings are indexed by their last token or their lead's key; those that attach only to the copula stem are there too, and the names of those it does not take are kept; each closing of moreClosings is there under its name with the count closingCounts gives it (어야지 with its fused form, 라면서 with its form with 으), and among the forms of the tables; the closings the table already had keep their names and counts; the graph of an auxiliary particle after a linking closing takes 어서, 아서 and 면서 as well as 고 and 지, and not 다; the graph of a particle after a closing that asks takes 를, 는, 도 and 에 after ㄴ지, 는지, 은지, ㄹ지 and 을지, turns down a particle that is not one of the few (의) for that reason and any particle after another closing (지, 다) for that reason; end to end 먹되, 먹어서는, 먹고는 and 먹으면서도 read so
+//ff:what TestAddClosings — the closings are indexed by their last token or their lead's key; those that attach only to the copula stem are there too, and the names of those it does not take are kept; each closing of moreClosings is there under its name with the count closingCounts gives it (어야지 with its fused form, 라면서 with its form with 으), and among the forms of the tables; the closings the table already had keep their names and counts; the graph of an auxiliary particle after a linking closing takes 어서, 아서 and 면서 as well as 고 and 지, and not 다; the graph of a particle after a closing that asks takes 를, 는, 도 and 에 after ㄴ지, 는지, 은지, ㄹ지 and 을지, turns down a particle that is not one of the few (로) for that reason and any particle after another closing (지, 다) for that reason; end to end 먹되, 먹어서는, 먹고는 and 먹으면서도 read so
 package token
 
 import (
@@ -55,8 +55,8 @@ func TestAddClosings(t *testing.T) {
 			t.Errorf("%s takes %s", c[0], c[1])
 		}
 	}
-	if v, why := verdictOf(ix.askAux.g, rule.Piece{Form: "의", Before: "맺음:는지", HasStem: true, Next: -1}, "", true); v > 0 || !slices.Contains(why, whyNotTaken) || slices.Contains(why, whyNotAfter) {
-		t.Fatal("는지 takes no 의", v, why)
+	if v, why := verdictOf(ix.askAux.g, rule.Piece{Form: "로", Before: "맺음:는지", HasStem: true, Next: -1}, "", true); v > 0 || !slices.Contains(why, whyNotTaken) || slices.Contains(why, whyNotAfter) {
+		t.Fatal("는지 takes no 로", v, why)
 	}
 	for _, before := range []string{"맺음:지", "맺음:다", "꾸밈:는"} {
 		if v, why := verdictOf(ix.askAux.g, rule.Piece{Form: "를", Before: before, HasStem: true, Next: -1}, "", true); v > 0 || !slices.Contains(why, whyNotAfter) || slices.Contains(why, whyNotTaken) {
