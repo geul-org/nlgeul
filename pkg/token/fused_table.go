@@ -163,6 +163,16 @@ var typoContracts = contractLists[setTypo]
 // 예쁘+(어)+하+(ㄴ)다).
 var connNames = closingNames(parse.Marker{Lead: rule.LeadVowel})
 var auxMore = wordSets[setAuxMore]
+
+// linkNames are the closings of a main verb that an auxiliary verb
+// written apart follows, as the rules of a sentence read the word before
+// (auxLinkedRule): 어/아/여, whole or fused, and 고 (먹어 보다, 먹고 있다).
+var linkNames = closingNames(parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "고"})
+
+// mainKinds are the word table's kinds the stems an auxiliary verb
+// shares are read under as main predicates, where it is not the verb: 있
+// that tells of being or having is the adjective (mainKindOf).
+var mainKinds = map[string]int{"있": kindAdj}
 var helpers = map[rune]string{'지': "보조:지", '하': "보조:하"}
 
 // yeoBases are the syllables a stem ends in that take 여 for 어/아 and

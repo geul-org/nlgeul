@@ -116,6 +116,16 @@ const forceWhole = 0.98
 // two; nothing records a measurement for the second, which borrows it.
 const forceClash = 0.5
 
+// bonusSentence is what a rule of a sentence adds to the preference of a
+// candidate its claim stands for. The candidates such a rule tells apart
+// are mostly ones of the same lambda (the same letters under two names),
+// which any value above 0 puts in order; the value also carries a
+// candidate over one of another cut that was just above it. It is chosen
+// among 0.01, 0.1, 0.5, 1 and 2 tried with the first rule of a sentence on
+// the answer sheet: 0.01 and 0.1 gave 29 and 23 fewer right words than
+// 0.5, and 1 and 2 gave 5 and 8 more.
+const bonusSentence = 0.5
+
 // predKinds are the kinds of a closing's name: a word that carries one
 // is a predicate (a verb, an adjective or the copula with its ending),
 // which is where the rules of a sentence stop waiting.

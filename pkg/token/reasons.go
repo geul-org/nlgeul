@@ -5,6 +5,7 @@ package token
 // rule function says what it means where it is put.
 const (
 	exceptLabel = "예외"
+	preferLabel = "선호"
 
 	whyNoStem       = "앞에 줄기가 없다"
 	whyAfter        = "앞 토큰의 끝이 맞지 않는다"
@@ -89,4 +90,12 @@ const (
 
 	whyHangulSides    = "양쪽이 한글이다"
 	whyNotHangulSides = "양쪽이 한글이 아니다"
+	whyNotLinked      = "앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다"
+	whyLinked         = "앞 어절이 연결 꼴(어/아, 고)로 끝난다"
+)
+
+// The names of the rules of a sentence, as a trace prints them.
+const (
+	ruleAuxLinked    = "문장:연결 꼴 뒤 보조 용언"
+	ruleMainUnlinked = "문장:연결 꼴 뒤가 아닌 본용언"
 )

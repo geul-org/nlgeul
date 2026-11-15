@@ -48,5 +48,6 @@ func newIndex(o Options) (*index, error) {
 	ix.addKinds()
 	ix.addFarKeys()
 	ix.addEnds()
+	ix.addSentence()
 	return ix, nil
 }

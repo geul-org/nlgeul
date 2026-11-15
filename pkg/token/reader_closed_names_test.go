@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderClosedNames — a closed-set word the word table lists as a kind is read under the set's name and under the table's kind (감자 수가 많다: 수[의존명사:수] and 수[열쇠:체언]; 집에 있다: 있[보조 용언:있], 있[열쇠:동사] and 있[열쇠:형용사]; 영화를 보기에: 보[보조 용언:보] and 보[열쇠:동사]) with the same verdict and preference for one kind; a closed-set word the table does not list gets the set's name alone (놓다)
+//ff:what TestReaderClosedNames — a closed-set word the word table lists as a kind is read under the set's name and under the table's kind (감자 수가 많다: 수[의존명사:수] and 수[열쇠:체언]; 집에 있다: 있[보조 용언:있], 있[열쇠:동사] and 있[열쇠:형용사]; 영화를 보기에: 보[보조 용언:보] and 보[열쇠:동사]) with the same verdict for one kind and the same preference before the rules of a sentence raise one of them (no linking form stands before 있 and 보 here, so the main predicate comes first: 있[열쇠:형용사], 보[열쇠:동사]); a closed-set word the table does not list gets the set's name alone (놓다)
 package token
 
 import (
@@ -15,8 +15,8 @@ func TestReaderClosedNames(t *testing.T) {
 	}
 	for text, want := range map[string][]string{
 		"감자 수가 많다": {"수[의존명사:수]+가[주격:가]", "수[열쇠:체언]+가[주격:가]", "수[의존명사:수]+가[보격:가]", "수[열쇠:체언]+가[보격:가]"},
-		"집에 있다":    {"있[보조 용언:있]+다[맺음:다]", "있[열쇠:동사]+다[맺음:다]", "있[열쇠:형용사]+다[맺음:다]"},
-		"영화를 보기에":  {"보[보조 용언:보]+기[이름:기]+에[부사격:에]", "보[열쇠:동사]+기[이름:기]+에[부사격:에]"},
+		"집에 있다":    {"있[열쇠:형용사]+다[맺음:다]", "있[보조 용언:있]+다[맺음:다]", "있[열쇠:동사]+다[맺음:다]"},
+		"영화를 보기에":  {"보[열쇠:동사]+기[이름:기]+에[부사격:에]", "보[보조 용언:보]+기[이름:기]+에[부사격:에]"},
 	} {
 		lines := streamText(r, text)
 		if bad := orderedLines(lines, want); len(bad) > 0 {
