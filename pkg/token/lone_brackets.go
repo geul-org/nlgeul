@@ -7,7 +7,7 @@ package token
 // loneBracketGraph and not as the quotation marks of loneShuts are:
 // nothing has to be written right after them, and right after a digit
 // they are a list number (1), 2)) and close nothing.
-const loneBrackets = ")}]>」』》〉"
+const loneBrackets = ")}]>」』》〉｣"
 
 // loneBracketDepth is the depth of a closing bracket with none of its
 // kind open: the opening sign it closes stood before the sentence,

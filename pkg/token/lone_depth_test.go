@@ -8,7 +8,7 @@ func TestLoneDepth(t *testing.T) {
 	if loneBracketDepth != 1 {
 		t.Fatal(loneBracketDepth)
 	}
-	for sign, want := range map[rune]int{')': 1, '}': 1, ']': 1, '>': 1, '」': 1, '』': 1, '》': 1, '〉': 1, '"': 0, '\'': 0, '”': 0, '’': 0} {
+	for sign, want := range map[rune]int{')': 1, '}': 1, ']': 1, '>': 1, '」': 1, '』': 1, '》': 1, '〉': 1, '｣': 1, '"': 0, '\'': 0, '”': 0, '’': 0} {
 		if got := loneDepth(sign); got != want {
 			t.Errorf("%c: %d, want %d", sign, got, want)
 		}
