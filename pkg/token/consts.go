@@ -396,3 +396,16 @@ var numberAdnNames = []string{"꾸밈:ㄴ"}
 // wrong; the least of those keeps the copula as the candidate right
 // behind.
 const forceNumberAdn = 0.5
+
+// measureName names the graph of a quotation mark right after a digit
+// read as a unit of measure (measureGraph): 3" as inches, 5' as feet.
+const measureName = "단위:숫자 뒤 따옴표"
+
+// forceMeasureOpen is the force of the rebuttal "a sign of its kind
+// stands open before it" against a quotation mark right after a digit
+// read as a unit (measureGraph). It is chosen among a few values tried on
+// the answer sheet: 0.1 changed nothing, 0.25 and 0.5 righted the same 5
+// words; 0.25 leaves the unit (a verdict of 0.6) within about 0.6 of
+// lambda of the closing, 0.5 (a verdict of 1/3, as forceUnitWord and
+// forceNumberAdn give) sends it behind with room.
+const forceMeasureOpen = 0.5

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddNumbers — a number stands with verdict 1; each sign has its candidates (the full stop keeps its own first); the front signs, the graph of 제 before a number, the range sign after a unit and the pieces after a number are there
+//ff:what TestAddNumbers — a number stands with verdict 1; each sign has its candidates (the full stop keeps its own first); the front signs, the graph of 제 before a number, the range sign after a unit, the pieces after a number and the graph of a quotation mark after a digit read as a unit (measure) are there
 package token
 
 import "testing"
@@ -15,10 +15,10 @@ func TestAddNumbers(t *testing.T) {
 	if len(ix.fronts) != 4 || ix.tilde == nil || len(ix.after['개']) != 1 || ix.after['월'][1].name != "단위:개월" || ix.after['째'][0].slot != placeOrder || ix.after['만'][0].name != "큰 수:만" || ix.afterPrefs[true] >= 0 || ix.afterPrefs[false] >= 0 {
 		t.Fatal(ix.fronts, ix.after['월'])
 	}
-	if ix.order == nil || ix.order.name != orderHeadName {
+	if ix.order == nil || ix.order.name != orderHeadName || ix.measure == nil {
 		t.Fatal(ix.order)
 	}
-	if ix.graphs != graphs+1+19+len(nameSigns)+4+1+1+2+6+len(unitSuffixes)+len(unitRows) || len(ix.after['리']) != 2 {
+	if ix.graphs != graphs+1+19+len(nameSigns)+4+1+1+2+6+len(unitSuffixes)+len(unitRows)+1 || len(ix.after['리']) != 2 {
 		t.Fatal(ix.graphs - graphs)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop keeps its own and gets two more), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop keeps its own and gets two more), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
 package token
 
 import (
@@ -53,4 +53,6 @@ func (ix *index) addNumbers() {
 	for _, row := range unitRows {
 		ix.addAfter(unitLabel+row.Cells[1], row.Cells[0], placeUnit)
 	}
+	g, edges := measureGraph()
+	ix.measure, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+edges
 }

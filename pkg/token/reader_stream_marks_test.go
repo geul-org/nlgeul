@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamMarks — the stretches of the stream set as contests (streamContests) of a sentence with a plus, a middle dot and a quote after a digit: a plus between letters cuts the unit (one unit for each piece, the plus two candidates of the same verdict and preference), the middle dot is read as a word of its own beside the candidates that keep it in the word, a quote right after a digit is a contest of its own with the unit candidates beside the pair candidates (the units first, by lambda), no contest holds the place name 기호, and Glued tells what stood without a space
+//ff:what TestReaderStreamMarks — the stretches of the stream set as contests (streamContests) of a sentence with a plus, a middle dot and a quote after a digit: a plus between letters cuts the unit (one unit for each piece, the plus two candidates of the same verdict and preference), the middle dot is read as a word of its own beside the candidates that keep it in the word, a quote right after a digit is a contest of its own with the unit candidates beside the pair candidates (where it closes a quote open before it the closing comes first, the units lowered by measureGraph), no contest holds the place name 기호, and Glued tells what stood without a space
 package token
 
 import (
@@ -65,7 +65,7 @@ func TestReaderStreamMarks(t *testing.T) {
 		n := br.Words[0].Parts[0].Name
 		kinds = append(kinds, n.Kind+":"+n.Form)
 	}
-	if kinds[0] != "단위:인치" || kinds[1] != "단위:초" || kinds[2] != "닫기:1" {
+	if kinds[0] != "닫기:1" || kinds[1] != "단위:인치" || kinds[2] != "단위:초" {
 		t.Fatal(kinds)
 	}
 }
