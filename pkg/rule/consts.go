@@ -193,6 +193,7 @@ const (
 	ListNext2Stem            // the stem of the word after that
 	ListPrevKind             // the kind of the name of the stem of the word before it (닫기 of 닫기:1)
 	ListPrevStem             // the stem of the word before it
+	ListNextKind             // the kind of the name of the stem of the word after it (닫기 of 닫기:1)
 )
 
 // Yes/no facts of a candidate judged in its sentence that AroundIs
@@ -201,5 +202,4 @@ const (
 	AroundGlued            = 1 << iota // no space stands between the candidate's word and the word before it
 	AroundAfterNominal                 // the word right before it ends in a nominal (Near.Nominal)
 	AroundBeforeModifiable             // a word ending in a modifying closing may stand right before the word right after it (Near.Modifiable)
-	ListNextKind                       // the kind of the name of the stem of the word after it (닫기 of 닫기:1)
 )

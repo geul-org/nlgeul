@@ -21,7 +21,6 @@ func TestListValidate(t *testing.T) {
 		{List{Name: "after", Of: ListNext2Stem, Items: []string{"되"}}, true},
 		{List{Name: "before", Of: ListPrevKind, Items: []string{"닫기"}}, true},
 		{List{Name: "stems", Of: ListPrevStem, Items: []string{"관하"}}, true},
-		{List{Name: "forms", Of: ListPrevStem + 1}, false},
 		{List{Name: "after", Of: ListNextKind, Items: []string{"닫기"}}, true},
 		{List{Name: "forms", Of: ListNextKind + 1}, false},
 	}
