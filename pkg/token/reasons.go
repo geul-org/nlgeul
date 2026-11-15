@@ -98,7 +98,8 @@ const (
 
 // The names of the rules of a sentence, as a trace prints them.
 const (
-	ruleAuxLinked    = "문장:연결 꼴 뒤 보조 용언"
-	ruleMainUnlinked = "문장:연결 꼴 뒤가 아닌 본용언"
-	ruleAuxAsked     = "문장:물음 꼴 뒤 보조 용언 보다"
+	ruleAuxLinked      = "문장:연결 꼴 뒤 보조 용언"
+	ruleMainUnlinked   = "문장:연결 꼴 뒤가 아닌 본용언"
+	ruleAuxAsked       = "문장:물음 꼴 뒤 보조 용언 보다"
+	ruleAdverbialFirst = "문장:에서·서는 부사격 먼저"
 )

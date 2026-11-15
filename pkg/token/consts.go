@@ -126,6 +126,20 @@ const forceClash = 0.5
 // 0.5, and 1 and 2 gave 5 and 8 more.
 const bonusSentence = 0.5
 
+// bonusOrder is what a rule of a sentence adds when it only sets an
+// order among names of the same letters and reads nothing of the
+// sentence (에서 as the adverbial particle before the nominative): enough
+// to put two candidates of the same lambda in order, and too little to
+// carry a candidate over one of another cut. With bonusSentence in its
+// place the answer sheet had two words fewer right (a noun that ends in
+// 서 was cut before the 서).
+const bonusOrder = 0.01
+
+// adverbialFirst are the names of 에서 and 서 as adverbial particles,
+// which a rule of a sentence puts before the same letters read as the
+// nominative (adverbialFirstRule).
+var adverbialFirst = []string{"부사격:에서", "부사격:서"}
+
 // predKinds are the kinds of a closing's name: a word that carries one
 // is a predicate (a verb, an adjective or the copula with its ending),
 // which is where the rules of a sentence stop waiting.

@@ -9,7 +9,7 @@ import (
 )
 
 func mainUnlinkedRule(aux []string) sentenceRule {
-	g, claim := sentenceClaim(ruleMainUnlinked, listed("보조 용언의 줄기", rule.ListSelfStem, aux))
+	g, claim := sentenceClaim(ruleMainUnlinked, rule.Listed, listed("보조 용언의 줄기", rule.ListSelfStem, aux))
 	except(g, rule.Listed, whyLinked, listed("연결 꼴", rule.ListPrevLast, linkNames)).Attacks(claim)
 	except(g, rule.Listed, whyAsked, listed("물음 꼴", rule.ListPrevLast, askNames)).Attacks(claim)
 	return sentenceRule{name: ruleMainUnlinked, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool {

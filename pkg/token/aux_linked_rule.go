@@ -13,7 +13,7 @@ import (
 // candidate reads it, whether a space stands between the two or not.
 func auxLinkedRule(aux []string) sentenceRule {
 	names := auxNamesOf(aux)
-	g, claim := sentenceClaim(ruleAuxLinked, listed("보조 용언", rule.ListSelfKind, names))
+	g, claim := sentenceClaim(ruleAuxLinked, rule.Listed, listed("보조 용언", rule.ListSelfKind, names))
 	except(g, rule.Listed, whyNotLinked, listed("연결 꼴", rule.ListPrevLast, linkNames), not).Attacks(claim)
 	return sentenceRule{name: ruleAuxLinked, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool { return slices.Contains(names, n.Kind) }}
 }

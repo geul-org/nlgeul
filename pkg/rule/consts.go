@@ -174,17 +174,18 @@ const (
 
 // The facts a list is asked for (List.Of).
 const (
-	ListForm     = iota + 1 // the piece's form
-	ListBefore              // the name of the piece before it
-	ListAfter               // the name of the piece after it
-	ListBase                // the syllable a fused piece sits under
-	ListExt                 // the run right of a dot
-	ListLast                // the last run of a dotted name
-	ListWord                // the word under judgment
-	ListClosing             // the closing of the tail under judgment
-	ListSelfStem            // the stem of the candidate judged in its sentence
-	ListSelfKind            // the name of that stem
-	ListSelfLast            // the name of that candidate's last piece
-	ListPrevLast            // the name of the last piece of the word before it
-	ListNextStem            // the stem of the word after it
+	ListForm      = iota + 1 // the piece's form
+	ListBefore               // the name of the piece before it
+	ListAfter                // the name of the piece after it
+	ListBase                 // the syllable a fused piece sits under
+	ListExt                  // the run right of a dot
+	ListLast                 // the last run of a dotted name
+	ListWord                 // the word under judgment
+	ListClosing              // the closing of the tail under judgment
+	ListSelfStem             // the stem of the candidate judged in its sentence
+	ListSelfKind             // the name of that stem
+	ListSelfLast             // the name of that candidate's last piece
+	ListPrevLast             // the name of the last piece of the word before it
+	ListNextStem             // the stem of the word after it
+	ListSelfMarks            // the names of that candidate's markers, each (SelfHas reads them; Listed does not)
 )

@@ -13,12 +13,12 @@ func TestNearOf(t *testing.T) {
 	stem := Part{Text: "학생", Name: Name{Kind: "열쇠", Form: "체언"}, Stem: true}
 	verb := Part{Text: "되", Name: Name{Kind: "열쇠", Form: "동사"}, Stem: true}
 	comp := Part{Text: "이", Name: Name{Kind: "보격", Form: "이"}}
-	if got := nearOf(word(stem, comp)); got != (rule.Near{Stem: "학생", Kind: "열쇠:체언", Last: "보격:이"}) {
+	if got := nearOf(word(stem, comp)); got != (rule.Near{Stem: "학생", Kind: "열쇠:체언", Last: "보격:이", Marks: "보격:이"}) {
 		t.Fatal(got)
 	}
 	past := Part{Text: "었", Name: Name{Kind: "선어말", Form: "었"}}
 	end := Part{Text: "다", Name: Name{Kind: "맺음", Form: "다"}}
-	if got := nearOf(word(verb, past, end)); got != (rule.Near{Stem: "되", Kind: "열쇠:동사", Last: "맺음:다", Pred: true}) {
+	if got := nearOf(word(verb, past, end)); got != (rule.Near{Stem: "되", Kind: "열쇠:동사", Last: "맺음:다", Pred: true, Marks: "선어말:었+맺음:다"}) {
 		t.Fatal(got)
 	}
 	adn := Part{Text: "ㄴ", Name: Name{Kind: "꾸밈", Form: "ㄴ"}}
@@ -30,7 +30,7 @@ func TestNearOf(t *testing.T) {
 	if got := nearOf(word(Part{Text: "학생이", Stem: true})); got != (rule.Near{Stem: "학생이"}) {
 		t.Fatal("a new word alone", got)
 	}
-	if got := nearOf(word(Part{Text: "로", Name: Name{Kind: "부사격", Form: "로"}})); got != (rule.Near{Last: "부사격:로"}) {
+	if got := nearOf(word(Part{Text: "로", Name: Name{Kind: "부사격", Form: "로"}})); got != (rule.Near{Last: "부사격:로", Marks: "부사격:로"}) {
 		t.Fatal("no stem first", got)
 	}
 	if nearOf(Branch{}) != (rule.Near{}) || nearOf(word()) != (rule.Near{}) {
