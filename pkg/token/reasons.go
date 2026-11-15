@@ -106,6 +106,7 @@ const (
 	whyHaTakes         = "앞 어절이 하다가 받는 꼴(목적격, 로·으로, -게·-도록·-다고 …)로 끝난다"
 	whyNeun            = "앞 어절이 꾸밈 맺음 는으로 끝난다"
 	whyNoNeun          = "앞 어절이 꾸밈 맺음 는으로 끝나지 않는다"
+	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.

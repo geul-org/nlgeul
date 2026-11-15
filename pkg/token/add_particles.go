@@ -1,8 +1,10 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what addParticles — one entry, and so one graph, for each case candidate of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate)
+//ff:what addParticles — one entry, and so one graph, for each case candidate of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate), and a shortened particle (shortenedParticles: 서) the graph that keeps it off a stem it makes a word of the word table with (joinedGateOf)
 package token
 
 import (
+	"slices"
+
 	"github.com/geul-org/nlgeul/pkg/parse"
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
@@ -66,12 +68,16 @@ var ownParticles = []entry{
 
 func (ix *index) addParticles() {
 	ix.call = calledGate()
-	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
+	joined := joinedGateOf(joinedGate, 0)
+	ix.graphs, ix.edges = ix.graphs+2, ix.edges+2
 	for _, m := range parse.ParticleMarkers() {
 		for _, label := range caseNames(m.Kase, m.Slot) {
 			e := &entry{name: label + ":" + m.Form, form: m.Form, class: classParticle, after: m.After, slot: linkOf(label, m.Form, m.Slot), kase: m.Kase, count: particleCount(m)}
 			if e.name == vocName {
 				e.gate = ix.call
+			}
+			if slices.Contains(shortenedParticles, m.Form) {
+				e.gate = joined
 			}
 			ix.add(e)
 		}

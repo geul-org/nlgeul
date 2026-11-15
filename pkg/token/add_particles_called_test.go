@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestAddParticlesCalled — the vocative 야 alone is given the graph the word before it must pass, and that graph is counted once (a graph and an edge)
+//ff:what TestAddParticlesCalled — the vocative 야 is given the graph the word before it must pass, and the two candidates of the shortened particle 서 the graph that keeps it off a stem it makes a word of the word table with (joinedGate); no other particle has a gate, and the two graphs are counted once each
 package token
 
 import "testing"
@@ -18,12 +18,14 @@ func TestAddParticlesCalled(t *testing.T) {
 				continue
 			}
 			gated++
-			if e.name != vocName || e.gate != ix.call {
+			called := e.name == vocName && e.gate == ix.call
+			joined := e.form == "서" && e.gate.name == joinedGate && e.gate.g != nil
+			if !called && !joined {
 				t.Errorf("%s has a gate", e.name)
 			}
 		}
 	}
-	if gated != 1 || ix.graphs != entries+1 {
+	if gated != 3 || ix.graphs != entries+2 {
 		t.Fatal(gated, ix.graphs, entries)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addWide — what is read only with a word table: the graphs of 신·실·심·세 as the honorific 시 (exceptions: no stem, not after a vowel, a particle right after (not for 심 and 세), a final consonant that makes no closing of the tables with what follows), the two graphs that ask the word before to be a predicate's stem or a nominal of the table, the shortened closings, slots and particles, the naming closing 기 and the 하오체 closings 소, 오, 으오 and 올시다 and the closing 마 of a promise (으마 after a consonant) after a predicate's stem of the table, with the graph of a particle chain right after a naming closing (기, and 음 and ㅁ of the closing table: chainHeads), the modifying closings 은 and 을 after a stem's ㄹ, and where particles begin, and the suffixes read after a nominal (nounSuffixes) with the graph the word before them must pass: a nominal of the table that makes no word of the table with the suffix (suffixGateOf)
+//ff:what addWide — what is read only with a word table: the graphs of 신·실·심·세 as the honorific 시 (exceptions: no stem, not after a vowel, a particle right after (not for 심 and 세), a final consonant that makes no closing of the tables with what follows), the two graphs that ask the word before to be a predicate's stem or a nominal of the table, the shortened closings, slots and particles (a shortened particle's word before must be a nominal of the table that makes no word of the table with it: joinedGateOf), the naming closing 기 and the 하오체 closings 소, 오, 으오 and 올시다 and the closing 마 of a promise (으마 after a consonant) after a predicate's stem of the table, with the graph of a particle chain right after a naming closing (기, and 음 and ㅁ of the closing table: chainHeads), the modifying closings 은 and 을 after a stem's ㄹ, and where particles begin, and the suffixes read after a nominal (nounSuffixes) with the graph the word before them must pass: a nominal of the table that makes no word of the table with the suffix (suffixGateOf)
 package token
 
 import (
@@ -69,9 +69,11 @@ func (ix *index) addWide() {
 		e.class, e.wide, e.gate = classSlot, true, ix.pred
 		ix.add(&e)
 	}
+	short := joinedGateOf(nominalGate, kindNominal)
+	ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
 	for i := range shortParticles {
 		e := shortParticles[i]
-		e.wide, e.gate = true, ix.nominal
+		e.wide, e.gate = true, short
 		ix.add(&e)
 	}
 	ix.suffixGate, ix.graphs, ix.edges = suffixGateOf(), ix.graphs+1, ix.edges+2
