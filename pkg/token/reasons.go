@@ -162,3 +162,14 @@ const (
 // the word after the candidate is not one an adnominal may stand
 // before).
 const ruleUnmodified = "문장:꾸밈받을 말이 뒤에 없는 인·일 체언"
+
+// Why the rules of a sentence that read the copula fall.
+const (
+	whyNotEnded  = "바로 뒤가 마침표·물음표나 문장의 끝이 아니다"
+	whyWordAfter = "바로 뒤에 낱말이 있다"
+)
+
+// The names of the rules of a sentence that read the copula.
+const (
+	ruleCopulaEnd = "문장:문장 끝 야는 서술격"
+)

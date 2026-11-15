@@ -294,3 +294,22 @@ var topicNames = []string{"보조사:이란", "보조사:란"}
 // 1.5, 2, 3 and 5 each put eight right and none wrong; 1.5 is taken to
 // stand clear of the gap without reaching far past it.
 const bonusShutTopic = 1.5
+
+// copulaEndNames are the names of the ending 야, which follows the
+// copula 이 only, and sentenceEnds the names of the last piece of the word
+// right after a word that ends its sentence: none (nothing follows), a
+// full stop or a question mark (copulaEndRule).
+var (
+	copulaEndNames = []string{"맺음:야"}
+	sentenceEnds   = []string{"", "마침표", "물음표"}
+)
+
+// bonusCopula is what a rule of a sentence adds to a candidate that reads
+// the copula 이 with its ending over a particle of the same letters (the
+// ending 야 over the vocative 야). Such a candidate pays for the copula's
+// piece and comes about two below the particle (2.05 and 2.16 in the
+// words looked at), more than bonusSentence carries. It is chosen among
+// 0.5, 2.2, 2.5, 3 and 5 tried with copulaEndRule on the answer sheet:
+// 0.5 changed nothing, and the others gave the same seven more right
+// words and none fewer; 2.5 leaves room over the gap.
+const bonusCopula = 2.5
