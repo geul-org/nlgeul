@@ -31,6 +31,13 @@ const (
 	barApart
 )
 
+// loneShuts are the quotation marks that close a pair with none of
+// their kind open (written onto the word before, with Hangul written
+// right after: 좋다"고, 있다”며): when no way the signs before them may
+// stand open holds one of their kind, they may still close, and what
+// stands open is left as it is. Brackets are not among them (1), 가)).
+const loneShuts = "\"'”’"
+
 // openName and shutName are what a sign of a pair is called, with its
 // depth after a colon (열기:1, 닫기:2). pairName stands for either in a
 // unit whose head is such a sign, while the unit is read; codeName is

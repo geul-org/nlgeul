@@ -1,6 +1,12 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what candidates — the candidates of the sign at place i as a sign of a pair, for every way the signs before it may stand open: each candidate that stands (열기 or 닫기, with its depth) once, whether the sign is also read as its letter alone (it is unsure, or in some way no candidate stands), the ways the signs may stand open after it, and the trace lines; nothing when the letter is no sign of a pair, stands in a span of code, or stands as such a sign in no way
+//ff:what candidates — the candidates of the sign at place i as a sign of a pair, for every way the signs before it may stand open: each candidate that stands (열기 or 닫기, with its depth) once, whether the sign is also read as its letter alone (it is unsure, or in some way no candidate stands), the ways the signs may stand open after it, and the trace lines; nothing when the letter is no sign of a pair, stands in a span of code, or stands as such a sign in no way; every way is judged knowing whether a sign of its kind stands open in any of them (MarkOpenedAny)
 package token
+
+import (
+	"strings"
+
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
 
 // The cutter is not changed: next moves it when the sign is cut off.
 func (c *cutter) candidates(i int) ([]pairing, bool, []string, []string) {
@@ -12,6 +18,9 @@ func (c *cutter) candidates(i int) ([]pairing, bool, []string, []string) {
 	var open, notes []string
 	bare := false
 	m := c.facts(i)
+	if strings.ContainsRune(strings.Join(c.open, ""), row.kind) {
+		m.Facts |= rule.MarkOpenedAny
+	}
 	for _, way := range c.open {
 		stood, after, lines := c.judge(i, row, m, way)
 		candidates, open, notes = append(candidates, stood...), append(open, after...), append(notes, lines...)
