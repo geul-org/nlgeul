@@ -64,7 +64,7 @@
 | `unit-suffixes.tsv` | 접미사 | `unitSuffixes` (token) | `짜리` |
 | `extensions.tsv` | 확장자 | `extensions` (token) | `py` |
 | `top-domains.tsv` | 최상위 도메인 | `topDomains` (token) | `com` |
-| `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (token, `loadCases`, `caseExceptionOf`) | (지금 줄이 없다) |
+| `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (token, `loadCases`, `caseExceptionOf`) | `맺음:소	담소	담소[열쇠:체언]	지움	관찰	46/46, 29파일, 2026-11-15` |
 
 - `closings.tsv`, `closings-more.tsv`, `short-closings.tsv`의 앞 네 칸은 같은 읽기(`parse.MarkerOf`)로 읽는다. 받침으로 붙는 꼴과 `어/아` 꼴의 앞말 칸은 `-`여야 하고, 갈래는 하나 이상 적는다.
 - `short-closings.tsv`의 조건에 `서술격 안 됨`을 적으면 그 줄은 서술격 이다 뒤에 서지 못한다. 줄기가 `-`이면 어느 용언 줄기 뒤에든 선다. 끝 네 줄(`달까`, `ㄴ달까`, `는달까`, `랄까`)은 다고 할까·ㄴ다고 할까·는다고 할까·라고 할까가 줄어든 맺음이다.
