@@ -36,3 +36,11 @@ const middleDot = "가운뎃점"
 // head of a sentence is still the dependent noun (뿐만 아니라, the
 // standard dictionary's 뿐: -ㄹ 뿐만 아니라).
 var denyStems = []string{"아니"}
+
+// adnCase is the kind of the adnominal case particle 의, which makes the
+// nominal before it a modifier (nounModifiedRule); modifiedSkip are the
+// letters that rule does not judge: the dependent nouns of article 42
+// and the determiners of the closed set.
+const adnCase = "관형격"
+
+var modifiedSkip = slices.Concat(dependentWords, parse.ClosedWords()[determinerLabel])

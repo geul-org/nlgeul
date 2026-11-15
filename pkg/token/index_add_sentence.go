@@ -46,4 +46,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, nounListedRule(parse.ClosedWords()[boundSet]))
 	// The noun of a dependent noun's letters at the head of a sentence (nounHeadedRule).
 	ix.sentence = append(ix.sentence, nounHeadedRule(parse.ClosedWords()[boundSet]))
+	// A noun right after a modifier (nounModifiedRule).
+	ix.sentence = append(ix.sentence, nounModifiedRule(modifiedSkip))
 }

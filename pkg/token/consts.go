@@ -355,3 +355,10 @@ const bonusBound = 2.5
 // fewer; 8 gave 4 more, which were words of the dependent noun 거
 // written onto the modifying form (있는건지), read whole as a noun.
 const bonusBoundAfter = 3.5
+
+// bonusModified is what the rule of a sentence "a noun stands right after
+// a modifier" adds (nounModifiedRule). It is chosen among 0.5, 1, 1.5 and
+// 2 tried with that rule on the answer sheet: 1 gave 3, 3 and 4 more
+// right words than 0.5, 1.5 and 2 (the more it adds, the more a
+// modifier stacked on another, 그의 검은, is read as a noun).
+const bonusModified = 1.0

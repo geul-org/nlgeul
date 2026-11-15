@@ -190,6 +190,7 @@ const (
 	ruleBoundAfter     = "문장:꾸밈 뒤 의존 명사"
 	ruleNounListed     = "문장:가운뎃점 앞 의존 명사 글자는 체언"
 	ruleNounHeaded     = "문장:첫머리 의존 명사 글자는 체언"
+	ruleNounModified   = "문장:관형어 뒤 체언"
 
 	whyNoBoundNext = "바로 뒤 어절이 의존 명사가 아니다"
 	whyNominalNext = "바로 뒤 의존 명사가 체언 뒤에도 선다"
@@ -198,4 +199,5 @@ const (
 	whyNoDotNext   = "바로 뒤가 가운뎃점이 아니다"
 	whyNotHeaded   = "문장 첫머리도 여는 기호 바로 뒤도 아니다"
 	whyDenyNext    = "바로 뒤 어절이 아니다다"
+	whyNoModifier  = "앞 어절이 꾸밈 맺음이나 관형격 조사로 끝나지 않는다"
 )
