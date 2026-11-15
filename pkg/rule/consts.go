@@ -32,6 +32,7 @@ const (
 	AfterVowel          // ends in a vowel
 	AfterLiquid         // ends in ㄹ
 	AfterHangul         // is a Hangul syllable
+	AfterNotN           // ends in a consonant other than ㄴ (률)
 )
 
 // Final-consonant indexes of a Hangul syllable, and the lead of a
@@ -130,7 +131,7 @@ const (
 	PieceStem     = 1 << iota // a stem stands before it (for a stem's restored syllable: letters of the stem stand before it)
 	PieceNum                  // a number stands right before it
 	PieceLone                 // that number is a lone Sino-Korean digit read with no word table
-	PieceWhole                // that number and the piece together are a word
+	PieceWhole                // that number and the piece together are a word (for a suffix read after a nominal: the stem before it and the suffix together are a word of the word table)
 	PieceAdn                  // the word right before it ends in a modifying closing
 	PieceTurned               // its own word is a modifying or a naming form
 	PieceMarked               // it is a new word after a boundary whose letters read as markers

@@ -13,8 +13,10 @@ package rule
 // kinds the tables give the stem: the word before a marker, or the
 // piece itself when it is a stem. Num tells that a number stands right
 // before the piece; Whole that this number and the piece together are a
-// word of the word table or a fused form, and Lone that the number is a
-// lone Sino-Korean digit read with no word table. Adn tells that the
+// word of the word table or a fused form (for a suffix read after a
+// nominal, that the stem before it and the suffix together are a word of
+// the word table), and Lone that the number is a lone Sino-Korean digit
+// read with no word table. Adn tells that the
 // word right before the piece ends in a modifying closing, and Turned
 // that the piece's own word is a modifying or a naming form. Marked
 // tells that the letters of a new word after a boundary read as markers

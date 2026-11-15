@@ -15,6 +15,7 @@ const (
 	whyWhole        = "통째로 닫힌 집합의 낱말이다"
 	whyRight        = "바로 뒤에 선 것이 이 조각 뒤에 오지 못한다"
 	whyKind         = "앞말이 낱말 표에서 그 갈래의 줄기가 아니다"
+	whyJoinedWord   = "줄기와 접미를 합친 글자열이 낱말 표의 낱말이다"
 	whyShape        = "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다"
 	whyNoNumber     = "바로 앞이 수가 아니다"
 	whyLone         = "낱말 표 없이 홀로 선 한자어 한 음절 수사다"

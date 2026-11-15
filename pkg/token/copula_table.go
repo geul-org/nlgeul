@@ -57,6 +57,6 @@ const forceDropAdn = 0.5
 const notOnly = "아니"
 
 // copulaSuffixes are the suffixes the copula stands after (꽃들이다,
-// 배씩이다, 너희끼리다). 쯤 and the suffix 이 of a name are not among
-// them.
-var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리"}
+// 배씩이다, 너희끼리다, and with a word table 보장률이다). 쯤 and the
+// suffix 이 of a name are not among them.
+var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리", "접미:률"}

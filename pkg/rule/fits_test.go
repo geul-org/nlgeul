@@ -1,5 +1,5 @@
 //ff:func feature=rule type=helper control=iteration dimension=1
-//ff:what TestFits — each condition against a vowel end, a ㄹ end, another consonant end and a Latin letter or digit; a non-Hangul letter fits the four batchim conditions but neither AfterLiquid nor AfterHangul
+//ff:what TestFits — each condition against a vowel end, a ㄹ end, another consonant end and a Latin letter or digit; a non-Hangul letter fits the five batchim conditions (AfterNotN among them) but neither AfterLiquid nor AfterHangul
 package rule
 
 import "testing"
@@ -17,6 +17,7 @@ func TestFits(t *testing.T) {
 		{'가', AfterVowel, true}, {'갈', AfterVowel, false}, {'L', AfterVowel, true},
 		{'갈', AfterLiquid, true}, {'각', AfterLiquid, false}, {'가', AfterLiquid, false}, {'L', AfterLiquid, false}, {'3', AfterLiquid, false},
 		{'가', AfterHangul, true}, {'갈', AfterHangul, true}, {'각', AfterHangul, true}, {'L', AfterHangul, false}, {'3', AfterHangul, false},
+		{'장', AfterNotN, true}, {'갈', AfterNotN, true}, {'산', AfterNotN, false}, {'가', AfterNotN, false}, {'L', AfterNotN, true}, {'3', AfterNotN, true},
 	}
 	for _, c := range cases {
 		if got := Fits(c.prev, c.after); got != c.want {

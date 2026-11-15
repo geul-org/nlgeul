@@ -1,6 +1,6 @@
 # pkg/data
 
-문법의 닫힌 표를 두는 꾸러미다. 파일 하나가 표 하나이고(23개), `data` 꾸러미가 `//go:embed *.tsv`로 실행 파일에 품는다. 실행할 때 바깥 파일로 덮어쓰는 옵션은 없다. 실행할 때 읽는 바깥 파일은 낱말 표(`data/words.tsv`)뿐이고, 낱말 표는 품지 않는다.
+문법의 닫힌 표를 두는 꾸러미다. 파일 하나가 표 하나이고(24개), `data` 꾸러미가 `//go:embed *.tsv`로 실행 파일에 품는다. 실행할 때 바깥 파일로 덮어쓰는 옵션은 없다. 실행할 때 읽는 바깥 파일은 낱말 표(`data/words.tsv`)뿐이고, 낱말 표는 품지 않는다.
 
 ## 공통 형식
 
@@ -19,7 +19,7 @@
 
 | 칸 | 이름 |
 |---|---|
-| 앞말 | `-`(조건 없음), `받침 뒤`, `ㄹ 아닌 받침 뒤`, `모음·ㄹ 뒤`, `모음 뒤`, `ㄹ 받침 뒤` |
+| 앞말 | `-`(조건 없음), `받침 뒤`, `ㄹ 아닌 받침 뒤`, `모음·ㄹ 뒤`, `모음 뒤`, `ㄹ 받침 뒤`, `ㄴ 아닌 받침 뒤` |
 | 갈래(맺음) | `종결`, `연결`, `꾸밈`, `이름` |
 | 조건(맺음) | `으 붙음`, `서술격 안 됨`, `요 안 됨`, `서술격만`, `서술격 품음` |
 | 격(조사) | `주격`, `보격`, `목적격`, `관형격`, `부사격`, `호격` |
@@ -52,6 +52,7 @@
 | `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (token, `shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
 | `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (token, `shortParticleOf`) | `선	-	부사격	에서는` |
 | `short-slots.tsv` | 꼴, 앞말, 본말, 줄기 | `shortSlots` (token, `shortSlotOf`) | `댔	-	다고 했	형용사` |
+| `noun-suffixes.tsv` | 꼴(온 음절), 앞말 | `nounSuffixes` (token, `nounSuffixOf`) | `률	ㄴ 아닌 받침 뒤` |
 | `typo-closings.tsv` | 틀린 꼴, 바른 맺음(색인 이름) | `typoClosings` (token, `typoClosingOf`) | `ㄹ께	맺음:ㄹ게` |
 | `typo-words.tsv` | 틀린 꼴, 바른 낱말 | `typoKeys` (token) | `꺼	거` |
 | `signs.tsv` | 기호(글자 하나), 이름 | `signNames`, `signOrderNamed` (token, `loadSigns`) | `,	쉼표`, `·	가운뎃점`, `+	더하기` |

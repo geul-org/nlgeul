@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestNewIndexTypo — the index has a graph for each closing written wrong (17 more than the closings alone: 708 without a word table, 776 with one, which also reads two forms of 거 written with 꺼 and the six forms of clause 40 with 하 dropped), the edges that go with them (1656 and 1844), and the total of counts and the set of closings are those of the right closings
+//ff:what TestNewIndexTypo — the index has a graph for each closing written wrong (17 more than the closings alone: 708 without a word table, 778 with one, which also reads two forms of 거 written with 꺼, the six forms of clause 40 with 하 dropped and the suffix 률 with the graph of the word before it), the edges that go with them (1656 and 1849), and the total of counts and the set of closings are those of the right closings
 package token
 
 import "testing"
@@ -13,7 +13,7 @@ func TestNewIndexTypo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if bare.graphs != 708 || bare.edges != 1656 || words.graphs != 776 || words.edges != 1844 {
+	if bare.graphs != 708 || bare.edges != 1656 || words.graphs != 778 || words.edges != 1849 {
 		t.Fatal(bare.graphs, bare.edges, words.graphs, words.edges)
 	}
 	if bare.closingSet["께"] || bare.closingSet["ㄹ께"] || bare.closingSet["읍니다"] || bare.closingSet["ㄹ게"] != true {

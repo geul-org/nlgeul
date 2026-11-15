@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddWide — 신 stands as the honorific at a closing's end, not before a particle or something else; 심 stands before a particle; the shortened closings and particles are in the index with their gates; particles are found by their first letter; the naming closing 기 is in the index asking for a predicate's stem, with its count; the modifying closings 은 and 을 after a stem's ㄹ are in it asking for a predicate's stem, read against the tables (loose) and rebutted, with nothing an irregular stem changes before; and the graph of a particle chain after a naming closing takes 이름:기 and the closing table's 이름:음 and 이름:ㅁ (chainHeads) and nothing else
+//ff:what TestAddWide — 신 stands as the honorific at a closing's end, not before a particle or something else; 심 stands before a particle; the shortened closings and particles are in the index with their gates; particles are found by their first letter; the naming closing 기 is in the index asking for a predicate's stem, with its count; the modifying closings 은 and 을 after a stem's ㄹ are in it asking for a predicate's stem, read against the tables (loose) and rebutted, with nothing an irregular stem changes before; and the graph of a particle chain after a naming closing takes 이름:기 and the closing table's 이름:음 and 이름:ㅁ (chainHeads) and nothing else; the suffix 률 is in the index as a particle in the place of a suffix, with no count, asking the word before to pass the graph of a suffix after a nominal, and stands after a final consonant other than ㄴ, not after ㄴ or a vowel
 package token
 
 import (
@@ -24,8 +24,21 @@ func TestAddWide(t *testing.T) {
 	if !ok(ix.wide['심'], rule.RightParticle) || ok(ix.wide['심'], rule.RightOther) || !ok(ix.wide['세'], rule.RightDone) {
 		t.Fatal("심, 세")
 	}
-	if ix.graphs != graphs+2+4+23+len(shortSlots)+2+len(gatedClosings)+len(haoClosings)+len(looseClosings)+1 || !slices.Contains(ix.heads['에'], "에서") || ix.pred == nil || ix.nominal == nil {
+	if ix.graphs != graphs+2+4+23+len(shortSlots)+2+len(gatedClosings)+len(haoClosings)+len(looseClosings)+1+1+len(nounSuffixes) || !slices.Contains(ix.heads['에'], "에서") || ix.pred == nil || ix.nominal == nil {
 		t.Fatal(ix.graphs - graphs)
+	}
+	ryul := ix.named('률', "접미:률")
+	if ix.suffixGate == nil || ix.suffixGate.name != nominalGate || ryul.gate != ix.suffixGate || ryul.g == nil || ryul.class != classParticle || ryul.slot != rule.LinkSuffix || ryul.after != rule.AfterNotN || ryul.count != 0 {
+		t.Fatal("the suffix 률 after a nominal", ryul)
+	}
+	if v, _ := verdictOf(ryul.g, rule.Piece{Form: "률", HasStem: true, Prev: '장', Next: -1}, "보장률", false); v <= 0 {
+		t.Fatal("률 after a final consonant other than ㄴ", v)
+	}
+	if v, _ := verdictOf(ryul.g, rule.Piece{Form: "률", HasStem: true, Prev: '산', Next: -1}, "출산률", false); v > 0 {
+		t.Fatal("률 after ㄴ", v)
+	}
+	if v, _ := verdictOf(ryul.g, rule.Piece{Form: "률", HasStem: true, Prev: '가', Next: -1}, "증가률", false); v > 0 {
+		t.Fatal("률 after a vowel", v)
 	}
 	if e := ix.named('댔', "선어말:ㄴ댔(ㄴ다고 했)"); e.gate != ix.pred || !e.wide || e.class != classSlot || e.head != headN {
 		t.Fatal("a shortened quotation with the past fused in", e)
