@@ -11,6 +11,10 @@ const (
 // (Piece), for graphs that judge one marker at one place.
 const KeyPiece = "piece"
 
+// KeyAround is the context key of the candidate judged with the words
+// of its sentence around it (Around), for the graphs of a sentence.
+const KeyAround = "around"
+
 // KeyMark is the context key of the sign under judgment (Mark), for
 // graphs that judge one candidate of a sign such as the full stop.
 const KeyMark = "mark"
@@ -170,12 +174,17 @@ const (
 
 // The facts a list is asked for (List.Of).
 const (
-	ListForm    = iota + 1 // the piece's form
-	ListBefore             // the name of the piece before it
-	ListAfter              // the name of the piece after it
-	ListBase               // the syllable a fused piece sits under
-	ListExt                // the run right of a dot
-	ListLast               // the last run of a dotted name
-	ListWord               // the word under judgment
-	ListClosing            // the closing of the tail under judgment
+	ListForm     = iota + 1 // the piece's form
+	ListBefore              // the name of the piece before it
+	ListAfter               // the name of the piece after it
+	ListBase                // the syllable a fused piece sits under
+	ListExt                 // the run right of a dot
+	ListLast                // the last run of a dotted name
+	ListWord                // the word under judgment
+	ListClosing             // the closing of the tail under judgment
+	ListSelfStem            // the stem of the candidate judged in its sentence
+	ListSelfKind            // the name of that stem
+	ListSelfLast            // the name of that candidate's last piece
+	ListPrevLast            // the name of the last piece of the word before it
+	ListNextStem            // the stem of the word after it
 )

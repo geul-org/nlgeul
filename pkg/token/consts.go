@@ -116,6 +116,11 @@ const forceWhole = 0.98
 // two; nothing records a measurement for the second, which borrows it.
 const forceClash = 0.5
 
+// predKinds are the kinds of a closing's name: a word that carries one
+// is a predicate (a verb, an adjective or the copula with its ending),
+// which is where the rules of a sentence stop waiting.
+var predKinds = []string{"맺음", "꾸밈", "이름"}
+
 // forceTypo is the force of the rebuttal "the letters are a misspelling
 // of the word" against a stem that the word table gives as a wrong way
 // to write another word (misspeltRebuttal). With only that rebuttal the
