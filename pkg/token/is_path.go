@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what isPath — is a text a path: it begins with a path's head (pathHeads: /, ~/, ./, ../), or it has two slashes or more with a name's letter (Latin letter, digit, . ~ _ -) on both sides and is not numbers and slashes only
+//ff:what isPath — is a text a path: it begins with a path's head (pathHeads: /, ~/, ./, ../), or it has two slashes or more, each with a name's letter (Latin letter, digit, . ~ _ -) right before it and either another right after it or nothing (the slash that ends a directory's name: pkg/parser/), and is not numbers and slashes only
 package token
 
 import (
@@ -18,7 +18,7 @@ func isPath(s []rune) bool {
 	slashes, letters := 0, false
 	for i, r := range s {
 		letters = letters || unicode.IsLetter(r)
-		if r == '/' && i > 0 && i+1 < len(s) && nameRune(s[i-1]) && nameRune(s[i+1]) {
+		if r == '/' && i > 0 && nameRune(s[i-1]) && (i+1 == len(s) || nameRune(s[i+1])) {
 			slashes++
 		}
 	}
