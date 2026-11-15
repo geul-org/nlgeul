@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestSignGraph — each candidate of a sign at a unit's edge is judged by where the sign stands and how many stand in a row: 쉼표 one; 쌍점 one at a word's end or alone; 물결표 at a word's end or alone, any number, or between two Hangul syllables; 빗금 between two Hangul syllables only; 줄임표 and 줄표 any number anywhere; 샵 and 골뱅이 one with letters right after or alone; 태그 and 명칭 one with letters right after; 제목 at an input line's start with a space after; 가운뎃점 one (a sign next to it does not matter); 더하기 and 연결 one with no other sign right next to it; the numbers of edges returned
+//ff:what TestSignGraph — each candidate of a sign at a unit's edge is judged by where the sign stands and how many stand in a row: 쉼표 one; 쌍점 one at a word's end or alone; 물결표 at a word's end or alone, any number, or between two Hangul syllables; 빗금 between two Hangul syllables or at a unit's edge (after the letters, right before them, alone), not between other letters; 줄임표 and 줄표 any number anywhere; 샵 and 골뱅이 one with letters right after or alone; 태그 and 명칭 one with letters right after; 제목 at an input line's start with a space after; 가운뎃점 one (a sign next to it does not matter); 더하기 and 연결 one with no other sign right next to it; the numbers of edges returned
 package token
 
 import (
@@ -28,9 +28,12 @@ func TestSignGraph(t *testing.T) {
 		{"물결표", 2, rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideHangul}, true},
 		{"물결표", 2, rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideAlnum | rule.SideDigit}, false},
 		{"물결표", 2, rule.Mark{Run: 1, Right: rule.SideHangul}, false},
-		{"빗금", 1, rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideHangul}, true},
-		{"빗금", 1, rule.Mark{Run: 1, Left: rule.SideAlnum, Right: rule.SideHangul}, false},
-		{"빗금", 1, rule.Mark{Run: 1, Left: rule.SideHangul, Facts: rule.MarkEnds}, false},
+		{"빗금", 2, rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideHangul}, true},
+		{"빗금", 2, rule.Mark{Run: 1, Left: rule.SideAlnum, Right: rule.SideHangul}, false},
+		{"빗금", 2, rule.Mark{Run: 1, Left: rule.SideHangul, Facts: rule.MarkEnds}, true},
+		{"빗금", 2, rule.Mark{Run: 1, Left: rule.SideAlnum, Facts: rule.MarkEnds}, true},
+		{"빗금", 2, rule.Mark{Run: 1, Right: rule.SideHangul, Facts: rule.MarkLeads}, true},
+		{"빗금", 2, rule.Mark{Run: 1, Facts: rule.MarkAlone}, true},
 		{"줄임표", 0, rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideHangul}, true},
 		{"줄임표", 0, rule.Mark{Run: 2, Facts: rule.MarkEnds}, true},
 		{"줄표", 0, rule.Mark{Run: 3, Facts: rule.MarkAlone}, true},

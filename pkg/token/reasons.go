@@ -145,3 +145,7 @@ const (
 	whyNoWhileClosing = "니·니까·면으로 끝나지 않는다"
 	whyNotSee         = "줄기가 보다가 아니다"
 )
+
+// Why a slash at a unit's edge is a 빗금 although its sides are no
+// Hangul (signGraph).
+const whyAtEdge = "단위의 가장자리(어절 끝, 읽는 글자 바로 앞, 홀로)에 있다"

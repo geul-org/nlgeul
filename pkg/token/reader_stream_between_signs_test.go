@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamBetweenSigns — the signs between words of a unit: the ellipsis … closes the word before it (올랐다+…[줄임표], 창고+……[줄임표]) and alone is …[줄임표]; a slash and a tilde (∼ too) between Hangul syllables are words of their own in a way of the stretch (압박골절 /[빗금] 가로돌기골절+로, 여름 ~[물결표] 가을; the stream sends the whole letters as a new word first), and so are the dashes ― — (―[줄표]) and the middle dot variants ‧ ․ • (가운뎃점, after the whole letters as well); a range after a number and its unit, a bound pair of known words, names, paths, addresses, a slash at a word's edge, the middle dot and box lines are read as before
+//ff:what TestReaderStreamBetweenSigns — the signs between words of a unit: the ellipsis … closes the word before it (올랐다+…[줄임표], 창고+……[줄임표]) and alone is …[줄임표]; a slash and a tilde (∼ too) between Hangul syllables are words of their own in a way of the stretch (압박골절 /[빗금] 가로돌기골절+로, 여름 ~[물결표] 가을; the stream sends the whole letters as a new word first), and so are the dashes ― — (―[줄표]) and the middle dot variants ‧ ․ • (가운뎃점, after the whole letters as well); a range after a number and its unit, a bound pair of known words, names, paths, addresses, the middle dot and box lines are read as before, and a slash at a word's edge is a 빗금 of its own (/[빗금])
 package token
 
 import (
@@ -31,7 +31,7 @@ func TestReaderStreamBetweenSigns(t *testing.T) {
 		{"~/a/b를 연다.", "", "", "~/a/b[경로]+를[목적격:를]", "[빗금]"},
 		{"http://a.com/b/c를 연다.", "", "", "http://a.com/b/c[주소]+를[목적격:를]", "[빗금]"},
 		{"a~b를 쓴다.", "", "", "a~b+를[목적격:를]", "[물결표]"},
-		{"수/ 없다.", "", "", "\n/\n", "[빗금]"},
+		{"수/ 없다.", "", "", "\n/[빗금]\n", ""},
 		{"토지·건물을 샀다.", "", "", "\n토지 ·[가운뎃점] 건물+을[목적격:을]\n", ""},
 		{"├──┼", "", "", "├──┼", "[줄표]"},
 	} {
