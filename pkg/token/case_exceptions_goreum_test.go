@@ -25,7 +25,7 @@ func TestCaseExceptionsGoreum(t *testing.T) {
 			t.Errorf("%s: %v", c.sentence, got)
 		}
 	}
-	if got := strings.Join(r.Lines("고름을", true), "\n"); !strings.Contains(got, "\t이름:ㅁ\t-1.00\t기각: 예외 표의 줄이다(고름) — 예외 표 3: 관찰 30/30, 고름+조사 57자리 25파일 중 30, 2026-11-15\n") {
+	if got := strings.Join(r.Lines("고름을", true), "\n"); !strings.Contains(got, "\t이름:ㅁ\t-1.00\t기각: 예외 표의 줄이다(고름) — 예외 표 3: 관찰 30/30, 고름+조사 57자리 25파일 중 30, 2026-11-15, rules/new-word b3cb6af\n") {
 		t.Errorf("the trace names the row:\n%s", got)
 	}
 	w, ok := jsonWordAt(r.JSONSentence("무효가 됨을 알았다", 0), "됨을")
