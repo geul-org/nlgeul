@@ -116,3 +116,10 @@ const afterOthers = 2
 // unitSuffixes stand after a number and its unit, where 째 stands
 // (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are.
 var unitSuffixes = data.Must(data.Column("unit-suffixes", 1))
+
+// enclosedRanges are the circled and parenthesized numbers, each one
+// letter a number (name 수), as a run of digits is: U+2460-2473 ①-⑳
+// (circled digit and number 1-20), U+2474-2487 ⑴-⒇ (parenthesized 1-20),
+// U+3251-325F ㉑-㉟ (circled 21-35), U+32B1-32BF ㊱-㊿ (circled 36-50).
+// The table is closed; circled Hangul and Latin letters are not numbers.
+var enclosedRanges = [][2]rune{{0x2460, 0x2473}, {0x2474, 0x2487}, {0x3251, 0x325F}, {0x32B1, 0x32BF}}

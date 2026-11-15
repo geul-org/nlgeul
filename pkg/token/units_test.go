@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestUnits — 개 right after a number is a unit; 번째 is a unit and an order, 여개 more-than and a unit; a longer unit and none for the shorter that does not touch the number; a unit after a run that is no number, after a syllable, out of order, or at the start is not read; Hangul numerals and a letter of the table are numbers before a unit and name the stem; a greater number follows digits only, and 조 after a number with 제 stands lower than the unit 조; a letter of the order (가) is a number before 목 only; a unit with letters running on is not read where nothing is known to follow
+//ff:what TestUnits — a unit after a circled number is read, after circled Hangul not; 개 right after a number is a unit; 번째 is a unit and an order, 여개 more-than and a unit; a longer unit and none for the shorter that does not touch the number; a unit after a run that is no number, after a syllable, out of order, or at the start is not read; Hangul numerals and a letter of the table are numbers before a unit and name the stem; a greater number follows digits only, and 조 after a number with 제 stands lower than the unit 조; a letter of the order (가) is a number before 목 only; a unit with letters running on is not read where nothing is known to follow
 package token
 
 import "testing"
@@ -23,6 +23,13 @@ func TestUnits(t *testing.T) {
 	}
 	if got = scanOf("3째").units(2, 0, true); len(got) != 1 {
 		t.Fatal("an order right after a number", got)
+	}
+	got = scanOf("②번").units(2, 0, true)
+	if len(got) != 1 || got[0].start != 1 || got[0].pieces[0].names != "단위:번" {
+		t.Fatal("a unit after a circled number", got)
+	}
+	if len(scanOf("㉠번").units(2, 0, true)) != 0 {
+		t.Fatal("a unit after a circled Hangul letter")
 	}
 	if len(scanOf("L2개").units(3, 0, true)) != 0 || len(scanOf("시대").units(2, 0, true)) != 0 || len(scanOf("3째개").units(3, 0, true)) != 0 || len(scanOf("개").units(1, 0, true)) != 0 || len(scanOf("3개").units(2, placeUnit, true)) != 0 {
 		t.Fatal("read where it should not be")
