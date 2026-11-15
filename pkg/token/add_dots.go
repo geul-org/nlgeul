@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addDots — a graph for each candidate of the full stop, a graph for each sign that sets two words side by side in one stem, and the graph of a run of Latin letters and digits that no table lists
+//ff:what addDots — a graph for each candidate of the full stop, the graph of the full stop right after a number that a particle chain follows, a graph for each sign that sets two words side by side in one stem, and the graph of a run of Latin letters and digits that no table lists
 package token
 
 import (
@@ -20,6 +20,11 @@ func (ix *index) addDots() {
 		ix.stops = append(ix.stops, &entry{name: name, g: g})
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+edges
 	}
+	ns := toulmin.NewGraph("마침표")
+	nc := ns.Rule(rule.PieceRead).With(&rule.Claim{Name: "마침표", Concludes: "기호"})
+	except(ns, rule.PieceIs, whyNoNumber, fact(rule.PieceNum), not).Attacks(nc)
+	ix.numStop = &entry{name: "마침표", form: ".", g: ns}
+	ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	ix.links = map[rune][]*entry{}
 	for _, sign := range linkOrder {
 		l := toulmin.NewGraph(linkSigns[sign])
