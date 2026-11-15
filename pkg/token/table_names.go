@@ -52,7 +52,8 @@ var contractSets = map[string]int{setContract: 0, setPronoun: 0, setNounCopula: 
 // The sets of the table of the words the spacing rules stand on
 // (spacing-words.tsv): the words that link two nominals or close a
 // list, the titles and offices that follow a name, the family names
-// (only marked, never made to stand), the dependent nouns that follow
+// (marked, and read as a word of their own only right before a title,
+// surnameCandidate), the dependent nouns that follow
 // a nominal and those that follow a modifying closing, and the
 // auxiliaries that are written apart.
 const (

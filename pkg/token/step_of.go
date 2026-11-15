@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what stepOf — the word from b to end that tail t makes when its stem stands as the candidate given: the stem and the markers after it as the parts of a word, with its verdict (the least of its pieces' and the stem's; the new word's graph for a stem that does not stand), its preference, the kind of the stem, and whether it ends in a modifying closing, is a determiner, or ends in the linking closing 어/아
+//ff:what stepOf — the word from b to end that tail t makes when its stem stands as the candidate given: the stem and the markers after it as the parts of a word, with its verdict (the least of its pieces' and the stem's; the new word's graph for a stem that does not stand), its preference (a family name read before a title is valued as a new word is, by its syllables: the word table's counts of its letters are those of other words), the kind of the stem, and whether it ends in a modifying closing, is a determiner, or ends in the linking closing 어/아
 package token
 
 import (
@@ -15,7 +15,8 @@ func (sc *scan) stepOf(b, end int, t tail, r stemCandidate) step {
 	} else {
 		e.verdict = sc.unlisted(b, end, r.stem, t)
 	}
-	e.pref = sc.ix.stemPref(r.stem, tailClass(t.pieces), r.kind, r.v > 0, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
+	known := r.v > 0 && nameOf(r.name).Kind != setSurname
+	e.pref = sc.ix.stemPref(r.stem, tailClass(t.pieces), r.kind, known, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
 	if t.as != "" {
 		e.pref = t.weight - sc.ix.structure(b, t.pieces)
 	}
