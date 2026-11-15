@@ -26,7 +26,8 @@ import (
 // intent and guess and other linking and final ones, with no count
 // either: 려나, 려니, 려다가, 려거든, 랴, 으되 (되 has no form with 으),
 // 건마는, ㄹ진대, 을진대, ㄹ는지, 을는지, ㄴ대야, 는대야, ㄴ담, ㄴ고,
-// 다네 and the modifying 으라는. Not listed, though the dictionary has
+// 다네 and the modifying 으라는; then the linking 요 of the copula's
+// stem and 아니 (학문이요, 아니요), with no count either. Not listed, though the dictionary has
 // them: 든 and 는걸, 은걸, whose letters are read as the particle 든 and
 // as a modifying closing with 거 under 를.
 var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))
