@@ -1,10 +1,12 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestStreamNext — Next gives the first way of each stretch in turn and reads a unit only when it needs one (after the first Next the second unit is not read, and only that one way of the stretch is made); what is asked in between by Again does not change what Next gives later (two streams of the same sentence, one asked for more, give the same stretches after); a stretch with no candidate at all is given as it is, with no nodes
+//ff:what TestStreamNext — Next gives the first way of each stretch in turn and reads a unit only when it needs one (after the first Next the second unit is not read, and only that one way of the stretch is made); what is asked in between by Again does not change what Next gives later (two streams of the same sentence, one asked for more, give the same stretches after); a stretch with no candidate at all is given as it is, with no nodes; the trace lines a region holds are given with it (Notes after its Next), and those no region took with the last Next (false); a stretch a window cut off keeps what the rules of a sentence added to it after it is sent
 package token
 
 import (
 	"math/big"
 	"testing"
+
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func TestStreamNext(t *testing.T) {
@@ -44,6 +46,18 @@ func TestStreamNext(t *testing.T) {
 		t.Fatal("no way for it")
 	}
 
+	noted := &Stream{queue: []*region{{span: Span{0, 2}, notes: []string{"가"}}}, pending: []string{"끝"}}
+	noted.Next()
+	if got := noted.Notes(); len(got) != 1 || got[0] != "가" {
+		t.Fatal("the region's lines with it", got)
+	}
+	if _, ok := noted.Next(); ok {
+		t.Fatal("end")
+	}
+	if got := noted.Notes(); len(got) != 1 || got[0] != "끝" || noted.pending != nil {
+		t.Fatal("the lines left at the end", got)
+	}
+
 	far := streamReader(t, "words-far.tsv")
 	cut := far.Stream(windowText(5))
 	if sg, ok := cut.Next(); !ok || segmentLine(sg) != "고양이가[0-4]" || len(cut.sent) != 1 || cut.sent[0].nodes != nil || cut.sent[0].redo == nil || cut.sent[0].sent != 1 {
@@ -51,5 +65,10 @@ func TestStreamNext(t *testing.T) {
 	}
 	if cut.cur == nil || cut.cur.run.j >= cut.cur.run.n {
 		t.Fatal("the rest of the unit is not read yet")
+	}
+	lifting := far.Stream(windowText(5))
+	lifting.rules = []sentenceRule{sentenceRuleOf("고양이", 1, func(rule.Near) bool { return true }, nil, listed("고양이", rule.ListSelfStem, []string{"고양이"}), nil, "")}
+	if _, ok := lifting.Next(); !ok || lifting.sent[0].redo == nil || len(lifting.sent[0].lifts) == 0 || lifting.sent[0].lifts[0].word != "고양이[열쇠:체언]+가[주격:가]" {
+		t.Fatal("the lifts of a stretch cut off are kept", lifting.sent[0].lifts)
 	}
 }

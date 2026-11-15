@@ -7,6 +7,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 - `KeyWord` → `*Word`(어절: 글, 조사 사슬 `Chain`, 꼬리 풀이들 `[]Tail`, 가장 긴 꼬리, 마지막 어절인지, 의존명사로 시작하는지, 문장 `*Sentence`).
 - `KeyTail` → `Tail`(판정 중인 꼬리 풀이 하나).
 - 읽는 쪽이 이 타입을 채워 컨텍스트에 넣는다. 규칙은 `WordOf`, `TailOf`로 꺼낸다.
+- `KeyAround` → `Around`(문장 안에서 판정하는 후보와 그 둘레: 후보 자신 `Self`, 앞 어절들 `Before`, 뒤 어절들 `After`. 앞뒤 모두 가까운 것부터이고 저마다 `Near`다). `Near`는 어절 하나를 그 후보 하나가 읽은 대로 적는다: 찍힌 줄기 `Stem`, 줄기의 이름 `Kind`(`열쇠:체언`, `보조 용언:있`. 새 낱말은 ""), 마지막 조각의 이름 `Last`(줄기뿐이면 ""), 서술어인가 `Pred`(맺음을 지녔다. 읽는 쪽이 채운다). 앞뒤 어절은 그 어절의 1위 후보로 적는다. 토큰 층의 문장 단위 규칙이 채우고(`pkg/token/README.md`의 "스트림 인터페이스"), 규칙은 `AroundOf`로 꺼낸다(없으면 빈 `Around`).
 
 ## 기준
 
@@ -14,7 +15,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 |---|---|
 | `Claim{Name, Concludes}` | 주장 노드의 이름과 결론. 같은 함수를 여러 주장이 쓸 수 있게 하고, 평가 결과의 이름에서 `ClaimOf`로 되찾는다. 토큰 층은 반박과 예외 노드에도 붙여 그 노드의 이름(기각 이유)을 싣는다 |
 | `Bits{Of, Mask}` | 격(`Case…`), 맺음 갈래(`Kind…`), 어절의 사실(`WordLast`, `WordBound`), 조각의 사실(`Piece…`), 기호의 사실(`Mark…`), 글자 갈래(`Side…`), 붙는 조건(`After…`) 들 가운데 어느 것을 볼지 |
-| `List{Name, Of, Items}` | 목록과, 그 목록에서 찾을 사실(`List…`: 조각의 꼴, 앞 조각의 이름, 뒤 조각의 이름, 합쳐진 조각이 놓인 음절, 점 오른쪽 마디, 이름의 맨 오른쪽 마디, 어절, 꼬리의 맺음) |
+| `List{Name, Of, Items}` | 목록과, 그 목록에서 찾을 사실(`List…`: 조각의 꼴, 앞 조각의 이름, 뒤 조각의 이름, 합쳐진 조각이 놓인 음절, 점 오른쪽 마디, 이름의 맨 오른쪽 마디, 어절, 꼬리의 맺음, 문장 안의 후보의 줄기·줄기의 이름·마지막 조각의 이름, 앞 어절의 마지막 조각의 이름, 뒤 어절의 줄기) |
 | `Not{}` | 예/아니오 규칙을 뒤집는다(toulmin에 부정이 없어 방향을 기준에 싣는다). `PieceIs`, `Listed`, `MarkIs`, `MarkBoth`, `StemKind`가 받는다(`Holds`) |
 | `Versus{Mine, Rival}` | `Longer`가 견줄 두 길이(`SideChain`, `SideTail`, `SideLongest`) |
 | `Shape{Of, Min, Max, Lens, Vals, Head}` | 기호가 잇는 숫자 마디들의 꼴 |
@@ -34,7 +35,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `Longer` | except | 경쟁 풀이가 이 풀이보다 길게 읽는다 | `Versus` |
 | `ChainSeenMore` | counter | 꼬리만큼 긴 조사가 관측됐다(횟수의 몫) | 없음 |
 | `TailSeenMore` | counter | 사슬만큼 긴 꼬리가 관측됐다(횟수의 몫) | 없음 |
-| `Listed` | rule, except, counter | 기준이 가리키는 사실이 기준 목록에 있다. `nlgeul parse`는 어절(`ListWord`: 관형사 → 관형어, 접속 부사 → 독립어, 닫힌 집합의 낱말은 쪼개 읽지 않는다)과 꼬리의 맺음(`ListClosing`: 게 → 부사어)을, 토큰 층은 조각과 기호의 사실을 묻는다 | `List`, 뒤집으려면 `Not` |
+| `Listed` | rule, except, counter | 기준이 가리키는 사실이 기준 목록에 있다. `nlgeul parse`는 어절(`ListWord`: 관형사 → 관형어, 접속 부사 → 독립어, 닫힌 집합의 낱말은 쪼개 읽지 않는다)과 꼬리의 맺음(`ListClosing`: 게 → 부사어)을, 토큰 층은 조각과 기호의 사실, 문장 안 후보와 둘레 어절의 사실을 묻는다 | `List`, 뒤집으려면 `Not` |
 
 토큰 열 하나를 표지나 줄기로 판정하는 그래프(컨텍스트 열쇠 `KeyPiece` → `Piece`)가 쓰는 함수:
 
@@ -56,7 +57,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 `Piece`의 `Before`와 `After`는 앞 조각과 뒤 조각의 이름이다. 서술격 `이`의 `After`는 이 바로 뒤에 선 것의 이름이다: 꼬리가 맺음으로 시작하면 그 맺음, 선어말이 먼저 서면 그 선어말이다.
 
-도움 함수: `PieceOf`, `MarkOf`, `Applies`(예/아니오 → ±1), `Holds`(기준에 `Not`이 있으면 뒤집은 ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
+도움 함수: `PieceOf`, `MarkOf`, `AroundOf`, `Applies`(예/아니오 → ±1), `Holds`(기준에 `Not`이 있으면 뒤집은 ±1), `Share`(횟수의 몫), `WordOf`, `TailOf`, `ClaimOf`.
 
 기호 하나를 풀이별로 판정하는 그래프(컨텍스트 열쇠 `KeyMark` → `Mark`)가 쓰는 함수:
 
@@ -67,6 +68,12 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `MarkRight` | except | 기호의 오른쪽이 기준의 글자 갈래가 아니다 | `Bits`(sides) |
 | `PartsShape` | except | 기호가 잇는 숫자 마디들이 기준 꼴이 아니다(`FitsShape`) | `Shape` |
 | `Listed` | except | 점 오른쪽 마디(`ListExt`), 이름의 맨 오른쪽 마디(`ListLast`)가 기준 목록에 있다 | `List`, 뒤집으려면 `Not` |
+
+어절의 후보 하나를 문장 안의 둘레 어절과 함께 판정하는 그래프(컨텍스트 열쇠 `KeyAround` → `Around`, 토큰 층의 문장 단위 규칙)가 쓰는 함수:
+
+| 함수 | 쓰임 | 뜻 | 기준 |
+|---|---|---|---|
+| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 뒤 어절의 줄기(`ListNextStem`)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
 
 ## 조건식과 도움 함수 (toulmin 규칙이 아니다)
 

@@ -17,7 +17,7 @@
 | `Reader.Stream`, `Reader.StreamTrace` | `func (r *Reader) Stream(sentence string) *Stream` | 문장을 스트림으로 연다(`StreamTrace`는 `--trace` 줄도 `Notes`로 꺼낸다) |
 | `Stream.Next`, `Stream.Again` | `Next() (Segment, bool)`, `Again(region Span) (Segment, bool)` | 다음 구간의 1등 갈래, 그 구간의 다음 갈래. 마디의 후보는 전부 담는다 |
 | `Stream.NextHead`, `Stream.AgainHead` | `NextHead(head int) (Segment, bool)`, `AgainHead(region Span, head int) (Segment, bool)` | `Next`·`Again`과 같고, 마디마다 후보를 λ 차례 앞의 head개만 돌려준다(0 이하는 전부). 아래 "후보 수 한도" |
-| `Stream.Notes` | `Notes() []string` | 지난번 뒤로 읽은 단위들의 trace 줄 |
+| `Stream.Notes` | `Notes() []string` | 지난번 뒤로 보낸 구간들의 trace 줄(구간을 읽으며 나온 줄과 문장 단위 규칙의 줄) |
 | `Segment` | `Region Span`, `Rank int`, `Ways *big.Int`, `Nodes []Node`, `Lambda float64` | 한 구간의 갈래 하나 |
 | `Node` | `Span Span`, `Contest Contest` | 마디: 어절 하나와 그 후보경합 |
 | `Span` | `Start, End int` | `[Start, End)`, 빈칸을 뺀 문장의 글자(rune) 위치 |
@@ -107,7 +107,7 @@ func (s *Stream) Next() (Segment, bool)                 // 다음 구간의 1등
 func (s *Stream) Again(region Span) (Segment, bool)     // 그 구간에서 마지막으로 보낸 갈래의 다음 갈래
 func (s *Stream) NextHead(head int) (Segment, bool)                // Next, 마디마다 후보는 앞의 head개(0 이하는 전부)
 func (s *Stream) AgainHead(region Span, head int) (Segment, bool)   // Again, 마디마다 후보는 앞의 head개(0 이하는 전부)
-func (s *Stream) Notes() []string                       // 지난번 뒤로 읽은 단위들의 trace 줄(한 번 꺼내면 비움)
+func (s *Stream) Notes() []string                       // 지난번 뒤로 보낸 구간들의 trace 줄(한 번 꺼내면 비움)
 ```
 
 ```go
@@ -117,6 +117,12 @@ seg2, ok := st.Again(seg.Region) // 같은 구간의 다음 갈래(Rank 2). 더 
 ```
 
 - 후보 수 한도(`NextHead`, `AgainHead`): 받는 쪽의 한도일 뿐이다. 갈래·마디·후보는 `Next`·`Again`과 똑같이 만들고(탐색 중에 버리는 후보는 없다), 돌려줄 때 마디의 후보경합을 λ 차례 앞의 head개로 자른다(`segmentHead`). 그래서 head를 준 결과는 head 없이 받은 후보 목록의 앞 head개와 같다(같은 λ의 차례도 같다). 구간·순위·`Ways`·`Lambda`(마디마다 λ 1위의 합)는 바뀌지 않는다. head가 0 이하면 `Next`·`Again`과 같다. 자른 마디는 복사본이라 스트림이 든 갈래는 건드리지 않고, 같은 스트림에서 head 있는 것과 없는 것을 섞어 불러도 차례는 그대로다(시험 `TestStreamNextHead`, `TestStreamAgainHead`). 한도가 계산을 줄이지는 않는다.
+- 문장 단위 규칙(색인의 `sentence` 목록, `sentenceRule`: 이름, toulmin 그래프, 주장이 설 때 더하는 선호 `bonus`, 어느 후보를 묻는가 `about`, 그 가운데 뒤 어절을 서술어까지 읽어야 판정할 수 있는 후보 `waits`. 뒤를 읽지 않는 규칙은 `waits`가 없다): 어절의 후보 하나를 같은 문장의 둘레 어절과 함께 판정한다.
+  - 묶어 읽기: `Next`는 구간 하나를 읽어 줄 세운 뒤, 그 구간의 1등 갈래 어절 가운데 `waits`에 걸리는 후보를 가진 어절이 있으면 서술어가 나올 때까지 구간을 더 읽는다(`Stream.hold`, `heldAfter`, `waitsFor`). 서술어는 1위 후보가 맺음·꾸밈·이름 조각을 지닌 어절이다(`predKinds`, `nearOf`의 `Pred`). 서술어 없이 문장이 끝나면 거기까지 읽고 판정한다. 기다리는 후보가 없으면 구간 하나만 읽는다(규칙이 없을 때와 같다).
+  - 판정: 아직 판정하지 않은 구간들(`unjudged`)의 1등 갈래 어절을 한 줄로 놓고(`seatsOf`, `seatsIn`, `seat`) 앞 어절부터 차례로, 어절의 후보마다 그 후보를 묻는 규칙의 그래프를 돌린다(`Stream.settle`, `judgeSeat`, `judgeCandidate`). 1등이 아닌 갈래에만 있는 어절은 판정하지 않는다. 그래프는 컨텍스트 `rule.KeyAround`의 `rule.Around`를 읽는다: 후보 자신(`Self`), 앞 어절들(`Before`, 가까운 것부터: 줄의 앞 어절은 그 어절을 판정한 뒤의 1위로, 그보다 앞은 이미 판정한 어절들 `Stream.behind`), 뒤 어절들(`After`, 가까운 것부터, 읽은 그대로의 1위). 어절마다 `rule.Near`(줄기, 줄기의 이름, 마지막 조각의 이름, 서술어인가)로 적는다(`nearOf`, `nearsBack`, `nearsOn`). `rule.Listed`의 사실 `ListSelfStem`·`ListSelfKind`·`ListSelfLast`·`ListPrevLast`·`ListNextStem`이 이것을 묻는다(`pkg/rule/README.md`).
+  - 올림: 주장이 서면(verdict > 0) 그 후보의 선호에 규칙의 `bonus`를 더한다(`lift`: 어절의 `Span`과 후보의 글줄로 짚는다. 규칙 여럿이 서면 모두 더한다). 후보를 지우거나 낮추지 않는다. 더한 뒤 그 어절의 후보를 λ 차례로 다시 놓고 구간의 갈래를 처음부터 다시 센다(`region.lift`, `lifted`, `raised`). 그래서 `Next`·`Again`·`NextHead`·`AgainHead`가 주는 후보 차례·λ와 `Segment.Lambda`(마디마다 λ 1위의 합)는 모두 올린 뒤의 값이고, `Again`도 올린 뒤의 λ 차례로 갈래를 준다. 창이 끊은 구간은 올림을 들고 있다가 `Again`이 그 구간을 다시 짤 때 같은 올림을 건다(`redoAgain`).
+  - `--trace`: 규칙이 물은 후보마다 한 줄을 쓴다: `  · <후보>\t<규칙 이름>\t<verdict>\t통과` 또는 `  · <후보>\t<규칙 이름>\t<verdict>\t기각: <까닭>`(까닭은 걸린 예외의 이름). 구간을 읽으며 나온 줄과 그 구간 어절의 규칙 줄은 구간이 들고 있다가(`region.notes`) `Next`가 그 구간을 보낼 때 `Notes`로 나간다. 그래서 묶어 읽어도 줄은 그 어절의 상자 앞에 찍히고, 뒤 구간의 줄이 앞 구간의 `Notes`에 섞이지 않는다. 구간이 가져가지 않은 줄(`Stream.pending`)은 마지막 `Next`(false) 뒤에 나간다.
+  - 규칙은 같은 문장의 어절만 보고 받는 쪽의 상태를 들지 않는다: 같은 문장은 중간에 무엇을 청했든 같은 결과를 낸다. 어느 후보도 올리지 않는 규칙만 있으면 결과(구간·마디·후보 차례·λ·trace 줄)는 규칙의 줄을 빼고 규칙이 없을 때와 같다. 시험은 시험 안에서 규칙을 넣는다(`TestStreamNextUnruled`, `TestStreamNextWaits`, `TestStreamNextBefore`, `TestStreamNextTrace`, `TestStreamAgainLifted`, `TestStreamNextHeadLifted`, 낱말 표 `testdata/words-sentence.tsv`).
 - 구간 하나는 살아남은 후보가 모두 합의한 자리 사이다. 구간 안에서 끊는 꼴이 갈린 후보는 갈래가 된다: 갈래 = 끊는 꼴 하나 = 마디(`Span`)의 줄. `Ways`는 그 구간의 서로 다른 끊는 꼴의 수이고 `math/big`의 큰 수다(덩어리가 길면 갈래 수는 지수로 커져 어느 정수에도 안 든다. 아는 후보가 없는 구간은 0). 합의한 자리가 없으면 구간이 길어진다(붙여 쓴 `아버지가방에들어가신다`는 구간 `[0-11]` 하나, 갈래 수백). 구간을 안에서 자르는 규칙은 없다.
 - 위치의 단위는 문장의 글자(rune)이고 빈칸은 세지 않는다. 마디 경합의 `Text`는 그 `Span` 자리의 글자다.
 - 마디는 `Span`으로 한 번만 만든다(두 갈래가 함께 쓰는 마디도 하나). 마디의 후보 = 그 `Span`에 낱말을 놓는 모든 끊는 꼴의 낱말의 합집합이고, 같은 글자(`Eojeol.String()`)는 한 번만 둔다(처음 나온 것. 값이 다른 같은 글자는 나은 쪽 `stepBefore`, 아래 `registry.twins`). 마디의 후보는 낱말 하나에 조사·어미가 붙은 것뿐이다. 낱말이 둘 이상인 읽기는 마디가 둘 이상인 갈래다. 덩어리 전체를 낱말 하나로 읽는 후보(새 낱말)는 덩어리 전체 마디 하나짜리 갈래로 남는다.
