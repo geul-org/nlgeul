@@ -19,7 +19,7 @@ func TestAfterCopula(t *testing.T) {
 		{tail{pieces: []piece{{text: "다", names: "맺음:다"}}, close: &entry{name: "맺음:다"}}, "맺음:다"},
 		{tail{pieces: []piece{eo, {text: "서", names: "맺음:서"}}, close: &entry{name: "맺음:어서"}}, "맺음:어(합침)"},
 	} {
-		if got := afterCopula(c.t); got != c.want {
+		if got := (&index{}).afterCopula(c.t); got != c.want {
 			t.Errorf("%+v: %s, want %s", c.t.pieces, got, c.want)
 		}
 	}

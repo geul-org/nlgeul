@@ -16,7 +16,7 @@ func (sc *scan) copulas(tails []tail, chained bool) []tail {
 		if !ok {
 			continue
 		}
-		p := rule.Piece{Form: "이", HasStem: start >= 1 || sc.attach, Next: rule.SlotClosing, After: afterCopula(t), Right: rule.RightDone}
+		p := rule.Piece{Form: "이", HasStem: start >= 1 || sc.attach, Next: rule.SlotClosing, After: sc.ix.afterCopula(t), Right: rule.RightDone}
 		if chained {
 			p.Right = rule.RightParticle
 		}

@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestFirstName — a tail that begins with its closing gives the closing's name (one of the names of its first piece too), so does one that begins with the closing written out as its parts (죠 as 지+(요), 세요 as 시+(어)+요, 잖 whose closing is 지); a slot or the link vowel before the closing gives its own name, and a tail with no closing its first piece's; end to end, with a word table and without, 학생이었습니다, 학생이었다 and 학생이었는데 are read first as 학생+이+었+… with 이 the copula's stem, and 의사였다 has a candidate with the copula's stem before the fused slot
+//ff:what TestFirstName — a tail that begins with its closing gives the closing's name (one of the names of its first piece too), so does one that begins with the closing written out as its parts (죠 as 지+(요), 세요 as 시+(어)+요, 잖 whose closing is 지, and with a word table 시오 as 시+오); a slot or the link vowel before the closing gives its own name (the honorific 시 before 시오 written whole, without a word table), and a tail with no closing its first piece's; end to end, with a word table and without, 학생이었습니다, 학생이었다 and 학생이었는데 are read first as 학생+이+었+… with 이 the copula's stem, and 의사였다 has a candidate with the copula's stem before the fused slot
 package token
 
 import (
@@ -27,9 +27,18 @@ func TestFirstName(t *testing.T) {
 		{tail{pieces: []piece{{text: "시", names: honorName}, {text: "다", names: "맺음:다"}}, close: da}, honorName},
 		{tail{pieces: []piece{{text: "지", names: jiName}, {text: "(않)", names: "부정:않"}, {text: "아", names: "맺음:아"}}, close: &entry{name: jiName}}, jiName},
 	} {
-		if got := firstName(c.t); got != c.want {
+		if got := (&index{}).firstName(c.t); got != c.want {
 			t.Errorf("%+v: %s, want %s", c.t.pieces, got, c.want)
 		}
+	}
+	hao, honor := &entry{name: "맺음:시오"}, piece{text: "시", names: honorName}
+	whole := tail{pieces: []piece{honor, {text: "시오", names: "맺음:시오"}}, close: hao}
+	if got := (&index{}).firstName(whole); got != honorName {
+		t.Fatal("without a word table 시오 is written whole: the honorific slot before it gives its own name", got)
+	}
+	parts := tail{pieces: []piece{honor, {text: "오", names: "맺음:오"}}, close: hao}
+	if got := (&index{lexed: true}).firstName(parts); got != "맺음:시오" {
+		t.Fatal("with a word table 시오 is written out as 시+오: the tail begins with its closing", got)
 	}
 	bare, _ := New(Options{})
 	lexed, _ := New(Options{Words: "testdata/words.tsv"})

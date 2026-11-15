@@ -18,7 +18,7 @@ func (sc *scan) nounCopula(t tail) []tail {
 	var out []tail
 	for i, c := range nounCopulas {
 		e := sc.ix.nouns[i]
-		facts := rule.Piece{Form: c.form, HasStem: true, After: firstName(t), Adn: sc.adnEnds[at] || (sc.attach && at == 0)}
+		facts := rule.Piece{Form: c.form, HasStem: true, After: sc.ix.firstName(t), Adn: sc.adnEnds[at] || (sc.attach && at == 0)}
 		if string(letter) != c.form || sc.judge(e, at, t.start, facts) <= 0 {
 			continue
 		}

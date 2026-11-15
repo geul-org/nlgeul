@@ -4,9 +4,9 @@ package token
 
 import "slices"
 
-func afterCopula(t tail) string {
+func (ix *index) afterCopula(t tail) string {
 	if len(t.pieces) > 1 && slices.Contains(copulaBars, t.pieces[1].names) {
 		return t.pieces[1].names
 	}
-	return firstName(t)
+	return ix.firstName(t)
 }

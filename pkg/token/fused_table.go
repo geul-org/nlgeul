@@ -84,8 +84,7 @@ var negParts = []split{{"지", jiName}, {"(않)", "부정:않"}}
 
 // splits are closings of the tables that are written out as their
 // pieces: 죠 is 지+요, 십시오 the honorific and ㅂ시오, 세요 the
-// honorific, 어 and 요, 더라 the slot 더 and 라, 시오 the honorific and
-// the 하오체 오. A closing so written
+// honorific, 어 and 요, 더라 the slot 더 and 라. A closing so written
 // out is the same candidate as its pieces read one by one, and is sent
 // up once.
 var splits = map[string][]split{
@@ -95,8 +94,15 @@ var splits = map[string][]split{
 	"맺음:더라":   {{"더", "선어말:더"}, {"라", "맺음:라"}},
 	"맺음:십시오":  {{"시", honorName}, {"(ㅂ)시오", "맺음:ㅂ시오"}},
 	"맺음:으십시오": {{"으", euName}, {"시", honorName}, {"(ㅂ)시오", "맺음:ㅂ시오"}},
-	"맺음:시오":   {{"시", honorName}, {"오", "맺음:오"}},
-	"맺음:으시오":  {{"으", euName}, {"시", honorName}, {"오", "맺음:오"}},
+}
+
+// haoSplits are closings of the tables written out as their pieces only
+// with a word table (splitsOf): 시오 is the honorific and the 하오체 오,
+// whose graph 맺음:오 the index has only then (haoClosings). Without a
+// word table 시오 stays the one closing the tables give.
+var haoSplits = map[string][]split{
+	"맺음:시오":  {{"시", honorName}, {"오", "맺음:오"}},
+	"맺음:으시오": {{"으", euName}, {"시", honorName}, {"오", "맺음:오"}},
 }
 
 // contracts are the fused forms whose first word is fixed, a closed
