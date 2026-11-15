@@ -52,4 +52,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, nounHeadedRule(parse.ClosedWords()[boundSet]))
 	// A noun right after a modifier (nounModifiedRule).
 	ix.sentence = append(ix.sentence, nounModifiedRule(modifiedSkip))
+	// A year, month and day written with dots as a date, and numbers joined with a slash as a division.
+	ix.sentence = append(ix.sentence, dateFirstRule(), fractionFirstRule())
 }

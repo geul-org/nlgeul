@@ -383,3 +383,16 @@ var dateNames = []string{"날짜"}
 // fraction (the shape 나눔:/ prints as 나눔), which a rule of a sentence
 // prefers to a date (fractionFirstRule).
 var fractionNames = []string{"나눔"}
+
+// numberAdnNames are the names of the closing after the copula's stem
+// that, right after a number, the dependent noun 인 (a count of people)
+// is read before (numberAdnRebuttal): the modifying ㄴ (1인, 300인).
+var numberAdnNames = []string{"꾸밈:ㄴ"}
+
+// forceNumberAdn is the force of the rebuttal "the copula's modifying
+// form right after a number" (1인 read as 1+이+ㄴ rather than 1 and 인).
+// It is chosen among a few values tried on the answer sheet: 0.25 changed
+// nothing, 0.5 and 0.98 righted the same 9 words and turned the same 2
+// wrong; the least of those keeps the copula as the candidate right
+// behind.
+const forceNumberAdn = 0.5

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what copulas — the copula candidates of some predicate tails: each tail that may stand after the stem 이 (said or dropped), judged by the copula's graph, with the stem as a piece before the tail; before the closings of droppableKnown a dropped stem asks for a nominal of the word table before it, unless the letter before it is no Hangul syllable (a run of Latin letters and digits is no row of the table); the graph is told what stands right after the stem (the tail's closing, or the slot before it, or the auxiliary written onto its 어/아 form: afterCopula) and whether a particle is being read right after the tail (chained); each such tail is read once more after a suffix or a particle the copula follows (afterSuffixes) and after a closing it follows (afterLinked)
+//ff:what copulas — the copula candidates of some predicate tails: each tail that may stand after the stem 이 (said or dropped), judged by the copula's graph, with the stem as a piece before the tail; before the closings of droppableKnown a dropped stem asks for a nominal of the word table before it, unless the letter before it is no Hangul syllable (a run of Latin letters and digits is no row of the table); the graph is told what stands right after the stem (the tail's closing, or the slot before it, or the auxiliary written onto its 어/아 form: afterCopula) whether a particle is being read right after the tail (chained), and whether a number ends right before the stem (numEnds); each such tail is read once more after a suffix or a particle the copula follows (afterSuffixes) and after a closing it follows (afterLinked)
 package token
 
 import (
@@ -22,7 +22,7 @@ func (sc *scan) copulas(tails []tail, chained bool) []tail {
 		}
 		base := rune(0)
 		if start >= 1 {
-			p.Prev = sc.s[start-1]
+			p.Prev, p.Num = sc.s[start-1], sc.numEnds[start]
 		}
 		if e == sc.ix.dropped && t.base != 0 {
 			base, p.Prev = t.base, t.base
