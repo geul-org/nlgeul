@@ -22,7 +22,11 @@ import (
 // 노라면, 거니와, 던지, 다거나, 로구나, 로다, ㄴ걸 and 오리다, none of
 // them with an observed count. After them come endings of the 하오체 and
 // 하십시오체, with no count either: 습디다, ㅂ디다, 습디까, ㅂ디까, 구려,
-// 소이까, 오니까, 오리이까, 렷다, 리다, 리까 and 노니. Not listed, though the dictionary has
+// 소이까, 오니까, 오리이까, 렷다, 리다, 리까 and 노니; then endings of
+// intent and guess and other linking and final ones, with no count
+// either: 려나, 려니, 려다가, 려거든, 랴, 으되 (되 has no form with 으),
+// 건마는, ㄹ진대, 을진대, ㄹ는지, 을는지, ㄴ대야, 는대야, ㄴ담, ㄴ고,
+// 다네 and the modifying 으라는. Not listed, though the dictionary has
 // them: 든 and 는걸, 은걸, whose letters are read as the particle 든 and
 // as a modifying closing with 거 under 를.
 var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))
