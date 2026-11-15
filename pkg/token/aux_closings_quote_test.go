@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAuxClosingsQuote — an auxiliary particle (도, 는, 만, 야) right after a quoting closing 다고, ㄴ다고, 는다고, 라고, 자고, 냐고 or 느냐고 is one more piece of the same word (좋다고만, 가자고는, 먹느냐고도, 떠난다고는); 학생이라고는 is still read with the particle 이라고
+//ff:what TestAuxClosingsQuote — an auxiliary particle (도, 는, 만, 야) right after a quoting closing 다고, ㄴ다고, 는다고, 라고, 자고, 냐고 or 느냐고 is one more piece of the same word, read first as one node (좋다고만, 가자고는, 먹느냐고도, 떠난다고는, 먹는다고도); 학생이라고는 is still read first with the particle 이라고
 package token
 
 import (
@@ -18,12 +18,12 @@ func TestAuxClosingsQuote(t *testing.T) {
 		"떠난다고는": "떠나[열쇠:동사]+(ㄴ)다고[맺음:ㄴ다고]+는[보조사:는]",
 		"먹는다고도": "먹[열쇠:동사]+는다고[맺음:는다고]+도[보조사:도]",
 	} {
-		if got := strings.Join(r.Lines(in, false), "\n"); !strings.Contains(got, want) {
-			t.Errorf("%s: no %s\n%s", in, want, got)
+		if got := flatNodes(r, in, true); len(got) != 1 || !strings.HasSuffix(got[0], "} "+want) {
+			t.Errorf("%s: want %s first\n%v", in, want, got)
 		}
 	}
 	r.ix.lex["학생"] = word{kinds: kindNominal, count: 50, by: [6]int{50}}
-	if got := strings.Join(r.Lines("학생이라고는", false), "\n"); !strings.Contains(got, "학생[열쇠:체언]+이라고[부사격:이라고]+는[보조사:는]") {
+	if got := flatNodes(r, "학생이라고는", true); len(got) != 1 || !strings.HasSuffix(got[0], "} 학생[열쇠:체언]+이라고[부사격:이라고]+는[보조사:는]") {
 		t.Fatal(got)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestGeondaClosing — the linking closing 건대 (살피건대, 바라건대, 듣건대) is read after a verb stem as one word, and a name 건대 that stands alone or takes a particle keeps its reading as a noun
+//ff:what TestGeondaeClosing — the linking closing 건대 (살피건대, 바라건대, 듣건대) is read after a verb stem as one word, and a name 건대 that stands alone or takes a particle keeps its reading as a noun
 package token
 
 import (
@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestGeondaClosing(t *testing.T) {
+func TestGeondaeClosing(t *testing.T) {
 	r, err := New(Options{Words: "testdata/words-geondae.tsv"})
 	if err != nil {
 		t.Fatal(err)
