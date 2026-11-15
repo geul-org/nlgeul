@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addWide — what is read only with a word table: the graphs of 신·실·심·세 as the honorific 시 (exceptions: no stem, not after a vowel, a particle right after (not for 심 and 세), a final consonant that makes no closing of the tables with what follows), the two graphs that ask the word before to be a predicate's stem or a nominal of the table, the shortened closings, slots and particles, the naming closing 기 with the graph of a particle chain right after a naming closing (기, and 음 and ㅁ of the closing table: chainHeads), the modifying closings 은 and 을 after a stem's ㄹ, and where particles begin
+//ff:what addWide — what is read only with a word table: the graphs of 신·실·심·세 as the honorific 시 (exceptions: no stem, not after a vowel, a particle right after (not for 심 and 세), a final consonant that makes no closing of the tables with what follows), the two graphs that ask the word before to be a predicate's stem or a nominal of the table, the shortened closings, slots and particles, the naming closing 기 and the 하오체 closings 소, 오, 으오 and 올시다 after a predicate's stem of the table, with the graph of a particle chain right after a naming closing (기, and 음 and ㅁ of the closing table: chainHeads), the modifying closings 은 and 을 after a stem's ㄹ, and where particles begin
 package token
 
 import (
@@ -40,6 +40,11 @@ func (ix *index) addWide() {
 		ix.addShort(row)
 	}
 	for _, m := range gatedClosings {
+		e := closingEntries(m)[0]
+		e.gate = ix.pred
+		ix.add(e)
+	}
+	for _, m := range haoClosings {
 		e := closingEntries(m)[0]
 		e.gate = ix.pred
 		ix.add(e)

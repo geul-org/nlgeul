@@ -43,6 +43,21 @@ var nounHeads = closingNames(gatedClosings...)
 // keep nounHeads.
 var chainHeads = append(append([]string{}, nounHeads...), namingPrefix+"음", nounName)
 
+// haoClosings are the closings of the 하오체 (소, 오, 으오, 올시다),
+// read only with a word table, after a predicate's stem of the table,
+// as gatedClosings are: 소 and 오 end many words (장소, 연구소, 라디오),
+// and as table rows they would stand after a stem that is not in the
+// table (접골시술소). They are not in gatedClosings, whose names are
+// those of the naming closings. 오 stands after a vowel only: a stem's
+// ㄹ goes before it (노오 for 놀+오, clause 18), which is not read here.
+// 올시다 follows the copula's stem 이 or 아니 (아니올시다, 것이올시다).
+var haoClosings = []parse.Marker{
+	{Form: "소", After: rule.AfterBatchim, Kind: rule.KindFinal, NoIda: true, NoYo: true},
+	{Form: "오", After: rule.AfterVowel, Kind: rule.KindFinal, NoYo: true},
+	{Form: "으오", After: rule.AfterHard, Kind: rule.KindFinal, NoIda: true, NoYo: true},
+	{Form: "올시다", Kind: rule.KindFinal, NoYo: true, NeedIda: true},
+}
+
 // looseClosings are the modifying closings 은 and 을 written onto a
 // stem that ends in ㄹ without dropping the ㄹ (줄은 for 준, 줄을 for
 // 줄), against clause 18 of the orthography (a stem's ㄹ goes before
