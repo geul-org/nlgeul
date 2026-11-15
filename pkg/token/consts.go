@@ -281,3 +281,16 @@ var (
 	copulaAdnForms  = []string{"인", "일"}
 	bonusUnmodified = -Lambda * math.Log10(2/(1+forceFew)-1)
 )
+
+// topicNames are the names of 이란 and 란 as the topic particle, which a
+// rule of a sentence prefers right after a closing sign (shutTopicRule).
+var topicNames = []string{"보조사:이란", "보조사:란"}
+
+// bonusShutTopic is what that rule adds. bonusSentence is too little:
+// after a closing sign the noun 이란 and 이+란 read as the copula with
+// the modifying 란 (이라는) stand above the particle 이란 by about 1.2
+// in preference, because the count table gives 이란 47 against 란's
+// 7,069. Tried on the answer sheet: 0.5 and 1 put no word right, 1.2,
+// 1.5, 2, 3 and 5 each put eight right and none wrong; 1.5 is taken to
+// stand clear of the gap without reaching far past it.
+const bonusShutTopic = 1.5
