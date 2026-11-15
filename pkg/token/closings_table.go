@@ -14,7 +14,10 @@ import (
 // 라니), 길래, 든가, ㄴ들, ㄹ망정, ㄹ지라도, ㄹ뿐더러, ㄹ세라,
 // 으라고, 다만, ㄴ다만, 는다만, 건만, 건대, 느냐고, ㄴ지라,
 // 는지라, 은지라, 답니다, ㄴ답니다, 는답니다, 랍니다, and the modifying
-// 려는 and 려던 (the dictionary's shortened 려고 하는, 려고 하던). Not
+// 려는 and 려던 (the dictionary's shortened 려고 하는, 려고 하던), and the quoting
+// endings that are shortened (냐는, 느냐는, 자는, 냐며, 느냐며, 냐면,
+// 느냐면, 냐면서, 느냐면서, 냐니까, 느냐니까, 자면, 자니, 자니까,
+// 다니까, ㄴ다니까, 는다니까, 라니까, 다더라, ㄴ다더라, 는다더라). Not
 // listed, though the dictionary has them: 든 and 는걸, ㄴ걸, 은걸, whose letters are
 // read as the particle 든 and as a modifying closing with 거 under 를.
 var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))

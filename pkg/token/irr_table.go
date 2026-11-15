@@ -67,7 +67,8 @@ var eoStems = map[string]string{"그러": "그래", "이러": "이래", "저러"
 const euLetters = "으은을음읍"
 
 // linkTakers are the closings of the tables that take the link vowel
-// 으 as a piece of its own (읽으니, 먹었으나); the others that take it
+// 으 as a piece of its own (읽으니, 먹었으나, 좋으냐는: 냐는, 냐며,
+// 냐면, 냐면서 and 냐니까 take it); the others that take it
 // have a form with 으 in the tables (으면, 은, 을).
 var linkTakers = closingSets[setLinkTaker]
 

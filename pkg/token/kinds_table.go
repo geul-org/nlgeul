@@ -65,8 +65,9 @@ var wordSets = data.Must(data.Sets("closed-words-more", setBoundAux, setAuxMore,
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
 // (also before a quotation's 고, 면, 는), 는구나, 는군, 느냐, 느라; the
-// proposal 자, ㅂ시다/읍시다; purpose and intent 러, 려, 려고, 려면,
-// 려다, 려는, 려던, 고자. The modifying 는 and 는데, 는지, 는가 are not here: 있다
+// proposal 자, ㅂ시다/읍시다; the quoting 느냐는, 느냐며, 느냐면,
+// 느냐면서, 느냐니까, 자는, 자면, 자니, 자니까, ㄴ다니까, 는다니까,
+// ㄴ다더라, 는다더라; purpose and intent 러, 려, 려고, 려면, 려다, 려는, 려던, 고자. The modifying 는 and 는데, 는지, 는가 are not here: 있다
 // and 없다 take them.
 var verbClosings = closingSets[setVerbOnly]
 
