@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderLinesAfterDot — no particle or closing is read right after a middle dot (·, ㆍ, ‧): 동ㆍ리ㆍ읍ㆍ면 has no ㆍ+면[맺음:면] and is read first as four words between dots, 갑·을 has no ·+을[목적격:을], 벽보‧를 no ‧+를; the words between dots still take their particles (도+에, 건물+을, 군+에)
+//ff:what TestReaderLinesAfterDot — no particle or closing is read right after a middle dot (·, ㆍ, ‧): 동ㆍ리ㆍ읍ㆍ면 has no ㆍ+면[맺음:면] and is read first as four words between dots, 갑·을 has no ·+을[목적격:을], 벽보‧를 no ‧+를; the words between dots still take their particles (도+에, 건물+을, 군+에); 시 before 군 is named as the dependent noun of the closed set
 package token
 
 import (
@@ -21,7 +21,7 @@ func TestReaderLinesAfterDot(t *testing.T) {
 		{"특별시ㆍ광역시ㆍ도에 둔다.", "", "", "ㆍ[가운뎃점] 도+에[부사격:에]", "ㆍ+도"},
 		{"벽보‧를 붙였다.", "", "", "  벽보‧를\t", "‧+를"},
 		{"토지·건물을 샀다.", "", "", "  토지 ·[가운뎃점] 건물+을[목적격:을]\t", "·+"},
-		{"시·군에 낸다.", "", "", "  시 ·[가운뎃점] 군+에[부사격:에]\t", "·+"},
+		{"시·군에 낸다.", "", "", "  시[의존명사:시] ·[가운뎃점] 군+에[부사격:에]\t", "·+"},
 	} {
 		lines := r.Lines(c.in, false)
 		got := strings.Join(lines, "\n")
