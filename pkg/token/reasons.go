@@ -165,13 +165,16 @@ const ruleUnmodified = "문장:꾸밈받을 말이 뒤에 없는 인·일 체언
 
 // Why the rules of a sentence that read the copula fall.
 const (
-	whyNotEnded  = "바로 뒤가 마침표·물음표나 문장의 끝이 아니다"
-	whyWordAfter = "바로 뒤에 낱말이 있다"
-	whyNotNumber = "줄기가 수가 아니다"
+	whyNotEnded    = "바로 뒤가 마침표·물음표나 문장의 끝이 아니다"
+	whyWordAfter   = "바로 뒤에 낱말이 있다"
+	whyNotNumber   = "줄기가 수가 아니다"
+	whyNotContrast = "마지막 조각이 맺음 나가 아니다"
+	whyNoComma     = "바로 뒤가 쉼표가 아니다"
 )
 
 // The names of the rules of a sentence that read the copula.
 const (
 	ruleCopulaEnd   = "문장:문장 끝 야는 서술격"
 	ruleNumberQuote = "문장:수 뒤 라고는 인용 조사"
+	ruleCopulaComma = "문장:쉼표 앞 이나는 서술격"
 )

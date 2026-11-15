@@ -319,3 +319,13 @@ const bonusCopula = 2.5
 // order) that a rule of a sentence reads 라고 after as the particle of
 // quotation (numberQuoteRule).
 var numberKinds = []string{"수", "차례"}
+
+// copulaNames are the names of the copula 이 written out, contrastNames
+// those of the linking ending 나 after it, and commaNames those of the
+// comma, which a rule of a sentence reads right after them
+// (copulaCommaRule).
+var (
+	copulaNames   = []string{"서술격:이"}
+	contrastNames = []string{"맺음:나"}
+	commaNames    = []string{"쉼표"}
+)
