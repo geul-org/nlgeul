@@ -23,7 +23,9 @@ import (
 // stem is known: lexed); a piece that begins with 어/아/여 is rebutted
 // when it does not fit the vowel before it, and a form with 으 read
 // after a stem's ㄹ (loose) as one that does not fit the consonant
-// before it; an auxiliary particle that sets a word before what is said
+// before it; a particle read only with a word table (wide: a shortened
+// particle, 선, 론, 으론) that no word is written right onto it, since it
+// closes its chain and ends its word; an auxiliary particle that sets a word before what is said
 // of it (leading) whether it stands right on its stem with a sign that
 // ends a sentence closing the unit after it; a closing written only
 // onto a Hangul stem (hangulBound) whether a Hangul syllable stands
@@ -75,6 +77,10 @@ func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) in
 	}
 	if e.wide && e.class == classClosing {
 		except(g, rule.PieceRight, whyRight, &rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(claim)
+		edges++
+	}
+	if e.wide && e.class == classParticle {
+		except(g, rule.PieceRight, whyRight, &rule.Bits{Of: "right", Mask: rule.RightOther}).Attacks(claim)
 		edges++
 	}
 	if e.head&headWhole != 0 {
