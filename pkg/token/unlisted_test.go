@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestUnlisted — a stem no table lists has a new word's verdict; with a word table it does not stand as a word the table (사과) or a closed set (거) knows only as a nominal before a predicate tail, though it does before particles and as a predicate's stem too (물), nor when it ends in ㅆ before markers (곰졌), judged as it was before a piece was fused into it (곰지); without a word table all of these stand; after the search a new word whose letters read as markers after a boundary does not stand whole (에), and stands with markers after it only without a word table; a new word whose letters hold, right after the atom at its head, only a title the spacing articles write apart, and which stands over a place where the script changes whose two sides read as an atom and a known word (A씨 before 가, 씨 a noun of the table), does not stand, while without a word table, where 씨 is no known word, it does
+//ff:what TestUnlisted — a stem no table lists has a new word's verdict; with a word table it does not stand as a word the table (사과) or a closed set (거) knows only as a nominal before a predicate tail, though it does before particles and as a predicate's stem too (물), nor when it ends in ㅆ before markers (곰졌), judged as it was before a piece was fused into it (곰지); without a word table all of these stand; after the search a new word whose letters read as markers after a boundary does not stand whole (에), and stands with markers after it only without a word table; a new word whose letters hold, right after the atom at its head, only a title the spacing articles write apart, and which stands over a place where the script changes whose two sides read as an atom and a known word (A씨 before 가, 씨 a noun of the table), does not stand, while without a word table, where 씨 is no known word, it does; a new word over such a place alone, whose letters are no word written apart, does not stand either (K팝 with 팝 a noun of the table, and 제1-1 over the place between the closed-set 제 and the atom 1-1), while K팝 with no 팝 in the table does
 package token
 
 import (
@@ -75,5 +75,16 @@ func TestUnlisted(t *testing.T) {
 	}
 	if v := scanOf("A씨가").unlisted(0, 3, "A씨", tail{start: 2, pieces: ga}); v != title.ix.unknown {
 		t.Fatal("without a word table 씨 is no known word, and A씨 stands", v)
+	}
+	pop := wordsScan("K팝", layerCost)
+	pop.ix.lex["팝"] = word{kinds: kindNominal, count: 500, by: [6]int{500}}
+	if v := pop.unlisted(0, 2, "K팝", tail{start: 2}); v > 0 {
+		t.Fatal("K팝: over the place between the atom K and the noun 팝, though 팝 is no word written apart", v)
+	}
+	if v := wordsScan("K팝", layerCost).unlisted(0, 2, "K팝", tail{start: 2}); v != title.ix.unknown {
+		t.Fatal("K팝 with no 팝 in the table stands", v)
+	}
+	if v := wordsScan("제1-1", layerCost).unlisted(0, 4, "제1-1", tail{start: 4}); v > 0 {
+		t.Fatal("제1-1 as a new word: over the place between the closed-set 제 and the atom 1-1", v)
 	}
 }
