@@ -27,9 +27,12 @@ import (
 // either: 려나, 려니, 려다가, 려거든, 랴, 으되 (되 has no form with 으),
 // 건마는, ㄹ진대, 을진대, ㄹ는지, 을는지, ㄴ대야, 는대야, ㄴ담, ㄴ고,
 // 다네 and the modifying 으라는; then the linking 요 of the copula's
-// stem and 아니 (학문이요, 아니요), with no count either. Not listed, though the dictionary has
-// them: 든 and 는걸, 은걸, whose letters are read as the particle 든 and
-// as a modifying closing with 거 under 를.
+// stem and 아니 (학문이요, 아니요), and the short 매, 람, 든 (the
+// shortened 든지, next to the particle 든 of the same letters) and 어다,
+// with no count either. Not listed, though the dictionary has them:
+// 는걸 and 은걸, read as a modifying closing with 거 under 를; 리,
+// which as a row stands after a stem that is not in the table; and 마
+// (promiseClosings).
 var moreClosings = data.Must(data.Each("closings-more", 4, markerRow))
 
 // gatedClosings are closings of this layer read only with a word
