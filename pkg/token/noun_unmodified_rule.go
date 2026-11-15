@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what nounUnmodifiedRule — the rule of a sentence "the letters of a dependent noun that stands only after a modifying form are the noun where none stands before them": a candidate that reads its stem, one of the words given (수, 줄), as a noun of the word table (열쇠:체언) is preferred when the word right before it does not end in a modifying closing (인구 수는, 빨래 줄을), and not otherwise (알 수)
+//ff:what nounUnmodifiedRule — the rule of a sentence "the letters of a dependent noun that stands only after a modifying form are the noun where none stands before them": a candidate that reads its stem, one of the words given (수, 줄), as a noun of the word table (열쇠:체언) is preferred when the word right before it does not end in a modifying closing (인구 수는, 빨래 줄을), and not otherwise (알 수), nor right before 알다 or 모르다 (… 줄 알고); it waits for the word after it
 package token
 
 import (
@@ -15,7 +15,7 @@ func nounUnmodifiedRule(words []string) sentenceRule {
 	noun := keyKind + ":" + kindLabel[kindNominal]
 	g, claim := sentenceClaim(ruleNounUnmodified, rule.Listed, listed("꾸밈 뒤에만 서는 의존 명사", rule.ListSelfStem, words))
 	except(g, rule.KindListed, whyAdn, listed("꾸밈 맺음", rule.ListPrevLast, []string{closingLabel(rule.KindAdn)})).Attacks(claim)
-	return sentenceRule{name: ruleNounUnmodified, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool {
-		return n.Kind == noun && slices.Contains(words, n.Stem)
-	}}
+	except(g, rule.Listed, whyKnowNext, listed("알다·모르다", rule.ListNextStem, knowStems)).Attacks(claim)
+	is := func(n rule.Near) bool { return n.Kind == noun && slices.Contains(words, n.Stem) }
+	return sentenceRule{name: ruleNounUnmodified, graph: g, bonus: bonusSentence, about: is, waits: is}
 }

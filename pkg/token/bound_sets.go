@@ -22,3 +22,8 @@ var (
 // modifying form, whose letters are a noun elsewhere
 // (nounUnmodifiedRule): 수 and 줄.
 var adnBound = []string{"수", "줄"}
+
+// knowStems are the stems of 알다 and 모르다, before which 줄 is the
+// dependent noun even when the word before it is not read as a modifying
+// form (the standard dictionary's 줄: -ㄹ 줄 알다, -ㄴ 줄 모르다).
+var knowStems = []string{"알", "모르"}

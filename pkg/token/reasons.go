@@ -190,4 +190,5 @@ const (
 
 	whyNoBoundNext = "바로 뒤 어절이 의존 명사가 아니다"
 	whyNominalNext = "바로 뒤 의존 명사가 체언 뒤에도 선다"
+	whyKnowNext    = "바로 뒤 어절이 알다·모르다다"
 )
