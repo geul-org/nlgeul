@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestGrowWord — each kept candidate is grown by the word that tail t makes; a word of no verdict grows none; a tail read only after a modifying closing grows only the candidates on which its graph stands; the candidates that end in a modifying closing or a determiner are not grown by a predicate; a word that ends in a modifying closing marks where it ends; a number in binary has two candidates
+//ff:what TestGrowWord — each kept candidate is grown by the word that tail t makes; a word of no verdict grows none; a tail read only after a modifying closing grows only the candidates on which its graph stands; the candidates that end in a modifying closing or a determiner are not grown by a predicate; a word that ends in a modifying closing marks where it ends, and so does one that ends in the linking 어/아 (and neither marks the other's); a number in binary has two candidates
 package token
 
 import (
@@ -24,8 +24,17 @@ func TestGrowWord(t *testing.T) {
 	}
 	turn := tail{start: 4, pieces: []piece{{text: "는", names: "꾸밈:는", verdict: 1, tail: rule.TailPred}}}
 	e = verb.stepsOf(2, 5, turn)[0]
-	if got := verb.growWord(nil, kept[:1], turn, e, 2, 5); len(got) != 1 || !verb.adnEnds[5] {
-		t.Fatal("a word that ends in a modifying closing is marked where it ends", got, verb.adnEnds)
+	if got := verb.growWord(nil, kept[:1], turn, e, 2, 5); len(got) != 1 || !verb.adnEnds[5] || verb.connEnds[5] {
+		t.Fatal("a word that ends in a modifying closing is marked where it ends", got, verb.adnEnds, verb.connEnds)
+	}
+	link := wordsScan("먹을마시어", layerCost)
+	eo := tail{start: 4, pieces: []piece{{text: "어", names: "맺음:어", verdict: 1, tail: rule.TailPred}}}
+	e = link.stepsOf(2, 5, eo)[0]
+	if got := link.growWord(nil, kept[:1], eo, e, 2, 5); len(got) != 1 || !link.connEnds[5] || link.adnEnds[5] {
+		t.Fatal("a word that ends in the linking 어/아 is marked where it ends", got, link.connEnds, link.adnEnds)
+	}
+	if got := link.growWord(nil, nil, eo, e, 2, 4); len(got) != 0 || link.connEnds[4] {
+		t.Fatal("no candidate kept before it, no mark", got, link.connEnds)
 	}
 	noun := wordsScan("먹을사과를", layerCost)
 	noun.adnEnds[2], noun.detEnds[2] = true, true

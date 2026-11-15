@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what knownCandidates — the ways a stem is a known word with what follows it, one for each kind a table gives it whose graph lets it stand (and each with that kind's verdict); none when no table has it, or no kind of it takes that tail; the kind's graph is told whether the stem's word is the whole of its unit (sole)
+//ff:what knownCandidates — the ways a stem is a known word with what follows it, one for each kind a table gives it whose graph lets it stand (and each with that kind's verdict); none when no table has it, or no kind of it takes that tail; the kind's graph is told whether the stem's word is the whole of its unit (sole) and whether the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail (conn)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -16,7 +16,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // determiner, and is named so. A closed-set word the word table lists as
 // a kind that stands too is read under the table's name as well (수 as
 // 수[의존명사:수] and 수[열쇠:체언]).
-func (ix *index) knownCandidates(stem string, tail int, sole bool) []kindCandidate {
+func (ix *index) knownCandidates(stem string, tail int, sole, conn bool) []kindCandidate {
 	c := ix.words[stem]
 	if ix.layers == layerNone {
 		return ix.setCandidates(c, stem, tail)
@@ -29,7 +29,7 @@ func (ix *index) knownCandidates(stem string, tail int, sole bool) []kindCandida
 		}
 		vs[i] = 1.0
 		if ix.layers >= layerKind {
-			vs[i] = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Count: countOf(w, k, i), Sole: sole})
+			vs[i] = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Count: countOf(w, k, i), Sole: sole, Conn: conn})
 		}
 		if vs[i] > 0 {
 			passed |= k

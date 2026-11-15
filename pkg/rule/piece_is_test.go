@@ -1,5 +1,5 @@
 //ff:func feature=rule type=rule control=iteration dimension=1
-//ff:what TestPieceIs — applies when the piece has one of the facts asked for (a lone digit, a whole word with its number, after a modifying closing, a modifying or naming form, a marked new word, the last piece, a stem keeping its vowel, a stem whose word is the whole of its unit, after a determiner, letters the word table gives as a wrong way to write another word); not when it has none of them, or when the context has no piece
+//ff:what TestPieceIs — applies when the piece has one of the facts asked for (a lone digit, a whole word with its number, after a modifying closing, a modifying or naming form, a marked new word, the last piece, a stem keeping its vowel, a stem whose word is the whole of its unit, after a determiner, letters the word table gives as a wrong way to write another word, an auxiliary's stem with a predicate tail right after a word that ends in the linking 어/아); not when it has none of them, or when the context has no piece
 package rule
 
 import (
@@ -37,6 +37,9 @@ func TestPieceIs(t *testing.T) {
 		{Piece{HasStem: true}, PieceMisspelt, -1},
 		{Piece{YoOpen: true}, PieceYoOpen, 1},
 		{Piece{HasStem: true, Misspelt: true}, PieceYoOpen, -1},
+		{Piece{Form: "주", Tail: TailPred, Conn: true}, PieceConn, 1},
+		{Piece{Form: "주", Tail: TailPred, Sole: true}, PieceConn, -1},
+		{Piece{Form: "주", Conn: true}, PieceSole | PieceConn, 1},
 		{Piece{Whole: true}, PieceNum | PieceWhole, 1},
 		{Piece{HasStem: true, Adn: true, Next: -1}, PieceLone | PieceMarked, -1},
 	}

@@ -39,7 +39,10 @@ package rule
 // Apart tells that the letters of a new word hold, right after a run
 // of Latin letters at its head, a word the spacing articles write
 // apart (a title of article 48 or a dependent noun of article 42), and
-// that they read there as nothing else (A씨, B군, PD님).
+// that they read there as nothing else (A씨, B군, PD님). Conn tells that
+// the piece is the stem of an auxiliary verb with a predicate tail and
+// that the word right before it ends in the linking closing 어/아 (an
+// auxiliary verb written onto its main verb: 주 in 해줘).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -68,4 +71,5 @@ type Piece struct {
 	YoOpen   bool
 	Order    bool
 	Apart    bool
+	Conn     bool
 }

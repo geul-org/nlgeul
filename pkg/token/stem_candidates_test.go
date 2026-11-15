@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStemCandidates — the letters before the tail; the syllable before fusing; a closed-set word; an atom; the word of a fused form, known under the form's name without a table and under the table's name with one; a misspelt stem is the right form, judged by the kinds of the misspelt line as a misspelt form and by nothing else; a stem that a tail reads as a number is named so with the number's verdict
+//ff:what TestStemCandidates — the letters before the tail; the syllable before fusing; a closed-set word; an atom; the word of a fused form, known under the form's name without a table and under the table's name with one; a misspelt stem is the right form, judged by the kinds of the misspelt line as a misspelt form and by nothing else; a stem that a tail reads as a number is named so with the number's verdict; an auxiliary verb's stem with a predicate tail right after a word that ends in the linking 어/아 stands higher, fully when seen enough (the rebuttal that it is one syllable long does not hold), under the same names
 package token
 
 import (
@@ -66,5 +66,13 @@ func TestStemCandidates(t *testing.T) {
 	}
 	if stem, _, _, wrote = stemIn(bs, 0, tail{start: 2, shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 8}}}, false); stem != "맡기" || wrote != "맞기" {
 		t.Fatal(stem, wrote)
+	}
+	aux := wordsScan("해줘", layerCost)
+	aux.ix.lex["주"] = word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
+	jwo := tail{start: 2, base: '주', pieces: []piece{{text: "(어)", names: "맺음:어(합침)", verdict: 1, tail: rule.TailPred}}}
+	stem, apart, low, _ := stemIn(aux, 1, jwo, false)
+	aux.connEnds[1] = true
+	if _, onto, v, _ := stemIn(aux, 1, jwo, false); stem != "주" || onto != apart || low >= 1 || v != 1 {
+		t.Fatal("an auxiliary's stem right after 어/아", stem, apart, low, onto, v)
 	}
 }

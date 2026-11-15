@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestPrepare — every run is an atom, joined runs one atom; a number with 제 before it begins at 제 and its end is noted (제3조│제1항); a unit of Hangul has none
+//ff:what TestPrepare — every run is an atom, joined runs one atom; a number with 제 before it begins at 제 and its end is noted (제3조│제1항); a unit of Hangul has none; the places where a word ends in a modifying closing, a determiner or the linking 어/아 start empty
 package token
 
 import (
@@ -22,5 +22,8 @@ func TestPrepare(t *testing.T) {
 	sc.prepare()
 	if len(sc.atoms) != 0 || len(sc.inside) != 4 {
 		t.Fatal(sc.atoms)
+	}
+	if sc.adnEnds == nil || sc.detEnds == nil || sc.connEnds == nil || len(sc.adnEnds)+len(sc.detEnds)+len(sc.connEnds) != 0 {
+		t.Fatal("ends before reading", sc.adnEnds, sc.detEnds, sc.connEnds)
 	}
 }

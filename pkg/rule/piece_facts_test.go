@@ -29,11 +29,12 @@ func TestPieceFacts(t *testing.T) {
 		{Piece{Order: true}, PieceOrder},
 		{Piece{Num: true, Order: true}, PieceNum | PieceOrder},
 		{Piece{Apart: true}, PieceApart},
+		{Piece{Conn: true}, PieceConn},
 		{Piece{Adn: true, Det: true}, PieceAdn | PieceDet},
 		{Piece{HasStem: true, Adn: true, Next: -1}, PieceStem | PieceAdn | PieceLast},
 		{Piece{Keeps: true, Sole: true}, PieceKeeps | PieceSole},
-		{Piece{HasStem: true, Num: true, Lone: true, Whole: true, Adn: true, Turned: true, Marked: true, Next: -1, Keeps: true, Sole: true, Det: true, Closed: true, Same: true, Misspelt: true, YoOpen: true, Order: true, Apart: true},
-			PieceStem | PieceNum | PieceLone | PieceWhole | PieceAdn | PieceTurned | PieceMarked | PieceLast | PieceKeeps | PieceSole | PieceDet | PieceClosed | PieceSame | PieceMisspelt | PieceYoOpen | PieceOrder | PieceApart},
+		{Piece{HasStem: true, Num: true, Lone: true, Whole: true, Adn: true, Turned: true, Marked: true, Next: -1, Keeps: true, Sole: true, Det: true, Closed: true, Same: true, Misspelt: true, YoOpen: true, Order: true, Apart: true, Conn: true},
+			PieceStem | PieceNum | PieceLone | PieceWhole | PieceAdn | PieceTurned | PieceMarked | PieceLast | PieceKeeps | PieceSole | PieceDet | PieceClosed | PieceSame | PieceMisspelt | PieceYoOpen | PieceOrder | PieceApart | PieceConn},
 	}
 	for _, c := range cases {
 		if got := pieceFacts(c.p); got != c.want {

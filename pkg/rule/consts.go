@@ -144,6 +144,7 @@ const (
 	PieceYoOpen               // the particle 요 stands right after it, and it stands right on a stem that ends in a Hangul syllable with no final consonant or right after the suffix 이 on a stem
 	PieceOrder                // the number right before it begins with the prefix 제
 	PieceApart                // its letters hold, right after a run of Latin letters, a word the spacing articles write apart
+	PieceConn                 // the word right before it ends in the linking 어/아 and it is an auxiliary's stem with a predicate tail
 )
 
 // Yes/no facts of a sign that MarkIs tests.
