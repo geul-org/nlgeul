@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestCrossesChangeLines — end to end, with the words after the Latin letters as words of the word table: A씨가, B군은, PD님이, CEO님이, OO님께, B씨와, C씨가 and A씨 lose the whole new word over the place where the script changes and the word after it stands as a word of its own; so do K팝을, e북을, N잡을 and MC몽의 (any known word after the run), OO내는 (내 a verb too, read both ways) and C양의 (양의 a word too, read both ways); 3분이 keeps the number and its unit, K교수가 and T셔츠를 keep their reading cut in two
+//ff:what TestCrossesChangeLines — end to end, with the words after the Latin letters as words of the word table: A씨가, B군은, PD님이, CEO님이, OO님께, B씨와, C씨가 and A씨 lose the whole new word over the place where the script changes and the word after it stands as a word of its own; so do K팝을, e북을, N잡을 and MC몽의 (any known word after the run), OO내는 (내 a verb too, read both ways) and C양의 (양의 a word too, read both ways); 3분이 keeps the number and its unit, K교수가 and T셔츠를 keep their reading cut in two; git했다 and push했다 lose the whole new word git하, push하 over the place right before 했, the stem's last syllable a piece is fused into, and 하+ㅆ+다 stands after the run
 package token
 
 import (
@@ -35,6 +35,8 @@ func TestCrossesChangeLines(t *testing.T) {
 		{"3분이 지났다.", []string{"\n  3[수]+분[단위:분]+이[주격:이]\t"}, nil},
 		{"K교수가 말했다.", []string{"교수[열쇠:체언]+가[주격:가]\t"}, []string{"K교수"}},
 		{"T셔츠를 입고 갔다.", []string{"\n  T[열:영숫자] 셔츠[열쇠:체언]+를[목적격:를]\t"}, []string{"T셔츠+"}},
+		{"파일을 git했다.", []string{"\n  하[열쇠:동사]+(였)[선어말:ㅆ]+다[맺음:다]\t"}, []string{"git하"}},
+		{"코드를 push했다.", []string{"\n  하[열쇠:동사]+(였)[선어말:ㅆ]+다[맺음:다]\t"}, []string{"push하"}},
 	} {
 		got := "\n" + strings.Join(r.Lines(c.in, false), "\n") + "\n"
 		for _, w := range c.want {

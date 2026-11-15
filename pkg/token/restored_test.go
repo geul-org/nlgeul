@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestRestored — a dropped ㅡ put back where the vowel follows the syllable before it (따라, 치러, 써, 바빠) stands; it does not for a stem the table gives as 르 or 러 irregular (모라, 이러), for the wrong vowel (따러) and for 아 after a stem of one syllable (싸, also after a boundary); a piece taken out of a syllable right after a Latin letter or digit inside the stem does not stand (api과, v2과), but 하, 되 and 이 (push해, merge된, api인데), a stem of one syllable after a boundary, a Hangul stem and a tail with nothing fused do; end to end the live ones are read and the dead ones are not, api과 has no api고+(아) and push해 keeps push하+(여); the graph is told whether the syllable stands in the letters as it is: 하 right before the tail's start stays 하 (말하, no 말하+아) and is not put back, while 해 is, and a syllable of any other stem (가, 서) is put back either way; end to end 하지는, 말하지는 and 하서 have no 하+(아) candidate while 해, 해서, 가서 , 했다 and 가 keep theirs, with and without a word table
+//ff:what TestRestored — a dropped ㅡ put back where the vowel follows the syllable before it (따라, 치러, 써, 바빠) stands; it does not for a stem the table gives as 르 or 러 irregular (모라, 이러), for the wrong vowel (따러) and for 아 after a stem of one syllable (싸, also after a boundary); a piece taken out of a syllable right after a Latin letter or digit inside the stem does not stand (api과, v2과), but 하, 되 and 이 (push해, merge된, api인데), a stem of one syllable after a boundary, a Hangul stem and a tail with nothing fused do; end to end the live ones are read and the dead ones are not, api과 has no api고+(아) and push해 keeps push하+(여) without a word table, while with one the whole new word push하 stands over the place where the script changes right before the syllable a piece is fused into, whose two sides read as a run and as 하+(여) (crossesChange), and push │ 하+(여) stands instead; the graph is told whether the syllable stands in the letters as it is: 하 right before the tail's start stays 하 (말하, no 말하+아) and is not put back, while 해 is, and a syllable of any other stem (가, 서) is put back either way; end to end 하지는, 말하지는 and 하서 have no 하+(아) candidate while 해, 해서, 가서 , 했다 and 가 keep theirs, with and without a word table
 package token
 
 import (
@@ -80,13 +80,19 @@ func TestRestored(t *testing.T) {
 			t.Errorf("%s: a dropped ㅡ put back where the stem does not drop it\n%s", in, got)
 		}
 	}
-	for _, opt := range []Options{{}, {Words: "testdata/words.tsv"}} {
-		r, _ := New(opt)
+	for _, c := range []struct {
+		opt        Options
+		push, gone string
+	}{
+		{Options{}, "push하+(여)[맺음:어(합침)]", ""},
+		{Options{Words: "testdata/words.tsv"}, "\n  하[열쇠:동사]+(여)[맺음:어(합침)]\t", "push하"},
+	} {
+		r, _ := New(c.opt)
 		if got := strings.Join(r.Lines("api과", false), "\n"); strings.Contains(got, "api고+(아)") || !strings.Contains(got, "api[열:영숫자]+과[부사격:과]") {
-			t.Errorf("api과 (%q)\n%s", opt.Words, got)
+			t.Errorf("api과 (%q)\n%s", c.opt.Words, got)
 		}
-		if got := strings.Join(r.Lines("push해", false), "\n"); !strings.Contains(got, "push하+(여)[맺음:어(합침)]") {
-			t.Errorf("push해 (%q)\n%s", opt.Words, got)
+		if got := "\n" + strings.Join(r.Lines("push해", false), "\n") + "\n"; !strings.Contains(got, c.push) || c.gone != "" && strings.Contains(got, c.gone) {
+			t.Errorf("push해 (%q)\n%s", c.opt.Words, got)
 		}
 	}
 	plain, _ := New(Options{})

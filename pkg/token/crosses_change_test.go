@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestCrossesChange — a new word over a place where the script changes, whose two sides read as an atom or a known word and as a known word or a run, crosses it: A씨 with 가 after it or as a whole, AB씨 past a place where the script does not change, 3분 after a digit, 학교A with Hangul before the run; not so when the side before the place is neither (곰곰A), when the side after it reads as nothing known (K팝 with no 팝), when the tail names its own stem or stands for a number, nor when the place is the stem's last syllable a piece is fused into
+//ff:what TestCrossesChange — a new word over a place where the script changes, whose two sides read as an atom or a known word and as a known word or a run, crosses it: A씨 with 가 after it or as a whole, AB씨 past a place where the script does not change, 3분 after a digit, 학교A with Hangul before the run; not so when the side before the place is neither (곰곰A), when the side after it reads as nothing known (K팝 with no 팝), when the tail names its own stem or stands for a number, nor where the script does not change (곰곰했다); the place right before the stem's last syllable a piece is fused into is inside the stem (git했다: git하)
 package token
 
 import (
@@ -26,8 +26,12 @@ func TestCrossesChange(t *testing.T) {
 	if sc.crossesChange(0, 2, tail{start: 2, as: "수"}) {
 		t.Fatal("a tail that stands for a number is not asked")
 	}
-	if sc.crossesChange(0, 2, tail{start: 2, base: '씨', pieces: ga}) {
-		t.Fatal("the stem's last syllable a piece is fused into is not inside the stem as written")
+	past := wordsScan("git했다", layerCost)
+	if !past.crossesChange(0, 5, tail{start: 4, base: '하'}) {
+		t.Fatal("git했다: the place right before 했, the stem's last syllable a piece is fused into, is inside the stem git하")
+	}
+	if wordsScan("곰곰했다", layerCost).crossesChange(0, 5, tail{start: 4, base: '하'}) {
+		t.Fatal("곰곰했다: no place where the script changes")
 	}
 
 	two := wordsScan("AB씨", layerCost)
