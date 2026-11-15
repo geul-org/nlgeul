@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what addStems — the graph of a new word (a stem no table lists) and the graph of a stem's restored last syllable; the new word's claim is rebutted by "it is in no key table" and excepted when its letters read as markers after a boundary, when they hold, right after a run of Latin letters at its head, only a word the spacing articles write apart (A씨), and when it stands over a place where the script changes whose two sides each read as a known word or a run of Latin letters and digits (A씨, K팝), and with a word table when it ends in ㅆ before markers and when the tables know it only as kinds that take no predicate tail before one; the restored syllable's claim is excepted when it stands right after a letter that is no Hangul, when the stem keeps its ㅡ, when the 어/아 put back does not fit the stem, and when it is 하 as it stands in the letters (하 takes 여 and shows it: 해, 하여)
+//ff:what addStems — the graph of a new word (a stem no table lists) and the graph of a stem's restored last syllable; the new word's claim is rebutted by "it is in no key table" and excepted when its letters read as markers after a boundary, when they hold, right after a run of Latin letters at its head, only a word the spacing articles write apart (A씨), when it stands over a place where the script changes whose two sides each read as a known word or a run of Latin letters and digits (A씨, K팝), and when its letters are a modifier and a known word it modifies written together (못와, 두손, 좀더, 할거), and with a word table when it ends in ㅆ before markers and when the tables know it only as kinds that take no predicate tail before one; the restored syllable's claim is excepted when it stands right after a letter that is no Hangul, when the stem keeps its ㅡ, when the 어/아 put back does not fit the stem, and when it is 하 as it stands in the letters (하 takes 여 and shows it: 해, 하여)
 package token
 
 import (
@@ -29,7 +29,14 @@ import (
 // word table or without, over a place inside its stem where a run of
 // Latin letters and digits meets a Hangul syllable (a place where a
 // word may end with no marker), when the two sides cut there each read
-// as a known word or as such a run (A씨, K팝).
+// as a known word or as such a run (A씨, K팝). Nor does it stand, with a
+// word table or without, when its letters split at a place inside them
+// into a modifier and a known word of what it modifies, which clause 2 of
+// the spelling rules writes apart as two words: the negative adverb 안 or
+// 못 before a predicate (못와), the numeral determiner 한 or 두 before a
+// nominal (두손), an adverb before an adverb (좀더), the modifying form of
+// a predicate before the dependent noun 것 or 거 (할거, which clause 42
+// writes apart).
 //
 // A piece is fused only into a Hangul stem's last syllable: right after
 // a letter that is no Hangul inside the stem the syllable is not taken
@@ -50,6 +57,7 @@ func (ix *index) addStems() {
 	marked.Attacks(claim)
 	except(g, rule.PieceIs, whyWrittenApart, fact(rule.PieceApart)).Attacks(claim)
 	except(g, rule.PieceIs, whyChange, fact(rule.PieceChange)).Attacks(claim)
+	except(g, rule.PieceIs, whyModifier, fact(rule.PieceModifier)).Attacks(claim)
 	if ix.lexed {
 		except(g, rule.StemCoda, whyCoda, &rule.Bits{Of: "jong", Mask: rule.JongSS}).Attacks(claim)
 		known := except(g, rule.StemKind, whyKnown, &rule.Bits{Of: "kinds", Mask: kindAny})
@@ -61,7 +69,7 @@ func (ix *index) addStems() {
 		except(g, rule.StemTail, whyUntold, &rule.Bits{Of: "tail", Mask: rule.TailBare}).Attacks(marked)
 		ix.edges++
 	}
-	ix.stem, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+4
+	ix.stem, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+5
 	ix.unknown = verdict(g, rule.Piece{})
 	r := toulmin.NewGraph(restoreName)
 	claim = r.Rule(rule.PieceRead).With(&rule.Claim{Name: restoreName, Concludes: "줄기"})

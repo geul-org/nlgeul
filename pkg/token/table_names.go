@@ -49,6 +49,8 @@ const (
 	setHangul      = "한글 뒤만"
 	setVerbExist   = "동사·있다·없다·계시다"
 	setAdnBound    = "꾸밈 맺음 뒤 의존명사"
+	setNegAdverb   = "부정 부사"
+	setNumDet      = "수 관형사"
 )
 
 var contractSets = map[string]int{setContract: 0, setPronoun: 0, setNounCopula: 0, setTypo: 0}

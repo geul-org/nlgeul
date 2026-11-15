@@ -155,6 +155,7 @@ const (
 	PieceGlossed              // its unit's letters are Hangul syllables, and right after them stands a round bracket that holds Han characters alone, as many as those syllables (the letters are their sound: 대곤(大棍))
 	PieceUnitWord             // it is a stem that begins right after a number, and its letters are a unit of the unit table and then a word written after a unit (5년간)
 	PieceBound                // the word right before it ends in a modifying closing and it is the stem of a dependent noun that stands on its modifier (것, 거)
+	PieceModifier             // it is a new word whose letters are a modifier and a known word it modifies written together (못와, 두손, 좀더, 할거)
 )
 
 // Yes/no facts of a sign that MarkIs tests.

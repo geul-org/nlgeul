@@ -14,3 +14,11 @@ package token
 // modifying closing (수 줄 데 때 채 too) 5 more wrong and none more right.
 // A closed table: only what is listed is read so.
 var adnOnto = wordSets[setAdnBound]
+
+// boundForms are the forms the stem of a word of adnOnto may be written
+// in: the words and the closed table's wrong ways to write them (꺼 for 거).
+// A stem of them read from a place begins with the initial consonant of
+// one of these, whatever is fused into its last syllable (건, 걸, 겁니다,
+// 게), so that modifiesAt does not read the letters around a place whose
+// syllable begins otherwise.
+var boundForms = writtenForms(adnOnto, typoKeys)

@@ -109,6 +109,7 @@ const (
 	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
 	whyNotShutAfter    = "바로 뒤가 닫는 기호가 아니다"
 	whyAdnBound        = "꾸밈 맺음 바로 뒤에 붙여 쓴 의존명사 것·거의 줄기다"
+	whyModifier        = "꾸밈말과 그 꾸밈을 받는 아는 낱말을 붙여 쓴 통짜 새 낱말이다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.

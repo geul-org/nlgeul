@@ -60,6 +60,12 @@ package rule
 // token layer lets stand on the word it follows (것 and its spoken form
 // 거) and that the word right before it ends in a modifying closing (a
 // dependent noun written onto its modifier: 거 in 하는거).
+// Modifier tells that the letters of a new word split at a place inside
+// them into a modifier the token layer lists and a known word of what it
+// modifies, which the spacing rules write apart: a negative adverb before
+// a predicate (못와), a numeral determiner before a nominal (두손), an
+// adverb before an adverb (좀더), the modifying form of a predicate before
+// the dependent noun 것 or 거 (할거).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -93,4 +99,5 @@ type Piece struct {
 	Glossed  bool
 	UnitWord bool
 	Bound    bool
+	Modifier bool
 }
