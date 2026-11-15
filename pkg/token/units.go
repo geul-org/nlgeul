@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits; for all but a greater number also Hangul numerals or a Latin letter of the table)
+//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters)
 package token
 
 import (
@@ -26,6 +26,9 @@ func (sc *scan) units(j, next int, open bool) []tail {
 		lefts, words := sc.units(start, e.slot, false), sc.numerals(start)
 		if e.slot == placeBig {
 			words = nil
+		}
+		if e.form == letterUnit {
+			words = append(words, sc.orderLetter(start)...)
 		}
 		if len(lefts) == 0 && len(words) == 0 && !rule.RunRune(sc.s[start-1]) {
 			continue

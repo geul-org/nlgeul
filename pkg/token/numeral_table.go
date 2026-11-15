@@ -37,3 +37,12 @@ const bigName = "큰 수:"
 // numeralReachMax is how far back from a place a numeral of the tables
 // is looked for (numeralReach).
 var numeralReachMax = numeralReach()
+
+// orderLetters are the letters that number the items (목) of a law's
+// article, in their order (가목, 나목, …, 하목, then 거목, …, 허목). They
+// stand where a number stands before letterUnit only (orderLetter), each
+// taken as one of them.
+const (
+	orderLetters = "가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허"
+	letterUnit   = "목"
+)
