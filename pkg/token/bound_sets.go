@@ -31,3 +31,8 @@ var knowStems = []string{"알", "모르"}
 // middleDot is the name of the middle dot of the table of signs, which
 // joins words listed side by side (nounListedRule).
 const middleDot = "가운뎃점"
+
+// denyStems is the stem of 아니다, before which a dependent noun at the
+// head of a sentence is still the dependent noun (뿐만 아니라, the
+// standard dictionary's 뿐: -ㄹ 뿐만 아니라).
+var denyStems = []string{"아니"}

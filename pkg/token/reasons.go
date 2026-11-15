@@ -197,4 +197,5 @@ const (
 	whyNominalSelf = "체언 뒤에도 서는 의존 명사다"
 	whyNoDotNext   = "바로 뒤가 가운뎃점이 아니다"
 	whyNotHeaded   = "문장 첫머리도 여는 기호 바로 뒤도 아니다"
+	whyDenyNext    = "바로 뒤 어절이 아니다다"
 )
