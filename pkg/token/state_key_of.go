@@ -4,5 +4,5 @@ package token
 
 func stateKeyOf(p *path) stateKey {
 	e := p.last
-	return stateKey{word: wordKeyOf(p), verdict: e.verdict, pref: e.pref, back: e.back, adn: e.adn, det: e.det, conn: e.conn, kind: e.kind}
+	return stateKey{word: wordKeyOf(p), verdict: e.verdict, pref: e.pref, adn: e.adn, det: e.det, conn: e.conn, kind: e.kind}
 }

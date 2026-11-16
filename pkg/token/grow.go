@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what grow — a candidate with one more word: the least verdict so far (section 12: a candidate holds as much as its weakest piece) and the summed preference; an auxiliary verb written right after the 어/아 form of its main verb has the cost of the boundary between them given back
+//ff:what grow — a candidate with one more word: the least verdict so far (section 12: a candidate holds as much as its weakest piece) and the summed preference
 package token
 
 import "math"
@@ -9,9 +9,5 @@ func grow(p *path, e step) *path {
 	if p.prev != nil || p.sig != "" {
 		sig = p.sig + " " + e.sig
 	}
-	pref := p.pref + e.pref
-	if p.last.conn {
-		pref += e.back
-	}
-	return &path{prev: p, last: e, sig: sig, verdict: math.Min(p.verdict, e.verdict), pref: pref}
+	return &path{prev: p, last: e, sig: sig, verdict: math.Min(p.verdict, e.verdict), pref: p.pref + e.pref}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestWordOf — a new word with its marker: the low verdict, the stem and marker printed with the graph name; a closed-set word as stem has verdict 1; a stem a piece is fused into is printed and looked up as it was before fusing; with a word table a stem is known only when its kind takes what follows, a stem the table knows only as a nominal does not stand as a new word before a predicate tail either (verdict 0 or less), and its preference comes from the table's count less the cost of structure; a stem read as a number has the preference the tail gives it; the boundary given back to an auxiliary verb's stem after a boundary only when a predicate tail follows it and it is known there (not before particles or the copula, not alone, not as the unit's first word, not for another verb; with a word table 있 before an adjective's closing is no known word, and as a new word that ends in ㅆ before markers it does not stand)
+//ff:what TestWordOf — a new word with its marker: the low verdict, the stem and marker printed with the graph name; a closed-set word as stem has verdict 1; a stem a piece is fused into is printed and looked up as it was before fusing; with a word table a stem is known only when its kind takes what follows, a stem the table knows only as a nominal does not stand as a new word before a predicate tail either (verdict 0 or less), and its preference comes from the table's count less the cost of structure; a stem read as a number has the preference the tail gives it; a word that ends in 어 ends in the linking closing; an auxiliary verb's letters after a boundary stand as the auxiliary verb before a predicate tail, and stand before particles or the copula, alone and as the unit's first word; a known verb that is no auxiliary stands after a boundary; with a word table 있 before an adjective's closing is no known word, and as a new word that ends in ㅆ before markers it does not stand (without a word table it stands)
 package token
 
 import (
@@ -49,48 +49,42 @@ func TestWordOf(t *testing.T) {
 		t.Fatal(e)
 	}
 	main := wordsScan("먹어보다", layerCost)
-	if e = main.wordOf(0, 2, tail{start: 1, pieces: []piece{{"어", "맺음:어", 1, -1, rule.TailPred, false, ""}}}); !e.conn || e.back != 0 {
+	if e = main.wordOf(0, 2, tail{start: 1, pieces: []piece{{"어", "맺음:어", 1, -1, rule.TailPred, false, ""}}}); !e.conn {
 		t.Fatal("a word that ends in 어", e)
 	}
-	if e = main.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false, ""}}}); e.conn || e.back != costBoundary {
+	if e = main.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false, ""}}}); e.conn || e.verdict <= 0 {
 		t.Fatal("an auxiliary verb's stem after a boundary", e)
 	}
 	aux := wordsScan("열어두는", layerCost)
-	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false, ""}}}); e.back != costBoundary || e.sig != "두[보조 용언:두]+는[꾸밈:는]" {
+	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false, ""}}}); e.sig != "두[보조 용언:두]+는[꾸밈:는]" {
 		t.Fatal("an auxiliary verb's stem before a predicate tail", e)
 	}
-	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "보조사:는", 1, -1, rule.TailAux, false, ""}}}); e.back != 0 || e.verdict <= 0 {
+	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "보조사:는", 1, -1, rule.TailAux, false, ""}}}); e.verdict <= 0 {
 		t.Fatal("the same letters standing as a noun before a particle", e)
 	}
-	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"를", "목적격:를", 1, -1, rule.TailCase, false, ""}}}); e.back != 0 || e.verdict <= 0 {
+	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"를", "목적격:를", 1, -1, rule.TailCase, false, ""}}}); e.verdict <= 0 {
 		t.Fatal("the same letters standing as a noun before a case particle", e)
 	}
-	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"이다", "서술격:이다", 1, -1, rule.TailCopula, false, ""}}}); e.back != 0 || e.verdict <= 0 {
+	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"이다", "서술격:이다", 1, -1, rule.TailCopula, false, ""}}}); e.verdict <= 0 {
 		t.Fatal("the same letters standing as a noun before the copula", e)
 	}
-	if e = aux.wordOf(2, 3, tail{start: 3}); e.back != 0 || e.verdict <= 0 {
+	if e = aux.wordOf(2, 3, tail{start: 3}); e.verdict <= 0 {
 		t.Fatal("an auxiliary verb's letters standing alone", e)
 	}
-	if e = aux.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false, ""}}}); e.back != costBoundary {
-		t.Fatal("an auxiliary verb's stem before a closing", e)
-	}
 	first := wordsScan("두는", layerCost)
-	if e = first.wordOf(0, 2, tail{start: 1, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false, ""}}}); e.back != 0 || e.verdict <= 0 {
+	if e = first.wordOf(0, 2, tail{start: 1, pieces: []piece{{"는", "꾸밈:는", 1, -1, rule.TailVerb, false, ""}}}); e.verdict <= 0 {
 		t.Fatal("an auxiliary verb's stem as the unit's first word", e)
 	}
 	other := wordsScan("열어먹다", layerCost)
-	if e = other.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false, ""}}}); e.back != 0 || e.verdict <= 0 {
+	if e = other.wordOf(2, 4, tail{start: 3, pieces: []piece{{"다", "맺음:다", 1, -1, rule.TailPred, false, ""}}}); e.verdict <= 0 {
 		t.Fatal("a known verb that is no auxiliary, after a boundary", e)
 	}
 	adj := []piece{{"다", "맺음:다", 1, -1, rule.TailAdj, false, ""}}
-	if e = wordsScan("열어있다", layerCost).wordOf(2, 4, tail{start: 3, pieces: adj}); e.back != 0 || e.verdict > 0 || e.word.Parts[0].Name != (Name{}) {
+	if e = wordsScan("열어있다", layerCost).wordOf(2, 4, tail{start: 3, pieces: adj}); e.verdict > 0 || e.word.Parts[0].Name != (Name{}) {
 		t.Fatal("an auxiliary verb's letters that stand as no known word before an adjective's closing, nor as a new word (a stem in ㅆ)", e)
 	}
-	if e = scanOf("열어있다").wordOf(2, 4, tail{start: 3, pieces: adj}); e.back != costBoundary || e.verdict != 1 {
+	if e = scanOf("열어있다").wordOf(2, 4, tail{start: 3, pieces: adj}); e.verdict != 1 {
 		t.Fatal("without a word table, an auxiliary verb's stem before an adjective's closing", e)
-	}
-	if e = scanOf("열어두는").wordOf(2, 4, tail{start: 3, pieces: []piece{{"는", "보조사:는", 1, -1, rule.TailAux, false, ""}}}); e.back != 0 {
-		t.Fatal("without a word table, an auxiliary verb's letters before a particle", e)
 	}
 	num := scanOf("세명")
 	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.sig != "세[수]+명[단위:명]" || e.pref != -1.5-costPiece || e.verdict != 1 {

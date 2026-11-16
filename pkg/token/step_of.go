@@ -30,8 +30,5 @@ func (sc *scan) stepOf(b, end int, t tail, r stemCandidate) step {
 	e.adn = strings.HasPrefix(last, adnPrefix)
 	e.det = len(t.pieces) == 0 && determiner(e.word.Parts[0].Name)
 	e.conn = slices.Contains(connNames, last)
-	if b > 0 && r.v > 0 && tailClass(t.pieces)&predTails != 0 && slices.Contains(sc.ix.auxStems(), r.stem) {
-		e.back = sc.ix.structure(b, nil) - sc.ix.structure(0, nil)
-	}
 	return e
 }

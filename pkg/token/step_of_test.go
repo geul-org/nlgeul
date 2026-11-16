@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStepOf — the word from b to end that tail t makes as the stem is read: the stem and the pieces as parts with their names, hidden letters and written forms; the least verdict (a stem that does not stand has the new word's); the preference of the stem and the pieces, or the tail's weight; whether it ends in a modifying closing, is a determiner, or ends in the linking closing; the boundary before an auxiliary verb's stem given back only for a predicate tail after a boundary
+//ff:what TestStepOf — the word from b to end that tail t makes as the stem is read: the stem and the pieces as parts with their names, hidden letters and written forms; the least verdict (a stem that does not stand has the new word's); the preference of the stem and the pieces, or the tail's weight; whether it ends in a modifying closing, is a determiner, or ends in the linking closing; an auxiliary verb's stem printed with its name
 package token
 
 import (
@@ -16,30 +16,14 @@ func TestStepOf(t *testing.T) {
 	if e.sig != "열[열쇠:동사]+는[꾸밈:는]" || e.end != 4 || e.kind != kindVerb || e.verdict != 0.8 || !e.adn || e.det || e.conn || e.word.End != 4 || len(e.word.Parts) != 2 || !e.word.Parts[0].Stem {
 		t.Fatal(e)
 	}
-	if e.back != 0 {
-		t.Fatal("a stem that is no auxiliary makes no boundary before a stem that is no auxiliary", e.back)
-	}
 	aux := stemCandidate{kindCandidate{kindVerb, "보조 용언:두", 1}, "두", ""}
-	if e = sc.stepOf(2, 4, to, aux); e.back != costBoundary || e.sig != "두[보조 용언:두]+는[꾸밈:는]" {
+	if e = sc.stepOf(2, 4, to, aux); e.sig != "두[보조 용언:두]+는[꾸밈:는]" {
 		t.Fatal("an auxiliary verb's stem after a boundary, before a predicate tail", e)
 	}
-	if e = sc.stepOf(0, 2, to, aux); e.back != 0 {
-		t.Fatal("as the unit's first word", e.back)
-	}
 	case_ := tail{start: 3, pieces: []piece{{"를", "목적격:를", 1, -1, rule.TailCase, false, ""}}}
-	if e = sc.stepOf(2, 4, case_, aux); e.back != 0 {
-		t.Fatal("before a particle", e.back)
-	}
 	other := stemCandidate{kindCandidate{kindVerb, "열쇠:동사", 1}, "열", ""}
-	if e = sc.stepOf(2, 4, to, other); e.back != 0 {
-		t.Fatal("a stem that is no auxiliary", e.back)
-	}
-	unseen := stemCandidate{kindCandidate{0, "", 0}, "두", ""}
-	if e = sc.stepOf(2, 4, to, unseen); e.back != 0 {
-		t.Fatal("an auxiliary verb's letters that stand as no word", e.back)
-	}
 	free := stemCandidate{kindCandidate{0, "", 0}, "곰", ""}
-	if e = sc.stepOf(2, 4, to, free); e.back != 0 || e.verdict != sc.unlisted(2, 4, "곰", to) || e.verdict == 0.8 || e.word.Parts[0].Name != (Name{}) || e.word.Parts[0].Text != "곰" {
+	if e = sc.stepOf(2, 4, to, free); e.verdict != sc.unlisted(2, 4, "곰", to) || e.verdict == 0.8 || e.word.Parts[0].Name != (Name{}) || e.word.Parts[0].Text != "곰" {
 		t.Fatal("a stem that does not stand has no name and the new word's verdict", e)
 	}
 	wrote := stemCandidate{kindCandidate{kindNominal, "열쇠:체언", 1}, "역할", "역활"}
