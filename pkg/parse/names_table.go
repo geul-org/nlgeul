@@ -48,6 +48,7 @@ const (
 	helperSet      = "보조 용언"
 	determinerSet  = "관형사"
 	conjunctionSet = "접속 부사"
+	pointerSet     = "지시어"
 	joinedMark     = "붙여 읽음"
 	maxSlot        = 5
 )

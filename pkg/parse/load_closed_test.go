@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestLoadClosed — the closed sets are listed in the order of their lines; the line of a set outside the three is left out; a line of the dependent nouns is an error that names the column and the table they are written in
+//ff:what TestLoadClosed — the closed sets are listed in the order of their lines; the line of a set outside the four is left out; a line of the dependent nouns is an error that names the column and the table they are written in
 package parse
 
 import (
@@ -11,9 +11,9 @@ import (
 func TestLoadClosed(t *testing.T) {
 	got, err := loadClosed([]data.Row{
 		rowFor("보조 용언", "주"), rowFor("관형사", "이"), rowFor("보조 용언", "보"), rowFor("접속 부사", "그리고"),
-		rowFor("대명사", "네"),
+		rowFor("대명사", "네"), rowFor("지시어", "이"), rowFor("지시어", "그"),
 	})
-	if err != nil || len(got) != 3 || strings.Join(got[helperSet], ",") != "주,보" || strings.Join(got[determinerSet], ",") != "이" ||
+	if err != nil || len(got) != 4 || strings.Join(got[pointerSet], ",") != "이,그" || strings.Join(got[helperSet], ",") != "주,보" || strings.Join(got[determinerSet], ",") != "이" ||
 		strings.Join(got[conjunctionSet], ",") != "그리고" {
 		t.Fatal(got, err)
 	}

@@ -1,11 +1,11 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what loadClosed — the closed sets of words read from the lines of their table (set, word): the words of each of the three sets (auxiliary verbs, determiners, conjunctions) in the order of their lines; the lines of other sets, which the token layer reads from the same table, are left out, and a line of the dependent nouns, which have a table of their own, is an error
+//ff:what loadClosed — the closed sets of words read from the lines of their table (set, word): the words of each of the four sets (auxiliary verbs, determiners, conjunctions, demonstratives) in the order of their lines; the lines of other sets, which the token layer reads from the same table, are left out, and a line of the dependent nouns, which have a table of their own, is an error
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadClosed(rows []data.Row) (map[string][]string, error) {
-	sets := map[string]int{helperSet: 0, determinerSet: 0, conjunctionSet: 0}
+	sets := map[string]int{helperSet: 0, determinerSet: 0, conjunctionSet: 0, pointerSet: 0}
 	out := map[string][]string{}
 	for _, row := range rows {
 		set := row.Cells[0]

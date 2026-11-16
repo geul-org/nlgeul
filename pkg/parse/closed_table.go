@@ -31,8 +31,9 @@ var joinedNouns = boundSets[joinedMark]
 // 걸 = 것을), with the case of that particle.
 var shortened = map[string]int{"게": caseSubj | caseComp, "건": 0, "걸": caseObj}
 
-// pointers are the demonstratives a shortened 것 is read after.
-var pointers = []string{"이", "그", "저"}
+// pointers are the demonstratives a shortened 것 is read after (이, 그,
+// 저; the set 지시어 of closed-words.tsv, which the token layer reads too).
+var pointers = closedSets[pointerSet]
 
 // helperStems are the stems of the auxiliary verbs (주다, 보다, 버리다,
 // 놓다, 두다, 있다, 지다), read after the 어/아 form of a main verb.

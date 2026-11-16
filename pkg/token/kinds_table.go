@@ -62,7 +62,7 @@ var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, 
 // closed sets of words (the sets of closed-words.tsv that pkg/parse
 // does not read).
 var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul, setVerbExist))
-var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setSpoken, setAskWord, setExistStem, setNegAdverb, setNumDet))
+var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setSpoken, setAskWord, setExistStem, setNegAdverb, setNumDet, setPointer))
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
 // (also before a quotation's 고, 면, 는), 는구나, 는군, 느라; the
@@ -106,10 +106,11 @@ const (
 const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj | rule.TailExist
 
 // pronouns are the determiners of the closed set that are pronouns
-// too (이, 그, 저): with no word table one of them before particles or
-// the copula is named a pronoun, not a determiner (그의, 저는); alone
-// it stays a determiner.
-var pronouns = []string{"이", "그", "저"}
+// too (이, 그, 저; the set 지시어 of closed-words.tsv, which pkg/parse
+// reads too): with no word table one of them before particles or the
+// copula is named a pronoun, not a determiner (그의, 저는); alone it
+// stays a determiner.
+var pronouns = wordSets[setPointer]
 
 // pronounWords are pronouns this layer knows on top of the word
 // table, which nlgeul parse does not read: 네 (너 before 가, and 너의),
