@@ -34,4 +34,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, degreeUnitRule())
 	// 이·그·저 standing alone as the determiner (determinerAloneRule).
 	ix.sentence = append(ix.sentence, determinerAloneRule())
+	// 이런·그런·저런·어떤·다른 standing alone as the determiner (determinerFormRule).
+	ix.sentence = append(ix.sentence, determinerFormRule())
 }

@@ -201,3 +201,12 @@ const (
 	whyOpenBefore       = "바로 앞이 여는 기호다"
 	whyOpenAfter        = "바로 뒤가 여는 기호다"
 )
+
+// The name of the rule of a sentence of a demonstrative determiner that
+// is also an adjective's modifying form (determinerFormRule), and why it
+// falls.
+const (
+	ruleDeterminerForm = "문장:홀로 선 이런·그런·저런·어떤·다른은 관형사"
+	whyComparedBefore  = "앞 어절이 와·과로 끝난다(다르다가 받는 견줄 대상)"
+	whyNotDiffer       = "다른이 아니다"
+)

@@ -409,3 +409,20 @@ const forceMeasureOpen = 0.5
 // which a rule of a sentence prefers right after a number at the end of
 // its word to the particle 도 (degreeUnitRule).
 var degreeNames = []string{"단위:도"}
+
+// bonusOverUncounted is what the rule of a demonstrative determiner that
+// is also an adjective's modifying form (determinerFormRule) adds: the
+// word table counts the adjectives (다르다, 그렇다, 이렇다, 어떻다) one to
+// two million times and the determiners of their letters (다른, 그런,
+// 이런, 어떤) about once, as the counting read those letters as the
+// adjective's form, so that the determiner stands about 5.2 of
+// preference below and, rebutted as rarely seen, 3.2 more of lambda
+// (8.35 for 다른 and 그런, 8.1 for 어떤, 7.3 for 이런), past each of the
+// four steps above. Before a dependent noun (그런 것, 다른 데) the
+// adjective's form also gains bonusShortTaken (boundBeforeRule), so that
+// the gap is about 11.7. Measured on the answer sheet against no rule,
+// 8.5 to 11.5 gave 73 or 74 more right words (96 righted, 23 turned
+// wrong), and 11.75, 12, 15, 20 and 30 gave 76 (101, 25); 12 is the least
+// round value of that stretch. When the word table counts these
+// determiners, the value is to be measured again.
+const bonusOverUncounted = 12.0
