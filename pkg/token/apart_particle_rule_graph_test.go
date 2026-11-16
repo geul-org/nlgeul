@@ -22,7 +22,7 @@ func TestApartParticleRuleGraph(t *testing.T) {
 		{"after a bare noun", rule.Around{Self: self, Before: []rule.Near{{Stem: "나무", Kind: "열쇠:체언", Nominal: true}}}, true},
 		{"at the head", rule.Around{Self: self}, true},
 		{"after a closing sign", rule.Around{Self: self, Before: sign("닫기:1")}, true},
-		{"after a dash", rule.Around{Self: self, Before: sign("줄표")}, true},
+		{"after a dash", rule.Around{Self: self, Before: []rule.Near{{Last: "줄표", Marks: "줄표"}}}, true},
 		{"after a Latin run", rule.Around{Self: self, Before: sign("열:영숫자")}, true},
 		{"after a hyphened name", rule.Around{Self: self, Before: sign("붙임:-")}, true},
 		{"after a code", rule.Around{Self: self, Before: sign("코드:1")}, true},

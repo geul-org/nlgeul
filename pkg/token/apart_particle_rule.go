@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what apartParticleRule — the rule of a sentence "a particle written apart is the particle of the word before": a candidate that reads a whole word as markers with no stem whose first is a particle (the letters of a demonstrative of the closed set, 이, are left to determinerAloneRule) is preferred, by bonusNewTaken, but not when the word before it ends in a particle or a closing (apartEnds), nor when it is written onto the word before, nor when the word before does not end in a nominal — unless the word stands at the head of the sentence or right after a closing sign, a dash, a run of Latin letters and digits, a hyphened name or a code (apartBefore)
+//ff:what apartParticleRule — the rule of a sentence "a particle written apart is the particle of the word before": a candidate that reads a whole word as markers with no stem whose first is a particle (the letters of a demonstrative of the closed set, 이, are left to determinerAloneRule) is preferred, by bonusNewTaken, but not when the word before it ends in a particle or a closing (apartEnds), nor when it is written onto the word before, nor when the word before does not end in a nominal — unless the word stands at the head of the sentence or right after a closing sign, a run of Latin letters and digits, a hyphened name or a code (apartBefore), or right after a dash (apartDash)
 package token
 
 import (
@@ -24,6 +24,7 @@ func apartParticleRule() sentenceRule {
 	bare := except(g, rule.AroundIs, whyNotAfterNominal, &rule.Bits{Of: "around", Mask: rule.AroundAfterNominal}, not)
 	bare.Attacks(claim)
 	except(g, rule.Headed, whyHeadOrSign, listed("기호", rule.ListPrevKind, apartBefore)).Attacks(bare)
+	except(g, rule.Listed, whyDashBefore, listed("줄표", rule.ListPrevLast, apartDash)).Attacks(bare)
 	return sentenceRule{name: ruleApartParticle, graph: g, bonus: bonusNewTaken, about: func(n rule.Near) bool {
 		marks := rule.MarksOf(n)
 		return n.Stem == "" && n.Kind == "" && len(marks) > 0 && slices.Contains(particleKinds, labelOf(marks[0])) && !slices.Contains(pronouns, n.Text)

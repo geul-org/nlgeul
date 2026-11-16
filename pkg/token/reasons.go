@@ -294,5 +294,9 @@ const (
 const (
 	ruleApartParticle = "문장:따로 쓴 조사는 앞말의 조사"
 	whyEndsMarked     = "앞 어절이 조사나 맺음으로 끝난다"
-	whyHeadOrSign     = "문장 첫머리이거나 바로 앞이 닫는 기호·줄표·영숫자 열·붙임표로 이은 이름·코드다"
+	whyHeadOrSign     = "문장 첫머리이거나 바로 앞이 닫는 기호·영숫자 열·붙임표로 이은 이름·코드다"
 )
+
+// Why the exception of apartParticleRule "the word before ends in no
+// nominal" falls right after a dash.
+const whyDashBefore = "바로 앞이 줄표다"
