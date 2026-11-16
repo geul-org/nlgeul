@@ -107,7 +107,6 @@ const (
 	whyNeun            = "앞 어절이 꾸밈 맺음 는으로 끝난다"
 	whyNoNeun          = "앞 어절이 꾸밈 맺음 는으로 끝나지 않는다"
 	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
-	whyNotShutAfter    = "바로 뒤가 닫는 기호가 아니다"
 	whyAdnBound        = "꾸밈 맺음 바로 뒤에 붙여 쓴 의존명사 것·거의 줄기다"
 	whyModifier        = "꾸밈말과 그 꾸밈을 받는 아는 낱말을 붙여 쓴 통짜 새 낱말이다"
 	whyNoPredNext      = "바로 뒤 어절이 동사·형용사가 아니다"
@@ -180,7 +179,6 @@ const (
 	ruleCopulaEnd   = "문장:문장 끝 야·라고는 맺음"
 	ruleNumberQuote = "문장:수 뒤 라고는 인용 조사"
 	ruleCopulaComma = "문장:쉼표 앞 이나는 서술격"
-	ruleAlone       = "문장:괄호 안에 홀로 선 말은 의존명사·관형사가 아니다"
 )
 
 // The names and the reasons of the rules of a sentence about dependent
