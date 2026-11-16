@@ -460,11 +460,6 @@ const forceUnitWord = 0.5
 // version when the number is written with full stops (dateFirstRule).
 var dateNames = []string{"날짜"}
 
-// fractionNames are the names of numbers joined by a slash read as a
-// fraction (the shape 나눔:/ prints as 나눔), which a rule of a sentence
-// prefers to a date (fractionFirstRule).
-var fractionNames = []string{"나눔"}
-
 // numberAdnNames are the names of the closing after the copula's stem
 // that, right after a number, the dependent noun 인 (a count of people)
 // is read before (numberAdnRebuttal): the modifying ㄴ (1인, 300인).

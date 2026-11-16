@@ -29,7 +29,11 @@ const (
 
 // signShapes give, sign by sign, the candidates that join runs of digits
 // and the shape each asks of them, in the order they are named (the
-// tilde and its variants, a range each, are added by tildeShapes).
+// tilde and its variants, a range each, are added by tildeShapes); of the
+// same letters read two ways the one named first comes first. Numbers
+// joined by a slash are a fraction before a date: the orthography's
+// appendix on punctuation gives the slash between numbers as the way to
+// write a fraction (빗금 (3): 3/4분기, 3/20) and no date written so.
 // 자릿수 is shown as a number (shownAs).
 var signShapes = tildeShapes(map[rune][]rule.Shape{
 	',': {{Of: "자릿수:,", Min: 2, Lens: [][2]int{{1, 3}, {3, 3}}}},
@@ -50,8 +54,8 @@ var signShapes = tildeShapes(map[rune][]rule.Shape{
 		{Of: "비율::", Min: 2, Max: 2},
 	},
 	'/': {
-		{Of: "날짜:/", Min: 2, Max: 2, Lens: [][2]int{{1, 2}}, Vals: [][2]int{{1, 12}, {1, 31}}},
 		{Of: "나눔:/", Min: 2, Max: 2},
+		{Of: "날짜:/", Min: 2, Max: 2, Lens: [][2]int{{1, 2}}, Vals: [][2]int{{1, 12}, {1, 31}}},
 	},
 	'.': {
 		{Of: "날짜:.", Min: 3, Max: 3, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}, {1, 31}}},
