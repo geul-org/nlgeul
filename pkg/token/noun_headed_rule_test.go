@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNounHeadedRule — the rule is named as the trace prints it, adds bonusSentence, and speaks of and waits for a candidate that reads a dependent noun's letters as a noun of the word table alone (not the dependent noun itself, not another noun)
+//ff:what TestNounHeadedRule — the rule is named as the trace prints it, adds bonusSameLetters, and speaks of and waits for a candidate that reads a dependent noun's letters as a noun of the word table alone (not the dependent noun itself, not another noun)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestNounHeadedRule(t *testing.T) {
 	r := nounHeadedRule(boundNext)
-	if r.name != ruleNounHeaded || r.bonus != bonusSentence || r.graph == nil || r.waits == nil {
+	if r.name != ruleNounHeaded || r.bonus != bonusSameLetters || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

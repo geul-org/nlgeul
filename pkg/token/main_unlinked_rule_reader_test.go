@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestMainUnlinkedRuleReader — read with the table of words-aux-linked.tsv: 있다 away from a linking form puts 있[열쇠:형용사] first with exactly bonusSentence more than it has with no rule while 있[열쇠:동사], which the rule does not speak of, keeps its preference; 보다 away from a linking form puts 보[열쇠:동사] first with bonusSentence more; after a linking form (먹어 보다) the main verb 보 is not raised
+//ff:what TestMainUnlinkedRuleReader — read with the table of words-aux-linked.tsv: 있다 away from a linking form puts 있[열쇠:형용사] first with exactly bonusSameLetters more than it has with no rule while 있[열쇠:동사], which the rule does not speak of, keeps its preference; 보다 away from a linking form puts 보[열쇠:동사] first with bonusSameLetters more; after a linking form (먹어 보다) the main verb 보 is not raised
 package token
 
 import "testing"
@@ -17,7 +17,7 @@ func TestMainUnlinkedRuleReader(t *testing.T) {
 		got, _ := auxLinkedLast(t, c.in, true, false)
 		bare, _ := auxLinkedLast(t, c.in, false, false)
 		gain := auxLinkedPick(t, got, c.main).Pref - auxLinkedPick(t, bare, c.main).Pref
-		if c.raised && !almost(gain, bonusSentence) || !c.raised && !almost(gain, 0) {
+		if c.raised && !almost(gain, bonusSameLetters) || !c.raised && !almost(gain, 0) {
 			t.Fatalf("%q: %v", c.in, gain)
 		}
 	}

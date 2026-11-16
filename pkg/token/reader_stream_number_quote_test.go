@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderStreamNumberQuote — 라고 right on a circled number reads as the particle of quotation first, its preference exactly bonusSentence above what the stream with no rules gives it, while the stream with no rules reads it as the ending first; the trace says the rule stood
+//ff:what TestReaderStreamNumberQuote — 라고 right on a circled number reads as the particle of quotation first, its preference exactly bonusSameLetters above what the stream with no rules gives it, while the stream with no rules reads it as the ending first; the trace says the rule stood
 package token
 
 import (
@@ -20,8 +20,8 @@ func TestReaderStreamNumberQuote(t *testing.T) {
 	}
 	after, ok := quotedPref(got, quote)
 	before, _ := quotedPref(plain, quote)
-	if !ok || math.Abs(after-before-bonusSentence) > 1e-9 {
-		t.Errorf("%v -> %v, want exactly bonusSentence more", before, after)
+	if !ok || math.Abs(after-before-bonusSameLetters) > 1e-9 {
+		t.Errorf("%v -> %v, want exactly bonusSameLetters more", before, after)
 	}
 	if !strings.Contains(strings.Join(notes, "\n"), quote+"\t"+ruleNumberQuote+"\t1.00\t통과") {
 		t.Errorf("no 통과 line of %s in\n%s", ruleNumberQuote, strings.Join(notes, "\n"))

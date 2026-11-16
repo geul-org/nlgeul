@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamQuoted — right after a closing quotation mark 라고 and 이라고 read as the particle of direct quotation first (the closing candidate of the same word follows) and the preference of that candidate is exactly bonusSentence above what the stream with no rules gives it, the others stay as they were; the trace says the rule stood
+//ff:what TestReaderStreamQuoted — right after a closing quotation mark 라고 and 이라고 read as the particle of direct quotation first (the closing candidate of the same word follows) and the preference of that candidate is exactly bonusSameLetters above what the stream with no rules gives it, the others stay as they were; the trace says the rule stood
 package token
 
 import (
@@ -22,8 +22,8 @@ func TestReaderStreamQuoted(t *testing.T) {
 		}
 		after, ok := quotedPref(got, c.quote)
 		before, _ := quotedPref(plain, c.quote)
-		if !ok || math.Abs(after-before-bonusSentence) > 1e-9 {
-			t.Errorf("%q: %v -> %v, want exactly bonusSentence more", c.in, before, after)
+		if !ok || math.Abs(after-before-bonusSameLetters) > 1e-9 {
+			t.Errorf("%q: %v -> %v, want exactly bonusSameLetters more", c.in, before, after)
 		}
 		rest, ok := quotedPref(got, c.other)
 		was, _ := quotedPref(plain, c.other)

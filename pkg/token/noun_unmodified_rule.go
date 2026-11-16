@@ -17,5 +17,5 @@ func nounUnmodifiedRule(words []string) sentenceRule {
 	except(g, rule.KindListed, whyAdn, listed("꾸밈 맺음", rule.ListPrevLast, []string{closingLabel(rule.KindAdn)})).Attacks(claim)
 	except(g, rule.Listed, whyKnowNext, listed("알다·모르다", rule.ListNextStem, knowStems)).Attacks(claim)
 	is := func(n rule.Near) bool { return n.Kind == noun && slices.Contains(words, n.Stem) }
-	return sentenceRule{name: ruleNounUnmodified, graph: g, bonus: bonusSentence, about: is, waits: is}
+	return sentenceRule{name: ruleNounUnmodified, graph: g, bonus: bonusSameLetters, about: is, waits: is}
 }

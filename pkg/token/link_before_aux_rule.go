@@ -18,5 +18,5 @@ func linkBeforeAuxRule(aux []string) sentenceRule {
 	g, claim := sentenceClaim(ruleLinkBeforeAux, rule.Listed, listed("어/아 꼴", rule.ListSelfLast, connNames))
 	except(g, rule.Listed, whyNoAuxNext, listed("보조 용언의 줄기", rule.ListNextStem, aux), not).Attacks(claim)
 	is := func(n rule.Near) bool { return slices.Contains(connNames, n.Last) }
-	return sentenceRule{name: ruleLinkBeforeAux, graph: g, bonus: bonusLinkBeforeAux, about: is, waits: is}
+	return sentenceRule{name: ruleLinkBeforeAux, graph: g, bonus: bonusShortTaken, about: is, waits: is}
 }

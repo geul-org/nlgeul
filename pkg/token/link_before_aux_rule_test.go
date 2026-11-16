@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestLinkBeforeAuxRule — the rule on its own, a candidate judged with the words around it given: it speaks of the candidates that end in 어/아/여 or their fused form (not in 고, not a noun) and waits for the words after them, its name and its bonus are bonusLinkBeforeAux, it stands (통과) when the stem of the word right after is one of the auxiliaries given (있, 주), and it falls with the reason 바로 뒤 어절의 줄기가 보조 용언이 아니다 when that stem is another or no word is after
+//ff:what TestLinkBeforeAuxRule — the rule on its own, a candidate judged with the words around it given: it speaks of the candidates that end in 어/아/여 or their fused form (not in 고, not a noun) and waits for the words after them, its name and its bonus are bonusShortTaken, it stands (통과) when the stem of the word right after is one of the auxiliaries given (있, 주), and it falls with the reason 바로 뒤 어절의 줄기가 보조 용언이 아니다 when that stem is another or no word is after
 package token
 
 import (
@@ -13,7 +13,7 @@ func TestLinkBeforeAuxRule(t *testing.T) {
 	link := auxLinkedPick(t, words[0], "남[열쇠:동사]+아[맺음:아]")
 	noun := auxLinkedPick(t, words[0], "남아[열쇠:체언]")
 	r := linkBeforeAuxRule([]string{"있", "주"})
-	if r.name != ruleLinkBeforeAux || r.bonus != bonusLinkBeforeAux || r.graph == nil || r.waits == nil {
+	if r.name != ruleLinkBeforeAux || r.bonus != bonusShortTaken || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for near, want := range map[rule.Near]bool{
@@ -37,8 +37,8 @@ func TestLinkBeforeAuxRule(t *testing.T) {
 		add   float64
 		note  string
 	}{
-		{[]rule.Near{{Stem: "있", Kind: "열쇠:형용사"}}, bonusLinkBeforeAux, line("1.00", "통과")},
-		{[]rule.Near{{Stem: "주", Kind: "열쇠:동사"}, {Stem: "먹"}}, bonusLinkBeforeAux, line("1.00", "통과")},
+		{[]rule.Near{{Stem: "있", Kind: "열쇠:형용사"}}, bonusShortTaken, line("1.00", "통과")},
+		{[]rule.Near{{Stem: "주", Kind: "열쇠:동사"}, {Stem: "먹"}}, bonusShortTaken, line("1.00", "통과")},
 		{[]rule.Near{{Stem: "먹", Kind: "열쇠:동사"}, {Stem: "있"}}, 0, line("-1.00", "기각: 바로 뒤 어절의 줄기가 보조 용언이 아니다")},
 		{nil, 0, line("-1.00", "기각: 바로 뒤 어절의 줄기가 보조 용언이 아니다")},
 	} {

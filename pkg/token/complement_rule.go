@@ -17,5 +17,5 @@ func complementRule() sentenceRule {
 	self.Attacks(claim)
 	except(g, rule.Listed, whyNoSubjectBefore, listed("이·가", rule.ListPrevLast, subjectNames), not).Attacks(self)
 	is := func(n rule.Near) bool { return hasMark(n, complementNames) }
-	return sentenceRule{name: ruleComplement, graph: g, bonus: bonusSentence, about: is, waits: is}
+	return sentenceRule{name: ruleComplement, graph: g, bonus: bonusSameLetters, about: is, waits: is}
 }

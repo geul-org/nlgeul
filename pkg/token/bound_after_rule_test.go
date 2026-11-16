@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestBoundAfterRule — the rule is named as the trace prints it, adds bonusBoundAfter, waits for nothing, and speaks of a candidate that reads its stem as a dependent noun alone (not as a noun of the same letters, not a verb)
+//ff:what TestBoundAfterRule — the rule is named as the trace prints it, adds bonusOverWhole, waits for nothing, and speaks of a candidate that reads its stem as a dependent noun alone (not as a noun of the same letters, not a verb)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestBoundAfterRule(t *testing.T) {
 	r := boundAfterRule(boundNominal)
-	if r.name != ruleBoundAfter || r.bonus != bonusBoundAfter || r.graph == nil || r.waits != nil {
+	if r.name != ruleBoundAfter || r.bonus != bonusOverWhole || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

@@ -37,7 +37,7 @@ func TestComplementRuleAsk(t *testing.T) {
 	}
 	comp, _ := branchNamed(ruled[0], "반장[열쇠:체언]+이[보격:이]")
 	old, _ := branchNamed(plain[0], "반장[열쇠:체언]+이[보격:이]")
-	if !almost(comp.Pref, old.Pref+bonusSentence) {
-		t.Fatal("one word back, by bonusSentence", comp.Pref, old.Pref)
+	if !almost(comp.Pref, old.Pref+bonusSameLetters) {
+		t.Fatal("one word back, by bonusSameLetters", comp.Pref, old.Pref)
 	}
 }

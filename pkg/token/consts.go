@@ -166,33 +166,63 @@ const forceRun = 0.25
 // one wrong, and 0.25 to 1 give the same words.
 const forceDropAdn = 0.5
 
-// bonusSentence is what a rule of a sentence adds to the preference of a
-// candidate its claim stands for. The candidates such a rule tells apart
-// are mostly ones of the same lambda (the same letters under two names),
-// which any value above 0 puts in order; the value also carries a
-// candidate over one of another cut that was just above it. It is chosen
-// among 0.01, 0.1, 0.5, 1 and 2 tried with the first rule of a sentence on
-// the answer sheet: 0.01 and 0.1 gave 29 and 23 fewer right words than
-// 0.5, and 1 and 2 gave 5 and 8 more.
-// Those counts were taken before the word table was counted again; with
-// the table counted again, changing it for all the rules that add it,
-// against this value 0.01 and 0.1 give 43 and 42 fewer, 0.375 the same
-// words, 0.625 and 0.75 as many (2 righted, 2 turned wrong), 1 four more
-// (11 righted, 7 turned wrong), 1.25 seven more (15, 8) and 2 one more
-// (19, 18).
-const bonusSentence = 0.5
+// What a rule of a sentence adds to the preference of a candidate its
+// claim stands for (sentenceRule.bonus) comes in four steps, by how far
+// the candidate must be carried. bonusSameLetters puts in order candidates
+// of the same lambda, mostly the same letters under two names (에서 as the
+// adverbial before the nominative, 이/가 as the complement, 수 as the noun),
+// and carries a candidate over one of another cut just above it.
+// bonusOverCount carries a candidate over another reading of its letters
+// that the word table's counts put above it by up to about 1.6 (the noun 한
+// after the modifying 는 under the determiner 한, the particle 이란 after a
+// closing sign under the noun 이란, the noun 보고 after a modifier under 보+고,
+// the auxiliary 주 after a linking form under the noun 주기). bonusShortTaken
+// (below) carries a candidate over another word up to what a rebuttal of
+// one syllable takes, and bonusOverWhole (below) a dependent noun read
+// apart over the whole word of its letters. The four took the place of a
+// value of each rule (thirteen names, ten values from 0.01 to 5). Measured
+// on the answer sheet against the values of each rule (with the word table
+// counted again and seenShare), each of the first three steps changed with
+// the others as they are, in words right more: the first 0.375 gave 15 (26
+// righted, 11 turned wrong), 0.5 19 (22, 3) and 0.75 20 (24, 4); the
+// second 1.75 17 (20, 3), 2 19, 2.25 18 (25, 7) and 2.5 19 (26, 7), and 3
+// for the noun after a modifier alone 11 (27, 16); the third 3 15 (24, 9),
+// its value 19, 3.75 21 (26, 5) and about 4.16 three fewer (29, 32). The
+// middle of each flat stretch is taken. With two steps (0.5 also for the
+// noun after a modifier, the third for all the others) it gave 13 more
+// (19, 6); with the steps measured before seenShare (0.5, 1.5, 3.33 and 5)
+// 3 more (5, 2), as 한 after the modifying 는 now needs more than 1.5 (1.75
+// is enough).
+const (
+	bonusSameLetters = 0.5
+	bonusOverCount   = 2.0
+)
 
-// bonusOrder is what a rule of a sentence adds when it only sets an
-// order among names of the same letters and reads nothing of the
-// sentence (에서 as the adverbial particle before the nominative): enough
-// to put two candidates of the same lambda in order, and too little to
-// carry a candidate over one of another cut. With bonusSentence in its
-// place the answer sheet had two words fewer right (a noun that ends in
-// 서 was cut before the 서).
-// That was measured before the word table was counted again; with the
-// table counted again any value from 0.001 to 0.5 gives the same words
-// right, and 1 one fewer.
-const bonusOrder = 0.01
+// bonusShortTaken is what the rebuttal "one syllable long" alone takes
+// from lambda: its verdict is 2/(1+forceShort)-1, so the value is about
+// 3.33. A rule adds it where the candidate it prefers stands below
+// another word by up to about that: a noun of one syllable the rebuttal
+// held down (자+의 written onto a noun under 자의, gluedShortRule, which
+// gives back what the rebuttal took), a stem of one syllable before a
+// word that shows it is a predicate's (남+아 before 있다, 알+ㄹ before 수,
+// 거+는 after a modifying form), the copula's piece (야 at a sentence's
+// end, 이나 before a comma) and 말다 with its ㄹ dropped (마라 after -지).
+var bonusShortTaken = -Lambda * math.Log10(2/(1+forceShort)-1)
+
+// bonusOverWhole is what the rule "a dependent noun stands right after a
+// modifying form" (boundAfterRule) adds: it carries the dependent noun
+// read apart with its particle, or with the copula dropped and its
+// closing, over the whole word of the same letters (수도 over 수+도, the
+// noun 건지 over 거+(이)+ㄴ지 and 거지 over 거+(이)+지 written onto the
+// modifying form: 있는건지, 먹는거지), where the dropped copula's piece
+// costs more than bonusShortTaken carries. It was chosen as 5 among 0.5
+// to 8 with the word table before it was counted again (4.5 gave three
+// more right than 3.5, the noun 건지; 5 to 6 five more, the noun 거지; 8 one
+// more wrong). With the table counted again and seenShare, any value from
+// 3.33 to 7.5 gives the same words right on the answer sheet with the
+// three steps above, but at 3.33 the words written onto the modifying
+// form in TestBoundAfterRuleOnto stay the nouns.
+const bonusOverWhole = 5.0
 
 // adverbialFirst are the names of 에서 and 서 as adverbial particles,
 // which a rule of a sentence puts before the same letters read as the
@@ -274,47 +304,6 @@ const windowSize = 10
 // were read after the whole unit.
 const ontoBorn = 1 << 32
 
-// bonusOne is what the rule of 한 after the modifying 는 adds
-// (limitOneRule): the word table's counts put the determiner 한 1.21 of
-// preference above the noun 한 of the same letters, more than
-// bonusSentence can carry. Measured on the answer sheet, half of it gave
-// what no rule gives and 3 gave one word more right and two more wrong.
-const bonusOne = 1.5
-
-// bonusLinkBeforeAux is what the rule "the word right before an
-// auxiliary verb is the 어/아 form of its main verb" (linkBeforeAuxRule)
-// adds. The 어/아 form it puts first is mostly a stem of one syllable
-// (남+아, 서+(어)) against a noun of the same letters (남아, 서), whose
-// lambda is about 2 to 2.5 above it, so bonusSentence does not carry it.
-// That gap was seen before the word table was counted again; with the
-// table counted again, against this value 2.5 gives 5 fewer, 3.33 two
-// more (none turned wrong) and 3.75 14 fewer.
-const bonusLinkBeforeAux = 3.0
-
-// bonusMalLinked is what the rule "말다 after -지 or -고 is the auxiliary
-// verb" (malLinkedRule) adds. The forms of 말다 that drop the ㄹ are the
-// letters of other words (마라, 마시고, 마소서) whose lambda is up to
-// about 3.2 above them. Measured on the answer sheet, the words put
-// right (none put wrong at any of them) were 2 at 0.5, 4 at 1.5, 5 at 3,
-// 6 at 3.5 and 6 at 6; the least value of the most is chosen.
-// Those were measured before the word table was counted again; with the
-// table counted again, against this value 0.5 gives 4 fewer, 2.5 3
-// fewer, and 3.33 to 8 the same words.
-const bonusMalLinked = 3.5
-
-// bonusAuxLinked is what the rule "an auxiliary verb stands after a
-// linking form" (auxLinkedRule) adds; it had bonusSentence. Where the
-// auxiliary's letters are also another word (줄 the bound noun or 줄다,
-// 주기 the noun, 보아 the noun), that word's lambda is up to about 1.5
-// above the auxiliary's, which 0.5 does not carry. Measured on the answer
-// sheet against 0.5, the words put right (none put wrong at any of them)
-// were 6 at 1, 8 at 1.5, 2, 3, 4 and 6; the least value of the most is
-// chosen.
-// Those were measured before the word table was counted again; with the
-// table counted again, against this value 0.5 gives 2 fewer, 0.75 to 1.5
-// the same words, and 1.875 to 8 nine more (none turned wrong).
-const bonusAuxLinked = 1.5
-
 // tableNoun is the name of a noun of the word table (열쇠:체언), and
 // nounNames the kinds of the names of the closed sets' nouns (의존명사:수,
 // 대명사:나): the rule of a sentence gluedShortRule speaks of such a noun
@@ -324,50 +313,15 @@ var (
 	nounNames = []string{"의존명사", "대명사"}
 )
 
-// bonusGluedShort is what the rule of a sentence gluedShortRule adds to a
-// noun of one syllable with its particle written onto a nominal: what the
-// rebuttal "one syllable long" alone takes from lambda (its verdict is
-// 2/(1+forceShort)-1, so the value is about 3.33), so that the
-// preferences of the noun with its particle and of the longer word of the
-// same letters decide. Measured on the answer sheet against no rule, in
-// words right more: 2 gave 28, 2.7 gave 37, this value 56 (65 fixed, 9
-// broken), 4 gave 58 (75 fixed, 17 broken), 5 gave 51 and 8 gave 19
-// fewer. It is kept for its reason and for half the words broken at 4.
-// Those were measured before the word table was counted again; with the
-// table counted again this value gives 60 more than no rule (63 righted,
-// 3 turned wrong), and against it 2 gives 32 fewer, about 4.16 four more
-// (9, 5), 5 the same number (19, 19) and 8 82 fewer.
-var bonusGluedShort = -Lambda * math.Log10(2/(1+forceShort)-1)
-
 // copulaAdnForms are the letters of the copula 이 with a modifying
-// closing fused into it (이+ㄴ, 이+ㄹ), and bonusUnmodified what the rule of
-// a sentence unmodifiedRule adds to a noun of the word table that ends in
-// them where nothing an adnominal modifies follows: as much as the
-// rebuttal "rarely seen" takes at most from lambda (a row seen once: its
-// verdict is 2/(1+forceFew)-1, so the value is about 3.19). Measured on
-// the answer sheet after gluedShortRule, in words right more: 1 gave 10,
-// 2 gave 13, this value and 5 gave 14, none broken.
-var (
-	copulaAdnForms  = []string{"인", "일"}
-	bonusUnmodified = -Lambda * math.Log10(2/(1+forceFew)-1)
-)
+// closing fused into it (이+ㄴ, 이+ㄹ): the rule of a sentence
+// unmodifiedRule prefers a noun of the word table that ends in them where
+// nothing an adnominal modifies follows.
+var copulaAdnForms = []string{"인", "일"}
 
 // topicNames are the names of 이란 and 란 as the topic particle, which a
 // rule of a sentence prefers right after a closing sign (shutTopicRule).
 var topicNames = []string{"보조사:이란", "보조사:란"}
-
-// bonusShutTopic is what that rule adds. bonusSentence is too little:
-// after a closing sign the noun 이란 and 이+란 read as the copula with
-// the modifying 란 (이라는) stand above the particle 이란 by about 1.2
-// in preference, because the count table gives 이란 47 against 란's
-// 7,069. Tried on the answer sheet: 0.5 and 1 put no word right, 1.2,
-// 1.5, 2, 3 and 5 each put eight right and none wrong; 1.5 is taken to
-// stand clear of the gap without reaching far past it.
-// That gap and those were measured before the word table was counted
-// again; with the table counted again the gap is about 1.49, any value
-// up to 1.125 puts none of the eight right, and 1.5 to 8 give the same
-// words.
-const bonusShutTopic = 1.5
 
 // copulaEndNames are the names of the ending 야, which follows the
 // copula 이 only, and of the ending 라고, and sentenceEnds the names of
@@ -377,19 +331,6 @@ var (
 	copulaEndNames = []string{"맺음:야", "맺음:라고"}
 	sentenceEnds   = []string{"", "마침표", "물음표"}
 )
-
-// bonusCopula is what a rule of a sentence adds to a candidate that reads
-// the copula 이 with its ending over a particle of the same letters (the
-// ending 야 over the vocative 야). Such a candidate pays for the copula's
-// piece and comes about two below the particle (2.05 and 2.16 in the
-// words looked at), more than bonusSentence carries. It is chosen among
-// 0.5, 2.2, 2.5, 3 and 5 tried with copulaEndRule on the answer sheet:
-// 0.5 changed nothing, and the others gave the same seven more right
-// words and none fewer; 2.5 leaves room over the gap.
-// Those were measured before the word table was counted again; with the
-// table counted again, against this value 2 and less give 12 or 13
-// fewer, 3.125 the same words, and 3.33 and more one fewer.
-const bonusCopula = 2.5
 
 // numberKinds are the names of the stem of a number (and of an ordinal
 // number with 제, so that the two readings of the same digits keep their
@@ -406,51 +347,6 @@ var (
 	contrastNames = []string{"맺음:나"}
 	commaNames    = []string{"쉼표"}
 )
-
-// bonusBound is what the rule of a sentence "a modifying form stands
-// right before a dependent noun" adds (boundBeforeRule). The candidates
-// it tells apart are of different lambdas: 알 read as the noun stands
-// 1.7 above 알다 with the modifying ㄹ, and 꿀 2.0 above 꾸다 with it,
-// which bonusSentence does not carry over. It is chosen among 1, 1.5, 2,
-// 2.5 and 3 tried with that rule on the answer sheet: 2.5 gave 17, 15
-// and 2 more right words than 1, 1.5 and 2, and 3 one fewer.
-// Those were measured before the word table was counted again; with the
-// table counted again, against this value 1, 1.5 and 2 give 13, 4 and 1
-// fewer, 3.125 the same words, 3.33 one more, 5 two more (none turned
-// wrong) and 8 one more (2 righted, 1 turned wrong).
-const bonusBound = 2.5
-
-// bonusBoundAfter is what the rule of a sentence "a dependent noun stands
-// right after a modifying form" adds (boundAfterRule). The candidates it
-// tells apart are of different lambdas: 수도 read as one noun stands 0.9
-// above 수+도, 걸다+ㄴ 0.8 above 거+는, and 걸다+ㅂ니다 above 거 with a
-// dropped copula (겁니다) by more. It is chosen among 0.5, 1, 2.5, 3.5,
-// 4, 5, 6 and 8 tried with that rule on the answer sheet: 0.5 gave none
-// right, 1 and 2.5 6 fewer than 3.5, 4 and 5 (the same words), 6 one
-// fewer; 8 gave 4 more, which were words of the dependent noun 거
-// written onto the modifying form (있는건지), read whole as a noun. With
-// the one-syllable rebuttal of 것 and 거 written onto a modifying closing
-// lifted (PieceBound) it was tried again among 3.5, 4.5, 5, 5.5, 6 and 8:
-// 4.5 gave 3 more right than 3.5 (거 with the dropped copula and ㄴ지
-// written onto the modifying form, which was read as the noun 건지), 5,
-// 5.5 and 6 the same 5 more (거 with 지 too, which was read as the noun
-// 거지), 8 one more wrong besides (수요 read as 수+요 after a modifying
-// form); 5 is chosen.
-// Those were measured before the word table was counted again; with the
-// table counted again, against this value 2.5 gives 5 fewer, 3.33 to
-// 6.25 the same words, and 7.5 one fewer.
-const bonusBoundAfter = 5.0
-
-// bonusModified is what the rule of a sentence "a noun stands right after
-// a modifier" adds (nounModifiedRule). It is chosen among 0.5, 1, 1.5 and
-// 2 tried with that rule on the answer sheet: 1 gave 3, 3 and 4 more
-// right words than 0.5, 1.5 and 2 (the more it adds, the more a
-// modifier stacked on another, 그의 검은, is read as a noun).
-// Those were measured before the word table was counted again; with the
-// table counted again, against this value 0.75 gives one fewer, 1.25
-// three more, 1.5 six more (none turned wrong), 2 six more (7 righted, 1
-// turned wrong) and 2.5 25 fewer.
-const bonusModified = 1.0
 
 // forceUnitWord is the force of the rebuttal "the stem begins right
 // after a number, and its letters are a unit and a word written after a

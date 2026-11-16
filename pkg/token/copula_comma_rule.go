@@ -18,5 +18,5 @@ func copulaCommaRule() sentenceRule {
 	g, claim := sentenceClaim(ruleCopulaComma, rule.SelfHas, listed("서술격 이", rule.ListSelfMarks, copulaNames))
 	except(g, rule.Listed, whyNoComma, listed("쉼표", rule.ListNextLast, commaNames), not).Attacks(claim)
 	is := func(n rule.Near) bool { return hasMark(n, copulaNames) && slices.Contains(contrastNames, n.Last) }
-	return sentenceRule{name: ruleCopulaComma, graph: g, bonus: bonusCopula, about: is, waits: is}
+	return sentenceRule{name: ruleCopulaComma, graph: g, bonus: bonusShortTaken, about: is, waits: is}
 }

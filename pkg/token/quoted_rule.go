@@ -9,5 +9,5 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 func quotedRule() sentenceRule {
 	g, claim := sentenceClaim(ruleQuoted, rule.SelfHas, listed("인용 조사 라고", rule.ListSelfMarks, quoteNames))
 	except(g, rule.Listed, whyNotShut, listed("닫는 기호", rule.ListPrevKind, []string{shutName}), not).Attacks(claim)
-	return sentenceRule{name: ruleQuoted, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool { return hasMark(n, quoteNames) }}
+	return sentenceRule{name: ruleQuoted, graph: g, bonus: bonusSameLetters, about: func(n rule.Near) bool { return hasMark(n, quoteNames) }}
 }

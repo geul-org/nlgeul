@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamCopulaEnd — 야 and 라고 that end a sentence (before a full stop or a question mark, or at the end) read as endings first, their preference exactly bonusCopula above what the stream with no rules gives them, while the stream with no rules reads them as particles first; the trace says the rule stood; before a comma, an exclamation mark or another word the first candidate stays as with no rules
+//ff:what TestReaderStreamCopulaEnd — 야 and 라고 that end a sentence (before a full stop or a question mark, or at the end) read as endings first, their preference exactly bonusShortTaken above what the stream with no rules gives them, while the stream with no rules reads them as particles first; the trace says the rule stood; before a comma, an exclamation mark or another word the first candidate stays as with no rules
 package token
 
 import (
@@ -27,8 +27,8 @@ func TestReaderStreamCopulaEnd(t *testing.T) {
 		}
 		after, ok := quotedPref(got, c.ending)
 		before, _ := quotedPref(plain, c.ending)
-		if !ok || math.Abs(after-before-bonusCopula) > 1e-9 {
-			t.Errorf("%q: %v -> %v, want exactly bonusCopula more", c.in, before, after)
+		if !ok || math.Abs(after-before-bonusShortTaken) > 1e-9 {
+			t.Errorf("%q: %v -> %v, want exactly bonusShortTaken more", c.in, before, after)
 		}
 		if !strings.Contains(strings.Join(notes, "\n"), c.ending+"\t"+ruleCopulaEnd+"\t1.00\t통과") {
 			t.Errorf("%q: no 통과 line of %s in\n%s", c.in, ruleCopulaEnd, strings.Join(notes, "\n"))

@@ -24,5 +24,5 @@ func nounHeadedRule(words []string) sentenceRule {
 	except(g, rule.Listed, whyDotNext, listed("가운뎃점", rule.ListNextLast, []string{middleDot})).Attacks(notHeaded)
 	except(g, rule.Listed, whyDenyNext, listed("아니다", rule.ListNextStem, denyStems)).Attacks(claim)
 	is := func(n rule.Near) bool { return n.Kind == noun && slices.Contains(words, n.Stem) }
-	return sentenceRule{name: ruleNounHeaded, graph: g, bonus: bonusSentence, about: is, waits: is}
+	return sentenceRule{name: ruleNounHeaded, graph: g, bonus: bonusSameLetters, about: is, waits: is}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNumberQuoteRule — the rule is named as the trace prints it, adds bonusSentence, waits for nothing, and speaks only of a candidate whose stem is a number or an ordinal number and that has the particle 라고 or 이라고 among its markers (not of 라고 as an ending, nor of 이라고 after a noun)
+//ff:what TestNumberQuoteRule — the rule is named as the trace prints it, adds bonusSameLetters, waits for nothing, and speaks only of a candidate whose stem is a number or an ordinal number and that has the particle 라고 or 이라고 among its markers (not of 라고 as an ending, nor of 이라고 after a noun)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestNumberQuoteRule(t *testing.T) {
 	r := numberQuoteRule()
-	if r.name != ruleNumberQuote || r.bonus != bonusSentence || r.graph == nil || r.waits != nil {
+	if r.name != ruleNumberQuote || r.bonus != bonusSameLetters || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

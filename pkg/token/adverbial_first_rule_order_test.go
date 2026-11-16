@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAdverbialFirstRuleOrder — with the rule 에서 and 서 as the adverbial particle come before the same letters as the nominative (학교에서, 여기서; 학교에서는 has no nominative to pass), the nominative stays right behind, no candidate is taken away, the two differ by exactly bonusOrder in preference and the rest are as they were; with no rule (st.rules nil) the nominative is first, so it is the rule that changes the order
+//ff:what TestAdverbialFirstRuleOrder — with the rule 에서 and 서 as the adverbial particle come before the same letters as the nominative (학교에서, 여기서; 학교에서는 has no nominative to pass), the nominative stays right behind, no candidate is taken away, the two differ by exactly bonusSameLetters in preference and the rest are as they were; with no rule (st.rules nil) the nominative is first, so it is the rule that changes the order
 package token
 
 import "testing"
@@ -31,13 +31,13 @@ func TestAdverbialFirstRuleOrder(t *testing.T) {
 		}
 		adv, _ := branchNamed(now, c.adv)
 		nom, _ := branchNamed(now, c.nom)
-		if !almost(adv.Pref-nom.Pref, bonusOrder) || adv.Verdict != nom.Verdict {
-			t.Fatalf("%s: the difference is bonusOrder: %v %v", c.text, adv.Pref, nom.Pref)
+		if !almost(adv.Pref-nom.Pref, bonusSameLetters) || adv.Verdict != nom.Verdict {
+			t.Fatalf("%s: the difference is bonusSameLetters: %v %v", c.text, adv.Pref, nom.Pref)
 		}
 		oldAdv, _ := branchNamed(was, c.adv)
 		oldNom, _ := branchNamed(was, c.nom)
-		if !almost(adv.Pref, oldAdv.Pref+bonusOrder) || nom.Pref != oldNom.Pref {
-			t.Fatalf("%s: only the adverbial is raised, by bonusOrder", c.text)
+		if !almost(adv.Pref, oldAdv.Pref+bonusSameLetters) || nom.Pref != oldNom.Pref {
+			t.Fatalf("%s: only the adverbial is raised, by bonusSameLetters", c.text)
 		}
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAdverbialFirstRule — the rule of a sentence is named as the trace prints it, adds bonusOrder (small: an order among names of the same letters) and not bonusSentence, and speaks only of the candidates one of whose markers is the adverbial 에서 or 서 (not the nominative 에서, not a candidate with no marker, not another adverbial particle)
+//ff:what TestAdverbialFirstRule — the rule of a sentence is named as the trace prints it, adds bonusSameLetters (an order among names of the same letters), and speaks only of the candidates one of whose markers is the adverbial 에서 or 서 (not the nominative 에서, not a candidate with no marker, not another adverbial particle)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestAdverbialFirstRule(t *testing.T) {
 	r := adverbialFirstRule()
-	if r.name != ruleAdverbialFirst || r.graph == nil || r.bonus != bonusOrder || r.bonus >= bonusSentence || r.waits != nil {
+	if r.name != ruleAdverbialFirst || r.graph == nil || r.bonus != bonusSameLetters || r.waits != nil {
 		t.Fatal(r.name, r.bonus, r.waits != nil)
 	}
 	cases := []struct {

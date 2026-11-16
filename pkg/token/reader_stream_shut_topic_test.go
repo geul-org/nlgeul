@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderStreamShutTopic — right after a closing quotation mark 이란 reads as the topic particle first, though with no rules the noun 이란 of the word table comes first; its preference is exactly bonusShutTopic above what the stream with no rules gives it, the noun stays as it was and no candidate is taken away, and the trace says the rule stood; with no closing sign before it (소득이란) the particle gains nothing and the trace says 기각 with the reason that the word before is no closing sign
+//ff:what TestReaderStreamShutTopic — right after a closing quotation mark 이란 reads as the topic particle first, though with no rules the noun 이란 of the word table comes first; its preference is exactly bonusOverCount above what the stream with no rules gives it, the noun stays as it was and no candidate is taken away, and the trace says the rule stood; with no closing sign before it (소득이란) the particle gains nothing and the trace says 기각 with the reason that the word before is no closing sign
 package token
 
 import (
@@ -17,8 +17,8 @@ func TestReaderStreamShutTopic(t *testing.T) {
 	}
 	after, ok := quotedPref(got, topic)
 	before, _ := quotedPref(plain, topic)
-	if !ok || math.Abs(after-before-bonusShutTopic) > 1e-9 {
-		t.Errorf("%v -> %v, want exactly bonusShutTopic more", before, after)
+	if !ok || math.Abs(after-before-bonusOverCount) > 1e-9 {
+		t.Errorf("%v -> %v, want exactly bonusOverCount more", before, after)
 	}
 	rest, kept := quotedPref(got, noun)
 	was, _ := quotedPref(plain, noun)

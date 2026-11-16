@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestBoundBeforeRule — the rule is named as the trace prints it, adds bonusBound, and speaks of and waits for a candidate whose last piece is a modifying closing alone (not of a stem alone, a linking closing, a particle or a naming closing)
+//ff:what TestBoundBeforeRule — the rule is named as the trace prints it, adds bonusShortTaken, and speaks of and waits for a candidate whose last piece is a modifying closing alone (not of a stem alone, a linking closing, a particle or a naming closing)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestBoundBeforeRule(t *testing.T) {
 	r := boundBeforeRule(boundNext, boundNominal)
-	if r.name != ruleBoundBefore || r.bonus != bonusBound || r.graph == nil || r.waits == nil {
+	if r.name != ruleBoundBefore || r.bonus != bonusShortTaken || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

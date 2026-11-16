@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestUnmodifiedRule — the rule is named as the trace prints it, adds bonusUnmodified (what the rebuttal "rarely seen" takes at most from lambda, about 3.19), and speaks of a noun of the table that ends in 인 or 일 (adnNoun), for which it waits for the word after it, and of nothing else
+//ff:what TestUnmodifiedRule — the rule is named as the trace prints it, adds bonusShortTaken (what the rebuttal "one syllable long" alone takes from lambda, about 3.33), and speaks of a noun of the table that ends in 인 or 일 (adnNoun), for which it waits for the word after it, and of nothing else
 package token
 
 import (
@@ -14,7 +14,7 @@ func TestUnmodifiedRule(t *testing.T) {
 	if r.name != ruleUnmodified || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
-	if math.Abs(r.bonus-Lambda*math.Log10(1/(2/1.24-1))) > 1e-9 || r.bonus != bonusUnmodified {
+	if math.Abs(r.bonus-Lambda*math.Log10(1/0.6)) > 1e-9 || r.bonus != bonusShortTaken {
 		t.Fatal("bonus", r.bonus)
 	}
 	noun := rule.Near{Stem: "감정인", Kind: "열쇠:체언"}

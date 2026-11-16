@@ -10,5 +10,5 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 func limitOneRule() sentenceRule {
 	g, claim := sentenceClaim(ruleLimitOne, rule.Listed, listed("한", rule.ListSelfStem, []string{oneStem}))
 	except(g, rule.Listed, whyNoNeun, listed("꾸밈 는", rule.ListPrevLast, []string{neunAdn}), not).Attacks(claim)
-	return sentenceRule{name: ruleLimitOne, graph: g, bonus: bonusOne, about: func(n rule.Near) bool { return n.Stem == oneStem && n.Kind == oneNoun }}
+	return sentenceRule{name: ruleLimitOne, graph: g, bonus: bonusOverCount, about: func(n rule.Near) bool { return n.Stem == oneStem && n.Kind == oneNoun }}
 }

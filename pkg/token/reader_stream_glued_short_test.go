@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderStreamGluedShort — in 패소자의 몫 the noun of one syllable with its particle written onto 패소 (자+의) comes first in the word 자의, with exactly bonusGluedShort more preference than the stream with no rules gives it, and the noun 자의 stays as it was behind it; no candidate is taken away and the trace says the rule stood
+//ff:what TestReaderStreamGluedShort — in 패소자의 몫 the noun of one syllable with its particle written onto 패소 (자+의) comes first in the word 자의, with exactly bonusShortTaken more preference than the stream with no rules gives it, and the noun 자의 stays as it was behind it; no candidate is taken away and the trace says the rule stood
 package token
 
 import (
@@ -17,8 +17,8 @@ func TestReaderStreamGluedShort(t *testing.T) {
 	}
 	after, _ := quotedPref(got, short)
 	before, _ := quotedPref(plain, short)
-	if math.Abs(after-before-bonusGluedShort) > 1e-9 {
-		t.Errorf("%v -> %v, want exactly bonusGluedShort more", before, after)
+	if math.Abs(after-before-bonusShortTaken) > 1e-9 {
+		t.Errorf("%v -> %v, want exactly bonusShortTaken more", before, after)
 	}
 	if was, _ := quotedPref(plain, long); got[1].Pref != was {
 		t.Errorf("자의 stays as it was: %v, %v", was, got[1].Pref)

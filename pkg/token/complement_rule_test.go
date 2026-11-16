@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestComplementRule — a 이/가 candidate right before 되다 or 아니다 is read as the complement first: in 물이 얼음이 되었다 얼음이 has the 보격 first with its preference up by exactly bonusSentence over the unruled stream, and 물이 keeps the 주격 first with both preferences as they were, and the rule speaks of and waits for the 보격 candidate alone; in 그는 학생이 아니다 학생이 has the 보격 first; the trace line of the lifted candidate is 통과
+//ff:what TestComplementRule — a 이/가 candidate right before 되다 or 아니다 is read as the complement first: in 물이 얼음이 되었다 얼음이 has the 보격 first with its preference up by exactly bonusSameLetters over the unruled stream, and 물이 keeps the 주격 first with both preferences as they were, and the rule speaks of and waits for the 보격 candidate alone; in 그는 학생이 아니다 학생이 has the 보격 first; the trace line of the lifted candidate is 통과
 package token
 
 import (
@@ -24,7 +24,7 @@ func TestComplementRule(t *testing.T) {
 	}
 	r := complementRule()
 	comp, subj := rule.Near{Stem: "학생", Last: "보격:이", Marks: "보격:이"}, rule.Near{Stem: "학생", Last: "주격:이", Marks: "주격:이"}
-	if !r.about(comp) || !r.waits(comp) || r.about(subj) || r.waits(subj) || r.bonus != bonusSentence {
+	if !r.about(comp) || !r.waits(comp) || r.about(subj) || r.waits(subj) || r.bonus != bonusSameLetters {
 		t.Fatal("the rule speaks of, and waits for, the complement candidate alone")
 	}
 }

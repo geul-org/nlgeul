@@ -21,5 +21,5 @@ func copulaEndRule() sentenceRule {
 	except(g, rule.Listed, whyNotEnded, listed("문장을 닫는 부호", rule.ListNextLast, sentenceEnds), not).Attacks(claim)
 	except(g, rule.Listed, whyWordAfter, listed("줄기 없음", rule.ListNextStem, []string{""}), not).Attacks(claim)
 	is := func(n rule.Near) bool { return slices.Contains(copulaEndNames, n.Last) }
-	return sentenceRule{name: ruleCopulaEnd, graph: g, bonus: bonusCopula, about: is, waits: is}
+	return sentenceRule{name: ruleCopulaEnd, graph: g, bonus: bonusShortTaken, about: is, waits: is}
 }

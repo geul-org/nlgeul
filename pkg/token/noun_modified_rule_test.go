@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNounModifiedRule — the rule is named as the trace prints it, adds bonusModified, waits for nothing, and speaks of a candidate that reads its stem as a noun of the word table alone, not one whose letters are a dependent noun's or a determiner's of the closed sets (수, 때, 이) and not one read under another name
+//ff:what TestNounModifiedRule — the rule is named as the trace prints it, adds bonusOverCount, waits for nothing, and speaks of a candidate that reads its stem as a noun of the word table alone, not one whose letters are a dependent noun's or a determiner's of the closed sets (수, 때, 이) and not one read under another name
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestNounModifiedRule(t *testing.T) {
 	r := nounModifiedRule(modifiedSkip)
-	if r.name != ruleNounModified || r.bonus != bonusModified || r.graph == nil || r.waits != nil {
+	if r.name != ruleNounModified || r.bonus != bonusOverCount || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

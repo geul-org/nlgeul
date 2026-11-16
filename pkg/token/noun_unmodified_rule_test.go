@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNounUnmodifiedRule — the rule is named as the trace prints it, adds bonusSentence, and speaks of and waits for a candidate that reads 수 or 줄 as a noun of the word table alone (not as the dependent noun, not another noun, not 줄다)
+//ff:what TestNounUnmodifiedRule — the rule is named as the trace prints it, adds bonusSameLetters, and speaks of and waits for a candidate that reads 수 or 줄 as a noun of the word table alone (not as the dependent noun, not another noun, not 줄다)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestNounUnmodifiedRule(t *testing.T) {
 	r := nounUnmodifiedRule(adnBound)
-	if r.name != ruleNounUnmodified || r.bonus != bonusSentence || r.graph == nil || r.waits == nil {
+	if r.name != ruleNounUnmodified || r.bonus != bonusSameLetters || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

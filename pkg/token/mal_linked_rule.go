@@ -11,7 +11,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 func malLinkedRule() sentenceRule {
 	g, claim := sentenceClaim(ruleMalLinked, rule.Listed, listed("말다", rule.ListSelfStem, []string{malStem}))
 	except(g, rule.Listed, whyNotMalLinked, listed("지·고", rule.ListPrevLast, malLinks), not).Attacks(claim)
-	return sentenceRule{name: ruleMalLinked, graph: g, bonus: bonusMalLinked, about: func(n rule.Near) bool {
+	return sentenceRule{name: ruleMalLinked, graph: g, bonus: bonusShortTaken, about: func(n rule.Near) bool {
 		return n.Stem == malStem && n.Kind == mainKindOf(malStem)
 	}}
 }

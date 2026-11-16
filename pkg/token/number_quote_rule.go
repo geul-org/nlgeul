@@ -15,7 +15,7 @@ import (
 // on them), so with no rule the ending came first there alone.
 func numberQuoteRule() sentenceRule {
 	g, _ := sentenceClaim(ruleNumberQuote, rule.SelfHas, listed("인용 조사 라고", rule.ListSelfMarks, quoteNames))
-	return sentenceRule{name: ruleNumberQuote, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool {
+	return sentenceRule{name: ruleNumberQuote, graph: g, bonus: bonusSameLetters, about: func(n rule.Near) bool {
 		return slices.Contains(numberKinds, n.Kind) && hasMark(n, quoteNames)
 	}}
 }

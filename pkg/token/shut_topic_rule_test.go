@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestShutTopicRule — the rule is named as the trace prints it, adds bonusShutTopic (more than bonusSentence), waits for nothing, and speaks only of a candidate that has the particle 이란 or 란 among its markers (not of 란 read as the modifying form of the copula, nor of the noun 이란, nor of a word with no marker)
+//ff:what TestShutTopicRule — the rule is named as the trace prints it, adds bonusOverCount (more than bonusSameLetters), waits for nothing, and speaks only of a candidate that has the particle 이란 or 란 among its markers (not of 란 read as the modifying form of the copula, nor of the noun 이란, nor of a word with no marker)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestShutTopicRule(t *testing.T) {
 	r := shutTopicRule()
-	if r.name != ruleShutTopic || r.bonus != bonusShutTopic || bonusShutTopic <= bonusSentence || r.graph == nil || r.waits != nil {
+	if r.name != ruleShutTopic || r.bonus != bonusOverCount || bonusOverCount <= bonusSameLetters || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

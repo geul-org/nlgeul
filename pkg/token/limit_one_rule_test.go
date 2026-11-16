@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestLimitOneRule — the rule on its own, a candidate judged with the words around it given: it speaks only of 한 read as a nominal of the word table (not the determiner 한, not 하 read as a nominal), its name and its bonus are bonusOne, it waits for nothing; it stands after the modifying 는 and falls with the reason whyNoNeun after the modifying ㄴ, an object or no word
+//ff:what TestLimitOneRule — the rule on its own, a candidate judged with the words around it given: it speaks only of 한 read as a nominal of the word table (not the determiner 한, not 하 read as a nominal), its name and its bonus are bonusOverCount, it waits for nothing; it stands after the modifying 는 and falls with the reason whyNoNeun after the modifying ㄴ, an object or no word
 package token
 
 import (
@@ -13,7 +13,7 @@ func TestLimitOneRule(t *testing.T) {
 	noun := auxLinkedPick(t, brs, "한[열쇠:체언]")
 	det := auxLinkedPick(t, brs, "한[관형사:한]")
 	r := limitOneRule()
-	if r.name != ruleLimitOne || r.bonus != bonusOne || r.waits != nil || r.graph == nil {
+	if r.name != ruleLimitOne || r.bonus != bonusOverCount || r.waits != nil || r.graph == nil {
 		t.Fatalf("%+v", r)
 	}
 	if !r.about(nearOf(noun)) || r.about(nearOf(det)) || r.about(rule.Near{Stem: "하", Kind: "열쇠:체언"}) {
@@ -27,7 +27,7 @@ func TestLimitOneRule(t *testing.T) {
 		add    float64
 		note   string
 	}{
-		{[]rule.Near{{Stem: "있", Last: "꾸밈:는", Pred: true}}, bonusOne, line("1.00", "통과")},
+		{[]rule.Near{{Stem: "있", Last: "꾸밈:는", Pred: true}}, bonusOverCount, line("1.00", "통과")},
 		{[]rule.Near{{Stem: "가능하", Last: "꾸밈:ㄴ", Pred: true}}, 0, falls},
 		{[]rule.Near{{Stem: "일", Last: "목적격:을"}}, 0, falls},
 		{nil, 0, falls},

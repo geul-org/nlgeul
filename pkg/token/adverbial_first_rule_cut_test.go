@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAdverbialFirstRuleCut — the rule does not carry a candidate over another reading of the word: with 가 both a noun and a verb in the table 가서는 stays 가+(아)서+는 of the verb first (가+서+는, which the rule raises, is still a candidate behind it), and with the same rule given bonusSentence in place of bonusOrder the order is the other way, so the small value is what holds the reading
+//ff:what TestAdverbialFirstRuleCut — the rule carries a candidate over another reading of the word just above it: with 가 both a noun and a verb in the table, 가서는 has 가+(아)서+는 of the verb first with no rule, and with the rule 가+서+는, raised by exactly bonusSameLetters, comes first with the verb's still a candidate behind it
 package token
 
 import "testing"
@@ -18,20 +18,11 @@ func TestAdverbialFirstRuleCut(t *testing.T) {
 	now := seg.Nodes[0]
 	w, wi := branchNamed(now, verb)
 	s, si := branchNamed(now, split)
-	if wi != 0 || si < 0 {
-		t.Fatalf("verb first, split kept: %q", now.Contest.Branches)
+	if si != 0 || wi < 0 {
+		t.Fatalf("split first, verb kept: %q", now.Contest.Branches)
 	}
 	oldSplit, _ := branchNamed(was, split)
-	if !almost(s.Pref, oldSplit.Pref+bonusOrder) || w.Lambda() <= s.Lambda() {
+	if !almost(s.Pref, oldSplit.Pref+bonusSameLetters) || w.Lambda() >= s.Lambda() {
 		t.Fatalf("lambda %v %v", w.Lambda(), s.Lambda())
-	}
-
-	loud := adverbialFirstRule()
-	loud.bonus = bonusSentence
-	st := r.Stream("가서는")
-	st.rules = []sentenceRule{loud}
-	seg, _ = st.Next()
-	if got := seg.Nodes[0].Contest.Branches[0].String(); got != split {
-		t.Fatalf("with bonusSentence the reading moves to the split: %q", got)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestMalLinkedRuleReader — read with words-link-before-aux.tsv: after 울지 and 울고 the first candidate of 마라 is 말+(아)라 (말다 without its ㄹ) with exactly bonusMalLinked more than it has with no rule, ahead of the noun 마라; after 집 it is not raised and the noun stays first; no candidate is dropped
+//ff:what TestMalLinkedRuleReader — read with words-link-before-aux.tsv: after 울지 and 울고 the first candidate of 마라 is 말+(아)라 (말다 without its ㄹ) with exactly bonusShortTaken more than it has with no rule, ahead of the noun 마라; after 집 it is not raised and the noun stays first; no candidate is dropped
 package token
 
 import "testing"
@@ -21,7 +21,7 @@ func TestMalLinkedRuleReader(t *testing.T) {
 		if !c.raised {
 			first = noun
 		}
-		if c.raised && !almost(gain, bonusMalLinked) || !c.raised && !almost(gain, 0) || got[1][0].String() != first || len(got[1]) != len(bare[1]) {
+		if c.raised && !almost(gain, bonusShortTaken) || !c.raised && !almost(gain, 0) || got[1][0].String() != first || len(got[1]) != len(bare[1]) {
 			t.Fatalf("%q: %q first, raised by %v", c.in, got[1][0].String(), gain)
 		}
 	}

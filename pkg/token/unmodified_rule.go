@@ -12,10 +12,11 @@ import (
 // adnominal modifies the nominal after it. Where no such word follows
 // (감정인 및, 시행일., 방송인 "…"), the reading as the copula cannot stand
 // and the noun of the table of the same letters is preferred
-// (bonusUnmodified): the rebuttal "rarely seen" that a compound noun
-// meets against the copula on a well seen noun does not hold it back.
+// (bonusShortTaken, more than the rebuttal "rarely seen" takes at most):
+// that rebuttal, which a compound noun meets against the copula on a well
+// seen noun, does not hold it back.
 func unmodifiedRule() sentenceRule {
 	g := toulmin.NewGraph(ruleUnmodified)
 	g.Rule(rule.AroundIs).With(&rule.Bits{Of: "around", Mask: rule.AroundBeforeModifiable}).With(not).With(&rule.Claim{Name: ruleUnmodified, Concludes: preferLabel})
-	return sentenceRule{name: ruleUnmodified, graph: g, bonus: bonusUnmodified, about: adnNoun, waits: adnNoun}
+	return sentenceRule{name: ruleUnmodified, graph: g, bonus: bonusShortTaken, about: adnNoun, waits: adnNoun}
 }

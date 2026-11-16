@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestDegreeUnitRuleOrder — over the small word table for streams (an index with a word table holds the rules of a sentence), with the rule 도 right after a number at the end of its word (10도, 340도) is read first as the unit, the particle of the same letters behind it, no candidate taken away, the unit raised by exactly bonusSentence; with no rule (st.rules nil) the particle is first, so it is the rule that changes the order; 10도로 (a particle after the unit) is read as before
+//ff:what TestDegreeUnitRuleOrder — over the small word table for streams (an index with a word table holds the rules of a sentence), with the rule 도 right after a number at the end of its word (10도, 340도) is read first as the unit, the particle of the same letters behind it, no candidate taken away, the unit raised by exactly bonusSameLetters; with no rule (st.rules nil) the particle is first, so it is the rule that changes the order; 10도로 (a particle after the unit) is read as before
 package token
 
 import "testing"
@@ -23,8 +23,8 @@ func TestDegreeUnitRuleOrder(t *testing.T) {
 		}
 		u, _ := branchNamed(now, unit)
 		old, _ := branchNamed(was, unit)
-		if !almost(u.Pref, old.Pref+bonusSentence) {
-			t.Fatalf("%s: raised by bonusSentence: %v %v", text, u.Pref, old.Pref)
+		if !almost(u.Pref, old.Pref+bonusSameLetters) {
+			t.Fatalf("%s: raised by bonusSameLetters: %v %v", text, u.Pref, old.Pref)
 		}
 	}
 	seg, _ := r.Stream("10도로").Next()

@@ -31,7 +31,7 @@ func TestReaderStreamQuotedUnshut(t *testing.T) {
 	plain, _ := quotedBranches(t, "(책)라고 했다", "라고", false)
 	after, ok := quotedPref(got, "+라고[부사격:라고]")
 	before, _ := quotedPref(plain, "+라고[부사격:라고]")
-	if !ok || math.Abs(after-before-bonusSentence) > 1e-9 {
+	if !ok || math.Abs(after-before-bonusSameLetters) > 1e-9 {
 		t.Errorf("after a closing bracket: %v -> %v", before, after)
 	}
 	if !strings.Contains(strings.Join(notes, "\n"), "+라고[부사격:라고]\t"+ruleQuoted+"\t1.00\t통과") {

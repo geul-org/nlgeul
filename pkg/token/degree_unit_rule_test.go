@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestDegreeUnitRule — the rule of a sentence is named as the trace prints it, adds bonusSentence and waits for nothing, and speaks only of a candidate whose stem is a number and whose last piece is the unit 도 (not 도 as a particle, not the unit with a particle after it, not another unit, not a stem that is no number)
+//ff:what TestDegreeUnitRule — the rule of a sentence is named as the trace prints it, adds bonusSameLetters and waits for nothing, and speaks only of a candidate whose stem is a number and whose last piece is the unit 도 (not 도 as a particle, not the unit with a particle after it, not another unit, not a stem that is no number)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestDegreeUnitRule(t *testing.T) {
 	r := degreeUnitRule()
-	if r.name != ruleDegreeUnit || r.graph == nil || r.bonus != bonusSentence || r.waits != nil {
+	if r.name != ruleDegreeUnit || r.graph == nil || r.bonus != bonusSameLetters || r.waits != nil {
 		t.Fatal(r.name, r.bonus, r.waits != nil)
 	}
 	cases := []struct {

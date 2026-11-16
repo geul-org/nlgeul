@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what shutTopicRule — the rule of a sentence "이란 and 란 written right after a closing sign are the topic particle": a candidate one of whose markers is the particle 이란 or 란 (topicNames) is preferred when the word right before it is a sign that closes a pair (shutName), and not otherwise; it adds bonusShutTopic
+//ff:what shutTopicRule — the rule of a sentence "이란 and 란 written right after a closing sign are the topic particle": a candidate one of whose markers is the particle 이란 or 란 (topicNames) is preferred when the word right before it is a sign that closes a pair (shutName), and not otherwise; it adds bonusOverCount
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -11,5 +11,5 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 func shutTopicRule() sentenceRule {
 	g, claim := sentenceClaim(ruleShutTopic, rule.SelfHas, listed("보조사 이란·란", rule.ListSelfMarks, topicNames))
 	except(g, rule.Listed, whyNotShut, listed("닫는 기호", rule.ListPrevKind, []string{shutName}), not).Attacks(claim)
-	return sentenceRule{name: ruleShutTopic, graph: g, bonus: bonusShutTopic, about: func(n rule.Near) bool { return hasMark(n, topicNames) }}
+	return sentenceRule{name: ruleShutTopic, graph: g, bonus: bonusOverCount, about: func(n rule.Near) bool { return hasMark(n, topicNames) }}
 }

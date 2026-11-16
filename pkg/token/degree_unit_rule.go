@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what degreeUnitRule — the rule of a sentence "도 right after a number at the end of its word is the unit first": a candidate whose stem is a number and whose last piece is the unit 도 (degreeNames) is preferred over the same letters read with the auxiliary particle 도, by bonusSentence
+//ff:what degreeUnitRule — the rule of a sentence "도 right after a number at the end of its word is the unit first": a candidate whose stem is a number and whose last piece is the unit 도 (degreeNames) is preferred over the same letters read with the auxiliary particle 도, by bonusSameLetters
 package token
 
 import (
@@ -14,11 +14,11 @@ import (
 // 도 after a bare number (100분의 1도) loses to it; the rule has no
 // exception. It reads nothing of the sentence, but the particle's
 // preference (by its count) is about 0.25 above the unit's (one of the
-// unit table's entries), more than bonusOrder carries; bonusSentence,
-// 0.3 and 1 tried in its place on the answer sheet gave the same words.
+// unit table's entries), which bonusSameLetters carries; 0.3 and 1 tried
+// in its place on the answer sheet gave the same words.
 func degreeUnitRule() sentenceRule {
 	g, _ := sentenceClaim(ruleDegreeUnit, rule.Listed, listed("단위 도", rule.ListSelfLast, degreeNames))
-	return sentenceRule{name: ruleDegreeUnit, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool {
+	return sentenceRule{name: ruleDegreeUnit, graph: g, bonus: bonusSameLetters, about: func(n rule.Near) bool {
 		return n.Kind == numName && slices.Contains(degreeNames, n.Last)
 	}}
 }

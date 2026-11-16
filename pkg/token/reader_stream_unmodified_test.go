@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamUnmodified — before 및 and at the end of a sentence (nothing an adnominal modifies follows) the noun 감정인 of the table comes first in the word 감정인, with exactly bonusUnmodified more preference than the stream with no rules gives it, and the copula's modifying form 감정+이+ㄴ stays as it was behind it; the trace says the rule stood
+//ff:what TestReaderStreamUnmodified — before 및 and at the end of a sentence (nothing an adnominal modifies follows) the noun 감정인 of the table comes first in the word 감정인, with exactly bonusShortTaken more preference than the stream with no rules gives it, and the copula's modifying form 감정+이+ㄴ stays as it was behind it; the trace says the rule stood
 package token
 
 import (
@@ -18,8 +18,8 @@ func TestReaderStreamUnmodified(t *testing.T) {
 		}
 		after, _ := quotedPref(got, noun)
 		before, _ := quotedPref(plain, noun)
-		if math.Abs(after-before-bonusUnmodified) > 1e-9 {
-			t.Errorf("%q: %v -> %v, want exactly bonusUnmodified more", in, before, after)
+		if math.Abs(after-before-bonusShortTaken) > 1e-9 {
+			t.Errorf("%q: %v -> %v, want exactly bonusShortTaken more", in, before, after)
 		}
 		rest, _ := quotedPref(got, copula)
 		if was, _ := quotedPref(plain, copula); rest != was {

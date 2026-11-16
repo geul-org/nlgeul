@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAdverbialFirstRuleParticle — with a particle after 에서 (학교에서는) the adverbial reading, which has a marker 에서 followed by 는, is still the one the rule raises: it is first, by bonusOrder over what it was with no rule, and every other candidate keeps its preference
+//ff:what TestAdverbialFirstRuleParticle — with a particle after 에서 (학교에서는) the adverbial reading, which has a marker 에서 followed by 는, is still the one the rule raises: it is first, by bonusSameLetters over what it was with no rule, and every other candidate keeps its preference
 package token
 
 import "testing"
@@ -22,7 +22,7 @@ func TestAdverbialFirstRuleParticle(t *testing.T) {
 		}
 		want := old.Pref
 		if br.String() == adv || br.String() == "학교에+서[부사격:서]+는[보조사:는]" {
-			want += bonusOrder
+			want += bonusSameLetters
 		}
 		if !almost(br.Pref, want) {
 			t.Errorf("%s: %v; want %v", br.String(), br.Pref, want)

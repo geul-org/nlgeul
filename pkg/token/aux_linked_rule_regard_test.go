@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAuxLinkedRuleRegard — the auxiliary 보 of 보건대 judged with the word before it given: after 관하여 (관하+여, regardStems) the rule falls with the reason 앞 어절이 관하다(…에 관하여)다 and adds nothing, after another verb's 어/아 form (먹어) it stands and adds bonusAuxLinked; read with words-link-before-aux.tsv, 점에 관하여 보건대 puts the main verb 보 first and 먹어 보건대 the auxiliary
+//ff:what TestAuxLinkedRuleRegard — the auxiliary 보 of 보건대 judged with the word before it given: after 관하여 (관하+여, regardStems) the rule falls with the reason 앞 어절이 관하다(…에 관하여)다 and adds nothing, after another verb's 어/아 form (먹어) it stands and adds bonusOverCount; read with words-link-before-aux.tsv, 점에 관하여 보건대 puts the main verb 보 first and 먹어 보건대 the auxiliary
 package token
 
 import (
@@ -19,7 +19,7 @@ func TestAuxLinkedRuleRegard(t *testing.T) {
 		note   string
 	}{
 		{rule.Near{Stem: "관하", Kind: "열쇠:동사", Last: "맺음:여"}, 0, "-1.00\t기각: 앞 어절이 관하다(…에 관하여)다"},
-		{rule.Near{Stem: "먹", Kind: "열쇠:동사", Last: "맺음:어"}, bonusAuxLinked, "1.00\t통과"},
+		{rule.Near{Stem: "먹", Kind: "열쇠:동사", Last: "맺음:어"}, bonusOverCount, "1.00\t통과"},
 	} {
 		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
 		if add != c.add || len(notes) != 1 || notes[0] != "  · "+aux+"\t"+ruleAuxLinked+"\t"+c.note {

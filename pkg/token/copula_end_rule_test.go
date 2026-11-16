@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestCopulaEndRule — the rule is named as the trace prints it, adds bonusCopula, waits for the words after a candidate it speaks of, and speaks only of a candidate whose last piece is the ending 야 or 라고 (not of 야 read as the vocative or the auxiliary particle, nor of 라고 with a particle after it, nor of a word with no marker)
+//ff:what TestCopulaEndRule — the rule is named as the trace prints it, adds bonusShortTaken, waits for the words after a candidate it speaks of, and speaks only of a candidate whose last piece is the ending 야 or 라고 (not of 야 read as the vocative or the auxiliary particle, nor of 라고 with a particle after it, nor of a word with no marker)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestCopulaEndRule(t *testing.T) {
 	r := copulaEndRule()
-	if r.name != ruleCopulaEnd || r.bonus != bonusCopula || r.graph == nil || r.waits == nil {
+	if r.name != ruleCopulaEnd || r.bonus != bonusShortTaken || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

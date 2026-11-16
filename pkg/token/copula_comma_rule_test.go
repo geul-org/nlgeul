@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestCopulaCommaRule — the rule is named as the trace prints it, adds bonusCopula, waits for the words after a candidate it speaks of, and speaks only of a candidate with the copula 이 written out whose last piece is the ending 나 (not of the auxiliary particle 이나, nor of 나 after the dropped copula, nor of 이 with another ending)
+//ff:what TestCopulaCommaRule — the rule is named as the trace prints it, adds bonusShortTaken, waits for the words after a candidate it speaks of, and speaks only of a candidate with the copula 이 written out whose last piece is the ending 나 (not of the auxiliary particle 이나, nor of 나 after the dropped copula, nor of 이 with another ending)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestCopulaCommaRule(t *testing.T) {
 	r := copulaCommaRule()
-	if r.name != ruleCopulaComma || r.bonus != bonusCopula || r.graph == nil || r.waits == nil {
+	if r.name != ruleCopulaComma || r.bonus != bonusShortTaken || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

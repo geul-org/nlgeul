@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestQuotedRule — the rule is named as the trace prints it, adds bonusSentence, waits for nothing, and speaks only of a candidate that has the particle 라고 or 이라고 among its markers (not of 라고 as an ending, nor of a word with no marker)
+//ff:what TestQuotedRule — the rule is named as the trace prints it, adds bonusSameLetters, waits for nothing, and speaks only of a candidate that has the particle 라고 or 이라고 among its markers (not of 라고 as an ending, nor of a word with no marker)
 package token
 
 import (
@@ -10,7 +10,7 @@ import (
 
 func TestQuotedRule(t *testing.T) {
 	r := quotedRule()
-	if r.name != ruleQuoted || r.bonus != bonusSentence || r.graph == nil || r.waits != nil {
+	if r.name != ruleQuoted || r.bonus != bonusSameLetters || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {

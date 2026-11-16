@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestLinkBeforeAuxRuleReader — read with words-link-before-aux.tsv: before 있다 the 어/아 form of a main verb whose letters are also a noun (남아, 서) comes first with exactly bonusLinkBeforeAux more than it has with no rule, whether a space stands between (남아 있다, 서 있다) or not (남아있다), and then 있다 is the auxiliary; before 먹다 the same form is not raised (남아 먹다, 서 먹다); no candidate is dropped
+//ff:what TestLinkBeforeAuxRuleReader — read with words-link-before-aux.tsv: before 있다 the 어/아 form of a main verb whose letters are also a noun (남아, 서) comes first with exactly bonusShortTaken more than it has with no rule, whether a space stands between (남아 있다, 서 있다) or not (남아있다), and then 있다 is the auxiliary; before 먹다 the same form is not raised (남아 먹다, 서 먹다); no candidate is dropped
 package token
 
 import "testing"
@@ -20,7 +20,7 @@ func TestLinkBeforeAuxRuleReader(t *testing.T) {
 		gain := auxLinkedPick(t, got[0], c.link).Pref - auxLinkedPick(t, bare[0], c.link).Pref
 		want, note := 0.0, "-1.00\t기각: 바로 뒤 어절의 줄기가 보조 용언이 아니다"
 		if c.raised {
-			want, note = bonusLinkBeforeAux, "1.00\t통과"
+			want, note = bonusShortTaken, "1.00\t통과"
 		}
 		if !almost(gain, want) || len(got[0]) != len(bare[0]) {
 			t.Fatalf("%q: raised by %v, %d candidates (%d with no rule)", c.in, gain, len(got[0]), len(bare[0]))

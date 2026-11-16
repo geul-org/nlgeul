@@ -20,8 +20,8 @@ func TestAuxLinkedRuleUnlinked(t *testing.T) {
 		if !almost(auxLinkedPick(t, got, c.aux).Pref, auxLinkedPick(t, bare, c.aux).Pref) {
 			t.Fatalf("%q: the auxiliary is raised", c.in)
 		}
-		if !almost(auxLinkedPick(t, got, c.main).Pref-auxLinkedPick(t, bare, c.main).Pref, bonusSentence) {
-			t.Fatalf("%q: the main predicate gains other than bonusSentence", c.in)
+		if !almost(auxLinkedPick(t, got, c.main).Pref-auxLinkedPick(t, bare, c.main).Pref, bonusSameLetters) {
+			t.Fatalf("%q: the main predicate gains other than bonusSameLetters", c.in)
 		}
 	}
 }
