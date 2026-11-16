@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestFrontGraph — a sign at a number's front stands before digits with nothing left of it; after letters only when it is not asked to be at the front
+//ff:what TestFrontGraph — a sign at a number's front stands with nothing left of it and falls after letters (what stands right of it is not its graph's to ask: it is judged only where a number begins); the range sign stands after letters before digits and falls before no digits
 package token
 
 import (
@@ -19,7 +19,7 @@ func TestFrontGraph(t *testing.T) {
 	}
 	front, any := frontGraph("부호:-", digits, true), frontGraph("범위:~", digits, false)
 	num := rule.SideAlnum | rule.SideDigit
-	if run(front, rule.Mark{Right: num}) <= 0 || run(front, rule.Mark{Left: rule.SideHangul, Right: num}) > 0 || run(front, rule.Mark{Right: rule.SideHangul}) > 0 {
+	if run(front, rule.Mark{Right: num}) <= 0 || run(front, rule.Mark{Left: rule.SideHangul, Right: num}) > 0 || run(front, rule.Mark{Right: rule.SideHangul}) <= 0 {
 		t.Fatal("front")
 	}
 	if run(any, rule.Mark{Left: rule.SideHangul, Right: num}) <= 0 || run(any, rule.Mark{Left: rule.SideHangul}) > 0 {

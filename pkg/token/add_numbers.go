@@ -34,7 +34,7 @@ func (ix *index) addNumbers() {
 	ix.fronts = map[rune]*entry{}
 	for _, sign := range headOrder {
 		ix.fronts[sign] = frontGraph(headSigns[sign], digits, true)
-		ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
+		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 	}
 	ix.order = orderGraph(digits)
 	ix.graphs, ix.edges = ix.graphs+1, ix.edges+2

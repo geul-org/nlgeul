@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what pairGraph — the judgment graph of one candidate of a sign of a pair: the claim "this sign opens a pair" or "this sign closes a pair", and the exceptions against it: for a closing candidate that no sign of its kind may stand open, for the opening candidate of a quotation mark written the same way at both ends that one of its kind may stand open, and what the sign's row bars (it stands inside a word, right after a digit, apart with a space on both sides, or next to a hyphen or an equals sign); the number of edges is returned
+//ff:what pairGraph — the judgment graph of one candidate of a sign of a pair: the claim "this sign opens a pair" or "this sign closes a pair", and the exceptions against it: for a closing candidate that no sign of its kind may stand open, for the opening candidate of a quotation mark written the same way at both ends that one of its kind may stand open, and what the sign's row bars (it stands inside a word, apart with a space on both sides, or next to a hyphen or an equals sign); the number of edges is returned
 package token
 
 import (
@@ -25,9 +25,6 @@ func pairGraph(sign rune, row pairRow, name string) (*toulmin.Graph, int) {
 	}
 	if row.bars&barWord != 0 {
 		bar(except(g, rule.MarkBoth, whyInWord, &rule.Bits{Of: "sides", Mask: rule.SideAlnum}))
-	}
-	if row.bars&barDigit != 0 {
-		bar(except(g, rule.MarkIs, whyAfterDigit, &rule.Bits{Of: "mark", Mask: rule.MarkAfterDigit}))
 	}
 	if row.bars&barApart != 0 {
 		bar(except(g, rule.MarkIs, whyApart, &rule.Bits{Of: "mark", Mask: rule.MarkApart}))

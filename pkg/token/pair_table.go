@@ -22,12 +22,10 @@ var pairRows = data.Must(loadPairs(data.Must(data.Rows("pairs", 4))))
 var pairOrder = data.Must(data.Runes("pairs", 4))
 
 // What keeps a sign from being read as a sign of a pair: it stands
-// inside a word (it's, O'Brien); it stands right after a digit
-// (5'10"); a space stands on both sides of it, or a hyphen or an
-// equals sign right next to it (x < y, ->, =>, <=).
+// inside a word (it's, O'Brien); a space stands on both sides of it,
+// or a hyphen or an equals sign right next to it (x < y, ->, =>, <=).
 const (
 	barWord = 1 << iota
-	barDigit
 	barApart
 )
 

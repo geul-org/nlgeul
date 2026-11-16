@@ -9,8 +9,8 @@ func TestPairOf(t *testing.T) {
 	if err != nil || sign != ')' || p != (pairRow{kind: '(', shuts: true}) {
 		t.Fatal(sign, p, err)
 	}
-	sign, p, err = pairOf(rowFor("'", "'", "열기|닫기", "헷갈림|낱말 속 안 됨|숫자 뒤 안 됨"))
-	want := pairRow{kind: '\'', opens: true, shuts: true, unsure: true, bars: barWord | barDigit}
+	sign, p, err = pairOf(rowFor("'", "'", "열기|닫기", "헷갈림|낱말 속 안 됨"))
+	want := pairRow{kind: '\'', opens: true, shuts: true, unsure: true, bars: barWord}
 	if err != nil || sign != '\'' || p != want {
 		t.Fatal(sign, p, err)
 	}

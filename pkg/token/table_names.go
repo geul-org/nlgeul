@@ -13,7 +13,7 @@ var tailNames = map[string]int{"-": 0, "형용사": rule.TailAdj, "동사": rule
 
 var pairRoles = map[string]int{"열기": pairOpens, "닫기": pairShuts}
 
-var pairBars = map[string]int{"헷갈림": pairUnsure, "낱말 속 안 됨": barWord, "숫자 뒤 안 됨": barDigit, "띄어 쓴 자리 안 됨": barApart}
+var pairBars = map[string]int{"헷갈림": pairUnsure, "낱말 속 안 됨": barWord, "띄어 쓴 자리 안 됨": barApart}
 
 // What a sign of a pair does, as the table's column gives it, and the
 // bit that marks an unsure sign among what keeps it from being one.

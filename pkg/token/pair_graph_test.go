@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestPairGraph — the exceptions of one candidate of a sign of a pair, counted and judged: a closing candidate falls when no sign of its kind stands open; the opening candidate of a quotation mark falls when one stands open; a sign that bars it falls inside a word, apart with a space on both sides, or next to a hyphen or an equals sign; a plain bracket has no exception on the opening side; a row that bars a digit before the sign adds one that falls right after a digit
+//ff:what TestPairGraph — the exceptions of one candidate of a sign of a pair, counted and judged: a closing candidate falls when no sign of its kind stands open; the opening candidate of a quotation mark falls when one stands open; a sign that bars it falls inside a word, apart with a space on both sides, or next to a hyphen or an equals sign; a plain bracket has no exception on the opening side; a quotation mark right after a digit stands
 package token
 
 import (
@@ -46,14 +46,6 @@ func TestPairGraph(t *testing.T) {
 		v, _ := evaluate(g, ctx, false)
 		if edges != c.edges || (v > 0) != c.stand {
 			t.Errorf("%c %s: %d edges, verdict %.2f, want %d edges, stands %v", c.sign, c.name, edges, v, c.edges, c.stand)
-		}
-	}
-	g, edges := pairGraph('"', pairRow{kind: '"', opens: true, bars: barDigit}, openName)
-	for facts, stand := range map[int]bool{0: true, rule.MarkAfterDigit: false} {
-		ctx := toulmin.NewContext()
-		ctx.Set(rule.KeyMark, rule.Mark{Facts: facts})
-		if v, _ := evaluate(g, ctx, false); edges != 1 || (v > 0) != stand {
-			t.Errorf("a row that bars a digit before it, facts %v: %d edges, verdict %.2f", facts, edges, v)
 		}
 	}
 }
