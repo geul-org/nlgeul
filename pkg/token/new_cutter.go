@@ -4,6 +4,6 @@ package token
 
 func newCutter(ix *index, sentence string, trace bool) *cutter {
 	r := []rune(sentence)
-	code := twos(r, '`', nil)
+	code := twos(r, '`')
 	return &cutter{ix: ix, r: r, code: code, inside: covered(code, len(r)), open: []string{""}, trace: trace}
 }
