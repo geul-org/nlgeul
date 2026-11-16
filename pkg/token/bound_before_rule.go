@@ -13,6 +13,6 @@ func boundBeforeRule(bound, nominal []string) sentenceRule {
 	g, claim := sentenceClaim(ruleBoundBefore, rule.KindListed, listed("꾸밈 맺음", rule.ListSelfLast, []string{adn}))
 	except(g, rule.Listed, whyNoBoundNext, listed("의존 명사", rule.ListNextStem, bound), not).Attacks(claim)
 	except(g, rule.Listed, whyNominalNext, listed("체언 뒤 의존 명사", rule.ListNextStem, nominal)).Attacks(claim)
-	is := func(n rule.Near) bool { return nameKind(n.Last) == adn }
+	is := func(n rule.Near) bool { return labelOf(n.Last) == adn }
 	return sentenceRule{name: ruleBoundBefore, graph: g, bonus: bonusBound, about: is, waits: is}
 }

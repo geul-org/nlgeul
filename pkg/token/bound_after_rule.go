@@ -12,5 +12,5 @@ func boundAfterRule(nominal []string) sentenceRule {
 	g, claim := sentenceClaim(ruleBoundAfter, rule.KindListed, listed("의존 명사", rule.ListSelfKind, []string{boundSet}))
 	except(g, rule.KindListed, whyNoAdn, listed("꾸밈 맺음", rule.ListPrevLast, []string{closingLabel(rule.KindAdn)}), not).Attacks(claim)
 	except(g, rule.Listed, whyNominalSelf, listed("체언 뒤 의존 명사", rule.ListSelfStem, nominal)).Attacks(claim)
-	return sentenceRule{name: ruleBoundAfter, graph: g, bonus: bonusBoundAfter, about: func(n rule.Near) bool { return nameKind(n.Kind) == boundSet }}
+	return sentenceRule{name: ruleBoundAfter, graph: g, bonus: bonusBoundAfter, about: func(n rule.Near) bool { return labelOf(n.Kind) == boundSet }}
 }
