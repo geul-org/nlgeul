@@ -11,7 +11,7 @@ func TestDistinct(t *testing.T) {
 	if got := distinct([]string{"b", "a", "b", "", "a", ""}); !reflect.DeepEqual(got, []string{"b", "a", ""}) {
 		t.Fatal(got)
 	}
-	if got := distinct(nil); got != nil {
+	if got := distinct[string](nil); got != nil {
 		t.Fatal(got)
 	}
 }

@@ -31,5 +31,5 @@ func (c *cutter) candidates(i int) ([]pairing, bool, []string, []string) {
 	if len(candidates) == 0 {
 		return nil, false, nil, nil
 	}
-	return ordered(candidates), bare, distinct(open), distinct(notes)
+	return distinct(candidates), bare, distinct(open), distinct(notes)
 }
