@@ -22,7 +22,7 @@ var topDomains = data.Must(data.Column("top-domains", 1))
 // one stem: a slash sets two things side by side (입력/출력), a hyphen
 // joins two words that belong together (원-달러). Each stands only
 // with a letter on both sides, and the stem only when every word in it
-// is known (bound). Between two runs of Latin letters and digits the
+// is known (boundOf). Between two runs of Latin letters and digits the
 // same signs join the runs into one name before the unit is read
 // (nameSigns).
 var linkSigns = map[rune]string{'/': "대비:/", '-': "붙임:-"}

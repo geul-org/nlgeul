@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestBoundOf — a bound stem with a word written wrong is read as the right form of the whole (입력/역활 → 입력/역할) when typos is true, judged as a misspelt form, below the same stem written right; not when typos is false (then nothing of it stands); a stem written right comes back as it is either way; bound is boundOf with no typos
+//ff:what TestBoundOf — a bound stem with a word written wrong is read as the right form of the whole (입력/역활 → 입력/역할) when typos is true, judged as a misspelt form, below the same stem written right; not when typos is false (then nothing of it stands); a stem written right comes back as it is either way
 package token
 
 import (
@@ -26,9 +26,6 @@ func TestBoundOf(t *testing.T) {
 	}
 	if got, candidates := sc.boundOf("입력/없는말", rule.TailCase, true); got != "입력/없는말" || len(candidates) != 0 {
 		t.Fatal(got, candidates)
-	}
-	if candidates := sc.bound("입력/역활", rule.TailCase); len(candidates) != 0 {
-		t.Fatal("bound reads no word written wrong", candidates)
 	}
 	if got, candidates := sc.boundOf("입력", rule.TailCase, true); got != "입력" || len(candidates) != 0 {
 		t.Fatal("a stem with no bound sign is not a bound stem", got, candidates)
