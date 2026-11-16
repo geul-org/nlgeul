@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStemPref — a known stem with a count: the log of its share; a known stem of two nominals bound by 사이시옷 (고양잇물): the sum of theirs as nominals; a known stem of words bound by a slash or a hyphen and of more than one token: the sum of its words'; a new word (고양잇물 as one too), a known one without a count, a bound stem that is one token (an atom), a bound stem not known, and a stem with both signs: its tokens
+//ff:what TestStemPref — a known stem with a count: the log of its share; a known stem of words bound by a slash or a hyphen and of more than one token: the sum of its words'; a new word (고양잇물 as one too), a known one without a count (two nominals bound by 사이시옷, 고양잇물, too), a bound stem that is one token (an atom), a bound stem not known, and a stem with both signs: its tokens
 package token
 
 import (
@@ -48,8 +48,8 @@ func TestStemPref(t *testing.T) {
 	if got, want := ix.stemPref("작", rule.TailCase, kindAdj, true, 1), math.Log10(7000/ix.lexTotal); math.Abs(got-want) > 1e-9 {
 		t.Fatal("whatever follows it", got, want)
 	}
-	if got, want := ix.stemPref("고양잇물", rule.TailCase, kindNominal, true, 4), share("고양이")+math.Log10(4000/ix.lexTotal); math.Abs(got-want) > 1e-9 {
-		t.Fatal("two nominals bound by 사이시옷: the sum of theirs as nominals (물 the noun)", got, want)
+	if got := ix.stemPref("고양잇물", rule.TailCase, kindNominal, true, 4); got != 4*per {
+		t.Fatal("two nominals bound by 사이시옷: its tokens, as a known stem with no count", got)
 	}
 	if got := ix.stemPref("고양잇물", rule.TailCase, kindNominal, false, 4); got != 4*per {
 		t.Fatal("the new word of the same letters", got)
