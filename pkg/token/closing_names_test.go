@@ -30,7 +30,7 @@ func TestClosingNames(t *testing.T) {
 	}
 	rows := []parse.Marker{{Lead: rule.LeadVowel}, {Form: "야", Lead: rule.LeadVowel}, {Form: "지"}, {Form: "고"}, {Form: "게"}, {Lead: rule.LeadVowel}, {Form: "서", Lead: rule.LeadVowel}, {Form: "면서", Eu: true}, {Form: "다고"}, {Form: "다고", Lead: rule.JongN}, {Form: "는다고", After: rule.AfterBatchim}, {Form: "라고"}, {Form: "자고"}, {Form: "냐고"}, {Form: "느냐고"}, {Form: "다가"}, {Form: "고서"}, {Form: "려고", Eu: true}, {Form: "면", Eu: true}}
 	var entries []*entry
-	for _, m := range append(rows, gatedClosings...) {
+	for _, m := range append(rows, namingRows(gatedClosings)...) {
 		entries = append(entries, closingEntries(m)...)
 	}
 	names := slices.Concat(connNames, mustNames, auxClosings, nounHeads)

@@ -98,7 +98,7 @@ var splits = map[string][]split{
 
 // haoSplits are closings of the tables written out as their pieces only
 // with a word table (splitsOf): 시오 is the honorific and the 하오체 오,
-// whose graph 맺음:오 the index has only then (haoClosings). Without a
+// whose graph 맺음:오 the index has only then (gatedClosings). Without a
 // word table 시오 stays the one closing the tables give.
 var haoSplits = map[string][]split{
 	"맺음:시오":  {{"시", honorName}, {"오", "맺음:오"}},

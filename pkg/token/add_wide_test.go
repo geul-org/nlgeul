@@ -24,7 +24,7 @@ func TestAddWide(t *testing.T) {
 	if !ok(ix.wide['심'], rule.RightParticle) || ok(ix.wide['심'], rule.RightOther) || !ok(ix.wide['세'], rule.RightDone) {
 		t.Fatal("심, 세")
 	}
-	if ix.graphs != graphs+2+4+23+len(shortSlots)+1+2+len(gatedClosings)+len(haoClosings)+2*len(promiseClosings)+len(looseClosings)+1+1+len(nounSuffixes) || !slices.Contains(ix.heads['에'], "에서") || ix.pred == nil || ix.nominal == nil {
+	if ix.graphs != graphs+2+4+23+len(shortSlots)+1+2+len(closingNames(gatedClosings...))+len(looseClosings)+1+1+len(nounSuffixes) || !slices.Contains(ix.heads['에'], "에서") || ix.pred == nil || ix.nominal == nil {
 		t.Fatal(ix.graphs - graphs)
 	}
 	ryul := ix.named('률', "접미:률")

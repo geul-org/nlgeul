@@ -11,7 +11,7 @@ import (
 func TestTables(t *testing.T) {
 	cols := map[string]int{
 		"case-exceptions": 6, "spacing-words": 2, "closed-words": 2, "bound-nouns": 5, "closing-counts": 2, "closing-pieces": 2,
-		"closing-sets": 2, "closings": 5, "contracts": 7,
+		"closing-sets": 2, "closings": 5, "contracts": 7, "gated-closings": 4,
 		"extensions": 1, "noun-suffixes": 2, "number-heads": 2, "pairs": 4, "particle-counts": 2,
 		"particles": 5, "short-closings": 6, "short-particles": 4, "short-slots": 4,
 		"signs": 2, "top-domains": 1, "typo-closings": 2, "typo-words": 2,
