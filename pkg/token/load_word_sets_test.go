@@ -11,10 +11,10 @@ import (
 
 func TestLoadWordSets(t *testing.T) {
 	got, err := loadWordSets([]data.Row{
-		rowFor("대명사", "네"), rowFor("보조 용언", "주"), rowFor("구어 꼴", "거"),
+		rowFor("대명사", "네"), rowFor("보조 용언", "주"), rowFor("있다·없다·계시다", "있"),
 		rowFor("대명사", "내"), rowFor("관형사", "이"),
-	}, setPronounWord, setSpoken, setAskWord)
-	if err != nil || len(got) != 3 || strings.Join(got[setPronounWord], ",") != "네,내" || strings.Join(got[setSpoken], ",") != "거" ||
+	}, setPronounWord, setExistStem, setAskWord)
+	if err != nil || len(got) != 3 || strings.Join(got[setPronounWord], ",") != "네,내" || strings.Join(got[setExistStem], ",") != "있" ||
 		got[setAskWord] != nil {
 		t.Fatal(got, err)
 	}

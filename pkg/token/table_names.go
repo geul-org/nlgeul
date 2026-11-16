@@ -39,7 +39,6 @@ const (
 	setBoundAux    = "의존명사 보조 용언"
 	setAuxMore     = "붙여 쓰는 보조 용언"
 	setPronounWord = "대명사"
-	setSpoken      = "구어 꼴"
 	setAskWord     = "의문 대명사"
 	setExistStem   = "있다·없다·계시다"
 	setVerbOnly    = "동사만"

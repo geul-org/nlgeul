@@ -62,7 +62,6 @@ const (
 	whyLonger       = "줄기에 앞 음절이 있다"
 	whyTurned       = "그 낱말 자신이 꾸밈꼴·이름꼴이다"
 	whyStemTail     = "줄기의 갈래가 뒤에 붙은 것을 받지 않는다"
-	whySpoken       = "닫힌 표의 구어 꼴이다"
 	whySole         = "줄기의 낱말이 단위 전체다"
 	whyConn         = "본용언의 어/아 꼴 바로 뒤에 붙여 쓴 보조 용언의 줄기다"
 	whyFusedIn      = "뒤의 조각이 이 글자의 모음에 합쳐진 어/아나 ㅆ이다"

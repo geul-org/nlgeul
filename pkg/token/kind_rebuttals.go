@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what kindRebuttals — on the graph of a kind of stem, the two rebuttals of its claim and what lifts each: "rarely seen", lifted for a spoken form of the closed table (spoken: 거), and "one syllable long", lifted when the stem's word is the whole of its unit, when the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail, and when it is the dependent noun 것 or 거 written right after a modifying closing; the number of edges is returned
+//ff:what kindRebuttals — on the graph of a kind of stem, the two rebuttals of its claim, "rarely seen" and "one syllable long", and what lifts the second: it is lifted when the stem's word is the whole of its unit, when the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail, and when it is the dependent noun 것 or 거 written right after a modifying closing; the number of edges is returned
 package token
 
 import (
@@ -20,11 +20,10 @@ import (
 func kindRebuttals(g *toulmin.Graph, claim *toulmin.Rule) int {
 	few := g.Counter(rule.SeenFew).With(&rule.Bits{Of: "enough", Mask: seenEnough})
 	few.Attacks(claim, forceFew)
-	except(g, rule.Listed, whySpoken, listed("spoken", rule.ListForm, spoken)).Attacks(few)
 	short := g.Counter(rule.ShortKey).With(&rule.Bits{Of: "syllables", Mask: shortKey})
 	short.Attacks(claim, forceShort)
 	except(g, rule.PieceIs, whySole, fact(rule.PieceSole)).Attacks(short)
 	except(g, rule.PieceIs, whyConn, fact(rule.PieceConn)).Attacks(short)
 	except(g, rule.PieceIs, whyAdnBound, fact(rule.PieceBound)).Attacks(short)
-	return 6
+	return 5
 }
