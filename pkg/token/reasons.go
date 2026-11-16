@@ -256,4 +256,5 @@ const ruleNominalBound = "문장:체언 뒤 의존 명사(낱말 표 이름)+조
 const (
 	ruleCountedShort = "문장:수 관형사 뒤 한 음절 체언+조사"
 	whyNotCounted    = "바로 앞 어절이 관형사로 읽히지 않는다"
+	whyNoNumDet      = "바로 앞 어절이 수 관형사가 아니다"
 )
