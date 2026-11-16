@@ -17,8 +17,3 @@ var (
 	negAdverbs     = wordSets[setNegAdverb]
 	numDeterminers = wordSets[setNumDet]
 )
-
-// predStemNames are the names a predicate's stem is printed with as a
-// word of the tables (열쇠:동사, 열쇠:형용사): the words a negative adverb
-// stands right before (negAdverbRule).
-var predStemNames = []string{keyKind + ":" + kindLabel[kindVerb], keyKind + ":" + kindLabel[kindAdj]}

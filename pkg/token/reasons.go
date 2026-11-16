@@ -107,7 +107,6 @@ const (
 	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
 	whyAdnBound        = "꾸밈 맺음 바로 뒤에 붙여 쓴 의존명사 것·거의 줄기다"
 	whyModifier        = "꾸밈말과 그 꾸밈을 받는 아는 낱말을 붙여 쓴 통짜 새 낱말이다"
-	whyNoPredNext      = "바로 뒤 어절이 동사·형용사가 아니다"
 )
 
 // The names of the rules of a sentence, as a trace prints them.
@@ -200,6 +199,3 @@ const (
 	ruleFractionFirst = "문장:빗금으로 이은 수는 나눔 먼저"
 	ruleDegreeUnit    = "문장:수 바로 뒤 어절 끝 도는 단위 먼저"
 )
-
-// The name of the rule of a sentence of the negative adverbs 안 and 못.
-const ruleNegAdverb = "문장:동사·형용사 앞 안·못은 부정 부사"
