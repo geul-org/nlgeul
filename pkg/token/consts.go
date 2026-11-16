@@ -455,11 +455,6 @@ const bonusModified = 1.0
 // 0.375 to 1 the same 24.
 const forceUnitWord = 0.5
 
-// dateNames are the names of a number read as a date (the shapes 날짜:.,
-// 날짜:-, 날짜:/ print as 날짜), which a rule of a sentence prefers to a
-// version when the number is written with full stops (dateFirstRule).
-var dateNames = []string{"날짜"}
-
 // numberAdnNames are the names of the closing after the copula's stem
 // that, right after a number, the dependent noun 인 (a count of people)
 // is read before (numberAdnRebuttal): the modifying ㄴ (1인, 300인).

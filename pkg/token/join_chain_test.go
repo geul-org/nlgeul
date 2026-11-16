@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestJoinChain — 0x1234 is one number named 수:16진법, 0x12G4 and 0X1F stay runs; task.py becomes one atom with its candidates; a.b stays two runs; in a.b.com every dot joins; 10:30 is one number read two ways, 25:70 only a ratio, 1,00 two numbers, and 2026.11.10 a version and a date
+//ff:what TestJoinChain — 0x1234 is one number named 수:16진법, 0x12G4 and 0X1F stay runs; task.py becomes one atom with its candidates; a.b stays two runs; in a.b.com every dot joins; 10:30 is one number read two ways, 25:70 only a ratio, 1,00 two numbers, and 2026.11.10 a date and a version
 package token
 
 import "testing"
@@ -27,7 +27,7 @@ func TestJoinChain(t *testing.T) {
 	if a := sc.atoms[12]; a.end != 13 || atomNames(a) != numName || sc.atoms[14].end != 16 {
 		t.Fatal(sc.atoms)
 	}
-	if a := sc.atoms[17]; atomNames(a) != "버전,날짜" || !a.num {
+	if a := sc.atoms[17]; atomNames(a) != "날짜,버전" || !a.num {
 		t.Fatal(a)
 	}
 	sc = scanOf("0x1234 0x12G4 0X1F")

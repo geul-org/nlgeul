@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop keeps its own and gets two more), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then its own joins), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
 package token
 
 import (
@@ -14,18 +14,24 @@ import (
 // give the pieces after a number no counts: each is taken as one of
 // the table's entries, as a token no table lists is taken as one of
 // the Hangul syllables, and a greater number as one of its own few.
+// The shapes of a number between full stops come before the full stop's
+// own joins (the version among them): of the same letters read two ways
+// the one named first comes first, and numbers of full stops in the
+// shape of a date are a date before a version (the orthography's
+// appendix on punctuation, 마침표 (3): 1919. 3. 1.).
 func (ix *index) addNumbers() {
 	g := toulmin.NewGraph(numGraph)
 	g.Rule(rule.PieceRead).With(&rule.Claim{Name: numGraph, Concludes: "열쇠"})
 	ix.number = verdict(g, rule.Piece{})
 	ix.graphs++
-	ix.signs = map[rune][]*entry{'.': ix.joins}
+	ix.signs = map[rune][]*entry{}
 	for _, sign := range signOrder {
 		for _, s := range signShapes[sign] {
 			ix.signs[sign] = append(ix.signs[sign], shapeGraph(s))
 			ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
 		}
 	}
+	ix.signs['.'] = append(ix.signs['.'], ix.joins...)
 	for _, sign := range nameOrder {
 		ix.signs[sign] = append(ix.signs[sign], nameGraph(nameSigns[sign]))
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
