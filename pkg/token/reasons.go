@@ -281,3 +281,10 @@ const (
 	whyAdverbialBound = "주격·보격 조사를 받지 않는 부사성 의존 명사다"
 	whyNoSubjectMark  = "주격·보격 이·가가 붙지 않았다"
 )
+
+// The name of the rule of a sentence of 달다 after the 어/아 form
+// (giveLinkedRule), and why it falls.
+const (
+	ruleGiveLinked = "문장:어/아 꼴 뒤 보조 동사 달다"
+	whyNotConn     = "앞 어절이 어/아 꼴로 끝나지 않는다"
+)

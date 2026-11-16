@@ -56,4 +56,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, argumentAdnRule())
 	// 밖에 with no negative after it as the noun 밖 with 에 (outsideNounRule).
 	ix.sentence = append(ix.sentence, outsideNounRule())
+	// 달다 after the 어/아 form as the auxiliary verb of asking (giveLinkedRule).
+	ix.sentence = append(ix.sentence, giveLinkedRule())
 }
