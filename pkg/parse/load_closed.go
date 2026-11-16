@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what loadClosed — the closed sets of words read from the lines of their table (set, word, and for a dependent noun whether it is read when written onto a modifying closing too): the words of each set in the order of their lines, and under joinedMark the dependent nouns so marked
+//ff:what loadClosed — the closed sets of words read from the lines of their table (set, word, and for a dependent noun whether it is read when written onto a modifying closing too): the words of each of the four sets in the order of their lines, and under joinedMark the dependent nouns so marked; the lines of other sets, which the token layer reads from the same table, are left out
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/data"
@@ -8,8 +8,8 @@ func loadClosed(rows []data.Row) (map[string][]string, error) {
 	sets := map[string]int{boundSet: 0, helperSet: 0, determinerSet: 0, conjunctionSet: 0}
 	out := map[string][]string{}
 	for _, row := range rows {
-		if _, err := row.Pick(0, sets); err != nil {
-			return nil, err
+		if _, ok := sets[row.Cells[0]]; !ok {
+			continue
 		}
 		set, word, mark := row.Cells[0], row.Cells[1], row.Opt(2)
 		if mark != "" && (mark != joinedMark || set != boundSet) {

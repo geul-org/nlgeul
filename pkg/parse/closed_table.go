@@ -6,7 +6,9 @@ import (
 
 // The closed sets of morphemes.md section 8, which the table
 // closed-words.tsv in the data package holds. They are part of the
-// grammar tables: no other word is listed anywhere.
+// grammar tables: no other word is listed anywhere. The table holds the
+// token layer's own sets too; this package leaves their lines out, and
+// the token layer checks their names.
 
 // closedSets are the sets as their table gives them (closed-words.tsv).
 var closedSets = data.Must(loadClosed(data.Must(data.Rows(closedFile, 3))))

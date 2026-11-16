@@ -28,8 +28,8 @@ const (
 const adnPlace = "꾸밈 뒤"
 
 // The sets of the tables that hold more than one list: of fused forms
-// (contracts.tsv), of this layer's own closed sets of words
-// (closed-words-more.tsv) and of closings by what they take
+// (contracts.tsv), of this layer's own closed sets of words (the
+// sets of closed-words.tsv that pkg/parse does not read) and of closings by what they take
 // (closing-sets.tsv).
 const (
 	setContract    = "준말"

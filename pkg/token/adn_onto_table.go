@@ -2,7 +2,7 @@ package token
 
 // adnOnto are the dependent nouns whose stem the one-syllable rebuttal
 // is lifted for when they are written right onto the modifying closing
-// they stand on (closed-words-more.tsv): 것 and its spoken form 거
+// they stand on (closed-words.tsv): 것 and its spoken form 거
 // (하는거, 없는게, 할것이). The other dependent nouns of the closed set
 // are not in it: their letters are also a noun or a piece of a closing
 // (수 the noun of number written onto a noun, 데 of the closings 는데 and

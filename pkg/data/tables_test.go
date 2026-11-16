@@ -10,7 +10,7 @@ import (
 
 func TestTables(t *testing.T) {
 	cols := map[string]int{
-		"case-exceptions": 6, "closed-words-more": 2, "spacing-words": 2, "closed-words": 3, "closing-counts": 2, "closing-pieces": 2,
+		"case-exceptions": 6, "spacing-words": 2, "closed-words": 3, "closing-counts": 2, "closing-pieces": 2,
 		"closing-sets": 2, "closings": 5, "contracts": 7,
 		"extensions": 1, "noun-suffixes": 2, "number-heads": 2, "pairs": 4, "particle-counts": 2,
 		"particles": 5, "short-closings": 6, "short-particles": 4, "short-slots": 4,
