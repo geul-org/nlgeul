@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestIndexAddSentenceAux — the index of a reader holds the rules ruleLinkBeforeAux, ruleMalLinked and ruleAuxWhile once each, after ruleAuxAsked; of them only ruleLinkBeforeAux waits for the words after a candidate
+//ff:what TestIndexAddSentenceAux — the index of a reader holds the rules ruleLinkBeforeAux, ruleMalLinked and ruleAuxWhile once each, after ruleMainUnlinked; of them only ruleLinkBeforeAux waits for the words after a candidate
 package token
 
 import (
@@ -15,10 +15,10 @@ func TestIndexAddSentenceAux(t *testing.T) {
 		names = append(names, s.name)
 		waits[s.name] = s.waits != nil
 	}
-	asked := slices.Index(names, ruleAuxAsked)
+	main := slices.Index(names, ruleMainUnlinked)
 	for _, name := range []string{ruleLinkBeforeAux, ruleMalLinked, ruleAuxWhile} {
 		at := slices.Index(names, name)
-		if at <= asked || slices.Index(names[at+1:], name) >= 0 {
+		if at <= main || slices.Index(names[at+1:], name) >= 0 {
 			t.Fatal(name, names)
 		}
 		if waits[name] != (name == ruleLinkBeforeAux) {

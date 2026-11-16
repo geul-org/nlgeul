@@ -94,7 +94,6 @@ const (
 	whyNotHangulSides  = "양쪽이 한글이 아니다"
 	whyNotLinked       = "앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다"
 	whyLinked          = "앞 어절이 연결 꼴(어/아, 고)로 끝난다"
-	whyNotAsked        = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝나지 않는다"
 	whyAsked           = "앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝난다"
 	whyNoBecome        = "바로 뒤 어절이 되다·아니다가 아니다"
 	whyAsksNext        = "바로 뒤 어절이 의문 대명사다"
@@ -113,7 +112,6 @@ const (
 const (
 	ruleAuxLinked      = "문장:연결 꼴 뒤 보조 용언"
 	ruleMainUnlinked   = "문장:연결 꼴 뒤가 아닌 본용언"
-	ruleAuxAsked       = "문장:물음 꼴 뒤 보조 용언 보다"
 	ruleAdverbialFirst = "문장:에서·서는 부사격 먼저"
 	ruleComplement     = "문장:되다·아니다 앞 보격"
 	ruleQuoted         = "문장:닫는 따옴표 뒤 인용 조사 라고"

@@ -29,6 +29,5 @@ var (
 )
 
 // seeAux is the stem of the auxiliary 보다, as the rules of a sentence
-// read it after a question closing (askNames: auxAskedRule) and after
-// -다(가) (whileLinks: auxWhileRule, mainUnlinkedRule).
+// read it after -다(가) (whileLinks: auxWhileRule, mainUnlinkedRule).
 const seeAux = "보"

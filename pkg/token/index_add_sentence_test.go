@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestIndexAddSentence — the index of a reader holds the rules of a sentence with the names ruleAuxLinked, ruleMainUnlinked and ruleAuxAsked in this order (other rules may be among them), each with a graph and a function about; and the stream of a reader carries them
+//ff:what TestIndexAddSentence — the index of a reader holds the rules of a sentence with the names ruleAuxLinked and ruleMainUnlinked in this order (other rules may be among them), each with a graph and a function about; and the stream of a reader carries them
 package token
 
 import (
@@ -17,7 +17,7 @@ func TestIndexAddSentence(t *testing.T) {
 		}
 	}
 	at := func(name string) int { return slices.Index(names, name) }
-	if at(ruleAuxLinked) < 0 || at(ruleAuxLinked) >= at(ruleMainUnlinked) || at(ruleMainUnlinked) >= at(ruleAuxAsked) {
+	if at(ruleAuxLinked) < 0 || at(ruleAuxLinked) >= at(ruleMainUnlinked) {
 		t.Fatal(names)
 	}
 	if got := len(r.Stream("있다").rules); got != len(names) {
