@@ -38,4 +38,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, determinerFormRule())
 	// 한 after a complement of 하다 as 하다 with the modifying ㄴ (haOneRule).
 	ix.sentence = append(ix.sentence, haOneRule())
+	// A word of two kinds (a nominal and an adverb) standing alone as the adverb (adverbAloneRule).
+	ix.sentence = append(ix.sentence, adverbAloneRule(ix.lex))
 }

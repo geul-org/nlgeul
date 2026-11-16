@@ -221,3 +221,11 @@ const (
 // Why the exception "written onto the word before it" of the rule of 한
 // after a complement of 하다 (haOneRule) falls after the modifying 는.
 const whyNeunBefore = "앞 어절이 꾸밈 맺음 는으로 끝난다(체언 한, 限)"
+
+// The name of the rule of a sentence of a word of two kinds (a nominal
+// and an adverb) standing alone (adverbAloneRule), and why it falls.
+const (
+	ruleAdverbAlone   = "문장:홀로 선 체언·부사 글자는 부사"
+	whyModifierBefore = "앞 어절이 꾸밈 맺음이나 관형격 조사로 끝난다"
+	whyGluedNext      = "바로 뒤 어절이 빈칸 없이 붙어 있다"
+)

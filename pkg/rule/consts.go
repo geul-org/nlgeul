@@ -205,4 +205,5 @@ const (
 	AroundGlued            = 1 << iota // no space stands between the candidate's word and the word before it
 	AroundAfterNominal                 // the word right before it ends in a nominal (Near.Nominal)
 	AroundBeforeModifiable             // a word ending in a modifying closing may stand right before the word right after it (Near.Modifiable)
+	AroundBeforeGlued                  // the word right after it is written onto it: no space stands between them (Near.Glued of that word)
 )

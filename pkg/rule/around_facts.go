@@ -4,7 +4,7 @@ package rule
 
 func aroundFacts(a Around) int {
 	have := 0
-	for i, yes := range []bool{a.Self.Glued, nearAt(a.Before, 0).Nominal, nearAt(a.After, 0).Modifiable} {
+	for i, yes := range []bool{a.Self.Glued, nearAt(a.Before, 0).Nominal, nearAt(a.After, 0).Modifiable, nearAt(a.After, 0).Glued} {
 		if yes {
 			have |= 1 << i
 		}
