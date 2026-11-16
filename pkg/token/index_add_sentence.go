@@ -46,4 +46,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, interjectionAloneRule(ix.lex))
 	// A dependent noun of the word table's name right after a modifying form (boundTableRule).
 	ix.sentence = append(ix.sentence, boundTableRule(tableBound))
+	// A dependent noun of the word table's name written onto a nominal with its particle (gluedBoundRule).
+	ix.sentence = append(ix.sentence, gluedBoundRule(tableBound))
 }

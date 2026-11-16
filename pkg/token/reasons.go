@@ -241,3 +241,7 @@ const ruleInterjectionAlone = "문장:홀로 선 체언·감탄사 글자는 감
 // The name of the rule of a sentence of a dependent noun of the word
 // table's name after a modifying form (boundTableRule).
 const ruleBoundTable = "문장:꾸밈 뒤 의존 명사(낱말 표 이름)"
+
+// The name of the rule of a sentence of a dependent noun of the word
+// table's name written onto a nominal with its particle (gluedBoundRule).
+const ruleGluedBound = "문장:체언에 붙은 의존 명사(낱말 표 이름)+조사"
