@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what newUnitReader — begin to read one unit as readUnitNet reads it (the signs before its letters, the letters by the net, the signs after, and its trace when asked for), but the letters are worked out only as stretches are asked for (next); a sign of a pair with letters written onto it is read in two (ontoReader)
+//ff:what newUnitReader — begin to read one unit: the signs before its letters, the letters by the net, the signs after, and its trace when asked for; the letters are worked out only as stretches are asked for (next); a sign of a pair with letters written onto it is read in two (ontoReader)
 package token
 
 func newUnitReader(ix *index, u unit, trace bool, stats *netStats) *unitReader {
