@@ -52,4 +52,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, nominalBoundRule(nominalBound))
 	// A noun of one syllable with its particle after a numeral determiner (countedShortRule).
 	ix.sentence = append(ix.sentence, countedShortRule(numDeterminers))
+	// A modifying form between an argument and a word it may modify (argumentAdnRule).
+	ix.sentence = append(ix.sentence, argumentAdnRule())
 }

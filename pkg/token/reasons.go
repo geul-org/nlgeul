@@ -258,3 +258,11 @@ const (
 	whyNotCounted    = "바로 앞 어절이 관형사로 읽히지 않는다"
 	whyNoNumDet      = "바로 앞 어절이 수 관형사가 아니다"
 )
+
+// The name of the rule of a sentence of a modifying form between an
+// argument and a word it may modify (argumentAdnRule), and why it falls.
+const (
+	ruleArgumentAdn     = "문장:격 조사와 꾸밈 받을 말 사이의 꾸밈꼴"
+	whyNoArgumentBefore = "앞 어절이 주격·보격·목적격·부사격 조사로 끝나지 않는다"
+	whyAdnNext          = "바로 뒤 어절이 꾸밈꼴로 끝난다"
+)
