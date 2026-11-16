@@ -59,6 +59,8 @@ const nounAuxName = "사슬:이름 꼴 뒤 조사"
 // (push는, 3은, v2나), and a predicate made of such a run has 하 or the
 // copula's stem between the two (push하는, API인, API여서). The
 // closings 다, 고, 면, 지 and 네 are not here: before them the copula's
-// stem may be dropped after such a run. A closed table: only the
+// stem may be dropped after such a run (abc다); right after a digit no
+// closing stands on its own, for a number is no predicate's stem
+// (stemlessAfter). A closed table: only the
 // closings listed are held back.
 var hangulBound = closingSets[setHangul]

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=2
-//ff:what TestReaderStreamHangulBound — end to end, with and without the word table of testdata: after a run of Latin letters or digits, a number, a span of code, a path or a file name the closings 은, 는, 을, 아, 어, 나 and 여 are not read and the particle (or the vocative) stays; the closings 다, 고, 면, 지, 네 after such a run, and those closings after a Hangul syllable, are read as before, and so are 하 and the copula's stem between such a run and a closing; with the word table the closings after a verb or adjective stem stand
+//ff:what TestReaderStreamHangulBound — end to end, with and without the word table of testdata: after a run of Latin letters or digits, a number, a span of code, a path or a file name the closings 은, 는, 을, 아, 어, 나 and 여 are not read and the particle (or the vocative) stays; the closings 다, 고, 면, 지, 네 after such a run of Latin letters, and those closings after a Hangul syllable, are read as before, and so are 하 and the copula's stem between such a run and a closing; with the word table the closings after a verb or adjective stem stand
 package token
 
 import (

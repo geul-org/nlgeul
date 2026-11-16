@@ -48,7 +48,8 @@ var dropNaming = nounHeads
 // digits, a number, a span of code, a file name: abc야): nothing in
 // such letters tells whether they end in a vowel. 야 attaches only to
 // the copula, so nothing else is read there; before the other closings
-// such a run is read as their stem (abc다).
+// such a run is read as their stem (abc다), but for a run that ends in
+// a digit, which no closing stands right on (stemlessAfter: 3면).
 var droppableRun = []string{"맺음:야"}
 
 // notOnly is the one other stem the closings of the copula attach to.
