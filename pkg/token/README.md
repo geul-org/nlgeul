@@ -136,7 +136,6 @@ seg2, ok := st.Again(seg.Region) // 같은 구간의 다음 갈래(Rank 2). 더 
     | `문장:꾸밈 는 뒤 한은 체언`(`limitOneRule`) | 줄기 `한`을 낱말 표의 체언(`열쇠:체언`, `oneNoun`)으로 읽은 후보 | 늘 | 앞 어절이 꾸밈 맺음 는으로 끝나지 않는다 | `bonusOne` | 아니오 |
     | `문장:보조 용언 앞 어/아 꼴`(`linkBeforeAuxRule`) | 연결 어미 어/아/여(합쳐진 꼴 포함, `connNames`)로 끝나는 후보 | 늘 | 바로 뒤 어절의 줄기가 보조 용언(닫힌 집합)이 아니다(뒤 어절은 1위로 읽고 줄기만 본다. 띄어 썼든 붙여 썼든) | `bonusLinkBeforeAux` 3 | 예(서술어까지) |
     | `문장:지·고 뒤 보조 동사 말다`(`malLinkedRule`) | 줄기 `말`이 동사로 읽힌 후보(`malStem`) | 늘 | 앞 어절이 맺음 지·고(`malLinks`)로 끝나지 않는다 | `bonusMalLinked` 3.5 | 아니오 |
-    | `문장:다·다가 뒤 보조 용언 보니·보면`(`auxWhileRule`) | `보[보조 용언:보]` | 표지에 맺음 니·니까·면(`whileClosings`)이 있다 | 앞 어절이 다·다가(`whileLinks`)로 끝나지 않는다 | `bonusSentence` | 아니오 |
     | `문장:체언에 붙은 한 음절 체언+조사`(`gluedShortRule`) | 줄기가 한 음절이고 이름이 `열쇠:체언`·`의존명사:…`·`대명사:…`이며 첫 표지가 조사나 서술격 `이`이고, 어절 글자가 줄기보다 긴 후보(`shortNominal`: `패소자의`의 `자+의`. 받침으로 붙은 조사 `저+(는)`은 아니다) | 앞 어절에 빈칸 없이 붙어 있다(`AroundGlued`) | 바로 앞 어절이 체언(`Nominal`)으로 끝나지 않는다 | `bonusGluedShort` | 아니오 |
     | `문장:꾸밈받을 말이 뒤에 없는 인·일 체언`(`unmodifiedRule`) | 이름이 `열쇠:체언`이고 표지 없이 홀로 선 두 음절 이상의 줄기로, 끝 음절이 서술격 `이`와 꾸밈 맺음이 합친 글자(`copulaAdnForms`: 인, 일)인 후보(`adnNoun`: `감정인`, `시행일`) | 바로 뒤 어절이 꾸밈꼴 뒤에 설 수 있는 말이 아니다(`AroundBeforeModifiable`에 `Not`: 부사, 접속 부사, 꾸밈꼴이 아닌 서술어, 기호, 문장 끝) | 없음 | `bonusUnmodified` | 예(서술어까지) |
     | `문장:닫는 기호 뒤 보조사 이란·란`(`shutTopicRule`) | 표지 가운데 `보조사:이란`·`보조사:란`이 있는 후보(`topicNames`) | 늘 | 바로 앞이 닫는 기호(`닫기`)가 아니다 | `bonusShutTopic` | 아니오 |
