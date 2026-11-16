@@ -32,4 +32,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, nounModifiedRule(modifiedSkip))
 	// 도 at the end of a word right after a number as the unit.
 	ix.sentence = append(ix.sentence, degreeUnitRule())
+	// 이·그·저 standing alone as the determiner (determinerAloneRule).
+	ix.sentence = append(ix.sentence, determinerAloneRule())
 }

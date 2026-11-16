@@ -191,3 +191,13 @@ const (
 	whyNoModifier  = "앞 어절이 꾸밈 맺음이나 관형격 조사로 끝나지 않는다"
 	ruleDegreeUnit = "문장:수 바로 뒤 어절 끝 도는 단위 먼저"
 )
+
+// The name of the rule of a sentence of a demonstrative standing alone
+// (determinerAloneRule), and why it falls.
+const (
+	ruleDeterminerAlone = "문장:홀로 선 이·그·저는 관형사"
+	whyNoModifiableNext = "바로 뒤 어절이 꾸밈을 받을 말(체언·관형사·꾸밈꼴·이름꼴)이 아니다"
+	whyGluedWord        = "앞말에 빈칸 없이 붙어 있다"
+	whyOpenBefore       = "바로 앞이 여는 기호다"
+	whyOpenAfter        = "바로 뒤가 여는 기호다"
+)
