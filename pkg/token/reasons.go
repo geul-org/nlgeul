@@ -217,3 +217,7 @@ const (
 	ruleHaOne    = "문장:하다가 받는 꼴 뒤 한은 하다의 꾸밈꼴"
 	whyNoHaTakes = "앞 어절이 하다가 받는 꼴(목적격, 로·으로, -게·-도록·-어야·-려(고)·-고자·-다고 …)로 끝나지 않는다"
 )
+
+// Why the exception "written onto the word before it" of the rule of 한
+// after a complement of 하다 (haOneRule) falls after the modifying 는.
+const whyNeunBefore = "앞 어절이 꾸밈 맺음 는으로 끝난다(체언 한, 限)"
