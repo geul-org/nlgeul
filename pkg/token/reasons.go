@@ -229,3 +229,7 @@ const (
 	whyModifierBefore = "앞 어절이 꾸밈 맺음이나 관형격 조사로 끝난다"
 	whyGluedNext      = "바로 뒤 어절이 빈칸 없이 붙어 있다"
 )
+
+// The name of the rule of a sentence of a word of two kinds (a nominal
+// and a determiner) standing alone (tableDeterminerRule).
+const ruleTableDeterminer = "문장:홀로 선 체언·관형사 글자는 관형사"
