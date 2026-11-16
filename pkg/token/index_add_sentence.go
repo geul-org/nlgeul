@@ -50,4 +50,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, gluedBoundRule(tableBound))
 	// A dependent noun of the word table's name after a nominal with its particle (nominalBoundRule).
 	ix.sentence = append(ix.sentence, nominalBoundRule(nominalBound))
+	// A noun of one syllable with its particle after a numeral determiner (countedShortRule).
+	ix.sentence = append(ix.sentence, countedShortRule(numDeterminers))
 }

@@ -249,3 +249,11 @@ const ruleGluedBound = "문장:체언에 붙은 의존 명사(낱말 표 이름)
 // The name of the rule of a sentence of a dependent noun of the word
 // table's name after a nominal with its particle (nominalBoundRule).
 const ruleNominalBound = "문장:체언 뒤 의존 명사(낱말 표 이름)+조사"
+
+// The name of the rule of a sentence of a noun of one syllable with its
+// particle after a numeral determiner (countedShortRule), and why it
+// falls.
+const (
+	ruleCountedShort = "문장:수 관형사 뒤 한 음절 체언+조사"
+	whyNotCounted    = "바로 앞 어절이 관형사로 읽히지 않는다"
+)
