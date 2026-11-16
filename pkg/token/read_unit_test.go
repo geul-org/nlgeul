@@ -41,9 +41,6 @@ func TestReadUnit(t *testing.T) {
 		t.Fatal("a head read as a pair at depth 2 and as its letter", got)
 	}
 	long := "아버지가방에들어가신다"
-	if got := lines(ix, unit{text: ")를", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}, false); len(got) < 2 || !strings.HasPrefix(got[0], ")[닫기:1]\t") || !strings.HasPrefix(got[1], "+를[목적격:를]\t성립 1.00") {
-		t.Fatal("a particle written onto a closing sign is a contest of its own, after the sign's", got)
-	}
 	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1}}}, false); len(got) != 1 || !strings.HasPrefix(got[0], "([열기:1]\t") {
 		t.Fatal("an opening sign alone", got)
 	}

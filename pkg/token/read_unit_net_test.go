@@ -12,7 +12,7 @@ func TestReadUnitNet(t *testing.T) {
 		t.Fatal(got)
 	}
 	onto := unit{text: ")를.", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}
-	old, _ := readUnit(r.ix, onto, false)
+	old, _ := oldUnit(r.ix, onto, false)
 	got, _ = readUnitNet(r.ix, onto, false)
 	if len(got) != len(old) || len(got) != 3 || got[1].cells == nil || got[1].contest.Text != old[1].Text || got[0].cells != nil || got[2].cells != nil {
 		t.Fatal("written onto", got)

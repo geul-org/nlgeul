@@ -6,7 +6,7 @@ import "fmt"
 
 func traceMismatch(r *Reader, s string) string {
 	for k, u := range unitsOf(r.ix, s, true) {
-		_, want := readUnit(r.ix, u, true)
+		_, want := oldUnit(r.ix, u, true)
 		_, got := readUnitNet(r.ix, u, true)
 		if len(got) != len(want) {
 			return fmt.Sprint("unit ", k, " lines ", len(got), len(want))
