@@ -300,3 +300,10 @@ const (
 // Why the exception of apartParticleRule "the word before ends in no
 // nominal" falls right after a dash.
 const whyDashBefore = "바로 앞이 줄표다"
+
+// The name of the rule of a sentence of 내게, 네게 and 제게
+// (dativeContractRule), and why it falls.
+const (
+	ruleDativeContract = "문장:내게·네게·제게는 대명사와 게"
+	whyCauseNext       = "바로 뒤 어절이 하다·되다·만들다다"
+)

@@ -60,4 +60,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, giveLinkedRule())
 	// Markers written apart as the particle of the word before (apartParticleRule).
 	ix.sentence = append(ix.sentence, apartParticleRule())
+	// 내게, 네게 and 제게 as the pronoun with the particle 게 (dativeContractRule).
+	ix.sentence = append(ix.sentence, dativeContractRule())
 }

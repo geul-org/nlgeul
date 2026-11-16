@@ -439,3 +439,15 @@ const bonusOverUncounted = 12.0
 // wrong); 이 written apart after a noun, read as the noun or the
 // determiner, stands about 7.3 above the particle.
 var bonusNewTaken = -Lambda * math.Log10(2/(1+forceNew)-1)
+
+// dativeNames are the names of the case particle 게 that the contracts
+// table puts under the pronoun forms 내, 네 and 제 (내게, 네게, 제게),
+// dativeStems those forms, and causeStems the stems of the verbs that
+// the ending -게 stands right before as what they bring about (-게 하다,
+// -게 되다, -게 만들다): a rule of a sentence prefers the pronoun with the
+// particle where none of them follows (dativeContractRule).
+var (
+	dativeNames = []string{"부사격:에게"}
+	dativeStems = dativeStemsOf(contracts)
+	causeStems  = []string{"하", "되", "만들"}
+)
