@@ -39,9 +39,7 @@ const (
 const (
 	afterAny     = rule.AfterAny
 	afterBatchim = rule.AfterBatchim
-	afterHard    = rule.AfterHard
 	afterOpen    = rule.AfterOpen
-	afterVowel   = rule.AfterVowel
 
 	leadNone = 0
 	leadA    = rule.LeadVowel
