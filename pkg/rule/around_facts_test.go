@@ -1,5 +1,5 @@
 //ff:func feature=rule type=helper control=sequence
-//ff:what TestAroundFacts — the facts of a candidate in its sentence as flags in the order of their constants: none for an empty one, each alone, and all three together; the words before and after count by the nearest only
+//ff:what TestAroundFacts — the facts of a candidate in its sentence as flags in the order of their constants: none for an empty one, each alone, and all four together; the words before and after count by the nearest only
 package rule
 
 import "testing"
@@ -17,11 +17,14 @@ func TestAroundFacts(t *testing.T) {
 	if got := aroundFacts(Around{After: []Near{{Modifiable: true}}}); got != AroundBeforeModifiable {
 		t.Fatal("before a modifiable word", got)
 	}
-	all := Around{Self: Near{Glued: true}, Before: []Near{{Nominal: true}}, After: []Near{{Modifiable: true}}}
-	if got := aroundFacts(all); got != AroundGlued|AroundAfterNominal|AroundBeforeModifiable {
+	if got := aroundFacts(Around{After: []Near{{Glued: true}}}); got != AroundBeforeGlued {
+		t.Fatal("before a word written onto it", got)
+	}
+	all := Around{Self: Near{Glued: true}, Before: []Near{{Nominal: true}}, After: []Near{{Modifiable: true, Glued: true}}}
+	if got := aroundFacts(all); got != AroundGlued|AroundAfterNominal|AroundBeforeModifiable|AroundBeforeGlued {
 		t.Fatal("all", got)
 	}
-	far := Around{Before: []Near{{}, {Nominal: true}}, After: []Near{{}, {Modifiable: true}}}
+	far := Around{Before: []Near{{}, {Nominal: true}}, After: []Near{{}, {Modifiable: true, Glued: true}}}
 	if got := aroundFacts(far); got != 0 {
 		t.Fatal("only the nearest words count", got)
 	}

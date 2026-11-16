@@ -1,5 +1,5 @@
 //ff:func feature=rule type=rule control=iteration dimension=1
-//ff:what TestAroundIs — applies when the candidate and the words around it have one of the facts asked for (its word is glued to the word before, the word before ends in a nominal, an adnominal may stand before the word after); not when they have none of them, when there is no word before or after, or when the context holds no candidate; Not turns both round
+//ff:what TestAroundIs — applies when the candidate and the words around it have one of the facts asked for (its word is glued to the word before, the word before ends in a nominal, an adnominal may stand before the word after, the word after is written onto it); not when they have none of them, when there is no word before or after, or when the context holds no candidate; Not turns both round
 package rule
 
 import (
@@ -28,6 +28,8 @@ func TestAroundIs(t *testing.T) {
 		{"before a nominal", Around{Self: Near{Stem: "감정인"}, After: []Near{{Stem: "사람", Modifiable: true}}}, AroundBeforeModifiable, false, 1},
 		{"before an adverb", Around{Self: Near{Stem: "감정인"}, After: []Near{head}}, AroundBeforeModifiable, false, -1},
 		{"at the end", Around{Self: Near{Stem: "감정인"}}, AroundBeforeModifiable, false, -1},
+		{"a word written onto it", Around{Self: Near{Stem: "우선"}, After: []Near{{Stem: "출자", Glued: true}}}, AroundBeforeGlued, false, 1},
+		{"a word written apart after it", Around{Self: Near{Stem: "우선"}, After: []Near{{Stem: "출자"}}}, AroundBeforeGlued, false, -1},
 		{"one of two", Around{Self: glued}, AroundGlued | AroundAfterNominal, false, 1},
 		{"not, held", Around{Self: glued}, AroundGlued, true, -1},
 		{"not, missing", Around{Self: Near{Stem: "감정인"}, After: []Near{head}}, AroundBeforeModifiable, true, 1},
