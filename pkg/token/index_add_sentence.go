@@ -36,4 +36,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, determinerAloneRule())
 	// 이런·그런·저런·어떤·다른 standing alone as the determiner (determinerFormRule).
 	ix.sentence = append(ix.sentence, determinerFormRule())
+	// 한 after a complement of 하다 as 하다 with the modifying ㄴ (haOneRule).
+	ix.sentence = append(ix.sentence, haOneRule())
 }

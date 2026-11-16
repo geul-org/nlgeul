@@ -210,3 +210,10 @@ const (
 	whyComparedBefore  = "앞 어절이 와·과로 끝난다(다르다가 받는 견줄 대상)"
 	whyNotDiffer       = "다른이 아니다"
 )
+
+// The name of the rule of a sentence of 한 after a complement of 하다
+// (haOneRule), and why it falls.
+const (
+	ruleHaOne    = "문장:하다가 받는 꼴 뒤 한은 하다의 꾸밈꼴"
+	whyNoHaTakes = "앞 어절이 하다가 받는 꼴(목적격, 로·으로, -게·-도록·-어야·-려(고)·-고자·-다고 …)로 끝나지 않는다"
+)
