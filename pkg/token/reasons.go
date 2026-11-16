@@ -103,8 +103,6 @@ const (
 	whyAsksSelf        = "의문 대명사다"
 	whyNoSubjectBefore = "바로 앞 어절이 이·가로 끝나지 않는다"
 	whyNotShut         = "바로 앞이 닫는 기호가 아니다"
-	whyHaTakes         = "앞 어절이 하다가 받는 꼴(목적격, 로·으로, -게·-도록·-다고 …)로 끝난다"
-	whyNeun            = "앞 어절이 꾸밈 맺음 는으로 끝난다"
 	whyNoNeun          = "앞 어절이 꾸밈 맺음 는으로 끝나지 않는다"
 	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
 	whyAdnBound        = "꾸밈 맺음 바로 뒤에 붙여 쓴 의존명사 것·거의 줄기다"
@@ -120,7 +118,6 @@ const (
 	ruleAdverbialFirst = "문장:에서·서는 부사격 먼저"
 	ruleComplement     = "문장:되다·아니다 앞 보격"
 	ruleQuoted         = "문장:닫는 따옴표 뒤 인용 조사 라고"
-	ruleDeterminerOne  = "문장:홀로 선 한은 관형사"
 	ruleLimitOne       = "문장:꾸밈 는 뒤 한은 체언"
 	ruleShutTopic      = "문장:닫는 기호 뒤 보조사 이란·란"
 )

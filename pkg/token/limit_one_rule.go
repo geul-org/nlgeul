@@ -5,8 +5,8 @@ package token
 import "github.com/geul-org/nlgeul/pkg/rule"
 
 // The dictionary gives the noun 한(限) "(mostly in -는 한) a condition"
-// (살아 있는 한, 허락하지 않는 한). The word table's counts put 하다
-// with the modifying ㄴ first there too.
+// (살아 있는 한, 허락하지 않는 한). The word table's counts put the
+// determiner 한 first there.
 func limitOneRule() sentenceRule {
 	g, claim := sentenceClaim(ruleLimitOne, rule.Listed, listed("한", rule.ListSelfStem, []string{oneStem}))
 	except(g, rule.Listed, whyNoNeun, listed("꾸밈 는", rule.ListPrevLast, []string{neunAdn}), not).Attacks(claim)
