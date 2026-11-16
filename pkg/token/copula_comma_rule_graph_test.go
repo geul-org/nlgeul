@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestCopulaCommaRuleGraph — the graph of copulaCommaRule evaluated by hand on rule.Around: the copula 이 with the ending 나 stands right before a comma, and falls right before a full stop, before a word and at the end; the auxiliary particle 이나 and the copula with another ending fall before a comma
+//ff:what TestCopulaCommaRuleGraph — the graph of copulaCommaRule evaluated by hand on rule.Around: the copula 이 with the ending 나 stands right before a comma, and falls right before a full stop, before a word and at the end; the auxiliary particle 이나 falls before a comma (that the last piece is the ending 나 is asked by the rule's about, not by the graph)
 package token
 
 import (
@@ -22,7 +22,6 @@ func TestCopulaCommaRuleGraph(t *testing.T) {
 		{"before a word", rule.Around{Self: na, After: []rule.Near{{Stem: "책", Kind: "열쇠:체언"}}}, false},
 		{"at the end", rule.Around{Self: na}, false},
 		{"the particle 이나", rule.Around{Self: rule.Near{Stem: "것", Last: "보조사:이나", Marks: "보조사:이나"}, After: []rule.Near{comma}}, false},
-		{"another ending", rule.Around{Self: rule.Near{Stem: "것", Last: "맺음:고", Marks: "서술격:이+맺음:고"}, After: []rule.Near{comma}}, false},
 	}
 	g := copulaCommaRule().graph
 	for _, c := range cases {

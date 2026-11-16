@@ -14,8 +14,7 @@ import (
 // digits the copula's dropped 이 costs nothing (a closing is read right
 // on them), so with no rule the ending came first there alone.
 func numberQuoteRule() sentenceRule {
-	g, claim := sentenceClaim(ruleNumberQuote, rule.SelfHas, listed("인용 조사 라고", rule.ListSelfMarks, quoteNames))
-	except(g, rule.Listed, whyNotNumber, listed("수", rule.ListSelfKind, numberKinds), not).Attacks(claim)
+	g, _ := sentenceClaim(ruleNumberQuote, rule.SelfHas, listed("인용 조사 라고", rule.ListSelfMarks, quoteNames))
 	return sentenceRule{name: ruleNumberQuote, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool {
 		return slices.Contains(numberKinds, n.Kind) && hasMark(n, quoteNames)
 	}}

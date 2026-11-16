@@ -16,7 +16,6 @@ import (
 // told apart so: 누구나, 어디나 stand before a comma as particles.
 func copulaCommaRule() sentenceRule {
 	g, claim := sentenceClaim(ruleCopulaComma, rule.SelfHas, listed("서술격 이", rule.ListSelfMarks, copulaNames))
-	except(g, rule.Listed, whyNotContrast, listed("맺음 나", rule.ListSelfLast, contrastNames), not).Attacks(claim)
 	except(g, rule.Listed, whyNoComma, listed("쉼표", rule.ListNextLast, commaNames), not).Attacks(claim)
 	is := func(n rule.Near) bool { return hasMark(n, copulaNames) && slices.Contains(contrastNames, n.Last) }
 	return sentenceRule{name: ruleCopulaComma, graph: g, bonus: bonusCopula, about: is, waits: is}
