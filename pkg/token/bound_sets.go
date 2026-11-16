@@ -30,7 +30,7 @@ var adnBound = boundLists[useAdnBound]
 var knowStems = []string{"알", "모르"}
 
 // middleDot is the name of the middle dot of the table of signs, which
-// joins words listed side by side (nounListedRule).
+// joins words listed side by side (nounHeadedRule).
 const middleDot = "가운뎃점"
 
 // denyStems is the stem of 아니다, before which a dependent noun at the
