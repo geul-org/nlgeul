@@ -11,9 +11,9 @@ import (
 func (sc *scan) afterClosings(start, depth int, pc piece, e *entry) []tail {
 	name := auxName(e)
 	noun := sc.ix.nounAux != nil && start >= 1 && namingEnd(sc.s[start-1])
-	ask := start >= 2 && askEnd(sc.s[start-1])
+	ask := start >= 2 && lastOfAny(askClosings, sc.s[start-1])
 	link := start >= 2 && name != "" && depth == 0
-	picked := start >= 2 && sc.ix.pickedAux[pc.text] != nil && pickedEnd(pc.text, sc.s[start-1])
+	picked := start >= 2 && sc.ix.pickedAux[pc.text] != nil && lastOfAny(pickedClosings[pc.text], sc.s[start-1])
 	if !noun && !ask && !link && !picked {
 		return nil
 	}

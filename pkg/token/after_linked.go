@@ -9,7 +9,7 @@ import (
 )
 
 func (sc *scan) afterLinked(t tail) []tail {
-	if t.base != 0 || t.start < 2 || !linkedEnd(sc.s[t.start-1]) {
+	if t.base != 0 || t.start < 2 || !lastOfAny(copulaClosings, sc.s[t.start-1]) {
 		return nil
 	}
 	rest := append([]piece{}, t.pieces...)
