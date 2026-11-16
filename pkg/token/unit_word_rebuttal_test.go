@@ -20,10 +20,10 @@ func TestUnitWordRebuttal(t *testing.T) {
 	if plain != 1 || rebutted <= 0.3 || rebutted >= 0.34 {
 		t.Fatal(plain, rebutted)
 	}
-	ix := &index{}
+	ix := &index{lexTotal: 1e8}
 	ix.addKinds()
 	for _, kind := range kindOrder {
-		p := rule.Piece{Form: "가르", Tail: rule.TailBare, Count: seenEnough}
+		p := rule.Piece{Form: "가르", Tail: rule.TailBare, Count: ix.seenEnough()}
 		free, _ := verdictOf(ix.kinds[kind], p, "", false)
 		p.UnitWord = true
 		lowered, _ := verdictOf(ix.kinds[kind], p, "", false)

@@ -3,6 +3,7 @@
 package token
 
 import (
+	"math"
 	"testing"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -41,7 +42,7 @@ func TestStemCandidates(t *testing.T) {
 		t.Fatal(stem, name, v)
 	}
 	ts := typoScan("맞겨", layerCost)
-	if stem, name, v, _ := stemIn(ts, 0, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 8}}}, false); stem != "맡기" || name != "열쇠:동사" || v <= 0 || v < 0.54 || v > 0.56 {
+	if stem, name, v, _ := stemIn(ts, 0, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 8}}}, false); stem != "맡기" || name != "열쇠:동사" || math.Abs(v-(2/(1+forceTypo)-1)) > 1e-9 {
 		t.Fatal("a misspelt stem is judged as a misspelt form", stem, name, v)
 	}
 	if _, name, v, _ := stemIn(ts, 0, tail{start: 2, base: '기', shown: "맡기", wrote: "맞기", kinds: kindVerb, pieces: []piece{{tail: 2}}}, false); v > 0 || name != "" {
@@ -68,7 +69,7 @@ func TestStemCandidates(t *testing.T) {
 		t.Fatal(stem, wrote)
 	}
 	aux := wordsScan("해줘", layerCost)
-	aux.ix.lex["주"] = word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
+	aux.ix.lex["주"] = word{kinds: kindVerb, count: 10000, by: [6]int{0, 10000}}
 	jwo := tail{start: 2, base: '주', pieces: []piece{{text: "(어)", names: "맺음:어(합침)", verdict: 1, tail: rule.TailPred}}}
 	stem, apart, low, _ := stemIn(aux, 1, jwo, false)
 	aux.connEnds[1] = true

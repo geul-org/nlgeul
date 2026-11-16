@@ -19,7 +19,7 @@ func TestReadsAs(t *testing.T) {
 		t.Fatal("손으로 as 거")
 	}
 	come := wordsScan("와", layerCost)
-	come.ix.lex["오"] = word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
+	come.ix.lex["오"] = word{kinds: kindVerb, count: 10000, by: [6]int{0, 10000}}
 	if !come.readsAs(0, 1, verbal) {
 		t.Fatal("와 as 오+아")
 	}

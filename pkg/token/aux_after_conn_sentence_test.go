@@ -9,11 +9,12 @@ import (
 
 func TestAuxAfterConnSentence(t *testing.T) {
 	r := streamReader(t, "words.tsv")
-	verb := word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
+	enough := 10000
+	verb := word{kinds: kindVerb, count: enough, by: [6]int{0, enough}}
 	for _, w := range []string{"주", "보", "놓", "있", "오", "꽂", "읽", "만들", "들어가", "내려가"} {
 		r.ix.lex[w] = verb
 	}
-	r.ix.lex["두"] = word{kinds: kindNominal | kindVerb, count: 300 + seenEnough, by: [6]int{300, seenEnough}}
+	r.ix.lex["두"] = word{kinds: kindNominal | kindVerb, count: 300 + enough, by: [6]int{300, enough}}
 	r.ix.lex["해주"] = word{kinds: kindNominal, count: 500, by: [6]int{500}}
 	r.ix.lexTotal *= 100
 	for _, c := range []struct {

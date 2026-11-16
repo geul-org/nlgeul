@@ -15,7 +15,8 @@ func TestStemVerdict(t *testing.T) {
 	full := ix.stemVerdict(kindNominal, cat)
 	few := ix.stemVerdict(kindNominal, rule.Piece{Form: "고양이", Tail: rule.TailCase, Count: 100})
 	short := ix.stemVerdict(kindNominal, rule.Piece{Form: "물", Tail: rule.TailCase, Count: 50000})
-	if full != 1 || math.Abs(few-(2/(1+forceFew*0.5)-1)) > 1e-9 || math.Abs(short-(2/(1+forceShort)-1)) > 1e-9 {
+	part := 1 - math.Log10(100)/math.Log10(float64(ix.seenEnough()))
+	if full != 1 || math.Abs(few-(2/(1+forceFew*part)-1)) > 1e-9 || math.Abs(short-(2/(1+forceShort)-1)) > 1e-9 {
 		t.Fatal(full, few, short)
 	}
 	if ix.stemVerdict(kindNominal, rule.Piece{Form: "고양이", Tail: rule.TailPred, Count: 50000}) != -1 || ix.stemVerdict(kindAdj, rule.Piece{Form: "작", Tail: rule.TailVerb, Count: 50000}) != -1 || ix.stemVerdict(kindVerb, rule.Piece{Form: "마시", Tail: rule.TailVerb, Count: 50000}) != 1 {

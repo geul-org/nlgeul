@@ -1,5 +1,5 @@
 //ff:func feature=rule type=rule control=sequence
-//ff:what TestSeenFew — one observation is as few as can be, the count named enough is not few, a count between is partly few, an unknown count says nothing
+//ff:what TestSeenFew — one observation is as few as can be, the count named enough is not few, a count between is partly few, an unknown count says nothing, and with enough one or less no count is few
 package rule
 
 import (
@@ -17,5 +17,8 @@ func TestSeenFew(t *testing.T) {
 	unknown, _ := SeenFew(pieceCtx(Piece{Count: -1}), specs)
 	if one != 1 || mid != 0 || many != -1 || none != 1 || unknown != -1 {
 		t.Fatal(one, mid, many, none, unknown)
+	}
+	if low, _ := SeenFew(pieceCtx(Piece{Count: 1}), toulmin.Specs{&Bits{Of: "enough", Mask: 1}}); low != -1 {
+		t.Fatal("with enough one no count is few", low)
 	}
 }

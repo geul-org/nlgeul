@@ -100,11 +100,22 @@ const judgedMax = 100000
 const forceNew = 0.5
 
 // How strong the evidence is that a stem found in the word table is a
-// word (the verdict of its kind's graph). A stem observed seenEnough
-// times or more is not rebutted as rarely seen; forceFew and forceShort
-// are the forces of the rebuttals "rarely seen" and "a key of one
-// syllable", and shortKey the length that counts as short. seenEnough,
+// word (the verdict of its kind's graph). A stem observed seenShare of
+// the word table's counts or more (that share of the sum of every line's
+// count: index.seenEnough) is not rebutted as rarely seen, so that what
+// counts as seen enough follows the size of the table; forceFew and
+// forceShort are the forces of the rebuttals "rarely seen" and "a key of
+// one syllable", and shortKey the length that counts as short.
 // forceShort and shortKey are placeholders, not measured values.
+// seenShare took the place of a count, 10000, a placeholder set when the
+// table's counts summed to about 175 million; with the table counted
+// again (about 1,341 million) the count was measured on the answer sheet
+// against 10000: 30,000 gave 21 more right words, 100,000 31, 300,000
+// 60, 700,000 67, 1,000,000 74 (166 righted, 92 turned wrong), 2,000,000
+// 68, 10,000,000 55 and 100,000,000 15 more; and the share: 6e-4 68,
+// 6.5e-4 70, 7.5e-4 75 (167 righted, 92 turned wrong), 8.5e-4 73, 9e-4 72
+// and 1e-3 71 more. 7.5e-4 (about a million times in that table) is the
+// least past which no more words are righted.
 // forceFew is chosen among a few values tried on a thousand sentences
 // so that a row seen once (or with no count), even of one syllable,
 // still stands above a new word: with the two rebuttals in full the
@@ -114,7 +125,7 @@ const forceNew = 0.5
 // gives 192 fewer, 0.25 and 0.3 two fewer, 0.36 two more (26 righted, 24
 // turned wrong) and 0.5 five fewer.
 const (
-	seenEnough = 10000
+	seenShare  = 7.5e-4
 	forceFew   = 0.24
 	forceShort = 0.25
 	shortKey   = 1

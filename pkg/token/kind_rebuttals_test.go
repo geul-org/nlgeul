@@ -10,9 +10,10 @@ import (
 )
 
 func TestKindRebuttals(t *testing.T) {
+	enough := 10000
 	g := toulmin.NewGraph("열쇠:x")
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: "열쇠:x", Concludes: "열쇠"})
-	if n := kindRebuttals(g, claim); n != 5 {
+	if n := kindRebuttals(g, claim, enough); n != 5 {
 		t.Fatal("edges", n)
 	}
 	judge := func(form string, count int, sole bool) float64 {
@@ -23,18 +24,18 @@ func TestKindRebuttals(t *testing.T) {
 		v, _ := verdictOf(g, rule.Piece{Form: form, Count: count, Conn: true}, "", false)
 		return v
 	}
-	if v := judge("가르", seenEnough, false); v != 1 {
+	if v := judge("가르", enough, false); v != 1 {
 		t.Fatal("a form of more syllables seen enough", v)
 	}
-	short := judge("솥", seenEnough, false)
-	if short >= 1 || judge("솥", seenEnough, true) != 1 {
+	short := judge("솥", enough, false)
+	if short >= 1 || judge("솥", enough, true) != 1 {
 		t.Fatal("a one-syllable form seen enough", short)
 	}
 	few := judge("가르", 1, false)
 	if few >= 1 {
 		t.Fatal("a form of more syllables seen once", few)
 	}
-	if v := conn("솥", seenEnough); v != 1 {
+	if v := conn("솥", enough); v != 1 {
 		t.Fatal("a one-syllable auxiliary's stem seen enough right after 어/아", v)
 	}
 	if v := conn("솥", 1); v != few {

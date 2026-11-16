@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what kindRebuttals — on the graph of a kind of stem, the two rebuttals of its claim, "rarely seen" and "one syllable long", and what lifts the second: it is lifted when the stem's word is the whole of its unit, when the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail, and when it is the dependent noun 것 or 거 written right after a modifying closing; the number of edges is returned
+//ff:what kindRebuttals — on the graph of a kind of stem, the two rebuttals of its claim, "rarely seen" (below the count enough) and "one syllable long", and what lifts the second: it is lifted when the stem's word is the whole of its unit, when the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail, and when it is the dependent noun 것 or 거 written right after a modifying closing; the number of edges is returned
 package token
 
 import (
@@ -17,8 +17,8 @@ import (
 // modifying closing it stands on (하는거, 없는게, 할것이): a dependent noun
 // stands only after a modifier, so that the closing sets its front end,
 // and its own markers or the unit's end set its back end.
-func kindRebuttals(g *toulmin.Graph, claim *toulmin.Rule) int {
-	few := g.Counter(rule.SeenFew).With(&rule.Bits{Of: "enough", Mask: seenEnough})
+func kindRebuttals(g *toulmin.Graph, claim *toulmin.Rule, enough int) int {
+	few := g.Counter(rule.SeenFew).With(&rule.Bits{Of: "enough", Mask: enough})
 	few.Attacks(claim, forceFew)
 	short := g.Counter(rule.ShortKey).With(&rule.Bits{Of: "syllables", Mask: shortKey})
 	short.Attacks(claim, forceShort)

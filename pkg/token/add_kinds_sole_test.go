@@ -9,7 +9,7 @@ import (
 )
 
 func TestAddKindsSole(t *testing.T) {
-	ix := &index{}
+	ix := &index{lexTotal: 1e8}
 	ix.addKinds()
 	fits := map[int]int{kindNominal: rule.TailCase, kindVerb: rule.TailPred, kindAdj: rule.TailAdj, kindAdverb: rule.TailAux, kindDeterminer: rule.TailBare, kindAlone: rule.TailBare}
 	judge := func(kind int, form string, count int, sole bool) float64 {
@@ -17,11 +17,11 @@ func TestAddKindsSole(t *testing.T) {
 		return v
 	}
 	for _, kind := range kindOrder {
-		in, sole := judge(kind, "솥", seenEnough, false), judge(kind, "솥", seenEnough, true)
+		in, sole := judge(kind, "솥", ix.seenEnough(), false), judge(kind, "솥", ix.seenEnough(), true)
 		if sole != 1 || in >= sole || in <= 0 {
 			t.Fatal(kindLabel[kind], "a one-syllable form seen enough", in, sole)
 		}
-		if judge(kind, "가르", seenEnough, true) != judge(kind, "가르", seenEnough, false) || judge(kind, "가르", 1, true) != judge(kind, "가르", 1, false) {
+		if judge(kind, "가르", ix.seenEnough(), true) != judge(kind, "가르", ix.seenEnough(), false) || judge(kind, "가르", 1, true) != judge(kind, "가르", 1, false) {
 			t.Fatal(kindLabel[kind], "a two-syllable form")
 		}
 		few := judge(kind, "솥", 1, true)

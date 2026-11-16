@@ -5,7 +5,7 @@ package token
 import "testing"
 
 func TestModifiesAt(t *testing.T) {
-	verb := word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
+	verb := word{kinds: kindVerb, count: 10000, by: [6]int{0, 10000}}
 	noun := word{kinds: kindNominal, count: 500, by: [6]int{500}}
 	adverb := word{kinds: kindAdverb, count: 500, by: [6]int{0, 0, 0, 500}}
 	for _, c := range []struct {

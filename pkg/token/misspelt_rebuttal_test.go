@@ -10,13 +10,14 @@ import (
 )
 
 func TestMisspeltRebuttal(t *testing.T) {
+	enough := 10000
 	g := toulmin.NewGraph("열쇠:x")
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: "열쇠:x", Concludes: "열쇠"})
 	if n := misspeltRebuttal(g, claim); n != 1 {
 		t.Fatal("edges", n)
 	}
 	judge := func(misspelt bool) float64 {
-		v, _ := verdictOf(g, rule.Piece{Form: "가르", Count: seenEnough, Misspelt: misspelt}, "", false)
+		v, _ := verdictOf(g, rule.Piece{Form: "가르", Count: enough, Misspelt: misspelt}, "", false)
 		return v
 	}
 	if v := judge(false); v != 1 {

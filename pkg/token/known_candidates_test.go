@@ -50,7 +50,7 @@ func TestKnownCandidates(t *testing.T) {
 	if got = none.knownCandidates("고양이", rule.TailBare, false, false, false, false); len(got) != 0 {
 		t.Fatal("a word only the table knows", got)
 	}
-	ix.lex["주"] = word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
+	ix.lex["주"] = word{kinds: kindVerb, count: 10000, by: [6]int{0, 10000}}
 	apart := ix.knownCandidates("주", rule.TailPred, false, false, false, false)
 	onto := ix.knownCandidates("주", rule.TailPred, false, true, false, false)
 	if len(apart) != 2 || len(onto) != 2 || onto[0].name != "보조 용언:주" || onto[1].name != "열쇠:동사" || apart[0].name != onto[0].name || apart[1].name != onto[1].name {

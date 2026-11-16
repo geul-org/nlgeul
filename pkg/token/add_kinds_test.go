@@ -9,23 +9,23 @@ import (
 )
 
 func TestAddKinds(t *testing.T) {
-	ix := &index{}
+	ix := &index{lexTotal: 1e8}
 	ix.addKinds()
 	if ix.graphs != 6 || ix.edges != 62 || len(ix.kinds) != 6 {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 	fits := map[int]int{kindNominal: rule.TailCase, kindVerb: rule.TailPred, kindAdj: rule.TailAdj, kindAdverb: rule.TailAux, kindDeterminer: rule.TailBare, kindAlone: rule.TailBare}
 	for _, kind := range kindOrder {
-		free, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough}, "", false)
-		after, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough, Adn: true}, "", false)
-		det, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough, Det: true}, "", false)
+		free, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: ix.seenEnough()}, "", false)
+		after, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: ix.seenEnough(), Adn: true}, "", false)
+		det, _ := verdictOf(ix.kinds[kind], rule.Piece{Form: "가르", Tail: fits[kind], Count: ix.seenEnough(), Det: true}, "", false)
 		barred := kind&(kindVerb|kindAdj|kindAlone) != 0
 		if free <= 0 || (barred && (after > 0 || det > 0)) || (!barred && (after != free || det != free)) {
 			t.Fatal(kindLabel[kind], free, after, det)
 		}
 	}
 	for _, kind := range kindOrder {
-		whole := rule.Piece{Form: "가르", Tail: fits[kind], Count: seenEnough}
+		whole := rule.Piece{Form: "가르", Tail: fits[kind], Count: ix.seenEnough()}
 		typed := whole
 		typed.Misspelt = true
 		free, _ := verdictOf(ix.kinds[kind], whole, "", false)
@@ -35,8 +35,8 @@ func TestAddKinds(t *testing.T) {
 		}
 	}
 	for _, form := range boundAux {
-		verb, _ := verdictOf(ix.kinds[kindVerb], rule.Piece{Form: form, Tail: rule.TailPred, Count: seenEnough, Adn: true}, "", false)
-		adj, _ := verdictOf(ix.kinds[kindAdj], rule.Piece{Form: form, Tail: rule.TailPred, Count: seenEnough, Adn: true}, "", false)
+		verb, _ := verdictOf(ix.kinds[kindVerb], rule.Piece{Form: form, Tail: rule.TailPred, Count: ix.seenEnough(), Adn: true}, "", false)
+		adj, _ := verdictOf(ix.kinds[kindAdj], rule.Piece{Form: form, Tail: rule.TailPred, Count: ix.seenEnough(), Adn: true}, "", false)
 		if verb <= 0 || adj <= 0 {
 			t.Fatal(form, verb, adj)
 		}

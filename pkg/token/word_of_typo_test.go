@@ -3,6 +3,7 @@
 package token
 
 import (
+	"math"
 	"testing"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -16,7 +17,7 @@ func TestWordOfTypo(t *testing.T) {
 	if stem.Text != "맡기" || stem.Written != "맞기" || !stem.Stem || stem.Name != (Name{"열쇠", "동사"}) {
 		t.Fatal(stem)
 	}
-	if e.sig != "맡기[열쇠:동사,오타정정:맞기]+(어)[맺음:어(합침)]" || e.verdict < 0.54 || e.verdict > 0.56 {
+	if e.sig != "맡기[열쇠:동사,오타정정:맞기]+(어)[맺음:어(합침)]" || math.Abs(e.verdict-(2/(1+forceTypo)-1)) > 1e-9 {
 		t.Fatal(e.sig, e.verdict)
 	}
 	if e.word.Parts[1].Written != "" {

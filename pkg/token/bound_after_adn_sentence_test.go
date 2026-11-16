@@ -9,8 +9,9 @@ import (
 
 func TestBoundAfterAdnSentence(t *testing.T) {
 	r := streamReader(t, "words.tsv")
-	verb := word{kinds: kindVerb, count: seenEnough, by: [6]int{0, seenEnough}}
-	adj := word{kinds: kindAdj, count: seenEnough, by: [6]int{0, 0, seenEnough}}
+	enough := 10000
+	verb := word{kinds: kindVerb, count: enough, by: [6]int{0, enough}}
+	adj := word{kinds: kindAdj, count: enough, by: [6]int{0, 0, enough}}
 	for _, w := range []string{"읽", "보", "오"} {
 		r.ix.lex[w] = verb
 	}

@@ -11,7 +11,7 @@ func TestReaderBoxLines(t *testing.T) {
 	r := streamReader(t, "words-stream.tsv")
 	s := "아버지가방에들어가신다"
 	got := r.BoxLines(s, false, 3)
-	if !strings.HasPrefix(got[0], "┌ [0-3] 아버지 ─ 후보경합 ") || !strings.HasSuffix(got[0], " ┬┐ ① λ 합 -18.88") {
+	if !strings.HasPrefix(got[0], "┌ [0-3] 아버지 ─ 후보경합 ") || !strings.HasSuffix(got[0], " ┬┐ ① λ 합 -15.49") {
 		t.Fatal(got[0])
 	}
 	text := strings.Join(got, "\n")
