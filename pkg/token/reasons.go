@@ -266,3 +266,11 @@ const (
 	whyNoArgumentBefore = "앞 어절이 주격·보격·목적격·부사격 조사로 끝나지 않는다"
 	whyAdnNext          = "바로 뒤 어절이 꾸밈꼴로 끝난다"
 )
+
+// The name of the rule of a sentence of 밖에 with no negative after it
+// (outsideNounRule), and why it falls.
+const (
+	ruleOutsideNoun = "문장:부정이 따르지 않는 밖에는 체언 밖+에"
+	whyNegNext      = "바로 뒤 어절이 부정을 나타내는 말이다"
+	whyNegNext2     = "그다음 어절이 부정을 나타내는 말이다"
+)

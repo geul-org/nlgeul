@@ -54,4 +54,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, countedShortRule(numDeterminers))
 	// A modifying form between an argument and a word it may modify (argumentAdnRule).
 	ix.sentence = append(ix.sentence, argumentAdnRule())
+	// 밖에 with no negative after it as the noun 밖 with 에 (outsideNounRule).
+	ix.sentence = append(ix.sentence, outsideNounRule())
 }
