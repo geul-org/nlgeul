@@ -28,14 +28,11 @@ const (
 )
 
 // signShapes give, sign by sign, the candidates that join runs of digits
-// and the shape each asks of them, in the order they are named.
+// and the shape each asks of them, in the order they are named (the
+// tilde and its variants, a range each, are added by tildeShapes).
 // 자릿수 is shown as a number (shownAs).
-var signShapes = map[rune][]rule.Shape{
+var signShapes = tildeShapes(map[rune][]rule.Shape{
 	',': {{Of: "자릿수:,", Min: 2, Lens: [][2]int{{1, 3}, {3, 3}}}},
-	'~': {{Of: "범위:~", Min: 2, Max: 2}},
-	'∼': {{Of: "범위:∼", Min: 2, Max: 2}},
-	'～': {{Of: "범위:～", Min: 2, Max: 2}},
-	'〜': {{Of: "범위:〜", Min: 2, Max: 2}},
 	'–': {
 		{Of: "범위:–", Min: 2, Max: 2},
 		{Of: "빼기:–", Min: 2, Max: 2},
@@ -60,7 +57,7 @@ var signShapes = map[rune][]rule.Shape{
 		{Of: "날짜:.", Min: 3, Max: 3, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}, {1, 31}}},
 		{Of: "IP:.", Min: 4, Max: 4, Lens: [][2]int{{1, 3}}, Vals: [][2]int{{0, 255}}},
 	},
-}
+})
 
 // nameSigns are the signs that join two runs of Latin letters and
 // digits into one name when they are not both numbers: a slash joins
@@ -69,7 +66,8 @@ var signShapes = map[rune][]rule.Shape{
 var nameSigns = map[rune]string{'/': "경로:/", '-': "붙임:-"}
 var nameOrder = []rune{'/', '-'}
 
-var signOrder = []rune{',', '~', '-', ':', '/', '.', '∼', '～', '〜', '–'}
+// signOrder is the order the graphs of the signs of numbers are made in.
+var signOrder = []rune("," + tildeSigns + "-:/.–")
 
 var shownAs = map[string]string{"자릿수": numName}
 

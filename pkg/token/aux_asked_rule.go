@@ -7,7 +7,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // The dictionary gives 보다 as an auxiliary adjective in -은가/는가/나 보다
 // (a guess) and -을까 보다 (an intention): 오나 보다, 갈까 보다.
 func auxAskedRule() sentenceRule {
-	name := auxSet + ":" + askAux
+	name := auxSet + ":" + seeAux
 	g, claim := sentenceClaim(ruleAuxAsked, rule.Listed, listed("보조 용언 보다", rule.ListSelfKind, []string{name}))
 	except(g, rule.Listed, whyNotAsked, listed("물음 꼴", rule.ListPrevLast, askNames), not).Attacks(claim)
 	return sentenceRule{name: ruleAuxAsked, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool { return n.Kind == name }}

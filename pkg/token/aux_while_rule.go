@@ -7,7 +7,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // The dictionary gives 보다 as an auxiliary verb in -다(가) 보니 and
 // -다(가) 보면: 살다 보니, 걷다가 보면.
 func auxWhileRule() sentenceRule {
-	name := auxSet + ":" + whileAux
+	name := auxSet + ":" + seeAux
 	g, claim := sentenceClaim(ruleAuxWhile, rule.SelfHas, listed("보니·보면", rule.ListSelfMarks, whileClosings))
 	except(g, rule.Listed, whyNotWhile, listed("다·다가", rule.ListPrevLast, whileLinks), not).Attacks(claim)
 	return sentenceRule{name: ruleAuxWhile, graph: g, bonus: bonusSentence, about: func(n rule.Near) bool { return n.Kind == name }}

@@ -39,6 +39,6 @@ const stopSigns = ".,…"
 // cutSigns are the signs that cut a sentence into units where they stand
 // between letters (cutter).
 const (
-	apartSigns = "·ㆍ・‧․•/~∼～〜―—"
+	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—"
 	cutSigns   = "+"
 )

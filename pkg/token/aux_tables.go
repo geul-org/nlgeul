@@ -22,11 +22,13 @@ var regardStems = []string{"관하"}
 // as an auxiliary verb in after -다(가): -다(가) 보니, -다(가) 보면 (in
 // the course of doing it, one finds or comes to what follows: 살다 보니,
 // 걷다가 보면). whileLinks are the closings of the word before (다,
-// 다가), whileClosings those of 보다 itself (니, 니까, 면; auxWhileRule),
-// and whileAux its stem.
+// 다가), whileClosings those of 보다 itself (니, 니까, 면; auxWhileRule).
 var (
 	whileLinks    = closingNames(parse.Marker{Form: "다"}, parse.Marker{Form: "다가"})
 	whileClosings = closingNames(parse.Marker{Form: "니", Eu: true}, parse.Marker{Form: "니까", Eu: true}, parse.Marker{Form: "면", Eu: true})
 )
 
-const whileAux = "보"
+// seeAux is the stem of the auxiliary 보다, as the rules of a sentence
+// read it after a question closing (askNames: auxAskedRule) and after
+// -다(가) (whileLinks: auxWhileRule, mainUnlinkedRule).
+const seeAux = "보"

@@ -13,10 +13,13 @@ var nativeAlone = []string{"열", "스무", "몇", "여러"}
 // Sino-Korean numerals are read letter by letter: digits and the
 // greater numbers, in any run that has no two digits side by side
 // (삼십, 이백, 만). 수 stands only before a greater number (수십).
+// sinoMyriads are the greater numbers a numeral is grouped by, four
+// digits a group (clause 44 of the orthography: 십이억 삼천만).
 const (
-	sinoDigits = "일이삼사오육칠팔구"
-	sinoBigs   = "십백천만억조"
-	sinoSome   = '수'
+	sinoDigits  = "일이삼사오육칠팔구"
+	sinoMyriads = "만억조"
+	sinoBigs    = "십백천" + sinoMyriads
+	sinoSome    = '수'
 )
 
 // numeralCount is the number of entries of the two tables: a numeral
