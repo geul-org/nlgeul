@@ -288,3 +288,11 @@ const (
 	ruleGiveLinked = "문장:어/아 꼴 뒤 보조 동사 달다"
 	whyNotConn     = "앞 어절이 어/아 꼴로 끝나지 않는다"
 )
+
+// The name of the rule of a sentence of a particle written apart
+// (apartParticleRule), and why it falls.
+const (
+	ruleApartParticle = "문장:따로 쓴 조사는 앞말의 조사"
+	whyEndsMarked     = "앞 어절이 조사나 맺음으로 끝난다"
+	whyHeadOrSign     = "문장 첫머리이거나 바로 앞이 닫는 기호·줄표·영숫자 열·붙임표로 이은 이름·코드다"
+)

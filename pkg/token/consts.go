@@ -426,3 +426,16 @@ var degreeNames = []string{"단위:도"}
 // round value of that stretch. When the word table counts these
 // determiners, the value is to be measured again.
 const bonusOverUncounted = 12.0
+
+// bonusNewTaken is what the rebuttal "it is in no key table" (forceNew)
+// takes from lambda: a word of markers alone, written apart from the
+// word they belong to, is read with a new word's verdict (loneOf),
+// 2/(1+forceNew)-1, so the value is about 7.16. The rule of a sentence
+// apartParticleRule adds it where the word before shows what the
+// particle belongs to. None of the four steps (bonusSameLetters to
+// bonusOverWhole) is that far, and bonusOverUncounted is what another
+// rule lacks for another reason: on the answer sheet bonusOverWhole (5)
+// rights 8 words (none turned wrong) and this value 15 (one turned
+// wrong); 이 written apart after a noun, read as the noun or the
+// determiner, stands about 7.3 above the particle.
+var bonusNewTaken = -Lambda * math.Log10(2/(1+forceNew)-1)
