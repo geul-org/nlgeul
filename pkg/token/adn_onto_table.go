@@ -2,7 +2,7 @@ package token
 
 // adnOnto are the dependent nouns whose stem the one-syllable rebuttal
 // is lifted for when they are written right onto the modifying closing
-// they stand on (closed-words.tsv): 것 and its spoken form 거
+// they stand on (bound-nouns.tsv): 것 and its spoken form 거
 // (하는거, 없는게, 할것이). The other dependent nouns of the closed set
 // are not in it: their letters are also a noun or a piece of a closing
 // (수 the noun of number written onto a noun, 데 of the closings 는데 and
@@ -13,7 +13,7 @@ package token
 // these two, and with those the grammar tables read written onto a
 // modifying closing (수 줄 데 때 채 too) 5 more wrong and none more right.
 // A closed table: only what is listed is read so.
-var adnOnto = wordSets[setAdnBound]
+var adnOnto = boundLists[useAdnOnto]
 
 // boundForms are the forms the stem of a word of adnOnto may be written
 // in: the words and the closed table's wrong ways to write them (꺼 for 거).

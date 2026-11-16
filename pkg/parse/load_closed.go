@@ -1,23 +1,19 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what loadClosed — the closed sets of words read from the lines of their table (set, word, and for a dependent noun whether it is read when written onto a modifying closing too): the words of each of the four sets in the order of their lines, and under joinedMark the dependent nouns so marked; the lines of other sets, which the token layer reads from the same table, are left out
+//ff:what loadClosed — the closed sets of words read from the lines of their table (set, word): the words of each of the three sets (auxiliary verbs, determiners, conjunctions) in the order of their lines; the lines of other sets, which the token layer reads from the same table, are left out, and a line of the dependent nouns, which have a table of their own, is an error
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/data"
 
 func loadClosed(rows []data.Row) (map[string][]string, error) {
-	sets := map[string]int{boundSet: 0, helperSet: 0, determinerSet: 0, conjunctionSet: 0}
+	sets := map[string]int{helperSet: 0, determinerSet: 0, conjunctionSet: 0}
 	out := map[string][]string{}
 	for _, row := range rows {
-		if _, ok := sets[row.Cells[0]]; !ok {
-			continue
+		set := row.Cells[0]
+		if set == boundSet {
+			return nil, row.Errf(0, "의존명사는 의존 명사 표(%s.tsv)에 적는다", boundFile)
 		}
-		set, word, mark := row.Cells[0], row.Cells[1], row.Opt(2)
-		if mark != "" && (mark != joinedMark || set != boundSet) {
-			return nil, row.Errf(2, "%s의 줄에만 \"%s\"을 적고, 다른 줄에는 -를 적는다", boundSet, joinedMark)
-		}
-		out[set] = append(out[set], word)
-		if mark != "" {
-			out[joinedMark] = append(out[joinedMark], word)
+		if _, ok := sets[set]; ok {
+			out[set] = append(out[set], row.Cells[1])
 		}
 	}
 	return out, nil

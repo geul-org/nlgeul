@@ -34,12 +34,14 @@ var leadNames = map[string]int{"ㄴ": jongN, "ㄹ": jongL, "ㅁ": jongM, "ㅂ": 
 const vowelLead = "어/아"
 
 // The files of the tables this package reads and the names of the
-// closed sets of words (ClosedWords); joinedMark marks a dependent noun
-// that is read when written onto a modifying closing too.
+// closed sets of words (ClosedWords; the dependent nouns are those of
+// the dependent-noun table that bear the set's name); joinedMark marks a
+// dependent noun that is read when written onto a modifying closing too.
 const (
 	closingsFile  = "closings"
 	particlesFile = "particles"
 	closedFile    = "closed-words"
+	boundFile     = "bound-nouns"
 	piecesFile    = "closing-pieces"
 
 	boundSet       = "의존명사"

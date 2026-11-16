@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what loadWordSets — this layer's own closed sets of words read from the lines of the closed-word table (set, word, and the mark only pkg/parse reads): the words of each set given in the order of their lines, every set given with a list (empty when no line names it); the lines of the sets pkg/parse reads (ClosedWords) are left to it, a set of neither is an error, and so is a mark on a line of a set given
+//ff:what loadWordSets — this layer's own closed sets of words read from the lines of the closed-word table (set, word): the words of each set given in the order of their lines, every set given with a list (empty when no line names it); the lines of the sets pkg/parse reads (ClosedWords) are left to it, and a set of neither is an error
 package token
 
 import (
@@ -21,13 +21,9 @@ func loadWordSets(rows []data.Row, sets ...string) (map[string][]string, error) 
 		if err != nil {
 			return nil, err
 		}
-		if own == 0 {
-			continue
+		if own == 1 {
+			out[row.Cells[0]] = append(out[row.Cells[0]], row.Cells[1])
 		}
-		if row.Opt(2) != "" {
-			return nil, row.Errf(2, "이 집합의 줄에는 -를 적는다")
-		}
-		out[row.Cells[0]] = append(out[row.Cells[0]], row.Cells[1])
 	}
 	return out, nil
 }

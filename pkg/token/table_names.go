@@ -28,9 +28,9 @@ const (
 const adnPlace = "꾸밈 뒤"
 
 // The sets of the tables that hold more than one list: of fused forms
-// (contracts.tsv), of this layer's own closed sets of words (the
-// sets of closed-words.tsv that pkg/parse does not read) and of closings by what they take
-// (closing-sets.tsv).
+// (contracts.tsv), of this layer's own closed sets of words (the sets
+// of closed-words.tsv that pkg/parse does not read) and of closings by
+// what they take (closing-sets.tsv).
 const (
 	setContract    = "준말"
 	setPronoun     = "한 음절 대명사"
@@ -48,7 +48,6 @@ const (
 	setLinkTaker   = "이음 으"
 	setHangul      = "한글 뒤만"
 	setVerbExist   = "동사·있다·없다·계시다"
-	setAdnBound    = "꾸밈 맺음 뒤 의존명사"
 	setNegAdverb   = "부정 부사"
 	setNumDet      = "수 관형사"
 )
@@ -59,16 +58,30 @@ var contractSets = map[string]int{setContract: 0, setPronoun: 0, setNounCopula: 
 // (spacing-words.tsv): the words that link two nominals or close a
 // list, the titles and offices that follow a name, the family names
 // (marked, and read as a word of their own only right before a title,
-// surnameCandidate), the dependent nouns that follow
-// a nominal and those that follow a modifying closing, and the
-// auxiliaries that are written apart.
+// surnameCandidate), and the auxiliaries that are written apart.
 const (
-	setLink      = "이음·열거"
-	setTitle     = "호칭·관직"
-	setSurname   = "성"
-	setBoundNoun = "의존 명사(체언 뒤)"
-	setBoundAdn  = "의존 명사(꾸밈 뒤)"
-	setAuxApart  = "보조 용언"
+	setLink     = "이음·열거"
+	setTitle    = "호칭·관직"
+	setSurname  = "성"
+	setAuxApart = "보조 용언"
+)
+
+// The names of the two columns of the dependent-noun table
+// (bound-nouns.tsv) this layer reads: where a dependent noun stands (after
+// a modifying closing, adnPlace; after a nominal; after a word of time
+// only) and what else reads it (the rebuttal lifted when it is written
+// right onto a modifying closing, adnOnto; read as the noun of the same
+// letters where no modifying closing stands before it, adnBound).
+const (
+	nominalPlace = "체언 뒤"
+	timePlace    = "시간 뒤"
+	useAdnOnto   = "꾸밈 맺음 뒤 붙여 씀"
+	useAdnBound  = "꾸밈 뒤가 아니면 체언"
+)
+
+var (
+	boundPlaces = map[string]int{adnPlace: 1, nominalPlace: 2, timePlace: 4}
+	boundUses   = map[string]int{useAdnOnto: 1, useAdnBound: 2}
 )
 
 // slotLabel begins the name of a slot before a closing.

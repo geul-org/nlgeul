@@ -11,22 +11,26 @@ import (
 // layer; the rules are named by the number of their article of the
 // spelling rules and by nothing else). Each list is a closed set: a
 // word is added by writing a line.
-var spacingSets = data.Must(data.Sets("spacing-words", setLink, setTitle, setSurname, setBoundNoun, setBoundAdn, setAuxApart))
+var spacingSets = data.Must(data.Sets("spacing-words", setLink, setTitle, setSurname, setAuxApart))
 
+// afterNounWords are the dependent nouns that stand after a nominal
+// (bound-nouns.tsv), whose letters right after a word no table lists
+// show a boundary (article 42).
 var (
 	linkWords      = spacingSets[setLink]
 	titleWords     = spacingSets[setTitle]
 	surnameWords   = spacingSets[setSurname]
-	afterNounWords = spacingSets[setBoundNoun]
+	afterNounWords = boundLists[nominalPlace]
 )
 
 // dependentWords are the dependent nouns the rule of article 42 marks:
-// the closed set of the grammar tables and the two sets of the table
-// of this layer's spacing words. auxiliaryWords are the stems of the
+// the closed set of the grammar tables and the words of the
+// dependent-noun table that stand after a nominal or after a modifying
+// closing (every word of the table). auxiliaryWords are the stems of the
 // auxiliaries article 47 marks: the closed set of the grammar tables,
 // the ones written onto the main verb (auxMore) and the spacing words'.
 var (
-	dependentWords = slices.Concat(parse.ClosedWords()[boundSet], afterNounWords, spacingSets[setBoundAdn])
+	dependentWords = slices.Concat(parse.ClosedWords()[boundSet], afterNounWords, boundLists[adnPlace])
 	auxiliaryWords = slices.Concat(parse.ClosedWords()[auxSet], auxMore, spacingSets[setAuxApart])
 )
 

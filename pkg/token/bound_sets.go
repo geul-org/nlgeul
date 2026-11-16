@@ -8,20 +8,21 @@ import (
 
 // boundNext are the dependent nouns a modifying form stands right
 // before (boundBeforeRule): the closed set of the grammar tables and
-// the spacing words' that follow a modifying closing. boundNominal are
-// those of them that stand right after a nominal as well, which tell
-// nothing of the word before them: the spacing words' that follow a
-// nominal (때, 간, 외, 시 …) and 만 of a length of time (사흘 만에, the
-// standard dictionary's 만 「1」: after a word of time).
+// the words of the dependent-noun table that stand after a modifying
+// closing. boundNominal are those of them that stand right after a
+// nominal as well, which tell nothing of the word before them: the
+// table's words that stand after a nominal (때, 간, 외, 시 …) and after
+// a word of time only (만 of a length of time: 사흘 만에, the standard
+// dictionary's 만 「1」).
 var (
-	boundNext    = slices.Concat(parse.ClosedWords()[boundSet], spacingSets[setBoundAdn])
-	boundNominal = append(slices.Clone(afterNounWords), "만")
+	boundNext    = slices.Concat(parse.ClosedWords()[boundSet], boundLists[adnPlace])
+	boundNominal = slices.Concat(afterNounWords, boundLists[timePlace])
 )
 
 // adnBound are the dependent nouns that stand only after a predicate's
 // modifying form, whose letters are a noun elsewhere
-// (nounUnmodifiedRule): 수 and 줄.
-var adnBound = []string{"수", "줄"}
+// (nounUnmodifiedRule): 수 and 줄 (bound-nouns.tsv).
+var adnBound = boundLists[useAdnBound]
 
 // knowStems are the stems of 알다 and 모르다, before which 줄 is the
 // dependent noun even when the word before it is not read as a modifying
