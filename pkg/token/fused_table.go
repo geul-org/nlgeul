@@ -44,14 +44,14 @@ var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "
 // (맞는지를, 좋은지는, 갈지도, 누구인지가, 버티느냐가, 옳으냐에, 하느냐를,
 // 옳은가에 is not among them): the clause they close is used as a nominal
 // is. askClosings are those closings, ㄴ지, 는지, 은지, ㄹ지, 을지, 냐,
-// 느냐 and 는가, and askParticles the forms of the particles read
+// 느냐 and 는가, and after them ㄹ는지 and 을는지 (타계했을는지도), and askParticles the forms of the particles read
 // right after them: the auxiliary particles of auxParticles and the
 // case particles 가, 를, 에 and 와, and, added after them, 의 (저촉되는가의
 // 여부, 하는지의 문제). More particles may follow as the
 // chain's kinds allow (는지에+는).
 const askAuxName = "사슬:물음 맺음 뒤 조사"
 
-var askClosings = closingNames(parse.Marker{Form: "지", Lead: rule.JongN}, parse.Marker{Form: "는지"}, parse.Marker{Form: "은지", After: rule.AfterBatchim}, parse.Marker{Form: "지", Lead: rule.JongL}, parse.Marker{Form: "을지", After: rule.AfterBatchim}, parse.Marker{Form: "냐"}, parse.Marker{Form: "느냐"}, parse.Marker{Form: "는가"})
+var askClosings = closingNames(parse.Marker{Form: "지", Lead: rule.JongN}, parse.Marker{Form: "는지"}, parse.Marker{Form: "은지", After: rule.AfterBatchim}, parse.Marker{Form: "지", Lead: rule.JongL}, parse.Marker{Form: "을지", After: rule.AfterBatchim}, parse.Marker{Form: "냐"}, parse.Marker{Form: "느냐"}, parse.Marker{Form: "는가"}, parse.Marker{Form: "는지", Lead: rule.JongL}, parse.Marker{Form: "을는지", After: rule.AfterBatchim})
 var askParticles = []string{"도", "는", "만", "야", "가", "를", "에", "와", "의"}
 
 var honorLetters = []rune{'셨', '셔', '십'}
