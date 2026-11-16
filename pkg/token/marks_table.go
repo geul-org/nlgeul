@@ -35,12 +35,6 @@ var linkOrder = []rune{'/', '-'}
 // (saisiotCandidates).
 const saisiotName = "사이시옷:ㅅ"
 
-// run names the graph of a run of Latin letters and digits that no
-// table lists. forceRun is the force of the rebuttal "it is in no key
-// table" against it: lower than a new Hangul word's, because the
-// change of script at its edges is itself a sign of a boundary. It is
-// a placeholder, not a measured value.
-const (
-	runName  = "열:영숫자"
-	forceRun = 0.25
-)
+// runName names the graph of a run of Latin letters and digits that no
+// table lists (rebutted at the force forceRun).
+const runName = "열:영숫자"

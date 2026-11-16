@@ -35,8 +35,7 @@ var droppableKnown = append(append([]string{}, closingSets[setDropKnown]...), no
 
 // dropAdn are the closings before which a dropped stem is rebutted: in
 // front of a modifying or a naming form the stem mostly stays (의사인,
-// not 의산; 의사이기, not 의사기). forceDropAdn is the rebuttal's force,
-// chosen among a few values tried on a thousand sentences.
+// not 의산; 의사이기, not 의사기), at the force forceDropAdn.
 var dropAdn = append([]string{bareAdn}, nounHeads...)
 
 // dropNaming are the naming closings before which a dropped stem does
@@ -51,8 +50,6 @@ var dropNaming = nounHeads
 // the copula, so nothing else is read there; before the other closings
 // such a run is read as their stem (abc다).
 var droppableRun = []string{"맺음:야"}
-
-const forceDropAdn = 0.5
 
 // notOnly is the one other stem the closings of the copula attach to.
 const notOnly = "아니"

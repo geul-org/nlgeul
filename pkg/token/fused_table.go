@@ -13,19 +13,15 @@ import (
 // (시+었), 셔 (시+어…), 십 (시+ㅂ…). Wherever such a letter is read as a
 // stem's last syllable 시 with a piece fused into it, it is read as
 // the honorific too. After a consonant the link vowel 으 stands before
-// it (읽으셨다). honorCount and euCount are the observed counts of 시
-// and of the link vowel 으 in the tables; nothing in this repository
-// records where they were taken from.
+// it (읽으셨다). Their counts are honorCount and euCount (consts.go).
 const (
-	honorName  = "선어말:시"
-	honorCount = 19566
-	euName     = "이음:으"
-	linkVowel  = '으'
-	euCount    = 225409
-	negName    = "합침:잖"
-	negLetter  = '잖'
-	jiName     = "맺음:지"
-	yoName     = "보조사:요"
+	honorName = "선어말:시"
+	euName    = "이음:으"
+	linkVowel = '으'
+	negName   = "합침:잖"
+	negLetter = '잖'
+	jiName    = "맺음:지"
+	yoName    = "보조사:요"
 )
 
 // An auxiliary particle is written onto a linking closing (보지도,

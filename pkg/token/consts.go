@@ -27,6 +27,20 @@ const keyVowel = 'ㅓ'
 // of preference.
 const syllables = 11172
 
+// honorCount and euCount are the observed counts of the honorific 시
+// (honorName) and of the link vowel 으 (euName) in the tables; nothing in
+// this repository records where they were taken from.
+const (
+	honorCount = 19566
+	euCount    = 225409
+)
+
+// afterOthers is how many pieces besides the unit words are counted
+// among the entries a piece after a number is taken as one of: 여 and
+// 째. The three unitSuffixes are not counted; nothing records why (the
+// count was set before they were added and left as it was).
+const afterOthers = 2
+
 // newWord and noKey name the graph of a stem that is not in any table.
 // keyKind is the kind of a stem's candidate that a word table gives.
 const (
@@ -115,6 +129,18 @@ const forceWhole = 0.98
 // among a few values tried on a thousand sentences for the first of the
 // two; nothing records a measurement for the second, which borrows it.
 const forceClash = 0.5
+
+// forceRun is the force of the rebuttal "it is in no key table" against
+// a run of Latin letters and digits that no table lists (runName):
+// lower than a new Hangul word's, because the change of script at its
+// edges is itself a sign of a boundary. It is a placeholder, not a
+// measured value.
+const forceRun = 0.25
+
+// forceDropAdn is the force of the rebuttal against a dropped copula
+// stem before a modifying or a naming closing (dropAdn), chosen among a
+// few values tried on a thousand sentences.
+const forceDropAdn = 0.5
 
 // bonusSentence is what a rule of a sentence adds to the preference of a
 // candidate its claim stands for. The candidates such a rule tells apart
