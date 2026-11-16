@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamHaoEndings — end to end with the word table of testdata, the 하오체 and 하십시오체 endings added to the end of closings-more.tsv: 습디다 and 습디까 after a consonant and ㅂ디다, ㅂ디까 under a vowel; 구려; 소이까 after a consonant; 오니까 and 오리이까 (으오니까, 으오리이까 after a consonant); 렷다, 리다 and 리까 (으렷다, 으리다, 으리까 after a consonant); 노니 after a verb's stem and not after an adjective's
+//ff:what TestReaderStreamHaoEndings — end to end with the word table of testdata, the 하오체 and 하십시오체 endings added to the end of closings.tsv: 습디다 and 습디까 after a consonant and ㅂ디다, ㅂ디까 under a vowel; 구려; 소이까 after a consonant; 오니까 and 오리이까 (으오니까, 으오리이까 after a consonant); 렷다, 리다 and 리까 (으렷다, 으리다, 으리까 after a consonant); 노니 after a verb's stem and not after an adjective's
 package token
 
 import (

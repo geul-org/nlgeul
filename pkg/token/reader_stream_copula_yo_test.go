@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamCopulaYo — end to end with the word table of testdata, the linking ending 요 added to the end of closings-more.tsv stands after the copula's stem 이 and after 아니, and not after a verb's stem or right after a noun with the copula's stem dropped
+//ff:what TestReaderStreamCopulaYo — end to end with the word table of testdata, the linking ending 요 added to the end of closings.tsv stands after the copula's stem 이 and after 아니, and not after a verb's stem or right after a noun with the copula's stem dropped
 package token
 
 import (

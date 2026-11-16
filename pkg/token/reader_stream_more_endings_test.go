@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamMoreEndings — end to end with the word table of testdata, the endings added to the end of closings-more.tsv: the imperative 거라 and 너라 after a verb's stem and not after an adjective's (작거라) or the copula's stem; the 하소서체 나이다, 나이까, 더이다 and 소서 (으소서 after a consonant); 노라고, 노라면, 거니와, 던지, 다거나, 렴 (으렴), 오리다 (으오리다), ㄴ걸 after the copula; 로구나 after the copula's stem and not right after a noun or a verb's stem
+//ff:what TestReaderStreamMoreEndings — end to end with the word table of testdata, the endings added to the end of closings.tsv: the imperative 거라 and 너라 after a verb's stem and not after an adjective's (작거라) or the copula's stem; the 하소서체 나이다, 나이까, 더이다 and 소서 (으소서 after a consonant); 노라고, 노라면, 거니와, 던지, 다거나, 렴 (으렴), 오리다 (으오리다), ㄴ걸 after the copula; 로구나 after the copula's stem and not right after a noun or a verb's stem
 package token
 
 import (

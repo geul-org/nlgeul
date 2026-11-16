@@ -20,7 +20,7 @@
 
 문장성분을 정하지 않고 무엇이 읽혔는지만 낸다.
 
-- 표: `particles_table.go`(조사, 앞말 조건, 사슬 자리, 격, 관측 횟수), `endings_table.go`(맺음, 붙는 방식, 갈래 종·연·꾸, 붙는 자리 표시, 관측 횟수). 문서의 표를 옮긴 것이다. 두 변수는 이 파일에 있고 값은 `pkg/data/particles.tsv`, `pkg/data/closings.tsv`에서 읽는다(`data.Each`, 줄 읽기는 `particleOf`, `endingOf`). 표를 읽는 길과 줄을 더하는 법은 [pkg/data/README.md](../data/README.md)에 있다.
+- 표: `particles_table.go`(조사, 앞말 조건, 사슬 자리, 격, 관측 횟수), `endings_table.go`(맺음, 붙는 방식, 갈래 종·연·꾸, 붙는 자리 표시, 관측 횟수). 문서의 표를 옮긴 것이다(맺음 표의 끝 116줄은 토큰 층이 더한 사전의 어미이고 횟수가 0이다). 두 변수는 이 파일에 있고 값은 `pkg/data/particles.tsv`, `pkg/data/closings.tsv`에서 읽는다(`data.Each`, 줄 읽기는 `particleOf`, `endingOf`). 표를 읽는 길과 줄을 더하는 법은 [pkg/data/README.md](../data/README.md)에 있다.
 - `readSentence` → 어절마다 `readWord`가 `word`를 낸다.
   - `chain`(`chainFact`): 어절 끝의 가장 긴 조사 사슬. 길이, 조사들(`에서+는`), 끝 조사와 그 관측 횟수, 사슬에서 가장 바깥 격조사의 격.
   - `tails`(`tailFact`): 어절 끝이 용언 꼬리로 읽히는 풀이 전부. 맺음 이름과 갈래, 줄기, 길이, 서술격 "이"가 읽혔는지, 관측 횟수, 그 풀이대로 조각낸 어절(`marked`).

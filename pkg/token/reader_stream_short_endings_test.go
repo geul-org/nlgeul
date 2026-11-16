@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamShortEndings — end to end with the word table of testdata, the short endings added to the end of closings-more.tsv: 매 (으매 after a consonant), 람 after the copula's stem, the linking 든, 어다 (and 아다, and fused into the stem's last syllable: 가+(아)다)
+//ff:what TestReaderStreamShortEndings — end to end with the word table of testdata, the short endings added to the end of closings.tsv: 매 (으매 after a consonant), 람 after the copula's stem, the linking 든, 어다 (and 아다, and fused into the stem's last syllable: 가+(아)다)
 package token
 
 import (

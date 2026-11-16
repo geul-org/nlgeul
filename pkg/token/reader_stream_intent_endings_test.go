@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamIntentEndings — end to end with the word table of testdata, the endings of intent and guess and the other linking and final endings added to the end of closings-more.tsv: 려나, 려니, 려다가, 려거든 and 랴 (with 으 after a consonant), 으되, 건마는, ㄹ진대 and 을진대, ㄹ는지 and 을는지, ㄴ대야 and 는대야, ㄴ담, ㄴ고 after the copula's stem, 다네, the modifying 으라는; 려다가, 려거든, 는대야 and ㄴ담 after a verb's stem and not after an adjective's
+//ff:what TestReaderStreamIntentEndings — end to end with the word table of testdata, the endings of intent and guess and the other linking and final endings added to the end of closings.tsv: 려나, 려니, 려다가, 려거든 and 랴 (with 으 after a consonant), 으되, 건마는, ㄹ진대 and 을진대, ㄹ는지 and 을는지, ㄴ대야 and 는대야, ㄴ담, ㄴ고 after the copula's stem, 다네, the modifying 으라는; 려다가, 려거든, 는대야 and ㄴ담 after a verb's stem and not after an adjective's
 package token
 
 import (

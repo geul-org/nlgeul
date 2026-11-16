@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestMoreClosingsQuote — the quoting endings the dictionary lists in their shortened forms (냐는, 느냐는, 자는, 냐며, 냐면, 냐면서, 냐니까, 자면, 자니, 자니까, 다니까, 라니까, 다더라 and the verbs' ㄴ/는 forms) are among the closings of moreClosings, and a word that ends in one is one node read first as such (왔느냐는, 누구냐면, 말하자면, 좋다더라, 간다니까, 가자니, 좋으냐는); a noun that ends in 자 stays a noun first before 는 (기자는)
+//ff:what TestMoreClosingsQuote — the quoting endings the dictionary lists in their shortened forms (냐는, 느냐는, 자는, 냐며, 냐면, 냐면서, 냐니까, 자면, 자니, 자니까, 다니까, 라니까, 다더라 and the verbs' ㄴ/는 forms) are among the closings of the closing table, and a word that ends in one is one node read first as such (왔느냐는, 누구냐면, 말하자면, 좋다더라, 간다니까, 가자니, 좋으냐는); a noun that ends in 자 stays a noun first before 는 (기자는)
 package token
 
 import (

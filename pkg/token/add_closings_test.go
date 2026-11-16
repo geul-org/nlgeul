@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAddClosings — the closings are indexed by their last token or their lead's key; those that attach only to the copula stem are there too, and the names of those it does not take are kept; each closing of moreClosings is there under its name with the count closingCounts gives it (어야지 with its fused form, 라면서 with its form with 으), and among the forms of the tables; the closings the table already had keep their names and counts; the graph of an auxiliary particle after a linking closing takes 어서, 아서 and 면서 as well as 고 and 지, and not 다; the graph of a particle after a closing that asks takes 를, 는, 도 and 에 after ㄴ지, 는지, 은지, ㄹ지 and 을지, turns down a particle that is not one of the few (로) for that reason and any particle after another closing (지, 다) for that reason; end to end 먹되, 먹어서는, 먹고는 and 먹으면서도 read so
+//ff:what TestAddClosings — the closings are indexed by their last token or their lead's key; those that attach only to the copula stem are there too, and the names of those it does not take are kept; each closing added at the end of the closing table is there under its name with the count closingCounts gives it (어야지 with its fused form, 라면서 with its form with 으), and among the forms of the tables; the closings of the table's first rows keep their names and counts; the graph of an auxiliary particle after a linking closing takes 어서, 아서 and 면서 as well as 고 and 지, and not 다; the graph of a particle after a closing that asks takes 를, 는, 도 and 에 after ㄴ지, 는지, 은지, ㄹ지 and 을지, turns down a particle that is not one of the few (로) for that reason and any particle after another closing (지, 다) for that reason; end to end 먹되, 먹어서는, 먹고는 and 먹으면서도 read so
 package token
 
 import (
@@ -37,10 +37,10 @@ func TestAddClosings(t *testing.T) {
 		}
 	}
 	if ix.named('되', "맺음:되").count == 0 || ix.named('래', "맺음:길래").count == 0 {
-		t.Fatal("the counts of the closings of this layer's own list")
+		t.Fatal("the counts of the closings added at the table's end")
 	}
 	if !ix.closingSet["되"] || !ix.closingSet["ㄴ다면서"] || !ix.closingSet["어야지"] || !ix.closingSet["으라고"] {
-		t.Fatal("the forms of moreClosings among the closings")
+		t.Fatal("the forms of the added closings among the closings")
 	}
 	for _, form := range []string{"맺음:어서", "맺음:아서", "맺음:면서", "맺음:고", "맺음:지"} {
 		if v, _ := verdictOf(ix.linkAux.g, rule.Piece{Form: "는", Before: form, HasStem: true, Next: -1}, "", false); v <= 0 {
