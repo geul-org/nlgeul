@@ -8,7 +8,7 @@ func facts(w *word) *rule.Word {
 	c := w.chain
 	out := &rule.Word{
 		Text:      w.text,
-		Chain:     rule.Chain{Size: c.size, Parts: c.parts, Last: c.last, Count: c.count, Kase: c.kase, Marked: c.marked},
+		Chain:     rule.Chain{Size: c.size, Parts: c.parts, Last: c.last, Count: c.count, Kase: c.kase},
 		Longest:   w.longest,
 		Last:      w.last,
 		Bound:     w.bound,
