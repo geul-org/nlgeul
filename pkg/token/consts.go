@@ -109,6 +109,10 @@ const forceNew = 0.5
 // so that a row seen once (or with no count), even of one syllable,
 // still stands above a new word: with the two rebuttals in full the
 // verdict is 2/(1+0.24+0.25)-1, just over a new word's 1/3.
+// forceFew was so chosen before the word table was counted again; with
+// the table counted again, against this value on the answer sheet 0.18
+// gives 192 fewer, 0.25 and 0.3 two fewer, 0.36 two more (26 righted, 24
+// turned wrong) and 0.5 five fewer.
 const (
 	seenEnough = 10000
 	forceFew   = 0.24
@@ -121,6 +125,9 @@ const (
 // Hangul numeral (이건, 세대). It is chosen among a few values tried on
 // a thousand sentences: below about 0.94 the unit candidate still comes
 // first, and at 1 it is not kept at all.
+// That was measured before the word table was counted again; with the
+// table counted again any force from 0.49 to 1 gives the same words
+// right on the answer sheet, 0.25 four fewer.
 const forceWhole = 0.98
 
 // forceClash is the force of the rebuttal "어/아 does not fit the vowel
@@ -128,6 +135,9 @@ const forceWhole = 0.98
 // before it" (줄은): the candidate is kept and comes later. It is chosen
 // among a few values tried on a thousand sentences for the first of the
 // two; nothing records a measurement for the second, which borrows it.
+// That was measured before the word table was counted again; with the
+// table counted again, against this value on the answer sheet 0.25 and
+// 0.375 give two more right (none turned wrong) and 0.625 six fewer.
 const forceClash = 0.5
 
 // forceRun is the force of the rebuttal "it is in no key table" against
@@ -140,6 +150,9 @@ const forceRun = 0.25
 // forceDropAdn is the force of the rebuttal against a dropped copula
 // stem before a modifying or a naming closing (dropAdn), chosen among a
 // few values tried on a thousand sentences.
+// That was measured before the word table was counted again; with the
+// table counted again, on the answer sheet 0 rights one word and turns
+// one wrong, and 0.25 to 1 give the same words.
 const forceDropAdn = 0.5
 
 // bonusSentence is what a rule of a sentence adds to the preference of a
@@ -150,6 +163,12 @@ const forceDropAdn = 0.5
 // among 0.01, 0.1, 0.5, 1 and 2 tried with the first rule of a sentence on
 // the answer sheet: 0.01 and 0.1 gave 29 and 23 fewer right words than
 // 0.5, and 1 and 2 gave 5 and 8 more.
+// Those counts were taken before the word table was counted again; with
+// the table counted again, changing it for all the rules that add it,
+// against this value 0.01 and 0.1 give 43 and 42 fewer, 0.375 the same
+// words, 0.625 and 0.75 as many (2 righted, 2 turned wrong), 1 four more
+// (11 righted, 7 turned wrong), 1.25 seven more (15, 8) and 2 one more
+// (19, 18).
 const bonusSentence = 0.5
 
 // bonusOrder is what a rule of a sentence adds when it only sets an
@@ -159,6 +178,9 @@ const bonusSentence = 0.5
 // carry a candidate over one of another cut. With bonusSentence in its
 // place the answer sheet had two words fewer right (a noun that ends in
 // 서 was cut before the 서).
+// That was measured before the word table was counted again; with the
+// table counted again any value from 0.001 to 0.5 gives the same words
+// right, and 1 one fewer.
 const bonusOrder = 0.01
 
 // adverbialFirst are the names of 에서 and 서 as adverbial particles,
@@ -255,6 +277,9 @@ const bonusOne = 1.5
 // adds. The 어/아 form it puts first is mostly a stem of one syllable
 // (남+아, 서+(어)) against a noun of the same letters (남아, 서), whose
 // lambda is about 2 to 2.5 above it, so bonusSentence does not carry it.
+// That gap was seen before the word table was counted again; with the
+// table counted again, against this value 2.5 gives 5 fewer, 3.33 two
+// more (none turned wrong) and 3.75 14 fewer.
 const bonusLinkBeforeAux = 3.0
 
 // bonusMalLinked is what the rule "말다 after -지 or -고 is the auxiliary
@@ -263,6 +288,9 @@ const bonusLinkBeforeAux = 3.0
 // about 3.2 above them. Measured on the answer sheet, the words put
 // right (none put wrong at any of them) were 2 at 0.5, 4 at 1.5, 5 at 3,
 // 6 at 3.5 and 6 at 6; the least value of the most is chosen.
+// Those were measured before the word table was counted again; with the
+// table counted again, against this value 0.5 gives 4 fewer, 2.5 3
+// fewer, and 3.33 to 8 the same words.
 const bonusMalLinked = 3.5
 
 // bonusAuxLinked is what the rule "an auxiliary verb stands after a
@@ -273,6 +301,9 @@ const bonusMalLinked = 3.5
 // sheet against 0.5, the words put right (none put wrong at any of them)
 // were 6 at 1, 8 at 1.5, 2, 3, 4 and 6; the least value of the most is
 // chosen.
+// Those were measured before the word table was counted again; with the
+// table counted again, against this value 0.5 gives 2 fewer, 0.75 to 1.5
+// the same words, and 1.875 to 8 nine more (none turned wrong).
 const bonusAuxLinked = 1.5
 
 // tableNoun is the name of a noun of the word table (열쇠:체언), and
@@ -293,6 +324,10 @@ var (
 // words right more: 2 gave 28, 2.7 gave 37, this value 56 (65 fixed, 9
 // broken), 4 gave 58 (75 fixed, 17 broken), 5 gave 51 and 8 gave 19
 // fewer. It is kept for its reason and for half the words broken at 4.
+// Those were measured before the word table was counted again; with the
+// table counted again this value gives 60 more than no rule (63 righted,
+// 3 turned wrong), and against it 2 gives 32 fewer, about 4.16 four more
+// (9, 5), 5 the same number (19, 19) and 8 82 fewer.
 var bonusGluedShort = -Lambda * math.Log10(2/(1+forceShort)-1)
 
 // copulaAdnForms are the letters of the copula 이 with a modifying
@@ -319,6 +354,10 @@ var topicNames = []string{"보조사:이란", "보조사:란"}
 // 7,069. Tried on the answer sheet: 0.5 and 1 put no word right, 1.2,
 // 1.5, 2, 3 and 5 each put eight right and none wrong; 1.5 is taken to
 // stand clear of the gap without reaching far past it.
+// That gap and those were measured before the word table was counted
+// again; with the table counted again the gap is about 1.49, any value
+// up to 1.125 puts none of the eight right, and 1.5 to 8 give the same
+// words.
 const bonusShutTopic = 1.5
 
 // copulaEndNames are the names of the ending 야, which follows the
@@ -338,6 +377,9 @@ var (
 // 0.5, 2.2, 2.5, 3 and 5 tried with copulaEndRule on the answer sheet:
 // 0.5 changed nothing, and the others gave the same seven more right
 // words and none fewer; 2.5 leaves room over the gap.
+// Those were measured before the word table was counted again; with the
+// table counted again, against this value 2 and less give 12 or 13
+// fewer, 3.125 the same words, and 3.33 and more one fewer.
 const bonusCopula = 2.5
 
 // numberKinds are the names of the stem of a number (and of an ordinal
@@ -369,6 +411,10 @@ var aloneBarred = []string{"의존명사", "관형사"}
 // which bonusSentence does not carry over. It is chosen among 1, 1.5, 2,
 // 2.5 and 3 tried with that rule on the answer sheet: 2.5 gave 17, 15
 // and 2 more right words than 1, 1.5 and 2, and 3 one fewer.
+// Those were measured before the word table was counted again; with the
+// table counted again, against this value 1, 1.5 and 2 give 13, 4 and 1
+// fewer, 3.125 the same words, 3.33 one more, 5 two more (none turned
+// wrong) and 8 one more (2 righted, 1 turned wrong).
 const bonusBound = 2.5
 
 // bonusBoundAfter is what the rule of a sentence "a dependent noun stands
@@ -387,6 +433,9 @@ const bonusBound = 2.5
 // 5.5 and 6 the same 5 more (거 with 지 too, which was read as the noun
 // 거지), 8 one more wrong besides (수요 read as 수+요 after a modifying
 // form); 5 is chosen.
+// Those were measured before the word table was counted again; with the
+// table counted again, against this value 2.5 gives 5 fewer, 3.33 to
+// 6.25 the same words, and 7.5 one fewer.
 const bonusBoundAfter = 5.0
 
 // bonusModified is what the rule of a sentence "a noun stands right after
@@ -394,6 +443,10 @@ const bonusBoundAfter = 5.0
 // 2 tried with that rule on the answer sheet: 1 gave 3, 3 and 4 more
 // right words than 0.5, 1.5 and 2 (the more it adds, the more a
 // modifier stacked on another, 그의 검은, is read as a noun).
+// Those were measured before the word table was counted again; with the
+// table counted again, against this value 0.75 gives one fewer, 1.25
+// three more, 1.5 six more (none turned wrong), 2 six more (7 righted, 1
+// turned wrong) and 2.5 25 fewer.
 const bonusModified = 1.0
 
 // forceUnitWord is the force of the rebuttal "the stem begins right
@@ -405,6 +458,9 @@ const bonusModified = 1.0
 // sheet: 0.25 righted 2 words of the kind, 0.5 and 0.98 righted 17 each
 // (the same ones), so the least of those, which still keeps the known
 // word as a candidate behind them (a verdict of about 1/3).
+// Those were measured before the word table was counted again; with the
+// table counted again, against no such rebuttal 0.25 rights 12 words and
+// 0.375 to 1 the same 24.
 const forceUnitWord = 0.5
 
 // dateNames are the names of a number read as a date (the shapes 날짜:.,
@@ -428,6 +484,9 @@ var numberAdnNames = []string{"꾸밈:ㄴ"}
 // nothing, 0.5 and 0.98 righted the same 9 words and turned the same 2
 // wrong; the least of those keeps the copula as the candidate right
 // behind.
+// Those were measured before the word table was counted again; with the
+// table counted again 0.375 and less give 8 fewer than this value (1
+// righted, 9 turned wrong), and 0.5 to 1 the same words.
 const forceNumberAdn = 0.5
 
 // measureName names the graph of a quotation mark right after a digit
@@ -441,6 +500,9 @@ const measureName = "단위:숫자 뒤 따옴표"
 // words; 0.25 leaves the unit (a verdict of 0.6) within about 0.6 of
 // lambda of the closing, 0.5 (a verdict of 1/3, as forceUnitWord and
 // forceNumberAdn give) sends it behind with room.
+// Those were measured before the word table was counted again; with the
+// table counted again 0 gives 5 fewer than this value, and 0.25 to 1 the
+// same words.
 const forceMeasureOpen = 0.5
 
 // degreeNames are the names of the unit 도 (an angle, a temperature),
