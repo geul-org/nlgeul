@@ -113,7 +113,7 @@ const predTails = rule.TailPred | rule.TailVerb | rule.TailAdj | rule.TailExist
 var pronouns = wordSets[setPointer]
 
 // pronounWords are pronouns this layer knows on top of the word
-// table, which nlgeul parse does not read: 네 (너 before 가, and 너의),
+// table, which pkg/parse does not read: 네 (너 before 가, and 너의),
 // 내 (나 before 가, and 나의), 제 (저 before 가, and 저의) and 니. The
 // dictionary lists the first three as pronouns. 니 is 네 and 너 as they
 // are said in speech (니가, 니 거, 니도); the dictionary has 니 only as a

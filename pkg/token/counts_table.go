@@ -5,8 +5,8 @@ import (
 )
 
 // closingCounts are the observed counts of the closings, form by form,
-// that only this layer reads; nlgeul parse keeps the counts of its own
-// table. A closing that is both a final and a linking one has the two
+// that only this layer reads; pkg/parse reads the count columns of its
+// own tables (closings.tsv, particles.tsv). A closing that is both a final and a linking one has the two
 // counts summed. A form with no entry has no count, and a count of 0
 // is taken as none (pref). An allomorph has its own count where one
 // was observed apart; some pairs share one number (세요 and 으세요,

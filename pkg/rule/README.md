@@ -36,7 +36,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `Longer` | except | 경쟁 풀이가 이 풀이보다 길게 읽는다 | `Versus` |
 | `ChainSeenMore` | counter | 꼬리만큼 긴 조사가 관측됐다(횟수의 몫) | 없음 |
 | `TailSeenMore` | counter | 사슬만큼 긴 꼬리가 관측됐다(횟수의 몫) | 없음 |
-| `Listed` | rule, except, counter | 기준이 가리키는 사실이 기준 목록에 있다. `nlgeul parse`는 어절(`ListWord`: 관형사 → 관형어, 접속 부사 → 독립어, 닫힌 집합의 낱말은 쪼개 읽지 않는다)과 꼬리의 맺음(`ListClosing`: 게 → 부사어)을, 토큰 층은 조각과 기호의 사실, 문장 안 후보와 둘레 어절의 사실을 묻는다 | `List`, 뒤집으려면 `Not` |
+| `Listed` | rule, except, counter | 기준이 가리키는 사실이 기준 목록에 있다. `pkg/parse`는 어절(`ListWord`: 관형사 → 관형어, 접속 부사 → 독립어, 닫힌 집합의 낱말은 쪼개 읽지 않는다)과 꼬리의 맺음(`ListClosing`: 게 → 부사어)을, 토큰 층은 조각과 기호의 사실, 문장 안 후보와 둘레 어절의 사실을 묻는다 | `List`, 뒤집으려면 `Not` |
 
 토큰 열 하나를 표지나 줄기로 판정하는 그래프(컨텍스트 열쇠 `KeyPiece` → `Piece`)가 쓰는 함수:
 
@@ -89,7 +89,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | 함수 | 뜻 | 쓰는 곳 |
 |---|---|---|
 | `Fits(prev, after)` | 앞 음절의 끝이 붙는 조건(`After…`: 받침, ㄹ 아닌 받침, 모음이나 ㄹ, 모음, ㄹ 받침, 한글 음절, ㄴ 아닌 받침(`AfterNotN`))과 맞는가 | `PieceAfter`, 읽기 코드 |
-| `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `nlgeul parse`의 읽기 코드 |
+| `Follows(left, right)` | 조사 사슬에서 자리 left 뒤에 자리 right가 올 수 있는가(자리 번호) | `pkg/parse`의 읽기 코드 |
 | `Harmony(prev, first)` | 줄기 끝 음절 뒤에 어/아/여로 시작하는 조각이 모음에 맞는가(ㅏ·ㅑ·ㅗ 뒤 아, 그 밖 어, 하 뒤 여, ㅆ 받침 뒤 어) | `PieceClash` |
 | `FitsShape(parts, shape)`, `InRange` | 숫자 마디들이 꼴(마디 수, 자리 수, 값의 범위, 머리)에 맞는가 | `PartsShape` |
 | `Links(left, right)` | 조사 사슬에서 갈래 left 뒤에 갈래 right가 올 수 있는가(갈래 표, `Link…`. 서술격 이다의 줄기 `LinkCopula`는 접미 뒤에만 선다) | `ChainLinks` |

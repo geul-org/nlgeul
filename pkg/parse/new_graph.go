@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what newGraph — the grammar of nlgeul parse as a toulmin graph: fifteen claims of a constituent, and the exceptions and rebuttals against them; the claims are returned so that more can be added
+//ff:what newGraph — the grammar of this package (pkg/parse) as a toulmin graph: fifteen claims of a constituent, and the exceptions and rebuttals against them; the claims are returned so that more can be added
 package parse
 
 import (

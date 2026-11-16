@@ -39,15 +39,15 @@
 
 ## 파일
 
-변수는 `pkg/parse`(`parse`) 또는 `pkg/token`(`token`)에 있고 `data.Must(…)`로 만든다. 예시는 실제 줄이다.
+변수는 `pkg/parse`(`parse`) 또는 `pkg/token`(`token`)에 있고 `data.Must(…)`로 만든다. 예시는 실제 줄이다. `pkg/parse`를 부르는 명령은 없어서, `pkg/parse`만 읽는 표와 칸(`closing-pieces.tsv`, `closings.tsv`의 횟수 칸, `particles.tsv`의 횟수 칸 대부분, `bound-nouns.tsv`의 붙여 읽기 칸)은 `nlgeul token`의 출력에 닿지 않는다.
 
 | 파일 | 칸 | 읽는 변수 | 예시 |
 |---|---|---|---|
-| `closings.tsv` | 꼴, 앞말, 갈래, 조건, 횟수 | `endings` (parse, `endingOf`; 토큰 층은 `parse.ClosingMarkers`) | `고	-	종결\|연결	-	0` |
-| `particles.tsv` | 꼴(온 음절), 앞말, 사슬 자리(0에서 5), 격(`-`이면 없음), 횟수 | `particles` (parse, `particleOf`) | `이	받침 뒤	3	주격\|보격	5530000` |
+| `closings.tsv` | 꼴, 앞말, 갈래, 조건, 횟수(`pkg/parse`만 읽는다. 토큰 층의 횟수는 `closing-counts.tsv`) | `endings` (parse, `endingOf`; 토큰 층은 `parse.ClosingMarkers`) | `고	-	종결\|연결	-	0` |
+| `particles.tsv` | 꼴(온 음절), 앞말, 사슬 자리(0에서 5), 격(`-`이면 없음), 횟수(`pkg/parse`가 읽는다. 토큰 층은 `particle-counts.tsv`에 없는 꼴의 것만 쓴다: 더러, 일랑) | `particles` (parse, `particleOf`; 토큰 층은 `parse.ParticleMarkers`) | `이	받침 뒤	3	주격\|보격	5530000` |
 | `closed-words.tsv` | 집합, 낱말 | `closedSets` (parse, `loadClosed`), `wordSets` (token, `loadWordSets`) | `보조 용언	주`, `의존명사 보조 용언	듯하` |
 | `bound-nouns.tsv` | 낱말, 이름표, 붙여 읽기(`붙여 읽음`은 이름표가 `의존명사`인 줄에만), 자리, 쓰임 | `boundSets` (parse, `loadBound`: 이름표·붙여 읽기), `boundLists` (token, `loadBoundNouns`: 자리·쓰임) | `거	의존명사	붙여 읽음	꾸밈 뒤	꾸밈 맺음 뒤 붙여 씀` |
-| `closing-pieces.tsv` | 맺음, 조각(`+`로 이은 찍는 꼴) | `closingPieces` (parse) | `다고	다+고` |
+| `closing-pieces.tsv` | 맺음, 조각(`+`로 이은 찍는 꼴. `pkg/parse`만 읽는다) | `closingPieces` (parse) | `다고	다+고` |
 | `closing-counts.tsv` | 맺음 이름, 횟수 | `closingCounts` (token) | `맺음:다	8131589` |
 | `particle-counts.tsv` | 조사 꼴, 횟수 | `particleCounts` (token) | `이	3275337` |
 | `closing-sets.tsv` | 집합, 맺음 이름 | `closingSets` (token) | `동사만	맺음:ㄴ다` |
