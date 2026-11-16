@@ -274,3 +274,10 @@ const (
 	whyNegNext      = "바로 뒤 어절이 부정을 나타내는 말이다"
 	whyNegNext2     = "그다음 어절이 부정을 나타내는 말이다"
 )
+
+// Why boundAfterRule falls for an adverbial dependent noun with 이/가
+// (미안한 듯이), and why that exception falls.
+const (
+	whyAdverbialBound = "주격·보격 조사를 받지 않는 부사성 의존 명사다"
+	whyNoSubjectMark  = "주격·보격 이·가가 붙지 않았다"
+)
