@@ -471,3 +471,12 @@ var predStemKinds = []string{keyKind + ":" + kindLabel[kindVerb], keyKind + ":" 
 // (목적격:을, 목적격:를), after which a rule of a sentence
 // prefers a predicate (predAfterObjectRule).
 var objectKinds = []string{"목적격"}
+
+// haLinks are the names of the linking ending -어야 and haNamings that
+// of the naming ending -기, after which a rule of a sentence prefers 하다
+// (haStem) as the verb (haLinkedRule: 해야 한다, 있기는 하나, 가기로
+// 했다).
+var (
+	haLinks   = []string{"맺음:어야", "맺음:아야", "맺음:여야", "맺음:어야(합침)"}
+	haNamings = []string{"이름:기"}
+)

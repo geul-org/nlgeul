@@ -322,3 +322,11 @@ const (
 	whyNoObjectBefore   = "앞 어절이 목적격 조사로 끝나지 않는다"
 	whyAdnSelf          = "꾸밈꼴로 끝난다(격 조사 뒤 꾸밈꼴 규칙이 판정한다)"
 )
+
+// The name of the rule of a sentence of 하다 after -어야 or a -기 form
+// (haLinkedRule), and why it falls or stands.
+const (
+	ruleHaLinked   = "문장:-어야·-기 뒤 하다"
+	whyNoHaLink    = "앞 어절이 -어야로 끝나지 않는다"
+	whyNamedBefore = "앞 어절에 이름꼴 -기가 있다"
+)

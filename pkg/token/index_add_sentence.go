@@ -66,4 +66,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, linkBeforeNegRule())
 	// A predicate right after an object (predAfterObjectRule).
 	ix.sentence = append(ix.sentence, predAfterObjectRule())
+	// 하다 right after -어야 or a -기 form as the verb (haLinkedRule).
+	ix.sentence = append(ix.sentence, haLinkedRule())
 }
