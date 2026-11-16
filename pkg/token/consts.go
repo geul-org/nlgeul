@@ -451,3 +451,18 @@ var (
 	dativeStems = dativeStemsOf(contracts)
 	causeStems  = []string{"하", "되", "만들"}
 )
+
+// negLinks are the names of the linking ending -지 (and of 진, -지 with
+// the particle 는 fused) and negStems the stems of the verbs that deny
+// what the -지 form says (-지 않다, -지 못하다, -지 말다): a rule of a
+// sentence prefers the -지 form right before one of them
+// (linkBeforeNegRule).
+var (
+	negLinks = []string{"맺음:지", "맺음:진(지는)"}
+	negStems = []string{"않", "못하", "말"}
+)
+
+// predStemKinds are the names of a stem of the word table that a
+// predicate is read on: a verb and an adjective (predStem; an auxiliary
+// verb of the closed set is named by its own stem).
+var predStemKinds = []string{keyKind + ":" + kindLabel[kindVerb], keyKind + ":" + kindLabel[kindAdj]}

@@ -307,3 +307,10 @@ const (
 	ruleDativeContract = "문장:내게·네게·제게는 대명사와 게"
 	whyCauseNext       = "바로 뒤 어절이 하다·되다·만들다다"
 )
+
+// The name of the rule of a sentence of the -지 form before 않다,
+// 못하다 and 말다 (linkBeforeNegRule), and why it falls.
+const (
+	ruleLinkBeforeNeg = "문장:않다·못하다·말다 앞 -지"
+	whyNoNegNext      = "바로 뒤 어절이 않다·못하다·말다가 아니다"
+)

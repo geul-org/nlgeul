@@ -62,4 +62,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, apartParticleRule())
 	// 내게, 네게 and 제게 as the pronoun with the particle 게 (dativeContractRule).
 	ix.sentence = append(ix.sentence, dativeContractRule())
+	// The -지 form right before 않다, 못하다 or 말다 (linkBeforeNegRule).
+	ix.sentence = append(ix.sentence, linkBeforeNegRule())
 }
