@@ -52,7 +52,7 @@
 | `particle-counts.tsv` | 조사 꼴, 횟수 | `particleCounts` (token) | `이	3275337` |
 | `closing-sets.tsv` | 집합, 맺음 이름 | `closingSets` (token) | `동사만	맺음:ㄴ다` |
 | `spacing-words.tsv` | 집합, 낱말(출처는 자체 작성이다. 조항은 번호로만 부르고 집합마다 쓰는 조항은 `pkg/token/README.md`의 "띄어쓰기 규칙"에 있다. `성`은 48다만의 표시와, 48이 켜져 있을 때 붙여 쓴 호칭·관직 앞에서 단위 머리의 줄기를 성 `성:<글자>`로 읽는 데 쓴다) | `spacingSets` (token) | `이음·열거	겸` |
-| `contracts.tsv` | 묶음, 꼴, 낱말, 조사, 조사 이름(`격:꼴`처럼 `:`이 든 색인 이름), 자리(`꾸밈 뒤` 또는 `-`), 적힌 낱말(틀리게 적은 글자, 없으면 `-`) | `contractLists` (token, `loadContracts`, `contractOf`) | `준말	이게	이것	(이)	주격:이	-	-` |
+| `contracts.tsv` | 묶음, 꼴, 낱말, 조사, 조사 이름(`격:꼴`처럼 `:`이 든 색인 이름), 자리(`꾸밈 뒤` 또는 `-`), 적힌 낱말(틀리게 적은 글자, 없으면 `-`) | `contractLists` (token, `loadContracts`, `contractOf`; 조사 이름이 `부사격:에게`인 줄의 낱말은 문장 단위 규칙 `dativeContractRule`이 읽는다, `dativeStemsOf`) | `준말	이게	이것	(이)	주격:이	-	-` |
 | `gated-closings.tsv` | 꼴, 앞말, 갈래, 조건 | `gatedClosings` (token, `markerRow`) | `소	받침 뒤	종결	서술격 안 됨\|요 안 됨` |
 | `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (token, `shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
 | `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (token, `shortParticleOf`) | `선	-	부사격	에서는` |
