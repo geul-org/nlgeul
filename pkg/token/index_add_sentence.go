@@ -42,4 +42,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, adverbAloneRule(ix.lex))
 	// A word of two kinds (a nominal and a determiner) standing alone before a word it may modify as the determiner (tableDeterminerRule).
 	ix.sentence = append(ix.sentence, tableDeterminerRule(ix.lex, ix.closed))
+	// A word of two kinds (a nominal and an interjection) standing alone as the interjection (interjectionAloneRule).
+	ix.sentence = append(ix.sentence, interjectionAloneRule(ix.lex))
 }

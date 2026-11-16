@@ -233,3 +233,7 @@ const (
 // The name of the rule of a sentence of a word of two kinds (a nominal
 // and a determiner) standing alone (tableDeterminerRule).
 const ruleTableDeterminer = "문장:홀로 선 체언·관형사 글자는 관형사"
+
+// The name of the rule of a sentence of a word of two kinds (a nominal
+// and an interjection) standing alone (interjectionAloneRule).
+const ruleInterjectionAlone = "문장:홀로 선 체언·감탄사 글자는 감탄사"
