@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestMarkerGraphEcho — the graph of the particle 에 holds a rebuttal that it stands right on a stem with no final consonant before 요, of force forceClash: with the fact the verdict is 2/(1+forceClash)-1 and the candidate is not rejected; without it 1; a particle that is not listed (echoes) has none
+//ff:what TestMarkerGraphEcho — the graph of the particle 에 holds a rebuttal that it stands right on a stem with no final consonant before 요, of force forceEcho: with the fact the verdict is 2/(1+forceEcho)-1 and the candidate is not rejected; without it 1; a particle that is not listed (echoes) has none
 package token
 
 import (
@@ -14,7 +14,7 @@ func TestMarkerGraphEcho(t *testing.T) {
 	markerGraph(&e, nil, nil, true)
 	open := rule.Piece{Form: "에", HasStem: true, Prev: '이', Slot: rule.LinkAdv, Next: rule.LinkYo, YoOpen: true}
 	v, _ := verdictOf(e.g, open, "고양이에", false)
-	if math.Abs(v-(2/(1+forceClash)-1)) > 1e-9 {
+	if math.Abs(v-(2/(1+forceEcho)-1)) > 1e-9 {
 		t.Fatal("rebutted, not rejected", v)
 	}
 	shut := open

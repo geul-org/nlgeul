@@ -143,13 +143,24 @@ const forceWhole = 0.98
 
 // forceClash is the force of the rebuttal "어/아 does not fit the vowel
 // before it" (먹아, 잡어), and of "a form with 으 does not fit the ㄹ
-// before it" (줄은): the candidate is kept and comes later. It is chosen
-// among a few values tried on a thousand sentences for the first of the
-// two; nothing records a measurement for the second, which borrows it.
-// That was measured before the word table was counted again; with the
-// table counted again, against this value on the answer sheet 0.25 and
-// 0.375 give two more right (none turned wrong) and 0.625 six fewer.
-const forceClash = 0.5
+// before it" (줄은): the candidate is kept and comes later. It was 0.5,
+// chosen among a few values tried on a thousand sentences for the first
+// of the two before the word table was counted again. With the table
+// counted again (and seenShare and the steps of the rules of a sentence),
+// against 0.5 on the answer sheet 0.125 gives two more right (3 righted,
+// 1 turned wrong), 0.25 and 0.375 two more (none turned wrong: one word of
+// each rebuttal, both in old spelling, 않어도), and before seenShare 0.625
+// gave six fewer and 0 ten fewer; the middle of the flat stretch is taken.
+const forceClash = 0.25
+
+// forceEcho is the force of the rebuttal that 에 right on a stem with no
+// final consonant before 요 is also the closing 예요 written 에요
+// (echoes): the reading with 에 and 요 (a verdict of 1/3) stands behind
+// the closing written wrong (2/(1+forceTypo)-1, about 0.56). It was
+// forceClash's 0.5 and is kept so when forceClash went to 0.25, at which
+// the reading with 에 and 요 (0.6) would stand before the closing written
+// wrong; on the answer sheet 0.25 and 0.5 give the same words.
+const forceEcho = 0.5
 
 // forceRun is the force of the rebuttal "it is in no key table" against
 // a run of Latin letters and digits that no table lists (runName):

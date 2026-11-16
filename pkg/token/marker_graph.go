@@ -88,7 +88,7 @@ func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) in
 		edges++
 	}
 	if slices.Contains(echoes, e.name) {
-		g.Counter(rule.PieceIs).With(fact(rule.PieceYoOpen)).Attacks(claim, forceClash)
+		g.Counter(rule.PieceIs).With(fact(rule.PieceYoOpen)).Attacks(claim, forceEcho)
 		edges++
 	}
 	if e.loose {

@@ -45,7 +45,7 @@ var leading = []string{"보조사:이야", "보조사:야"}
 // echoes are the particle candidates whose letters, right on a stem that
 // ends in a syllable with no final consonant and before the auxiliary 요,
 // are those of a closing written wrong: 고양이에요 has 에 and 요 as
-// well as 예요 written 에요. The candidate is rebutted there (forceClash)
+// well as 예요 written 에요. The candidate is rebutted there (forceEcho)
 // and stays. A closed table: only the candidates listed are rebutted.
 var echoes = []string{"부사격:에"}
 
