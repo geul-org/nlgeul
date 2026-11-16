@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestFixed — 껄 is 거 written with 꺼 and the particle under it, with the letters and the kinds of 거 (with a word table); 이게 is 이것 and the subject particle under it; before 요 it stands as its particle does, before another case particle it does not; other letters give nothing; 내게 is 내 and the 게 of 에게, 네게 so before 도 (with a word table too) but not before a case particle, 어디다 is 어디 and the 다 of 에다, 거기다가 거기 and 다가 of 에다가 or 거기다 before the emphatic 가, and 다 after another nominal is no such form; 건 is 거 and 는 only where a word that ends in a modifying closing ends right before it; 게 alone as a unit read as attaching is 거 and 이 after the modifying form of the unit before, but not at another place
+//ff:what TestFixed — 껄 is 거 written with 꺼 and the particle under it, with the letters and the kinds of 거 (with a word table); 이게 is 이것 and the subject particle under it; before 요 it stands as its particle does, before another case particle it does not; other letters give nothing; 내게 is 내 and the 게 of 에게, 네게 so before 도 (with a word table too) but not before a case particle, 어디다 is 어디 and the 다 of 에다, 거기다가 거기 and 다가 of 에다가 or 거기다 before the emphatic 가, and 다 after another nominal is no such form; 건 is 거 and 는 only where a word that ends in a modifying closing ends right before it; 게 alone as a unit read as attaching is 거 and 이 (주격, then 보격) after the modifying form of the unit before, but not at another place
 package token
 
 import (
@@ -59,7 +59,7 @@ func TestFixed(t *testing.T) {
 		t.Fatal("게 alone with nothing before it", got)
 	}
 	ge.attach = true
-	if got = ge.fixed(1, -1); len(got) != 1 || got[0].shown != "거" || got[0].again == nil || got[0].facts == nil || !got[0].facts.Adn || got[0].only != "게" || got[0].pieces[0].text != "(이)" {
+	if got = ge.fixed(1, -1); len(got) != 2 || got[0].shown != "거" || got[0].again == nil || got[0].facts == nil || !got[0].facts.Adn || got[0].only != "게" || got[0].pieces[0].text != "(이)" || got[0].pieces[0].names != "주격:이" || got[1].pieces[0].names != "보격:이" {
 		t.Fatal("게 as a unit attaching to the modifying form before", got)
 	}
 	inner := scanOf("곰게")

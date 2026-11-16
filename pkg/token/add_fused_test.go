@@ -17,7 +17,7 @@ func TestAddFused(t *testing.T) {
 	graphs, edges, total := ix.graphs, ix.edges, ix.total
 	ix.addFused()
 	ok := func(e *entry, p rule.Piece) bool { v, _ := verdictOf(e.g, p, "x", false); return v > 0 }
-	if ix.graphs != graphs+2+len(contracts) || ix.edges != edges+4+len(contracts)+3 || ix.total != total || len(ix.fixed) != len(contracts) {
+	if ix.graphs != graphs+2+len(contracts) || ix.edges != edges+4+len(contracts)+4 || ix.total != total || len(ix.fixed) != len(contracts) {
 		t.Fatal(ix.graphs-graphs, ix.edges-edges)
 	}
 	if !ok(ix.honor, rule.Piece{HasStem: true, Prev: '가', Next: -1}) || ok(ix.honor, rule.Piece{HasStem: true, Prev: '읽', Next: -1}) || ok(ix.honor, rule.Piece{Prev: '가', Next: -1}) {
