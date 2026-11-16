@@ -466,3 +466,8 @@ var (
 // predicate is read on: a verb and an adjective (predStem; an auxiliary
 // verb of the closed set is named by its own stem).
 var predStemKinds = []string{keyKind + ":" + kindLabel[kindVerb], keyKind + ":" + kindLabel[kindAdj]}
+
+// objectKinds are the kinds of the names of the object case particle
+// (목적격:을, 목적격:를), after which a rule of a sentence
+// prefers a predicate (predAfterObjectRule).
+var objectKinds = []string{"목적격"}

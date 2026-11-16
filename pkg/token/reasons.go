@@ -314,3 +314,11 @@ const (
 	ruleLinkBeforeNeg = "문장:않다·못하다·말다 앞 -지"
 	whyNoNegNext      = "바로 뒤 어절이 않다·못하다·말다가 아니다"
 )
+
+// The name of the rule of a sentence of the predicate after an object
+// (predAfterObjectRule), and why it falls.
+const (
+	rulePredAfterObject = "문장:목적어 뒤 서술어"
+	whyNoObjectBefore   = "앞 어절이 목적격 조사로 끝나지 않는다"
+	whyAdnSelf          = "꾸밈꼴로 끝난다(격 조사 뒤 꾸밈꼴 규칙이 판정한다)"
+)

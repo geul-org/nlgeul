@@ -64,4 +64,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, dativeContractRule())
 	// The -지 form right before 않다, 못하다 or 말다 (linkBeforeNegRule).
 	ix.sentence = append(ix.sentence, linkBeforeNegRule())
+	// A predicate right after an object (predAfterObjectRule).
+	ix.sentence = append(ix.sentence, predAfterObjectRule())
 }
