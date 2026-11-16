@@ -44,4 +44,6 @@ func (ix *index) addSentence() {
 	ix.sentence = append(ix.sentence, tableDeterminerRule(ix.lex, ix.closed))
 	// A word of two kinds (a nominal and an interjection) standing alone as the interjection (interjectionAloneRule).
 	ix.sentence = append(ix.sentence, interjectionAloneRule(ix.lex))
+	// A dependent noun of the word table's name right after a modifying form (boundTableRule).
+	ix.sentence = append(ix.sentence, boundTableRule(tableBound))
 }
