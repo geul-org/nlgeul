@@ -2,8 +2,8 @@ package token
 
 // negAdverbs and numDeterminers are the modifiers a new word is read
 // apart at when the known word they modify is written onto them
-// (closed-words.tsv; modifiesAt): the negative adverbs 안 and 못,
-// which stand right before a predicate, and the numeral determiners 한
+// (closed-words.tsv; modifiesAt): the negative adverbs 안, 못 and 아니
+// (the full form of 안), which stand right before a predicate, and the numeral determiners 한
 // and 두 of the closed set of determiners, which stand right before a
 // nominal. Clause 2 of the spelling rules writes each word apart. Wider
 // sets were measured on the answer sheet against these, and each read

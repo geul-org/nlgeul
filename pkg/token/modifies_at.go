@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what modifiesAt — do the letters from b to k read as a modifier and those from k to j as a known word of what it modifies: a negative adverb (negAdverbs: 안, 못) before a verb or an adjective, a numeral determiner (numDeterminers: 한, 두) before a nominal, an adverb of the word table before an adverb, or the modifying form of a predicate (adnFormAt) before the dependent noun 것 or 거 (adnOnto)
+//ff:what modifiesAt — do the letters from b to k read as a modifier and those from k to j as a known word of what it modifies: a negative adverb (negAdverbs: 안, 못, 아니) before a verb or an adjective, a numeral determiner (numDeterminers: 한, 두) before a nominal, an adverb of the word table before an adverb, or the modifying form of a predicate (adnFormAt) before the dependent noun 것 or 거 (adnOnto)
 package token
 
 import "slices"

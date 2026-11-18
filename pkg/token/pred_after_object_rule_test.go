@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestPredAfterObjectRule — the rule is named as the trace prints it, adds bonusOverCount, does not wait, and speaks of a candidate of a verb or an adjective of the word table with a closing (not one with no closing, not a noun with the copula, not an auxiliary verb, not a new word), but not of one whose word is a negative adverb's letters (안, 못)
+//ff:what TestPredAfterObjectRule — the rule is named as the trace prints it, adds bonusOverCount, does not wait, and speaks of a candidate of a verb or an adjective of the word table with a closing (not one with no closing, not a noun with the copula, not an auxiliary verb, not a new word), but not of one whose word is a negative adverb's letters (안, 못, and 아니 read as 알다 with -니)
 package token
 
 import (
@@ -26,6 +26,8 @@ func TestPredAfterObjectRule(t *testing.T) {
 		{rule.Near{Stem: "보", Kind: "", Last: "맺음:니", Marks: "맺음:니", Pred: true, Text: "보니"}, false},
 		{rule.Near{Stem: "알", Kind: "열쇠:동사", Last: "꾸밈:ㄴ", Marks: "꾸밈:ㄴ", Pred: true, Text: "안"}, false},
 		{rule.Near{Stem: "모", Kind: "열쇠:동사", Last: "맺음:ㅅ", Marks: "맺음:ㅅ", Pred: true, Text: "못"}, false},
+		{rule.Near{Stem: "알", Kind: "열쇠:동사", Last: "맺음:니", Marks: "맺음:니", Pred: true, Text: "아니"}, false},
+		{rule.Near{Stem: "알", Kind: "열쇠:동사", Last: "맺음:니", Marks: "맺음:니", Pred: true, Text: "알니"}, true},
 	} {
 		if r.about(c.near) != c.want {
 			t.Errorf("about(%+v), want %v", c.near, c.want)

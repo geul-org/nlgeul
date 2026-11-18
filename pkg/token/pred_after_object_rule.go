@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what predAfterObjectRule — the rule of a sentence "a predicate stands right after an object": a candidate that reads its stem as a verb or an adjective of the word table (predStemKinds) and has a closing (Near.Pred) is preferred, by bonusOverCount, when the word right before it ends in the object case particle (objectKinds), and not otherwise, nor when its last piece is a modifying closing (argumentAdnRule judges those after an argument); a word whose letters are a negative adverb of the closed set (negAdverbs: 안, 못) is not asked
+//ff:what predAfterObjectRule — the rule of a sentence "a predicate stands right after an object": a candidate that reads its stem as a verb or an adjective of the word table (predStemKinds) and has a closing (Near.Pred) is preferred, by bonusOverCount, when the word right before it ends in the object case particle (objectKinds), and not otherwise, nor when its last piece is a modifying closing (argumentAdnRule judges those after an argument); a word whose letters are a negative adverb of the closed set (negAdverbs: 안, 못, 아니) is not asked
 package token
 
 import (
@@ -17,9 +17,10 @@ import (
 // argument (뜰, 품은, 한) is the business of argumentAdnRule (and 한 of
 // haOneRule), which also look at the word after it: this rule does not
 // add to it again.
-// The negative adverbs 안 and 못 stand between an object and the
-// predicate they deny (밥을 안 먹었다), so a word of their letters is not
-// asked. An auxiliary verb stands after a linking form, not after an
+// The negative adverbs 안, 못 and 아니 (of which 안 is the short form)
+// stand between an object and the predicate they deny (밥을 안 먹었다,
+// 밥을 아니 먹었다), so a word of their letters is not asked: 아니 is
+// also 알다 with -니. An auxiliary verb stands after a linking form, not after an
 // object, and is not asked either.
 func predAfterObjectRule() sentenceRule {
 	g, claim := sentenceClaim(rulePredAfterObject, rule.Listed, listed("용언", rule.ListSelfKind, predStemKinds))
