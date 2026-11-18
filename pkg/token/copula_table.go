@@ -4,7 +4,8 @@ package token
 // a candidate of its own, and after a vowel the stem may be dropped
 // before the closings listed here (학교다, 학교고, 학교며, 학교면,
 // 학교지만, 학교라서, 학교라면, 학교지, 누군지, 뭔데, 누군가, 뭘까,
-// 학자리라),
+// 학자리라, and with a word table the 하오체 closing 올시다, which
+// follows only the copula's stem and 아니: 학교올시다),
 // and before 잖 (학교잖아: 지 and 않). copulaCount is its observed
 // count in the tables; nothing in this repository records where that
 // count was taken from.

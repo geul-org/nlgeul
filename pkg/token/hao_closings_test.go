@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestHaoClosings — end to end with a word table, the 하오체 closings stand after a predicate's stem of the table (먹소, 가오, 받으오, 하겠소, 학교이오, 아니올시다), 가시오 and 먹으시오 are read as the honorific and 오, and the letters of nouns (장소를, 연구소에, 감소는, 라디오를) and a stem the table does not have (접골시술소) are not read as a closing 소 or 오
+//ff:what TestHaoClosings — end to end with a word table, the 하오체 closings stand after a predicate's stem of the table (먹소, 가오, 받으오, 하겠소, 학교이오, 아니올시다, and 학교올시다 with the copula's stem dropped after a vowel), 가시오 and 먹으시오 are read as the honorific and 오, and the letters of nouns (장소를, 연구소에, 감소는, 라디오를) and a stem the table does not have (접골시술소) are not read as a closing 소 or 오
 package token
 
 import (
@@ -19,6 +19,7 @@ func TestHaoClosings(t *testing.T) {
 		{"받으오", "받[열쇠:동사]+으오[맺음:으오]"},
 		{"학교이오", "학교[열쇠:체언]+이[서술격:이]+오[맺음:오]"},
 		{"아니올시다", "아니[열쇠:형용사]+올시다[맺음:올시다]"},
+		{"학교올시다", "학교[열쇠:체언]+(이)[서술격:이(빠짐)]+올시다[맺음:올시다]"},
 		{"가시오", "가[열쇠:동사]+시[선어말:시]+오[맺음:오]"},
 		{"먹으시오", "먹[열쇠:동사]+으[이음:으]+시[선어말:시]+오[맺음:오]"},
 	} {
