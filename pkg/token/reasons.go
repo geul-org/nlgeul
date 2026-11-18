@@ -338,3 +338,12 @@ const (
 // before a word a modifier may stand before (possessiveRule); it falls
 // before a unit for whyUnitNext, as the rules of 한 do.
 const rulePossessive = "문장:체언 앞 내·네·제는 의가 줄어든 대명사"
+
+// The name of the rule of a sentence of a word of a nominal and an
+// adverb with a nominal written onto it (compoundFrontRule), and why it
+// falls.
+const (
+	ruleCompoundFront = "문장:체언이 붙은 체언·부사 글자는 체언"
+	whyApartNext      = "바로 뒤 어절이 빈칸 없이 붙어 있지 않다"
+	whyPredNext       = "바로 뒤 어절이 맺음·꾸밈꼴·이름꼴로 끝난다"
+)
