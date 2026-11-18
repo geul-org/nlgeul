@@ -45,3 +45,9 @@ var denyStems = []string{"아니"}
 const adnCase = "관형격"
 
 var modifiedSkip = slices.Concat(dependentWords, parse.ClosedWords()[determinerLabel])
+
+// countedUnits are the units a numeral determiner counts that are not
+// also a dependent noun a modifying form stands before (자 者, 척, 줄):
+// before those the modifier may be 하다 with ㄴ as well, and the word
+// before 한 tells which (haOneRule, argumentAdnRule).
+var countedUnits = slices.DeleteFunc(slices.Clone(unitWords), func(w string) bool { return slices.Contains(boundNext, w) })

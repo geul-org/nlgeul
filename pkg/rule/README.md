@@ -16,7 +16,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 |---|---|
 | `Claim{Name, Concludes}` | 주장 노드의 이름과 결론. 같은 함수를 여러 주장이 쓸 수 있게 하고, 평가 결과의 이름에서 `ClaimOf`로 되찾는다. 토큰 층은 반박과 예외 노드에도 붙여 그 노드의 이름(기각 이유)을 싣는다 |
 | `Bits{Of, Mask}` | 격(`Case…`), 맺음 갈래(`Kind…`), 어절의 사실(`WordLast`, `WordBound`), 조각의 사실(`Piece…`), 기호의 사실(`Mark…`), 글자 갈래(`Side…`), 붙는 조건(`After…`), 문장 안 후보와 둘레의 사실(`Around…`) 들 가운데 어느 것을 볼지 |
-| `List{Name, Of, Items}` | 목록과, 그 목록에서 찾을 사실(`List…`: 조각의 꼴, 앞 조각의 이름, 뒤 조각의 이름, 합쳐진 조각이 놓인 음절, 점 오른쪽 마디, 이름의 맨 오른쪽 마디, 어절, 꼬리의 맺음, 문장 안의 후보의 줄기·줄기의 이름·마지막 조각의 이름, 앞 어절의 마지막 조각의 이름, 뒤 어절의 줄기) |
+| `List{Name, Of, Items}` | 목록과, 그 목록에서 찾을 사실(`List…`: 조각의 꼴, 앞 조각의 이름, 뒤 조각의 이름, 합쳐진 조각이 놓인 음절, 점 오른쪽 마디, 이름의 맨 오른쪽 마디, 어절, 꼬리의 맺음, 문장 안의 후보의 줄기·줄기의 이름·마지막 조각의 이름·어절의 글자, 앞 어절의 마지막 조각의 이름, 뒤 어절의 줄기) |
 | `Not{}` | 예/아니오 규칙을 뒤집는다(toulmin에 부정이 없어 방향을 기준에 싣는다). `PieceIs`, `Listed`, `MarkIs`, `MarkBoth`, `StemKind`가 받는다(`Holds`) |
 | `Versus{Mine, Rival}` | `Longer`가 견줄 두 길이(`SideChain`, `SideTail`, `SideLongest`) |
 | `Shape{Of, Min, Max, Lens, Vals, Head}` | 기호가 잇는 숫자 마디들의 꼴 |
@@ -74,7 +74,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
-| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 앞 어절의 줄기(`ListPrevStem`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
+| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 앞 어절의 줄기(`ListPrevStem`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`), 후보 어절의 글자(`ListSelfText`: 하다+ㄴ의 `한`. 읽는 쪽이 `Self.Text`에 채운다)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
 | `Listed` | rule, except | 바로 뒤 어절의 줄기 이름의 갈래(`ListNextKind`: `닫기:1`의 `닫기`, `ListPrevKind`의 짝)가 기준 목록에 있다. 뒤에 어절이 없으면 ""다 | `List`, 뒤집으려면 `Not` |
 | `SelfHas` | rule, except | 후보의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`에서는`의 `부사격:에서`). 볼 사실은 `ListSelfMarks`로 적는다(`Listed`는 이 사실을 읽지 않는다). 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |
 | `PrevHas` | rule, except | 후보 바로 앞 어절의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`있기는`의 `이름:기`). 볼 사실은 `ListPrevLast`로 적는다(앞 어절. `Listed`는 표지를 낱낱이 읽지 않는다). 앞 어절이 없으면 없다. 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |

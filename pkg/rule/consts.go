@@ -197,6 +197,7 @@ const (
 	ListPrevKind             // the kind of the name of the stem of the word before it (닫기 of 닫기:1)
 	ListPrevStem             // the stem of the word before it
 	ListNextKind             // the kind of the name of the stem of the word after it (닫기 of 닫기:1)
+	ListSelfText             // the letters of the candidate's word (한 of 하다 with ㄴ)
 )
 
 // Yes/no facts of a candidate judged in its sentence that AroundIs

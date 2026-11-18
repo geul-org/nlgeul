@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestArgumentAdnRuleGraph — the graph of argumentAdnRule evaluated by hand on rule.Around: a modifying form stands after a word ending in a subject, complement, object or adverbial case particle and before a noun, a determiner or another word a modifier may stand before; it falls after a topic particle, after a bare noun and at the head, before an adverb, a predicate and at the end, and before a word that ends in a modifying closing itself
+//ff:what TestArgumentAdnRuleGraph — the graph of argumentAdnRule evaluated by hand on rule.Around: a modifying form stands after a word ending in a subject, complement, object or adverbial case particle and before a noun, a determiner or another word a modifier may stand before; it falls after a topic particle, after a bare noun and at the head, before an adverb, a predicate and at the end, and before a word that ends in a modifying closing itself; 하다 with ㄴ written as 한 (the letters of a numeral determiner) falls before a unit it counts (번) but not before 자, which a modifying form stands before as well
 package token
 
 import (
@@ -25,6 +25,8 @@ func TestArgumentAdnRuleGraph(t *testing.T) {
 		{"after a complement", rule.Around{Self: self, Before: arg("보격:이"), After: noun}, true},
 		{"after an adverbial", rule.Around{Self: self, Before: arg("부사격:에"), After: noun}, true},
 		{"before a determiner", rule.Around{Self: self, Before: arg("목적격:을"), After: []rule.Near{{Stem: "그", Kind: "관형사:그", Modifiable: true}}}, true},
+		{"한 before 번", rule.Around{Self: rule.Near{Text: "한", Stem: "하", Kind: "열쇠:동사", Last: "꾸밈:ㄴ", Pred: true, Marks: "꾸밈:ㄴ"}, Before: arg("부사격:에서"), After: []rule.Near{{Stem: "번", Kind: "열쇠:체언", Modifiable: true}}}, false},
+		{"한 before 자", rule.Around{Self: rule.Near{Text: "한", Stem: "하", Kind: "열쇠:동사", Last: "꾸밈:ㄴ", Pred: true, Marks: "꾸밈:ㄴ"}, Before: arg("목적격:을"), After: []rule.Near{{Stem: "자", Kind: "열쇠:체언", Modifiable: true}}}, true},
 		{"after a topic", rule.Around{Self: self, Before: arg("보조사:은"), After: noun}, false},
 		{"after a bare noun", rule.Around{Self: self, Before: []rule.Near{{Stem: "물", Kind: "열쇠:체언"}}, After: noun}, false},
 		{"at the head", rule.Around{Self: self, After: noun}, false},

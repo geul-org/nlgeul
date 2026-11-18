@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what heldAfter — whether a wait for the predicate is open after a word: a word whose first candidate is a predicate closes the wait that was open, and a word with a candidate that a rule of a sentence cannot judge before the words after it are read (waitsFor) opens one
+//ff:what heldAfter — whether a wait for the predicate is open after a word: a word whose first candidate is a predicate closes the wait that was open, and a word with a candidate that a rule of a sentence cannot judge before the words after it are read (waitsFor) opens one; the candidate is asked as judgeSeat gives it to the rules, with the word's letters and whether it is written onto the word before it
 package token
 
 func heldAfter(held bool, n Node, rules []sentenceRule) bool {
@@ -7,7 +7,9 @@ func heldAfter(held bool, n Node, rules []sentenceRule) bool {
 		held = false
 	}
 	for _, br := range n.Contest.Branches {
-		held = held || waitsFor(nearOf(br), rules)
+		self := nearIn(n, br)
+		self.Text = n.Contest.Text
+		held = held || waitsFor(self, rules)
 	}
 	return held
 }

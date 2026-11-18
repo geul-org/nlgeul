@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what argumentAdnRule — the rule of a sentence "a predicate between an argument and the word it modifies is in its modifying form": a candidate that reads its stem as a verb, an adjective or an auxiliary verb (predicateStem) and whose last piece is a modifying closing (꾸밈: 는, 은, ㄴ, ㄹ …) is preferred, by bonusOverCount, when the word right before it ends in a case particle of an argument (argumentCases: 주격, 보격, 목적격, 부사격), and not otherwise, nor when the word right after it is not one a modifier may stand before (not a nominal, a determiner, nor a modifying or naming form), nor when the word right after it ends in a modifying closing itself; it waits for the word after it
+//ff:what argumentAdnRule — the rule of a sentence "a predicate between an argument and the word it modifies is in its modifying form": a candidate that reads its stem as a verb, an adjective or an auxiliary verb (predicateStem) and whose last piece is a modifying closing (꾸밈: 는, 은, ㄴ, ㄹ …) is preferred, by bonusOverCount, when the word right before it ends in a case particle of an argument (argumentCases: 주격, 보격, 목적격, 부사격), and not otherwise, nor when the word right after it is not one a modifier may stand before (not a nominal, a determiner, nor a modifying or naming form), nor when the word right after it ends in a modifying closing itself, nor when the candidate's letters are a numeral determiner's and the word right after it is a unit it counts (countedUnitExcept, countedUnits: 한 번); it waits for the word after it
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -26,6 +26,7 @@ func argumentAdnRule() sentenceRule {
 	except(g, rule.KindListed, whyNoArgumentBefore, listed("격 조사", rule.ListPrevLast, argumentCases), not).Attacks(claim)
 	except(g, rule.AroundIs, whyNoModifiableNext, &rule.Bits{Of: "around", Mask: rule.AroundBeforeModifiable}, not).Attacks(claim)
 	except(g, rule.KindListed, whyAdnNext, listed("꾸밈 맺음", rule.ListNextLast, []string{adn})).Attacks(claim)
+	countedUnitExcept(g, claim, numDeterminers, countedUnits)
 	is := func(n rule.Near) bool {
 		return labelOf(n.Last) == adn && predicateStem(n)
 	}

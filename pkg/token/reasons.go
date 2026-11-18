@@ -257,6 +257,8 @@ const (
 	ruleCountedShort = "문장:수 관형사 뒤 한 음절 체언+조사"
 	whyNotCounted    = "바로 앞 어절이 관형사로 읽히지 않는다"
 	whyNoNumDet      = "바로 앞 어절이 수 관형사가 아니다"
+	whyUnitNext      = "바로 뒤 어절이 수 관형사가 세는 단위다"
+	whyNotNumDet     = "어절의 글자가 수 관형사가 아니다"
 )
 
 // The name of the rule of a sentence of a modifying form between an
