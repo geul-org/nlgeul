@@ -209,6 +209,20 @@ const (
 	bonusOverCount   = 2.0
 )
 
+// bonusMainFirst is what the rule "a stem an auxiliary verb shares is the
+// main predicate where no linking form stands before it"
+// (mainUnlinkedRule) adds. Its claim is an order between the two names of
+// the same letters (두 the verb and 두 the auxiliary, which have the same
+// lambda), so it is a step that puts those two in order and carries the
+// main predicate over no other word: with bonusSameLetters (0.5) the
+// verb's modifying form 두+(ㄹ) came over the numeral 둘 (둘 이상), which
+// the word table's counts put 0.49 above it, and 주+(ㄹ) over the
+// dependent noun 줄. Measured on the answer sheet (train): 0.001 to 0.25
+// give the same words, 9 more right (10 righted, 1 turned wrong: the verb
+// 지+는 under the noun 지+는); 0.3 to 0.45 8 more (8, 0); 0.5 none. 0.1 is
+// taken from the first stretch.
+const bonusMainFirst = 0.1
+
 // bonusShortTaken is what the rebuttal "one syllable long" alone takes
 // from lambda: its verdict is 2/(1+forceShort)-1, so the value is about
 // 3.33. A rule adds it where the candidate it prefers stands below

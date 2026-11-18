@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestAuxLinkedRuleUnlinked — where no 어/아 or 고 form stands before (집에 있다, 영화도 보다, 있다 and 보다 as the first word of a sentence, 밥도 주다), the first candidate of 있다, 보다 and 주다 is the main predicate (있 the adjective, 보 and 주 the verb), the auxiliary candidate is not raised (its preference is the one it has with no rule), and the candidates are as many as with no rule
+//ff:what TestAuxLinkedRuleUnlinked — where no 어/아 or 고 form stands before (집에 있다, 영화도 보다, 있다 and 보다 as the first word of a sentence, 밥도 주다), the first candidate of 있다, 보다 and 주다 is the main predicate (있 the adjective, 보 and 주 the verb), the auxiliary candidate is not raised (its preference is the one it has with no rule) while the main one gains bonusMainFirst, and the candidates are as many as with no rule
 package token
 
 import "testing"
@@ -20,8 +20,8 @@ func TestAuxLinkedRuleUnlinked(t *testing.T) {
 		if !almost(auxLinkedPick(t, got, c.aux).Pref, auxLinkedPick(t, bare, c.aux).Pref) {
 			t.Fatalf("%q: the auxiliary is raised", c.in)
 		}
-		if !almost(auxLinkedPick(t, got, c.main).Pref-auxLinkedPick(t, bare, c.main).Pref, bonusSameLetters) {
-			t.Fatalf("%q: the main predicate gains other than bonusSameLetters", c.in)
+		if !almost(auxLinkedPick(t, got, c.main).Pref-auxLinkedPick(t, bare, c.main).Pref, bonusMainFirst) {
+			t.Fatalf("%q: the main predicate gains other than bonusMainFirst", c.in)
 		}
 	}
 }

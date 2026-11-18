@@ -21,7 +21,7 @@ func mainUnlinkedRule(aux []string) sentenceRule {
 	while.Attacks(claim)
 	except(g, rule.SelfHas, whyNoWhileClosing, listed("보니·보면", rule.ListSelfMarks, whileClosings), not).Attacks(while)
 	except(g, rule.Listed, whyNotSee, listed("보다", rule.ListSelfStem, []string{seeAux}), not).Attacks(while)
-	return sentenceRule{name: ruleMainUnlinked, graph: g, bonus: bonusSameLetters, about: func(n rule.Near) bool {
+	return sentenceRule{name: ruleMainUnlinked, graph: g, bonus: bonusMainFirst, about: func(n rule.Near) bool {
 		return slices.Contains(aux, n.Stem) && n.Kind == mainKindOf(n.Stem)
 	}}
 }

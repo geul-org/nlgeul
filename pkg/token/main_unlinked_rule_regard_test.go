@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestMainUnlinkedRuleRegard — the main verb 보 of 보건대 judged with the word before it given: after 관하여 (관하+여) the linking form does not count (its exception is defeated) and the rule stands with bonusSameLetters, after 먹어 it falls with the reason 앞 어절이 연결 꼴(어/아, 고)로 끝난다
+//ff:what TestMainUnlinkedRuleRegard — the main verb 보 of 보건대 judged with the word before it given: after 관하여 (관하+여) the linking form does not count (its exception is defeated) and the rule stands with bonusMainFirst, after 먹어 it falls with the reason 앞 어절이 연결 꼴(어/아, 고)로 끝난다
 package token
 
 import (
@@ -18,7 +18,7 @@ func TestMainUnlinkedRuleRegard(t *testing.T) {
 		add    float64
 		note   string
 	}{
-		{rule.Near{Stem: "관하", Kind: "열쇠:동사", Last: "맺음:여"}, bonusSameLetters, "1.00\t통과"},
+		{rule.Near{Stem: "관하", Kind: "열쇠:동사", Last: "맺음:여"}, bonusMainFirst, "1.00\t통과"},
 		{rule.Near{Stem: "먹", Kind: "열쇠:동사", Last: "맺음:어"}, 0, "-1.00\t기각: 앞 어절이 연결 꼴(어/아, 고)로 끝난다"},
 	} {
 		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
