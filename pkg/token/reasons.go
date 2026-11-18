@@ -151,6 +151,15 @@ const (
 // Why the auxiliary verb's rules fall after 관하여, 대하여 and 통하여.
 const whyRegard = "앞 어절이 관하다·대하다·통하다(…에 관하여, …에 대하여, …을 통하여)다"
 
+// The rule of a sentence of 나다 as an auxiliary verb after -고, and why
+// it falls.
+const (
+	ruleNaLinked   = "문장:-고 뒤 보조 동사 나다"
+	whyNotNaLinked = "앞 어절이 -고로 끝나지 않는다"
+	whyNaTopic     = "꾸밈 는으로 끝난다(-고 뒤 절의 첫머리 나는과 글자가 같다)"
+	whyNaNamed     = "이름꼴이 있다(-고 남은의 남다, 체언 남과 글자가 같다)"
+)
+
 // Why the main predicate's rule falls where 보다 is an auxiliary in
 // -다(가) 보니 and -다(가) 보면.
 const (
