@@ -347,3 +347,7 @@ const (
 	whyApartNext      = "바로 뒤 어절이 빈칸 없이 붙어 있지 않다"
 	whyPredNext       = "바로 뒤 어절이 맺음·꾸밈꼴·이름꼴로 끝난다"
 )
+
+// The name of the rule of a sentence of a word of a nominal and an
+// adverb with the suffix 들 after it (pluralNounRule).
+const rulePluralNoun = "문장:접미 들이 붙은 체언·부사 글자는 체언"

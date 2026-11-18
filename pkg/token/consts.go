@@ -480,3 +480,8 @@ var (
 	haLinks   = []string{"맺음:어야", "맺음:아야", "맺음:여야", "맺음:어야(합침)"}
 	haNamings = []string{"이름:기"}
 )
+
+// pluralNames is the name of the suffix 들 after a nominal, which a rule
+// of a sentence prefers after the nominal of letters the word table also
+// gives as an adverb (pluralNounRule).
+var pluralNames = []string{"접미:들"}
