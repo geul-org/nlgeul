@@ -1,5 +1,5 @@
 //ff:type feature=rule type=model
-//ff:what Near — one word of a sentence as one of its candidates reads it, as far as the rules of a sentence ask: the stem as it is printed, the stem's name (보조 용언:있, 열쇠:형용사; "" for a new word), the name of its last piece ("" when the stem is all there is), whether it carries a closing (it is a predicate), and the names of its markers (the parts after the stem) in order, joined with "+" (MarksOf gives them apart; kept as one string so that two of these can be compared), and whether no space stands right before the word (Glued: it is written onto the word before it)
+//ff:what Near — one word of a sentence as one of its candidates reads it, as far as the rules of a sentence ask: the stem as it is printed, the stem's name (보조 용언:있, 열쇠:형용사; "" for a new word), the name of its last piece ("" when the stem is all there is), whether it carries a closing (it is a predicate), and the names of its markers (the parts after the stem) in order, joined with "+" (MarksOf gives them apart; kept as one string so that two of these can be compared), whether no space stands right before the word (Glued: it is written onto the word before it), and whether it is a run of signs alone with no name (Signs: ○○ for a name kept back)
 package rule
 
 type Near struct {
@@ -20,4 +20,8 @@ type Near struct {
 	// determiner, or it ends in a modifying or a naming form. The
 	// reader fills it.
 	Modifiable bool
+	// Signs tells that the word is a run of signs alone with no name
+	// (no letter, digit or name of a sign): in a text such a run stands
+	// for a name kept back (○○, □□□). The reader fills it.
+	Signs bool
 }

@@ -306,6 +306,7 @@ const (
 const (
 	whyVocativeHead = "문장 첫머리의 호격 조사다(부를 말이 앞에 없다)"
 	whyNotHead      = "문장 첫머리가 아니다"
+	whySignsBefore  = "바로 앞이 이름 없는 기호만의 열이다(가린 이름 ○○)"
 )
 
 // Why the exception of apartParticleRule "the word before ends in no

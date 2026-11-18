@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what nearOf — a candidate of one word as the rules of a sentence read it: its stem as printed and the stem's name (both "" when its first part is no stem), the name of its last part when that is not the stem, whether one of its parts is a closing (predKinds), and the names of the parts that are not the stem (joined with "+")
+//ff:what nearOf — a candidate of one word as the rules of a sentence read it: its stem as printed and the stem's name (both "" when its first part is no stem), the name of its last part when that is not the stem, whether one of its parts is a closing (predKinds), the names of the parts that are not the stem (joined with "+"), and whether it is a run of signs alone with no name (signRun: ○○)
 package token
 
 import (
@@ -31,5 +31,6 @@ func nearOf(br Branch) rule.Near {
 	n.Marks = strings.Join(marks, "+")
 	n.Nominal = nominalEnd(parts)
 	n.Modifiable = modifiable(parts)
+	n.Signs = signRun(parts)
 	return n
 }
