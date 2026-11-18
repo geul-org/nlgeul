@@ -9,7 +9,7 @@ import (
 )
 
 func TestPriorNounRule(t *testing.T) {
-	r := priorNounRule()
+	r := priorNounRule(nil)
 	if r.name != rulePriorNoun || r.bonus != bonusOverCount || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}

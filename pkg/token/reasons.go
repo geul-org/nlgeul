@@ -396,6 +396,8 @@ const (
 // The name of the rule of a sentence of 전 after a naming form or a
 // quantity (priorNounRule), and why it falls.
 const (
-	rulePriorNoun = "문장:이름꼴·수량 뒤 전은 체언"
-	whyNoPrior    = "앞 어절이 이름꼴이나 수량(수와 단위)으로 끝나지 않는다"
+	rulePriorNoun   = "문장:이름꼴·수량 뒤 전은 체언"
+	whyNoPrior      = "앞 어절이 이름꼴이나 수량(수와 단위)으로 끝나지 않는다"
+	whyActionBefore = "앞 어절이 동작성 명사(낱말 표에 그 명사+하다가 있다)다"
+	whyMarkedBefore = "앞 어절에 조사나 맺음이 붙었다"
 )

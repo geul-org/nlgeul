@@ -79,5 +79,5 @@ func (ix *index) addSentence() {
 	// 하다 right after -어야 or a -기 form as the verb (haLinkedRule).
 	ix.sentence = append(ix.sentence, haLinkedRule())
 	// 전 right after a naming form or a quantity as the noun (priorNounRule).
-	ix.sentence = append(ix.sentence, priorNounRule())
+	ix.sentence = append(ix.sentence, priorNounRule(ix.lex))
 }

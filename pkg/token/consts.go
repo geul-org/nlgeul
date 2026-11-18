@@ -493,3 +493,8 @@ var pluralNames = []string{"접미:들"}
 const priorStem = "전"
 
 var priorKinds = []string{"이름", "단위", "어림"}
+
+// bareLast is the name of the last piece of a word that is its stem
+// alone, with no particle and no closing after it (발병 before 전:
+// priorNounRule).
+var bareLast = []string{""}
