@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestRestored — a dropped ㅡ put back where the vowel follows the syllable before it (따라, 치러, 써, 바빠) stands; it does not for a stem the table gives as 르 or 러 irregular (모라, 이러), for the wrong vowel (따러) and for 아 after a stem of one syllable (싸, also after a boundary); a piece taken out of a syllable right after a Latin letter or digit inside the stem does not stand (api과, v2과), but 하, 되 and 이 (push해, merge된, api인데), a stem of one syllable after a boundary, a Hangul stem and a tail with nothing fused do; end to end the live ones are read and the dead ones are not, api과 has no api고+(아) and push해 keeps push하+(여) without a word table, while with one the whole new word push하 stands over the place where the script changes right before the syllable a piece is fused into, whose two sides read as a run and as 하+(여) (crossesChange), and push │ 하+(여) stands instead; the graph is told whether the syllable stands in the letters as it is: 하 right before the tail's start stays 하 (말하, no 말하+아) and is not put back, while 해 is, and a syllable of any other stem (가, 서) is put back either way; end to end 하지는, 말하지는 and 하서 have no 하+(아) candidate while 해, 해서, 가서 , 했다 and 가 keep theirs, with and without a word table
+//ff:what TestRestored — a dropped ㅡ put back where the vowel follows the syllable before it (따라, 치러, 써, 바빠) stands; it does not for a stem the table gives as 르 or 러 irregular (모라, 이러), but does where the letters are read as the changed form of another 르 stem though the table lists them as a 르 stem too (몰라 = 모르 → 몰르+아 beside a row 몰르, which itself keeps its ㅡ, end to end too), for the wrong vowel (따러) and for 아 after a stem of one syllable (싸, also after a boundary); a piece taken out of a syllable right after a Latin letter or digit inside the stem does not stand (api과, v2과), but 하, 되 and 이 (push해, merge된, api인데), a stem of one syllable after a boundary, a Hangul stem and a tail with nothing fused do; end to end the live ones are read and the dead ones are not, api과 has no api고+(아) and push해 keeps push하+(여) without a word table, while with one the whole new word push하 stands over the place where the script changes right before the syllable a piece is fused into, whose two sides read as a run and as 하+(여) (crossesChange), and push │ 하+(여) stands instead; the graph is told whether the syllable stands in the letters as it is: 하 right before the tail's start stays 하 (말하, no 말하+아) and is not put back, while 해 is, and a syllable of any other stem (가, 서) is put back either way; end to end 하지는, 말하지는 and 하서 have no 하+(아) candidate while 해, 해서, 가서 , 했다 and 가 keep theirs, with and without a word table
 package token
 
 import (
@@ -28,6 +28,14 @@ func TestRestored(t *testing.T) {
 	reo.ix.lex["이르"] = word{kinds: kindVerb, count: 50, by: [6]int{0, 50}, irr: irrReo}
 	if reo.restored(0, tail{start: 2, base: '르'}) {
 		t.Fatal("a stem the table gives as 러 irregular")
+	}
+	reu := wordsScan("몰라", layerCost)
+	reu.ix.lex["몰르"] = word{kinds: kindVerb, count: 9, by: [6]int{0, 9}, irr: irrReu}
+	if reu.restored(0, tail{start: 2, base: '르'}) || reu.restored(0, tail{start: 2, base: '르', shown: "모르", wrote: "몰르"}) {
+		t.Fatal("몰르 as a 르 irregular stem of the table keeps its ㅡ, read as itself or as the letters of a wrong form")
+	}
+	if !reu.restored(0, tail{start: 2, base: '르', shown: "모르"}) {
+		t.Fatal("몰라 read as the changed form of 모르: the change drops the ㅡ whatever the table says of 몰르")
 	}
 	if wordsScan("싸", layerCost).restored(0, tail{start: 1, base: '쓰'}) || !wordsScan("써", layerCost).restored(0, tail{start: 1, base: '쓰'}) {
 		t.Fatal("a stem of one syllable takes 어 only")
@@ -74,6 +82,11 @@ func TestRestored(t *testing.T) {
 		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)
 		}
+	}
+	lexed2, _ := New(Options{Words: "testdata/words.tsv"})
+	lexed2.ix.lex["몰르"] = word{kinds: kindVerb, count: 9, by: [6]int{0, 9}, irr: irrReu}
+	if got := streamText(lexed2, "몰라"); !strings.Contains(got, "모르[열쇠:동사]+(아)[맺음:어(합침)]") || strings.Contains(got, "몰르[") {
+		t.Errorf("몰라 with 몰르 as a 르 irregular row of the table: 모르+(아) stands, 몰르+(아) does not\n%s", got)
 	}
 	for in, dead := range map[string]string{"모라": "모르[", "따러": "따르[", "싸": "쓰["} {
 		if got := streamText(r, in); strings.Contains(got, dead) {

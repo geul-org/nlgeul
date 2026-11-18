@@ -44,7 +44,9 @@ import (
 // predicate of the word before them, and 이, the copula's stem
 // (latinBases). A ㅡ put back under ㅏ or ㅓ (따라 = 따르+아) does not
 // stand when the word table gives the stem as 르 or 러 irregular (모르
-// goes to 몰라, never 모라), when the vowel does not follow the
+// goes to 몰라, never 모라; the stem is the one read there, so 몰르 of
+// 몰라 read as the changed form of 모르 is not asked about, even when the
+// table lists 몰르 as a 르 stem too: restored), when the vowel does not follow the
 // syllable before the ㅡ, or when a stem of one syllable is read with
 // 아 (써, never 싸). After 하 the piece is 여 and the two are written 해
 // or 하여 (yeoBases): 하 as it stands holds no 어/아 that leaves no
