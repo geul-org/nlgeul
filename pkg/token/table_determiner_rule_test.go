@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestTableDeterminerRule — the rule is named as the trace prints it, adds bonusSameLetters, and speaks of and waits for a candidate that reads letters the word table gives as a nominal and as a determiner as the determiner of the table with no particle (written apart or not); not the nominal of those letters, not one with a particle, not the determiner of letters the table gives as a determiner only, nor of letters of a closed set (a determiner or a pronoun of the closed set)
+//ff:what TestTableDeterminerRule — the rule is named as the trace prints it, adds bonusOverCount, and speaks of and waits for a candidate that reads letters the word table gives as a nominal and as a determiner as the determiner of the table with no particle (written apart or not); not the nominal of those letters, not one with a particle, not the determiner of letters the table gives as a determiner only, nor of letters of a closed set (a determiner or a pronoun of the closed set)
 package token
 
 import (
@@ -13,7 +13,7 @@ func TestTableDeterminerRule(t *testing.T) {
 	lex := map[string]word{"총": both, "한": both, "내": both, "각": {kinds: kindDeterminer}}
 	closed := map[string]int{"한": kindDeterminer, "내": kindNominal}
 	r := tableDeterminerRule(lex, closed)
-	if r.name != ruleTableDeterminer || r.bonus != bonusSameLetters || r.graph == nil || r.waits == nil {
+	if r.name != ruleTableDeterminer || r.bonus != bonusOverCount || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
 	for _, c := range []struct {
