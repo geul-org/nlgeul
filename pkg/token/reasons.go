@@ -360,6 +360,13 @@ const (
 	whyNoNegNext      = "바로 뒤 어절이 않다·못하다·말다가 아니다"
 )
 
+// The name of the rule of a sentence of the -어야 form before 하다 or
+// 되다 (linkBeforeHaRule), and why it falls.
+const (
+	ruleLinkBeforeHa = "문장:하다·되다 앞 -어야"
+	whyNoHaNext      = "바로 뒤 어절이 하다·되다가 아니다"
+)
+
 // The name of the rule of a sentence of the predicate after an object
 // (predAfterObjectRule), and why it falls.
 const (
