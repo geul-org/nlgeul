@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestGluedShortRuleGraph — the graph of gluedShortRule evaluated by hand on rule.Around: a word glued to a word that ends in a nominal stands (a noun, a number with its unit); a word with a space before it falls, and so does a glued word after a word that ends in a particle or a closing, or with no word before it
+//ff:what TestGluedShortRuleGraph — the graph of gluedShortRule evaluated by hand on rule.Around: a word glued to a word that ends in a nominal stands (a noun, a number with its unit); a word with a space before it falls, and so does a glued word after a word that ends in a particle or a closing, or with no word before it, or with a word it may modify written right onto it (명의신탁: the unit goes on with a nominal), but not when what is written onto it is a sign or a predicate
 package token
 
 import (
@@ -29,6 +29,10 @@ func TestGluedShortRuleGraph(t *testing.T) {
 		{"after a particle", rule.Around{Self: self, Before: []rule.Near{marked}}, false},
 		{"after a modifying form", rule.Around{Self: self, Before: []rule.Near{pred}}, false},
 		{"nothing before", rule.Around{Self: self}, false},
+		{"a nominal written onto it", rule.Around{Self: self, Before: []rule.Near{noun}, After: []rule.Near{{Stem: "신탁", Kind: "열쇠:체언", Glued: true, Modifiable: true}}}, false},
+		{"a nominal after a space", rule.Around{Self: self, Before: []rule.Near{noun}, After: []rule.Near{{Stem: "신탁", Kind: "열쇠:체언", Modifiable: true}}}, true},
+		{"a sign written onto it", rule.Around{Self: self, Before: []rule.Near{noun}, After: []rule.Near{{Stem: ",", Kind: "쉼표", Glued: true}}}, true},
+		{"a predicate written onto it", rule.Around{Self: self, Before: []rule.Near{noun}, After: []rule.Near{{Stem: "하", Kind: "열쇠:동사", Last: "맺음:다", Pred: true, Glued: true}}}, true},
 	} {
 		ctx := toulmin.NewContext()
 		ctx.Set(rule.KeyAround, c.around)
