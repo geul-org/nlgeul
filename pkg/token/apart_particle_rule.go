@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what apartParticleRule — the rule of a sentence "a particle written apart is the particle of the word before": a candidate that reads a whole word as markers with no stem whose first is a particle (the letters of a demonstrative of the closed set, 이, are left to determinerAloneRule) is preferred, by bonusNewTaken, but not when the word before it ends in a particle or a closing (apartEnds), nor when it is written onto the word before, nor when the word before does not end in a nominal — unless the word stands at the head of the sentence or right after a closing sign, a run of Latin letters and digits, a hyphened name or a code (apartBefore), or right after a dash (apartDash)
+//ff:what apartParticleRule — the rule of a sentence "a particle written apart is the particle of the word before": a candidate that reads a whole word as markers with no stem whose first is a particle (the letters of a demonstrative of the closed set, 이, are left to determinerAloneRule) is preferred, by bonusNewTaken, but not when the word before it ends in a particle or a closing (apartEnds), nor when it is written onto the word before, nor when the word before does not end in a nominal — unless the word stands at the head of the sentence or right after a closing sign, a run of Latin letters and digits, a hyphened name or a code (apartBefore), or right after a dash (apartDash); and not for the vocative particle at the head of a sentence, where nothing stands before it to call
 package token
 
 import (
@@ -16,7 +16,11 @@ import (
 // nominal with no particle or closing after it, a closing sign, a dash,
 // a run of Latin letters, a code), the rule gives back what that verdict
 // takes. At the head of a sentence nothing stands before it in the
-// sentence and the word it belongs to was cut off before it.
+// sentence and the word it belongs to was cut off before it; but the
+// vocative particle (아, 야, 이여) stands right after the one it calls
+// (the school grammar's 호격 조사: 영희야, 철수 아): at the head of a
+// sentence there is nothing before it to call, and a word 아 or 야 there
+// is no particle (아, 그렇구나).
 func apartParticleRule() sentenceRule {
 	g, claim := sentenceClaim(ruleApartParticle, rule.Listed, listed("앞말 없는 표지", rule.ListSelfStem, []string{""}))
 	except(g, rule.KindListed, whyEndsMarked, listed("조사·맺음", rule.ListPrevLast, apartEnds)).Attacks(claim)
@@ -25,6 +29,9 @@ func apartParticleRule() sentenceRule {
 	bare.Attacks(claim)
 	except(g, rule.Headed, whyHeadOrSign, listed("기호", rule.ListPrevKind, apartBefore)).Attacks(bare)
 	except(g, rule.Listed, whyDashBefore, listed("줄표", rule.ListPrevLast, apartDash)).Attacks(bare)
+	vocative := except(g, rule.KindListed, whyVocativeHead, listed("호격", rule.ListSelfLast, []string{caseLabel[rule.CaseVoc]}))
+	vocative.Attacks(claim)
+	except(g, rule.Headed, whyNotHead, listed("첫머리", rule.ListPrevKind, nil), not).Attacks(vocative)
 	return sentenceRule{name: ruleApartParticle, graph: g, bonus: bonusNewTaken, about: func(n rule.Near) bool {
 		marks := rule.MarksOf(n)
 		return n.Stem == "" && n.Kind == "" && len(marks) > 0 && slices.Contains(particleKinds, labelOf(marks[0])) && !slices.Contains(pronouns, n.Text)

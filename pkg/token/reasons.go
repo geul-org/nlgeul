@@ -300,6 +300,14 @@ const (
 	whyHeadOrSign     = "문장 첫머리이거나 바로 앞이 닫는 기호·영숫자 열·붙임표로 이은 이름·코드다"
 )
 
+// Why apartParticleRule does not hold for the vocative particle at the
+// head of a sentence (the vocative stands right after the one it calls,
+// and nothing stands before it there), and why that exception falls.
+const (
+	whyVocativeHead = "문장 첫머리의 호격 조사다(부를 말이 앞에 없다)"
+	whyNotHead      = "문장 첫머리가 아니다"
+)
+
 // Why the exception of apartParticleRule "the word before ends in no
 // nominal" falls right after a dash.
 const whyDashBefore = "바로 앞이 줄표다"
