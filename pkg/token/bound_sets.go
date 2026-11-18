@@ -51,3 +51,14 @@ var modifiedSkip = slices.Concat(dependentWords, parse.ClosedWords()[determinerL
 // before those the modifier may be 하다 with ㄴ as well, and the word
 // before 한 tells which (haOneRule, argumentAdnRule).
 var countedUnits = slices.DeleteFunc(slices.Clone(unitWords), func(w string) bool { return slices.Contains(boundNext, w) })
+
+// unheldBound are the dependent nouns whose letters are a noun of the
+// standard dictionary as well (시 詩·市, 간 肝, 적 敵) and are read as that
+// noun where neither a modifier nor a nominal stands right before them
+// (nounUnheldRule; bound-nouns.tsv).
+var unheldBound = boundLists[useUnheld]
+
+// heldLasts are the kinds of the last piece of a word that ends a
+// nominal without being one: a suffix (피고들), the 여 of a rough number
+// (5분여) and a closing sign (선조(宣祖)) (nounUnheldRule).
+var heldLasts = []string{"접미", "어림", shutName}

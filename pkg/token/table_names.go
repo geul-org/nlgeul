@@ -71,17 +71,20 @@ const (
 // a modifying closing, adnPlace; after a nominal; after a word of time
 // only) and what else reads it (the rebuttal lifted when it is written
 // right onto a modifying closing, adnOnto; read as the noun of the same
-// letters where no modifying closing stands before it, adnBound).
+// letters where no modifying closing stands before it, adnBound; read
+// as the noun where neither a modifier nor a nominal stands before it,
+// unheldBound).
 const (
 	nominalPlace = "체언 뒤"
 	timePlace    = "시간 뒤"
 	useAdnOnto   = "꾸밈 맺음 뒤 붙여 씀"
 	useAdnBound  = "꾸밈 뒤가 아니면 체언"
+	useUnheld    = "관형어·체언 뒤가 아니면 체언"
 )
 
 var (
 	boundPlaces = map[string]int{adnPlace: 1, nominalPlace: 2, timePlace: 4}
-	boundUses   = map[string]int{useAdnOnto: 1, useAdnBound: 2}
+	boundUses   = map[string]int{useAdnOnto: 1, useAdnBound: 2, useUnheld: 4}
 )
 
 // slotLabel begins the name of a slot before a closing.
