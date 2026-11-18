@@ -18,7 +18,9 @@ func TestCountedUnitExcept(t *testing.T) {
 	glued.Glued = true
 	wrote := rule.Near{Text: "쓴", Stem: "쓰", Kind: "열쇠:동사", Last: "꾸밈:ㄴ", Pred: true}
 	obj := []rule.Near{{Stem: "일", Kind: "열쇠:체언", Last: "목적격:을", Marks: "목적격:을"}}
-	next := func(stem string) []rule.Near { return []rule.Near{{Stem: stem, Kind: "열쇠:체언", Modifiable: true}} }
+	next := func(stem string) []rule.Near {
+		return []rule.Near{{Stem: stem, Kind: "열쇠:체언", Modifiable: true}}
+	}
 	for _, c := range []struct {
 		name   string
 		around rule.Around
