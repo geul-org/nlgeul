@@ -61,12 +61,14 @@ const notOnly = "아니"
 var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리", "접미:률"}
 
 // copulaParticles are the particles the copula stands after: the
-// range particle 대로 (뜻대로지, 마음대로다), as the gold of the
-// evaluation reads it. The dictionary's 이다 lists no particle before
-// it; 뿐 is not here (the gold reads 뿐이다 after a noun both as the
-// particle and as the dependent noun), nor 까지 or 부터 (no such reading
-// was seen). copulaBefore are the last pieces of a chain the copula
+// range particle 대로 (뜻대로지, 마음대로다) and the range particles 까지
+// and 부터 (오늘까지이다, 내일부터이다), as the gold of the evaluation
+// reads them: school grammar puts the copula after a phrase that stands
+// as a nominal, a particle written onto it included. The dictionary's
+// 이다 lists no particle before it; 뿐 is not here (the gold reads 뿐이다
+// after a noun both as the particle and as the dependent noun written
+// apart). copulaBefore are the last pieces of a chain the copula
 // follows.
-var copulaParticles = []string{"부사격:대로"}
+var copulaParticles = []string{"부사격:대로", "보조사:까지", "보조사:부터"}
 
 var copulaBefore = append(append([]string{}, copulaSuffixes...), copulaParticles...)
