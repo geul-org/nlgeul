@@ -485,3 +485,11 @@ var (
 // of a sentence prefers after the nominal of letters the word table also
 // gives as an adverb (pluralNounRule).
 var pluralNames = []string{"접미:들"}
+
+// priorStem is the letters of 전(前), and priorKinds the kinds of the
+// last piece of the word before it after which a rule of a sentence
+// prefers it as the noun (priorNounRule): a naming form (먹기 전) and a
+// quantity, a unit or an approximation after a number (3년 전, 10년여 전).
+const priorStem = "전"
+
+var priorKinds = []string{"이름", "단위", "어림"}
