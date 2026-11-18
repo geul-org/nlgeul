@@ -351,3 +351,11 @@ const (
 // The name of the rule of a sentence of a word of a nominal and an
 // adverb with the suffix 들 after it (pluralNounRule).
 const rulePluralNoun = "문장:접미 들이 붙은 체언·부사 글자는 체언"
+
+// The name of the rule of a sentence of a word of a nominal and an
+// adverb or a determiner written onto a nominal (gluedNominalRule), and
+// why it falls.
+const (
+	ruleGluedNominal = "문장:체언에 붙여 쓴 체언·부사·관형사 글자는 체언"
+	whyApartBefore   = "앞말에 빈칸 없이 붙어 있지 않다"
+)
