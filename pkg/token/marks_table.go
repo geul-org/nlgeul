@@ -10,7 +10,11 @@ import (
 // the sign (파일명:.); a closing candidate is named as it is printed, with
 // no sign after it (마침표).
 var joinNames = []string{"파일명", "도메인", "소수점", "버전"}
-var stopNames = []string{"마침표", "줄임표"}
+var stopNames = []string{"마침표", ellipsisName}
+
+// ellipsisName is the closing candidate of a run of full stops, which a
+// run of middle dots takes too (addSigns).
+const ellipsisName = "줄임표"
 
 // extensions are the file-name extensions the candidate 파일명 knows, and
 // topDomains the top-level domains the candidate 도메인 knows. They are

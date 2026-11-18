@@ -148,6 +148,9 @@ const (
 // Hangul (signGraph).
 const whyAtEdge = "단위의 가장자리(어절 끝, 읽는 글자 바로 앞, 홀로)에 있다"
 
+// Why a run of middle dots is not read as 줄임표 (dotsGraph).
+const whyNotAtEdge = "단위의 가장자리(어절 끝, 읽는 글자 바로 앞, 홀로)에 있지 않다"
+
 // Why the rule of a sentence gluedShortRule does not stand, and its
 // name (its claim is that the word is written onto the word before it).
 const (
