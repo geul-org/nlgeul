@@ -207,7 +207,7 @@ const (
 // falls.
 const (
 	ruleDeterminerForm = "문장:홀로 선 이런·그런·저런·어떤·다른은 관형사"
-	whyComparedBefore  = "앞 어절이 와·과로 끝난다(다르다가 받는 견줄 대상)"
+	whyComparedBefore  = "앞 어절에 와·과가 있다(다르다가 받는 견줄 대상, 뒤에 보조사가 붙어도)"
 	whyNotDiffer       = "다른이 아니다"
 )
 

@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what argumentAdnRule — the rule of a sentence "a predicate between an argument and the word it modifies is in its modifying form": a candidate that reads its stem as a verb, an adjective or an auxiliary verb (predicateStem) and whose last piece is a modifying closing (꾸밈: 는, 은, ㄴ, ㄹ …) is preferred, by bonusOverCount, when the word right before it ends in a case particle of an argument (argumentCases: 주격, 보격, 목적격, 부사격), and not otherwise, nor when the word right after it is not one a modifier may stand before (not a nominal, a determiner, nor a modifying or naming form), nor when the word right after it ends in a modifying closing itself, nor when the candidate's letters are a numeral determiner's and the word right after it is a unit it counts (countedUnitExcept, countedUnits: 한 번); it waits for the word after it
+//ff:what argumentAdnRule — the rule of a sentence "a predicate between an argument and the word it modifies is in its modifying form": a candidate that reads its stem as a verb, an adjective or an auxiliary verb (predicateStem) and whose last piece is a modifying closing (꾸밈: 는, 은, ㄴ, ㄹ …) is preferred, by bonusOverCount, when the word right before it ends in a case particle of an argument (argumentCases: 주격, 보격, 목적격, 부사격), or has 와/과 of the comparison with a particle more (comparedNames, rule.PrevHas: 그와는 다른), and not otherwise, nor when the word right after it is not one a modifier may stand before (not a nominal, a determiner, nor a modifying or naming form), nor when the word right after it ends in a modifying closing itself, nor when the candidate's letters are a numeral determiner's and the word right after it is a unit it counts (countedUnitExcept, countedUnits: 한 번); it waits for the word after it
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -19,11 +19,16 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // 저런, 어떤, 다른) are asked too: where determinerFormRule holds the
 // determiner back (다른 after the 와/과 다르다 takes: 이와 다른 전제),
 // this rule is what carries the adjective's form, and elsewhere the
-// determiner's bonusOverUncounted outweighs it.
+// determiner's bonusOverUncounted outweighs it. A particle after a case
+// particle adds a sense and leaves the word what it is to the predicate
+// (school grammar: 보조사), so that 와/과 of the comparison with a
+// particle after it (그와는 다른) is still the comparison.
 func argumentAdnRule() sentenceRule {
 	adn := closingLabel(rule.KindAdn)
 	g, claim := sentenceClaim(ruleArgumentAdn, rule.KindListed, listed("꾸밈 맺음", rule.ListSelfLast, []string{adn}))
-	except(g, rule.KindListed, whyNoArgumentBefore, listed("격 조사", rule.ListPrevLast, argumentCases), not).Attacks(claim)
+	noArg := except(g, rule.KindListed, whyNoArgumentBefore, listed("격 조사", rule.ListPrevLast, argumentCases), not)
+	noArg.Attacks(claim)
+	except(g, rule.PrevHas, whyComparedBefore, listed("와·과", rule.ListPrevLast, comparedNames)).Attacks(noArg)
 	except(g, rule.AroundIs, whyNoModifiableNext, &rule.Bits{Of: "around", Mask: rule.AroundBeforeModifiable}, not).Attacks(claim)
 	except(g, rule.KindListed, whyAdnNext, listed("꾸밈 맺음", rule.ListNextLast, []string{adn})).Attacks(claim)
 	countedUnitExcept(g, claim, numDeterminers, countedUnits)
