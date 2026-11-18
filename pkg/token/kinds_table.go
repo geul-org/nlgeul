@@ -62,7 +62,7 @@ var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, 
 // closed sets of words (the sets of closed-words.tsv that pkg/parse
 // does not read).
 var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul, setVerbExist))
-var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setAskWord, setExistStem, setNegAdverb, setNumDet, setPointer))
+var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setAskWord, setExistStem, setNegAdverb, setNumDet, setPointer, setPersonal))
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
 // (also before a quotation's 고, 면, 는), 는구나, 는군, 느라; the
@@ -123,6 +123,13 @@ var pronouns = wordSets[setPointer]
 // nominals are; without one they are not read (each would cut every
 // word that begins with it).
 var pronounWords = wordSets[setPronounWord]
+
+// personalPronouns are the personal pronouns of the first and second
+// person (나, 너, 저, 우리, 너희, 저희; the set 인칭 대명사 of
+// closed-words.tsv), a closed class of school grammar. With pronouns (이,
+// 그, 저) they are the pronouns whose letters with a particle a rule of a
+// sentence leaves to the counts (pronounParticled: 나는, 이를).
+var personalPronouns = wordSets[setPersonal]
 
 const (
 	determinerLabel = "관형사"

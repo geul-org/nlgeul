@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what argumentAdnRule — the rule of a sentence "a predicate between an argument and the word it modifies is in its modifying form": a candidate that reads its stem as a verb, an adjective or an auxiliary verb (predicateStem) and whose last piece is a modifying closing (꾸밈: 는, 은, ㄴ, ㄹ …) is preferred, by bonusOverCount, when the word right before it ends in a case particle of an argument (argumentCases: 주격, 보격, 목적격, 부사격), or has 와/과 of the comparison with a particle more (comparedNames, rule.PrevHas: 그와는 다른), and not otherwise, nor when the word right after it is not one a modifier may stand before (not a nominal, a determiner, nor a modifying or naming form), nor when the word right after it ends in a modifying closing itself, nor when the candidate's letters are a numeral determiner's and the word right after it is a unit it counts (countedUnitExcept, countedUnits: 한 번); it waits for the word after it
+//ff:what argumentAdnRule — the rule of a sentence "a predicate between an argument and the word it modifies is in its modifying form": a candidate that reads its stem as a verb, an adjective or an auxiliary verb (predicateStem) and whose last piece is a modifying closing (꾸밈: 는, 은, ㄴ, ㄹ …) is preferred, by bonusOverCount, when the word right before it ends in a case particle of an argument (argumentCases: 주격, 보격, 목적격, 부사격), or has 와/과 of the comparison with a particle more (comparedNames, rule.PrevHas: 그와는 다른), and not otherwise, nor when the word right after it is not one a modifier may stand before (not a nominal, a determiner, nor a modifying or naming form), nor when the word right after it ends in a modifying closing itself, nor when the candidate's letters are a numeral determiner's and the word right after it is a unit it counts (countedUnitExcept, countedUnits: 한 번); a word whose letters are a pronoun of the closed sets with a particle (pronounParticled: 나는, 이를) is not asked; it waits for the word after it
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -23,6 +23,10 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // particle adds a sense and leaves the word what it is to the predicate
 // (school grammar: 보조사), so that 와/과 of the comparison with a
 // particle after it (그와는 다른) is still the comparison.
+// A pronoun with a particle is an argument of its own, and an argument
+// often stands right after another (피고가 이를 양도하였다, 그때에 나는
+// 몰랐다): a word whose letters read so (pronounParticled) is not asked,
+// lest 나다+는 or 이르다+(ㄹ) of the same letters be carried over it.
 func argumentAdnRule() sentenceRule {
 	adn := closingLabel(rule.KindAdn)
 	g, claim := sentenceClaim(ruleArgumentAdn, rule.KindListed, listed("꾸밈 맺음", rule.ListSelfLast, []string{adn}))
@@ -33,7 +37,7 @@ func argumentAdnRule() sentenceRule {
 	except(g, rule.KindListed, whyAdnNext, listed("꾸밈 맺음", rule.ListNextLast, []string{adn})).Attacks(claim)
 	countedUnitExcept(g, claim, numDeterminers, countedUnits)
 	is := func(n rule.Near) bool {
-		return labelOf(n.Last) == adn && predicateStem(n)
+		return labelOf(n.Last) == adn && predicateStem(n) && !pronounParticled(n.Text)
 	}
 	return sentenceRule{name: ruleArgumentAdn, graph: g, bonus: bonusOverCount, about: is, waits: is}
 }

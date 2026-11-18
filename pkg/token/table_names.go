@@ -50,6 +50,7 @@ const (
 	setNegAdverb   = "부정 부사"
 	setNumDet      = "수 관형사"
 	setPointer     = "지시어"
+	setPersonal    = "인칭 대명사"
 )
 
 var contractSets = map[string]int{setContract: 0, setPronoun: 0, setNounCopula: 0, setTypo: 0}
