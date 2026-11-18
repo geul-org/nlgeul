@@ -31,3 +31,13 @@ var (
 // seeAux is the stem of the auxiliary 보다, as the rules of a sentence
 // read it after -다(가) (whileLinks: mainUnlinkedRule).
 const seeAux = "보"
+
+// goNames is the closing -고 and goAux the stems of the auxiliary verbs
+// the dictionary gives after it: 있다 (-고 있다) and 보다 (-고 보니, -고
+// 보면). The others of the closed set (주다, 놓다, 두다, 버리다, 지다)
+// follow the -어 form only, so after -고 the same letters are the main
+// verb (받고 놓아, 승낙하고 주는: auxLinkedRule, mainUnlinkedRule).
+var (
+	goNames = closingNames(parse.Marker{Form: "고"})
+	goAux   = []string{"있", seeAux}
+)

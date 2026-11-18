@@ -133,6 +133,14 @@ const (
 	whyNotMalLinked = "앞 어절이 지·고로 끝나지 않는다"
 )
 
+// Why the auxiliary verb's rules fall after -고 unless the stem is 있 or
+// 보, and why that stands.
+const (
+	whyGoNotAux = "앞 어절이 -고로 끝난다"
+	whyGoAux    = "줄기가 -고 뒤에 서는 보조 용언(있다·보다)이다"
+	whyNoGoAux  = "줄기가 -고 뒤에 서는 보조 용언(있다·보다)이 아니다"
+)
+
 // Why the auxiliary verb's rules fall after 관하여.
 const whyRegard = "앞 어절이 관하다(…에 관하여)다"
 
