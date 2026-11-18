@@ -63,6 +63,19 @@ var signShapes = tildeShapes(map[rune][]rule.Shape{
 	},
 })
 
+// stopShapes are the shapes of a date of two numbers joined by a full
+// stop, read only where a full stop stands right after the second
+// number (the orthography's appendix on punctuation, 마침표 (3): it is
+// written after the numbers of a date, 1919. 3. 1., 10. 1.~10. 12.):
+// a month and a day (1.28.) and a year and a month (1961.12.). They
+// come before the full stop's own joins: two numbers with a full stop
+// after them are a date before a decimal. Without the full stop after
+// them they are no date here (2.5, 3.1이닝).
+var stopShapes = []rule.Shape{
+	{Of: "날짜:.", Min: 2, Max: 2, Lens: [][2]int{{1, 2}}, Vals: [][2]int{{1, 12}, {1, 31}}},
+	{Of: "날짜:.", Min: 2, Max: 2, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}}},
+}
+
 // nameSigns are the signs that join two runs of Latin letters and
 // digits into one name when they are not both numbers: a slash joins
 // the parts of a path (a/b), a hyphen two words that belong together

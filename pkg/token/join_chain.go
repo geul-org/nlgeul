@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what joinChain — judge each sign of a chain of runs and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
+//ff:what joinChain — judge each sign of a chain of runs (told whether a full stop stands right after the chain's last run: MarkStopped) and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
 package token
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -13,11 +13,17 @@ func (sc *scan) joinChain(chain [][2]int) {
 		}
 	}
 	start, names, num := chain[0][0], []string(nil), true
+	stopped, end := 0, chain[len(chain)-1][1]
+	if end < len(sc.s) && sc.s[end] == '.' {
+		stopped = rule.MarkStopped
+	}
 	for k, r := range chain {
 		num = num && sideOf(labels[k])&rule.SideDigit != 0
 		var joined []markCandidate
 		if k < len(signs) {
-			joined = sc.judgeMark(sc.ix.signs[signs[k]], signFacts(labels, signs, k), string(signs[k]))
+			m := signFacts(labels, signs, k)
+			m.Facts |= stopped
+			joined = sc.judgeMark(sc.ix.signs[signs[k]], m, string(signs[k]))
 		}
 		if len(joined) > 0 {
 			names = union(names, markNames(shownNames(joined)))

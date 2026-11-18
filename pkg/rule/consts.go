@@ -175,6 +175,7 @@ const (
 	MarkArrow                  // a hyphen or an equals sign stands right next to it (->, =>, <=)
 	MarkBySign                 // a punctuation mark or symbol other than itself stands right next to it
 	MarkOpenedAny              // a sign of its pair's kind may stand open before it in at least one of the ways the signs before it may stand open (MarkOpened tells it of one way)
+	MarkStopped                // a full stop stands right after the last of the runs the sign joins (1.28. — a date: the orthography's 마침표 (3))
 )
 
 // The facts a list is asked for (List.Of).
