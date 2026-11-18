@@ -141,6 +141,13 @@ const (
 	whyNoGoAux  = "줄기가 -고 뒤에 서는 보조 용언(있다·보다)이 아니다"
 )
 
+// Why the rules of an auxiliary verb stand after a linking closing with
+// an auxiliary particle after it (하고는, 알고만), and why that falls.
+const (
+	whyLinkParticle  = "앞 어절의 표지에 연결 꼴이 있다"
+	whyNoParticleEnd = "앞 어절이 보조사로 끝나지 않는다"
+)
+
 // Why the auxiliary verb's rules fall after 관하여.
 const whyRegard = "앞 어절이 관하다(…에 관하여)다"
 

@@ -41,3 +41,10 @@ var (
 	goNames = closingNames(parse.Marker{Form: "고"})
 	goAux   = []string{"있", seeAux}
 )
+
+// particleEnds is the kind of the name of an auxiliary particle: a word
+// whose markers hold a linking closing and end in one is still the main
+// verb's linking form an auxiliary verb follows (clause 47 of the
+// orthography, 다만: 읽어도 보고, 하고는 있지만; auxLinkedRule,
+// malLinkedRule).
+var particleEnds = []string{"보조사"}

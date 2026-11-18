@@ -22,7 +22,7 @@ func TestAuxLinkedRuleGo(t *testing.T) {
 	} {
 		words, _ := linkBeforeWords(t, c.in, false)
 		cand := auxLinkedPick(t, words[0], c.cand)
-		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{{Stem: "받", Kind: "열쇠:동사", Last: c.last}}})
+		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{{Stem: "받", Kind: "열쇠:동사", Last: c.last, Marks: c.last}}})
 		if add != c.add || len(notes) != 1 || notes[0] != "  · "+c.cand+"\t"+ruleAuxLinked+"\t"+c.note {
 			t.Fatalf("%q after %s: %v %q", c.in, c.last, add, notes)
 		}
