@@ -11,12 +11,14 @@ const malStem = "말"
 
 var malLinks = closingNames(parse.Marker{Form: "지"}, parse.Marker{Form: "고"})
 
-// regardStems are the stems of the verbs that after …에 name what is
-// talked or thought about (관하다, the dictionary's "말하거나 생각하는
-// 대상으로 하다": …에 관하여, …에 관한). The verb after their -여 form is
-// a main verb that takes that phrase, not an auxiliary of theirs (…에
-// 관하여 보건대). Only 관하다 is listed, the one the answer sheet shows.
-var regardStems = []string{"관하"}
+// regardStems are the stems of the verbs that after …에 or …을 name what
+// is talked or thought about or what a thing is done through (관하다, the
+// dictionary's "말하거나 생각하는 대상으로 하다": …에 관하여; 대하다,
+// "대상이나 상대로 삼다": …에 대하여; 통하다, "어떤 일을 매개하거나
+// 중개하게 하다": …을 통하여). The verb after their -여 form is a main
+// verb that takes that phrase, not an auxiliary of theirs (…에 관하여
+// 보건대, …에 대하여 본다, …을 통해 보았을).
+var regardStems = []string{"관하", "대하", "통하"}
 
 // whileLinks and whileClosings make the frame the dictionary gives 보다
 // as an auxiliary verb in after -다(가): -다(가) 보니, -다(가) 보면 (in

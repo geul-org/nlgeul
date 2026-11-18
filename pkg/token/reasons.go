@@ -148,8 +148,8 @@ const (
 	whyNoParticleEnd = "앞 어절이 보조사로 끝나지 않는다"
 )
 
-// Why the auxiliary verb's rules fall after 관하여.
-const whyRegard = "앞 어절이 관하다(…에 관하여)다"
+// Why the auxiliary verb's rules fall after 관하여, 대하여 and 통하여.
+const whyRegard = "앞 어절이 관하다·대하다·통하다(…에 관하여, …에 대하여, …을 통하여)다"
 
 // Why the main predicate's rule falls where 보다 is an auxiliary in
 // -다(가) 보니 and -다(가) 보면.
