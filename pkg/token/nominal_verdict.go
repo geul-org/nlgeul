@@ -4,7 +4,7 @@ package token
 
 func (ix *index) nominalVerdict(stem string, tail int, sole bool) float64 {
 	best := 0.0
-	for _, r := range ix.knownCandidates(stem, tail, sole, false, false, false) {
+	for _, r := range ix.knownCandidates(stem, tail, sole, false, false, false, false) {
 		if r.kind == kindNominal {
 			best = max(best, r.v)
 		}

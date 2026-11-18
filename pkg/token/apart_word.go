@@ -19,7 +19,7 @@ func (sc *scan) apartWord(k, j int) bool {
 		if !sc.restored(k, v) {
 			continue
 		}
-		for _, r := range sc.stemCandidates(k, v, false) {
+		for _, r := range sc.stemCandidates(k, v, false, false) {
 			if r.v <= 0 {
 				continue
 			}

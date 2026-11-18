@@ -156,6 +156,7 @@ const (
 	PieceUnitWord             // it is a stem that begins right after a number, and its letters are a unit of the unit table and then a word written after a unit (5년간)
 	PieceBound                // the word right before it ends in a modifying closing and it is the stem of a dependent noun that stands on its modifier (것, 거)
 	PieceModifier             // it is a new word whose letters are a modifier and a known word it modifies written together (못와, 두손, 좀더, 할거)
+	PieceMain                 // it is a main verb's stem that begins its unit, and its word ends in the linking 어/아 right before an auxiliary verb's stem written onto it (가 in 가봐)
 )
 
 // Yes/no facts of a sign that MarkIs tests.

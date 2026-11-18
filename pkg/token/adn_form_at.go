@@ -15,7 +15,7 @@ func (sc *scan) adnFormAt(b, k int) bool {
 		if !sc.restored(b, v) {
 			continue
 		}
-		for _, r := range sc.stemCandidates(b, v, false) {
+		for _, r := range sc.stemCandidates(b, v, false, false) {
 			if r.v > 0 && r.kind&(kindVerb|kindAdj) != 0 {
 				return true
 			}

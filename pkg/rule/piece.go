@@ -66,6 +66,10 @@ package rule
 // a predicate (못와), a numeral determiner before a nominal (두손), an
 // adverb before an adverb (좀더), the modifying form of a predicate before
 // the dependent noun 것 or 거 (할거).
+// Main tells that the piece is a stem that begins its unit, that its word
+// ends in the linking closing 어/아, and that the letters right after that
+// word begin with the stem of an auxiliary verb (a main verb with an
+// auxiliary verb written onto it: 가 in 가봐).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -100,4 +104,5 @@ type Piece struct {
 	UnitWord bool
 	Bound    bool
 	Modifier bool
+	Main     bool
 }

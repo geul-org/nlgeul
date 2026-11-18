@@ -30,6 +30,8 @@ func TestPieceFacts(t *testing.T) {
 		{Piece{Num: true, Order: true}, PieceNum | PieceOrder},
 		{Piece{Apart: true}, PieceApart},
 		{Piece{Conn: true}, PieceConn},
+		{Piece{Main: true}, PieceMain},
+		{Piece{Conn: true, Main: true}, PieceConn | PieceMain},
 		{Piece{Change: true}, PieceChange},
 		{Piece{Glossed: true}, PieceGlossed},
 		{Piece{Closed: true, Glossed: true}, PieceClosed | PieceGlossed},

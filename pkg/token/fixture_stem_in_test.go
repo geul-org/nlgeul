@@ -3,7 +3,7 @@
 package token
 
 func stemIn(sc *scan, b int, t tail, sole bool) (string, string, float64, string) {
-	candidates := sc.stemCandidates(b, t, sole)
+	candidates := sc.stemCandidates(b, t, sole, false)
 	kinds := make([]kindCandidate, len(candidates))
 	for i, r := range candidates {
 		kinds[i] = r.kindCandidate

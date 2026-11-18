@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestKindRebuttals — five edges, the rebuttals "rarely seen" and "one syllable long" against a claim and what lifts each: on a graph with them a form of more syllables seen enough times stands fully; one syllable long it stands lower, and fully as a sole word or as an auxiliary's stem written right after the 어/아 form of its main verb (Conn), which does not lift "rarely seen"; seen once it stands lower, also as a sole word; with both rebuttals a form stands below either one alone and above 0
+//ff:what TestKindRebuttals — six edges, the rebuttals "rarely seen" and "one syllable long" against a claim and what lifts each: on a graph with them a form of more syllables seen enough times stands fully; one syllable long it stands lower, and fully as a sole word or as an auxiliary's stem written right after the 어/아 form of its main verb (Conn), which does not lift "rarely seen"; seen once it stands lower, also as a sole word; with both rebuttals a form stands below either one alone and above 0
 package token
 
 import (
@@ -13,7 +13,7 @@ func TestKindRebuttals(t *testing.T) {
 	enough := 10000
 	g := toulmin.NewGraph("열쇠:x")
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: "열쇠:x", Concludes: "열쇠"})
-	if n := kindRebuttals(g, claim, enough); n != 5 {
+	if n := kindRebuttals(g, claim, enough); n != 6 {
 		t.Fatal("edges", n)
 	}
 	judge := func(form string, count int, sole bool) float64 {

@@ -13,8 +13,8 @@ func TestKnownCandidatesUnit(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	free := ix.knownCandidates("년간", rule.TailBare, false, false, false, false)
-	after := ix.knownCandidates("년간", rule.TailBare, false, false, true, false)
+	free := ix.knownCandidates("년간", rule.TailBare, false, false, false, false, false)
+	after := ix.knownCandidates("년간", rule.TailBare, false, false, true, false, false)
 	if len(free) != 1 || len(after) != 1 || free[0].name != "열쇠:체언" || after[0].name != free[0].name {
 		t.Fatal(free, after)
 	}

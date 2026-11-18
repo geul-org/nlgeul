@@ -19,7 +19,7 @@ func TestNominalVerdict(t *testing.T) {
 		t.Fatal("the nominal graph's verdict", whole, want)
 	}
 	noun := ix.nominalVerdict("비", rule.TailBare, false)
-	if got := ix.knownCandidates("비", rule.TailBare, false, false, false, false); len(got) != 1 || got[0].kind != kindNominal || got[0].v != noun || noun <= 0 {
+	if got := ix.knownCandidates("비", rule.TailBare, false, false, false, false, false); len(got) != 1 || got[0].kind != kindNominal || got[0].v != noun || noun <= 0 {
 		t.Fatal("the noun's verdict", got, noun)
 	}
 	if v := ix.nominalVerdict("것", rule.TailCase, true); v <= 0 || v != ix.known("것", rule.TailCase, true) {

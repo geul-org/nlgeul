@@ -15,13 +15,13 @@ func TestStemCandidates(t *testing.T) {
 	sc := &scan{ix: far.ix, s: []rune("가나다라마바사아자차카타했다")}
 	sc.prepare()
 	wrong := tail{start: 12, wrote: "wrote"}
-	if got := sc.stemCandidates(0, wrong, false); got != nil {
+	if got := sc.stemCandidates(0, wrong, false, false); got != nil {
 		t.Fatal("a stem written wrong that is too long for a new word", got)
 	}
-	if got := sc.stemCandidates(0, wrong, true); len(got) != 1 || got[0].wrote != "wrote" {
+	if got := sc.stemCandidates(0, wrong, true, false); len(got) != 1 || got[0].wrote != "wrote" {
 		t.Fatal("the same stem as the whole unit", got)
 	}
-	if got := sc.stemCandidates(2, wrong, false); len(got) != 1 {
+	if got := sc.stemCandidates(2, wrong, false, false); len(got) != 1 {
 		t.Fatal("the same stem within ten tokens", got)
 	}
 	sc = scanOf("마신 그는 ab는 이게")
@@ -79,21 +79,21 @@ func TestStemCandidates(t *testing.T) {
 	sc = &scan{ix: streamReader(t, "words-saisiot.tsv").ix, s: []rune("전셋값이")}
 	sc.prepare()
 	i := []piece{{"이", "주격:이", 1, -1, rule.TailCase, false, ""}}
-	got := sc.stemCandidates(0, tail{start: 3, pieces: i}, false)
+	got := sc.stemCandidates(0, tail{start: 3, pieces: i}, false, false)
 	if len(got) != 2 || got[0].stem != "전셋값" || got[0].name != saisiotName || got[0].kind != kindNominal || got[0].v <= 0 || got[1].stem != "전셋값" || got[1].name != "" || got[1].v != 0 {
 		t.Fatal("a stem of 사이시옷 and the new word of the same letters", got)
 	}
 	sc = &scan{ix: far.ix, s: []rune("대한민국임시정붓수립기념일을")}
 	sc.prepare()
-	if got = sc.stemCandidates(0, tail{start: 13, pieces: eul}, false); len(got) != 1 || got[0].name != saisiotName || got[0].stem != "대한민국임시정붓수립기념일" {
+	if got = sc.stemCandidates(0, tail{start: 13, pieces: eul}, false, false); len(got) != 1 || got[0].name != saisiotName || got[0].stem != "대한민국임시정붓수립기념일" {
 		t.Fatal("a stem of 사이시옷 too long for a new word stands alone", got)
 	}
-	if got = sc.stemCandidates(0, tail{start: 13, pieces: eul}, true); len(got) != 2 || got[1].name != "" {
+	if got = sc.stemCandidates(0, tail{start: 13, pieces: eul}, true, false); len(got) != 2 || got[1].name != "" {
 		t.Fatal("with its new word as the whole unit", got)
 	}
 	sc = &scan{ix: far.ix, s: []rune("가나다라마바사아자차카타했다")}
 	sc.prepare()
-	if got = sc.stemCandidates(0, tail{start: 12}, false); len(got) != 0 {
+	if got = sc.stemCandidates(0, tail{start: 12}, false, false); len(got) != 0 {
 		t.Fatal("a stem too long for a new word, of no 사이시옷", got)
 	}
 }

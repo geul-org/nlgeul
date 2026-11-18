@@ -12,7 +12,7 @@ package token
 // 는, not 주 the noun before the particle 는).
 func (sc *scan) stepsOf(b, end int, t tail) []step {
 	var out []step
-	for _, r := range append(sc.stemCandidates(b, t, b == 0 && end == len(sc.s)), sc.surnameCandidate(b, t)...) {
+	for _, r := range append(sc.stemCandidates(b, t, b == 0 && end == len(sc.s), sc.mainBeforeAux(b, end, t)), sc.surnameCandidate(b, t)...) {
 		out = append(out, sc.stepOf(b, end, t, r))
 	}
 	return out
