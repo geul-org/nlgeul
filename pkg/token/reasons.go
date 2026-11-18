@@ -367,6 +367,13 @@ const (
 	whyNoHaNext      = "바로 뒤 어절이 하다·되다가 아니다"
 )
 
+// The name of the rule of a sentence of the -기 form with a particle
+// before 하다 (namedBeforeHaRule), and why it falls.
+const (
+	ruleNamedBeforeHa = "문장:하다 앞 -기+조사"
+	whyNoDoNext       = "바로 뒤 어절이 하다가 아니다"
+)
+
 // The name of the rule of a sentence of the predicate after an object
 // (predAfterObjectRule), and why it falls.
 const (
