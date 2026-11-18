@@ -333,3 +333,8 @@ const (
 	whyNoHaLink    = "앞 어절이 -어야로 끝나지 않는다"
 	whyNamedBefore = "앞 어절에 이름꼴 -기가 있다"
 )
+
+// The name of the rule of a sentence of 내, 네 and 제 standing alone
+// before a word a modifier may stand before (possessiveRule); it falls
+// before a unit for whyUnitNext, as the rules of 한 do.
+const rulePossessive = "문장:체언 앞 내·네·제는 의가 줄어든 대명사"

@@ -5,7 +5,8 @@ package token
 import "testing"
 
 func TestInterjectionAloneRuleStream(t *testing.T) {
-	r := interjectionAloneRule(streamReader(t, "words-alone.tsv").ix.lex)
+	ix := streamReader(t, "words-alone.tsv").ix
+	r := interjectionAloneRule(ix.lex, ix.closed)
 	line := func(v, why string) string {
 		return "  · 흠[열쇠:홀로]\t" + ruleInterjectionAlone + "\t" + v + "\t" + why
 	}

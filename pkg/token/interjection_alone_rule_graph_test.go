@@ -12,7 +12,7 @@ func TestInterjectionAloneRuleGraph(t *testing.T) {
 	apart := rule.Near{Stem: "흠", Kind: "열쇠:홀로"}
 	comma := rule.Near{Stem: ",", Kind: "쉼표", Glued: true}
 	noun := rule.Near{Stem: "비용", Kind: "열쇠:체언", Last: "주격:이", Marks: "주격:이", Modifiable: true}
-	r := interjectionAloneRule(map[string]word{"흠": {kinds: kindNominal | kindAlone}})
+	r := interjectionAloneRule(map[string]word{"흠": {kinds: kindNominal | kindAlone}}, map[string]int{})
 	for _, c := range []struct {
 		name   string
 		around rule.Around
