@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what addAux — the stems of the auxiliary verbs read right after a main verb's 어/아 form: those of the closed set of the grammar tables but the ones always written onto the main verb (helpers: 지), and with a word table 가, 내 and 드리 too
+//ff:what addAux — the stems of the auxiliary verbs read right after a main verb's 어/아 form: those of the closed set of the grammar tables but the ones always written onto the main verb (helpers: 지), and with a word table those the token layer adds (auxMore: 가, 내, 드리, 오, 달) too
 package token
 
 func (ix *index) addAux(closed []string) {

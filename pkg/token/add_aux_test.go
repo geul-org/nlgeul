@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAddAux — the closed set of the tables gives its stems but 지, which is always written onto the main verb (주, 보, 버리, 놓, 두, 있); with a word table 가, 내 and 드리 follow them; of a made list the one-syllable helpers (지, 하) are left out and a longer stem that begins with one of their letters is kept
+//ff:what TestAddAux — the closed set of the tables gives its stems but 지, which is always written onto the main verb (주, 보, 버리, 놓, 두, 있); with a word table 가, 내, 드리, 오 and 달 follow them; of a made list the one-syllable helpers (지, 하) are left out and a longer stem that begins with one of their letters is kept
 package token
 
 import (
@@ -19,7 +19,7 @@ func TestAddAux(t *testing.T) {
 	}
 	lexed := &index{lexed: true}
 	lexed.addAux(closed)
-	if !slices.Equal(lexed.aux, slices.Concat(want, []string{"가", "내", "드리"})) {
+	if !slices.Equal(lexed.aux, slices.Concat(want, []string{"가", "내", "드리", "오", "달"})) {
 		t.Fatal("with a word table", lexed.aux)
 	}
 	made := &index{}

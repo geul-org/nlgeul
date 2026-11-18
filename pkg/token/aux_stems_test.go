@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestAuxStems — the closed set without 지; with a word table 가, 내 and 드리 too
+//ff:what TestAuxStems — the closed set without 지; with a word table 가, 내, 드리, 오 and 달 too
 package token
 
 import (
