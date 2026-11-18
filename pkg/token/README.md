@@ -452,4 +452,4 @@ seg2, ok := st.Again(seg.Region) // 같은 구간의 다음 갈래(Rank 2). 더 
 
 반박의 힘, 구조 값(`forceNew`, `forceFew`, `forceShort`, `forceWhole`, `forceClash`, `forceEcho`, `forceTypo`, `forceDropAdn`, `cost…`)은 자리 채움 값이다. 몇 가지 값을 문장 묶음에 재어 고른 것도 있으나 조각의 정답이 있는 자료로 맞춘 값은 아니다. "관측이 적다"의 문턱 비율 `seenShare`(7.5e-4, 지금 낱말 표에서 약 100만 회)는 정답지 평가(train)로 여러 값을 재어 고친 어절이 더 늘지 않는 가장 작은 값을 골랐다(잰 값은 `consts.go`의 주석). 낱말 표가 있으면 후보의 차례는 λ(선호 + `Lambda`·log10(성립))다. 성립이 낮은 후보도 남고 뒤로 갈 뿐이다. `before`·`stepBefore`(`top`, `branchesOf`)만은 성립의 log10을 무게 1로 더한 선호 + log10(성립)으로 견준다.
 
-그래프는 낱말 표 없이 820개(간선 2273), 낱말 표가 있으면 895개(간선 2540)다.
+그래프는 낱말 표 없이 820개(간선 2275), 낱말 표가 있으면 895개(간선 2542)다.
