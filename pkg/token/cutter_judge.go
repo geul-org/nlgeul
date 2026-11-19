@@ -16,7 +16,9 @@ import (
 // stand) closes nothing: what stands open is left as it is, and its
 // depth is loneDepth's (0 for a quotation mark, as the place of the
 // nearest sign of its kind plus one with none found; 1 for a bracket,
-// whose opening sign stood before the sentence).
+// whose opening sign stood before the sentence, and for a quotation mark
+// right after a mark that ends a sentence, whose quotation began in a
+// sentence before).
 func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, []string, []string) {
 	var candidates []pairing
 	var after, notes []string
@@ -40,7 +42,7 @@ func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, 
 		if e.form == shutName && at >= 0 {
 			rd, next = pairing{shutName, at + 1}, string(stack[:at])
 		} else if e.form == shutName {
-			rd, next = pairing{shutName, loneDepth(c.r[i])}, way
+			rd, next = pairing{shutName, loneDepth(c.r[i], m.Facts)}, way
 		}
 		candidates, after = append(candidates, rd), append(after, next)
 	}

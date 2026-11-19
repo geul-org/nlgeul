@@ -29,6 +29,7 @@ func TestCutterFacts(t *testing.T) {
 		{"다.』", 2, 0, 0, rule.MarkAfterStop},
 		{"까?」", 2, 0, 0, rule.MarkAfterStop},
 		{"요…”", 2, 0, 0, rule.MarkAfterStop},
+		{"#2.\"#", 3, 0, 0, 0},
 	}
 	for _, c := range cases {
 		m := newCutter(ix, c.text, false).facts(c.at)

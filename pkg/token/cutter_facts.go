@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what facts — the facts of the sign at place i of a sentence that do not hang on what stands open: what stands right on each side, whether a space or the sentence's edge stands on both sides, whether a hyphen or an equals sign stands right next to it, and whether a mark that ends a sentence stands right before it (endMarks)
+//ff:what facts — the facts of the sign at place i of a sentence that do not hang on what stands open: what stands right on each side, whether a space or the sentence's edge stands on both sides, whether a hyphen or an equals sign stands right next to it, and whether a mark that ends a sentence stands right before it (endMarks; a full stop right after a digit is a number's: 2.")
 package token
 
 import (
@@ -24,7 +24,7 @@ func (c *cutter) facts(i int) rule.Mark {
 	if (left != 0 && strings.ContainsRune(arrowSigns, left)) || (right != 0 && strings.ContainsRune(arrowSigns, right)) {
 		m.Facts |= rule.MarkArrow
 	}
-	if left != 0 && strings.ContainsRune(endMarks, left) {
+	if left != 0 && strings.ContainsRune(endMarks, left) && !(left == '.' && unicode.IsDigit(atOf(c.r, i-2))) {
 		m.Facts |= rule.MarkAfterStop
 	}
 	return m
