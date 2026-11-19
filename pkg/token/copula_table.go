@@ -34,6 +34,16 @@ const bareAdn = "꾸밈:ㄴ"
 // (dropNaming, and the particle chain right after a naming closing).
 var droppableKnown = append(append([]string{}, closingSets[setDropKnown]...), nounHeads...)
 
+// droppableNew are the closings of droppableKnown before which the
+// dropped stem is read after a word no table lists as well: the quoting
+// 라 (-라고 shortened), 라는, 라며, 라면서 and 라니, which name what a
+// nominal is called (카담바리라는 책: 카담바리+(이)+라는). The tables know
+// no kind of a new word, so it may be a nominal, and these closings
+// follow the nominal a quotation names; before the other closings of
+// droppableKnown (거네, 고래네) the word before is still asked to be a
+// nominal of the table.
+var droppableNew = closingSets[setDropNew]
+
 // dropAdn are the closings before which a dropped stem is rebutted: in
 // front of a modifying or a naming form the stem mostly stays (의사인,
 // not 의산; 의사이기, not 의사기), at the force forceDropAdn.

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestCopulas — 곰이다 reads 이 as the copula stem before 다; 학교다 a dropped stem written (이); 누군 keeps the stem's syllable; 이다 alone and a tail without a closing give nothing; after a unit the copula takes the unit with it; before a closing of droppableKnown (네) the dropped stem is read only with a word table and asks for a nominal of it, while the stem said (곰이네) and the old closings (다) ask for nothing; after a letter that is no Hangul syllable a dropped stem stands before 야 asking for no nominal, and not before 다; before 기 it stands only while a particle is read after it (chained), asking for a nominal; the dropped stem's graph turns down a closing it is not dropped before (서, with a word table too), a slot before the closing, a consonant before it, and without a word table 야 and 기; a unit read as attaching has a stem before 이; end to end 거네 is 거+(이)+네 with a table and not without, a word no table has takes no dropped stem before 네 but does before 다; the copula's stem, said or dropped, is not read before 하 of 어하다 written onto its 어/아 form (학교이어하는, 문제여하는), while 하 of 어하다 after a verb or an adjective (예뻐하는, 몰라하는) and the copula before another closing (학교이어서, 학교여서) stay, with a word table and without
+//ff:what TestCopulas — 곰이다 reads 이 as the copula stem before 다; 학교다 a dropped stem written (이); 누군 keeps the stem's syllable; 이다 alone and a tail without a closing give nothing; after a unit the copula takes the unit with it; before a closing of droppableKnown (네) the dropped stem is read only with a word table and asks for a nominal of it, before a quoting closing of droppableNew (라는) for a nominal of it or a new word, while the stem said (곰이네) and the old closings (다) ask for nothing; after a letter that is no Hangul syllable a dropped stem stands before 야 asking for no nominal, and not before 다; before 기 it stands only while a particle is read after it (chained), asking for a nominal; the dropped stem's graph turns down a closing it is not dropped before (서, with a word table too), a slot before the closing, a consonant before it, and without a word table 야 and 기; a unit read as attaching has a stem before 이; end to end 거네 is 거+(이)+네 with a table and not without, a word no table has takes no dropped stem before 네 but does before the quoting 라는 and before 다; the copula's stem, said or dropped, is not read before 하 of 어하다 written onto its 어/아 form (학교이어하는, 문제여하는), while 하 of 어하다 after a verb or an adjective (예뻐하는, 몰라하는) and the copula before another closing (학교이어서, 학교여서) stay, with a word table and without
 package token
 
 import (
@@ -33,6 +33,11 @@ func TestCopulas(t *testing.T) {
 	ws := wordsScan("거네", layerCost)
 	if got = ws.copulas([]tail{{start: 1, pieces: []piece{{text: "네", names: "맺음:네"}}, close: ne}}, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != ws.ix.nominal || got[0].gate == nil {
 		t.Fatal("a dropped stem before 네 asks for a nominal", got)
+	}
+	rane := &entry{name: "꾸밈:라는"}
+	quoted := wordsScan("뚜루라는", layerCost)
+	if got = quoted.copulas([]tail{{start: 2, pieces: []piece{{text: "라는", names: "꾸밈:라는"}}, close: rane}}, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != quoted.ix.nominalNew || got[0].gate == nil {
+		t.Fatal("a dropped stem before the quoting 라는 asks for a nominal or a new word", got)
 	}
 	if got = scanOf("거네").copulas([]tail{{start: 1, pieces: []piece{{text: "네", names: "맺음:네"}}, close: ne}}, false); len(got) != 0 {
 		t.Fatal("before 네 no dropped stem without a word table", got)
@@ -87,6 +92,9 @@ func TestCopulas(t *testing.T) {
 	}
 	if got := streamText(r, "고래네"); strings.Contains(got, "(이)[서술격:이(빠짐)]+네") {
 		t.Fatal("고래, a word no table has, before 네\n" + got)
+	}
+	if got := streamText(r, "뚜루라는"); !strings.Contains(got, "뚜루+(이)[서술격:이(빠짐)]+라는[꾸밈:라는]") {
+		t.Fatal("뚜루, a word no table has, before the quoting 라는\n" + got)
 	}
 	if got := streamText(r, "고래다"); !strings.Contains(got, "고래+(이)[서술격:이(빠짐)]+다[맺음:다]") {
 		t.Fatal("고래 before 다, as before\n" + got)

@@ -40,6 +40,7 @@ type index struct {
 	wide        map[rune]*entry
 	pred        *entry
 	nominal     *entry
+	nominalNew  *entry
 	suffixGate  *entry
 	heads       map[rune][]string
 	signs       map[rune][]*entry

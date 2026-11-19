@@ -18,6 +18,7 @@ const (
 	whyCase         = "예외 표의 줄이다"
 	whyRight        = "바로 뒤에 선 것이 이 조각 뒤에 오지 못한다"
 	whyKind         = "앞말이 낱말 표에서 그 갈래의 줄기가 아니다"
+	whyUnlisted     = "앞말이 어느 표에도 없는 새 낱말이다"
 	whyJoinedWord   = "줄기와 접미를 합친 글자열이 낱말 표의 낱말이다"
 	whyShape        = "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다"
 	whyNotStopped   = "둘째 수 바로 뒤에 마침표가 없다"

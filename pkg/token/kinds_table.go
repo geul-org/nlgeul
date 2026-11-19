@@ -61,7 +61,7 @@ var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, 
 // table gives them (closing-sets.tsv), and wordSets this layer's own
 // closed sets of words (the sets of closed-words.tsv that pkg/parse
 // does not read).
-var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul, setVerbExist))
+var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul, setVerbExist, setDropNew))
 var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setAskWord, setExistStem, setNegAdverb, setNumDet, setPointer, setPersonal))
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다

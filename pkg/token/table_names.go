@@ -44,6 +44,7 @@ const (
 	setVerbOnly    = "동사만"
 	setDrop        = "서술격 빠짐"
 	setDropKnown   = "서술격 빠짐(낱말 표)"
+	setDropNew     = "서술격 빠짐(새 낱말)"
 	setLinkTaker   = "이음 으"
 	setHangul      = "한글 뒤만"
 	setVerbExist   = "동사·있다·없다·계시다"

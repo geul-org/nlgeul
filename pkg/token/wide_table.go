@@ -15,12 +15,13 @@ import (
 var wideLetters = map[rune]string{'신': "합침:신", '실': "합침:실", '심': "합침:심", '세': "합침:세"}
 
 const (
-	nounHonor   = '심'
-	vowelHonor  = '세'
-	nounName    = "이름:ㅁ"
-	vowelName   = "맺음:어(합침)"
-	predGate    = "앞말:용언"
-	nominalGate = "앞말:체언"
+	nounHonor      = '심'
+	vowelHonor     = '세'
+	nounName       = "이름:ㅁ"
+	vowelName      = "맺음:어(합침)"
+	predGate       = "앞말:용언"
+	nominalGate    = "앞말:체언"
+	nominalNewGate = "앞말:체언·새 낱말"
 )
 
 // shortClosings are closings a quotation or a particle is shortened
