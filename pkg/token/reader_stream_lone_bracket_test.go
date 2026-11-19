@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestReaderStreamLoneBracket — with no word table, a closing bracket written onto a word with none of its kind open in the sentence closes as 닫기:1 (its opening sign stood before the sentence), and so does one right after a mark that ends a sentence (다.』, 오?」), with a comma, a full stop or a particle after it read as before (+이라는); what stands open is left as it is, so a pair opened after it still closes at its own depth, and one of another kind opened before it stays open; a closing bracket right after a digit (a list number) or with a space before it, and one whose pair is open, give no lone closing
+//ff:what TestReaderStreamLoneBracket — with no word table, a closing bracket written onto a word with none of its kind open in the sentence closes as 닫기:1 (its opening sign stood before the sentence), and so does one right after a mark that ends a sentence (다.』, 오?」), with a comma, a full stop or a particle after it read as before (+이라는); what stands open is left as it is, so a pair opened after it still closes at its own depth, and one of another kind opened before it stays open; a named sign written right after a closing bracket (ㆍ) is a sign of its own; a closing bracket right after a digit (a list number) or with a space before it, and one whose pair is open, give no lone closing
 package token
 
 import (
@@ -27,6 +27,7 @@ func TestReaderStreamLoneBracket(t *testing.T) {
 		{"(책) 참조", false, []string{"([열기:1]", "책", ")[닫기:1]", "참조"}},
 		{"그는 1) 갔다", false, []string{"그는", "1", ")\t", "갔다"}},
 		{"그는 ) 갔다", false, []string{"그는", ")\t", "갔다"}},
+		{"성명(이름)ㆍ주소", false, []string{"성명", "([열기:1]", "이름", ")[닫기:1]", "ㆍ[가운뎃점]", "주소"}},
 	} {
 		lines := scoredLines(r, c.in)
 		if miss := missingLine(lines, c.want); miss != "" {

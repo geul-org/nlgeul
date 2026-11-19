@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what TestOntoEnd — what is written onto a closing sign or a span of code ends at the next space, sign of a pair or span of code; at the end, at a space, at a sign of punctuation or at a symbol nothing is written onto it
+//ff:what TestOntoEnd — what is written onto a closing sign or a span of code ends at the next space, sign of a pair or span of code; at the end, at a space, at a sign of punctuation, at a symbol or at a named sign that is a letter for Unicode (ㆍ) nothing is written onto it
 package token
 
 import "testing"
@@ -20,6 +20,7 @@ func TestOntoEnd(t *testing.T) {
 		{")~", 1, 1},
 		{")+가", 1, 1},
 		{")가나다", 1, 4},
+		{")ㆍ가", 1, 1},
 	}
 	for _, c := range cases {
 		if got := newCutter(ix, c.text, false).ontoEnd(c.from); got != c.want {
