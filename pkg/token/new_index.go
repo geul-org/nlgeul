@@ -14,6 +14,7 @@ func newIndex(o Options) (*index, error) {
 	ix.addParticles()
 	ix.addClosings()
 	ix.addPicked()
+	ix.addChains()
 	ix.addSlots()
 	if o.Words != "" {
 		ix.addWide()
