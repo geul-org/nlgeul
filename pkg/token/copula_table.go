@@ -66,10 +66,12 @@ var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리", "접�
 // and 부터 (오늘까지이다, 내일부터이다), as the gold of the evaluation
 // reads them: school grammar puts the copula after a phrase that stands
 // as a nominal, a particle written onto it included. The dictionary's
-// 이다 lists no particle before it; 뿐 is not here (the gold reads 뿐이다
-// after a noun both as the particle and as the dependent noun written
-// apart). copulaBefore are the last pieces of a chain the copula
-// follows.
-var copulaParticles = []string{"부사격:대로", "보조사:까지", "보조사:부터"}
+// 이다 lists no particle before it. Then 뿐 written onto a nominal
+// (생각뿐이다, 사람뿐이었다): the dictionary's particle 뿐 (an auxiliary
+// particle after a nominal; the dependent noun 뿐 stands after a
+// modifying or a final ending), as the gold of the evaluation now reads
+// it after a nominal. copulaBefore are the last pieces of a chain the
+// copula follows.
+var copulaParticles = []string{"부사격:대로", "보조사:까지", "보조사:부터", "보조사:뿐"}
 
 var copulaBefore = append(append([]string{}, copulaSuffixes...), copulaParticles...)
