@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestSignGraph — each candidate of a sign at a unit's edge is judged by where the sign stands and how many stand in a row: 쉼표 one; 쌍점 one at a word's end or alone; 물결표 at a word's end or alone, any number, or between two Hangul syllables; 빗금 between two Hangul syllables or at a unit's edge (after the letters, right before them, alone), not between other letters; 줄임표 and 줄표 any number anywhere; 샵 and 골뱅이 one with letters right after or alone; 태그 and 명칭 one with letters right after; 제목 at an input line's start with a space after; 가운뎃점 one (a sign next to it does not matter); 더하기 and 연결 one with no other sign right next to it; the numbers of edges returned
+//ff:what TestSignGraph — each candidate of a sign at a unit's edge is judged by where the sign stands and how many stand in a row: 쉼표 one; 쌍점 one at a word's end or alone, or between letters that are not both Latin letters or digits with no other sign next to it and not at a unit's head (EPI:입자, 줄:1; not a:b, C:\); 쌍반점 only at a word's end or alone; 물결표 at a word's end or alone, any number, or between two Hangul syllables; 빗금 between two Hangul syllables or at a unit's edge (after the letters, right before them, alone), not between other letters; 줄임표 and 줄표 any number anywhere; 샵 and 골뱅이 one with letters right after or alone; 태그 and 명칭 one with letters right after; 제목 at an input line's start with a space after; 가운뎃점 one (a sign next to it does not matter); 더하기 and 연결 one with no other sign right next to it; the numbers of edges returned
 package token
 
 import (
@@ -18,10 +18,16 @@ func TestSignGraph(t *testing.T) {
 	}{
 		{"쉼표", 1, rule.Mark{Run: 1}, true},
 		{"쉼표", 1, rule.Mark{Run: 2}, false},
-		{"쌍점", 2, rule.Mark{Run: 1, Facts: rule.MarkEnds}, true},
-		{"쌍점", 2, rule.Mark{Run: 1, Facts: rule.MarkAlone}, true},
-		{"쌍점", 2, rule.Mark{Run: 1}, false},
-		{"쌍점", 2, rule.Mark{Run: 2, Facts: rule.MarkEnds}, false},
+		{"쌍점", 5, rule.Mark{Run: 1, Facts: rule.MarkEnds}, true},
+		{"쌍점", 5, rule.Mark{Run: 1, Facts: rule.MarkAlone}, true},
+		{"쌍점", 5, rule.Mark{Run: 1, Left: rule.SideAlnum, Right: rule.SideAlnum}, false},
+		{"쌍점", 5, rule.Mark{Run: 2, Facts: rule.MarkEnds}, false},
+		{"쌍점", 5, rule.Mark{Run: 1, Left: rule.SideAlnum, Right: rule.SideHangul}, true},
+		{"쌍점", 5, rule.Mark{Run: 1, Right: rule.SideHangul}, true},
+		{"쌍점", 5, rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideAlnum | rule.SideDigit}, true},
+		{"쌍점", 5, rule.Mark{Run: 1, Left: rule.SideAlnum, Facts: rule.MarkBySign}, false},
+		{"쌍점", 5, rule.Mark{Run: 1, Right: rule.SideHangul, Facts: rule.MarkLeads}, false},
+		{"쌍반점", 2, rule.Mark{Run: 1, Left: rule.SideAlnum, Right: rule.SideHangul}, false},
 		{"쌍반점", 2, rule.Mark{Run: 1, Facts: rule.MarkEnds}, true},
 		{"물결표", 2, rule.Mark{Run: 3, Facts: rule.MarkEnds}, true},
 		{"물결표", 2, rule.Mark{Run: 1}, false},

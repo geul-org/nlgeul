@@ -34,11 +34,12 @@ const stopSigns = ".,…，"
 // apartSigns are the signs that, between letters of a unit, are also read
 // as a word of their own (a candidate added beside the one that keeps
 // them in the word): the middle dots and their variants (‧ ․ •), the
-// slash, the tilde and its variants (∼ ～ 〜), and the dashes (― —);
+// slash, the tilde and its variants (∼ ～ 〜), the dashes (― —) and the
+// colon (when its sides are not both Latin letters or digits: EPI:입자);
 // the slash and the tildes only with Hangul on both sides (their graphs).
 // cutSigns are the signs that cut a sentence into units where they stand
 // between letters (cutter).
 const (
-	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—"
+	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—:"
 	cutSigns   = "+"
 )
