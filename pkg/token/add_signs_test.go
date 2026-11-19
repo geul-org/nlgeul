@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddSigns — each named sign gets a graph for each of its candidates in the order they are printed; the full stop's graphs are the closing candidates of the stops; 26 candidates in all (the ellipsis …, the middle dot variants ‧ ․ •, the slash and the dashes ― — among them) and one graph more, 줄임표 for a run of middle dots, which every middle dot takes after its 가운뎃점
+//ff:what TestAddSigns — each named sign gets a graph for each of its candidates in the order they are printed; the full stop's graphs are the closing candidates of the stops; 27 candidates in all (the ellipsis …, the middle dot variants ‧ ․ •, the slash, the dashes ― — and the full-width comma ， among them) and one graph more, 줄임표 for a run of middle dots, which every middle dot takes after its 가운뎃점
 package token
 
 import (
@@ -12,7 +12,7 @@ func TestAddSigns(t *testing.T) {
 	ix.addDots()
 	graphs := ix.graphs
 	ix.addSigns()
-	if ix.graphs-graphs != 27 || len(ix.marks) != len(signOrderNamed)+1 {
+	if ix.graphs-graphs != 28 || len(ix.marks) != len(signOrderNamed)+1 {
 		t.Fatal(ix.graphs-graphs, len(ix.marks))
 	}
 	if len(ix.marks['.']) != 2 || ix.marks['.'][0].name != "마침표" || ix.marks['.'][1].name != "줄임표" {

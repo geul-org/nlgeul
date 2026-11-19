@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAddPairs — each sign of a pair gets a graph for each of its candidates: an opening bracket one, a closing bracket one, a quotation mark written the same way at both ends two (열기 first), a quotation mark that may close with none of its kind open (" ' ” ’) one more closing last, and so does a closing bracket that may (loneBrackets: ) } ] > 」 』 》 〉 ｣); 24 signs give 39 graphs; the last closing of such a sign is the lone closing, which stands with nothing open where the usual one falls
+//ff:what TestAddPairs — each sign of a pair gets a graph for each of its candidates: an opening bracket one, a closing bracket one, a quotation mark written the same way at both ends two (열기 first), a quotation mark that may close with none of its kind open (" ' ” ’) one more closing last, and so does a closing bracket that may (loneBrackets: ) } ] > 」 』 》 〉 ｣ 】 〕 ） ］ ｝); 34 signs give 54 graphs; the last closing of such a sign is the lone closing, which stands with nothing open where the usual one falls
 package token
 
 import (
@@ -13,7 +13,7 @@ import (
 func TestAddPairs(t *testing.T) {
 	ix := &index{}
 	ix.addPairs()
-	if len(ix.pairs) != len(pairOrder) || ix.graphs != 39 {
+	if len(ix.pairs) != len(pairOrder) || ix.graphs != 54 {
 		t.Fatal(len(ix.pairs), ix.graphs)
 	}
 	for sign, want := range map[rune][]string{'(': {"열기:("}, ')': {"닫기:)", "닫기:)"}, '"': {"열기:\"", "닫기:\"", "닫기:\""}, '\'': {"열기:'", "닫기:'", "닫기:'"}, '“': {"열기:“"}, '”': {"닫기:”", "닫기:”"}, '’': {"닫기:’", "닫기:’"}, '》': {"닫기:》", "닫기:》"}, '｢': {"열기:｢"}, '｣': {"닫기:｣", "닫기:｣"}} {

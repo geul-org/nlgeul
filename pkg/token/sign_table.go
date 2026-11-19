@@ -27,9 +27,9 @@ const headingName = "제목"
 const arrowSigns = "-="
 
 // stopSigns are the signs that close the word before them inside a
-// unit, as a piece of that word (stopAt): the full stop, the comma and
-// the ellipsis (…, the same sign as ...).
-const stopSigns = ".,…"
+// unit, as a piece of that word (stopAt): the full stop, the comma (and
+// its full-width form ，) and the ellipsis (…, the same sign as ...).
+const stopSigns = ".,…，"
 
 // apartSigns are the signs that, between letters of a unit, are also read
 // as a word of their own (a candidate added beside the one that keeps
