@@ -16,7 +16,7 @@ func TestAddParticles(t *testing.T) {
 		t.Fatal(last)
 	}
 	ya := ix.byKey['야'][len(ix.byKey['야'])-1]
-	if ya.name != "보조사:야" || ya.slot != rule.LinkTopic || ix.byKey['서'][0].slot == ix.byKey['서'][1].slot {
+	if ya.name != "보조사:야" || ya.slot != rule.LinkTopic || ix.byKey['서'][1].slot == ix.byKey['서'][2].slot {
 		t.Fatal(ya)
 	}
 	if len(ix.byKey['이']) < 2 || ix.byKey['이'][0].name != "주격:이" || ix.byKey['이'][1].name != "보격:이" || ix.byKey['은'][0].name != "보조사:은" {

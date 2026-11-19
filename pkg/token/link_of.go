@@ -9,7 +9,11 @@ import (
 )
 
 // Candidates of one particle go their own ways: 에서 as a subject marker
-// is a case particle, as a place an adverbial one. The shortened forms
+// is a case particle, as a place an adverbial one. The subject marker 에서
+// (after a word for a group: 정부에서) takes an auxiliary particle after it
+// as the honorific subject marker 께서 does (정부에서는, 정부에서도), so it
+// goes the way of 께서; the subject markers 이/가 do not (이는 is no
+// chain). The shortened forms
 // that end in 는 (엔, 에선, 까진 …) close a chain as a topic particle
 // does.
 func linkOf(label, form string, slot int) int {
@@ -20,7 +24,7 @@ func linkOf(label, form string, slot int) int {
 		return rule.LinkVoc
 	case label == "관형격":
 		return rule.LinkAdn
-	case form == "께서":
+	case form == "께서" || (form == "에서" && label == "주격"):
 		return rule.LinkHonor
 	case label == "주격" || label == "보격" || label == "목적격":
 		return rule.LinkCase
