@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what afterLinked — a copula tail read once more after each predicate tail that ends where the tail starts with a closing of copulaClosings (찾+아서+이+다, 위하+(여)서+(이)+다): the copula's pieces make a predicate tail there, for the stem before the closing is a predicate's, not a nominal's; the tail keeps what it tells of its closing and its gate
+//ff:what afterLinked — a copula tail read once more after each predicate tail that ends where the tail starts with a closing of copulaClosings (찾+아서+이+다, 위하+(여)서+(이)+다): the copula's pieces make a predicate tail there, for the stem before the closing is a predicate's, not a nominal's; the tail keeps what it tells of its closing and its gate, but for the gate a dropped stem asks of the nominal before it (droppableKnown: 위하+(여)서+(이)+라는), for the word before such a stem is the linking closing here, not a nominal
 package token
 
 import (
@@ -23,7 +23,7 @@ func (sc *scan) afterLinked(t tail) []tail {
 		}
 		l = joined([]tail{l}, rest...)[0]
 		l.noYo, l.close = t.noYo, t.close
-		if l.gate == nil && t.gate != nil {
+		if l.gate == nil && t.gate != nil && t.gate != sc.ix.nominal {
 			l.gate = t.gate
 		}
 		out = append(out, l)
