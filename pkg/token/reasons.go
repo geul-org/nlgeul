@@ -459,3 +459,7 @@ const (
 	whyAdnAdverbSelf = "관형어와 체언 사이에 서는 부사(이른바·즉·가장 …)다"
 	whyNegAdverbSelf = "부정 부사(안·못)다: 바로 뒤 용언을 꾸며 관형절을 연다"
 )
+
+// The name of the rule of rebuttal of a sentence of a particle or a
+// closing with no stem right after an opening sign (openMarkerRule).
+const ruleOpenMarker = "문장:여는 기호 바로 뒤의 조사·어미"
