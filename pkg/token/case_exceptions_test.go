@@ -37,7 +37,7 @@ func TestCaseExceptions(t *testing.T) {
 		}
 	}
 	useCases(t, "testdata/case-exceptions-bad.tsv")
-	if _, err := New(Options{Words: "testdata/words-hao.tsv"}); err == nil || err.Error() != `표 case-exceptions-bad.tsv 3번째 줄 1번째 칸(그래프) "맺음:소오": 색인에 이 이름의 표지 그래프가 없다` {
+	if _, err := New(Options{Words: "testdata/words-hao.tsv"}); err == nil || err.Error() != `표 case-exceptions-bad.tsv 3번째 줄 1번째 칸(그래프) "맺음:소오": 색인에 이 이름의 표지 그래프도 문장 규칙도 없다` {
 		t.Fatal(err)
 	}
 	if _, err := New(Options{}); err != nil {

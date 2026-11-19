@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what newIndex — build the token index (an error for a spacing rule no name of SpacingArticles gives): the closed-set words, then a graph for every candidate of every particle, closing and slot of the tables, the graphs of the signs, the graph of a family name, the graphs of a new word and of a stem's restored syllable, and with a word table its keys, the wrong ways to write a closed-set word, the closings written with the ㅎ of a stem's last 하 fused into them (addHa), and a graph for each kind of stem, and the keys longer than a new word's stem may be (addFarKeys); with a word table a graph the case exception table names that is no marker graph of the index is an error (checkCases)
+//ff:what newIndex — build the token index (an error for a spacing rule no name of SpacingArticles gives): the closed-set words, then a graph for every candidate of every particle, closing and slot of the tables, the graphs of the signs, the graph of a family name, the graphs of a new word and of a stem's restored syllable, and with a word table its keys, the wrong ways to write a closed-set word, the closings written with the ㅎ of a stem's last 하 fused into them (addHa), and a graph for each kind of stem, and the keys longer than a new word's stem may be (addFarKeys); with a word table the rules of a sentence, and a graph the case exception table names that is neither a marker graph nor a rule of a sentence of the index is an error (checkCases)
 package token
 
 // The graphs of a new word and of a stem's restored syllable are
@@ -41,9 +41,6 @@ func newIndex(o Options) (*index, error) {
 	ix.addTypoKeys()
 	ix.addAlts()
 	ix.addHa()
-	if err := ix.checkCases(); err != nil {
-		return nil, err
-	}
 	if o.Layers >= layerKnown && o.Layers <= layerCost {
 		ix.layers = o.Layers
 	}
@@ -51,5 +48,8 @@ func newIndex(o Options) (*index, error) {
 	ix.addFarKeys()
 	ix.addEnds()
 	ix.addSentence()
+	if err := ix.checkCases(); err != nil {
+		return nil, err
+	}
 	return ix, nil
 }

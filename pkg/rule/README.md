@@ -8,7 +8,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 - `KeyTail` → `Tail`(판정 중인 꼬리 풀이 하나).
 - 읽는 쪽이 이 타입을 채워 컨텍스트에 넣는다. 규칙은 `WordOf`, `TailOf`로 꺼낸다.
 - `KeyAround` → `Around`(문장 안에서 판정하는 후보와 그 둘레: 후보 자신 `Self`, 앞 어절들 `Before`, 뒤 어절들 `After`. 앞뒤 모두 가까운 것부터이고 저마다 `Near`다). `Near`는 어절 하나를 그 후보 하나가 읽은 대로 적는다: 찍힌 줄기 `Stem`, 줄기의 이름 `Kind`(`열쇠:체언`, `보조 용언:있`. 새 낱말은 ""), 마지막 조각의 이름 `Last`(줄기뿐이면 ""), 서술어인가 `Pred`(맺음을 지녔다. 읽는 쪽이 채운다), 표지들의 이름 `Marks`(줄기 뒤 조각의 이름을 차례대로 `+`로 이은 한 문자열. `MarksOf`가 낱낱으로 돌려준다. 두 `Near`를 `==`로 견줄 수 있게 문자열 하나로 둔다). 앞 어절과 빈칸 없이 붙어 있는가 `Glued`(붙여 쓴 어절. 읽는 쪽이 채운다). 앞뒤 어절은 그 어절의 1위 후보로 적는다. 토큰 층의 문장 단위 규칙이 채우고(`pkg/token/README.md`의 "스트림 인터페이스"), 규칙은 `AroundOf`로 꺼낸다(없으면 빈 `Around`).
-- `Near`의 `Glued`(앞 어절과 빈칸 없이 붙었다), `Nominal`(체언으로 끝난다: 마지막 조각이 체언 줄기·차례이거나 수 뒤 단위다), `Text`(어절의 글자), `Modifiable`(꾸밈꼴로 끝나는 어절이 바로 앞에 설 수 있다: 줄기가 체언·관형사이거나 꾸밈꼴·이름꼴로 끝난다), `Signs`(이름 없는 기호만의 열이다: 글에서 가린 이름 `○○`, `□□□`)도 읽는 쪽이 채운다. 뒤 어절의 `Glued`는 그 어절이 판정하는 후보의 어절에 붙어 있다는 뜻이다. `AroundIs`가 묻는다.
+- `Near`의 `Glued`(앞 어절과 빈칸 없이 붙었다), `Nominal`(체언으로 끝난다: 마지막 조각이 체언 줄기·차례이거나 수 뒤 단위다), `Text`(어절의 글자), `Modifiable`(꾸밈꼴로 끝나는 어절이 바로 앞에 설 수 있다: 줄기가 체언·관형사이거나 꾸밈꼴·이름꼴로 끝난다), `Signs`(이름 없는 기호만의 열이다: 글에서 가린 이름 `○○`, `□□□`)도 읽는 쪽이 채운다. `AdnominalAll`(어절의 후보가 모두 관형어다: 꾸밈 맺음으로 끝나거나 표지 없이 홀로 선 관형사)과 `Unmodifiable`(관형어가 바로 앞에 설 수 없다: 새 낱말 읽기를 빼고 아는 후보가 모두 꾸밈꼴·이름꼴이 아닌 용언·부사·감탄사이거나, 문장을 끝내는 부호다)은 1위 하나가 아니라 어절의 후보 모두에서 읽는 쪽이 채운다. 뒤 어절의 `Glued`는 그 어절이 판정하는 후보의 어절에 붙어 있다는 뜻이다. `AroundIs`가 묻는다.
 
 ## 기준
 
@@ -74,11 +74,11 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
-| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 앞 어절의 줄기(`ListPrevStem`), 바로 앞 어절의 줄기 이름 통째(`ListPrevName`: `열쇠:동사`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`), 후보 어절의 글자(`ListSelfText`: 하다+ㄴ의 `한`. 읽는 쪽이 `Self.Text`에 채운다)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
+| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 앞 어절의 줄기(`ListPrevStem`), 바로 앞 어절의 줄기 이름 통째(`ListPrevName`: `열쇠:동사`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`), 그 뒤 어절의 마지막 조각의 이름(`ListNext2Last`), 후보 어절의 글자(`ListSelfText`: 하다+ㄴ의 `한`. 읽는 쪽이 `Self.Text`에 채운다)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
 | `Listed` | rule, except | 바로 뒤 어절의 줄기 이름의 갈래(`ListNextKind`: `닫기:1`의 `닫기`, `ListPrevKind`의 짝)가 기준 목록에 있다. 뒤에 어절이 없으면 ""다 | `List`, 뒤집으려면 `Not` |
 | `SelfHas` | rule, except | 후보의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`에서는`의 `부사격:에서`). 볼 사실은 `ListSelfMarks`로 적는다(`Listed`는 이 사실을 읽지 않는다). 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |
 | `PrevHas` | rule, except | 후보 바로 앞 어절의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`있기는`의 `이름:기`). 볼 사실은 `ListPrevLast`로 적는다(앞 어절. `Listed`는 표지를 낱낱이 읽지 않는다). 앞 어절이 없으면 없다. 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |
-| `AroundIs` | rule, except | 후보와 둘레가 기준의 사실을 갖는다(`Around…`): 후보의 어절이 바로 앞 어절에 빈칸 없이 붙어 있다(`AroundGlued`), 바로 앞 어절이 체언으로 끝난다(`AroundAfterNominal`), 바로 뒤 어절이 꾸밈꼴 뒤에 설 수 있다(`AroundBeforeModifiable`), 바로 뒤 어절이 빈칸 없이 붙어 있다(`AroundBeforeGlued`: 그 어절의 `Glued`), 바로 앞 어절이 이름 없는 기호만의 열이다(`AroundAfterSigns`: 그 어절의 `Signs`, 가린 이름 `○○`). 앞이나 뒤에 어절이 없으면 그 사실은 없다 | `Bits`(around), 뒤집으려면 `Not` |
+| `AroundIs` | rule, except | 후보와 둘레가 기준의 사실을 갖는다(`Around…`): 후보의 어절이 바로 앞 어절에 빈칸 없이 붙어 있다(`AroundGlued`), 바로 앞 어절이 체언으로 끝난다(`AroundAfterNominal`), 바로 뒤 어절이 꾸밈꼴 뒤에 설 수 있다(`AroundBeforeModifiable`), 바로 뒤 어절이 빈칸 없이 붙어 있다(`AroundBeforeGlued`: 그 어절의 `Glued`), 바로 앞 어절이 이름 없는 기호만의 열이다(`AroundAfterSigns`: 그 어절의 `Signs`, 가린 이름 `○○`), 바로 앞 어절의 후보가 모두 관형어다(`AroundAfterAdnominal`: 그 어절의 `AdnominalAll`), 바로 뒤 어절에 관형어가 설 수 없다(`AroundBeforeUnmodifiable`: 그 어절의 `Unmodifiable`). 앞이나 뒤에 어절이 없으면 그 사실은 없다 | `Bits`(around), 뒤집으려면 `Not` |
 | `KindListed` | rule, except | `Listed`와 같은 사실(`ListSelfKind`, `ListSelfLast`, `ListPrevLast` …)에서 쌍점 앞의 갈래(`꾸밈:ㄹ`의 `꾸밈`, `의존명사:수`의 `의존명사`)가 기준 목록에 있다. 쌍점이 없는 이름은 이름 자체가 갈래다. 증거는 그 갈래 | `List`(갈래 목록), 뒤집으려면 `Not` |
 | `Headed` | rule, except | 후보 앞에 어절이 없거나(문장 첫머리), 바로 앞 어절의 줄기 이름의 갈래가 기준 목록에 있다(여닫는 기호는 줄기 자리에 서서 `열기:1`이 줄기 이름이다). 줄기 이름이 없는 새 낱말은 첫머리가 아니다(`ListPrevKind`만으로는 새 낱말과 첫머리가 같은 ""라 가를 수 없다). 증거는 바로 앞 어절의 줄기 이름 | `List`(갈래 목록, 볼 사실은 `ListPrevKind`), 뒤집으려면 `Not` |
 

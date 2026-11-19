@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestCheckCases — a table whose graphs are all marker graphs of the index passes, and so does an empty one; a graph that is not is an error that names its first row, the graphs taken in the order of their names
+//ff:what TestCheckCases — a table whose graphs are all marker graphs or rules of a sentence of the index passes, and so does an empty one; a graph that is neither is an error that names its first row, the graphs taken in the order of their names
 package token
 
 import (
@@ -20,12 +20,17 @@ func TestCheckCases(t *testing.T) {
 	if err := ix.checkCases(); err != nil {
 		t.Fatal(err)
 	}
+	ix.sentence = []sentenceRule{{name: "문장:시험"}}
+	caseExceptions = map[string][]caseException{"맺음:소": {row(2, "맺음:소")}, "문장:시험": {row(4, "문장:시험")}}
+	if err := ix.checkCases(); err != nil {
+		t.Fatal("a rule of a sentence is named", err)
+	}
 	caseExceptions = map[string][]caseException{}
 	if err := ix.checkCases(); err != nil {
 		t.Fatal(err)
 	}
 	caseExceptions = map[string][]caseException{"맺음:소": {row(2, "맺음:소")}, "맺음:하": {row(5, "맺음:하"), row(6, "맺음:하")}, "맺음:가": {row(7, "맺음:가")}}
-	if err := ix.checkCases(); err == nil || err.Error() != `표 c.tsv 7번째 줄 1번째 칸(그래프) "맺음:가": 색인에 이 이름의 표지 그래프가 없다` {
+	if err := ix.checkCases(); err == nil || err.Error() != `표 c.tsv 7번째 줄 1번째 칸(그래프) "맺음:가": 색인에 이 이름의 표지 그래프도 문장 규칙도 없다` {
 		t.Fatal(err)
 	}
 }

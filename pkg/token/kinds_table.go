@@ -36,6 +36,10 @@ var partKinds = map[string]int{
 // grammar tables (parse.ClosedWords).
 const auxSet = "보조 용언"
 
+// conjAdverbLabel is the kind of the conjunctive adverbs of the closed
+// set (접속 부사:그리고).
+const conjAdverbLabel = "접속 부사"
+
 // boundSet is the name of the closed set of dependent nouns there.
 const boundSet = "의존명사"
 
@@ -62,7 +66,7 @@ var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, 
 // closed sets of words (the sets of closed-words.tsv that pkg/parse
 // does not read).
 var closingSets = data.Must(data.Sets("closing-sets", setVerbOnly, setDrop, setDropKnown, setLinkTaker, setHangul, setVerbExist, setDropNew))
-var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setAskWord, setExistStem, setNegAdverb, setNumDet, setPointer, setPersonal))
+var wordSets = data.Must(loadWordSets(data.Must(data.Rows("closed-words", 2)), setBoundAux, setAuxMore, setPronounWord, setAskWord, setExistStem, setNegAdverb, setNumDet, setPointer, setPersonal, setAdnAdverb))
 
 // verbClosings are the closings only verbs take: the present ㄴ다/는다
 // (also before a quotation's 고, 면, 는), 는구나, 는군, 느라; the

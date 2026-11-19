@@ -1,5 +1,5 @@
 //ff:type feature=rule type=model
-//ff:what Near — one word of a sentence as one of its candidates reads it, as far as the rules of a sentence ask: the stem as it is printed, the stem's name (보조 용언:있, 열쇠:형용사; "" for a new word), the name of its last piece ("" when the stem is all there is), whether it carries a closing (it is a predicate), and the names of its markers (the parts after the stem) in order, joined with "+" (MarksOf gives them apart; kept as one string so that two of these can be compared), whether no space stands right before the word (Glued: it is written onto the word before it), and whether it is a run of signs alone with no name (Signs: ○○ for a name kept back)
+//ff:what Near — one word of a sentence as one of its candidates reads it, as far as the rules of a sentence ask: the stem as it is printed, the stem's name (보조 용언:있, 열쇠:형용사; "" for a new word), the name of its last piece ("" when the stem is all there is), whether it carries a closing (it is a predicate), and the names of its markers (the parts after the stem) in order, joined with "+" (MarksOf gives them apart; kept as one string so that two of these can be compared), whether no space stands right before the word (Glued: it is written onto the word before it), whether it is a run of signs alone with no name (Signs: ○○ for a name kept back), and, from all the candidates of the word, whether each is an adnominal (AdnominalAll) and whether no adnominal may stand before it (Unmodifiable)
 package rule
 
 type Near struct {
@@ -24,4 +24,15 @@ type Near struct {
 	// (no letter, digit or name of a sign): in a text such a run stands
 	// for a name kept back (○○, □□□). The reader fills it.
 	Signs bool
+	// AdnominalAll tells that each candidate of the word is an
+	// adnominal (관형어: it ends in a modifying closing or is a
+	// determiner standing alone with no marker). Unmodifiable tells that
+	// no adnominal may stand right before the word: each of its known
+	// candidates (a new word's aside) is a word no adnominal modifies (a
+	// predicate that ends in neither a modifying nor a naming form, an
+	// adverb, an interjection), or the word is a mark that ends a
+	// sentence. The reader fills them from all the candidates of the
+	// word, not from one.
+	AdnominalAll bool
+	Unmodifiable bool
 }

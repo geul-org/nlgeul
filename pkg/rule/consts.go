@@ -202,14 +202,17 @@ const (
 	ListNextKind             // the kind of the name of the stem of the word after it (닫기 of 닫기:1)
 	ListSelfText             // the letters of the candidate's word (한 of 하다 with ㄴ)
 	ListPrevName             // the name of the stem of the word before it, whole (열쇠:동사)
+	ListNext2Last            // the name of the last piece of the word after that
 )
 
 // Yes/no facts of a candidate judged in its sentence that AroundIs
 // tests.
 const (
-	AroundGlued            = 1 << iota // no space stands between the candidate's word and the word before it
-	AroundAfterNominal                 // the word right before it ends in a nominal (Near.Nominal)
-	AroundBeforeModifiable             // a word ending in a modifying closing may stand right before the word right after it (Near.Modifiable)
-	AroundBeforeGlued                  // the word right after it is written onto it: no space stands between them (Near.Glued of that word)
-	AroundAfterSigns                   // the word right before it is a run of signs alone with no name, which stands for a name kept back (Near.Signs)
+	AroundGlued              = 1 << iota // no space stands between the candidate's word and the word before it
+	AroundAfterNominal                   // the word right before it ends in a nominal (Near.Nominal)
+	AroundBeforeModifiable               // a word ending in a modifying closing may stand right before the word right after it (Near.Modifiable)
+	AroundBeforeGlued                    // the word right after it is written onto it: no space stands between them (Near.Glued of that word)
+	AroundAfterSigns                     // the word right before it is a run of signs alone with no name, which stands for a name kept back (Near.Signs)
+	AroundAfterAdnominal                 // each candidate of the word right before it is an adnominal: it ends in a modifying closing or is a determiner standing alone (Near.AdnominalAll)
+	AroundBeforeUnmodifiable             // no adnominal may stand right before the word right after it, by any of its candidates (Near.Unmodifiable)
 )

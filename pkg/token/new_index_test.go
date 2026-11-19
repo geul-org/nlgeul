@@ -47,7 +47,7 @@ func TestNewIndex(t *testing.T) {
 		}
 	}
 	useCases(t, "testdata/case-exceptions-bad.tsv")
-	if _, err := newIndex(Options{Words: "testdata/words.tsv"}); err == nil || !strings.Contains(err.Error(), `"맺음:소오": 색인에 이 이름의 표지 그래프가 없다`) {
+	if _, err := newIndex(Options{Words: "testdata/words.tsv"}); err == nil || !strings.Contains(err.Error(), `"맺음:소오": 색인에 이 이름의 표지 그래프도 문장 규칙도 없다`) {
 		t.Fatal(err)
 	}
 	if _, err := newIndex(Options{}); err != nil {

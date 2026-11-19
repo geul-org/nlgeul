@@ -445,3 +445,17 @@ const (
 // The name of the rule of rebuttal of a sentence of 이라고 after 것 read
 // as the particle of direct quotation (thingQuoteRule).
 const ruleThingQuote = "문장:것 뒤 이라고는 인용 조사가 아니다"
+
+// The name of the rule of rebuttal of a sentence of an adnominal and
+// the word right after it, one no adnominal modifies (adnHeadRule,
+// adnHeadAfterRule), and why it falls.
+const (
+	ruleAdnHead      = "문장:관형어 바로 뒤에는 꾸밈 받을 말"
+	whyBoundAuxNext  = "바로 뒤 어절의 줄기가 꾸밈꼴 뒤에 서는 보조 용언(듯하다·만하다·척하다 …)이다"
+	whyCoordNext     = "바로 뒤 어절이 -고·-며로 끝난다(나란히 선 관형절의 앞 용언)"
+	whyAdnAdverbNext = "바로 뒤 어절이 관형어와 체언 사이에 서는 부사(이른바·즉·가장 …)다"
+	whyAdnAfterNext  = "그다음 어절이 꾸밈꼴로 끝난다(바로 뒤 어절로 시작한 관형절)"
+	whyBoundAuxSelf  = "줄기가 꾸밈꼴 뒤에 서는 보조 용언(듯하다·만하다·척하다 …)이다"
+	whyAdnAdverbSelf = "관형어와 체언 사이에 서는 부사(이른바·즉·가장 …)다"
+	whyNegAdverbSelf = "부정 부사(안·못)다: 바로 뒤 용언을 꾸며 관형절을 연다"
+)
