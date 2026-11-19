@@ -16,7 +16,7 @@ func TestStreamRedoAgainRebuttal(t *testing.T) {
 	ruled.Next()
 	ruled.Next()
 	sent, _ := ruled.Next()
-	if segmentLine(sent) != segmentLine(down[0]) || sent.Lambda != down[0].Lambda || len(ruled.sent[2].lifts) == 0 || ruled.sent[2].lifts[0].force != forceUngrammatical {
+	if segmentLine(sent) != segmentLine(down[0]) || sent.Lambda != down[0].Lambda || len(ruled.sent[2].lifts) == 0 || ruled.sent[2].lifts[0].force != 0.5 {
 		t.Fatal("Next sends it rebutted", segmentLine(sent), sent.Lambda, down[0].Lambda)
 	}
 	for k := 1; k < 3; k++ {

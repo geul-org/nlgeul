@@ -16,7 +16,7 @@ func TestLiftedRebuttal(t *testing.T) {
 		t.Fatal(down.Contest.Branches)
 	}
 	now, k := branchNamed(down, subj)
-	if k == 0 || !almost(now.Verdict, was.Verdict/3) || now.Pref != was.Pref {
+	if k == 0 || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical) - 1)) || now.Pref != was.Pref {
 		t.Fatal(k, now.Verdict, now.Pref)
 	}
 	if n.Contest.Branches[0].String() != subj || n.Contest.Branches[0].Verdict != was.Verdict {

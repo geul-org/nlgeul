@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestReaderJSONSentenceRebuttal — a sentence set down as data with a rule of rebuttal among the index's rules: the rebutted 주격 이 of 학생이 before 되었다 is written after 보격 이 with a third of its verdict, its preference as it was and its lambda lowered by about 7.16, and every candidate is still written
+//ff:what TestReaderJSONSentenceRebuttal — a sentence set down as data with a rule of rebuttal among the index's rules: the rebutted 주격 이 of 학생이 before 되었다 is written after 보격 이 with its verdict multiplied by 2/(1+forceUngrammatical)-1, its preference as it was and its lambda lowered by Lambda times the log10 of that, and every candidate is still written
 package token
 
 import (
@@ -17,7 +17,7 @@ func TestReaderJSONSentenceRebuttal(t *testing.T) {
 	if len(now) != len(was) || len(was) < 2 || now[0].Parts[1].Name == nil || *now[0].Parts[1].Name != "보격:이" || *now[1].Parts[1].Name != "주격:이" || *was[0].Parts[1].Name != "주격:이" {
 		t.Fatal(was, now)
 	}
-	if !almost(now[1].Verdict, was[0].Verdict/3) || now[1].Pref != was[0].Pref || now[1].Lambda == nil || !almost(*now[1].Lambda, *was[0].Lambda+Lambda*math.Log10(1.0/3)) {
+	if !almost(now[1].Verdict, was[0].Verdict*(2/(1+forceUngrammatical) - 1)) || now[1].Pref != was[0].Pref || now[1].Lambda == nil || !almost(*now[1].Lambda, *was[0].Lambda+Lambda*math.Log10(2/(1+forceUngrammatical) - 1)) {
 		t.Fatal(now[1], was[0])
 	}
 }

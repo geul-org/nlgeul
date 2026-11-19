@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNegKindRuleStream — read as a stream with words-neg-kind.tsv (the adjective 못하 counted more than the verb) and the rules as the index puts them: with no rule 못했다 is the adjective after 가지 and after 편하지; with the rules it is the verb after the verb's 가지 (the adjective's rebuttal 통과) and stays the adjective after 편하지 (the adjective's rebuttal 기각: whyNotVerbBefore, the verb's rebuttal 통과); the rebutted candidate is kept, with a third of its verdict
+//ff:what TestNegKindRuleStream — read as a stream with words-neg-kind.tsv (the adjective 못하 counted more than the verb) and the rules as the index puts them: with no rule 못했다 is the adjective after 가지 and after 편하지; with the rules it is the verb after the verb's 가지 (the adjective's rebuttal 통과) and stays the adjective after 편하지 (the adjective's rebuttal 기각: whyNotVerbBefore, the verb's rebuttal 통과); the rebutted candidate is kept, with its verdict multiplied by 2/(1+forceUngrammatical)-1
 package token
 
 import "testing"
@@ -34,7 +34,7 @@ func TestNegKindRuleStream(t *testing.T) {
 		return branchNamed(seg.Nodes[0], adj)
 	}
 	was, _ := second(false)
-	if now, k := second(true); k < 1 || !almost(now.Verdict, was.Verdict/3) || now.Pref != was.Pref {
-		t.Fatal("the rebutted adjective is kept behind with a third of its verdict", k, now.Verdict, was.Verdict)
+	if now, k := second(true); k < 1 || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical) - 1)) || now.Pref != was.Pref {
+		t.Fatal("the rebutted adjective is kept behind with its verdict lowered by the force", k, now.Verdict, was.Verdict)
 	}
 }

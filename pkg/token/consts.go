@@ -221,10 +221,13 @@ const forceDropAdn = 0.5
 // noun after a modifier, the third for all the others) it gave 13 more
 // (19, 6); with the steps measured before seenShare (0.5, 1.5, 3.33 and 5)
 // 3 more (5, 2), as 한 after the modifying 는 now needs more than 1.5 (1.75
-// is enough).
+// is enough). On 2026-11-19 bonusOverCount was fitted by gradient descent
+// (see bonusNewTaken) from 2 to 2.1; moving the other steps (the first,
+// bonusMainFirst, bonusOverWhole, bonusOverUncounted) changed no word
+// right, and they were left as they were.
 const (
 	bonusSameLetters = 0.5
-	bonusOverCount   = 2.0
+	bonusOverCount   = 2.1
 )
 
 // bonusMainFirst is what the rule "a stem an auxiliary verb shares is the
@@ -475,8 +478,13 @@ const bonusOverUncounted = 12.0
 // bonusNewTaken is what the rebuttal "it is in no key table" (forceNew)
 // takes from lambda: a word of markers alone, written apart from the
 // word they belong to, is read with a new word's verdict (loneOf),
-// 2/(1+forceNew)-1, so the value is about 5.85 (7.16 when forceNew was
-// 0.5). The rule of a sentence
+// 2/(1+forceNew)-1, so the value was about 7.16 when forceNew was 0.5
+// (and would be 5.85 with forceNew 0.42). On 2026-11-19 it was fitted by
+// gradient descent with bonusOverCount and forceUngrammatical, after the
+// values of the unit layer (see forceNew), to 6.11, a little more than
+// what the new word's rebuttal now takes: on the answer sheet (train)
+// these three gave 17 more right words (18 righted, 1 turned wrong), and
+// 5.85 six fewer than 6.11. The rule of a sentence
 // apartParticleRule adds it where the word before shows what the
 // particle belongs to. None of the four steps (bonusSameLetters to
 // bonusOverWhole) is that far, and bonusOverUncounted is what another
@@ -484,19 +492,22 @@ const bonusOverUncounted = 12.0
 // rights 8 words (none turned wrong) and this value 15 (one turned
 // wrong); 이 written apart after a noun, read as the noun or the
 // determiner, stands about 7.3 above the particle.
-var bonusNewTaken = -Lambda * math.Log10(2/(1+forceNew)-1)
+const bonusNewTaken = 6.11
 
 // forceUngrammatical is the force of every rule of a sentence that
 // rebuts a candidate (sentenceRule.force): its claim is that the grammar
 // does not let the candidate stand where it is, and when the claim
 // stands the candidate's verdict is multiplied by 2/(1+force)-1, as a
 // rebuttal of the unit layer lowers it (forceUnitWord, forceNumberAdn,
-// forceMeasureOpen). 0.5 gives a verdict of 1/3, about 7.16 of lambda
-// (as bonusNewTaken did with forceNew 0.5), and keeps the candidate
-// behind the others with room. It is one value for all those rules, not one for each rule: it
-// is not fitted by hand but left to be fitted later by gradient descent
-// with the other values (decision 014-50).
-const forceUngrammatical = 0.5
+// forceMeasureOpen). It was 0.5, a verdict of 1/3 (about 7.16 of
+// lambda); it is not fitted by hand but by gradient descent with the
+// other values (decision 014-50), and on 2026-11-19 it was fitted (see
+// bonusNewTaken) to 0.42: a verdict of about 0.41, about 5.84 of lambda,
+// which keeps the candidate behind the others with room. It is one
+// value for all those rules, not one for each rule: fitted one for each
+// rule, two of the rules did not move and the other two moved by less
+// than 0.13 for no more words right.
+const forceUngrammatical = 0.42
 
 // negKindStems are the stems of the auxiliary predicates of negation
 // that the dictionary gives both as an auxiliary verb and as an

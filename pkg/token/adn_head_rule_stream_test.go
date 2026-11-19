@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestAdnHeadRuleStream — read as a stream with words-adn-head.tsv and the two rules as the index puts them: with no rule 이 before 역시 is the determiner and 채 after 스무 the adverb; with the rules 이 is the pronoun (the determiner's rebuttal 통과, kept behind with a third of its verdict) and 채 the dependent noun (the adverb's rebuttal 통과); before 가장 큰 the determiner stays (기각: whyAdnAdverbNext, whyAdnAfterNext)
+//ff:what TestAdnHeadRuleStream — read as a stream with words-adn-head.tsv and the two rules as the index puts them: with no rule 이 before 역시 is the determiner and 채 after 스무 the adverb; with the rules 이 is the pronoun (the determiner's rebuttal 통과, kept behind with its verdict multiplied by 2/(1+forceUngrammatical)-1) and 채 the dependent noun (the adverb's rebuttal 통과); before 가장 큰 the determiner stays (기각: whyAdnAdverbNext, whyAdnAfterNext)
 package token
 
 import "testing"
@@ -33,7 +33,7 @@ func TestAdnHeadRuleStream(t *testing.T) {
 		return branchNamed(seg.Nodes[0], "이[관형사:이]")
 	}
 	was, _ := first(false)
-	if now, k := first(true); k < 1 || !almost(now.Verdict, was.Verdict/3) || now.Pref != was.Pref {
-		t.Fatal("the rebutted determiner is kept behind with a third of its verdict", k, now.Verdict, was.Verdict)
+	if now, k := first(true); k < 1 || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical) - 1)) || now.Pref != was.Pref {
+		t.Fatal("the rebutted determiner is kept behind with its verdict lowered by the force", k, now.Verdict, was.Verdict)
 	}
 }

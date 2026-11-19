@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestApartParticleRule — the rule is named as the trace prints it, adds bonusNewTaken (what the rebuttal against a new word takes from lambda, about 7.16), reads nothing after the candidate, and speaks of a word read as markers alone whose first is a particle (는, 이라고, 에+도), not of the demonstrative's letters 이, nor of a word with a stem, nor of a closing alone
+//ff:what TestApartParticleRule — the rule is named as the trace prints it, adds bonusNewTaken (6.11: more than what the rebuttal against a new word takes from lambda, and more than bonusOverWhole), reads nothing after the candidate, and speaks of a word read as markers alone whose first is a particle (는, 이라고, 에+도), not of the demonstrative's letters 이, nor of a word with a stem, nor of a closing alone
 package token
 
 import (
@@ -14,7 +14,7 @@ func TestApartParticleRule(t *testing.T) {
 	if r.name != ruleApartParticle || r.bonus != bonusNewTaken || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
-	if math.Abs(bonusNewTaken+Lambda*math.Log10(2/(1+forceNew)-1)) > 1e-9 {
+	if bonusNewTaken <= -Lambda*math.Log10(2/(1+forceNew)-1) || bonusNewTaken <= bonusOverWhole {
 		t.Errorf("bonusNewTaken = %v", bonusNewTaken)
 	}
 	for _, c := range []struct {

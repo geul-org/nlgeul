@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestThingQuoteRuleStream — read as a stream with words-quoted.tsv: with no rule 것이라고 after 좋은 is 것 with the particle 이라고; with the rule it is 것 with the copula and -라고, the trace says 통과 for the particle, and the particle is kept behind with a third of its verdict; 책이라고 is not asked
+//ff:what TestThingQuoteRuleStream — read as a stream with words-quoted.tsv: with no rule 것이라고 after 좋은 is 것 with the particle 이라고; with the rule it is 것 with the copula and -라고, the trace says 통과 for the particle, and the particle is kept behind with its verdict multiplied by 2/(1+forceUngrammatical)-1; 책이라고 is not asked
 package token
 
 import (
@@ -27,7 +27,7 @@ func TestThingQuoteRuleStream(t *testing.T) {
 	}
 	was, _ := branchNamed(Node{Contest: Contest{Branches: branches()}}, quote)
 	now, k := branchNamed(Node{Contest: Contest{Branches: branches(r)}}, quote)
-	if k < 1 || !almost(now.Verdict, was.Verdict/3) || now.Pref != was.Pref {
+	if k < 1 || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical) - 1)) || now.Pref != was.Pref {
 		t.Fatal("the particle is kept behind", k, now.Verdict, was.Verdict)
 	}
 	if _, notes := ruledFirst(t, "words-quoted.tsv", "책이라고 했다", "책이라고", r); strings.Contains(strings.Join(notes, "\n"), "\t"+ruleThingQuote+"\t") {

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=sequence
-//ff:what TestStreamNextRebuttal — Next with a rule of rebuttal: 주격 이 of 학생이 before 되었다 stands behind 보격 이 with a third of its verdict and its preference as it was, no candidate is taken away, the trace line comes with the stretch, and Lambda (the tied first lambda) is as it was; the word after reads 보격 이 before it (되었다 gains 3 by afterComplementRule); NextHead cuts the candidates in the order after the rebuttal; two rebuttals multiply (a ninth)
+//ff:what TestStreamNextRebuttal — Next with a rule of rebuttal: 주격 이 of 학생이 before 되었다 stands behind 보격 이 with its verdict multiplied by 2/(1+forceUngrammatical)-1 and its preference as it was, no candidate is taken away, the trace line comes with the stretch, and Lambda (the tied first lambda) is as it was; the word after reads 보격 이 before it (되었다 gains 3 by afterComplementRule); NextHead cuts the candidates in the order after the rebuttal; two rebuttals multiply (the factor squared)
 package token
 
 import (
@@ -16,7 +16,7 @@ func TestStreamNextRebuttal(t *testing.T) {
 	was, _ := branchNamed(plain.Nodes[0], subj)
 	bs := seg.Nodes[0].Contest.Branches
 	now, k := branchNamed(seg.Nodes[0], subj)
-	if bs[0].String() != comp || k != 1 || len(bs) != len(plain.Nodes[0].Contest.Branches) || !almost(now.Verdict, was.Verdict/3) || now.Pref != was.Pref || !almost(seg.Lambda, plain.Lambda) {
+	if bs[0].String() != comp || k != 1 || len(bs) != len(plain.Nodes[0].Contest.Branches) || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical) - 1)) || now.Pref != was.Pref || !almost(seg.Lambda, plain.Lambda) {
 		t.Fatal(bs, seg.Lambda, plain.Lambda)
 	}
 	if !slices.Contains(st.Notes(), "  · "+subj+"\t되 앞 주격\t1.00\t통과") {
@@ -33,7 +33,7 @@ func TestStreamNextRebuttal(t *testing.T) {
 	twice := subjectRebuttalRule()
 	twice.name = "둘째"
 	down, _ := sentenceStream(t, s, false, subjectRebuttalRule(), twice).Next()
-	if br, _ := branchNamed(down.Nodes[0], subj); !almost(br.Verdict, was.Verdict/9) || br.Pref != was.Pref {
+	if br, _ := branchNamed(down.Nodes[0], subj); !almost(br.Verdict, was.Verdict*(2/(1+forceUngrammatical) - 1)*(2/(1+forceUngrammatical) - 1)) || br.Pref != was.Pref {
 		t.Fatal(br.Verdict, was.Verdict)
 	}
 }
