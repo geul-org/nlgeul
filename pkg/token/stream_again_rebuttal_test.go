@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestStreamAgainRebuttal — in a stretch of words written together rules of rebuttal change the ways: 밥 rebutted twice stands with a ninth of its verdict wherever it is a word, so that the way 밥 학생이 되었다 goes behind 밥학생이 되었다; Next and Again give every way the stretch has (none is taken away) in the order of the lambdas after the rebuttal, each way's Lambda the sum of its nodes' first lambdas
+//ff:what TestStreamAgainRebuttal — in a stretch of words written together rules of rebuttal change the ways: 밥 rebutted twice stands with its verdict (that of a key of one syllable) multiplied twice by 2/(1+forceUngrammatical)-1 wherever it is a word, so that the way 밥 학생이 되었다 goes behind 밥학생이 되었다; Next and Again give every way the stretch has (none is taken away) in the order of the lambdas after the rebuttal, each way's Lambda the sum of its nodes' first lambdas
 package token
 
 import (
@@ -31,7 +31,7 @@ func TestStreamAgainRebuttal(t *testing.T) {
 		if !almost(w.Lambda, lambdaSum(w)) || w.Rank != k+1 || (k > 0 && w.Lambda > down[k-1].Lambda) {
 			t.Fatal(k, segmentLine(w), w.Lambda)
 		}
-		if w.Nodes[0].Contest.Text == "밥" && w.Nodes[0].Contest.Branches[0].Verdict > 0.6/9+1e-9 {
+		if w.Nodes[0].Contest.Text == "밥" && w.Nodes[0].Contest.Branches[0].Verdict > (2/(1+forceShort)-1)*(2/(1+forceUngrammatical)-1)*(2/(1+forceUngrammatical)-1)+1e-9 {
 			t.Fatal("밥 is rebutted", w.Nodes[0].Contest.Branches[0])
 		}
 	}

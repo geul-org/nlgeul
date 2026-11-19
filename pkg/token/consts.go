@@ -95,9 +95,22 @@ const (
 const judgedMax = 100000
 
 // forceNew is the force of the rebuttal "it is in no key table"
-// against a new word: with it a new word's verdict is 2/(1+0.5)-1 =
-// 1/3, a low positive one. It is a placeholder, not a measured value.
-const forceNew = 0.5
+// against a new word: with it a new word's verdict is 2/(1+0.42)-1,
+// about 0.41, a low positive one. It was 0.5 (a verdict of 1/3), a
+// placeholder, not a measured value. On 2026-11-19 it was fitted by
+// gradient descent together with forceFew, forceShort, seenShare,
+// forceClash, forceTypo and the three costs of structure: the loss was
+// the expected number of words wrong on the answer sheet (train), each
+// word's reading taken as a softmax of the sum of lambda over its
+// candidates and ways at a temperature of 0.05, each value moved within
+// a box about its old value (the temperature, the box and the values to
+// move were chosen on folds of sentences held out; lambda itself is
+// decision 014-35 and was not moved). The analyzer then measured the
+// rounded values on the answer sheet: 156,194 → 156,241 right words of
+// 163,927 (134 righted, 87 turned wrong). The gain is of the values
+// together: moved alone, this value and forceShort each lose about 50
+// words.
+const forceNew = 0.42
 
 // How strong the evidence is that a stem found in the word table is a
 // word (the verdict of its kind's graph). A stem observed seenShare of
@@ -106,7 +119,8 @@ const forceNew = 0.5
 // counts as seen enough follows the size of the table; forceFew and
 // forceShort are the forces of the rebuttals "rarely seen" and "a key of
 // one syllable", and shortKey the length that counts as short.
-// forceShort and shortKey are placeholders, not measured values.
+// shortKey is a placeholder, not a measured value; forceShort was one
+// (0.25) and was fitted with forceNew (see there) to 0.21.
 // seenShare took the place of a count, 10000, a placeholder set when the
 // table's counts summed to about 175 million; with the table counted
 // again (about 1,341 million) the count was measured on the answer sheet
@@ -115,7 +129,8 @@ const forceNew = 0.5
 // 68, 10,000,000 55 and 100,000,000 15 more; and the share: 6e-4 68,
 // 6.5e-4 70, 7.5e-4 75 (167 righted, 92 turned wrong), 8.5e-4 73, 9e-4 72
 // and 1e-3 71 more. 7.5e-4 (about a million times in that table) is the
-// least past which no more words are righted.
+// least past which no more words are righted. It was fitted with
+// forceNew (see there) to 9.4e-4.
 // forceFew is chosen among a few values tried on a thousand sentences
 // so that a row seen once (or with no count), even of one syllable,
 // still stands above a new word: with the two rebuttals in full the
@@ -123,11 +138,13 @@ const forceNew = 0.5
 // forceFew was so chosen before the word table was counted again; with
 // the table counted again, against this value on the answer sheet 0.18
 // gives 192 fewer, 0.25 and 0.3 two fewer, 0.36 two more (26 righted, 24
-// turned wrong) and 0.5 five fewer.
+// turned wrong) and 0.5 five fewer. It was fitted with forceNew (see
+// there) to 0.17: with the two rebuttals in full the verdict is now
+// 2/(1+0.17+0.21)-1, about 0.45, still over a new word's 0.41.
 const (
-	seenShare  = 7.5e-4
-	forceFew   = 0.24
-	forceShort = 0.25
+	seenShare  = 9.4e-4
+	forceFew   = 0.17
+	forceShort = 0.21
 	shortKey   = 1
 )
 
@@ -151,12 +168,13 @@ const forceWhole = 0.98
 // 1 turned wrong), 0.25 and 0.375 two more (none turned wrong: one word of
 // each rebuttal, both in old spelling, 않어도), and before seenShare 0.625
 // gave six fewer and 0 ten fewer; the middle of the flat stretch is taken.
-const forceClash = 0.25
+// It was fitted with forceNew (see there) to 0.23.
+const forceClash = 0.23
 
 // forceEcho is the force of the rebuttal that 에 right on a stem with no
 // final consonant before 요 is also the closing 예요 written 에요
 // (echoes): the reading with 에 and 요 (a verdict of 1/3) stands behind
-// the closing written wrong (2/(1+forceTypo)-1, about 0.56). It was
+// the closing written wrong (2/(1+forceTypo)-1, about 0.67). It was
 // forceClash's 0.5 and is kept so when forceClash went to 0.25, at which
 // the reading with 에 and 요 (0.6) would stand before the closing written
 // wrong; on the answer sheet 0.25 and 0.5 give the same words.
@@ -223,16 +241,20 @@ const (
 // taken from the first stretch.
 const bonusMainFirst = 0.1
 
-// bonusShortTaken is what the rebuttal "one syllable long" alone takes
-// from lambda: its verdict is 2/(1+forceShort)-1, so the value is about
-// 3.33. A rule adds it where the candidate it prefers stands below
+// bonusShortTaken was what the rebuttal "one syllable long" alone takes
+// from lambda: its verdict is 2/(1+forceShort)-1, so with forceShort
+// 0.25 the value was about 3.33. When forceShort was fitted (0.21, see
+// forceNew) the step was kept at 3.33 rather than following it to about
+// 2.78: the gradient descent that moved forceShort left the step where
+// it was (3.32 when fitted with the others), and following forceShort
+// lost words. A rule adds it where the candidate it prefers stands below
 // another word by up to about that: a noun of one syllable the rebuttal
 // held down (자+의 written onto a noun under 자의, gluedShortRule, which
 // gives back what the rebuttal took), a stem of one syllable before a
 // word that shows it is a predicate's (남+아 before 있다, 알+ㄹ before 수,
 // 거+는 after a modifying form), the copula's piece (야 at a sentence's
 // end, 이나 before a comma) and 말다 with its ㄹ dropped (마라 after -지).
-var bonusShortTaken = -Lambda * math.Log10(2/(1+forceShort)-1)
+const bonusShortTaken = 3.33
 
 // bonusOverWhole is what the rule "a dependent noun stands right after a
 // modifying form" (boundAfterRule) adds: it carries the dependent noun
@@ -283,27 +305,30 @@ var predKinds = []string{"맺음", "꾸밈", "이름"}
 // forceTypo is the force of the rebuttal "the letters are a misspelling
 // of the word" against a stem that the word table gives as a wrong way
 // to write another word (misspeltRebuttal). With only that rebuttal the
-// verdict is 2/(1+0.28)-1, about 0.56, below the verdict of the word
+// verdict is 2/(1+0.2)-1, about 0.67, below the verdict of the word
 // written right, so that the right candidate of the same letters comes
 // first. forceClash (먹아, 줄은) is not used: those forms
 // have another candidate of the same letters that fits the norm, and the
 // candidate is sent behind it; a misspelt stem has no right candidate of
-// those letters to give way to. It is a placeholder, not a measured
-// value.
-const forceTypo = 0.28
+// those letters to give way to. It was 0.28, a placeholder, not a
+// measured value, and was fitted with forceNew (see there) to 0.2.
+const forceTypo = 0.2
 
-// The costs of structure, in the units of preference (log10). They are
-// placeholders, not measured values: nothing in the tables says how
-// much a boundary, an unseen piece or a piece is worth. Each is paid
+// The costs of structure, in the units of preference (log10). They were
+// placeholders (1 each): nothing in the tables says how much a boundary,
+// an unseen piece or a piece is worth. They were fitted with forceNew
+// (see there) to 0.82, 1.15 and 0.82 (the unseen piece dearer, as it
+// took up what the cost of an unknown syllable, syllables, which is not
+// moved, was asked to give). Each is paid
 // once: for every word after a unit's first, for every piece that
 // leaves no trace in the letters (어/아 fused into ㅏ ㅓ ㅐ ㅔ with
 // nothing after it), and for the stem of a word. The markers of the
 // index (particles, slots, closings, units, signs) pay no such cost:
 // a word read into its pieces is not dearer than the same word whole.
 const (
-	costBoundary = 1.0
-	costUnseen   = 1.0
-	costPiece    = 1.0
+	costBoundary = 0.82
+	costUnseen   = 1.15
+	costPiece    = 0.82
 )
 
 // not turns a yes/no rule round (rule.Not); one value serves every
@@ -450,7 +475,8 @@ const bonusOverUncounted = 12.0
 // bonusNewTaken is what the rebuttal "it is in no key table" (forceNew)
 // takes from lambda: a word of markers alone, written apart from the
 // word they belong to, is read with a new word's verdict (loneOf),
-// 2/(1+forceNew)-1, so the value is about 7.16. The rule of a sentence
+// 2/(1+forceNew)-1, so the value is about 5.85 (7.16 when forceNew was
+// 0.5). The rule of a sentence
 // apartParticleRule adds it where the word before shows what the
 // particle belongs to. None of the four steps (bonusSameLetters to
 // bonusOverWhole) is that far, and bonusOverUncounted is what another
@@ -466,8 +492,8 @@ var bonusNewTaken = -Lambda * math.Log10(2/(1+forceNew)-1)
 // stands the candidate's verdict is multiplied by 2/(1+force)-1, as a
 // rebuttal of the unit layer lowers it (forceUnitWord, forceNumberAdn,
 // forceMeasureOpen). 0.5 gives a verdict of 1/3, about 7.16 of lambda
-// (as bonusNewTaken), and keeps the candidate behind the others with
-// room. It is one value for all those rules, not one for each rule: it
+// (as bonusNewTaken did with forceNew 0.5), and keeps the candidate
+// behind the others with room. It is one value for all those rules, not one for each rule: it
 // is not fitted by hand but left to be fitted later by gradient descent
 // with the other values (decision 014-50).
 const forceUngrammatical = 0.5

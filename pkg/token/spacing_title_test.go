@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestSpacingTitle — article 48: the stream of 갑돌씨가 has the way 갑돌 │ 씨+가 (갑돌 a new word with the new word's value, 씨 the title of the list), the way's lambda is the two words' best lambdas added up, and the word 씨+가 has the preference the stream gives it now (−5.2522)
+//ff:what TestSpacingTitle — article 48: the stream of 갑돌씨가 has the way 갑돌 │ 씨+가 (갑돌 a new word with the new word's value, 씨 the title of the list), the way's lambda is the two words' best lambdas added up, and the word 씨+가 has the preference the stream gives it now (−4.8922)
 package token
 
 import (
@@ -16,7 +16,7 @@ func TestSpacingTitle(t *testing.T) {
 	first, _ := st.Next()
 	ways := streamWays(st, first)
 	stem, nodes := nodesAt(ways, Span{0, 2}), nodesAt(ways, Span{2, 4})
-	if len(stem) == 0 || stem[0].Contest.Branches[0].String() != "갑돌" || stem[0].Contest.Branches[0].Verdict > 0.34 {
+	if len(stem) == 0 || stem[0].Contest.Branches[0].String() != "갑돌" || stem[0].Contest.Branches[0].Verdict > 2/(1+forceNew)-1+1e-9 {
 		t.Fatal("no new word 갑돌", stem)
 	}
 	if len(nodes) == 0 {
@@ -31,7 +31,7 @@ func TestSpacingTitle(t *testing.T) {
 	if !found {
 		t.Fatal("no way 갑돌 │ 씨+가 whose lambda adds up", ways)
 	}
-	if pref, ok := branchPref(nodes[0].Contest.Branches, "씨[열쇠:체언]+가[주격:가]"); !ok || math.Abs(pref-(-5.2522)) > 1e-4 {
+	if pref, ok := branchPref(nodes[0].Contest.Branches, "씨[열쇠:체언]+가[주격:가]"); !ok || math.Abs(pref-(-4.8922)) > 1e-4 {
 		t.Fatal("the word's preference", pref, ok)
 	}
 }

@@ -20,7 +20,7 @@ func TestLoneOf(t *testing.T) {
 	if p := e.word.Parts[1]; p.Stem || p.Text != "데" || p.Hidden != "ㄴ" || p.Name != (Name{"맺음", "ㄴ데"}) {
 		t.Fatal(p)
 	}
-	if e.verdict != sc.ix.unknown || e.pref != -(costPiece+costUnseen)-1-2 || e.sig != "+이[서술격:이]+(ㄴ)데[맺음:ㄴ데]" || e.sig != e.word.String() {
+	if e.verdict != sc.ix.unknown || !almost(e.pref, -(costPiece+costUnseen)-1-2) || e.sig != "+이[서술격:이]+(ㄴ)데[맺음:ㄴ데]" || e.sig != e.word.String() {
 		t.Fatal(e.verdict, e.pref, e.sig)
 	}
 	low := sc.ix.unknown / 2
@@ -29,7 +29,7 @@ func TestLoneOf(t *testing.T) {
 		{text: "다", names: "맺음:다", verdict: 1, pref: -1},
 	}}
 	e = scanOf("다").loneOf(drop, 1)
-	if e.verdict != low || e.pref != -(costPiece+costUnseen+costUnseen)-2 || !e.word.Parts[0].Unseen || e.word.Parts[0].Hidden != "이" || e.word.Parts[0].Text != "" || e.sig != "+(이)[서술격:이(빠짐)]+다[맺음:다]" {
+	if e.verdict != low || !almost(e.pref, -(costPiece+costUnseen+costUnseen)-2) || !e.word.Parts[0].Unseen || e.word.Parts[0].Hidden != "이" || e.word.Parts[0].Text != "" || e.sig != "+(이)[서술격:이(빠짐)]+다[맺음:다]" {
 		t.Fatal(e.verdict, e.pref, e.sig)
 	}
 }

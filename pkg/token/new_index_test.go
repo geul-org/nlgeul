@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestNewIndex — the index holds the words, particles, closings and slots, and a new word's verdict is the low positive 1/3; with a word table its keys and layers are set, a table that cannot be read is an error, and so is a spacing rule that is not one of SpacingArticles; with a word table the new word's graph turns down a stem that ends in ㅆ with markers after it (떨어졌 before a predicate tail or particles), without one it does not, and it keeps 1/3 for such a stem with no marker (TailBare or none) and for a stem of another final consonant or none (곰갓, 떨어지); with a word table a graph the case exception table names that is no marker graph is an error, without one it is not asked
+//ff:what TestNewIndex — the index holds the words, particles, closings and slots, and a new word's verdict is the low positive 2/(1+forceNew)-1; with a word table its keys and layers are set, a table that cannot be read is an error, and so is a spacing rule that is not one of SpacingArticles; with a word table the new word's graph turns down a stem that ends in ㅆ with markers after it (떨어졌 before a predicate tail or particles), without one it does not, and it keeps 1/3 for such a stem with no marker (TailBare or none) and for a stem of another final consonant or none (곰갓, 떨어지); with a word table a graph the case exception table names that is no marker graph is an error, without one it is not asked
 package token
 
 import (
@@ -29,7 +29,7 @@ func TestNewIndex(t *testing.T) {
 		t.Fatal("a spacing rule is set", err)
 	}
 	ix, _ := newIndex(Options{})
-	if ix.graphs < 200 || ix.total <= 0 || len(ix.words) == 0 || ix.stem == nil || math.Abs(ix.unknown-1.0/3) > 1e-9 {
+	if ix.graphs < 200 || ix.total <= 0 || len(ix.words) == 0 || ix.stem == nil || math.Abs(ix.unknown-(2/(1+forceNew) - 1)) > 1e-9 {
 		t.Fatal(ix.graphs, ix.total, ix.unknown)
 	}
 	if v, why := verdictOf(withWords.stem, rule.Piece{Form: "떨어졌", Tail: rule.TailPred}, "", true); v > 0 || !slices.Contains(why, whyCoda) {
@@ -38,11 +38,11 @@ func TestNewIndex(t *testing.T) {
 	if v, _ := verdictOf(withWords.stem, rule.Piece{Form: "떨어졌", Tail: rule.TailCase}, "", false); v > 0 {
 		t.Fatal("떨어졌 before particles", v)
 	}
-	if v, _ := verdictOf(ix.stem, rule.Piece{Form: "떨어졌", Tail: rule.TailPred}, "", false); math.Abs(v-1.0/3) > 1e-9 {
+	if v, _ := verdictOf(ix.stem, rule.Piece{Form: "떨어졌", Tail: rule.TailPred}, "", false); math.Abs(v-(2/(1+forceNew) - 1)) > 1e-9 {
 		t.Fatal("without a word table a stem that ends in ㅆ is not turned down", v)
 	}
 	for _, p := range []rule.Piece{{Form: "떨어졌", Tail: rule.TailBare}, {Form: "떨어졌"}, {Form: "떨어지", Tail: rule.TailPred}, {Form: "곰갓", Tail: rule.TailPred}} {
-		if v, why := verdictOf(withWords.stem, p, "", true); math.Abs(v-1.0/3) > 1e-9 || len(why) != 0 {
+		if v, why := verdictOf(withWords.stem, p, "", true); math.Abs(v-(2/(1+forceNew) - 1)) > 1e-9 || len(why) != 0 {
 			t.Fatal(p, v, why)
 		}
 	}

@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestHaTailsSentence — the sentences of clause 40 read as a stream (the best candidate of each word, by lambda): 원치, 가능케, 불쌍타, 달성코자, 단언컨대 are read as the stem with 하 and the plain closing's name on the written letters, in one word; 분발토록 keeps the noun with the particle 토록 first and has the clause 40 reading after it; nouns with a particle right after (위치를, 정치는, 대치는, 강타를, 일치는) keep their reading and have no clause 40 reading; 영원토록 keeps the adverb first; the dependent noun 만치 right after a modifying form (그럴 만치) is read first as the noun, with 만하+치 after it (nounModifiedRule)
+//ff:what TestHaTailsSentence — the sentences of clause 40 read as a stream (the best candidate of each word, by lambda, the word looked for in the best way first and then in the ways after it: with the values fitted on 2026-11-19 the small table cuts 달성코자 as 달성 │ 코자 first): 원치, 가능케, 불쌍타, 달성코자, 단언컨대 are read as the stem with 하 and the plain closing's name on the written letters, in one word; 분발토록 keeps the noun with the particle 토록 first and has the clause 40 reading after it; nouns with a particle right after (위치를, 정치는, 대치는, 강타를, 일치는) keep their reading and have no clause 40 reading; 영원토록 keeps the adverb first; the dependent noun 만치 right after a modifying form (그럴 만치) is read first as the noun, with 만하+치 after it (nounModifiedRule)
 package token
 
 import (
@@ -28,12 +28,11 @@ func TestHaTailsSentence(t *testing.T) {
 		{"영원토록 남는다.", "영원토록", "영원토록[열쇠:부사]", "영원하[열쇠:형용사]+토록[맺음:도록]", false},
 		{"그럴 만치 컸다.", "만치", "만치[열쇠:체언]", "만하[열쇠:형용사]+치[맺음:지]", false},
 	} {
-		w, ok := jsonWordAt(r.JSONSentence(c.sentence, 0), c.word)
+		got, ok := wordShownAnyWay(r, c.sentence, c.word)
 		if !ok {
 			t.Errorf("%s: no word %s", c.sentence, c.word)
 			continue
 		}
-		got := jsonWordShown(w)
 		if got[0] != c.first || (c.also != "" && !slices.Contains(got, c.also)) {
 			t.Errorf("%s: %v, want %s first (and %s)", c.sentence, got, c.first, c.also)
 		}

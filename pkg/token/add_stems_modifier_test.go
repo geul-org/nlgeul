@@ -22,7 +22,7 @@ func TestAddStemsModifier(t *testing.T) {
 		if v > 0 || !slices.Contains(why, whyModifier) {
 			t.Errorf("lexed %v tail %d: %v %v", c.ix.lexed, c.tail, v, why)
 		}
-		if free, _ := verdictOf(c.ix.stem, rule.Piece{Form: "못와", Tail: c.tail}, "", false); math.Abs(free-1.0/3) > 1e-9 {
+		if free, _ := verdictOf(c.ix.stem, rule.Piece{Form: "못와", Tail: c.tail}, "", false); math.Abs(free-(2/(1+forceNew) - 1)) > 1e-9 {
 			t.Errorf("lexed %v tail %d without the fact: %v", c.ix.lexed, c.tail, free)
 		}
 	}

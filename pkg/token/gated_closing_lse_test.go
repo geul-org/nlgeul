@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestGatedClosingLse — end to end with a word table, the closing ㄹ세 of 하게체 (gated-closings.tsv) is read fused under the copula's stem 이 (학교일세) and under a predicate's stem of the table that ends in a vowel (아닐세), and not under the letters of a stem the table does not have (월세 has no closing ㄹ세)
+//ff:what TestGatedClosingLse — end to end with a word table, the closing ㄹ세 of 하게체 (gated-closings.tsv) is read fused under the copula's stem 이 (학교일세: the first reading of the word read whole; with the values fitted on 2026-11-19 the way 학교 │ 일+세 of the small table comes first, 0.02 of lambda above it) and under a predicate's stem of the table that ends in a vowel (아닐세), and not under the letters of a stem the table does not have (월세 has no closing ㄹ세)
 package token
 
 import (
@@ -17,7 +17,7 @@ func TestGatedClosingLse(t *testing.T) {
 		{"아닐세", "아니[열쇠:형용사]+(ㄹ)세[맺음:ㄹ세]"},
 	} {
 		lines := streamLines(r, c.in)
-		if len(lines) == 0 || lines[0] != c.want {
+		if wholeFirst(lines) != c.want {
 			t.Errorf("%s: want first %q\n%s", c.in, c.want, strings.Join(lines, "\n"))
 		}
 	}

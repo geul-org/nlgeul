@@ -3,6 +3,7 @@
 package token
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
@@ -35,11 +36,12 @@ func TestWordOfSole(t *testing.T) {
 	}
 	r, _ := New(Options{Words: "testdata/words.tsv"})
 	got := streamText(r, "하자 가는 입력하자 학교가는")
+	short := fmt.Sprintf("%.2f", 2/(1+forceShort)-1)
 	for _, c := range []struct{ unit, line, word, verdict string }{
 		{"하자", "하[열쇠:동사]+자[맺음:자]", "하[열쇠:동사]+자[맺음:자]", "1.00"},
 		{"가는", "가[열쇠:동사]+는[꾸밈:는]", "가[열쇠:동사]+는[꾸밈:는]", "1.00"},
-		{"입력하자", "입력[열쇠:체언] 하[열쇠:동사]+자[맺음:자]", "하[열쇠:동사]+자[맺음:자]", "0.60"},
-		{"학교가는", "학교[열쇠:체언] 가[열쇠:동사]+는[꾸밈:는]", "가[열쇠:동사]+는[꾸밈:는]", "0.60"},
+		{"입력하자", "입력[열쇠:체언] 하[열쇠:동사]+자[맺음:자]", "하[열쇠:동사]+자[맺음:자]", short},
+		{"학교가는", "학교[열쇠:체언] 가[열쇠:동사]+는[꾸밈:는]", "가[열쇠:동사]+는[꾸밈:는]", short},
 	} {
 		if !strings.Contains(got, "\n"+c.line+"\n") || !strings.HasPrefix(streamScore(r, c.unit, c.word), c.verdict+" ") {
 			t.Errorf("missing %q with %s in\n%s", c.line, c.verdict, got)

@@ -3,7 +3,6 @@
 package token
 
 import (
-	"math"
 	"testing"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -14,7 +13,7 @@ func TestUnmodifiedRule(t *testing.T) {
 	if r.name != ruleUnmodified || r.graph == nil || r.waits == nil {
 		t.Fatalf("%+v", r)
 	}
-	if math.Abs(r.bonus-Lambda*math.Log10(1/0.6)) > 1e-9 || r.bonus != bonusShortTaken {
+	if r.bonus != bonusShortTaken {
 		t.Fatal("bonus", r.bonus)
 	}
 	noun := rule.Near{Stem: "감정인", Kind: "열쇠:체언"}

@@ -37,7 +37,7 @@ func TestReadUnit(t *testing.T) {
 	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1}}, notes: []string{"  · (\t열기:(\t1.00\t통과"}}, true); len(got) != 2 || got[0] != "  · (\t열기:(\t1.00\t통과" || !strings.HasPrefix(got[1], "([열기:1]\t") {
 		t.Fatal("the lines of the graphs that judged the head come first with a trace", got)
 	}
-	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 2}}, bare: true}, false); len(got) != 2 || got[0] != "([열기:2]\t성립 1.00 선호 -5.05" || got[1] != "(\t성립 1.00 선호 -5.05" {
+	if got := lines(ix, unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 2}}, bare: true}, false); len(got) != 2 || got[0] != "([열기:2]\t성립 1.00 선호 -4.87" || got[1] != "(\t성립 1.00 선호 -4.87" {
 		t.Fatal("a head read as a pair at depth 2 and as its letter", got)
 	}
 	long := "아버지가방에들어가신다"

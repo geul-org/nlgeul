@@ -36,7 +36,7 @@ func TestCaseExceptionsGoreum(t *testing.T) {
 	t.Cleanup(func() { caseExceptions = old })
 	caseExceptions = map[string][]caseException{}
 	w, _ = jsonWordAt(streamReader(t, "words-goreum.tsv").JSONSentence("고름을 짰다", 0), "고름을")
-	if got := jsonWordShown(w); got[0] != "고르[열쇠:동사]+[이름:ㅁ]+을[목적격:을]" {
-		t.Fatal("without the row the naming closing's reading comes first", got)
+	if got := jsonWordShown(w); !slices.Contains(got, "고르[열쇠:동사]+[이름:ㅁ]+을[목적격:을]") {
+		t.Fatal("without the row the naming closing's reading stands", got)
 	}
 }

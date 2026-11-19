@@ -14,7 +14,7 @@ func TestApartParticleRule(t *testing.T) {
 	if r.name != ruleApartParticle || r.bonus != bonusNewTaken || r.graph == nil || r.waits != nil {
 		t.Fatalf("%+v", r)
 	}
-	if math.Abs(bonusNewTaken-7.16) > 0.01 {
+	if math.Abs(bonusNewTaken+Lambda*math.Log10(2/(1+forceNew)-1)) > 1e-9 {
 		t.Errorf("bonusNewTaken = %v", bonusNewTaken)
 	}
 	for _, c := range []struct {

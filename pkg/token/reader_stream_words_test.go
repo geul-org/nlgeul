@@ -22,7 +22,7 @@ func TestReaderStreamWords(t *testing.T) {
 		"\n마당[열쇠:체언]+에서[주격:에서]\t성립 ",
 		"\n물[열쇠:체언]+을[목적격:을]\t성립 ",
 		"\n마시[열쇠:동사]+(ㄴ)다[맺음:ㄴ다]\t성립 ",
-		"\n마신다\t성립 0.33",
+		"\n마신다\t성립 0.41",
 	} {
 		if !strings.Contains(got, want) {
 			t.Errorf("missing %q in\n%s", want, got)

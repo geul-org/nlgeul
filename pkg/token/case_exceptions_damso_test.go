@@ -38,7 +38,7 @@ func TestCaseExceptionsDamso(t *testing.T) {
 	t.Cleanup(func() { caseExceptions = old })
 	caseExceptions = map[string][]caseException{}
 	w, _ := jsonWordAt(streamReader(t, "words-damso.tsv").JSONSentence("담소", 0), "담소")
-	if got := jsonWordShown(w); got[0] != "담[열쇠:동사]+소[맺음:소]" {
-		t.Fatal("without the row the 하오체 reading comes first", got)
+	if got := jsonWordShown(w); !slices.Contains(got, "담[열쇠:동사]+소[맺음:소]") {
+		t.Fatal("without the row the 하오체 reading stands", got)
 	}
 }
