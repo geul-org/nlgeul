@@ -428,3 +428,12 @@ const (
 	whyActionBefore = "앞 어절이 동작성 명사(낱말 표에 그 명사+하다가 있다)다"
 	whyMarkedBefore = "앞 어절에 조사나 맺음이 붙었다"
 )
+
+// The name of the rule of rebuttal of a sentence of 못하다 after the -지
+// form read as the other kind than the predicate before it
+// (negKindRule), and why it falls.
+const (
+	ruleNegKind      = "문장:-지 뒤 못하다는 본용언의 품사"
+	whyNotVerbBefore = "앞 어절의 줄기가 동사(낱말 표의 동사, 닫힌 집합의 보조 용언)가 아니다"
+	whyNotAdjBefore  = "앞 어절의 줄기가 낱말 표의 형용사가 아니다"
+)

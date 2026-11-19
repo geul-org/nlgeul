@@ -74,7 +74,7 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 
 | 함수 | 쓰임 | 뜻 | 기준 |
 |---|---|---|---|
-| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 앞 어절의 줄기(`ListPrevStem`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`), 후보 어절의 글자(`ListSelfText`: 하다+ㄴ의 `한`. 읽는 쪽이 `Self.Text`에 채운다)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
+| `Listed` | rule, except | 후보의 줄기(`ListSelfStem`), 그 줄기의 이름(`ListSelfKind`), 후보의 마지막 조각의 이름(`ListSelfLast`), 바로 앞 어절의 마지막 조각의 이름(`ListPrevLast`), 바로 앞 어절의 줄기 이름의 갈래(`ListPrevKind`: `닫기:1`의 `닫기`), 바로 앞 어절의 줄기(`ListPrevStem`), 바로 앞 어절의 줄기 이름 통째(`ListPrevName`: `열쇠:동사`), 바로 뒤 어절의 줄기(`ListNextStem`), 바로 뒤 어절의 마지막 조각의 이름(`ListNextLast`), 그 뒤 어절의 줄기(`ListNext2Stem`), 후보 어절의 글자(`ListSelfText`: 하다+ㄴ의 `한`. 읽는 쪽이 `Self.Text`에 채운다)가 기준 목록에 있다. 앞이나 뒤에 어절이 없으면 그 사실은 ""다(`nearAt`) | `List`, 뒤집으려면 `Not` |
 | `Listed` | rule, except | 바로 뒤 어절의 줄기 이름의 갈래(`ListNextKind`: `닫기:1`의 `닫기`, `ListPrevKind`의 짝)가 기준 목록에 있다. 뒤에 어절이 없으면 ""다 | `List`, 뒤집으려면 `Not` |
 | `SelfHas` | rule, except | 후보의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`에서는`의 `부사격:에서`). 볼 사실은 `ListSelfMarks`로 적는다(`Listed`는 이 사실을 읽지 않는다). 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |
 | `PrevHas` | rule, except | 후보 바로 앞 어절의 표지(줄기 뒤 조각) 가운데 하나의 이름이 기준 목록에 있다(`있기는`의 `이름:기`). 볼 사실은 `ListPrevLast`로 적는다(앞 어절. `Listed`는 표지를 낱낱이 읽지 않는다). 앞 어절이 없으면 없다. 증거는 목록에 있던 이름 | `List`, 뒤집으려면 `Not` |

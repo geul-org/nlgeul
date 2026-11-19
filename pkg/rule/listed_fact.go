@@ -48,6 +48,8 @@ func listedFact(ctx toulmin.Context, of int) string {
 		return kind
 	case ListSelfText:
 		return AroundOf(ctx).Self.Text
+	case ListPrevName:
+		return nearAt(AroundOf(ctx).Before, 0).Kind
 	}
 	return TailOf(ctx).Closing
 }

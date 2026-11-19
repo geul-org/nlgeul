@@ -466,6 +466,16 @@ var bonusNewTaken = -Lambda * math.Log10(2/(1+forceNew)-1)
 // with the other values (decision 014-50).
 const forceUngrammatical = 0.5
 
+// negKindStems are the stems of the auxiliary predicates of negation
+// that the dictionary gives both as an auxiliary verb and as an
+// auxiliary adjective by the predicate before them, and that the word
+// table gives both as a verb and as an adjective: 못하다 after -지 is the
+// auxiliary verb after a verb and the auxiliary adjective after an
+// adjective (negKindRule). 않다 and 아니하다 are of the same kind in the
+// dictionary, but the word table gives them as verbs alone and the
+// answer sheet writes them so after an adjective too.
+var negKindStems = []string{"못하"}
+
 // dativeNames are the names of the case particle 게 that the contracts
 // table puts under the pronoun forms 내, 네 and 제 (내게, 네게, 제게),
 // dativeStems those forms, and causeStems the stems of the verbs that
