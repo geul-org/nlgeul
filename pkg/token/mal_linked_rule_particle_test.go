@@ -22,7 +22,7 @@ func TestMalLinkedRuleParticle(t *testing.T) {
 		{rule.Near{Stem: "울", Kind: "열쇠:동사", Last: "보조사:야", Marks: "맺음:고+보조사:야"}, bonusShortTaken, "1.00\t통과"},
 		{rule.Near{Stem: "집", Kind: "열쇠:체언", Last: "보조사:도", Marks: "보조사:도"}, 0, "-1.00\t기각: " + whyNotMalLinked},
 	} {
-		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
+		add, _, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
 		if add != c.add || len(notes) != 1 || notes[0] != "  · "+mal+"\t"+ruleMalLinked+"\t"+c.note {
 			t.Fatalf("%+v: %v %q", c.before, add, notes)
 		}

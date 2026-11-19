@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=iteration dimension=1
-//ff:what lifted — a node with the lifts of its span added to its candidates' preferences and the candidates in order by lambda again; the candidates are a copy, so that what the unit's reading keeps is not touched; the node as it is when no lift is of its span
+//ff:what lifted — a node with the lifts of its span applied to its candidates (raised: what they add to the preferences, the rebuttals that stand against them on the verdicts) and the candidates in order by lambda again; the candidates are a copy, so that what the unit's reading keeps is not touched; the node as it is when no lift is of its span
 package token
 
 func lifted(n Node, lifts []lift) Node {

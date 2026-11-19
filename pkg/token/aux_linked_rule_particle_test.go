@@ -26,7 +26,7 @@ func TestAuxLinkedRuleParticle(t *testing.T) {
 	} {
 		words, _ := linkBeforeWords(t, c.in, false)
 		cand := auxLinkedPick(t, words[0], c.cand)
-		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
+		add, _, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
 		if add != c.add || len(notes) != 1 || !strings.HasPrefix(notes[0], "  · "+c.cand+"\t"+ruleAuxLinked+"\t"+c.verdict) || !strings.Contains(notes[0], c.reason) {
 			t.Fatalf("%q after %+v: %v %q", c.in, c.before, add, notes)
 		}

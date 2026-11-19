@@ -32,7 +32,7 @@ func TestLimitOneRule(t *testing.T) {
 		{[]rule.Near{{Stem: "일", Last: "목적격:을"}}, 0, falls},
 		{nil, 0, falls},
 	} {
-		add, notes := st.judgeCandidate(noun, rule.Around{Self: nearOf(noun), Before: c.before})
+		add, _, notes := st.judgeCandidate(noun, rule.Around{Self: nearOf(noun), Before: c.before})
 		if add != c.add || len(notes) != 1 || notes[0] != c.note {
 			t.Fatalf("%v: %v %q", c.before, add, notes)
 		}

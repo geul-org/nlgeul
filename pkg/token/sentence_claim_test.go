@@ -24,7 +24,7 @@ func TestSentenceClaim(t *testing.T) {
 	brs, _ := auxLinkedLast(t, "있다", false, false)
 	br := auxLinkedPick(t, brs, "있[열쇠:형용사]+다[맺음:다]")
 	st := sentenceStream(t, "", true, sentenceRule{name: "문장:시험", graph: g, bonus: 1, about: func(rule.Near) bool { return true }})
-	add, notes := st.judgeCandidate(br, rule.Around{Self: nearOf(br)})
+	add, _, notes := st.judgeCandidate(br, rule.Around{Self: nearOf(br)})
 	if add != 1 || len(notes) != 1 || notes[0] != "  · 있[열쇠:형용사]+다[맺음:다]\t문장:시험\t1.00\t통과" {
 		t.Fatal(add, notes)
 	}

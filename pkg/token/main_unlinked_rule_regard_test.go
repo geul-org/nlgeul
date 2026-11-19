@@ -21,7 +21,7 @@ func TestMainUnlinkedRuleRegard(t *testing.T) {
 		{rule.Near{Stem: "관하", Kind: "열쇠:동사", Last: "맺음:여"}, bonusMainFirst, "1.00\t통과"},
 		{rule.Near{Stem: "먹", Kind: "열쇠:동사", Last: "맺음:어"}, 0, "-1.00\t기각: 앞 어절이 연결 꼴(어/아, 고)로 끝난다"},
 	} {
-		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
+		add, _, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
 		if add != c.add || len(notes) != 1 || notes[0] != "  · "+main+"\t"+ruleMainUnlinked+"\t"+c.note {
 			t.Fatalf("%+v: %v %q", c.before, add, notes)
 		}

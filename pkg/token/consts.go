@@ -454,6 +454,18 @@ const bonusOverUncounted = 12.0
 // determiner, stands about 7.3 above the particle.
 var bonusNewTaken = -Lambda * math.Log10(2/(1+forceNew)-1)
 
+// forceUngrammatical is the force of every rule of a sentence that
+// rebuts a candidate (sentenceRule.force): its claim is that the grammar
+// does not let the candidate stand where it is, and when the claim
+// stands the candidate's verdict is multiplied by 2/(1+force)-1, as a
+// rebuttal of the unit layer lowers it (forceUnitWord, forceNumberAdn,
+// forceMeasureOpen). 0.5 gives a verdict of 1/3, about 7.16 of lambda
+// (as bonusNewTaken), and keeps the candidate behind the others with
+// room. It is one value for all those rules, not one for each rule: it
+// is not fitted by hand but left to be fitted later by gradient descent
+// with the other values (decision 014-50).
+const forceUngrammatical = 0.5
+
 // dativeNames are the names of the case particle 게 that the contracts
 // table puts under the pronoun forms 내, 네 and 제 (내게, 네게, 제게),
 // dativeStems those forms, and causeStems the stems of the verbs that

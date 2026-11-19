@@ -6,6 +6,7 @@ package token
 const (
 	exceptLabel = "예외"
 	preferLabel = "선호"
+	rebutLabel  = "반박"
 
 	whyNoStem       = "앞에 줄기가 없다"
 	whyAfter        = "앞 토큰의 끝이 맞지 않는다"

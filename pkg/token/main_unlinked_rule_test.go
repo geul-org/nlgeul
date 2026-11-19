@@ -44,7 +44,7 @@ func TestMainUnlinkedRule(t *testing.T) {
 		{[]rule.Near{{Last: "맺음:고"}}, 0, line("-1.00", "기각: 앞 어절이 연결 꼴(어/아, 고)로 끝난다")},
 		{[]rule.Near{{Last: "맺음:나"}}, 0, line("-1.00", "기각: 앞 어절이 물음 꼴(나, ㄴ가, ㄹ까)로 끝난다")},
 	} {
-		add, notes := st.judgeCandidate(adj, rule.Around{Self: nearOf(adj), Before: c.before})
+		add, _, notes := st.judgeCandidate(adj, rule.Around{Self: nearOf(adj), Before: c.before})
 		if add != c.add || len(notes) != 1 || notes[0] != c.note {
 			t.Fatalf("%v: %v %q", c.before, add, notes)
 		}

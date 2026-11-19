@@ -23,7 +23,7 @@ func TestAuxLinkedRuleRegard(t *testing.T) {
 		{rule.Near{Stem: "통하", Kind: "열쇠:동사", Last: "맺음:어(합침)"}, 0, "-1.00\t기각: " + whyRegard},
 		{rule.Near{Stem: "먹", Kind: "열쇠:동사", Last: "맺음:어"}, bonusOverCount, "1.00\t통과"},
 	} {
-		add, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
+		add, _, notes := st.judgeCandidate(cand, rule.Around{Self: nearOf(cand), Before: []rule.Near{c.before}})
 		if add != c.add || len(notes) != 1 || notes[0] != "  · "+aux+"\t"+ruleAuxLinked+"\t"+c.note {
 			t.Fatalf("%+v: %v %q", c.before, add, notes)
 		}

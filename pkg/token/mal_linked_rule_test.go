@@ -34,7 +34,7 @@ func TestMalLinkedRule(t *testing.T) {
 		{[]rule.Near{{Stem: "집", Kind: "열쇠:체언"}}, 0, line("-1.00", "기각: 앞 어절이 지·고로 끝나지 않는다")},
 		{nil, 0, line("-1.00", "기각: 앞 어절이 지·고로 끝나지 않는다")},
 	} {
-		add, notes := st.judgeCandidate(mal, rule.Around{Self: nearOf(mal), Before: c.before})
+		add, _, notes := st.judgeCandidate(mal, rule.Around{Self: nearOf(mal), Before: c.before})
 		if add != c.add || len(notes) != 1 || notes[0] != c.note {
 			t.Fatalf("%v: %v %q", c.before, add, notes)
 		}

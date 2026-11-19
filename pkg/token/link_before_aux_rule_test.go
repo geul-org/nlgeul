@@ -42,7 +42,7 @@ func TestLinkBeforeAuxRule(t *testing.T) {
 		{[]rule.Near{{Stem: "먹", Kind: "열쇠:동사"}, {Stem: "있"}}, 0, line("-1.00", "기각: 바로 뒤 어절의 줄기가 보조 용언이 아니다")},
 		{nil, 0, line("-1.00", "기각: 바로 뒤 어절의 줄기가 보조 용언이 아니다")},
 	} {
-		add, notes := st.judgeCandidate(link, rule.Around{Self: nearOf(link), After: c.after})
+		add, _, notes := st.judgeCandidate(link, rule.Around{Self: nearOf(link), After: c.after})
 		if add != c.add || len(notes) != 1 || notes[0] != c.note {
 			t.Fatalf("%v: %v %q", c.after, add, notes)
 		}

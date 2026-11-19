@@ -36,12 +36,12 @@ func TestAuxLinkedRule(t *testing.T) {
 		{[]rule.Near{{Stem: "집"}}, 0, line("-1.00", "기각: 앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다")},
 		{nil, 0, line("-1.00", "기각: 앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다")},
 	} {
-		add, notes := st.judgeCandidate(aux, rule.Around{Self: nearOf(aux), Before: c.before})
+		add, _, notes := st.judgeCandidate(aux, rule.Around{Self: nearOf(aux), Before: c.before})
 		if add != c.add || len(notes) != 1 || notes[0] != c.note {
 			t.Fatalf("%v: %v %q", c.before, add, notes)
 		}
 	}
-	if add, notes := st.judgeCandidate(main, rule.Around{Self: nearOf(main), Before: []rule.Near{{Last: "맺음:어"}}}); add != 0 || notes != nil {
+	if add, _, notes := st.judgeCandidate(main, rule.Around{Self: nearOf(main), Before: []rule.Near{{Last: "맺음:어"}}}); add != 0 || notes != nil {
 		t.Fatal("the main verb is not spoken of", add, notes)
 	}
 }
