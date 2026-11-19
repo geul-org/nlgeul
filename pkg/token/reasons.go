@@ -86,6 +86,7 @@ const (
 	whyOpened       = "같은 따옴표가 열려 있다"
 	whyOpenedAny    = "같은 종류의 여는 기호가 열려 있을 수 있다"
 	whyNotOnWord    = "앞에 글자가 바로 붙어 있지 않다"
+	whyEndsSentence = "문장을 끝내는 부호(. ? ! …) 바로 뒤에 있다"
 	whyNoHangulOn   = "뒤에 한글이 바로 붙어 있지 않다"
 	whyInWord       = "낱말 가운데에 끼어 있다"
 	whyAfterDigit   = "숫자 바로 뒤에 있다"

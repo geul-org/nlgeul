@@ -16,3 +16,11 @@ const loneBrackets = ")}]>」』》〉｣"
 // at depth 1. A quotation mark of loneShuts closes at depth 0 (none of
 // its kind was opened), as it did before; the two are not made one.
 const loneBracketDepth = 1
+
+// endMarks are the marks that end a sentence (마침표, 물음표, 느낌표,
+// 줄임표). A closing sign written right after one closes on the end of
+// the sentence it encloses (다.』, 하오?」): the orthography puts the
+// sentence's full stop inside the closing sign (「한글 맞춤법」 부록
+// 문장 부호, 마침표 (1) [붙임 1]), so it stands there as it stands right
+// after a letter.
+const endMarks = ".?!…"

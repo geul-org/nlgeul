@@ -1,5 +1,5 @@
 //ff:func feature=token type=reader control=iteration dimension=1
-//ff:what TestCutterFacts — what stands right on each side of the sign at a place (nothing at the sentence's edge), a space or an edge on both sides sets MarkApart, a hyphen or an equals sign right next to it sets MarkArrow; the facts that hang on what stands open are not set
+//ff:what TestCutterFacts — what stands right on each side of the sign at a place (nothing at the sentence's edge), a space or an edge on both sides sets MarkApart, a hyphen or an equals sign right next to it sets MarkArrow; a mark that ends a sentence right before it sets MarkAfterStop; the facts that hang on what stands open are not set
 package token
 
 import (
@@ -26,6 +26,9 @@ func TestCutterFacts(t *testing.T) {
 		{"a<=b", 1, rule.SideAlnum, 0, rule.MarkArrow},
 		{"5'10", 1, rule.SideAlnum | rule.SideDigit, rule.SideAlnum | rule.SideDigit, 0},
 		{"가 (나", 2, 0, rule.SideHangul, 0},
+		{"다.』", 2, 0, 0, rule.MarkAfterStop},
+		{"까?」", 2, 0, 0, rule.MarkAfterStop},
+		{"요…”", 2, 0, 0, rule.MarkAfterStop},
 	}
 	for _, c := range cases {
 		m := newCutter(ix, c.text, false).facts(c.at)

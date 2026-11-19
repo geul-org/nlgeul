@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what TestAddLoneBracket — the graph of a closing bracket that closes with none of its kind open is put under the sign after its other graph, as a closing (닫기) with the sign after a colon in its name, and the graphs and edges are counted (three exceptions, five for >); the graph put is the lone closing's: it stands with a letter before it and nothing open where the usual closing falls
+//ff:what TestAddLoneBracket — the graph of a closing bracket that closes with none of its kind open is put under the sign after its other graph, as a closing (닫기) with the sign after a colon in its name, and the graphs and edges are counted (three exceptions and one against the second, five and one for >); the graph put is the lone closing's: it stands with a letter before it and nothing open where the usual closing falls
 package token
 
 import (
@@ -22,7 +22,7 @@ func TestAddLoneBracket(t *testing.T) {
 	if len(lone) != 1 || lone[0].name != "닫기:>" || lone[0].form != shutName || lone[0].g == nil {
 		t.Fatal(lone)
 	}
-	if ix.graphs != 3 || ix.edges != 1+3+5 {
+	if ix.graphs != 3 || ix.edges != 1+4+6 {
 		t.Fatal(ix.graphs, ix.edges)
 	}
 	ctx := toulmin.NewContext()
