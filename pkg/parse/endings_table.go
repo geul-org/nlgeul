@@ -32,9 +32,11 @@ import (
 // 는대야, ㄴ담, ㄴ고, 다네 and the modifying 으라는; then the linking
 // 요 of the copula's stem and 아니 (학문이요, 아니요), and the short 매,
 // 람, 든 (the shortened 든지, next to the particle 든 of the same
-// letters) and 어다; then 거니. Not listed, though the dictionary has them: 는걸
+// letters) and 어다; then 거니; then the old-fashioned ㄴ즉 and 은즉,
+// 리오, 노라니 and 노라니까, and 지마는, 느니, 려는가 and 라지. Not
+// listed, though the dictionary has them: 는걸
 // and 은걸, which the token layer reads as a modifying closing with 거
 // under 를; 리, which as a row stands after a stem that is not in the
-// table; and 마, which the token layer reads after a predicate's stem
-// of the word table only.
+// table; and 마, ㄹ새 and 을새, which the token layer reads after a
+// predicate's stem of the word table only.
 var endings = data.Must(data.Each(closingsFile, 5, endingOf))
