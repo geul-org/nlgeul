@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestMidOf — a word of one part named 기호 stands for the sign at its end less one; a word of other parts or names, or at a place with no sign, does not
+//ff:what TestMidOf — a word of one part named 기호 stands for the sign whose run ends at its end (at the run's first sign); a word of other parts or names, or at a place with no sign, does not
 package token
 
 import "testing"
@@ -21,5 +21,9 @@ func TestMidOf(t *testing.T) {
 	}
 	if _, ok := sc.midOf(Eojeol{Parts: []Part{{}, {}}, End: 2}); ok {
 		t.Fatal("two parts")
+	}
+	run := scanOf("산——뭐")
+	if m, ok := run.midOf(Eojeol{Parts: []Part{{Text: "——", Name: Name{Kind: midName}}}, End: 3}); !ok || m.candidates[0].Text != "——" {
+		t.Fatal("a run", m, ok)
 	}
 }
