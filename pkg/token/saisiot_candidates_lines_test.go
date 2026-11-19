@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=iteration dimension=1
-//ff:what TestSaisiotCandidatesLines — end to end with the small word table of 사이시옷 (rows of the words in the sentences): 전셋값, 장맛비, 아랫목, 전깃불, 배춧잎 (ㄴㄴ added), 처갓집 and 머릿결 come first as one nominal bound by 사이시옷 (전깃불+이, not 전깃불이 whole, which stays a candidate below), with the new word of the same letters still a candidate (전셋값+이); 짜릿함, 오붓한 (ㅎ), 아랫층 (ㅊ, a new word first), 할것이라고 (하+(ㄹ) 것+이라고), 이것밖엔 (이것 밖+엔), 오얏나무 (오얏 나무), 나뭇가지 (the table's word), 귓밥 and 헛기침 (a front of one syllable) have no reading of 사이시옷
+//ff:what TestSaisiotCandidatesLines — end to end with the small word table of 사이시옷 (rows of the words in the sentences): 전셋값, 장맛비, 아랫목, 전깃불, 배춧잎 (ㄴㄴ added), 처갓집 and 머릿결 come first as one nominal bound by 사이시옷 (전깃불+이, not 전깃불이 whole, which stays a candidate below), with the new word of the same letters still a candidate (전셋값+이); 짜릿함, 오붓한 (ㅎ), 아랫층 (ㅊ, a new word first), 할것이라고 (하+(ㄹ) 것+이+라고: 것 뒤의 인용 조사는 thingQuoteRule이 깎는다), 이것밖엔 (이것 밖+엔), 오얏나무 (오얏 나무), 나뭇가지 (the table's word), 귓밥 and 헛기침 (a front of one syllable) have no reading of 사이시옷
 package token
 
 import (
@@ -25,7 +25,7 @@ func TestSaisiotCandidatesLines(t *testing.T) {
 		{"짜릿함을 느꼈다.", nil, nil},
 		{"오붓한 시간", nil, nil},
 		{"아랫층에 산다.", []string{"아랫층+에[부사격:에]"}, nil},
-		{"할것이라고 했다.", []string{"하[열쇠:동사]+(ㄹ)[꾸밈:ㄹ]", "것[의존명사:것]+이라고[부사격:이라고]"}, nil},
+		{"할것이라고 했다.", []string{"하[열쇠:동사]+(ㄹ)[꾸밈:ㄹ]", "것[의존명사:것]+이[서술격:이]+라고[맺음:라고]"}, nil},
 		{"이것밖엔 없다.", []string{"이것[열쇠:체언]", "밖[열쇠:체언]+엔[부사격:엔]"}, nil},
 		{"오얏나무 아래", []string{"오얏[열쇠:체언]", "나무[열쇠:체언]"}, nil},
 		{"나뭇가지가 흔들렸다.", []string{"나뭇가지[열쇠:체언]+가[주격:가]"}, nil},

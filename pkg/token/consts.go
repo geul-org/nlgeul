@@ -269,6 +269,12 @@ var (
 // quotation mark (quotedRule).
 var quoteNames = []string{"부사격:라고", "부사격:이라고"}
 
+// thingStem is the dependent noun 것, after which a rule of rebuttal of a
+// sentence does not let 이라고 stand as the particle of direct quotation
+// (thingQuoteRule): with no quotation mark before it, 것이라고 is the
+// copula 이 with the ending -라고.
+const thingStem = "것"
+
 // predKinds are the kinds of a closing's name: a word that carries one
 // is a predicate (a verb, an adjective or the copula with its ending),
 // which is where the rules of a sentence stop waiting.

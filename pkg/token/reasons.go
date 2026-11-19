@@ -437,3 +437,7 @@ const (
 	whyNotVerbBefore = "앞 어절의 줄기가 동사(낱말 표의 동사, 닫힌 집합의 보조 용언)가 아니다"
 	whyNotAdjBefore  = "앞 어절의 줄기가 낱말 표의 형용사가 아니다"
 )
+
+// The name of the rule of rebuttal of a sentence of 이라고 after 것 read
+// as the particle of direct quotation (thingQuoteRule).
+const ruleThingQuote = "문장:것 뒤 이라고는 인용 조사가 아니다"
