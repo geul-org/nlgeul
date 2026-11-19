@@ -1,5 +1,5 @@
 //ff:func feature=token type=rule control=sequence
-//ff:what dativeContractRule — the rule of a sentence "내게, 네게 and 제게 are the pronoun with the particle 게": a candidate that reads its stem as one of the pronoun forms the contracts table puts the case particle 게 under (dativeStems: 내, 네, 제) with that particle (부사격:에게, dativeNames) is preferred, but not when the word right after it is 하다, 되다 or 만들다 (causeStems), before which 게 is the ending of the verb 내다 (-게 하다); it waits for the word after it
+//ff:what dativeContractRule — the rule of a sentence "내게, 네게 and 제게 are the pronoun with the particle 게": a candidate that reads its stem as one of the pronoun forms the contracts table puts the case particle 게 under (dativeStems: 내, 네, 제, 자네, 자기) with that particle (부사격:에게, dativeNames) is preferred, but not when the word right after it is 하다, 되다 or 만들다 (causeStems), before which 게 is the ending of the verb 내다 (-게 하다); it waits for the word after it
 package token
 
 import (

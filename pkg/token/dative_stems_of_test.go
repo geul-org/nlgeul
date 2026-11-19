@@ -1,5 +1,5 @@
 //ff:func feature=token type=helper control=sequence
-//ff:what TestDativeStemsOf — the words of the contracts whose particle is named 부사격:에게, in the order given (none from none); from the contracts table they are 내, 네 and 제 (dativeStems)
+//ff:what TestDativeStemsOf — the words of the contracts whose particle is named 부사격:에게, in the order given (none from none); from the contracts table they are 내, 네, 제, 자네 and 자기 (dativeStems)
 package token
 
 import (
@@ -15,7 +15,7 @@ func TestDativeStemsOf(t *testing.T) {
 	if got := dativeStemsOf(nil); got != nil {
 		t.Fatal(got)
 	}
-	if !slices.Equal(dativeStems, []string{"내", "네", "제"}) {
+	if !slices.Equal(dativeStems, []string{"내", "네", "제", "자네", "자기"}) {
 		t.Fatal(dativeStems)
 	}
 }
