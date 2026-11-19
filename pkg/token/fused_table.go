@@ -28,8 +28,13 @@ const (
 // 먹고는, 조용하게는, 먹어서는, 하면서는; clause 41 of the orthography: a particle after an
 // ending is written onto it too; so is a quoting ending: 있다고는,
 // 좋다고만; and the linking 다가, 고서 and 려고: 했다가도, 하고서야,
-// 가려고는; and 면: 보면은). The particles are 도, 는, 만, 야 and, added
-// after them, 까지, 라도 and 은 (늦게까지, 하면서라도, 보면은).
+// 가려고는; and 면: 보면은; and, added after them, the linking 지만, 건만,
+// 거니, 다면 (ㄴ다면, 는다면), 어다가 and 려다가: 아니지만은, 있었건만은,
+// 있거니만, 드려다가는). The particles are 도, 는, 만, 야 and, added
+// after them, 까지, 라도 and 은 (늦게까지, 하면서라도, 보면은), and then
+// the range particles 부터 and 조차 (알면서부터, 대해서조차): school
+// grammar writes an auxiliary particle after a linking ending as after a
+// nominal or an adverb.
 // auxClosings are the closings and auxParticles the particles this is
 // read for. A pair that is itself a
 // closing of the tables (어도, 어야, 고도, 지만) is read as that closing
@@ -37,8 +42,8 @@ const (
 // (closingNames).
 const linkAuxName = "사슬:맺음 뒤 보조사"
 
-var auxClosings = closingNames(parse.Marker{Form: "지"}, parse.Marker{Form: "고"}, parse.Marker{Form: "게"}, parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "서", Lead: rule.LeadVowel}, parse.Marker{Form: "면서", Eu: true}, parse.Marker{Form: "다고"}, parse.Marker{Form: "다고", Lead: rule.JongN}, parse.Marker{Form: "는다고", After: rule.AfterBatchim}, parse.Marker{Form: "라고"}, parse.Marker{Form: "자고"}, parse.Marker{Form: "냐고"}, parse.Marker{Form: "느냐고"}, parse.Marker{Form: "다가"}, parse.Marker{Form: "고서"}, parse.Marker{Form: "려고", Eu: true}, parse.Marker{Form: "면", Eu: true})
-var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "보조사:야", "보조사:까지", "보조사:라도", "보조사:은"}
+var auxClosings = closingNames(parse.Marker{Form: "지"}, parse.Marker{Form: "고"}, parse.Marker{Form: "게"}, parse.Marker{Lead: rule.LeadVowel}, parse.Marker{Form: "서", Lead: rule.LeadVowel}, parse.Marker{Form: "면서", Eu: true}, parse.Marker{Form: "다고"}, parse.Marker{Form: "다고", Lead: rule.JongN}, parse.Marker{Form: "는다고", After: rule.AfterBatchim}, parse.Marker{Form: "라고"}, parse.Marker{Form: "자고"}, parse.Marker{Form: "냐고"}, parse.Marker{Form: "느냐고"}, parse.Marker{Form: "다가"}, parse.Marker{Form: "고서"}, parse.Marker{Form: "려고", Eu: true}, parse.Marker{Form: "면", Eu: true}, parse.Marker{Form: "지만"}, parse.Marker{Form: "건만"}, parse.Marker{Form: "거니"}, parse.Marker{Form: "다면"}, parse.Marker{Form: "다면", Lead: rule.JongN}, parse.Marker{Form: "는다면", After: rule.AfterBatchim}, parse.Marker{Form: "다가", Lead: rule.LeadVowel}, parse.Marker{Form: "려다가", Eu: true})
+var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "보조사:야", "보조사:까지", "보조사:라도", "보조사:은", "보조사:부터", "보조사:조차"}
 
 // A particle is written onto the closings that ask or wonder too
 // (맞는지를, 좋은지는, 갈지도, 누구인지가, 버티느냐가, 옳으냐에, 하느냐를,
