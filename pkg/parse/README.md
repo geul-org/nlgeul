@@ -20,7 +20,7 @@
 | `Stream.Notes` | `Notes() []string` | 지난번 뒤로 보낸 구간들의 trace 줄(구간을 읽으며 나온 줄과 문장 단위 규칙의 줄) |
 | `Segment` | `Region Span`, `Rank int`, `Ways *big.Int`, `Nodes []Node`, `Lambda float64` | 한 구간의 갈래 하나 |
 | `Node` | `Span Span`, `Contest Contest` | 마디: 어절 하나와 그 후보경합 |
-| `Span` | `Start, End int` | `[Start, End)`, 빈칸을 뺀 문장의 글자(rune) 위치 |
+| `Span` | `Start, End int` | `[Start, End)`, 빈칸을 뺀 문장의 글자(rune) 위치. 코드 조각(백틱 쌍) 안의 빈칸도 세지 않는다. `Node.Contest.Text`(어절 글자)는 코드 조각 안 빈칸을 그대로 담고, 구간 글자(JSON 구간 `text`)는 빈칸을 뺀 글자다 |
 | `Contest` | `Unit int`, `Glued bool`, `Text string`, `Branches []Branch`; `Plural() bool` | 경합. 마디의 경합이면 `Branches`가 후보들(λ 차례) |
 | `Branch` | `Words []Eojeol`, `Verdict float64`, `Pref float64`; `Lambda() float64`, `String() string` | 후보 하나: 성립, 선호, λ(= 선호 + `Lambda`·log10(성립), 성립이 0 이하면 −∞) |
 | `Eojeol` | `Parts []Part`, `End int`, `Attach bool`; `String() string` | 어절 하나의 조각들 |

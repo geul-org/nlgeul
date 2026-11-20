@@ -3,5 +3,6 @@
 package parse
 
 func newStream(ix *index, sentence string, trace bool) *Stream {
-	return &Stream{ix: ix, trace: trace, units: unitsOf(ix, sentence, trace), spaced: true, rules: ix.sentence}
+	units := unitsOf(ix, sentence, trace)
+	return &Stream{ix: ix, trace: trace, units: units, spaced: true, rules: ix.sentence, places: placesOf(units)}
 }

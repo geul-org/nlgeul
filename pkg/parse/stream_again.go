@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what Again — the way of cutting a stretch after the one sent last for it (Next sent the first), the next best by lambda; false when the stretch is not one Next has sent or no way is left. It makes only that one way, and does not move Next. A stretch a window cut off is read again for it (redoAgain)
+//ff:what Again — the way of cutting a stretch after the one sent last for it (Next sent the first), the next best by lambda; false when the stretch is not one Next has sent or no way is left. It makes only that one way, and does not move Next. A stretch a window cut off is read again for it (redoAgain). What is sent has its places as the layer above counts them (outerSegment), and the stretch asked for is given in those places
 package parse
 
 func (s *Stream) Again(region Span) (Segment, bool) {
@@ -8,7 +8,9 @@ func (s *Stream) Again(region Span) (Segment, bool) {
 		return Segment{}, false
 	}
 	if rg.redo != nil {
-		return s.redoAgain(rg)
+		seg, ok := s.redoAgain(rg)
+		return s.outerSegment(seg), ok
 	}
-	return rg.deal()
+	seg, ok := rg.deal()
+	return s.outerSegment(seg), ok
 }
