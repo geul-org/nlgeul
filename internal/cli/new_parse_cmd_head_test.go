@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdHead — --head limits the candidates printed in one box and counts the rest; 0 prints all; the default (20) does not cut the 6 candidates of 100m²이다, the same as 0; a negative number is refused; --cuts and the trace lines are not cut
+//ff:what TestNewParseCmdHead — --head limits the candidates printed in one box and counts the rest; 0 prints all; the default (20) does not cut the 6 candidates of 100m²이다, the same as 0; a negative number is refused; --cuts and the trace lines are not cut
 package cli
 
 import (
@@ -8,14 +8,14 @@ import (
 	"testing"
 )
 
-func TestNewTokenCmdHead(t *testing.T) {
+func TestNewParseCmdHead(t *testing.T) {
 	t.Setenv("NLGEUL_WORDS", "")
 	var out bytes.Buffer
 	run := func(args ...string) error {
 		out.Reset()
 		root := newRootCmd()
 		root.SetOut(&out)
-		root.SetArgs(append([]string{"token"}, args...))
+		root.SetArgs(append([]string{"parse"}, args...))
 		return root.Execute()
 	}
 	if err := run("--head", "0", "100m²이다"); err != nil || strings.Contains(out.String(), "생략됨") {

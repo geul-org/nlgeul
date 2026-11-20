@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmd — nlgeul token prints the words of a unit; the boxes by default; --cuts word ends; --marks word ends with the spacing rules (--spacing: all by default, none, or names); --trace the judgments; --stdin reads lines; a word table comes from --words or NLGEUL_WORDS; no sentence, a negative --head and a table that cannot be read are refused
+//ff:what TestNewParseCmd — nlgeul parse prints the words of a unit; the boxes by default; --cuts word ends; --marks word ends with the spacing rules (--spacing: all by default, none, or names); --trace the judgments; --stdin reads lines; a word table comes from --words or NLGEUL_WORDS; no sentence, a negative --head and a table that cannot be read are refused
 package cli
 
 import (
@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestNewTokenCmd(t *testing.T) {
+func TestNewParseCmd(t *testing.T) {
 	t.Setenv("NLGEUL_WORDS", "")
 	var out bytes.Buffer
 	run := func(in string, args ...string) error {
@@ -16,7 +16,7 @@ func TestNewTokenCmd(t *testing.T) {
 		root := newRootCmd()
 		root.SetOut(&out)
 		root.SetIn(strings.NewReader(in))
-		root.SetArgs(append([]string{"token"}, args...))
+		root.SetArgs(append([]string{"parse"}, args...))
 		return root.Execute()
 	}
 	if err := run("", "아버지가"); err != nil || !strings.Contains(out.String(), "\n│ 아버지+가[주격:가]") {

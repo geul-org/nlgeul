@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what JSONCandidate — one candidate of a word as nlgeul token --format json writes it: its parts, its verdict, its preference and its lambda (null when the verdict is 0 or less, minus infinity)
+//ff:what JSONCandidate — one candidate of a word as nlgeul parse --format json writes it: its parts, its verdict, its preference and its lambda (null when the verdict is 0 or less, minus infinity)
 package token
 
 type JSONCandidate struct {

@@ -1,5 +1,5 @@
 //ff:type feature=token type=model
-//ff:what JSONSegment — one stretch of a sentence as nlgeul token --format json writes it: its place, its letters, the rank and the sum of lambdas of the way sent (the best), the number of ways (a number, a string when it does not fit in 2^53), and the words of that way (none for a stretch nothing is known of)
+//ff:what JSONSegment — one stretch of a sentence as nlgeul parse --format json writes it: its place, its letters, the rank and the sum of lambdas of the way sent (the best), the number of ways (a number, a string when it does not fit in 2^53), and the words of that way (none for a stretch nothing is known of)
 package token
 
 type JSONSegment struct {

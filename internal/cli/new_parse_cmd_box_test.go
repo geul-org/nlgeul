@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdBox — nlgeul token draws boxes by default (a title, the right line of every box of the contest of ways in one cell, the line "1등 길:"), --head counts the ways left out as well as the candidates, --trace puts the lines of a unit before its boxes, --stdin parts the sentences by an empty line, --cuts stays as it was
+//ff:what TestNewParseCmdBox — nlgeul parse draws boxes by default (a title, the right line of every box of the contest of ways in one cell, the line "1등 길:"), --head counts the ways left out as well as the candidates, --trace puts the lines of a unit before its boxes, --stdin parts the sentences by an empty line, --cuts stays as it was
 package cli
 
 import (
@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestNewTokenCmdBox(t *testing.T) {
+func TestNewParseCmdBox(t *testing.T) {
 	t.Setenv("NLGEUL_WORDS", "")
 	var out bytes.Buffer
 	run := func(in string, args ...string) error {
@@ -16,7 +16,7 @@ func TestNewTokenCmdBox(t *testing.T) {
 		root := newRootCmd()
 		root.SetOut(&out)
 		root.SetIn(strings.NewReader(in))
-		root.SetArgs(append([]string{"token"}, args...))
+		root.SetArgs(append([]string{"parse"}, args...))
 		return root.Execute()
 	}
 	if err := run("", "아버지가"); err != nil || !strings.HasPrefix(out.String(), "┌ [0-4] 아버지가 ─ 후보경합 ") || !strings.Contains(out.String(), "\n│ 아버지+가[주격:가]") || !strings.Contains(out.String(), "\n1등 길: 아버지가  (λ 합 ") {

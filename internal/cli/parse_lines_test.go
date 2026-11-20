@@ -1,5 +1,5 @@
 //ff:func feature=cli type=helper control=iteration dimension=1
-//ff:what TestTokenLines — cuts give the word ends, marks the word ends with the spacing rules of each boundary, and the default gives BoxLines as it is (with trace and head); none of the three is the same as another
+//ff:what TestParseLines — cuts give the word ends, marks the word ends with the spacing rules of each boundary, and the default gives BoxLines as it is (with trace and head); none of the three is the same as another
 package cli
 
 import (
@@ -9,13 +9,13 @@ import (
 	"github.com/geul-org/nlgeul/pkg/token"
 )
 
-func TestTokenLines(t *testing.T) {
+func TestParseLines(t *testing.T) {
 	r, err := token.New(token.Options{Words: "testdata/words.tsv"})
 	if err != nil {
 		t.Fatal(err)
 	}
 	s := "고양이가 마당에서 물을"
-	cuts := tokenLines(r, s, false, true, false, 0)
+	cuts := parseLines(r, s, false, true, false, 0)
 	if !slices.Equal(cuts, r.Cuts(s)) {
 		t.Fatal(cuts)
 	}
@@ -23,16 +23,16 @@ func TestTokenLines(t *testing.T) {
 		trace bool
 		head  int
 	}{{false, 0}, {false, 1}, {false, 20}, {true, 0}, {true, 1}, {true, 20}} {
-		box := tokenLines(r, s, c.trace, false, false, c.head)
+		box := parseLines(r, s, c.trace, false, false, c.head)
 		if !slices.Equal(box, r.BoxLines(s, c.trace, c.head)) || slices.Equal(box, cuts) {
 			t.Fatal(c, box)
 		}
 	}
-	marks := tokenLines(r, s, false, false, true, 0)
-	if !slices.Equal(marks, r.Marks(s)) || slices.Equal(marks, cuts) || slices.Equal(marks, tokenLines(r, s, false, false, false, 0)) {
+	marks := parseLines(r, s, false, false, true, 0)
+	if !slices.Equal(marks, r.Marks(s)) || slices.Equal(marks, cuts) || slices.Equal(marks, parseLines(r, s, false, false, false, 0)) {
 		t.Fatal("marks", marks)
 	}
-	if got := tokenLines(r, s, false, true, true, 0); !slices.Equal(got, cuts) {
+	if got := parseLines(r, s, false, true, true, 0); !slices.Equal(got, cuts) {
 		t.Fatal("cuts come first", got)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what newTokenCmd — nlgeul token: read a token (syllable) stream into words with a graph for every marker candidate, with the spacing rules (article 2 and 41 to 50 of the spelling rules, --spacing) that show boundaries inside a unit, and print the words as boxes (the ways of a stretch in brackets at their right), or with --format json as one line of JSON for a sentence
+//ff:what newParseCmd — nlgeul parse: read a token (syllable) stream into words with a graph for every marker candidate, with the spacing rules (article 2 and 41 to 50 of the spelling rules, --spacing) that show boundaries inside a unit, and print the words as boxes (the ways of a stretch in brackets at their right), or with --format json as one line of JSON for a sentence
 package cli
 
 import (
@@ -11,13 +11,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// newTokenCmd is `nlgeul token "<문장>"`. The word table comes from
+// newParseCmd is `nlgeul parse "<문장>"`. The word table comes from
 // --words, else from the environment variable NLGEUL_WORDS.
-func newTokenCmd() *cobra.Command {
+func newParseCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   `token "<문장>"`,
+		Use:   `parse "<문장>"`,
 		Short: "토큰(음절) 스트림을 표지별 판정 그래프로 읽어 어절로 끊어 올린다(실험)",
-		Long:  tokenLong,
+		Long:  parseLong,
 		Args:  cobra.MaximumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			f := cmd.Flags()
@@ -42,7 +42,7 @@ func newTokenCmd() *cobra.Command {
 			if words == "" {
 				words = os.Getenv("NLGEUL_WORDS")
 			}
-			sentences, err := tokenInput(args, stdin, cmd.InOrStdin())
+			sentences, err := parseInput(args, stdin, cmd.InOrStdin())
 			if err != nil {
 				return err
 			}
@@ -51,9 +51,9 @@ func newTokenCmd() *cobra.Command {
 				return err
 			}
 			if format == "json" {
-				return writeTokenJSON(cmd.OutOrStdout(), r, sentences)
+				return writeParseJSON(cmd.OutOrStdout(), r, sentences)
 			}
-			runToken(cmd.OutOrStdout(), r, sentences, trace, cuts, marks, head)
+			runParse(cmd.OutOrStdout(), r, sentences, trace, cuts, marks, head)
 			return nil
 		},
 	}

@@ -1,7 +1,7 @@
 package cli
 
-// tokenLong is the long help of nlgeul token.
-const tokenLong = `문장을 띄어쓰기와 여닫는 기호(확정 경계)에서 단위로 나누고, 단위마다 토큰(음절)을
+// parseLong is the long help of nlgeul parse.
+const parseLong = `문장을 띄어쓰기와 여닫는 기호(확정 경계)에서 단위로 나누고, 단위마다 토큰(음절)을
 차례로 읽으며 색인에서 표지(조사, 선어말 칸, 맺음)와 낱말을 찾아 표지 풀이마다
 판정 그래프를 돌린다. 살아남은 후보들이 모두 합의한 자리에서 끊어 구간으로 올린다.
 
@@ -92,4 +92,4 @@ none은 끔, 또는 2,41,42,43,43다만,44,45,46,47,47다만,48,48다만,49,50 �
 붙여 쓴 호칭·관직 앞에서 성으로 읽는 후보도 더한다(김군은 → 김[성:김] 군[열쇠:체언]+은[보조사:은]).
 알아보는 말은 pkg/data/spacing-words.tsv와 bound-nouns.tsv(의존 명사)에 있다.
 붙임표(-)로 시작하는 문장은 옵션으로 읽히지 않게 "--" 뒤에 준다
-(nlgeul token -- "-3", nlgeul token -- "--xx").`
+(nlgeul parse -- "-3", nlgeul parse -- "--xx").`

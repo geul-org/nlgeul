@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=iteration dimension=1
-//ff:what tokenInput — the sentences nlgeul token reads: the one argument, or with --stdin every line of standard input
+//ff:what parseInput — the sentences nlgeul parse reads: the one argument, or with --stdin every line of standard input
 package cli
 
 import (
@@ -8,7 +8,7 @@ import (
 	"io"
 )
 
-func tokenInput(args []string, stdin bool, in io.Reader) ([]string, error) {
+func parseInput(args []string, stdin bool, in io.Reader) ([]string, error) {
 	if !stdin && len(args) == 1 {
 		return args, nil
 	}

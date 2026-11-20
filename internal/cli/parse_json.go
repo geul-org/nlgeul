@@ -1,5 +1,5 @@
 //ff:func feature=cli type=helper control=iteration dimension=1
-//ff:what writeTokenJSON — every sentence as one line of JSON (JSON Lines, UTF-8, the Korean letters as they are), numbered from 0
+//ff:what writeParseJSON — every sentence as one line of JSON (JSON Lines, UTF-8, the Korean letters as they are), numbered from 0
 package cli
 
 import (
@@ -9,7 +9,7 @@ import (
 	"github.com/geul-org/nlgeul/pkg/token"
 )
 
-func writeTokenJSON(out io.Writer, r *token.Reader, sentences []string) error {
+func writeParseJSON(out io.Writer, r *token.Reader, sentences []string) error {
 	enc := json.NewEncoder(out)
 	enc.SetEscapeHTML(false)
 	for i, s := range sentences {

@@ -1,5 +1,5 @@
 //ff:func feature=combo type=helper control=iteration dimension=1
-//ff:what Line — a combination of candidates printed on one line: its rank, its verdict and preference as nlgeul token writes them, and the candidate picked for each contest as nlgeul token writes a candidate, parted by " | "
+//ff:what Line — a combination of candidates printed on one line: its rank, its verdict and preference as nlgeul parse writes them, and the candidate picked for each contest as nlgeul parse writes a candidate, parted by " | "
 package combo
 
 import (

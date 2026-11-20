@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what TestNewTokenCmdFormat — --format box is the default output as it is, --format json is one line of JSON for each sentence (numbered from 0, the Korean letters not escaped, a new word is not known), --format plain is refused (the old lines are gone) with an error that names box and json, another value (xml) and json with --cuts or --marks are refused, --plain is no longer an option
+//ff:what TestNewParseCmdFormat — --format box is the default output as it is, --format json is one line of JSON for each sentence (numbered from 0, the Korean letters not escaped, a new word is not known), --format plain is refused (the old lines are gone) with an error that names box and json, another value (xml) and json with --cuts or --marks are refused, --plain is no longer an option
 package cli
 
 import (
@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestNewTokenCmdFormat(t *testing.T) {
+func TestNewParseCmdFormat(t *testing.T) {
 	t.Setenv("NLGEUL_WORDS", "")
 	var out bytes.Buffer
 	run := func(in string, args ...string) error {
@@ -18,7 +18,7 @@ func TestNewTokenCmdFormat(t *testing.T) {
 		root.SetOut(&out)
 		root.SetErr(&bytes.Buffer{})
 		root.SetIn(strings.NewReader(in))
-		root.SetArgs(append([]string{"token"}, args...))
+		root.SetArgs(append([]string{"parse"}, args...))
 		return root.Execute()
 	}
 	if err := run("", "아버지가"); err != nil {
