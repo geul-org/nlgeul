@@ -6,5 +6,5 @@ import "testing"
 
 func firstNode(t *testing.T, s string) Node {
 	t.Helper()
-	return firstOf(t, sentenceRegions(t, s)[0])
+	return firstNodeOf(t, sentenceRegions(t, s)[0])
 }

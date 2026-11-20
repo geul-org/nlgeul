@@ -23,7 +23,7 @@ func TestAdnHeadRuleStream(t *testing.T) {
 		}
 		auxLinkedHas(t, notes, c.note)
 	}
-	first := func(ruled bool) (Branch, int) {
+	top := func(ruled bool) (Branch, int) {
 		st := streamReader(t, "words-adn-head.tsv").Stream("이 역시 어렵다.")
 		st.rules = nil
 		if ruled {
@@ -32,8 +32,8 @@ func TestAdnHeadRuleStream(t *testing.T) {
 		seg, _ := st.Next()
 		return branchNamed(seg.Nodes[0], "이[관형사:이]")
 	}
-	was, _ := first(false)
-	if now, k := first(true); k < 1 || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical)-1)) || now.Pref != was.Pref {
+	was, _ := top(false)
+	if now, k := top(true); k < 1 || !almost(now.Verdict, was.Verdict*(2/(1+forceUngrammatical)-1)) || now.Pref != was.Pref {
 		t.Fatal("the rebutted determiner is kept behind with its verdict lowered by the force", k, now.Verdict, was.Verdict)
 	}
 }

@@ -12,7 +12,7 @@ func TestHeldAfterText(t *testing.T) {
 	rules := []sentenceRule{haOneRule()}
 	var one, obj Node
 	for _, rg := range st.queue {
-		n := firstOf(t, rg)
+		n := firstNodeOf(t, rg)
 		switch n.Contest.Text {
 		case "한":
 			one = n

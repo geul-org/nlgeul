@@ -1,10 +1,10 @@
 //ff:func feature=parse type=helper control=sequence
-//ff:what firstOf — the first word of the best way of a region
+//ff:what firstNodeOf — the first word of the best way of a region
 package parse
 
 import "testing"
 
-func firstOf(t *testing.T, rg *region) Node {
+func firstNodeOf(t *testing.T, rg *region) Node {
 	t.Helper()
 	seg, ok := rg.peek()
 	if !ok || len(seg.Nodes) == 0 {

@@ -7,7 +7,7 @@ import "testing"
 func TestHeldAfter(t *testing.T) {
 	rules := []sentenceRule{waitingComplementRule()}
 	nodes := sentenceRegions(t, "학생이 밥을 되었다")
-	subj, obj, pred := firstOf(t, nodes[0]), firstOf(t, nodes[1]), firstOf(t, nodes[2])
+	subj, obj, pred := firstNodeOf(t, nodes[0]), firstNodeOf(t, nodes[1]), firstNodeOf(t, nodes[2])
 	if !heldAfter(false, subj, rules) || !heldAfter(true, subj, rules) || heldAfter(false, subj, nil) {
 		t.Fatal("학생이 opens the wait")
 	}
