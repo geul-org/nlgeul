@@ -5,29 +5,29 @@ package combo
 import (
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestLine(t *testing.T) {
-	noun := token.Part{Text: "고양이", Name: token.Name{Kind: "열쇠", Form: "체언"}, Stem: true}
-	subject := token.Part{Text: "가", Name: token.Name{Kind: "주격", Form: "가"}}
-	unknown := token.Part{Text: "고양", Stem: true}
-	suffix := token.Part{Text: "이", Name: token.Name{Kind: "접미", Form: "이"}}
-	verb := token.Part{Text: "마시", Name: token.Name{Kind: "열쇠", Form: "동사"}, Stem: true}
-	closing := token.Part{Text: "다", Hidden: "ㄴ", Name: token.Name{Kind: "맺음", Form: "ㄴ다"}}
-	modifier := token.Part{Hidden: "ㄴ", Name: token.Name{Kind: "꾸밈", Form: "ㄴ"}}
-	adverb := token.Part{Text: "다", Name: token.Name{Kind: "열쇠", Form: "부사"}, Stem: true}
-	dot := token.Part{Text: ".", Name: token.Name{Kind: "마침표"}}
-	choices := []token.Contest{
-		{Text: "고양이가", Branches: []token.Branch{
-			{Words: []token.Eojeol{{Parts: []token.Part{noun, subject}, End: 4}}},
-			{Words: []token.Eojeol{{Parts: []token.Part{unknown, suffix, subject}, End: 4}}},
+	noun := parse.Part{Text: "고양이", Name: parse.Name{Kind: "열쇠", Form: "체언"}, Stem: true}
+	subject := parse.Part{Text: "가", Name: parse.Name{Kind: "주격", Form: "가"}}
+	unknown := parse.Part{Text: "고양", Stem: true}
+	suffix := parse.Part{Text: "이", Name: parse.Name{Kind: "접미", Form: "이"}}
+	verb := parse.Part{Text: "마시", Name: parse.Name{Kind: "열쇠", Form: "동사"}, Stem: true}
+	closing := parse.Part{Text: "다", Hidden: "ㄴ", Name: parse.Name{Kind: "맺음", Form: "ㄴ다"}}
+	modifier := parse.Part{Hidden: "ㄴ", Name: parse.Name{Kind: "꾸밈", Form: "ㄴ"}}
+	adverb := parse.Part{Text: "다", Name: parse.Name{Kind: "열쇠", Form: "부사"}, Stem: true}
+	dot := parse.Part{Text: ".", Name: parse.Name{Kind: "마침표"}}
+	choices := []parse.Contest{
+		{Text: "고양이가", Branches: []parse.Branch{
+			{Words: []parse.Eojeol{{Parts: []parse.Part{noun, subject}, End: 4}}},
+			{Words: []parse.Eojeol{{Parts: []parse.Part{unknown, suffix, subject}, End: 4}}},
 		}},
-		{Text: "마신다", Branches: []token.Branch{
-			{Words: []token.Eojeol{{Parts: []token.Part{verb, closing}, End: 3}}},
-			{Words: []token.Eojeol{{Parts: []token.Part{verb, modifier}, End: 2}, {Parts: []token.Part{adverb}, End: 3}}},
+		{Text: "마신다", Branches: []parse.Branch{
+			{Words: []parse.Eojeol{{Parts: []parse.Part{verb, closing}, End: 3}}},
+			{Words: []parse.Eojeol{{Parts: []parse.Part{verb, modifier}, End: 2}, {Parts: []parse.Part{adverb}, End: 3}}},
 		}},
-		{Text: ".", Branches: []token.Branch{{Words: []token.Eojeol{{Parts: []token.Part{dot}, End: 1}}}}},
+		{Text: ".", Branches: []parse.Branch{{Words: []parse.Eojeol{{Parts: []parse.Part{dot}, End: 1}}}}},
 	}
 
 	got := Line(3, Combination{Number: 1, Score: Score{Verdict: 0.5714, Pref: -17.958}}, choices)

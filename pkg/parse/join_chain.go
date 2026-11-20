@@ -1,0 +1,39 @@
+//ff:func feature=parse type=reader control=iteration dimension=1
+//ff:what joinChain — judge each sign of a chain of runs (told whether a full stop stands right after the chain's last run: MarkStopped) and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
+package parse
+
+import "github.com/geul-org/nlgeul/pkg/rule"
+
+func (sc *scan) joinChain(chain [][2]int) {
+	labels, signs := make([]string, len(chain)), make([]rune, len(chain)-1)
+	for i, r := range chain {
+		labels[i] = string(sc.s[r[0]:r[1]])
+		if i < len(signs) {
+			signs[i] = sc.s[r[1]]
+		}
+	}
+	start, names, num := chain[0][0], []string(nil), true
+	stopped, end := 0, chain[len(chain)-1][1]
+	if end < len(sc.s) && sc.s[end] == '.' {
+		stopped = rule.MarkStopped
+	}
+	for k, r := range chain {
+		num = num && sideOf(labels[k])&rule.SideDigit != 0
+		var joined []markCandidate
+		if k < len(signs) {
+			m := signFacts(labels, signs, k)
+			m.Facts |= stopped
+			joined = sc.judgeMark(sc.ix.signs[signs[k]], m, string(signs[k]))
+		}
+		if len(joined) > 0 {
+			names = union(names, markNames(shownNames(joined)))
+			continue
+		}
+		if len(names) == 0 && start == r[0] && hexRun(labels[k]) {
+			sc.closeAtom(start, r[1], []string{hexName}, true)
+		} else {
+			sc.closeAtom(start, r[1], hyphenLast(names), num)
+		}
+		start, names, num = r[1]+1, nil, true
+	}
+}

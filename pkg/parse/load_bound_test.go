@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestLoadBound — the words that bear the set's name are listed in the order of their lines and those marked 붙여 읽음 again under that mark; a word with no name is left out of both, whatever the token layer's columns hold; a name that is not the set's, a mark other than 붙여 읽음 and a mark on a line with no name are errors that name the column
+//ff:what TestLoadBound — the words that bear the set's name are listed in the order of their lines and those marked 붙여 읽음 again under that mark; a word with no name is left out of both, whatever the columns loadBoundNouns reads hold; a name that is not the set's, a mark other than 붙여 읽음 and a mark on a line with no name are errors that name the column
 package parse
 
 import (

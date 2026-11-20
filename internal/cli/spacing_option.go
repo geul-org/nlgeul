@@ -5,13 +5,13 @@ package cli
 import (
 	"strings"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func spacingOption(v string) []string {
 	switch v {
 	case "all":
-		return append([]string{}, token.SpacingArticles...)
+		return append([]string{}, parse.SpacingArticles...)
 	case "none", "":
 		return nil
 	}

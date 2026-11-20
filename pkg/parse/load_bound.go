@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what loadBound — the dependent nouns of the closed set read from the lines of the dependent-noun table (word, name, whether it is read when written onto a modifying closing too, and two columns the token layer reads): under boundSet the words that bear the set's name, under joinedMark those of them so marked, in the order of their lines; a name other than the set's or -, and a mark other than 붙여 읽음 or on a line with no name, are errors
+//ff:what loadBound — the dependent nouns of the closed set read from the lines of the dependent-noun table (word, name, whether it is read when written onto a modifying closing too, and two columns loadBoundNouns reads): under boundSet the words that bear the set's name, under joinedMark those of them so marked, in the order of their lines; a name other than the set's or -, and a mark other than 붙여 읽음 or on a line with no name, are errors
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/data"

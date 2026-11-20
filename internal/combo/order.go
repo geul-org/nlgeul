@@ -5,7 +5,7 @@ package combo
 import (
 	"math"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 // To sort the combinations another way, change this function and nothing
@@ -25,8 +25,8 @@ import (
 // in the order of their numbers (List sorts stably), so the output is
 // always the same; the combinations whose place is minus infinity come
 // last, in the order of their numbers.
-func order() (score func(picked []token.Branch) Score, before func(a, b Score) bool) {
-	score = func(picked []token.Branch) Score {
+func order() (score func(picked []parse.Branch) Score, before func(a, b Score) bool) {
+	score = func(picked []parse.Branch) Score {
 		s := Score{Verdict: 1}
 		for _, br := range picked {
 			s.Place += br.Pref + float64(Lambda*math.Log10(math.Max(br.Verdict, 0)))

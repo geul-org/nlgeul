@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 	"github.com/spf13/cobra"
 )
 
@@ -46,7 +46,7 @@ func newParseCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			r, err := token.New(token.Options{Words: words, Layers: layers, Spacing: spacingOption(spacing)})
+			r, err := parse.New(parse.Options{Words: words, Layers: layers, Spacing: spacingOption(spacing)})
 			if err != nil {
 				return err
 			}

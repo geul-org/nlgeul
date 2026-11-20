@@ -6,7 +6,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestList(t *testing.T) {
@@ -20,10 +20,10 @@ func TestList(t *testing.T) {
 	//   3: a1 b c0 → place 2+0+1 = 3
 	//   4: a1 b c1 → place minus infinity
 	//   5: a1 b c2 → place 2+0+1 = 3
-	choices := []token.Contest{
-		{Text: "가", Branches: []token.Branch{{Verdict: 1, Pref: 0}, {Verdict: 1, Pref: 2}}},
-		{Text: ".", Branches: []token.Branch{{Verdict: 1, Pref: 0}}},
-		{Text: "나", Branches: []token.Branch{{Verdict: 1, Pref: 1}, {Verdict: 0, Pref: 9}, {Verdict: 1, Pref: 1}}},
+	choices := []parse.Contest{
+		{Text: "가", Branches: []parse.Branch{{Verdict: 1, Pref: 0}, {Verdict: 1, Pref: 2}}},
+		{Text: ".", Branches: []parse.Branch{{Verdict: 1, Pref: 0}}},
+		{Text: "나", Branches: []parse.Branch{{Verdict: 1, Pref: 1}, {Verdict: 0, Pref: 9}, {Verdict: 1, Pref: 1}}},
 	}
 	inf := math.Inf(-1)
 	want := []Combination{

@@ -5,10 +5,10 @@ package combo
 import (
 	"math/big"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
-func Count(choices []token.Contest) *big.Int {
+func Count(choices []parse.Contest) *big.Int {
 	if len(choices) == 0 {
 		return new(big.Int)
 	}

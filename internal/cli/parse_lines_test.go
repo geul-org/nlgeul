@@ -6,11 +6,11 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestParseLines(t *testing.T) {
-	r, err := token.New(token.Options{Words: "testdata/words.tsv"})
+	r, err := parse.New(parse.Options{Words: "testdata/words.tsv"})
 	if err != nil {
 		t.Fatal(err)
 	}

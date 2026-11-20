@@ -12,7 +12,7 @@ import (
 // and 음 are read (a sentence may end in them); 기 and the rare
 // closings 오, 소, 세, 마, 쇼, 담, 곤, ㄴ바, ㄴ즉 and ㄹ지언정 are left
 // out. The rows after them, with no count, are endings the standard
-// dictionary lists that the token layer read on top of these: 되,
+// dictionary lists that the stream reads on top of these: 되,
 // 어야지, 어야만, 어다가, the quoting endings with 면서, 며 and 니
 // (다면서, ㄴ다면서, 는다면서, 라면서, 자면서, ㄴ다며, 는다며, 라며,
 // 자며, 다니, ㄴ다니, 는다니, 라니), 길래, 든가, ㄴ들, ㄹ망정,
@@ -35,8 +35,8 @@ import (
 // letters) and 어다; then 거니; then the old-fashioned ㄴ즉 and 은즉,
 // 리오, 노라니 and 노라니까, and 지마는, 느니, 려는가 and 라지. Not
 // listed, though the dictionary has them: 는걸
-// and 은걸, which the token layer reads as a modifying closing with 거
+// and 은걸, which the stream reads as a modifying closing with 거
 // under 를; 리, which as a row stands after a stem that is not in the
-// table; and 마, ㄹ새 and 을새, which the token layer reads after a
+// table; and 마, ㄹ새 and 을새, which the stream reads after a
 // predicate's stem of the word table only.
 var endings = data.Must(data.Each(closingsFile, 5, endingOf))

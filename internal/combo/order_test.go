@@ -6,7 +6,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestOrder(t *testing.T) {
@@ -15,7 +15,7 @@ func TestOrder(t *testing.T) {
 		t.Fatalf("Lambda %v, want more than 0", float64(Lambda))
 	}
 
-	picked := []token.Branch{{Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}}
+	picked := []parse.Branch{{Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}}
 	place := -0.75 + Lambda*(math.Log10(0.5)+math.Log10(0.25)+math.Log10(0.75))
 	got := score(picked)
 	if math.Abs(got.Place-place) > 1e-9 || got.Verdict != 0.25 || got.Pref != -0.75 {
@@ -24,16 +24,16 @@ func TestOrder(t *testing.T) {
 	if got, want := score(nil), (Score{Place: 0, Verdict: 1, Pref: 0}); got != want {
 		t.Fatalf("score of no candidate %+v, want %+v", got, want)
 	}
-	withSign := []token.Branch{{Verdict: 1, Pref: 0}, {Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}, {Verdict: 1, Pref: 0}}
+	withSign := []parse.Branch{{Verdict: 1, Pref: 0}, {Verdict: 0.5, Pref: -2}, {Verdict: 0.25, Pref: 1.5}, {Verdict: 0.75, Pref: -0.25}, {Verdict: 1, Pref: 0}}
 	if with := score(withSign); math.Abs(with.Place-got.Place) > 1e-9 || with.Verdict != got.Verdict || with.Pref != got.Pref {
 		t.Fatalf("score with signs %+v, want %+v", with, got)
 	}
 
-	zero := score([]token.Branch{{Verdict: 0.5, Pref: 3}, {Verdict: 0, Pref: 2}})
+	zero := score([]parse.Branch{{Verdict: 0.5, Pref: 3}, {Verdict: 0, Pref: 2}})
 	if !math.IsInf(zero.Place, -1) || zero.Verdict != 0 || zero.Pref != 5 {
 		t.Fatalf("score with a verdict of 0 %+v, want place -Inf verdict 0 preference 5", zero)
 	}
-	below := score([]token.Branch{{Verdict: -0.5, Pref: 1}})
+	below := score([]parse.Branch{{Verdict: -0.5, Pref: 1}})
 	if !math.IsInf(below.Place, -1) || below.Verdict != -0.5 || below.Pref != 1 {
 		t.Fatalf("score with a verdict below 0 %+v, want place -Inf verdict -0.5 preference 1", below)
 	}
@@ -57,9 +57,9 @@ func TestOrder(t *testing.T) {
 	// preference 0): the gap in log10 verdict times Lambda is what the
 	// weak one's preference must make up.
 	gap := Lambda * (math.Log10(0.6) - math.Log10(0.33))
-	strong := score([]token.Branch{{Verdict: 0.6, Pref: 0}})
-	short := score([]token.Branch{{Verdict: 0.33, Pref: gap / 2}})
-	enough := score([]token.Branch{{Verdict: 0.33, Pref: gap * 2}})
+	strong := score([]parse.Branch{{Verdict: 0.6, Pref: 0}})
+	short := score([]parse.Branch{{Verdict: 0.33, Pref: gap / 2}})
+	enough := score([]parse.Branch{{Verdict: 0.33, Pref: gap * 2}})
 	if !before(strong, short) || before(short, strong) {
 		t.Fatalf("a weak candidate with too little preference comes first: %+v %+v", short, strong)
 	}

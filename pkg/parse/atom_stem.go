@@ -1,0 +1,25 @@
+//ff:func feature=parse type=reader control=iteration dimension=1
+//ff:what atomStem — when the stem from b to end is exactly one atom: a candidate for each name that joins it (or the run's own name) with the atom's verdict; or a whole run of digits and a unit that was cut in two (64GB): the run's own name and verdict
+package parse
+
+func (sc *scan) atomStem(b, end int) []markCandidate {
+	a, ok := sc.atoms[b]
+	if (!ok || a.end != end) && sc.wide[b] == end {
+		return []markCandidate{{runName, sc.ix.run}}
+	}
+	if !ok || a.end != end {
+		return nil
+	}
+	if len(a.names) == 0 {
+		return []markCandidate{{runName, sc.ix.run}}
+	}
+	v := 1.0
+	if a.num {
+		v = sc.ix.number
+	}
+	var out []markCandidate
+	for _, n := range a.names {
+		out = append(out, markCandidate{n, v})
+	}
+	return out
+}

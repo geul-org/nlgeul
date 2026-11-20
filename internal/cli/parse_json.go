@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
-func writeParseJSON(out io.Writer, r *token.Reader, sentences []string) error {
+func writeParseJSON(out io.Writer, r *parse.Reader, sentences []string) error {
 	enc := json.NewEncoder(out)
 	enc.SetEscapeHTML(false)
 	for i, s := range sentences {

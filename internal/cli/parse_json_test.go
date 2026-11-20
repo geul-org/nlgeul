@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestWriteParseJSON(t *testing.T) {
-	r, err := token.New(token.Options{})
+	r, err := parse.New(parse.Options{})
 	if err != nil {
 		t.Fatal(err)
 	}

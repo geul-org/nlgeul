@@ -1,0 +1,50 @@
+package parse
+
+// malStem is the stem of 말다, which the dictionary gives as an
+// auxiliary verb after -지 (가지 마라: do not) and after -고 (지고 말았다:
+// in the end); the word tables have it under the verb's kind only
+// (mainKindOf), as the answer sheet writes it. malLinks are those two
+// closings (malLinkedRule).
+const malStem = "말"
+
+var malLinks = closingNames(Marker{Form: "지"}, Marker{Form: "고"})
+
+// regardStems are the stems of the verbs that after …에 or …을 name what
+// is talked or thought about or what a thing is done through (관하다, the
+// dictionary's "말하거나 생각하는 대상으로 하다": …에 관하여; 대하다,
+// "대상이나 상대로 삼다": …에 대하여; 통하다, "어떤 일을 매개하거나
+// 중개하게 하다": …을 통하여). The verb after their -여 form is a main
+// verb that takes that phrase, not an auxiliary of theirs (…에 관하여
+// 보건대, …에 대하여 본다, …을 통해 보았을).
+var regardStems = []string{"관하", "대하", "통하"}
+
+// whileLinks and whileClosings make the frame the dictionary gives 보다
+// as an auxiliary verb in after -다(가): -다(가) 보니, -다(가) 보면 (in
+// the course of doing it, one finds or comes to what follows: 살다 보니,
+// 걷다가 보면). whileLinks are the closings of the word before (다,
+// 다가), whileClosings those of 보다 itself (니, 니까, 면; mainUnlinkedRule).
+var (
+	whileLinks    = closingNames(Marker{Form: "다"}, Marker{Form: "다가"})
+	whileClosings = closingNames(Marker{Form: "니", Eu: true}, Marker{Form: "니까", Eu: true}, Marker{Form: "면", Eu: true})
+)
+
+// seeAux is the stem of the auxiliary 보다, as the rules of a sentence
+// read it after -다(가) (whileLinks: mainUnlinkedRule).
+const seeAux = "보"
+
+// goNames is the closing -고 and goAux the stems of the auxiliary verbs
+// the dictionary gives after it: 있다 (-고 있다) and 보다 (-고 보니, -고
+// 보면). The others of the closed set (주다, 놓다, 두다, 버리다, 지다)
+// follow the -어 form only, so after -고 the same letters are the main
+// verb (받고 놓아, 승낙하고 주는: auxLinkedRule, mainUnlinkedRule).
+var (
+	goNames = closingNames(Marker{Form: "고"})
+	goAux   = []string{"있", seeAux}
+)
+
+// particleEnds is the kind of the name of an auxiliary particle: a word
+// whose markers hold a linking closing and end in one is still the main
+// verb's linking form an auxiliary verb follows (clause 47 of the
+// orthography, 다만: 읽어도 보고, 하고는 있지만; auxLinkedRule,
+// malLinkedRule).
+var particleEnds = []string{"보조사"}

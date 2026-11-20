@@ -7,8 +7,9 @@ import (
 // The closed sets of morphemes.md section 8, which the tables
 // closed-words.tsv and bound-nouns.tsv in the data package hold. They
 // are part of the grammar tables: no other word is listed anywhere. The
-// tables hold what the token layer reads too; this package leaves those
-// lines and columns out, and the token layer checks them.
+// tables hold what the stream reads too (loadWordSets, loadBoundNouns);
+// closedSets and boundSets leave those lines and columns out, and the
+// stream's readers check them.
 
 // closedSets are the sets of closed-words.tsv, and boundSets the
 // dependent nouns of bound-nouns.tsv that bear the set's name, with

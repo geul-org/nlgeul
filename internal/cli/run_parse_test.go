@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestRunParse(t *testing.T) {
-	r, _ := token.New(token.Options{})
+	r, _ := parse.New(parse.Options{})
 	var out bytes.Buffer
 	runParse(&out, r, []string{"아버지가"}, false, false, false, 0)
 	if !strings.Contains(out.String(), "\n│ 아버지+가[주격:가]") || strings.HasSuffix(out.String(), "\n\n") {

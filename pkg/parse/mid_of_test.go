@@ -1,0 +1,29 @@
+//ff:func feature=parse type=helper control=sequence
+//ff:what TestMidOf — a word of one part named 기호 stands for the sign whose run ends at its end (at the run's first sign); a word of other parts or names, or at a place with no sign, does not
+package parse
+
+import "testing"
+
+func TestMidOf(t *testing.T) {
+	sc := scanOf("가·나")
+	word := Eojeol{Parts: []Part{{Text: "·", Name: Name{Kind: midName}}}, End: 2}
+	if m, ok := sc.midOf(word); !ok || len(m.candidates) != 1 {
+		t.Fatal(m, ok)
+	}
+	word.End = 3
+	if _, ok := sc.midOf(word); ok {
+		t.Fatal("no sign there")
+	}
+	word.End = 2
+	word.Parts[0].Name.Kind = "열쇠"
+	if _, ok := sc.midOf(word); ok {
+		t.Fatal("other name")
+	}
+	if _, ok := sc.midOf(Eojeol{Parts: []Part{{}, {}}, End: 2}); ok {
+		t.Fatal("two parts")
+	}
+	run := scanOf("산——뭐")
+	if m, ok := run.midOf(Eojeol{Parts: []Part{{Text: "——", Name: Name{Kind: midName}}}, End: 3}); !ok || m.candidates[0].Text != "——" {
+		t.Fatal("a run", m, ok)
+	}
+}

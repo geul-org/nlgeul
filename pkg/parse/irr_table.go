@@ -1,0 +1,112 @@
+package parse
+
+// Irregular predicates (Hangul orthography, clause 18). A word table
+// writes a predicate under its stem as the dictionary has it; in a
+// sentence the stem's last syllable changes before some tails. A
+// changed form is never a stem of its own: it is read only together
+// with a tail it changes before, and the word is printed, and looked
+// up, under the stem of the table (들었다 → 듣+었+다). A changed form
+// that is also another word stands next to that word, as a contest.
+// Clause 40: a stem of two syllables or more that ends in 하 loses the
+// ㅏ of 하, and its ㅎ fuses into the first consonant of some closings,
+// which are then written with an aspirate (원치 = 원하+치, 가능케,
+// 불쌍타, 연구토록, 달성코자, 단언컨대). Clause 40, note 2: after a
+// final consonant that sounds [ㄱ], [ㄷ] or [ㅂ] the 하 drops wholly and
+// the closing stands right after it (생각건대 = 생각하+건대).
+//
+// Kinds of change, as bits. irrL is not irregular: every stem that
+// ends in ㄹ drops it before ㄴ, ㅂ, ㅅ and a fused ㄹ, whatever the
+// table says of it.
+const (
+	irrL   = 1 << iota // ㄹ 탈락: 살 → 사 (사는, 삽니다, 사시고, 살까 = 사+ㄹ까)
+	irrD               // ㄷ: 듣 → 들 (들어, 들으니)
+	irrS               // ㅅ: 짓 → 지 (지어, 지으니)
+	irrB               // ㅂ: 돕 → 도우 (도운, 도우니, 더워)
+	irrBO              // ㅂ, 돕 and 곱 only: 도오 (도와)
+	irrH               // ㅎ: 파랗 → 파라 (파란, 파라면, 그러면)
+	irrHE              // ㅎ with 어 fused: 파래, 그래
+	irrReu             // 르: 모르 → 몰르 (몰라 = 몰르+아 with ㅡ dropped)
+	irrReo             // 러: 이르 → 이르르 (이르러)
+	irrU               // 우: 푸 → 프 (퍼)
+	irrHa              // 제40항: 원하 → 원 (원치 = 원하+치), ㅏ of 하 dropped, its ㅎ fused into the closing's first consonant
+	irrHaW             // 제40항 붙임 2: 생각하 → 생각 (생각건대 = 생각하+건대), 하 dropped wholly after a voiceless final consonant
+)
+
+// typeIrr reads the irregular type a word table gives a predicate.
+var typeIrr = map[string]int{"ㄷ": irrD, "ㅅ": irrS, "ㅂ": irrB, "ㅎ": irrH, "르": irrReu, "러": irrReo, "우": irrU}
+
+// What a tail begins with, as bits of its first piece (headOf).
+const (
+	headFused  = 1 << iota // 어/아 or 었/았 fused into the stem's last syllable
+	headWhole              // 어/아/여, 었/았/였 as a syllable of its own
+	headEuForm             // the form after a consonant of a tail that takes 으: 으…, 은, 을, 음, 읍
+	headEuOpen             // the form after a vowel of such a tail: 면, 니, 시, a fused ㄴ·ㄹ·ㅁ
+	headN                  // ㄴ: 는, 니, 네, a fused ㄴ
+	headS                  // ㅅ: 시, 세요, 습니다
+	headL                  // a fused ㄹ
+	headB                  // a fused ㅂ
+	headNe                 // 네, before which ㅎ stays or goes
+	headHa                 // a closing with the ㅎ of 하 fused into its first consonant (haPairs)
+	headHaW                // a closing before which 하 drops wholly (haWhole)
+)
+
+// irrHeads says before what each change happens.
+var irrHeads = map[int]int{
+	irrL:   headN | headS | headL | headB,
+	irrD:   headWhole | headEuForm,
+	irrS:   headWhole | headEuForm,
+	irrB:   headEuOpen | headFused,
+	irrBO:  headFused,
+	irrH:   headEuOpen | headNe,
+	irrHE:  headFused,
+	irrReu: headFused,
+	irrReo: headFused,
+	irrU:   headFused,
+	irrHa:  headHa,
+	irrHaW: headHaW,
+}
+
+// roundB are the two ㅂ stems whose 어 is 아 (도와, 고와); every other
+// one takes 워. wideH are the ㅎ stems whose fused 어 gives ㅐ whatever
+// their vowel (그래, 어때). eoStems are stems the table calls regular
+// that fuse 어 the same way (그러다 → 그래).
+var roundB = []string{"돕", "곱"}
+var wideH = []string{"그렇", "이렇", "저렇", "어떻"}
+var eoStems = map[string]string{"그러": "그래", "이러": "이래", "저러": "저래", "어쩌": "어째"}
+
+// haPairs are the closings written with the ㅎ of a stem's last 하
+// fused into their first consonant (clause 40): the name of the
+// closing, and the form it is then written in.
+var haPairs = [][2]string{{"맺음:지", "치"}, {"맺음:게", "케"}, {"맺음:다", "타"}, {"맺음:도록", "토록"}, {"맺음:고자", "코자"}, {"맺음:건대", "컨대"}}
+
+// haWhole are the closings before which 하 drops wholly (clause 40,
+// note 2), and voicelessEnds the final consonants after which it does:
+// those that sound [ㄱ], [ㄷ] or [ㅂ] (Standard pronunciation, clauses 9
+// to 11: ㄱ ㄲ ㄳ ㄺ ㅋ, ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ, ㅂ ㅄ ㄿ ㅍ).
+var haWhole = []string{"맺음:건대"}
+var voicelessEnds = []int{1, 2, 3, 9, 24, 7, 19, 20, 22, 23, 25, 17, 18, 14, 26}
+
+// euLetters are the letters a form with the link vowel 으 in it begins
+// with (으면, 은, 을, 음, 읍시다).
+const euLetters = "으은을음읍"
+
+// linkTakers are the closings of the tables that take the link vowel
+// 으 as a piece of its own (읽으니, 먹었으나, 좋으냐는: 냐는, 냐며,
+// 냐면, 냐면서 and 냐니까 take it); the others that take it
+// have a form with 으 in the tables (으면, 은, 을).
+var linkTakers = closingSets[setLinkTaker]
+
+// Final consonants and vowels the changes turn on.
+const (
+	jongD   = 7  // ㄷ
+	jongLM  = 10 // ㄻ: ㅁ put under a stem's ㄹ (삶, 만듦)
+	jongS   = 19 // ㅅ
+	jongH   = 27 // ㅎ
+	jungYeo = 6  // ㅕ
+	jungU   = 13 // ㅜ
+	jungEu  = 18 // ㅡ
+	jungA   = 0  // ㅏ
+	jungEo  = 4  // ㅓ
+	choN    = 2  // ㄴ
+	choS    = 9  // ㅅ
+)

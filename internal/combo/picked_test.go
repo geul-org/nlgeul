@@ -5,15 +5,15 @@ package combo
 import (
 	"testing"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 func TestPicked(t *testing.T) {
 	// Each candidate is told apart by its preference: contest*10 + candidate.
-	choices := []token.Contest{
-		{Text: "가", Branches: []token.Branch{{Pref: 10}, {Pref: 11}}},
-		{Text: "나", Branches: []token.Branch{{Pref: 20}, {Pref: 21}, {Pref: 22}}},
-		{Text: "다", Branches: []token.Branch{{Pref: 30}, {Pref: 31}}},
+	choices := []parse.Contest{
+		{Text: "가", Branches: []parse.Branch{{Pref: 10}, {Pref: 11}}},
+		{Text: "나", Branches: []parse.Branch{{Pref: 20}, {Pref: 21}, {Pref: 22}}},
+		{Text: "다", Branches: []parse.Branch{{Pref: 30}, {Pref: 31}}},
 	}
 	cases := []struct {
 		number int

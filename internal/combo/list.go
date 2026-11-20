@@ -5,12 +5,12 @@ package combo
 import (
 	"sort"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 // All of them are held at once: the caller looks at Count first and
 // does not ask for more than Limit.
-func List(choices []token.Contest) []Combination {
+func List(choices []parse.Contest) []Combination {
 	score, before := order()
 	out := make([]Combination, Count(choices).Int64())
 	for n := range out {

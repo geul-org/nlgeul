@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
 // A candidate may hold a space (a boundary inside the contest), so the
 // contests are parted by " | ".
-func Line(rank int, h Combination, choices []token.Contest) string {
+func Line(rank int, h Combination, choices []parse.Contest) string {
 	picked := Picked(choices, h.Number)
 	candidates := make([]string, 0, len(picked))
 	for _, br := range picked {

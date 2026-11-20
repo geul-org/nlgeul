@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/geul-org/nlgeul/pkg/token"
+	"github.com/geul-org/nlgeul/pkg/parse"
 )
 
-func runParse(out io.Writer, r *token.Reader, sentences []string, trace, cuts, marks bool, head int) {
+func runParse(out io.Writer, r *parse.Reader, sentences []string, trace, cuts, marks bool, head int) {
 	for _, s := range sentences {
 		for _, l := range parseLines(r, s, trace, cuts, marks, head) {
 			fmt.Fprintln(out, l)

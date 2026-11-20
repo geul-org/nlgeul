@@ -1,0 +1,12 @@
+//ff:func feature=parse type=helper control=sequence
+//ff:what auxName — the name of a particle candidate when it is one of the auxiliary particles read after a linking closing; "" when it is not
+package parse
+
+import "slices"
+
+func auxName(e *entry) string {
+	if slices.Contains(auxParticles, e.name) {
+		return e.name
+	}
+	return ""
+}
