@@ -10,7 +10,7 @@ import (
 // A token sequence that no table lists is a new word: the claim that
 // it is a word stands, rebutted at the force forceNew by "it is in no
 // key table". Its verdict (1/3) is a low positive one, as
-// token-stream-algorithm.md section 12 asks. A new word after a
+// parse-stream-algorithm.md section 12 asks. A new word after a
 // boundary inside a unit does not stand when its letters read as
 // markers there (에 before 서 in 마당 에+서, 께서 after 선생님); without
 // a word table that holds only for a word with no marker after it

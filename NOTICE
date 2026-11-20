@@ -9,7 +9,7 @@ CC0 data and documents in this repository:
   - data/words.tsv (word table)
   - pkg/data/*.tsv (grammar tables: particles, endings, pieces, closed
     lists and the other tsv files)
-  - the tables left in code in internal/parse and internal/token
+  - the tables left in code in pkg/parse
   - README.md, data/README.md, pkg/data/README.md and the documentation
 
 Data and documents that the GEUL project produced are dedicated to the public
@@ -49,7 +49,7 @@ The modules' LICENSE files hold the full texts.
 Grammar tables
 --------------------------------------------------------------------------------
 The tables in data/tables (tsv files held in the program) and those left in
-code in internal/parse and internal/token (particles, endings, pieces, and the
-closed lists of the token layer) are our own work (CC0). They were written from the authors' own knowledge of Korean grammar and
+code in pkg/parse (particles, endings, pieces, and the
+closed lists of the parse layer) are our own work (CC0). They were written from the authors' own knowledge of Korean grammar and
 checked against counts observed in our own corpus work; no dictionary or
 third-party list is copied into this repository.

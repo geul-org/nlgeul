@@ -16,7 +16,7 @@ import (
 // verdict is the least verdict of its candidates and its preference the
 // sum of their preferences: they are printed, not sorted by. A contest
 // with one candidate counts like any other, with the verdict and the
-// preference the token layer gave that candidate (signs and closing dots
+// preference the parse layer gave that candidate (signs and closing dots
 // come with verdict 1 and preference 0, so they change nothing). A
 // candidate whose verdict is 0 or less has no log10: it counts as minus
 // infinity, and so does the place of every combination that picks it.

@@ -57,11 +57,11 @@ package rule
 // number and whose letters are a unit of the unit table and then a word
 // written after a unit (5년간: 년 and 간, 6월경: 월 and 경).
 // Bound tells that the piece is the stem of a dependent noun that the
-// token layer lets stand on the word it follows (것 and its spoken form
+// parse layer lets stand on the word it follows (것 and its spoken form
 // 거) and that the word right before it ends in a modifying closing (a
 // dependent noun written onto its modifier: 거 in 하는거).
 // Modifier tells that the letters of a new word split at a place inside
-// them into a modifier the token layer lists and a known word of what it
+// them into a modifier the parse layer lists and a known word of what it
 // modifies, which the spacing rules write apart: a negative adverb before
 // a predicate (못와), a numeral determiner before a nominal (두손), an
 // adverb before an adverb (좀더), the modifying form of a predicate before

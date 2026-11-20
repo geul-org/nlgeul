@@ -4,7 +4,7 @@
 
 | 패키지 | 내용 |
 |---|---|
-| [cli/](cli/README.md) | cobra 루트 명령 `nlgeul`과 하위 명령 `token` |
-| [combo/](combo/README.md) | (명령 없음) 토큰 층의 후보를 경합마다 하나씩 골라 이은 조합을 세고 정렬해 나열(실험) |
+| [cli/](cli/README.md) | cobra 루트 명령 `nlgeul`과 하위 명령 `parse` |
+| [combo/](combo/README.md) | (명령 없음) parse 층의 후보를 경합마다 하나씩 골라 이은 조합을 세고 정렬해 나열(실험) |
 
-`token`과 `parse`는 밖에서 import하도록 `pkg/`로 옮겼다([pkg/README.md](../pkg/README.md)). 여기 둘은 `pkg/token`을 쓴다.
+`parse`는 밖에서 import하도록 `pkg/`로 옮겼다([pkg/README.md](../pkg/README.md)). 여기 둘은 `pkg/parse`를 쓴다.
