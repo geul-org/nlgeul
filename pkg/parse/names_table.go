@@ -42,7 +42,6 @@ const (
 	particlesFile = "particles"
 	closedFile    = "closed-words"
 	boundFile     = "bound-nouns"
-	piecesFile    = "closing-pieces"
 
 	boundSet       = "의존명사"
 	helperSet      = "보조 용언"

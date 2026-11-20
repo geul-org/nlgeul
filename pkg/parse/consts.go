@@ -2,19 +2,6 @@ package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
 
-// Sentence constituents this package gives (the seven of school
-// grammar) and the name for a word no rule speaks for.
-const (
-	labelSubj = "주어"
-	labelObj  = "목적어"
-	labelComp = "보어"
-	labelPred = "서술어"
-	labelAdn  = "관형어"
-	labelAdv  = "부사어"
-	labelVoc  = "독립어"
-	labelNone = "미정"
-)
-
 // Cases a particle marks, as particles.md names its function, and the
 // kinds of closing, as endings.md section 3 marks them. The rules read
 // them, so they are the rule package's.
@@ -25,7 +12,6 @@ const (
 	caseAdn  = rule.CaseAdn
 	caseAdv  = rule.CaseAdv
 	caseVoc  = rule.CaseVoc
-	caseBare = rule.CaseBare
 
 	kindFinal = rule.KindFinal
 	kindLink  = rule.KindLink
@@ -39,7 +25,6 @@ const (
 const (
 	afterAny     = rule.AfterAny
 	afterBatchim = rule.AfterBatchim
-	afterOpen    = rule.AfterOpen
 
 	leadNone = 0
 	leadA    = rule.LeadVowel
@@ -58,6 +43,3 @@ const (
 	fNeedIda             // attaches only to the copula stem 이 or to 아니 (에요, 야)
 	fSelfIda             // holds the copula stem itself (예요 = 이 + 에요)
 )
-
-// idaCount is the observed count of the copula 이다 in morphemes.md.
-const idaCount = 4520000
