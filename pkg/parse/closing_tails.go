@@ -20,5 +20,8 @@ func (sc *scan) closingTails(pc piece, e *entry, start int) []tail {
 			out[i].only = notOnly
 		}
 	}
+	if e.wide && e.lead == 0 && e.tail == rule.TailVerb && !e.bars {
+		out = append(out, notTail(out[0]))
+	}
 	return out
 }
