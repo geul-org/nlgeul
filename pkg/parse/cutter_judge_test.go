@@ -42,7 +42,9 @@ func TestCutterJudge(t *testing.T) {
 		{"다)", 1, "", 0, []pairing{{shutName, loneBracketDepth}}, []string{""}},
 		{"다)", 1, "‘", 0, []pairing{{shutName, loneBracketDepth}}, []string{"‘"}},
 		{"다)", 1, "[", rule.MarkOpenedAny, nil, nil},
-		{"2)", 1, "", 0, nil, nil},
+		{"2)", 1, "", 0, []pairing{{shutName, 0}}, []string{""}},
+		{"2)", 1, "(", rule.MarkOpenedAny, []pairing{{shutName, 1}}, []string{""}},
+		{"2]", 1, "", 0, nil, nil},
 	}
 	for _, c := range cases {
 		cut := newCutter(ix, c.text, false)

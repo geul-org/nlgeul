@@ -5,9 +5,19 @@ package parse
 // they close an opening sign that stood before the sentence, as when a
 // sentence is cut out of a passage in brackets. They are judged by
 // loneBracketGraph and not as the quotation marks of loneShuts are:
-// nothing has to be written right after them, and right after a digit
-// they are a list number (1), 2)) and close nothing.
+// nothing has to be written right after them. Right after a digit they
+// close no pair that stood before the sentence: a round bracket there
+// numbers an item of a list (listBrackets), any other is not read.
 const loneBrackets = ")}]>」』》〉｣】〕）］｝"
+
+// listBrackets are the closing brackets that number an item of a list
+// when written right after a digit with none of their kind open (1),
+// 2)): the round bracket and its full-width form. Such a bracket closes
+// nothing, in the sentence or before it, so it is read as a closing at
+// depth 0 (the answer sheet writes every one the judges wrote
+// themselves so), beside its letter with no name. Any other bracket of
+// loneBrackets right after a digit is not read as a closing (5>3).
+const listBrackets = ")）"
 
 // loneBracketDepth is the depth of a closing bracket with none of its
 // kind open: the opening sign it closes stood before the sentence,
