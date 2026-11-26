@@ -395,6 +395,11 @@ var copulaAdnForms = []string{"인", "일"}
 // rule of a sentence prefers right after a closing sign (shutTopicRule).
 var topicNames = []string{"보조사:이란", "보조사:란"}
 
+// quotedAdnNames is the name of the modifying 는 of the quoting verb
+// (-다는, -냐는, -자는, -라는), which a rule of a sentence prefers right
+// after a closing mark that closes a quoted sentence (quotedAdnRule).
+var quotedAdnNames = []string{adnPrefix + "는"}
+
 // copulaEndNames are the names of the ending 야, which follows the
 // copula 이 only, and of the ending 라고, and sentenceEnds the names of
 // the last piece of the word right after a word that ends its sentence:

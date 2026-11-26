@@ -115,6 +115,7 @@ const (
 	whyAsksSelf        = "의문 대명사다"
 	whyNoSubjectBefore = "바로 앞 어절이 이·가로 끝나지 않는다"
 	whyNotShut         = "바로 앞이 닫는 기호가 아니다"
+	whyNotQuoteEnd     = "닫는 기호 앞이 맺음으로 끝난 인용 문장이 아니다"
 	whyNoNeun          = "앞 어절이 꾸밈 맺음 는으로 끝나지 않는다"
 	whyJoinedParticle  = "줄기와 조사를 합친 글자열이 낱말 표의 낱말이다"
 	whyAdnBound        = "꾸밈 맺음 바로 뒤에 붙여 쓴 의존명사 것·거의 줄기다"
@@ -130,6 +131,7 @@ const (
 	ruleQuoted         = "문장:닫는 따옴표 뒤 인용 조사 라고"
 	ruleLimitOne       = "문장:꾸밈 는 뒤 한은 체언"
 	ruleShutTopic      = "문장:닫는 기호 뒤 보조사 이란·란"
+	ruleQuotedAdn      = "문장:인용한 문장 뒤 꾸밈 는"
 )
 
 // The rule of a sentence that reads the auxiliary verb from the main
