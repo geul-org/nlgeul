@@ -17,7 +17,8 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // graph rebuts it. wrote is, for an entry that reads a closing written
 // wrong (typoClosings), its written form with its lead (ㄹ께, 을께, 읍니다),
 // and right the right closing as it is printed ((ㄹ)게, 습니다); both
-// are "" for any other entry. Such an entry has the name, the class and
+// are "" for any other entry. ended marks a particle read only right
+// after a closing (그려, the 야 after a closing that ends in a consonant). Such an entry has the name, the class and
 // every way of attaching of the right closing, so that each list and
 // exception that asks for the name holds for it as it does for the right one.
 // split marks a closing whose graph lifts the exception of a closed-set
@@ -34,6 +35,7 @@ type entry struct {
 	kase  int
 	noYo  bool
 	inner bool
+	ended bool
 	bars  bool
 	needs bool
 	holds bool

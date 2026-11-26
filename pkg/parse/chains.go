@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each candidate of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing), 를 of emphasis only after 에 and 으로 (emphKept); a full stop right after a number is a piece of the number's word too (numberStop: 31.까지); the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
+//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each candidate of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing), 를 of emphasis only after 에 and 으로 (emphKept); a full stop right after a number is a piece of the number's word too (numberStop: 31.까지); a particle read only right after a closing (ended) is read there and nowhere else; the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -15,6 +15,10 @@ func (sc *scan) chains(j, depth, next int) []tail {
 	var out []tail
 	for _, k := range sc.groupKeys(pieces, from, j) {
 		pc, e, start := pieces[k], from[k], starts[k]
+		if e.ended {
+			out = append(out, sc.afterClosings(start, depth, pc, e)...)
+			continue
+		}
 		if end, ok := ends[k]; ok && e.slot != rule.LinkEmph {
 			out = append(out, withGate([]tail{{start: start, pieces: []piece{end}}}, endFrom[k].gate)...)
 		}

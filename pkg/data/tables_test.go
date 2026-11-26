@@ -18,6 +18,7 @@ func TestTables(t *testing.T) {
 		"unit-suffixes": 2, "units": 2,
 		"after-unit-words": 1, "sino-units": 1, "closing-chains": 2, "number-suffixes": 1,
 		"polite-slots": 2,
+		"closing-particles": 2,
 	}
 	empty := map[string]bool{"case-exceptions": true}
 	entries, err := fs.ReadDir(held, ".")

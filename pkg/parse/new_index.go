@@ -15,6 +15,7 @@ func newIndex(o Options) (*index, error) {
 	ix.addClosings()
 	ix.addPicked()
 	ix.addChains()
+	ix.addNamed()
 	ix.addSlots()
 	if o.Words != "" {
 		ix.addWide()

@@ -19,7 +19,10 @@ import (
 // particle each (the table has 커녕 alone); their count is 커녕's. 가
 // after an adverbial particle (에서가 아니라) is an auxiliary particle
 // of emphasis, read only there; so is 를 after 에 and 으로 (집에를,
-// emphObjName).
+// emphObjName). The last 야 is the same auxiliary particle after an
+// ending that ends in a consonant (간다면야: the dictionary gives 야
+// after an ending, and 이야 only after a nominal or an adverbial that
+// ends in a consonant); it is read only right after a closing (ended).
 const emphName = "보조사:가(강조)"
 
 // comparing, together, directional and shortTopics tell kinds of particle apart for
@@ -63,6 +66,7 @@ var ownParticles = []entry{
 	{name: "보조사:은커녕", form: "은커녕", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic, count: 66},
 	{name: "보조사:는커녕", form: "는커녕", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic, count: 66},
 	{name: emphObjName, form: "를", class: classParticle, after: rule.AfterVowel, slot: rule.LinkEmph},
+	{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic, ended: true},
 }
 
 func (ix *index) addParticles() {
