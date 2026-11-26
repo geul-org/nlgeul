@@ -17,6 +17,7 @@ func TestReaderStreamLinkAux(t *testing.T) {
 		"하고서야":  "\n하[열쇠:동사]+고서[맺음:고서]+야[보조사:야]\n",
 		"가려고는":  "\n가[열쇠:동사]+려고[맺음:려고]+는[보조사:는]\n",
 		"먹으려고도": "\n먹[열쇠:동사]+으려고[맺음:으려고]+도[보조사:도]\n",
+		"먹는데도":  "\n먹[열쇠:동사]+는데[맺음:는데]+도[보조사:도]\n",
 	} {
 		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %q\n%s", in, want, got)
@@ -24,7 +25,6 @@ func TestReaderStreamLinkAux(t *testing.T) {
 	}
 	for in, not := range map[string]string{
 		"먹다가를": "다가[맺음:다가]+를",
-		"먹는데도": "는데[맺음:는데]+도",
 	} {
 		if got := streamText(r, in); strings.Contains(got, not) {
 			t.Errorf("%s: %q read\n%s", in, not, got)
