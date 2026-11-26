@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows (for an adjective's stem lifted for 있다, 없다 and 계시다 before 느냐: existExcept), the rebuttals that it was rarely seen (fewer times than seenEnough) and that it is one syllable long with what lifts the second (kindRebuttals), the rebuttal that its letters are a wrong way to write another word (misspeltRebuttal), the rebuttal that it begins right after a number with the letters of a unit and a word written after a unit (unitWordRebuttal), for a verb's or an adjective's stem the exceptions that a word ending in a modifying closing or a determiner stands right before it (adnExcept), and for a word that only stands alone the same two with nothing to lift them (aloneExcept)
+//ff:what addKinds — a graph for each kind of stem (열쇠:체언, 열쇠:동사 …): the claim "this stem is a known word", the exception that its kind does not take what follows (for an adjective's stem lifted for 있다, 없다 and 계시다 before 느냐: existExcept), the rebuttals that it was rarely seen (fewer times than seenEnough) and that it is one syllable long with what lifts the second (kindRebuttals), the rebuttal that its letters are a wrong way to write another word (misspeltRebuttal), the rebuttal that it begins right after a number with the letters of a unit and a word written after a unit (unitWordRebuttal), for a verb's or an adjective's stem the exceptions that a word ending in a modifying closing or a determiner stands right before it (adnExcept), for an adverb's stem what lets the copula follow it as a weaker reading (adverbExcept), and for a word that only stands alone the same two with nothing to lift them (aloneExcept)
 package parse
 
 import (
@@ -24,6 +24,9 @@ func (ix *index) addKinds() {
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1+kindRebuttals(g, claim, ix.seenEnough())+misspeltRebuttal(g, claim)+unitWordRebuttal(g, claim)
 		if kind&(kindVerb|kindAdj) != 0 {
 			ix.edges += adnExcept(g, claim)
+		}
+		if kind == kindAdverb {
+			ix.edges += adverbExcept(g, claim, tail)
 		}
 		if kind == kindAlone {
 			ix.edges += aloneExcept(g, claim)

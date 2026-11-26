@@ -14,15 +14,26 @@ var kindLabel = map[int]string{kindNominal: "체언", kindVerb: "동사", kindAd
 // alone or takes particles or the copula; a verb stem takes slots and any closing,
 // an adjective stem slots and the closings that are not the verbs'
 // own, and neither stands alone; an adverb stands alone or takes
-// auxiliary particles; a determiner and the other words stand alone.
+// auxiliary particles, and, as a weaker reading (adverbLoose), the
+// copula; a determiner stands alone; the
+// other words (interjections) stand alone or take the particle 요.
 var kindTails = map[int]int{
-	kindNominal:    rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
+	kindNominal:    rule.TailBare | rule.TailAux | rule.TailPolite | rule.TailCase | rule.TailCopula,
 	kindVerb:       rule.TailPred | rule.TailVerb | rule.TailExist,
 	kindAdj:        rule.TailPred | rule.TailAdj,
-	kindAdverb:     rule.TailBare | rule.TailAux,
+	kindAdverb:     rule.TailBare | rule.TailAux | rule.TailPolite,
 	kindDeterminer: rule.TailBare,
-	kindAlone:      rule.TailBare,
+	kindAlone:      rule.TailBare | rule.TailPolite,
 }
+
+// adverbLoose is what follows an adverb in a reading weaker than the
+// adverb alone or with auxiliary particles: the copula, which stands
+// after an adverb as after a nominal (아직이다, 그래서일까). The adverb's
+// graph rebuts such a reading at the force forceAdverbLoose
+// (adverbExcept). kindTails does not hold it: the adverb's graph lifts
+// its exception for such a tail, and not when the tables give the stem
+// as a nominal too (물론이다: the nominal takes the copula).
+const adverbLoose = rule.TailCopula
 
 // partKinds folds a word table's parts of speech into kinds; a part of
 // speech not listed here stands alone.
@@ -50,10 +61,10 @@ const conjAdverbLabel = "접속 부사"
 // are let through (이 and 그 are pronouns too: 그의, 그에게); a
 // conjunction stands alone or takes auxiliary particles.
 var closedTails = map[string]int{
-	"의존명사":  rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
+	"의존명사":  rule.TailBare | rule.TailAux | rule.TailPolite | rule.TailCase | rule.TailCopula,
 	auxSet:  rule.TailPred | rule.TailVerb | rule.TailAdj | rule.TailExist,
-	"관형사":   rule.TailBare | rule.TailAux | rule.TailCase | rule.TailCopula,
-	"접속 부사": rule.TailBare | rule.TailAux,
+	"관형사":   rule.TailBare | rule.TailAux | rule.TailPolite | rule.TailCase | rule.TailCopula,
+	"접속 부사": rule.TailBare | rule.TailAux | rule.TailPolite | rule.TailCopula,
 }
 
 var closedKinds = map[string]int{"의존명사": kindNominal, auxSet: kindVerb, "관형사": kindDeterminer, "접속 부사": kindAdverb}

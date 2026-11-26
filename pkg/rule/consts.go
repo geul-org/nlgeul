@@ -73,6 +73,7 @@ const (
 	TailCopula             // the copula 이다 and its tail (a noun stands before it)
 	TailAdj                // a predicate tail whose closing only adjectives take with no slot before it
 	TailExist              // a predicate tail whose closing verbs take, and of the adjectives the stems of 있다, 없다 and 계시다 (느냐)
+	TailPolite             // the auxiliary particle 요 and nothing else
 )
 
 // Cases a particle marks. A particle with none of them is an auxiliary

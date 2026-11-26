@@ -50,8 +50,9 @@ toulmin 그래프의 규칙 함수(`func(Context, Specs) (float64, any)`) 가운
 | `PieceClash` | except, counter | 어/아/여로 시작하는 조각이 앞 음절의 모음과 어긋난다(`Harmony`) | 없음 |
 | `ChainLinks` | except | 조사 사슬에서 앞 조사의 갈래가 뒤 조사의 갈래를 받지 않는다(`Links`) | 없음 |
 | `SlotOrder` | except | 선어말 칸의 순서가 어긋난다(`SlotBefore`) | 없음 |
-| `StemTail` | except | 줄기의 갈래가 뒤에 붙은 것과 맞지 않는다 | `Bits`(tail) |
+| `StemTail` | except, counter | 줄기의 갈래가 뒤에 붙은 것과 맞지 않는다(기준이 받는 뒤가 아니다: 부사 뒤의 서술격 같은 약한 꼬리를 가릴 때도 쓴다) | `Bits`(tail) |
 | `StemKind` | except | 줄기가 표에서 기준 갈래 가운데 하나다(앞말이 표의 용언 줄기다, 표가 아는 낱말이다) | `Bits`(kinds), 뒤집으려면 `Not` |
+| `StemRun` | except | 줄기가 영문·숫자 열이다(라틴 문자, 숫자, 밑줄뿐) | 없음 |
 | `StemCoda` | except | 뒤에 표지가 붙은 줄기의 마지막 음절이 기준 받침으로 끝난다 | `Bits`(jong) |
 | `SeenFew` | counter | 이 낱말은 관측이 적다(적은 정도. 횟수 0은 한 번과 같고, 횟수를 모르면 걸리지 않는다. 넉넉한 횟수가 1 이하면 걸리지 않는다) | `Bits`(enough) |
 | `ShortKey` | counter | 이 낱말은 짧아 우연히 겹치기 쉽다 | `Bits`(syllables) |

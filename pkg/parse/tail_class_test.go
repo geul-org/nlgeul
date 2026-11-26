@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestTailClass — a closing only verbs take makes a verb's tail; else a predicate piece a predicate tail; else a case particle a case tail; else any particle an auxiliary tail; no piece is a bare stem; a closing verbs and 있다, 없다 and 계시다 take (느냐) makes a tail of its own, a predicate tail after the slot 었 or 겠 or 시, and not after 더
+//ff:what TestTailClass — a closing only verbs take makes a verb's tail; else a predicate piece a predicate tail; else a case particle a case tail; else any particle an auxiliary tail; the particle 요 alone a tail of its own, an auxiliary tail after another particle; no piece is a bare stem; a closing verbs and 있다, 없다 and 계시다 take (느냐) makes a tail of its own, a predicate tail after the slot 었 or 겠 or 시, and not after 더
 package parse
 
 import (
@@ -9,7 +9,7 @@ import (
 )
 
 func TestTailClass(t *testing.T) {
-	if tailClass([]piece{{tail: rule.TailPred}, {tail: rule.TailVerb}}) != rule.TailVerb || tailClass([]piece{{tail: rule.TailAux}, {tail: rule.TailPred}}) != rule.TailPred || tailClass([]piece{{tail: rule.TailAux}, {tail: rule.TailCase}}) != rule.TailCase || tailClass([]piece{{tail: rule.TailAux}}) != rule.TailAux || tailClass(nil) != rule.TailBare {
+	if tailClass([]piece{{tail: rule.TailPred}, {tail: rule.TailVerb}}) != rule.TailVerb || tailClass([]piece{{tail: rule.TailAux}, {tail: rule.TailPred}}) != rule.TailPred || tailClass([]piece{{tail: rule.TailAux}, {tail: rule.TailCase}}) != rule.TailCase || tailClass([]piece{{tail: rule.TailAux}}) != rule.TailAux || tailClass([]piece{{tail: rule.TailPolite}}) != rule.TailPolite || tailClass([]piece{{tail: rule.TailAux}, {tail: rule.TailPolite}}) != rule.TailAux || tailClass(nil) != rule.TailBare {
 		t.Fatal("tailClass")
 	}
 	ask := piece{names: "맺음:느냐", tail: rule.TailExist}

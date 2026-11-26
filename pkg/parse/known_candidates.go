@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what knownCandidates — the ways a stem is a known word with what follows it, one for each kind a table gives it whose graph lets it stand (and each with that kind's verdict); none when no table has it, or no kind of it takes that tail; the kind's graph is told whether the stem's word is the whole of its unit (sole) whether the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail (conn), whether it begins right after a number with the letters of a unit and a word written after a unit (unit),, whether it is the dependent noun 것 or 거 written right after a modifying closing (bound), and whether it is a main verb's stem that begins its unit with an auxiliary verb written onto its 어/아 form (main)
+//ff:what knownCandidates — the ways a stem is a known word with what follows it, one for each kind a table gives it whose graph lets it stand (and each with that kind's verdict); none when no table has it, or no kind of it takes that tail; the kind's graph is told whether the stem's word is the whole of its unit (sole) whether the stem is an auxiliary verb's written right after the 어/아 form of its main verb with a predicate tail (conn), whether it begins right after a number with the letters of a unit and a word written after a unit (unit),, whether it is the dependent noun 것 or 거 written right after a modifying closing (bound), and whether it is a main verb's stem that begins its unit with an auxiliary verb written onto its 어/아 form (main); the graph is told the kinds the tables give the stem too
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -29,7 +29,7 @@ func (ix *index) knownCandidates(stem string, tail int, sole, conn, unit, bound,
 		}
 		vs[i] = 1.0
 		if ix.layers >= layerKind {
-			vs[i] = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Count: countOf(w, k, i), Sole: sole, Conn: conn, UnitWord: unit, Bound: bound, Main: main})
+			vs[i] = ix.stemVerdict(k, rule.Piece{Form: stem, Tail: tail, Stem: ix.closed[stem] | w.kinds, Count: countOf(w, k, i), Sole: sole, Conn: conn, UnitWord: unit, Bound: bound, Main: main})
 		}
 		if vs[i] > 0 {
 			passed |= k

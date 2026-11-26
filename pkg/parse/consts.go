@@ -680,3 +680,9 @@ const (
 // 0.3 gave 3 righted and 13 turned wrong, 0.4 3 and 10, 0.45 3 and 4, 0.5
 // 3 and 3, 0.55 3 and 1, 0.6 and 0.7 2 and 1; 0.55 is taken.
 const forceMisfit = 0.55
+
+// forceAdverbLoose is the force of the rebuttal of an adverb's stem
+// with the copula
+// after it (adverbLoose): the reading stands, behind a nominal of the
+// same letters with the same tail.
+const forceAdverbLoose = 0.25

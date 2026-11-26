@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=selection
-//ff:what tailOf — what kind of tail an entry makes after a stem: a case particle, another particle or suffix, a closing only verbs take, a closing verbs and 있다, 없다 and 계시다 take (existClosings), or another piece of a predicate tail
+//ff:what tailOf — what kind of tail an entry makes after a stem: a case particle, the auxiliary particle 요, another particle or suffix, a closing only verbs take, a closing verbs and 있다, 없다 and 계시다 take (existClosings), or another piece of a predicate tail
 package parse
 
 import (
@@ -22,6 +22,8 @@ func tailOf(e *entry) int {
 		return rule.TailPred
 	case e.kase != 0:
 		return rule.TailCase
+	case e.name == yoName:
+		return rule.TailPolite
 	}
 	return rule.TailAux
 }
