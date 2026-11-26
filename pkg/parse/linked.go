@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what linked — the tails that begin with the link vowel 으 right before some pieces (읽+으+시, 먹+으+니): after the stem, by the syllable that stands there or, for a changed stem (들으니, 지으니), by the stem's own last syllable; and (when asked) after the slots 었, 겠 (먹었으니)
+//ff:what linked — the tails that begin with the link vowel 으 right before some pieces (읽+으+시, 먹+으+니): after the stem, by the syllable that stands there or, for a changed stem (들으니, 지으니), by the stem's own last syllable; and (when asked) after the slots 었, 겠 (먹었으니); with a word table also after a stem's ㄹ, against the tables (알으시오: 알+으+시+오), after a predicate's stem of the table and rebutted
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -28,6 +28,11 @@ func (sc *scan) linked(start int, ps []piece, after string, slots bool) []tail {
 			eu.verdict = v
 			out = append(out, tail{start: at, pieces: append([]piece{eu}, ps...), head: headEuForm, irr: a.kind})
 		}
+	}
+	facts.Prev = sc.s[at-1]
+	if l := sc.ix.euLoose; l != nil && sc.judge(l, at, start, facts) > 0 {
+		eu.verdict = sc.judge(l, at, start, facts)
+		out = append(out, tail{start: at, pieces: append([]piece{eu}, ps...), head: headEuForm, gate: sc.ix.pred})
 	}
 	return out
 }

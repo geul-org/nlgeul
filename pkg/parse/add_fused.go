@@ -14,6 +14,10 @@ func (ix *index) addFused() {
 		{name: euName, form: "으", after: rule.AfterHard},
 		{name: negName, form: string(negLetter)},
 	}
+	if ix.lexed {
+		rows = append(rows, &entry{name: euName, form: "으", after: rule.AfterLiquid, loose: true})
+		ix.euLoose = rows[2]
+	}
 	for _, e := range rows {
 		g := toulmin.NewGraph(e.name)
 		claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: e.name, Concludes: "표지"})
@@ -22,8 +26,12 @@ func (ix *index) addFused() {
 			except(g, rule.PieceAfter, whyAfter, &rule.Bits{Of: "after", Mask: e.after}).Attacks(claim)
 			ix.edges++
 		}
-		if e.name == euName {
+		if e.form == "으" {
 			except(g, rule.Listed, whyNotBefore, listed("takers", rule.ListAfter, append(append([]string{honorName}, linkTakers...), politeTakers...)), not).Attacks(claim)
+			ix.edges++
+		}
+		if e.loose {
+			g.Counter(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: rule.AfterHard}).Attacks(claim, forceClash)
 			ix.edges++
 		}
 		e.g = g

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what TestAddFused — the honorific under a fused letter stands after a vowel, the link vowel after a consonant, 잖 after a stem; a fused form with a fixed word is judged as the particle under it is in a chain, and is counted as that particle (내게 as 에게, 어디다 as 에다, 저기다가 as 에다가)
+//ff:what TestAddFused — the honorific under a fused letter stands after a vowel, the link vowel after a consonant, 잖 after a stem; with a word table the link vowel has one graph more, which stands after a stem's ㄹ, rebutted; a fused form with a fixed word is judged as the particle under it is in a chain, and is counted as that particle (내게 as 에게, 어디다 as 에다, 저기다가 as 에다가)
 package parse
 
 import (
@@ -37,6 +37,17 @@ func TestAddFused(t *testing.T) {
 	lexed.addClosings()
 	lexed.addSlots()
 	lexed.addFused()
+	loose := lexed.euLoose
+	if ix.euLoose != nil || loose == nil || loose.name != euName || lexed.graphs-lexed.edges == 0 {
+		t.Fatal("with a word table the link vowel has a graph for a stem's ㄹ", loose)
+	}
+	after := func(prev rune, name string) float64 {
+		v, _ := verdictOf(loose.g, rule.Piece{HasStem: true, Prev: prev, Next: -1, After: name}, "x", false)
+		return v
+	}
+	if v := after('살', honorName); v <= 0 || v >= 1 || after('읽', honorName) > 0 || after('가', honorName) > 0 || after('살', "맺음:고") > 0 {
+		t.Fatal("the link vowel after ㄹ stands rebutted, before what takes it, and not after another letter", after('살', honorName))
+	}
 	if len(lexed.fixed) != len(contracts)+len(shortPronouns)+len(typoContracts) || len(lexed.contracts) != len(lexed.fixed) || len(ix.contracts) != len(contracts) || lexed.fixed[len(contracts)].name != "줄임:난" || lexed.fixed[len(contracts)+len(shortPronouns)].name != "줄임:껀" {
 		t.Fatal("with a word table the one-syllable pronouns and the forms of 거 written with 꺼 are read too", len(lexed.fixed))
 	}
