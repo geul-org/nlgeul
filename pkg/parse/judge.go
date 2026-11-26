@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what judge — run an entry's graph for a piece at one place, told whether its unit's letters are glossed with Han characters (Glossed), and note the outcome in the trace
+//ff:what judge — run an entry's graph for a piece at one place, told whether its unit's letters are glossed with Han characters (Glossed) and, for a closing that may stand in a closed-set word's letters (split), the kinds the word table gives the letters before it, and note the outcome in the trace
 package parse
 
 import (
@@ -11,6 +11,9 @@ import (
 
 func (sc *scan) judge(e *entry, start, j int, p rule.Piece) float64 {
 	p.Glossed = sc.glossed
+	if e.split {
+		p.Stem = sc.ix.lex[sc.letters(0, start)].kinds
+	}
 	if sc.trace == nil {
 		return sc.ix.judged(e.g, p, sc.letters(0, j))
 	}

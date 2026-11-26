@@ -20,6 +20,10 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // are "" for any other entry. Such an entry has the name, the class and
 // every way of attaching of the right closing, so that each list and
 // exception that asks for the name holds for it as it does for the right one.
+// split marks a closing whose graph lifts the exception of a closed-set
+// word written with the same letters when a predicate's stem of the word
+// table stands before the closing (markerGraph): judge then hands the
+// graph the kinds of the letters before it.
 type entry struct {
 	name  string
 	form  string
@@ -42,5 +46,6 @@ type entry struct {
 	count int
 	wrote string
 	right string
+	split bool
 	g     *toulmin.Graph
 }

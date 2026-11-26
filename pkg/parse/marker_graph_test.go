@@ -56,8 +56,8 @@ func TestMarkerGraph(t *testing.T) {
 	rows := []caseException{{Graph: "맺음:소", Word: "담소", GroundKind: groundSeen, Ground: "46/46", Row: data.Row{Line: 2}}}
 	plain := entry{name: "맺음:소", form: "소", class: classClosing}
 	held, both := plain, plain
-	if a, b, c := markerGraph(&plain, nil, nil, true), markerGraph(&held, nil, rows, true), markerGraph(&both, []string{"담소"}, rows, true); b != a+1 || c != a+2 {
-		t.Fatal("a graph the case exception table names has one exception more, apart from the closed-set words", a, b, c)
+	if a, b, c := markerGraph(&plain, nil, nil, true), markerGraph(&held, nil, rows, true), markerGraph(&both, []string{"담소"}, rows, true); b != a+1 || c != a+3 {
+		t.Fatal("a graph the case exception table names has one exception more, apart from the closed-set words' (and from what lifts theirs for a closing with a word table)", a, b, c)
 	}
 	p := rule.Piece{Form: "소", HasStem: true, Prev: '담', Next: -1}
 	note := whyCase + "(담소) — 예외 표 2: 관찰 46/46"
