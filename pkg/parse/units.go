@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits or a circled number; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters); a suffix of bareSuffixes is read after a unit with no number before it too (bareUnits)
+//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits or a circled number; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters; before a unit of sinoUnits, 인, only Sino-Korean ones: sinoNumerals); a suffix of bareSuffixes is read after a unit with no number before it too (bareUnits)
 package parse
 
 import (
@@ -23,7 +23,7 @@ func (sc *scan) units(j, next int, open bool) []tail {
 		if start < 1 || string(sc.s[start:j]) != e.form || !placed(e.slot, next) {
 			continue
 		}
-		lefts, words := sc.units(start, e.slot, false), sc.numerals(start)
+		lefts, words := sc.units(start, e.slot, false), sinoNumerals(e.form, sc.numerals(start))
 		if e.slot == placeBig {
 			words = nil
 		}

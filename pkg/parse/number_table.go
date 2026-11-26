@@ -137,6 +137,12 @@ const (
 	orderHeadName = "차례:제"
 )
 
+// sinoUnits are the units read after a run of digits or a Sino-Korean
+// numeral only, not after a native numeral (sino-units.tsv): 인 (人, the
+// standard dictionary's dependent noun that counts people after a
+// Sino-Korean number: 삼 인, 5인; 한인 and 네인 hold no number).
+var sinoUnits = data.Must(data.Column("sino-units", 1))
+
 // unitSuffixes stand after a number and its unit, where 째 stands
 // (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are. The table
 // (unit-suffixes.tsv) files each under what stands before it.
