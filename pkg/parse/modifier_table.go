@@ -1,7 +1,8 @@
 package parse
 
-// negAdverbs and numDeterminers are the modifiers a new word is read
-// apart at when the known word they modify is written onto them
+// negAdverbs and numDeterminers are the modifiers a new word is rebutted
+// at (forceModifier: it stands behind the two words read apart) when the
+// known word they modify is written onto them
 // (closed-words.tsv; modifiesAt): the negative adverbs 안, 못 and 아니
 // (the full form of 안), which stand right before a predicate, and the numeral determiners 한
 // and 두 of the closed set of determiners, which stand right before a

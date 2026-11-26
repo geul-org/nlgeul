@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=2
-//ff:what TestReaderStreamTypoNoun — end to end with the table of testdata that has nouns written wrong (역활 for 역할, 설겆이, 컨텐츠; 꺼 for 거 is not in the table but in the closed table of this layer, and is named as the dependent noun): a noun written wrong is read as the right form with no marker after it (alone, written together with a noun, before 하, between a slash and a particle, as 꺼 after a modifying ㄹ, a word of its own there), the letters kept, next to the candidates it had; a verb stem written wrong (맞기) is read nowhere without a marker
+//ff:what TestReaderStreamTypoNoun — end to end with the table of testdata that has nouns written wrong (역활 for 역할, 설겆이, 컨텐츠; 꺼 for 거 is not in the table but in the closed table of this layer, and is named as the dependent noun): a noun written wrong is read as the right form with no marker after it (alone, written together with a noun, before 하, between a slash and a particle, as 꺼 after a modifying ㄹ, before the new word of the letters whole, which is rebutted as a modifying form and 거 written together), the letters kept, next to the candidates it had; a verb stem written wrong (맞기) is read nowhere without a marker
 package parse
 
 import (
@@ -23,7 +23,7 @@ func TestReaderStreamTypoNoun(t *testing.T) {
 		{"설겆이하고", []string{"\n설거지[열쇠:체언,오타정정:설겆이] 하[열쇠:동사]+고[맺음:고]\t", "\n설겆이하고\t성립 0.41"}, nil},
 		{"입력/역활을", []string{"\n입력/역할[대비:/,오타정정:입력/역활]+을[목적격:을]\t", "\n입력/역활을\t성립 0.41"}, nil},
 		{"내꺼", []string{"\n내[열쇠:체언] 거[의존명사:거,오타정정:꺼]\t"}, nil},
-		{"할꺼야", []string{"\n하[열쇠:동사]+(ㄹ)[꾸밈:ㄹ]\t", "\n거[의존명사:거,오타정정:꺼]+야[보조사:야]\t"}, []string{"오타정정:꺼]+야[호격:야]"}},
+		{"할꺼야", []string{"\n하[열쇠:동사]+(ㄹ)[꾸밈:ㄹ] 거[의존명사:거,오타정정:꺼]+야[보조사:야]\t", "\n할꺼야\t성립 0.12"}, []string{"오타정정:꺼]+야[호격:야]"}},
 		{"역할", []string{"\n역할[열쇠:체언]\t성립 1.00"}, []string{"오타정정"}},
 		{"설거지하고", []string{"\n설거지[열쇠:체언] 하[열쇠:동사]+고[맺음:고]\t"}, []string{"오타정정"}},
 		{"입력/역할", []string{"\n입력/역할[대비:/]\t성립 1.00"}, []string{"오타정정"}},

@@ -112,6 +112,19 @@ const judgedMax = 100000
 // words.
 const forceNew = 0.42
 
+// forceModifier is the force of the rebuttal "its letters are a modifier
+// and a known word it modifies written together" against a new word
+// (PieceModifier: 못와, 두손, 좀더, 할거). With forceNew beside it the new
+// word's verdict is 2/(1+0.42+0.36)-1, about 0.12: the new word still
+// stands (a name may begin with the letters of such a modifier), behind
+// the reading that writes the two words apart. On the answer sheet
+// (train) every force from 0.15 up to where the verdict falls to 0 (0.58:
+// the new word does not stand, as it did not while this rebuttal was an
+// exception) leaves each word's first candidate as it was;
+// 0.1 turns 1 word wrong, 0.05 six, and no rebuttal at all (0) 7 wrong
+// and 1 right. The middle of the flat stretch is taken.
+const forceModifier = 0.36
+
 // How strong the evidence is that a stem found in the word table is a
 // word (the verdict of its kind's graph). A stem observed seenShare of
 // the word table's counts or more (that share of the sum of every line's
