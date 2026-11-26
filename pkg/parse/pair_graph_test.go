@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestPairGraph — the exceptions of one candidate of a sign of a pair, counted and judged: a closing candidate falls when no sign of its kind stands open; the opening candidate of a quotation mark falls when one stands open, and right after a mark that ends a sentence unless a word is written right after it; a sign that bars it falls inside a word, apart with a space on both sides, or next to a hyphen or an equals sign; a plain bracket and the backtick have no exception on the opening side; a quotation mark right after a digit stands
+//ff:what TestPairGraph — the exceptions of one candidate of a sign of a pair, counted and judged: a closing candidate falls when no sign of its kind stands open; the opening candidate of a quotation mark falls when one stands open, and right after a mark that ends a sentence unless a word is written right after it; a sign that bars it falls inside a word, apart with a space on both sides (but when the sign that pairs with it is written apart too: MarkMated), or next to a hyphen or an equals sign; a plain bracket and the backtick have no exception on the opening side; a quotation mark right after a digit stands
 package parse
 
 import (
@@ -36,11 +36,16 @@ func TestPairGraph(t *testing.T) {
 		{'\'', shutName, 2, digit, false},
 		{'’', shutName, 2, word, false},
 		{'’', shutName, 2, rule.Mark{Left: rule.SideHangul, Facts: rule.MarkOpened}, true},
-		{'<', openName, 2, rule.Mark{Facts: rule.MarkApart}, false},
-		{'<', openName, 2, rule.Mark{Facts: rule.MarkArrow}, false},
-		{'<', openName, 2, rule.Mark{Right: rule.SideHangul}, true},
-		{'>', shutName, 3, rule.Mark{Facts: rule.MarkOpened | rule.MarkArrow}, false},
-		{'>', shutName, 3, rule.Mark{Facts: rule.MarkOpened}, true},
+		{'<', openName, 3, rule.Mark{Facts: rule.MarkApart}, false},
+		{'<', openName, 3, rule.Mark{Facts: rule.MarkArrow}, false},
+		{'<', openName, 3, rule.Mark{Right: rule.SideHangul}, true},
+		{'>', shutName, 4, rule.Mark{Facts: rule.MarkOpened | rule.MarkArrow}, false},
+		{'>', shutName, 4, rule.Mark{Facts: rule.MarkOpened}, true},
+		{'<', openName, 3, rule.Mark{Facts: rule.MarkApart | rule.MarkMated}, true},
+		{'<', openName, 3, rule.Mark{Facts: rule.MarkApart | rule.MarkMated | rule.MarkArrow}, false},
+		{'>', shutName, 4, rule.Mark{Facts: rule.MarkOpened | rule.MarkApart}, false},
+		{'>', shutName, 4, rule.Mark{Facts: rule.MarkOpened | rule.MarkApart | rule.MarkMated}, true},
+		{'>', shutName, 4, rule.Mark{Facts: rule.MarkApart | rule.MarkMated}, false},
 		{'`', openName, 0, word, true},
 		{'`', openName, 0, rule.Mark{Facts: rule.MarkApart}, true},
 	}

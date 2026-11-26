@@ -95,6 +95,7 @@ const (
 	whyAfterDigit    = "숫자 바로 뒤에 있다"
 	whyApart         = "앞뒤가 모두 빈칸이다"
 	whyArrow         = "붙임표나 등호와 맞닿아 있다"
+	whyMated         = "짝이 되는 기호도 앞뒤를 띄어 썼다"
 	whyBySign        = "다른 기호와 맞닿아 있다"
 	whyNotAlnumSides = "양쪽이 모두 영문·숫자 열인 것은 아니다"
 

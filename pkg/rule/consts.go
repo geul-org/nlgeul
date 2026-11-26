@@ -182,6 +182,7 @@ const (
 	MarkOpenedAny              // a sign of its pair's kind may stand open before it in at least one of the ways the signs before it may stand open (MarkOpened tells it of one way)
 	MarkStopped                // a full stop stands right after the last of the runs the sign joins (1.28. — a date: the orthography's 마침표 (3))
 	MarkAfterStop              // a mark that ends a sentence (. ? ! …) stands right before it: the end of the sentence a closing sign closes on (다.』)
+	MarkMated                  // a space, or the sentence's edge, stands on both sides of it, and a sign that pairs with it stands so too on the other side of what it encloses: after an opening sign a closing sign of its kind, before a closing sign an opening one (< 제목 >)
 )
 
 // The facts a list is asked for (List.Of).
