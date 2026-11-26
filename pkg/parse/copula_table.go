@@ -21,8 +21,8 @@ var droppable = closingSets[setDrop]
 const bareAdn = "꾸밈:ㄴ"
 
 // droppableKnown are more closings the stem is dropped before (거네,
-// 뭐냐, 사과구나, 뭐야, and the quoting 라는, 라며, 라면서, 라니:
-// 사과라는, and the quoting 냐는, 냐며, 냐면, 냐면서, 냐니까: 누구냐면):
+// 뭐냐, 사과구나, 뭐야, and the quoting 라고, 라는, 라며, 라면서, 라니:
+// 사과라는, 사과라고 beside the particle 라고, and the quoting 냐는, 냐며, 냐면, 냐면서, 냐니까: 누구냐면):
 // the dictionary's note on 이다 says the stem
 // may be dropped after a vowel, mostly not before a modifying or a
 // naming form. They are short and common at the end of other words, so
