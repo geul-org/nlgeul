@@ -22,3 +22,15 @@ const caseKind = "사건"
 // branches from (가지번호: 제5조의2, 별표 11의2). Between two runs of
 // digits it is that particle, not a case mark.
 const branchJoint = "의"
+
+// caseUnitMarks are the words of the unit table that are case marks too
+// (the Supreme Court's rule on case marks: 도 an appeal of a criminal
+// case to the Supreme Court, 차 an order for payment, 자 a settlement
+// before suit, 인 a habeas case). Between two numbers each is a case
+// mark (97도2836) unless a piece read after a number follows the second
+// number (36도5분). Any other unit between two numbers is a unit: a
+// number, its unit and a number (11초92, 10시30, 1시간20, 81승53). 초
+// is left out of the list: the marks of criminal motions in use have
+// two syllables (초기, 초보, 초재), and a record of seconds is written
+// in this shape.
+var caseUnitMarks = []string{"도", "차", "자", "인"}

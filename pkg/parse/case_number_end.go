@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what caseNumberEnd — where the shape of a court case number ends that begins at a place of the unit (0 when none begins there): a year (caseYearLens digits), a mark of 1 to caseMarkMax Hangul syllables and a serial number (a run of digits that no Latin letter runs on from); not when the mark is a greater number (17만2000) or the particle that joins a branch number (branchJoint: 11의2), nor when it is a piece read after a number and such a piece is read right after the serial (2020년3월, 36도5분: a measure written with no space)
+//ff:what caseNumberEnd — where the shape of a court case number ends that begins at a place of the unit (0 when none begins there): a year (caseYearLens digits), a mark of 1 to caseMarkMax Hangul syllables and a serial number (a run of digits that no Latin letter runs on from); not when the mark is a greater number (17만2000) or the particle that joins a branch number (branchJoint: 11의2), nor when it is a unit of measure there (caseUnitMark: 11초92, 2020년3월, 36도5분)
 package parse
 
 import (
@@ -17,7 +17,7 @@ func (sc *scan) caseNumberEnd(from int) int {
 		return 0
 	}
 	marked := string(sc.s[from+year : at])
-	if marked == branchJoint || sc.readsAfter(marked, placeBig) || (sc.readsAfter(marked, 0) && sc.afterAt(end)) {
+	if marked == branchJoint || sc.readsAfter(marked, placeBig) || sc.caseUnitMark(marked, end) {
 		return 0
 	}
 	return end

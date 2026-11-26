@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCaseNumberEnd — the shape of a court case number: a year of two or four digits, a mark of one to three syllables and a serial ends after the serial (also before a unit and particles: 2008회합9호로, and from a place past the unit's head); none for a year of other lengths, no mark, a mark of four syllables, no serial, a serial that Latin letters run on from, a greater number, the particle of a branch number (11의2), and a unit with another piece after a number right after the serial (2020년3월); a unit with nothing after the serial is a mark (36도5)
+//ff:what TestCaseNumberEnd — the shape of a court case number: a year of two or four digits, a mark of one to three syllables and a serial ends after the serial (also before a unit and particles: 2008회합9호로, and from a place past the unit's head); none for a year of other lengths, no mark, a mark of four syllables, no serial, a serial that Latin letters run on from, a greater number, the particle of a branch number (11의2), and a unit with another piece after a number right after the serial (2020년3월); a unit that is a case mark too is a mark with nothing after the serial (36도5, 2019차3141), any other unit is a unit (11초92, 10시30, 81승53)
 package parse
 
 import "testing"
@@ -28,6 +28,10 @@ func TestCaseNumberEnd(t *testing.T) {
 		{"2020년3월", 0, 0},
 		{"36도5분", 0, 0},
 		{"36도5", 0, 4},
+		{"2019차3141", 0, 9},
+		{"11초92", 0, 0},
+		{"10시30", 0, 0},
+		{"81승53", 0, 0},
 	}
 	for _, c := range cases {
 		sc := &scan{ix: scanOf("").ix, s: []rune(c.text)}
