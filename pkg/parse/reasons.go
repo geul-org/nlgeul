@@ -400,6 +400,7 @@ const (
 	ruleHaLinked   = "문장:-어야·-기 뒤 하다"
 	whyNoHaLink    = "앞 어절이 -어야로 끝나지 않는다"
 	whyNamedBefore = "앞 어절에 이름꼴 -기가 있다"
+	whyLinkedCase  = "앞 어절이 -어야로 끝나 예외 표의 줄이 서지 않는다"
 )
 
 // The name of the rule of a sentence of 내, 네 and 제 standing alone
