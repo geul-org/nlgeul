@@ -48,6 +48,8 @@ const (
 	setLinkTaker   = "이음 으"
 	setHangul      = "한글 뒤만"
 	setQuoted      = "닫는 따옴표 뒤"
+	setNumberNoun  = "수 뒤 이름 맺음"
+	setShutBare    = "닫는 기호 뒤 서술격 없이"
 	setVerbExist   = "동사·있다·없다·계시다"
 	setNegAdverb   = "부정 부사"
 	setNumDet      = "수 관형사"

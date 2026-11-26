@@ -46,8 +46,8 @@ func TestCopulaReads(t *testing.T) {
 		t.Fatal("a dropped stem before 다 right after a sign that closes a pair", got)
 	}
 	run := wordsScan("abc다", layerCost)
-	if got = run.copulaReads(tail{start: 3, pieces: one.pieces, close: da}, 3, run.ix.dropped, false); got != nil {
-		t.Fatal("no dropped stem before 다 after a Latin letter", got)
+	if got = run.copulaReads(tail{start: 3, pieces: one.pieces, close: da}, 3, run.ix.dropped, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != nil {
+		t.Fatal("a dropped stem before 다 after a Latin letter, asking for no nominal", got)
 	}
 	named := wordsScan("먹음이다", layerCost)
 	if got = named.copulaReads(tail{start: 3, pieces: one.pieces, close: da}, 2, named.ix.copula, false); len(got) < 2 || got[1].start != 1 || got[1].pieces[0].names != "이름:음" || got[1].pieces[1].names != copulaName {

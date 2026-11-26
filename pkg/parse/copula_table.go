@@ -73,6 +73,22 @@ var dropNaming = nounHeads
 // alone there (+다).
 var droppableRun = []string{"맺음:야"}
 
+// digitOnly is the stem no letters are: a closing written right after a
+// digit has no stem there (a number is no predicate's stem), so its tail
+// names a stem nothing is, and only the copula read made of it stands.
+const digitOnly = "\x00"
+
+// numberNounClosings are the closings that, right after a number, are
+// the noun written there (3면 the page, 1군 the army: setNumberNoun)
+// rather than the copula's dropped stem with the closing; shutBareClosings
+// are the closings written right onto a closing sign with no copula
+// between (setShutBare: "…"고, ')며).
+var (
+	numberNounClosings = closingSets[setNumberNoun]
+	shutBareClosings   = closingSets[setShutBare]
+	droppedNames       = []string{droppedName}
+)
+
 // notOnly is the one other stem the closings of the copula attach to.
 const notOnly = "아니"
 

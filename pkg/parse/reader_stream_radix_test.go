@@ -22,7 +22,7 @@ func TestReaderStreamRadix(t *testing.T) {
 		{"0x1a2F", true, []string{"0x1a2F[수:16진법]"}, []string{"[열:영숫자]", "[수]"}},
 		{"0x1010", true, []string{"0x1010[수:16진법]"}, []string{"2진법]\t", "[수]"}},
 		{"0x1234이면", false, []string{"\n0x1234[수:16진법]+이[서술격:이]+면[맺음:면]\t성립 1.00"}, []string{"[열:영숫자]"}},
-		{"0x1234면", false, nil, []string{"[맺음:면]"}},
+		{"0x1234면", false, nil, []string{"\n0x1234[수:16진법]+면[맺음:면]"}},
 		{"0x1234를", false, []string{"\n0x1234[수:16진법]+를[목적격:를]\t성립 1.00"}, nil},
 		{"0x12G4", false, []string{"0x12G4[열:영숫자]"}, []string{"16진법"}},
 		{"0x", false, []string{"0x[열:영숫자]"}, []string{"16진법"}},

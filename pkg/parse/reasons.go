@@ -206,6 +206,8 @@ const (
 	whyNotEnded  = "바로 뒤가 마침표·물음표나 문장의 끝이 아니다"
 	whyWordAfter = "바로 뒤에 낱말이 있다"
 	whyNoComma   = "바로 뒤가 쉼표가 아니다"
+	whyNotRun    = "줄기가 영숫자 열이 아니다"
+	whyShutBare  = "닫는 기호 바로 뒤에서 서술격 없이 서는 맺음이다"
 )
 
 // The names of the rules of a sentence that read the copula.
@@ -213,6 +215,8 @@ const (
 	ruleCopulaEnd   = "문장:문장 끝 야·라고는 맺음"
 	ruleNumberQuote = "문장:수 뒤 라고는 인용 조사"
 	ruleCopulaComma = "문장:쉼표 앞 이나는 서술격"
+	ruleDropRun     = "문장:영숫자 열 뒤 맺음은 빠진 서술격"
+	ruleDropShut    = "문장:닫는 기호 뒤 맺음은 빠진 서술격"
 )
 
 // The names and the reasons of the rules of a sentence about dependent

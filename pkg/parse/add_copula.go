@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what addCopula — the graphs of the copula stem: 이 said after a noun, and 이 dropped after a vowel; the claim "this is the stem of 이다 after a noun", and the exceptions that no stem stands before it, that the closing after it is one the copula does not take, that an auxiliary written onto a main predicate follows its 어/아 form (copulaBars), and for the dropped stem that the closing after it is not one the stem is dropped before (droppable, and with a word table droppableKnown), that no vowel stands before it, that the letter before it is no Hangul syllable (lifted before the closings read after such a letter: abc야, and with a word table before every closing and slot the stem is dropped before, which copulaReads keeps to the place right after a sign that closes a pair: dropBarred), and that a naming closing follows (lifted when a particle is written right after that closing: 문제기도), with the rebuttal that a modifying or a naming closing follows; and for the said stem the rebuttal that the modifying closing ㄴ follows it right after a number (numberAdnRebuttal: 1인)
+//ff:what addCopula — the graphs of the copula stem: 이 said after a noun, and 이 dropped after a vowel; the claim "this is the stem of 이다 after a noun", and the exceptions that no stem stands before it, that the closing after it is one the copula does not take, that an auxiliary written onto a main predicate follows its 어/아 form (copulaBars), and for the dropped stem that the closing after it is not one the stem is dropped before (droppable, and with a word table droppableKnown), that no vowel stands before it, that the letter before it is no Hangul syllable (lifted before the closings read after such a letter: abc야, and with a word table before every closing and slot the stem is dropped before, which copulaReads keeps to the place right after a sign that closes a pair: dropBarred), and that a naming closing follows (lifted when a particle is written right after that closing: 문제기도), with the rebuttal that a modifying or a naming closing follows; and for the said stem the rebuttal that the modifying closing ㄴ follows it right after a number (numberAdnRebuttal: 1인), and for the dropped stem the rebuttal that a closing of numberNounClosings follows it right after a number (numberNounRebuttal: 3면)
 package parse
 
 import (
@@ -31,6 +31,7 @@ func (ix *index) addCopula() {
 	except(d, rule.Listed, whyHelper, listed("copulaBars", rule.ListAfter, copulaBars)).Attacks(claim)
 	except(d, rule.Listed, whyKept, listed("droppable", rule.ListAfter, drops), not).Attacks(claim)
 	except(d, rule.PieceAfter, whyAfter, &rule.Bits{Of: "after", Mask: rule.AfterVowel}).Attacks(claim)
+	numberNoun := numberNounRebuttal(d, claim)
 	d.Counter(rule.Listed).With(listed("dropAdn", rule.ListAfter, dropAdn)).Attacks(claim, forceDropAdn)
 	run := except(d, rule.PieceAfter, whyNoHangul, &rule.Bits{Of: "after", Mask: rule.AfterHangul})
 	run.Attacks(claim)
@@ -39,5 +40,5 @@ func (ix *index) addCopula() {
 	naming.Attacks(claim)
 	except(d, rule.PieceRight, whyParticle, &rule.Bits{Of: "right", Mask: rule.RightParticle}).Attacks(naming)
 	ix.dropped = &entry{name: droppedName, count: copulaCount, g: d}
-	ix.graphs, ix.edges = ix.graphs+2, ix.edges+13+numberAdn
+	ix.graphs, ix.edges = ix.graphs+2, ix.edges+13+numberAdn+numberNoun
 }

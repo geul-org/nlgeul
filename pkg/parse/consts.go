@@ -455,6 +455,12 @@ var numberAdnNames = []string{"꾸밈:ㄴ"}
 // righted, 9 turned wrong), and 0.5 to 1 the same words.
 const forceNumberAdn = 0.5
 
+// forceNumberNoun is the force of the rebuttal "the closing right after
+// a number is the noun written there" against the dropped copula stem
+// (numberNounRebuttal: 3면, 제4면, 1군), as forceNumberAdn is of the said
+// stem before ㄴ: the same step, and the noun is kept ahead.
+const forceNumberNoun = 0.5
+
 // measureName names the graph of a quotation mark right after a digit
 // read as a unit of measure (measureGraph): 3" as inches, 5' as feet.
 const measureName = "단위:숫자 뒤 따옴표"

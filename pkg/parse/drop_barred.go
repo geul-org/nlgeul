@@ -12,5 +12,6 @@ func dropBarred(prev rune, after string) bool {
 	if rule.Fits(prev, rule.AfterHangul) || slices.Contains(droppableRun, after) {
 		return false
 	}
-	return !pairRows[prev].shuts
+	row, pair := pairRows[prev]
+	return pair && !row.shuts
 }

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=2
-//ff:what TestClosingTails — a whole closing alone and after slots, a fused one once for each stem it may come from; each carries its closing, and one that attaches only to the copula names 아니; 죠 is written out as 지+(요); a closing with a gate hands it to its tails; a shortened quotation that only verbs take and the copula takes (란, 래, 랄까) is read once more as a tail of 아니 alone, and one the copula does not take, one of adjectives, a fused one and a closing of the tables are not
+//ff:what TestClosingTails — a whole closing alone and after slots, a fused one once for each stem it may come from; each carries its closing, and one that attaches only to the copula names 아니, and one right after a digit names a stem nothing is (digitOnly); 죠 is written out as 지+(요); a closing with a gate hands it to its tails; a shortened quotation that only verbs take and the copula takes (란, 래, 랄까) is read once more as a tail of 아니 alone, and one the copula does not take, one of adjectives, a fused one and a closing of the tables are not
 package parse
 
 import (
@@ -23,6 +23,14 @@ func TestClosingTails(t *testing.T) {
 	got = sc.closingTails(piece{text: "에요"}, &entry{name: "맺음:에요", needs: true}, 3)
 	if len(got) != 1 || got[0].only != notOnly {
 		t.Fatal(got)
+	}
+	got = scanOf("3면").closingTails(piece{text: "면"}, &entry{name: "맺음:면", form: "면"}, 1)
+	if len(got) == 0 || got[0].only != digitOnly || got[0].start != 1 {
+		t.Fatal("a closing right after a digit names a stem nothing is", got)
+	}
+	got = scanOf("3간").closingTails(piece{}, &entry{name: "꾸밈:ㄴ", lead: 4}, 1)
+	if len(got) == 0 || got[0].only == digitOnly {
+		t.Fatal("a fused closing is no closing written right after the digit", got)
 	}
 	got = scanOf("하죠").closingTails(piece{text: "죠"}, &entry{name: "맺음:죠", form: "죠"}, 1)
 	if len(got) != 1 || len(got[0].pieces) != 2 || got[0].pieces[1].text != "(요)" {
