@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestSignContest — one stretch of one sign as a contest: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); the letters with no name when none stands; beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵
+//ff:what TestSignContest — one stretch of one sign as a contest: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); the letters with no name when none stands; beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵; the candidates of a higher verdict come first, each with its graph's verdict (one hyphen alone: 줄표 before 빼기, the other way round where a sum is written)
 package parse
 
 import (
@@ -23,11 +23,20 @@ func TestSignContest(t *testing.T) {
 		{"#", rule.Mark{Run: 1, Facts: rule.MarkHeads | rule.MarkSpaced | rule.MarkAlone}, 0, `"제목1"/stem=false/depth=1/end=0; "샵"/stem=false/depth=0/end=0`},
 		{"::", rule.Mark{Run: 2, Facts: rule.MarkEnds}, 0, `""/stem=true/depth=0/end=0`},
 		{"가", rule.Mark{Run: 1}, 0, `""/stem=true/depth=0/end=0`},
+		{"-", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart}, 0, `"줄표"/stem=false/depth=0/end=0; "빼기"/stem=false/depth=0/end=0`},
+		{"-", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart | rule.MarkSum}, 0, `"빼기"/stem=false/depth=0/end=0; "줄표"/stem=false/depth=0/end=0`},
+		{"-", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart | rule.MarkHeads}, 0, `""/stem=true/depth=0/end=0`},
+		{"---", rule.Mark{Run: 3, Facts: rule.MarkAlone | rule.MarkApart | rule.MarkBare}, 0, `""/stem=true/depth=0/end=0`},
+		{"─", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart}, 0, `"줄표"/stem=false/depth=0/end=0`},
 	}
 	for _, c := range cases {
 		b := sc.signContest(c.text, c.m, c.end)
 		if got := signBrief(b); b.Text != c.text || got != c.want {
 			t.Errorf("%q:\n got %s\nwant %s", c.text, got, c.want)
 		}
+	}
+	sum := sc.signContest("-", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart | rule.MarkSum}, 0)
+	if low := 2/(1+forceDashSum) - 1; len(sum.Branches) != 2 || sum.Branches[0].Verdict != 1 || sum.Branches[1].Verdict < low-1e-9 || sum.Branches[1].Verdict > low+1e-9 {
+		t.Fatal("each candidate has its graph's verdict, the higher first", sum.Branches)
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=selection
-//ff:what next — the unit that begins at place i of a sentence and where it ends: a span of code with what is written onto it; a sign that cuts the sentence (cutSigns) alone; a sign of a pair, alone when it only opens, with what is written onto it when it may close; else the letters up to the next space, cut sign, sign of a pair or span of code; the ways the signs may stand open are moved past a sign of a pair; how many Han characters a round bracket right after the unit holds alone is told (glossAt), or how many stand right before the bracket the unit stands alone in (soundAt: 江山[강산])
+//ff:what next — the unit that begins at place i of a sentence and where it ends: a span of code with what is written onto it; a sign that cuts the sentence (cutSigns) alone; a sign of a pair, alone when it only opens, with what is written onto it when it may close; else the letters up to the next space, cut sign, sign of a pair or span of code; the ways the signs may stand open are moved past a sign of a pair; how many Han characters a round bracket right after the unit holds alone is told (glossAt), or how many stand right before the bracket the unit stands alone in (soundAt: 江山[강산]); the facts of the unit's place in its line are told too (lineFacts)
 package parse
 
 import "unicode"
@@ -27,5 +27,6 @@ func (c *cutter) next(i int) (unit, int) {
 	}
 	u.text, u.spaced = string(c.r[i:end]), end < len(c.r) && unicode.IsSpace(c.r[end])
 	u.gloss = max(glossAt(c.r, end), soundAt(c.r, i, end))
+	u.facts = c.lineFacts(i, end)
 	return u, end
 }

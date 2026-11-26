@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what edgeFacts — the facts of a stretch of one sign at a unit's edge, from start to stop in the unit's letters: how many stand in a row, what stands on each side in the unit, whether the stretch is the whole unit, whether it stands after the letters that are read, whether those letters begin right after it, whether it begins an input line, whether a space stands right after it, and whether a punctuation mark or symbol stands right next to it
+//ff:what edgeFacts — the facts of a stretch of one sign at a unit's edge, from start to stop in the unit's letters: how many stand in a row, what stands on each side in the unit, whether the stretch is the whole unit, whether it stands after the letters that are read, whether those letters begin right after it, whether it begins an input line, whether a space stands right after it, whether a punctuation mark or symbol stands right next to it, whether a sign that is no punctuation mark of a sentence stands in its run of signs (drawn), and the facts the cutter told of the unit's place (its line holds no letter or digit, a sum is written there, and, told only of a stretch that is the whole unit, a space or the sentence's edge stands on both sides of it)
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -32,6 +32,13 @@ func (sc *scan) edgeFacts(u unit, start, stop int, after, last bool) rule.Mark {
 	}
 	if u.spaced && stop == len(all) {
 		m.Facts |= rule.MarkSpaced
+	}
+	if drawn(all, start, stop) {
+		m.Facts |= rule.MarkDrawn
+	}
+	m.Facts |= u.facts
+	if m.Facts&rule.MarkAlone == 0 {
+		m.Facts &^= rule.MarkApart
 	}
 	return m
 }

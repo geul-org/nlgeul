@@ -186,6 +186,9 @@ const (
 	MarkQuoted                 // a marker that takes a quotation (라고, 고, 는, 라는, 란 …) stands right after it and no letter or digit after that marker: a closing quotation mark's place ("라고, '는)
 	MarkOpenSide               // a space or the sentence's start stands right before it and a letter or digit right after it, and it is not MarkQuoted: where an opening quotation mark is written
 	MarkShutSide               // it is MarkQuoted, or a letter stands right before it and a space or the sentence's end right after it: where a closing quotation mark is written
+	MarkBare                   // its input line holds no letter and no digit: a line of signs alone (a rule ---, a table's line |---|---|, a frame -----------)
+	MarkDrawn                  // a sign that is no punctuation mark of a sentence stands in the run of signs it is in (-->, <!--, |---|, ├──┼): the signs draw something together
+	MarkSum                    // it stands alone where a sum is written: inside a bracket still open, or between two numbers with a space on each side
 )
 
 // The facts a list is asked for (List.Of).

@@ -486,6 +486,14 @@ const forceMeasureOpen = 0.5
 // a verdict of 1/3); it was not fitted to the answer sheet.
 const forceQuoteSide = 0.5
 
+// forceDashSum is the force of the rebuttals that put the two
+// candidates of one hyphen alone in order by its place (dashGraph): 줄표
+// is lowered where a sum is written (inside a bracket still open, or
+// between two numbers), 빼기 anywhere else. It is the force of the
+// other rebuttals of a sign (forceQuoteSide: a verdict of 1/3); it was
+// not fitted to the answer sheet.
+const forceDashSum = 0.5
+
 // degreeNames are the names of the unit 도 (an angle, a temperature),
 // which a rule of a sentence prefers right after a number at the end of
 // its word to the particle 도 (degreeUnitRule).

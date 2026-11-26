@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what midFacts — the facts of a stretch of one sign between letters of a unit, from start to stop in the unit's letters: how many stand in a row, what stands on each side, and whether a punctuation mark or symbol stands right next to it
+//ff:what midFacts — the facts of a stretch of one sign between letters of a unit, from start to stop in the unit's letters: how many stand in a row, what stands on each side, whether a punctuation mark or symbol stands right next to it, and whether a sign that is no punctuation mark of a sentence stands in its run of signs (drawn)
 package parse
 
 import (
@@ -14,6 +14,9 @@ func (sc *scan) midFacts(start, stop int) rule.Mark {
 		if unicode.IsPunct(r) || unicode.IsSymbol(r) {
 			m.Facts |= rule.MarkBySign
 		}
+	}
+	if drawn(sc.s, start, stop) {
+		m.Facts |= rule.MarkDrawn
 	}
 	return m
 }

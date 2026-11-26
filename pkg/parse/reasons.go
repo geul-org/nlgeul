@@ -101,6 +101,10 @@ const (
 	whyArrow         = "붙임표나 등호와 맞닿아 있다"
 	whyMated         = "짝이 되는 기호도 앞뒤를 띄어 썼다"
 	whyBySign        = "다른 기호와 맞닿아 있다"
+	whyBareLine      = "입력 줄에 글자도 숫자도 없다"
+	whyDrawn         = "문장 부호가 아닌 기호와 이어져 있다"
+	whyNotAlone      = "앞뒤를 띄어 홀로 서지 않았다"
+	whyBullet        = "입력 줄의 맨 처음에 홀로 서 있다"
 	whyNotAlnumSides = "양쪽이 모두 영문·숫자 열인 것은 아니다"
 
 	whyHangulSides     = "양쪽이 한글이다"

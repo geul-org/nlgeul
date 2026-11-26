@@ -40,6 +40,34 @@ const stopSigns = ".,…，"
 // cutSigns are the signs that cut a sentence into units where they stand
 // between letters (cutter).
 const (
-	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—:"
+	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—:" + plainDashes
 	cutSigns   = "+"
 )
+
+// plainDashes are the signs written for a dash that are drawn with too:
+// the hyphen, one or a row of any length (a typescript's -- and ---),
+// and the box-drawing line ─ (U+2500). A row of them is also a rule
+// across a page, the line of a table, a frame, the shaft of an arrow,
+// and one hyphen a list's mark, a minus or the sign that binds two
+// words; so each has a graph that reads its place (dashGraph), and a
+// place that speaks against the dash leaves the letters with no name.
+// Between letters of a unit a row of two hyphens or more and the
+// box-drawing line are also read as a word of their own (apartSigns);
+// one hyphen there is not (it binds words: 원-달러).
+const plainDashes = "-─"
+
+// minusName is the candidate of one hyphen alone as the minus of a sum
+// (가 - 나), printed as the minus between two numbers is (10-20[빼기]).
+const minusName = "빼기"
+
+// textMarks are the punctuation marks of a sentence that may stand
+// right next to a dash (다---. and ─.” and (密告狀)——?): the marks that
+// end or pause a sentence and the signs of a pair but < and >, which
+// with a hyphen draw an arrow. Any other sign next to a row of plain
+// dashes draws something with it (drawn).
+const textMarks = ".,?!…，:;·\"'“”‘’()[]{}「」『』《》〈〉｢｣【】〔〕（）"
+
+// sumBrackets are the opening brackets a sum is written in (가 × [나 -
+// 다], (= 가 - 나), {가 - 나}): one hyphen alone inside one that stands
+// open is read as a minus before a dash (sumPlace).
+const sumBrackets = "([{（［｛"

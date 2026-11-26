@@ -1,10 +1,12 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCutterNext — the unit at a place by what stands there: plain letters up to the next sign of a pair, an opening sign alone (the ways of standing open move past it), a span of code with what is written onto it, a closing sign with the particle written onto it (the ways move back), a sign read as nothing but a letter in its word, a sign that is also its letter, a sign that cuts the sentence (a plus between letters) alone; the first unit of an input line and a space right after a unit are told
+//ff:what TestCutterNext — the unit at a place by what stands there: plain letters up to the next sign of a pair, an opening sign alone (the ways of standing open move past it), a span of code with what is written onto it, a closing sign with the particle written onto it (the ways move back), a sign read as nothing but a letter in its word, a sign that is also its letter, a sign that cuts the sentence (a plus between letters) alone; the first unit of an input line, a space right after a unit and the facts of its place in its line (a space on both sides of it) are told
 package parse
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/geul-org/nlgeul/pkg/rule"
 )
 
 func TestCutterNext(t *testing.T) {
@@ -25,8 +27,8 @@ func TestCutterNext(t *testing.T) {
 		{9, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{openName, 1, 1}}, bare: true, first: true}, 10, []string{"'", ""}},
 		{10, unit{text: "가", spaced: false}, 11, []string{"'", ""}},
 		{11, unit{text: "'", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}, {openName, 1, low}}, bare: true, spaced: true}, 12, []string{"", "'"}},
-		{13, unit{text: "x", spaced: true}, 14, []string{"", "'"}},
-		{15, unit{text: "<", spaced: true}, 16, []string{"", "'"}},
+		{13, unit{text: "x", spaced: true, facts: rule.MarkApart}, 14, []string{"", "'"}},
+		{15, unit{text: "<", spaced: true, facts: rule.MarkApart}, 16, []string{"", "'"}},
 	}
 	for _, s := range steps {
 		got, end := c.next(s.at)
