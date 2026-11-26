@@ -58,6 +58,19 @@ const askAuxName = "사슬:물음 맺음 뒤 조사"
 var askClosings = closingNames(Marker{Form: "지", Lead: rule.JongN}, Marker{Form: "는지"}, Marker{Form: "은지", After: rule.AfterBatchim}, Marker{Form: "지", Lead: rule.JongL}, Marker{Form: "을지", After: rule.AfterBatchim}, Marker{Form: "냐"}, Marker{Form: "느냐"}, Marker{Form: "는가"}, Marker{Form: "는지", Lead: rule.JongL}, Marker{Form: "을는지", After: rule.AfterBatchim})
 var askParticles = []string{"도", "는", "만", "야", "가", "를", "에", "와", "의"}
 
+// The auxiliary particle 는 is put under the last syllable of a closing
+// that ends in a vowel as the final consonant ㄴ (clause 33 of the
+// orthography writes a particle shortened onto its word so: 그건, 무언;
+// 비해선 for 비해서는, 닫을진 for 닫을지는, 하다간 for 하다가는). It is
+// read after the closings 는 is written onto whole (auxClosings,
+// askClosings) and written out (는) under the particle's own name
+// (underClosings).
+const (
+	underKey  = '는'
+	underName = "보조사:는"
+	underText = "(는)"
+)
+
 var honorLetters = []rune{'셨', '셔', '십'}
 
 // 겠 right after the closing 어야 is 어야 하겠 with 하 left out
