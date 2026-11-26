@@ -36,6 +36,8 @@ func TestReaderStreamUnits(t *testing.T) {
 		{"1월∼3월", []string{"\n1[수]+월[단위:월]+∼[범위] 3[수]+월[단위:월]\t"}, nil},
 		{"2~3세트", []string{"\n2~3[범위]+세트[단위:세트]\t성립 1.00"}, nil},
 		{"12 kg", []string{"kg[열:영숫자]"}, []string{"단위:킬로그램"}},
+		{"85m2", []string{"\n85[수]+m2[단위:제곱미터]\t성립 1.00", "\n85m2[열:영숫자]\t성립 0.60"}, nil},
+		{"3,456m2", []string{"\n3,456[수]+m2[단위:제곱미터]\t성립 1.00"}, []string{"쉼표"}},
 	}
 	for _, r := range []*Reader{bare, words} {
 		for _, c := range cases {
