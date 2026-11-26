@@ -18,6 +18,7 @@ var AfterNames = map[string]int{
 	"모음 뒤":      rule.AfterVowel,
 	"ㄹ 받침 뒤":    rule.AfterLiquid,
 	"ㄴ 아닌 받침 뒤": rule.AfterNotN,
+	"모음·ㄴ 받침 뒤": rule.AfterOpenN,
 }
 
 var KindNames = map[string]int{"종결": kindFinal, "연결": kindLink, "꾸밈": kindAdn, "이름": kindNoun}

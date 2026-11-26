@@ -1,5 +1,5 @@
 //ff:func feature=rule type=helper control=selection
-//ff:what Fits — 조건식(규칙 PieceAfter와 읽기 코드가 함께 쓴다). 앞 음절의 끝이 조각이 붙는 조건(After…)과 맞는가; 한글 음절이 아닌 것은 받침을 묻는 조건 다섯과 맞고, ㄹ 받침을 묻는 조건(AfterLiquid)과 한글 음절인지 묻는 조건(AfterHangul)과는 맞지 않는다
+//ff:what Fits — 조건식(규칙 PieceAfter와 읽기 코드가 함께 쓴다). 앞 음절의 끝이 조각이 붙는 조건(After…)과 맞는가; 한글 음절이 아닌 것은 받침을 묻는 조건 여섯과 맞고, ㄹ 받침을 묻는 조건(AfterLiquid)과 한글 음절인지 묻는 조건(AfterHangul)과는 맞지 않는다
 package rule
 
 func Fits(prev rune, after int) bool {
@@ -19,6 +19,8 @@ func Fits(prev rune, after int) bool {
 		return j >= 0
 	case AfterNotN:
 		return j != 0 && j != JongN
+	case AfterOpenN:
+		return j <= 0 || j == JongN
 	}
 	return true
 }

@@ -9,7 +9,7 @@ import "github.com/geul-org/nlgeul/pkg/data"
 // the word before must be a nominal of it, and a suffix is not read
 // where the stem and the suffix together are a word of the table
 // (합격률): the graph suffixGateOf. 률 is read after a final consonant
-// other than ㄴ (「한글 맞춤법」 제11항 붙임 1: after a vowel or ㄴ it is
-// written 율). They have no count: each costs what its syllables would
-// cost as stem syllables.
+// other than ㄴ and 율 after a vowel or ㄴ (「한글 맞춤법」 제11항 붙임 1:
+// after a vowel or ㄴ 률 is written 율: 증가율, 출산율). They have no
+// count: each costs what its syllables would cost as stem syllables.
 var nounSuffixes = data.Must(data.Each("noun-suffixes", 2, nounSuffixOf))

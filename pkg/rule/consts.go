@@ -37,6 +37,7 @@ const (
 	AfterLiquid         // ends in ㄹ
 	AfterHangul         // is a Hangul syllable
 	AfterNotN           // ends in a consonant other than ㄴ (률)
+	AfterOpenN          // ends in a vowel or ㄴ (율)
 )
 
 // Final-consonant indexes of a Hangul syllable, and the lead of a
