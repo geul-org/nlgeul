@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCutterCandidates — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a sign that no candidate stands for in its word, a letter, a sign in a span of code, a closing bracket with nothing written right before it and one other than a round bracket right after a digit give nothing, a round bracket right after a digit with none open is a list number (닫기:0) beside its letter and the usual closing with one open, and one written onto a word with nothing open closes at loneBracketDepth with the way left as it was; a quotation mark written onto a word with Hangul right after it closes as 닫기:0 with the ways left as they were when none of its kind stands open in any way, and not in a way with none open when one stands open in another way; the cutter is not moved; a trace keeps the lines of the graphs (the usual closing's and the lone one's)
+//ff:what TestCutterCandidates — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a backtick outside the spans of code opens beside its letter, a sign that no candidate stands for in its word, a letter, a sign in a span of code, a closing bracket with nothing written right before it and one other than a round bracket right after a digit give nothing, a round bracket right after a digit with none open is a list number (닫기:0) beside its letter and the usual closing with one open, and one written onto a word with nothing open closes at loneBracketDepth with the way left as it was; a quotation mark written onto a word with Hangul right after it closes as 닫기:0 with the ways left as they were when none of its kind stands open in any way, and not in a way with none open when one stands open in another way; the cutter is not moved; a trace keeps the lines of the graphs (the usual closing's and the lone one's)
 package parse
 
 import (
@@ -36,6 +36,8 @@ func TestCutterCandidates(t *testing.T) {
 		{"x < y", nil, 2, nil, false, nil},
 		{"<가>", nil, 0, []pairing{{openName, 1}}, true, []string{"<", ""}},
 		{"`(`", nil, 1, nil, false, nil},
+		{"`가", nil, 0, []pairing{{openName, 1}}, true, []string{"`", ""}},
+		{"가 `", []string{"("}, 2, []pairing{{openName, 2}}, true, []string{"(`", "("}},
 		{"좋다\"고", nil, 2, []pairing{{openName, 1}, {shutName, 0}}, false, []string{"\"", ""}},
 		{"“좋다\"고", []string{"“"}, 3, []pairing{{openName, 2}, {shutName, 0}}, false, []string{"“\"", "“"}},
 		{"\"좋다”고", []string{"\""}, 3, []pairing{{shutName, 0}}, false, []string{"\""}},
