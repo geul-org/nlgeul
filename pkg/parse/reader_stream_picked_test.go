@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestReaderStreamPicked — end to end with the word table of testdata, 를 written onto the linking closing 지 is a piece of the same word (먹+지+를, 가+지+를 beside the noun 가지 of the table), and 가 after the same closing is not read onto it
+//ff:what TestReaderStreamPicked — end to end with the word table of testdata, 를 written onto the linking closing 지 is a piece of the same word (먹+지+를, 가+지+를 beside the noun 가지 of the table), and the case particle 가 after the same closing is not read onto it (the 가 of emphasis there is closingParticles')
 package parse
 
 import (
@@ -20,7 +20,7 @@ func TestReaderStreamPicked(t *testing.T) {
 			t.Errorf("%s: no %q\n%s", in, want, got)
 		}
 	}
-	if got := streamText(r, "먹지가 않다"); strings.Contains(got, "지[맺음:지]+가") {
-		t.Fatal("가 after 지\n" + got)
+	if got := streamText(r, "먹지가 않다"); strings.Contains(got, "지[맺음:지]+가[주격:가]") || strings.Contains(got, "지[맺음:지]+가[보격:가]") {
+		t.Fatal("the case particle 가 after 지\n" + got)
 	}
 }

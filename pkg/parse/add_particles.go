@@ -23,6 +23,10 @@ import (
 // ending that ends in a consonant (간다면야: the dictionary gives 야
 // after an ending, and 이야 only after a nominal or an adverbial that
 // ends in a consonant); it is read only right after a closing (ended).
+// So are the 가 of emphasis after the linking 지 (먹지가 않다: the
+// dictionary's 가 after the linking ending -지) and 그려, which the
+// dictionary gives after some final endings (갑니다그려): both are read
+// only right after the closings of their rows (closingParticles).
 const emphName = "보조사:가(강조)"
 
 // comparing, together, directional and shortTopics tell kinds of particle apart for
@@ -67,6 +71,8 @@ var ownParticles = []entry{
 	{name: "보조사:는커녕", form: "는커녕", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic, count: 66},
 	{name: emphObjName, form: "를", class: classParticle, after: rule.AfterVowel, slot: rule.LinkEmph},
 	{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic, ended: true},
+	{name: "보조사:가", form: "가", class: classParticle, slot: rule.LinkTopic, ended: true},
+	{name: "보조사:그려", form: "그려", class: classParticle, slot: rule.LinkTopic, ended: true},
 }
 
 func (ix *index) addParticles() {

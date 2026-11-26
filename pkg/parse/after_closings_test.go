@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestAfterClosings — 도 right after the linking closing 지 is one more piece of the predicate's tail (also after a dropped copula); not after a closing that takes none (다), not for a pair that is a closing of the tables itself (어도), not for a particle that is not one of the few, nor inside a longer chain; 어서 and 면서 take one too (먹+어서+는, 가+면서+는) but 으면서도, a closing itself, is read as that closing only; with a word table any particle, inside a chain too, right after the naming closing 기 is one more piece under its own name (먹+기+는, 먹+기+에+는), and without one 기 takes none; so after the naming closings 음 (먹+음+을) and ㅁ, also when ㅁ is fused under the one syllable before the particle (되+(ㅁ)+을), not without a word table, not after a first letter that ends no naming closing (가을) or with nothing before the particle, and a linking closing in the first letter takes none; before a particle after 기 a dropped copula stands before the 기 (문제+(이)+기+도), the tails are looked up there as chained, and the same lookup not chained has no such copula; a case particle right after a closing that asks is one more piece under its own name, inside a chain too (먹+는지+를, 먹+는지+에 before 는), also after a closing under a final consonant (가+(ㄹ)지+도) and after the copula (학교+이+(ㄴ)지+가), while 에서, which such a closing does not take, is not read so; 를 after the plain 지, one of the few closings it is written onto, is read so (먹+지+를), and 가 there is not; end to end a noun of the table that ends in 기 still stands as the noun, and a stem no table has takes no 기
+//ff:what TestAfterClosings — 도 right after the linking closing 지 is one more piece of the predicate's tail (also after a dropped copula); not after a closing that takes none (다), not for a pair that is a closing of the tables itself (어도), not for a particle that is not one of the few, nor inside a longer chain; 어서 and 면서 take one too (먹+어서+는, 가+면서+는) but 으면서도, a closing itself, is read as that closing only; with a word table any particle, inside a chain too, right after the naming closing 기 is one more piece under its own name (먹+기+는, 먹+기+에+는), and without one 기 takes none; so after the naming closings 음 (먹+음+을) and ㅁ, also when ㅁ is fused under the one syllable before the particle (되+(ㅁ)+을), not without a word table, not after a first letter that ends no naming closing (가을) or with nothing before the particle, and a linking closing in the first letter takes none; before a particle after 기 a dropped copula stands before the 기 (문제+(이)+기+도), the tails are looked up there as chained, and the same lookup not chained has no such copula; a case particle right after a closing that asks is one more piece under its own name, inside a chain too (먹+는지+를, 먹+는지+에 before 는), also after a closing under a final consonant (가+(ㄹ)지+도) and after the copula (학교+이+(ㄴ)지+가), while 에서, which such a closing does not take, is not read so; 를 after the plain 지, one of the few closings it is written onto, is read so (먹+지+를), and the subject particle 가 there is not; end to end a noun of the table that ends in 기 still stands as the noun, and a stem no table has takes no 기
 package parse
 
 import (
@@ -120,7 +120,7 @@ func TestAfterClosings(t *testing.T) {
 	if got = scanOf("먹지가").afterClosings(2, 0, piece{text: "가", names: "주격:가", verdict: 1}, &entry{name: "주격:가"}); len(got) != 0 {
 		t.Fatal("the plain 지 takes no 가", got)
 	}
-	if got = scanOf("먹었다를").afterClosings(3, 0, reul, obj); got != nil {
+	if got = scanOf("먹었네를").afterClosings(3, 0, reul, obj); got != nil {
 		t.Fatal("no closing that asks ends before 를", got)
 	}
 
@@ -145,8 +145,8 @@ func TestAfterClosings(t *testing.T) {
 	if got := streamText(r, "곰기는"); strings.Contains(got, "[이름:기]") {
 		t.Fatal("기 after a stem no table has\n" + got)
 	}
-	for _, in := range []string{"먹지가", "먹는지에서", "먹는다를"} {
-		if got := streamText(r, in); strings.Contains(got, "[맺음:지]+가") || strings.Contains(got, "[맺음:는지]+에서") || strings.Contains(got, "다]+를") {
+	for _, in := range []string{"먹지가", "먹는지에서", "먹는구나를"} {
+		if got := streamText(r, in); strings.Contains(got, "[맺음:지]+가[주격:가]") || strings.Contains(got, "[맺음:는지]+에서") || strings.Contains(got, "구나]+를") {
 			t.Fatal("a particle after a closing that takes none\n" + got)
 		}
 	}
