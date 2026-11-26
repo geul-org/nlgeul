@@ -123,6 +123,7 @@ const (
 	LinkHonor         // 높임의 주격 께서와 단체 뒤 주격 에서: 보조사를 받는다 (께서는, 께서도, 정부에서는)
 	LinkEmph          // 부사격 조사 뒤의 강조 보조사 가 (에서가, 에가)
 	LinkCopula        // 서술격 이다의 줄기: 접미 뒤에 선다(꽃들이다)
+	LinkLast          // 조사가 뒤에 오지 않는 접미: 체언 뒤의 당 (팀당)
 )
 
 // What stands right after a piece (Piece.Right).

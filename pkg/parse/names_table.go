@@ -7,6 +7,7 @@ import "github.com/geul-org/nlgeul/pkg/rule"
 // sets: a name that is not here is an error when the table is read.
 //
 // AfterNames tell what must stand before a form of whole syllables;
+// SuffixNames whether particles follow a suffix read after a nominal;
 // KindNames the kinds of a closing; CaseNames the cases a particle
 // marks; FlagNames a closing's ways of attaching (the Marker's fields
 // Eu, NoIda, NoYo, NeedIda and SelfIda).
@@ -20,6 +21,10 @@ var AfterNames = map[string]int{
 	"ㄴ 아닌 받침 뒤": rule.AfterNotN,
 	"모음·ㄴ 받침 뒤": rule.AfterOpenN,
 }
+
+// SuffixNames tell whether particles follow a suffix read after a
+// nominal: its kind in a chain.
+var SuffixNames = map[string]int{"조사 이어짐": rule.LinkSuffix, "조사 없음": rule.LinkLast}
 
 var KindNames = map[string]int{"종결": kindFinal, "연결": kindLink, "꾸밈": kindAdn, "이름": kindNoun}
 

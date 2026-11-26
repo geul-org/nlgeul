@@ -11,7 +11,9 @@ package rule
 // vocative particle or 요. 으로/로 also follows an adverbial particle
 // (에게로, 께로부터) and is otherwise as one; the honorific 께서 takes a
 // range or topic particle (께서는). The emphatic 가 follows an
-// adverbial particle and nothing else, and nothing follows it.
+// adverbial particle and nothing else, and nothing follows it. Nothing
+// follows a suffix that ends its word (LinkLast: 팀당), and it follows
+// no particle.
 var linkable = map[int]int{
 	LinkSuffix: 1<<LinkSuffix | 1<<LinkCase | 1<<LinkAdn | 1<<LinkAdv | 1<<LinkComp | 1<<LinkWith | 1<<LinkRange | 1<<LinkTopic | 1<<LinkVoc | 1<<LinkYo | 1<<LinkDir | 1<<LinkHonor | 1<<LinkCopula,
 	LinkCase:   1 << LinkYo,

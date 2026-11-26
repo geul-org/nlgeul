@@ -20,6 +20,7 @@
 | 칸 | 이름 |
 |---|---|
 | 앞말 | `-`(조건 없음), `받침 뒤`, `ㄹ 아닌 받침 뒤`, `모음·ㄹ 뒤`, `모음 뒤`, `ㄹ 받침 뒤`, `ㄴ 아닌 받침 뒤`, `모음·ㄴ 받침 뒤` |
+| 뒤(체언 뒤 접미) | `조사 이어짐`, `조사 없음` |
 | 갈래(맺음) | `종결`, `연결`, `꾸밈`, `이름` |
 | 조건(맺음) | `으 붙음`, `서술격 안 됨`, `요 안 됨`, `서술격만`, `서술격 품음` |
 | 격(조사) | `주격`, `보격`, `목적격`, `관형격`, `부사격`, `호격` |
@@ -58,7 +59,7 @@
 | `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (`shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
 | `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (`shortParticleOf`) | `선	-	부사격	에서는` |
 | `short-slots.tsv` | 꼴, 앞말, 본말, 줄기 | `shortSlots` (`shortSlotOf`) | `댔	-	다고 했	형용사` |
-| `noun-suffixes.tsv` | 꼴(온 음절), 앞말 | `nounSuffixes` (`nounSuffixOf`) | `률	ㄴ 아닌 받침 뒤` |
+| `noun-suffixes.tsv` | 꼴(온 음절), 앞말, 뒤(`조사 이어짐`: 조사와 서술격이 뒤에 선다, `조사 없음`: 낱말을 끝낸다. `SuffixNames`) | `nounSuffixes` (`nounSuffixOf`) | `률	ㄴ 아닌 받침 뒤	조사 이어짐`, `당	-	조사 없음` |
 | `typo-closings.tsv` | 틀린 꼴, 바른 맺음(색인 이름) | `typoClosings` (`typoClosingOf`) | `ㄹ께	맺음:ㄹ게` |
 | `typo-words.tsv` | 틀린 꼴, 바른 낱말 | `typoKeys` | `꺼	거` |
 | `signs.tsv` | 기호(글자 하나), 이름 | `signNames`, `signOrderNamed` (`loadSigns`) | `,	쉼표`, `·	가운뎃점`, `+	더하기` |
