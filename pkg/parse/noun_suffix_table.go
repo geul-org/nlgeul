@@ -10,11 +10,17 @@ import "github.com/geul-org/nlgeul/pkg/data"
 // a nominal that is counted by) ends its word: no particle is read after
 // it (rule.LinkLast), as the dictionary's examples have it before the
 // amount it tells of (마리당 삼천 원, 시간당 얼마), so that a word of the
-// noun 당 (堂, 黨) with a particle is not cut so (경로당에). They are read only with a word table (addWide),
+// noun 당 (堂, 黨) with a particle is not cut so (경로당에). 사 is the
+// suffix written onto a name or a nominal for a company or a body, a
+// person of a trade, a temple, a history and so on (the dictionary's
+// -사 社, 師, 士, 寺, 史 …: 구글사, 전담사); it has one name, 접미:사,
+// whatever it means, and particles and the copula follow it. It is not
+// read either where the stem and the suffix are two words of the table
+// written together (twoWords: 기동+전사, not 기동전+사). They are read only with a word table (addWide),
 // the word before must be a nominal of it, and a suffix is not read
 // where the stem and the suffix together are a word of the table
 // (합격률): the graph suffixGateOf. 률 is read after a final consonant
 // other than ㄴ and 율 after a vowel or ㄴ (「한글 맞춤법」 제11항 붙임 1:
-// after a vowel or ㄴ 률 is written 율: 증가율, 출산율); 당 after anything.
+// after a vowel or ㄴ 률 is written 율: 증가율, 출산율); 당 and 사 after anything.
 // They have no count: each costs what its syllables would cost as stem syllables.
 var nounSuffixes = data.Must(data.Each("noun-suffixes", 3, nounSuffixOf))

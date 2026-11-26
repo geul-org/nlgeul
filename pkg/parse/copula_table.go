@@ -67,9 +67,9 @@ var droppableRun = []string{"맺음:야"}
 const notOnly = "아니"
 
 // copulaSuffixes are the suffixes the copula stands after (꽃들이다,
-// 배씩이다, 너희끼리다, and with a word table 보장률이다, 수리율이다). 쯤 and the
+// 배씩이다, 너희끼리다, and with a word table 보장률이다, 수리율이다, 보장사이다). 쯤 and the
 // suffix 이 of a name are not among them.
-var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리", "접미:률", "접미:율"}
+var copulaSuffixes = []string{"접미:들", "접미:씩", "접미:끼리", "접미:률", "접미:율", "접미:사"}
 
 // copulaParticles are the particles the copula stands after: the
 // range particle 대로 (뜻대로지, 마음대로다) and the range particles 까지

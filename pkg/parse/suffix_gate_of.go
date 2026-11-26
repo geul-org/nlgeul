@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what suffixGateOf — the graph the word before a suffix of nounSuffixes must pass: the claim, the exception that the word is no nominal of the word table, and the exception that the stem and the suffix together are a word of the word table (the whole word stands first)
+//ff:what suffixGateOf — the graph the word before a suffix of nounSuffixes must pass: the claim, the exception that the word is no nominal of the word table, and the exception that the stem and the suffix together are a word of the word table, or two words of it written together (the words of the table stand first)
 package parse
 
 import (

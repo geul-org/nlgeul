@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestGated — a tail with no gate always passes; a tail with the predicate gate passes the stem of a verb and not a noun's, and with the nominal gate the noun's; a stem of two kinds passes by the kind its candidate is given and, with no kind given, by any of them; the gate of a suffix after a nominal passes a nominal of the table and not a new word, and not where the stem and the piece after it together are a word of the table (the nominal gate still passes it)
+//ff:what TestGated — a tail with no gate always passes; a tail with the predicate gate passes the stem of a verb and not a noun's, and with the nominal gate the noun's; a stem of two kinds passes by the kind its candidate is given and, with no kind given, by any of them; the gate of a suffix after a nominal passes a nominal of the table and not a new word, and not where the stem and the piece after it together are a word of the table (the nominal gate still passes it), nor where they are two words of the table written together (twoWords)
 package parse
 
 import "testing"
@@ -28,5 +28,11 @@ func TestGated(t *testing.T) {
 	sc.ix.lex["학교신"] = word{kinds: kindNominal, count: 10}
 	if sc.gated(3, suffixed, stem("학교", 0)) || !sc.gated(3, tail{start: 5, gate: sc.ix.nominal, pieces: suffixed.pieces}, stem("학교", 0)) {
 		t.Fatal("the stem and the piece after it together are a word of the table: only the gate of a suffix turns it down")
+	}
+	delete(sc.ix.lex, "학교신")
+	sc.ix.lex["학교곰"], sc.ix.lex["곰신"] = word{kinds: kindNominal, count: 10}, word{kinds: kindNominal, count: 10}
+	two := tail{start: 6, gate: sc.ix.suffixGate, pieces: suffixed.pieces}
+	if sc.gated(3, two, stem("학교곰", 0)) || !sc.gated(3, tail{start: 6, gate: sc.ix.nominal, pieces: suffixed.pieces}, stem("학교곰", 0)) || !sc.gated(3, tail{start: 6, gate: sc.ix.suffixGate}, stem("학교곰", 0)) {
+		t.Fatal("the stem and the suffix are two words of the table written together: only the gate of a suffix turns it down, and only with a piece")
 	}
 }
