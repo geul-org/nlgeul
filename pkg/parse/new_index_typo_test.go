@@ -13,7 +13,7 @@ func TestNewIndexTypo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if bare.graphs != 913 || bare.edges != 2503 || words.graphs != 1034 || words.edges != 2909 {
+	if bare.graphs != 914 || bare.edges != 2505 || words.graphs != 1035 || words.edges != 2911 {
 		t.Fatal(bare.graphs, bare.edges, words.graphs, words.edges)
 	}
 	if bare.closingSet["께"] || bare.closingSet["ㄹ께"] || bare.closingSet["읍니다"] || bare.closingSet["ㄹ게"] != true {
