@@ -177,7 +177,11 @@ var nounCopulas = contractLists[setNounCopula]
 // shortPronouns are one-syllable pronouns with a particle under them
 // (난 = 나+는, 날 = 나+를). The letters are common in other words, so
 // they are read only with a word table, next to the words of the same
-// letters (전, 날, 절).
+// letters (전, 날, 절). 내 is in the same set: 나 with the adnominal
+// particle 의 fused (내 말 = 나+의 말), read next to the pronoun form,
+// the noun and the verb stem of the same letters; a rule of a sentence
+// carries it where it stands alone before a word a modifier may stand
+// before (possessiveContractRule).
 var shortPronouns = contractLists[setPronoun]
 
 // typoContracts are the forms of the dependent noun 거 with a particle

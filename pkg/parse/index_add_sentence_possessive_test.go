@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what TestIndexAddSentencePossessive — the index of a reader holds the rule of a sentence rulePossessive after the rule of a word of a nominal and an interjection standing alone (interjectionAloneRule)
+//ff:what TestIndexAddSentencePossessive — the index of a reader holds the rule of a sentence rulePossessive after the rule of a word of a nominal and an interjection standing alone (interjectionAloneRule), and the rule of 내 read as 나 with 의 fused (rulePossessiveContract) right after it
 package parse
 
 import (
@@ -13,8 +13,8 @@ func TestIndexAddSentencePossessive(t *testing.T) {
 	at := func(name string) int {
 		return slices.IndexFunc(ix.sentence, func(s sentenceRule) bool { return s.name == name })
 	}
-	inter, owner := at(ruleInterjectionAlone), at(rulePossessive)
-	if inter < 0 || owner <= inter {
-		t.Fatal(inter, owner, len(ix.sentence))
+	inter, owner, fused := at(ruleInterjectionAlone), at(rulePossessive), at(rulePossessiveContract)
+	if inter < 0 || owner <= inter || fused != owner+1 {
+		t.Fatal(inter, owner, fused, len(ix.sentence))
 	}
 }
