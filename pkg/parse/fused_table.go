@@ -71,6 +71,20 @@ const (
 	underText = "(는)"
 )
 
+// 죠 is 지요 shortened (the dictionary's -죠), and the 지 may be the last
+// syllable of a longer final closing: 어야지 (해야죠 for 해야지요) and
+// 라지 (가라죠 for 가라지요). yoClosings are those closings; 죠 at their
+// end is read as the closing and the particle 요 written out (요)
+// (underYo). The plain 지 with 요 is the closing 죠 of the tables
+// (splits).
+const (
+	yoFused = '죠'
+	yoBare  = '지'
+	yoText  = "(요)"
+)
+
+var yoClosings = closingNames(Marker{Form: "야지", Lead: rule.LeadVowel}, Marker{Form: "라지", Eu: true})
+
 var honorLetters = []rune{'셨', '셔', '십'}
 
 // 겠 right after the closing 어야 is 어야 하겠 with 하 left out

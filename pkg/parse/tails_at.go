@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what tailsAt — every run of markers that ends at j: particle chains, predicate tails, predicate tails with a closing 요, predicate tails with the particle 는 put under their closing as ㄴ (underClosings), and any of these (or none) closed by a full stop
+//ff:what tailsAt — every run of markers that ends at j: particle chains, predicate tails, predicate tails with a closing 요, predicate tails with the particle 는 put under their closing as ㄴ (underClosings) or with 요 fused into the 지 their closing ends in (underYo), and any of these (or none) closed by a full stop
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -18,6 +18,7 @@ func (sc *scan) tailsAt(j int) []tail {
 	out = append(out, sc.units(j, 0, true)...)
 	out = append(out, sc.tildeAt(j)...)
 	out = append(out, sc.underClosings(j)...)
+	out = append(out, sc.underYo(j)...)
 	if j < 2 || sc.s[j-1] != '요' {
 		return out
 	}
