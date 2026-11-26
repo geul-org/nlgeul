@@ -1,5 +1,5 @@
 //ff:func feature=parse type=helper control=iteration dimension=1
-//ff:what genitiveFormsOf — the forms of the contracts given whose particle is named by one of genitiveNames (내, the pronoun 나 with the adnominal particle 의 fused)
+//ff:what genitiveFormsOf — the forms of the contracts given whose particle is named by one of genitiveNames (내 and 네, the pronouns 나 and 너 with the adnominal particle 의 fused)
 package parse
 
 import "slices"

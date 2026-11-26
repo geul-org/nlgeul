@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestPossessiveRuleGraph — the graph of possessiveRule evaluated by hand on rule.Around: 네 written apart stands before a noun, a modifying form and an opening sign, and written onto an opening sign; it falls before a unit, an adverb, a predicate, a sign and at the end of the sentence, and written onto a word
+//ff:what TestPossessiveRuleGraph — the graph of possessiveRule evaluated by hand on rule.Around: 제 written apart stands before a noun, a modifying form and an opening sign, and written onto an opening sign; it falls before a unit, an adverb, a predicate, a sign and at the end of the sentence, and written onto a word
 package parse
 
 import (
@@ -9,8 +9,8 @@ import (
 )
 
 func TestPossessiveRuleGraph(t *testing.T) {
-	apart := rule.Near{Stem: "네", Kind: "열쇠:체언"}
-	glued := rule.Near{Stem: "네", Kind: "열쇠:체언", Glued: true}
+	apart := rule.Near{Stem: "제", Kind: "열쇠:체언"}
+	glued := rule.Near{Stem: "제", Kind: "열쇠:체언", Glued: true}
 	noun := rule.Near{Stem: "집", Kind: "열쇠:체언", Last: "부사격:으로", Marks: "부사격:으로", Modifiable: true}
 	r := possessiveRule()
 	for _, c := range []struct {

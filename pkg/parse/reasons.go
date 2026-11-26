@@ -424,16 +424,17 @@ const (
 	whyLinkedCase  = "앞 어절이 -어야로 끝나 예외 표의 줄이 서지 않는다"
 )
 
-// The name of the rule of a sentence of 네 and 제 standing alone
+// The name of the rule of a sentence of 제 standing alone
 // before a word a modifier may stand before (possessiveRule); it falls
 // before a unit for whyUnitNext, as the rules of 한 do.
-const rulePossessive = "문장:체언 앞 네·제는 의가 줄어든 대명사"
+const rulePossessive = "문장:체언 앞 제는 의가 줄어든 대명사"
 
-// The name of the rule of a sentence of 내 standing alone before a word
-// a modifier may stand before, read as 나 with 의 fused
+// The name of the rule of a sentence of 내 and 네 standing alone before
+// a word a modifier may stand before, read as 나 and 너 with 의 fused
 // (possessiveContractRule); it falls right after a nominal for
-// whyAfterNominal (the noun 내 of 기간 내).
-const rulePossessiveContract = "문장:체언 앞 내는 나에 의가 줄어든 꼴"
+// whyAfterNominal (the noun 내 of 기간 내) and before a unit for
+// whyUnitNext (the numeral determiner 네 of 네 개).
+const rulePossessiveContract = "문장:체언 앞 내·네는 나·너에 의가 줄어든 꼴"
 
 // The name of the rule of a sentence of a word of a nominal and an
 // adverb with a nominal written onto it (compoundFrontRule), and why it

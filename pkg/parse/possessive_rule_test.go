@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestPossessiveRule — the rule is named as the trace prints it, adds bonusOverCount, and speaks of and waits for a candidate that reads a pronoun of the closed set (네, 제, 니) as the nominal of the table with no particle; not 내, whose letters the contracts table reads as 나 with 의 (possessiveContractRule), not the interjection of those letters, not one with a particle, not another nominal
+//ff:what TestPossessiveRule — the rule is named as the trace prints it, adds bonusOverCount, and speaks of and waits for a candidate that reads a pronoun of the closed set (제, 니) as the nominal of the table with no particle; not 내 and 네, whose letters the contracts table reads as 나 and 너 with 의 (possessiveContractRule), not the interjection of those letters, not one with a particle, not another nominal
 package parse
 
 import (
@@ -17,12 +17,12 @@ func TestPossessiveRule(t *testing.T) {
 		near rule.Near
 		want bool
 	}{
-		{rule.Near{Stem: "네", Kind: "열쇠:체언"}, true},
+		{rule.Near{Stem: "네", Kind: "열쇠:체언"}, false},
 		{rule.Near{Stem: "니", Kind: "열쇠:체언"}, true},
 		{rule.Near{Stem: "내", Kind: "열쇠:체언"}, false},
 		{rule.Near{Stem: "제", Kind: "열쇠:체언", Glued: true}, true},
-		{rule.Near{Stem: "네", Kind: "열쇠:홀로"}, false},
-		{rule.Near{Stem: "네", Kind: "열쇠:체언", Last: "주격:가", Marks: "주격:가"}, false},
+		{rule.Near{Stem: "제", Kind: "열쇠:관형사"}, false},
+		{rule.Near{Stem: "제", Kind: "열쇠:체언", Last: "주격:가", Marks: "주격:가"}, false},
 		{rule.Near{Stem: "집", Kind: "열쇠:체언"}, false},
 	} {
 		if r.about(c.near) != c.want || r.waits(c.near) != c.want {
