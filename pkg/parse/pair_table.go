@@ -30,8 +30,9 @@ const (
 )
 
 // loneShuts are the quotation marks that close a pair with none of
-// their kind open (written onto the word before, with Hangul written
-// right after: 좋다"고, 있다”며): when no way the signs before them may
+// their kind open (written onto the word before, with Hangul or no
+// letter at all right after: 좋다"고, 있다”며, 했다' 로; or before a
+// marker that takes a quotation: "라고): when no way the signs before them may
 // stand open holds one of their kind, they may still close, and what
 // stands open is left as it is. Brackets are not among them (1), 가)).
 const loneShuts = "\"'”’"
@@ -40,6 +41,25 @@ const loneShuts = "\"'”’"
 // of loneShuts and the closing corner brackets. An ending of the quoting
 // verb may be written right onto one of them (quotedClosings).
 const quoteShuts = loneShuts + "」』｣"
+
+// quoteSigns are the quotation marks among the signs of a pair: a reading
+// of one is lowered where its place speaks against it (pairGraph).
+const quoteSigns = "\"'“”‘’"
+
+// swapOpens are the round quotation marks drawn as closing ones that are
+// also read as opening where an opening mark is written (a space or the
+// sentence's start before them, a letter or digit right after: ”두, ’거래),
+// and swapShuts those drawn as opening ones that are also read as closing
+// where a closing mark is written (사항‘이라고, 좋겠다“고): a text may
+// write the two shapes the wrong way round.
+const (
+	swapOpens = "”’"
+	swapShuts = "“‘"
+)
+
+// quoteMarkers are the markers that take a quotation, written right onto
+// its closing quotation mark (quote-markers.tsv): "…"라고, "…"고, '…'는.
+var quoteMarkers = data.Must(data.Column("quote-markers", 1))
 
 // openName and shutName are what a sign of a pair is called, with its
 // depth after a colon (열기:1, 닫기:2). pairName stands for either in a

@@ -7,12 +7,12 @@ import "testing"
 func TestPlanterStep(t *testing.T) {
 	driveAll(t)
 	r := streamReader(t, "words-far.tsv")
-	alone := unit{text: ")", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}
+	alone := unit{text: ")", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}}}
 	pl := newPlanter(unitScan(r.ix, alone), 1)
 	if len(pl.transparent) != 1 || len(pl.best[1]) != 1 {
 		t.Fatal("the sign alone", len(pl.transparent), len(pl.best[1]))
 	}
-	onto := unit{text: ")고양이", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}
+	onto := unit{text: ")고양이", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}}}
 	pl = newPlanter(unitScan(r.ix, onto), 1)
 	if len(pl.transparent) != 0 {
 		t.Fatal("letters after the sign", len(pl.transparent))

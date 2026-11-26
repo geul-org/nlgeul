@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCutterCandidates — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a backtick outside the spans of code opens beside its letter, a < and a > each written apart open and close as a pair when both are and give nothing alone, a sign that no candidate stands for in its word, a letter, a sign in a span of code, a closing bracket with nothing written right before it and one other than a round bracket right after a digit give nothing, a round bracket right after a digit with none open is a list number (닫기:0) beside its letter and the usual closing with one open, and one written onto a word with nothing open closes at loneBracketDepth with the way left as it was; a quotation mark written onto a word with Hangul right after it closes as 닫기:0 with the ways left as they were when none of its kind stands open in any way, and not in a way with none open when one stands open in another way; the cutter is not moved; a trace keeps the lines of the graphs (the usual closing's and the lone one's)
+//ff:what TestCutterCandidates — the candidates of a sign at a place for every way the signs before it may stand open: an opening sign opens one deeper, a closing sign closes the nearest of its kind, a quotation mark may open or close, an unsure sign is also its letter, a backtick outside the spans of code opens beside its letter, a < and a > each written apart open and close as a pair when both are and give nothing alone, a sign that no candidate stands for in its word, a letter, a sign in a span of code, a closing bracket with nothing written right before it and one other than a round bracket right after a digit give nothing, a round bracket right after a digit with none open is a list number (닫기:0) beside its letter and the usual closing with one open, and one written onto a word with nothing open closes at loneBracketDepth with the way left as it was; a quotation mark written onto a word with Hangul right after it closes as 닫기:0 with the ways left as they were when none of its kind stands open in any way, and not in a way with none open when one stands open in another way; a reading the sign's place speaks against is lowered and comes after the others, with its way (좋다"고 closes first, the opening behind it; "라고 at a sentence's start and 했다' before a space close at depth 1; after a closing one a quotation mark with a space before it opens first); a round quotation mark is also read against its shape where the other mark is written (”두 opens, 사항‘이라고 closes) and not elsewhere (것은‘가’); the cutter is not moved; a trace keeps the lines of the graphs (the usual closing's and the lone one's)
 package parse
 
 import (
@@ -10,6 +10,8 @@ import (
 
 func TestCutterCandidates(t *testing.T) {
 	ix, _ := newIndex(Options{})
+	force := forceQuoteSide
+	low := 2/(1+force) - 1
 	cases := []struct {
 		text       string
 		open       []string
@@ -18,36 +20,44 @@ func TestCutterCandidates(t *testing.T) {
 		bare       bool
 		after      []string
 	}{
-		{"(가)", nil, 0, []pairing{{openName, 1}}, false, []string{"("}},
-		{"(가)", []string{"("}, 2, []pairing{{shutName, 1}}, false, []string{""}},
-		{"(가)", nil, 2, []pairing{{shutName, loneBracketDepth}}, false, []string{""}},
-		{"(1)", nil, 2, []pairing{{shutName, 0}}, true, []string{""}},
-		{"(1)", []string{"("}, 2, []pairing{{shutName, 1}}, false, []string{""}},
+		{"(가)", nil, 0, []pairing{{openName, 1, 1}}, false, []string{"("}},
+		{"(가)", []string{"("}, 2, []pairing{{shutName, 1, 1}}, false, []string{""}},
+		{"(가)", nil, 2, []pairing{{shutName, loneBracketDepth, 1}}, false, []string{""}},
+		{"(1)", nil, 2, []pairing{{shutName, 0, 1}}, true, []string{""}},
+		{"(1)", []string{"("}, 2, []pairing{{shutName, 1, 1}}, false, []string{""}},
 		{"[1]", nil, 2, nil, false, nil},
 		{"( )", nil, 2, nil, false, nil},
 		{"(가)", nil, 1, nil, false, nil},
-		{"(\"가\")", []string{"(\""}, 3, []pairing{{shutName, 2}}, false, []string{"("}},
-		{"(\"가\")", []string{"(\""}, 4, []pairing{{shutName, 1}}, false, nil},
-		{"\"가\"", nil, 0, []pairing{{openName, 1}}, false, []string{"\""}},
-		{"\"가\"", []string{"\""}, 2, []pairing{{shutName, 1}}, false, []string{""}},
-		{"'가'", nil, 0, []pairing{{openName, 1}}, true, []string{"'", ""}},
-		{"'가'", []string{"'", ""}, 2, []pairing{{shutName, 1}, {openName, 1}}, true, []string{"", "'"}},
+		{"(\"가\")", []string{"(\""}, 3, []pairing{{shutName, 2, 1}}, false, []string{"("}},
+		{"(\"가\")", []string{"(\""}, 4, []pairing{{shutName, 1, 1}}, false, nil},
+		{"\"가\"", nil, 0, []pairing{{openName, 1, 1}}, false, []string{"\""}},
+		{"\"가\"", []string{"\""}, 2, []pairing{{shutName, 1, 1}}, false, []string{""}},
+		{"'가'", nil, 0, []pairing{{openName, 1, 1}}, true, []string{"'", ""}},
+		{"'가'", []string{"'", ""}, 2, []pairing{{shutName, 1, 1}, {openName, 1, low}}, true, []string{"", "'"}},
 		{"it's", nil, 2, nil, false, nil},
 		{"x < y", nil, 2, nil, false, nil},
-		{"<가>", nil, 0, []pairing{{openName, 1}}, true, []string{"<", ""}},
+		{"<가>", nil, 0, []pairing{{openName, 1, 1}}, true, []string{"<", ""}},
 		{"`(`", nil, 1, nil, false, nil},
-		{"`가", nil, 0, []pairing{{openName, 1}}, true, []string{"`", ""}},
-		{"가 `", []string{"("}, 2, []pairing{{openName, 2}}, true, []string{"(`", "("}},
-		{"< 가 >", nil, 0, []pairing{{openName, 1}}, true, []string{"<", ""}},
-		{"< 가 >", []string{"<", ""}, 4, []pairing{{shutName, 1}}, true, []string{"", "<"}},
+		{"`가", nil, 0, []pairing{{openName, 1, 1}}, true, []string{"`", ""}},
+		{"가 `", []string{"("}, 2, []pairing{{openName, 2, 1}}, true, []string{"(`", "("}},
+		{"< 가 >", nil, 0, []pairing{{openName, 1, 1}}, true, []string{"<", ""}},
+		{"< 가 >", []string{"<", ""}, 4, []pairing{{shutName, 1, 1}}, true, []string{"", "<"}},
 		{"가 > 나", nil, 2, nil, false, nil},
-		{"좋다\"고", nil, 2, []pairing{{openName, 1}, {shutName, 0}}, false, []string{"\"", ""}},
-		{"“좋다\"고", []string{"“"}, 3, []pairing{{openName, 2}, {shutName, 0}}, false, []string{"“\"", "“"}},
-		{"\"좋다”고", []string{"\""}, 3, []pairing{{shutName, 0}}, false, []string{"\""}},
-		{"“가”고", []string{"“", ""}, 2, []pairing{{shutName, 1}}, true, []string{""}},
-		{"“가”고", []string{"(", "(“"}, 2, []pairing{{shutName, 2}}, true, []string{"("}},
-		{"'좋다'고", []string{"'", ""}, 3, []pairing{{shutName, 1}, {openName, 1}}, true, []string{"", "'"}},
-		{"좋다’고", nil, 2, []pairing{{shutName, 0}}, false, []string{""}},
+		{"좋다\"고", nil, 2, []pairing{{shutName, 0, 1}, {openName, 1, low}}, false, []string{"", "\""}},
+		{"“좋다\"고", []string{"“"}, 3, []pairing{{shutName, 0, 1}, {openName, 2, low}}, false, []string{"“", "“\""}},
+		{"\"좋다”고", []string{"\""}, 3, []pairing{{shutName, 0, 1}}, false, []string{"\""}},
+		{"“가”고", []string{"“", ""}, 2, []pairing{{shutName, 1, 1}}, true, []string{""}},
+		{"“가”고", []string{"(", "(“"}, 2, []pairing{{shutName, 2, 1}}, true, []string{"("}},
+		{"'좋다'고", []string{"'", ""}, 3, []pairing{{shutName, 1, 1}, {openName, 1, low}}, true, []string{"", "'"}},
+		{"좋다’고", nil, 2, []pairing{{shutName, 0, 1}}, false, []string{""}},
+		{"\"라고 했다", nil, 0, []pairing{{shutName, 1, 1}, {openName, 1, low}}, false, []string{"", "\""}},
+		{"했다' 로", nil, 2, []pairing{{shutName, 1, 1}, {openName, 1, low}}, true, []string{"", "'"}},
+		{"몰\", \"곰", nil, 1, []pairing{{shutName, 1, 1}, {openName, 1, low}}, false, []string{"", "\""}},
+		{"몰\", \"곰", []string{"", "\""}, 4, []pairing{{openName, 1, 1}, {shutName, 1, low}}, false, []string{"\"", ""}},
+		{"그는 ”두 곰", nil, 3, []pairing{{openName, 1, 1}}, false, []string{"“"}},
+		{"’거래 사항‘이라고", []string{"‘"}, 6, []pairing{{shutName, 1, 1}, {openName, 2, low}}, false, []string{"", "‘‘"}},
+		{"것은‘가’", nil, 2, []pairing{{openName, 1, 1}}, false, []string{"‘"}},
+		{"3\" 이다", nil, 1, []pairing{{openName, 1, low}}, false, []string{"\""}},
 	}
 	for _, c := range cases {
 		cut := newCutter(ix, c.text, false)

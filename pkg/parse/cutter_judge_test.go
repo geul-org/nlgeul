@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestCutterJudge — the graphs of a sign of a pair for one way the signs before it may stand open: an opening sign reads one deeper than what stands open and adds itself to the way; a closing sign reads as deep as the nearest sign of its kind that stands open and closes what was opened after it; a closing sign with none of its kind open has no candidate; a quotation mark opens when none of its kind stands open and closes when one does; a quotation mark written onto a word with Hangul right after it and none of its kind open in any way also closes, as 닫기:0, leaving the way as it was (beside the opening of a quotation mark written the same way at both ends); with one of its kind open in some way (MarkOpenedAny) it does not, nor with a space before or no Hangul after it; a closing bracket written onto a word with none of its kind open closes too, at loneBracketDepth, leaving the way as it was, and does not with one of its kind open in some way nor right after a digit; a trace keeps a line for each graph with its reason
+//ff:what TestCutterJudge — the graphs of a sign of a pair for one way the signs before it may stand open: an opening sign reads one deeper than what stands open and adds itself to the way; a closing sign reads as deep as the nearest sign of its kind that stands open and closes what was opened after it; a closing sign with none of its kind open has no candidate; a quotation mark opens when none of its kind stands open and closes when one does; a quotation mark written onto a word with Hangul right after it and none of its kind open in any way also closes, as 닫기:0, leaving the way as it was (beside the opening of a quotation mark written the same way at both ends); with one of its kind open in some way (MarkOpenedAny) it does not; with a space before it it closes only before a marker that takes a quotation ( ”고, at depth 1), with no letter or digit after it it closes at depth 1 (다”.), but not right after a digit (3".); each candidate holds its graph's verdict, lowered where the sign's place speaks against it (the opening of 다"고); a round quotation mark is read against its shape too where the other mark is written ( ”곰 opens, 다“고 closes); a closing bracket written onto a word with none of its kind open closes too, at loneBracketDepth, leaving the way as it was, and does not with one of its kind open in some way nor right after a digit; a trace keeps a line for each graph with its reason
 package parse
 
 import (
@@ -12,6 +12,8 @@ import (
 
 func TestCutterJudge(t *testing.T) {
 	ix, _ := newIndex(Options{})
+	force := forceQuoteSide
+	low := 2/(1+force) - 1
 	cases := []struct {
 		text       string
 		at         int
@@ -20,30 +22,36 @@ func TestCutterJudge(t *testing.T) {
 		candidates []pairing
 		after      []string
 	}{
-		{"(", 0, "", 0, []pairing{{openName, 1}}, []string{"("}},
-		{"(", 0, "{[", 0, []pairing{{openName, 3}}, []string{"{[("}},
-		{")", 0, "(", 0, []pairing{{shutName, 1}}, []string{""}},
+		{"(", 0, "", 0, []pairing{{openName, 1, 1}}, []string{"("}},
+		{"(", 0, "{[", 0, []pairing{{openName, 3, 1}}, []string{"{[("}},
+		{")", 0, "(", 0, []pairing{{shutName, 1, 1}}, []string{""}},
 		{")", 0, "", 0, nil, nil},
 		{")", 0, "[", 0, nil, nil},
-		{")", 0, "{(\"[", 0, []pairing{{shutName, 2}}, []string{"{"}},
-		{"]", 0, "[(", 0, []pairing{{shutName, 1}}, []string{""}},
-		{"\"", 0, "", 0, []pairing{{openName, 1}}, []string{"\""}},
-		{"\"", 0, "(\"", 0, []pairing{{shutName, 2}}, []string{"("}},
-		{"\"", 0, "(", 0, []pairing{{openName, 2}}, []string{"(\""}},
-		{"”", 0, "“", 0, []pairing{{shutName, 1}}, []string{""}},
-		{"다\"고", 1, "", 0, []pairing{{openName, 1}, {shutName, 0}}, []string{"\"", ""}},
-		{"다\"고", 1, "(", 0, []pairing{{openName, 2}, {shutName, 0}}, []string{"(\"", "("}},
-		{"다”고", 1, "", 0, []pairing{{shutName, 0}}, []string{""}},
-		{"다’고", 1, "「", 0, []pairing{{shutName, 0}}, []string{"「"}},
-		{"다”고", 1, "“", rule.MarkOpenedAny, []pairing{{shutName, 1}}, []string{""}},
+		{")", 0, "{(\"[", 0, []pairing{{shutName, 2, 1}}, []string{"{"}},
+		{"]", 0, "[(", 0, []pairing{{shutName, 1, 1}}, []string{""}},
+		{"\"", 0, "", 0, []pairing{{openName, 1, 1}}, []string{"\""}},
+		{"\"", 0, "(\"", 0, []pairing{{shutName, 2, 1}}, []string{"("}},
+		{"\"", 0, "(", 0, []pairing{{openName, 2, 1}}, []string{"(\""}},
+		{"”", 0, "“", 0, []pairing{{shutName, 1, 1}}, []string{""}},
+		{"다\"고", 1, "", 0, []pairing{{openName, 1, low}, {shutName, 0, 1}}, []string{"\"", ""}},
+		{"다\"고", 1, "(", 0, []pairing{{openName, 2, low}, {shutName, 0, 1}}, []string{"(\"", "("}},
+		{"다”고", 1, "", 0, []pairing{{shutName, 0, 1}}, []string{""}},
+		{"다’고", 1, "「", 0, []pairing{{shutName, 0, 1}}, []string{"「"}},
+		{"다”고", 1, "“", rule.MarkOpenedAny, []pairing{{shutName, 1, 1}}, []string{""}},
 		{"다”고", 1, "(", rule.MarkOpenedAny, nil, nil},
-		{" ”고", 1, "", 0, nil, nil},
-		{"다”.", 1, "", 0, nil, nil},
-		{"다)", 1, "", 0, []pairing{{shutName, loneBracketDepth}}, []string{""}},
-		{"다)", 1, "‘", 0, []pairing{{shutName, loneBracketDepth}}, []string{"‘"}},
+		{" ”고", 1, "", 0, []pairing{{shutName, 1, 1}}, []string{""}},
+		{" ”곰", 1, "", 0, []pairing{{openName, 1, 1}}, []string{"“"}},
+		{" ”곰", 1, "“", 0, []pairing{{shutName, 1, low}, {openName, 2, 1}}, []string{"", "““"}},
+		{"다”.", 1, "", 0, []pairing{{shutName, 1, 1}}, []string{""}},
+		{"다“고", 1, "", 0, []pairing{{openName, 1, low}, {shutName, 0, 1}}, []string{"“", ""}},
+		{"다“고", 1, "“", 0, []pairing{{openName, 2, low}, {shutName, 1, 1}}, []string{"““", ""}},
+		{"다“곰", 1, "", 0, []pairing{{openName, 1, 1}}, []string{"“"}},
+		{"3\".", 1, "", 0, []pairing{{openName, 1, low}}, []string{"\""}},
+		{"다)", 1, "", 0, []pairing{{shutName, loneBracketDepth, 1}}, []string{""}},
+		{"다)", 1, "‘", 0, []pairing{{shutName, loneBracketDepth, 1}}, []string{"‘"}},
 		{"다)", 1, "[", rule.MarkOpenedAny, nil, nil},
-		{"2)", 1, "", 0, []pairing{{shutName, 0}}, []string{""}},
-		{"2)", 1, "(", rule.MarkOpenedAny, []pairing{{shutName, 1}}, []string{""}},
+		{"2)", 1, "", 0, []pairing{{shutName, 0, 1}}, []string{""}},
+		{"2)", 1, "(", rule.MarkOpenedAny, []pairing{{shutName, 1, 1}}, []string{""}},
 		{"2]", 1, "", 0, nil, nil},
 	}
 	for _, c := range cases {
@@ -62,7 +70,7 @@ func TestCutterJudge(t *testing.T) {
 	}
 	cut = newCutter(ix, "다”고", true)
 	_, _, notes = cut.judge(1, pairRows['”'], cut.facts(1), "")
-	if len(notes) != 2 || !strings.Contains(notes[0], "기각: 같은 종류의 여는 기호가 열려 있지 않다") || !strings.Contains(notes[1], "닫기:”") || !strings.Contains(notes[1], "통과") {
+	if len(notes) != 3 || !strings.Contains(notes[0], "기각: 같은 종류의 여는 기호가 열려 있지 않다") || !strings.Contains(notes[1], "열기:”") || !strings.Contains(notes[1], "기각: "+whyNotOpenSide) || !strings.Contains(notes[2], "닫기:”") || !strings.Contains(notes[2], "통과") {
 		t.Fatal("the trace of the usual closing and the lone one", notes)
 	}
 }

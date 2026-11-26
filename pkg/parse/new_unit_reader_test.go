@@ -19,7 +19,7 @@ func TestNewUnitReader(t *testing.T) {
 	if st, ok := plain.next(); !ok || st.cells == nil || len(plain.queue) != 0 || plain.run == nil {
 		t.Fatal("letters only")
 	}
-	onto := newUnitReader(r.ix, unit{text: ")를.", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}, false, &netStats{})
+	onto := newUnitReader(r.ix, unit{text: ")를.", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}}}, false, &netStats{})
 	if st, ok := onto.next(); !ok || st.cells != nil {
 		t.Fatal("the sign comes first", st)
 	}

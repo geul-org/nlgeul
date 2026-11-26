@@ -466,6 +466,15 @@ const measureName = "단위:숫자 뒤 따옴표"
 // same words.
 const forceMeasureOpen = 0.5
 
+// forceQuoteSide is the force of the rebuttals that lower a reading of
+// a quotation mark its place speaks against (pairGraph): an opening one
+// written where a closing mark is (onto the word before it, or with a
+// marker that takes a quotation right after it), a closing one written
+// where an opening mark is (a space before it, a letter right after
+// it). It is the force of the other rebuttals of a sign (forceMeasureOpen:
+// a verdict of 1/3); it was not fitted to the answer sheet.
+const forceQuoteSide = 0.5
+
 // degreeNames are the names of the unit 도 (an angle, a temperature),
 // which a rule of a sentence prefers right after a number at the end of
 // its word to the particle 도 (degreeUnitRule).

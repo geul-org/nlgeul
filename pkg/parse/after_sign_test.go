@@ -6,7 +6,7 @@ import "testing"
 
 func TestAfterSign(t *testing.T) {
 	ix, _ := newIndex(Options{})
-	opens, shuts := []pairing{{openName, 1}}, []pairing{{shutName, 1}}
+	opens, shuts := []pairing{{openName, 1, 1}}, []pairing{{shutName, 1, 1}}
 	cases := []struct {
 		text       string
 		from       int

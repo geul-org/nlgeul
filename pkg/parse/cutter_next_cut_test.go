@@ -20,9 +20,11 @@ func TestCutterNextCut(t *testing.T) {
 	if right, end := c.next(2); right.text != "돌" || !right.spaced || end != 3 {
 		t.Fatal("after the plus", right, end)
 	}
+	force := forceQuoteSide
+	low := 2/(1+force) - 1
 	seven, _ := c.next(4)
 	quote, end := c.next(5)
-	if seven.text != "7" || quote.text != "\"" || !quote.measure || quote.head != 1 || !reflect.DeepEqual(quote.candidates, []pairing{{openName, 1}}) || end != 6 || !reflect.DeepEqual(c.open, []string{"\"", ""}) {
+	if seven.text != "7" || quote.text != "\"" || !quote.measure || quote.head != 1 || !reflect.DeepEqual(quote.candidates, []pairing{{openName, 1, low}}) || end != 6 || !reflect.DeepEqual(c.open, []string{"\"", ""}) {
 		t.Fatal("the quote after a digit", quote, end, c.open)
 	}
 	c.next(7)

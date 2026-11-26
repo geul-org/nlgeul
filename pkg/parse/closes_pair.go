@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what closesPair — may the sign of a pair at a unit's head close a pair that stands open before it: one of its candidates is a closing at a depth of 1 or more (a closing with none of its kind open stands at depth 0)
+//ff:what closesPair — may the sign of a pair at a unit's head close a pair that stands open before it: one of its candidates is a closing at a depth of 1 or more (a closing with none of its kind open stands, right after a digit, at depth 0)
 package parse
 
 func closesPair(candidates []pairing) bool {

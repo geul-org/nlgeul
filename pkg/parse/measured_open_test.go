@@ -13,11 +13,11 @@ func TestMeasuredOpen(t *testing.T) {
 		}
 		return got[0].Branches[1]
 	}
-	open := read([]pairing{{name: shutName, depth: 1}, {name: openName, depth: 1}})
+	open := read([]pairing{{name: shutName, depth: 1, verdict: 1}, {name: openName, depth: 1, verdict: 1}})
 	if open.Words[0].Parts[0].Name.Form != "피트" || open.Verdict <= 0.3 || open.Verdict >= 0.34 || open.Pref != ix.afterPrefs[false] {
 		t.Fatal("a quote open before it", open)
 	}
-	for _, c := range [][]pairing{{{name: shutName, depth: 0}}, {{name: openName, depth: 1}}, nil} {
+	for _, c := range [][]pairing{{{name: shutName, depth: 0, verdict: 1}}, {{name: openName, depth: 1, verdict: 1}}, nil} {
 		if b := read(c); b.Verdict != 1 {
 			t.Error("nothing open", c, b.Verdict)
 		}

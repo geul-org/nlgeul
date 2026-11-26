@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what judge — run the graphs of a sign of a pair for one way the signs before it may stand open: the candidates that stand, each with its depth (an opening sign one deeper than what stands open, a closing sign as deep as the nearest sign of its kind that stands open, a sign that closes with none of its kind open loneDepth's), the way the signs stand open after each (that of a sign that closes with none of its kind open is the way as it was), and the trace lines when a trace is kept
+//ff:what judge — run the graphs of a sign of a pair for one way the signs before it may stand open: the candidates that stand, each with its depth (an opening sign one deeper than what stands open, a closing sign as deep as the nearest sign of its kind that stands open, a sign that closes with none of its kind open loneDepth's), its graph's verdict and the way the signs stand open after it (that of a sign that closes with none of its kind open is the way as it was), and the trace lines when a trace is kept
 package parse
 
 import (
@@ -39,11 +39,11 @@ func (c *cutter) judge(i int, row pairRow, m rule.Mark, way string) ([]pairing, 
 		if v <= 0 {
 			continue
 		}
-		rd, next := pairing{openName, len(stack) + 1}, way+string(row.kind)
+		rd, next := pairing{openName, len(stack) + 1, v}, way+string(row.kind)
 		if e.form == shutName && at >= 0 {
-			rd, next = pairing{shutName, at + 1}, string(stack[:at])
+			rd, next = pairing{shutName, at + 1, v}, string(stack[:at])
 		} else if e.form == shutName {
-			rd, next = pairing{shutName, loneDepth(c.r[i], m)}, way
+			rd, next = pairing{shutName, loneDepth(c.r[i], m), v}, way
 		}
 		candidates, after = append(candidates, rd), append(after, next)
 	}

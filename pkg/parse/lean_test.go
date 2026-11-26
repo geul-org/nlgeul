@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestLean — a quotation mark written the same way at both ends leans to opening with a space or the sentence's start on its left and a letter or digit on its right, to closing with something other than a space on its left and a space or the sentence's end on its right, and to neither between two letters, between two spaces or with a sign on its right after a space; a curly quotation mark and a bracket lean to nothing
+//ff:what TestLean — a quotation mark written the same way at both ends leans to opening with a space or the sentence's start on its left and a letter or digit on its right, to closing with a marker that takes a quotation right after it ("라고, '이라는) or with something other than a space on its left and a space or the sentence's end on its right, and to neither between two letters, between two spaces or with a sign on its right after a space; a curly quotation mark and a bracket lean to nothing
 package parse
 
 import "testing"
@@ -17,6 +17,10 @@ func TestLean(t *testing.T) {
 		{"간다'", 2, shutName},
 		{"간다' 가", 2, shutName},
 		{"다.\" 가", 2, shutName},
+		{"\"라고 했다", 0, shutName},
+		{"가 '이라는 말", 2, shutName},
+		{"다\"는 말", 1, shutName},
+		{"가 ”고", 2, ""},
 		{"가'나", 1, ""},
 		{"가 ' 나", 2, ""},
 		{"', 가", 0, ""},

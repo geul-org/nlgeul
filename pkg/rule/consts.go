@@ -183,6 +183,9 @@ const (
 	MarkStopped                // a full stop stands right after the last of the runs the sign joins (1.28. — a date: the orthography's 마침표 (3))
 	MarkAfterStop              // a mark that ends a sentence (. ? ! …) stands right before it: the end of the sentence a closing sign closes on (다.』)
 	MarkMated                  // a space, or the sentence's edge, stands on both sides of it, and a sign that pairs with it stands so too on the other side of what it encloses: after an opening sign a closing sign of its kind, before a closing sign an opening one (< 제목 >)
+	MarkQuoted                 // a marker that takes a quotation (라고, 고, 는, 라는, 란 …) stands right after it and no letter or digit after that marker: a closing quotation mark's place ("라고, '는)
+	MarkOpenSide               // a space or the sentence's start stands right before it and a letter or digit right after it, and it is not MarkQuoted: where an opening quotation mark is written
+	MarkShutSide               // it is MarkQuoted, or a letter stands right before it and a space or the sentence's end right after it: where a closing quotation mark is written
 )
 
 // The facts a list is asked for (List.Of).

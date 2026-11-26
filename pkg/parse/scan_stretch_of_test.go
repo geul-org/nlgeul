@@ -15,7 +15,7 @@ func TestScanStretchOf(t *testing.T) {
 	a := addState(sc, []*path{root}, head(1, -1))
 	b := addState(sc, []*path{a}, head(2, -2))
 	pt := portion{from: 0, to: 2, states: []*path{a, b}}
-	u := unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1}, {openName, 2}}}
+	u := unit{text: "(", head: 1, name: pairName, candidates: []pairing{{openName, 1, 1}, {openName, 2, 1}}}
 	st := sc.stretchOf(u, pt, true)
 	if st.contest.Text != "가나" || st.cells == nil || len(st.cells.nodes) != 2 || len(st.cells.nodes[0].branches) != 2 || len(st.cells.nodes[1].branches) != 1 {
 		t.Fatal("spread at the unit's head only", st.cells.nodes)

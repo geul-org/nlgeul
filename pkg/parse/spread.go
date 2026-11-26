@@ -4,8 +4,9 @@ package parse
 
 import "strconv"
 
-// The candidates that differ only in how the head is read have the same
-// verdict and preference.
+// The candidates that differ only in the depth of the head have the same
+// verdict and preference; a reading of the head that its place speaks
+// against has a lower verdict (the verdict of the sign's graph).
 func spread(contests []Contest, u unit) []Contest {
 	if u.name != pairName || len(contests) == 0 {
 		return contests
@@ -17,7 +18,7 @@ func spread(contests []Contest, u unit) []Contest {
 			continue
 		}
 		for _, rd := range u.candidates {
-			out = append(out, withHead(br, Name{Kind: rd.name, Form: strconv.Itoa(rd.depth)}, rd.depth))
+			out = append(out, lowered(withHead(br, Name{Kind: rd.name, Form: strconv.Itoa(rd.depth)}, rd.depth), rd.verdict))
 		}
 		if u.bare {
 			out = append(out, withHead(br, Name{}, 0))

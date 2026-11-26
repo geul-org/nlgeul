@@ -6,7 +6,7 @@ import "testing"
 
 func TestReadOntoBorn(t *testing.T) {
 	ix, _ := newIndex(Options{})
-	u := unit{text: ")를", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}
+	u := unit{text: ")를", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}}}
 	whole := unitScan(ix, u)
 	whole.search()
 	next := whole.registry().next

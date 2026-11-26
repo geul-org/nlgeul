@@ -9,10 +9,10 @@ func TestClosesPair(t *testing.T) {
 		in   []pairing
 		want bool
 	}{
-		{[]pairing{{name: shutName, depth: 1}}, true},
-		{[]pairing{{name: openName, depth: 2}, {name: shutName, depth: 2}}, true},
-		{[]pairing{{name: shutName, depth: 0}}, false},
-		{[]pairing{{name: openName, depth: 1}}, false},
+		{[]pairing{{name: shutName, depth: 1, verdict: 1}}, true},
+		{[]pairing{{name: openName, depth: 2, verdict: 1}, {name: shutName, depth: 2, verdict: 1}}, true},
+		{[]pairing{{name: shutName, depth: 0, verdict: 1}}, false},
+		{[]pairing{{name: openName, depth: 1, verdict: 1}}, false},
 		{nil, false},
 	}
 	for _, c := range cases {

@@ -8,8 +8,8 @@ import (
 )
 
 func TestDistinctPairing(t *testing.T) {
-	got := distinct([]pairing{{shutName, 2}, {openName, 2}, {openName, 1}, {shutName, 1}, {openName, 1}, {shutName, 2}})
-	want := []pairing{{shutName, 2}, {openName, 2}, {openName, 1}, {shutName, 1}}
+	got := distinct([]pairing{{shutName, 2, 1}, {openName, 2, 1}, {openName, 1, 1}, {shutName, 1, 1}, {openName, 1, 1}, {shutName, 2, 1}})
+	want := []pairing{{shutName, 2, 1}, {openName, 2, 1}, {openName, 1, 1}, {shutName, 1, 1}}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatal(got)
 	}

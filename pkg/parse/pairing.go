@@ -1,8 +1,9 @@
 //ff:type feature=parse type=model
-//ff:what pairing — one candidate of a sign of a pair: whether it opens or closes (열기, 닫기) and at what depth; a candidate holds one depth
+//ff:what pairing — one candidate of a sign of a pair: whether it opens or closes (열기, 닫기) and at what depth, and the verdict of its graph (lowered where the sign's place speaks against the reading); a candidate holds one depth
 package parse
 
 type pairing struct {
-	name  string
-	depth int
+	name    string
+	depth   int
+	verdict float64
 }

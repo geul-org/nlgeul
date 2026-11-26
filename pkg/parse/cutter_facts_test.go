@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCutterFacts — what stands right on each side of the sign at a place (nothing at the sentence's edge), a space or an edge on both sides sets MarkApart, a hyphen or an equals sign right next to it sets MarkArrow; a mark that ends a sentence right before it sets MarkAfterStop; the facts that hang on what stands open are not set
+//ff:what TestCutterFacts — what stands right on each side of the sign at a place (nothing at the sentence's edge), a space or an edge on both sides sets MarkApart, a hyphen or an equals sign right next to it sets MarkArrow; a mark that ends a sentence right before it sets MarkAfterStop; where a quotation mark is written is told (sides: MarkOpenSide, MarkShutSide, MarkQuoted); the facts that hang on what stands open are not set
 package parse
 
 import (
@@ -16,8 +16,8 @@ func TestCutterFacts(t *testing.T) {
 		left, right int
 		facts       int
 	}{
-		{"(가", 0, 0, rule.SideHangul, 0},
-		{"가)", 1, rule.SideHangul, 0, 0},
+		{"(가", 0, 0, rule.SideHangul, rule.MarkOpenSide},
+		{"가)", 1, rule.SideHangul, 0, rule.MarkShutSide},
 		{"(", 0, 0, 0, rule.MarkApart},
 		{"x < y", 2, 0, 0, rule.MarkApart},
 		{"x<y", 1, rule.SideAlnum, rule.SideAlnum, 0},
@@ -25,7 +25,10 @@ func TestCutterFacts(t *testing.T) {
 		{"A->B", 2, 0, rule.SideAlnum, rule.MarkArrow},
 		{"a<=b", 1, rule.SideAlnum, 0, rule.MarkArrow},
 		{"5'10", 1, rule.SideAlnum | rule.SideDigit, rule.SideAlnum | rule.SideDigit, 0},
-		{"가 (나", 2, 0, rule.SideHangul, 0},
+		{"가 (나", 2, 0, rule.SideHangul, rule.MarkOpenSide},
+		{"\"라고 했다", 0, 0, rule.SideHangul, rule.MarkQuoted | rule.MarkShutSide},
+		{"다\"는", 1, rule.SideHangul, rule.SideHangul, rule.MarkQuoted | rule.MarkShutSide},
+		{"다\"는데", 1, rule.SideHangul, rule.SideHangul, 0},
 		{"다.』", 2, 0, 0, rule.MarkAfterStop},
 		{"까?」", 2, 0, 0, rule.MarkAfterStop},
 		{"요…”", 2, 0, 0, rule.MarkAfterStop},

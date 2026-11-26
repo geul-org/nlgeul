@@ -6,7 +6,7 @@ import "testing"
 
 func TestOntoReader(t *testing.T) {
 	r := streamReader(t, "words-stream.tsv")
-	onto := unit{text: ")를.", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}
+	onto := unit{text: ")를.", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}}}
 	rd := ontoReader(r.ix, onto, false, &netStats{})
 	if rd.run == nil || rd.run.plant == nil || rd.run.first || len(rd.queue) == 0 {
 		t.Fatal("the letters have a net beside the unit as a whole")
@@ -20,7 +20,7 @@ func TestOntoReader(t *testing.T) {
 	if cells == 0 {
 		t.Fatal("no stretch of the letters")
 	}
-	bare := ontoReader(r.ix, unit{text: ")", head: 1, name: pairName, candidates: []pairing{{shutName, 1}}}, true, &netStats{})
+	bare := ontoReader(r.ix, unit{text: ")", head: 1, name: pairName, candidates: []pairing{{shutName, 1, 1}}}, true, &netStats{})
 	if bare.run != nil || len(bare.queue) == 0 {
 		t.Fatal("no letters after the sign", bare.run)
 	}

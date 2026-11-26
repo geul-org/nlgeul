@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what addPairs — a graph for each candidate of each sign of a pair (pairRows): one for a sign that opens, one for a sign that closes, both for a quotation mark written the same way at both ends, and after them one more closing for a quotation mark that may close with none of its kind open (loneShuts) and for a closing bracket that may (loneBrackets)
+//ff:what addPairs — a graph for each candidate of each sign of a pair (pairRows): one for a sign that opens, one for a sign that closes, both for a quotation mark written the same way at both ends, and after them one more closing for a quotation mark that may close with none of its kind open (loneShuts) and for a closing bracket that may (loneBrackets), and before them the other reading of a round quotation mark that a text may write the wrong way round (swapOpens, swapShuts: an opening for ” ’, a closing for “ ‘)
 package parse
 
 import "strings"
@@ -15,6 +15,9 @@ func (ix *index) addPairs() {
 		}
 		if row.shuts {
 			ix.addPair(sign, row, shutName)
+		}
+		if strings.ContainsRune(swapOpens+swapShuts, sign) {
+			ix.addSwap(sign)
 		}
 		if row.shuts && strings.ContainsRune(loneShuts, sign) {
 			ix.addLoneShut(sign, row)
