@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what cuts — whether the sentence is cut at place i, and the trace lines: a hyphen that is the minus between two amounts (minusCut); a sign of cutSigns with a letter right before and right after it (no space, no sentence edge), not in a span of code and not inside an address, mail address, path or option, that a graph of the sign lets stand (not a run of it, not next to another sign)
+//ff:what cuts — whether the sentence is cut at place i, and the trace lines: a hyphen that is the minus between two amounts (minusCut); a sign of cutSigns with a letter right before and right after it (no space, no sentence edge), not in a span of code and not inside an address, mail address, path or option, that a graph of the sign lets stand (not a run of it, not next to another sign; a sign of the unit table read with the number before it is none: 90%+10%)
 package parse
 
 import (
@@ -28,10 +28,8 @@ func (c *cutter) cuts(i int) (bool, []string) {
 	for k := i + 1; k < len(c.r) && c.r[k] == c.r[i]; k++ {
 		m.Run++
 	}
-	for _, r := range []rune{c.r[i-1], c.r[i+1]} {
-		if unicode.IsPunct(r) || unicode.IsSymbol(r) {
-			m.Facts |= rule.MarkBySign
-		}
+	if (signRune(c.r[i-1]) && !unitSign(c.r, i-1)) || signRune(c.r[i+1]) {
+		m.Facts |= rule.MarkBySign
 	}
 	var notes []string
 	stands := false

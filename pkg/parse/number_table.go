@@ -36,6 +36,9 @@ const (
 // joined by a slash are a fraction before a date: the orthography's
 // appendix on punctuation gives the slash between numbers as the way to
 // write a fraction (빗금 (3): 3/4분기, 3/20) and no date written so.
+// A ratio joins two numbers or more with colons, with no bound on how
+// many (57:23:20; of three numbers that fit a time the time is named
+// first: 10:30:15).
 // 자릿수 is shown as a number (shownAs).
 var signShapes = tildeShapes(map[rune][]rule.Shape{
 	',': {{Of: "자릿수:,", Min: 2, Lens: [][2]int{{1, 3}, {3, 3}}}},
@@ -53,7 +56,7 @@ var signShapes = tildeShapes(map[rune][]rule.Shape{
 	},
 	':': {
 		{Of: "시각::", Min: 2, Max: 3, Lens: [][2]int{{1, 2}, {2, 2}}, Vals: [][2]int{{0, 24}, {0, 59}}},
-		{Of: "비율::", Min: 2, Max: 2},
+		{Of: "비율::", Min: 2},
 	},
 	'/': {
 		{Of: "나눔:/", Min: 2, Max: 2},

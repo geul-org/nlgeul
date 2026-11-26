@@ -22,6 +22,10 @@ var roleNames = []string{headingName, "태그", "명칭"}
 
 const headingName = "제목"
 
+// bareSignName is the name of a sign that is told only to be a sign,
+// with no name of its own (the backslash: \[기호]).
+const bareSignName = "기호"
+
 // arrowSigns stand right next to < or > in a run that is no bracket
 // (->, =>, <=, >=).
 const arrowSigns = "-="
@@ -35,13 +39,25 @@ const stopSigns = ".,…，"
 // as a word of their own (a candidate added beside the one that keeps
 // them in the word): the middle dots and their variants (‧ ․ •), the
 // slash, the tilde and its variants (∼ ～ 〜), the dashes (― —) and the
-// colon (when its sides are not both Latin letters or digits: EPI:입자);
+// colon (when its sides are not both Latin letters or digits: EPI:입자)
+// and the signs of bareApart;
 // the slash and the tildes only with Hangul on both sides (their graphs).
 // cutSigns are the signs that cut a sentence into units where they stand
-// between letters (cutter).
+// between letters (cutter): the plus and its full-width form (＋).
 const (
-	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—:" + plainDashes
-	cutSigns   = "+"
+	apartSigns = "·ㆍ・‧․•/" + tildeSigns + "―—:" + plainDashes + bareApart
+	cutSigns   = "+＋"
+)
+
+// bareApart are the signs with no name that are also read as a word of
+// their own between letters of a unit (apartGraph): the equals sign with
+// a letter that is no Latin letter or digit on one side (값=3 is 값, =
+// and 3; a=1 stays one name). They are printed as their letters with no
+// name, as they are at a unit's edge. apartName names their graphs
+// (글자 사이:=).
+const (
+	bareApart = "="
+	apartName = "글자 사이:"
 )
 
 // plainDashes are the signs written for a dash that are drawn with too:

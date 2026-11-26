@@ -106,8 +106,12 @@ const (
 	whyNotAlone      = "앞뒤를 띄어 홀로 서지 않았다"
 	whyBullet        = "입력 줄의 맨 처음에 홀로 서 있다"
 	whyNotAlnumSides = "양쪽이 모두 영문·숫자 열인 것은 아니다"
+	whyAlnumSides    = "양쪽이 모두 영문·숫자 열이다"
+	whyAlnumRight    = "바로 뒤가 영문·숫자 열이다"
 
 	whyHangulSides     = "양쪽이 한글이다"
+	whyDigitRight      = "바로 뒤가 숫자다"
+	whyLeads           = "읽는 글자 바로 앞(단위의 머리)에 있다"
 	whyNotHangulSides  = "양쪽이 한글이 아니다"
 	whyNotLinked       = "앞 어절이 연결 꼴(어/아, 고)로 끝나지 않는다"
 	whyLinked          = "앞 어절이 연결 꼴(어/아, 고)로 끝난다"

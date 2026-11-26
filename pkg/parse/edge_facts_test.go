@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestEdgeFacts — the facts of a stretch of one sign at a unit's edge: how many stand in a row, what stands on each side in the unit, whole-unit (MarkAlone), after the read letters (MarkEnds), before them with the letters right after (MarkLeads), at an input line's start (MarkHeads), with a space right after (MarkSpaced), in a run of signs that draws (MarkDrawn), and what the cutter told of the unit's place (MarkBare, MarkSum, and MarkApart for a stretch that is the whole unit)
+//ff:what TestEdgeFacts — the facts of a stretch of one sign at a unit's edge: how many stand in a row, what stands on each side in the unit, whole-unit (MarkAlone), after the read letters (MarkEnds), before them with the letters right after (MarkLeads), at an input line's start (MarkHeads), with a space right after (MarkSpaced), next to another sign (MarkBySign; not next to a sign of the unit table read with its number: 90%+), in a run of signs that draws (MarkDrawn), and what the cutter told of the unit's place (MarkBare, MarkSum, and MarkApart for a stretch that is the whole unit)
 package parse
 
 import (
@@ -41,6 +41,14 @@ func TestEdgeFacts(t *testing.T) {
 	m = scanOf("").edgeFacts(unit{text: "|---|", facts: rule.MarkBare}, 1, 4, true, false)
 	if m.Facts != rule.MarkBySign|rule.MarkDrawn|rule.MarkBare {
 		t.Fatal("a stretch in a run that draws, in a line of signs alone", m)
+	}
+	m = scanOf("90%").edgeFacts(unit{text: "90%+"}, 3, 4, true, true)
+	if m.Facts != rule.MarkEnds|rule.MarkDrawn {
+		t.Fatal("a sign of the unit table read with its number is no sign next to the stretch", m)
+	}
+	m = scanOf("a").edgeFacts(unit{text: "a%+"}, 2, 3, true, true)
+	if m.Facts != rule.MarkEnds|rule.MarkBySign|rule.MarkDrawn {
+		t.Fatal("a sign after no digit is a sign next to the stretch", m)
 	}
 	m = scanOf("a").edgeFacts(unit{text: "a:1"}, 1, 2, true, false)
 	if m.Left != rule.SideAlnum || m.Right != rule.SideAlnum|rule.SideDigit {

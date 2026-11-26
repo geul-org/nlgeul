@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCuts — a plus between letters cuts the sentence, and so does a hyphen between two amounts (3원-1원); not a plus at a unit's edge or next to a space, a run of them, one next to another sign, one in a span of code, nor one inside an address, a path or an option; the trace tells the graphs' judgments
+//ff:what TestCuts — a plus (its full-width form ＋ too) between letters cuts the sentence, also right after a sign of the unit table read with its number (90%+10%), and so does a hyphen between two amounts (3원-1원); not a plus at a unit's edge or next to a space, a run of them, one next to another sign, one in a span of code, nor one inside an address, a path or an option; the trace tells the graphs' judgments
 package parse
 
 import "testing"
@@ -29,6 +29,10 @@ func TestCuts(t *testing.T) {
 		{"--a+b", 3, true},
 		{"가-나", 1, false},
 		{"3원-1원", 2, true},
+		{"곰＋돌", 1, true},
+		{"가＋＋나", 1, false},
+		{"90%+10%", 3, true},
+		{"가%+나", 2, false},
 	} {
 		c0 := newCutter(ix, c.text, false)
 		if got, notes := c0.cuts(c.at); got != c.want || len(notes) != 0 {

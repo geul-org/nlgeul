@@ -12,8 +12,10 @@ import (
 // letters that are not both Latin letters or digits (EPI:입자, 復辟:퇴위,
 // 줄:1 — the orthography writes the word after it apart; a:b, one with a
 // sign next to it, C:\, and one at a unit's head stay as they were); 물결표 any number
-// there, or between two Hangul syllables (the exception that it stands
-// neither at a word's end nor alone is itself defeated there). 빗금 is
+// there, or between two Hangul syllables, or between letters right
+// before a digit (원~100만, 21.~2006: the number a range runs to; the
+// exception that it stands neither at a word's end nor alone is itself
+// defeated there, but not at a unit's head: ~3). 빗금 is
 // a slash between two Hangul syllables, or at a unit's edge (after the
 // letters that are read, right before them, or alone: the exception
 // that its sides are not Hangul is itself defeated there). 줄임표 (…) and 줄표 (― —) are
@@ -21,7 +23,10 @@ import (
 // after it or alone; 태그 and 명칭 one sign with letters right after it.
 // 제목 is the sign at the very start of an input line with a space right
 // after it. 가운뎃점 is one sign; 더하기 and 연결 are one sign with no
-// other sign right next to it.
+// other sign right next to it. 기호 (bareSignName: the backslash) is one
+// sign at a unit's edge or alone with no other sign right next to it
+// and no Latin letter or digit right after it (\\, C:\ and the \n of an
+// escape stay as they were).
 func signGraph(name string) (*toulmin.Graph, int) {
 	g := toulmin.NewGraph(name)
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: name, Concludes: "기호"})
@@ -48,7 +53,10 @@ func signGraph(name string) (*toulmin.Graph, int) {
 		e := except(g, rule.MarkIs, whyNoEnd, is(rule.MarkEnds|rule.MarkAlone), not)
 		e.Attacks(claim)
 		except(g, rule.MarkBoth, whyHangulSides, &rule.Bits{Of: "sides", Mask: rule.SideHangul}).Attacks(e)
-		return g, 2
+		digit := except(g, rule.MarkRight, whyDigitRight, &rule.Bits{Of: "sides", Mask: rule.SideDigit}, not)
+		digit.Attacks(e)
+		except(g, rule.MarkIs, whyLeads, is(rule.MarkLeads)).Attacks(digit)
+		return g, 4
 	case "빗금":
 		e := except(g, rule.MarkBoth, whyNotHangulSides, &rule.Bits{Of: "sides", Mask: rule.SideHangul}, not)
 		e.Attacks(claim)
@@ -71,6 +79,11 @@ func signGraph(name string) (*toulmin.Graph, int) {
 		repeated()
 		except(g, rule.MarkIs, whyBySign, is(rule.MarkBySign)).Attacks(claim)
 		return g, 2
+	case bareSignName:
+		repeated()
+		except(g, rule.MarkIs, whyBySign, is(rule.MarkBySign)).Attacks(claim)
+		except(g, rule.MarkRight, whyAlnumRight, &rule.Bits{Of: "sides", Mask: rule.SideAlnum}, not).Attacks(claim)
+		return g, 3
 	case headingName:
 		except(g, rule.MarkIs, whyNoLineHead, is(rule.MarkHeads), not).Attacks(claim)
 		except(g, rule.MarkIs, whyNoSpace, is(rule.MarkSpaced), not).Attacks(claim)

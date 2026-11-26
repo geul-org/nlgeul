@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what findMid — the signs between letters of a unit that are also read as a word of their own (apartSigns): the first of a run of one sign, not at the unit's head (nor right after a sign of a pair there), with letters after it, not inside an atom and not where an atom begins; each with the candidates its graphs let stand (none, no sign)
+//ff:what findMid — the signs between letters of a unit that are also read as a word of their own (apartSigns): the first of a run of one sign, not at the unit's head (nor right after a sign of a pair there), with letters after it, not inside an atom, not where an atom begins and not where the range sign of a number and its unit stands (rangeAt: 1월~3월); each with the candidates its graphs let stand (none, no sign); a candidate with no name (bareApart: =) is the sign's letters as a stem
 package parse
 
 import "strings"
@@ -12,7 +12,7 @@ func (sc *scan) findMid() {
 		if !strings.ContainsRune(apartSigns, sc.s[q]) || sc.s[q-1] == sc.s[q] || sc.inside[q] {
 			continue
 		}
-		if _, ok := sc.atoms[q]; ok {
+		if _, ok := sc.atoms[q]; ok || sc.rangeAt(q) {
 			continue
 		}
 		end := q + 1
@@ -29,7 +29,7 @@ func (sc *scan) findMid() {
 		}
 		var candidates []Part
 		for _, m := range marks {
-			candidates = append(candidates, Part{Text: text, Name: Name{Kind: m.name}})
+			candidates = append(candidates, Part{Text: text, Name: Name{Kind: m.name}, Stem: m.name == ""})
 		}
 		sc.mid[q] = midSign{candidates: candidates}
 	}

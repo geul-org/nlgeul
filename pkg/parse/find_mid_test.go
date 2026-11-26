@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestFindMid — a middle dot between letters is found at each place (가·나·다 has two), also ㆍ and ・ and the variants ‧ ․ • (가운뎃점); a slash (빗금) and a tilde or its variants (물결표) only with Hangul on both sides; a dash ― or — or the box-drawing line ─ (줄표), a run of them one part; a run of two hyphens or more (줄표) but not one hyphen, nor a run with a sign that draws next to it (-->); none for dots in a run, at an edge, or right after the head of a unit; the candidates are one 가운뎃점 part printing the dot; none where an atom is noted to begin
+//ff:what TestFindMid — a middle dot between letters is found at each place (가·나·다 has two), also ㆍ and ・ and the variants ‧ ․ • (가운뎃점); a slash (빗금) only with Hangul on both sides, a tilde or its variants (물결표) with Hangul on both sides or right before a digit (not the range sign after a number and its unit: 3월~5월); an equals sign with a side that is no Latin letter or digit, as its letters with no name (not a=1); a dash ― or — or the box-drawing line ─ (줄표), a run of them one part; a run of two hyphens or more (줄표) but not one hyphen, nor a run with a sign that draws next to it (-->); none for dots in a run, at an edge, or right after the head of a unit; the candidates are one 가운뎃점 part printing the dot; none where an atom is noted to begin
 package parse
 
 import "testing"
@@ -26,7 +26,7 @@ func TestFindMid(t *testing.T) {
 	if run := scanOf("가―――나"); len(run.mid) != 1 || run.mid[1].candidates[0].Text != "―――" {
 		t.Fatal("a run of dashes is one part", run.mid)
 	}
-	for _, text := range []string{"가/b", "a/가", "1~가", "가~3", "가……나", "가-나", "가-->나", "가--|나"} {
+	for _, text := range []string{"가/b", "a/가", "1~가", "a~b", "3월~5월", "가……나", "가-나", "가-->나", "가--|나", "a=1", "a=b", "가==나", "가=(나"} {
 		if got := scanOf(text); len(got.mid) != 0 {
 			t.Errorf("%q: %v", text, got.mid)
 		}
@@ -50,6 +50,15 @@ func TestFindMid(t *testing.T) {
 	}
 	if len(scanOf("A·B").mid) != 1 || len(scanOf("3·5").mid) != 1 {
 		t.Fatal("between Latin runs")
+	}
+	if bare := scanOf("값=3").mid[1].candidates; len(bare) != 1 || bare[0].Text != "=" || bare[0].Name.Kind != "" || !bare[0].Stem {
+		t.Fatal("a sign with no name is its letters as a stem", bare)
+	}
+	if before := scanOf("벌금~300").mid[2].candidates; len(before) != 1 || before[0].Name.Kind != "물결표" {
+		t.Fatal("a tilde right before a digit", before)
+	}
+	if len(scanOf("값=참").mid) != 1 || len(scanOf("3.~5").mid) != 1 {
+		t.Fatal("an equals sign by a Hangul syllable, a tilde after a full stop and before a digit")
 	}
 	held := scanOf("가·나")
 	held.atoms[1] = atom{end: 2}
