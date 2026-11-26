@@ -23,7 +23,7 @@ func (ix *index) addFused() {
 			ix.edges++
 		}
 		if e.name == euName {
-			except(g, rule.Listed, whyNotBefore, listed("takers", rule.ListAfter, append([]string{honorName}, linkTakers...)), not).Attacks(claim)
+			except(g, rule.Listed, whyNotBefore, listed("takers", rule.ListAfter, append(append([]string{honorName}, linkTakers...), politeTakers...)), not).Attacks(claim)
 			ix.edges++
 		}
 		e.g = g

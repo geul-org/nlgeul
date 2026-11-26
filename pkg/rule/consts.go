@@ -59,6 +59,7 @@ const (
 	SlotPast    = 2 // 었/았/였, which may come twice
 	SlotGuess   = 3 // 겠
 	SlotRecall  = 4 // 더
+	SlotPolite  = 5 // 오/옵, 사오/사옵, 자오/자옵 (old polite forms), read right before a closing
 	SlotClosing = 9
 )
 

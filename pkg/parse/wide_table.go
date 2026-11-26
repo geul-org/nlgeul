@@ -42,3 +42,31 @@ var shortParticles = data.Must(data.Each("short-particles", 4, shortParticleOf))
 // 대, 래 and 재 follow. The dictionary lists none of them; they are
 // read as 해 → 했 is.
 var shortSlots = data.Must(data.Each("short-slots", 4, shortSlotOf))
+
+// politeSlots are the old polite slots (the dictionary's -오-, -옵-,
+// -사오-, -사옵-, -자오-, -자옵-): 오 and 옵 after a stem with no final
+// consonant (and after 시), the others after one with a final consonant
+// (and after 었, 겠); after another final consonant than ㄹ 오 and 옵
+// take the link vowel 으 (the dictionary's -으오-, -으옵-: politeTakers).
+// A form in 오 stands before a closing that begins with ㄴ, ㄹ, ㅁ or a
+// vowel (하+오+니, 뵈+오+(ㄴ)), a form in 옵 before one that begins with
+// a consonant (하+옵+고, 하+옵+니다). They are letters common inside
+// words (나오니, 올), so they are read only with a word table, after a
+// predicate's stem of the table, next to the other candidates.
+var politeSlots = data.Must(data.Each("polite-slots", 2, politeSlotOf))
+
+// politeTakers are the names of the polite slots that take the link
+// vowel 으: those that stand after a vowel.
+var politeTakers = politeTakersOf(politeSlots)
+
+// politeSoft and politeHard are the syllables a polite slot ends in.
+// politeFinal is the closing read after 옵 where the letters are those
+// of ㅂ니다 fused under 오 (하옵니다: 하+옵+니다).
+const (
+	politeSoft  = '오'
+	politeHard  = '옵'
+	politeFinal = "니다"
+	choL        = 5  // ㄹ
+	choM        = 6  // ㅁ
+	choNone     = 11 // ㅇ
+)

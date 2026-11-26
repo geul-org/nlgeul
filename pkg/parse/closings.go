@@ -5,7 +5,9 @@ package parse
 // more tells that 요 follows, chained that a particle is being read
 // right after the tail (the copula's graph is told so). A closing that sits in the stem's last
 // syllable takes no slot before it. A closing that attaches only to
-// the copula stem stands otherwise only after 아니.
+// the copula stem stands otherwise only after 아니. An old polite slot
+// (polite) is read right before a closing, and the copula stem before
+// it only where it is written (이+옵+니다), not left out (politeCopulas).
 func (sc *scan) closings(j int, more, chained bool) []tail {
 	if j < 1 {
 		return nil
@@ -21,7 +23,10 @@ func (sc *scan) closings(j int, more, chained bool) []tail {
 	out = append(out, sc.helped(out)...)
 	out = append(out, sc.negated(out)...)
 	out = append(out, sc.obliged(out)...)
+	polite := sc.polite(out)
 	after := append(sc.copulas(out, chained), sc.nounCopulas(out)...)
 	out = append(out, after...)
+	out = append(out, polite...)
+	out = append(out, sc.politeCopulas(polite, chained)...)
 	return append(out, sc.reclosed(pieces, from, starts, j)...)
 }
