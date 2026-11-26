@@ -47,6 +47,7 @@ const (
 	setDropNew     = "서술격 빠짐(새 낱말)"
 	setLinkTaker   = "이음 으"
 	setHangul      = "한글 뒤만"
+	setQuoted      = "닫는 따옴표 뒤"
 	setVerbExist   = "동사·있다·없다·계시다"
 	setNegAdverb   = "부정 부사"
 	setNumDet      = "수 관형사"

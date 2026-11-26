@@ -63,3 +63,11 @@ const nounAuxName = "사슬:이름 꼴 뒤 조사"
 // (stemlessAfter). A closed table: only the
 // closings listed are held back.
 var hangulBound = closingSets[setHangul]
+
+// quotedClosings are the closings of hangulBound that are also written
+// right onto a quotation mark that closes (quoteShuts): the modifying
+// 는 of the quoting verb, whose 고 하- is dropped after the final closing
+// of what is quoted (간다는 for 간다고 하는), stands after the mark when
+// the quoted sentence is set in quotation marks ("간다"는 말). A closed
+// table: the other closings of hangulBound stay held back there.
+var quotedClosings = closingSets[setQuoted]

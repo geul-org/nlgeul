@@ -36,6 +36,11 @@ const (
 // stands open is left as it is. Brackets are not among them (1), 가)).
 const loneShuts = "\"'”’"
 
+// quoteShuts are the signs that close a quotation: the quotation marks
+// of loneShuts and the closing corner brackets. An ending of the quoting
+// verb may be written right onto one of them (quotedClosings).
+const quoteShuts = loneShuts + "」』｣"
+
 // openName and shutName are what a sign of a pair is called, with its
 // depth after a colon (열기:1, 닫기:2). pairName stands for either in a
 // unit whose head is such a sign, while the unit is read; codeName is

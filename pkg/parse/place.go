@@ -1,8 +1,9 @@
 //ff:func feature=parse type=reader control=selection
-//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph (a closing written wrong tells its graph that it is a misspelt form; a whole form right after a middle dot, and a slot right after another sign, has no stem: stemlessAfter); a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
+//ff:what place — where an entry's form starts if it ends at j, and the structural facts of that place for its graph (a closing written wrong tells its graph that it is a misspelt form; a whole form right after a middle dot, and a slot right after another sign, has no stem: stemlessAfter; a whole form right after a quotation mark that closes is told so: quoteShuts); a fused 어/아 or ㅆ is read on the syllables it fuses into, and after a syllable of unspelt where the writing leaves the 어 out
 package parse
 
 import (
+	"strings"
 	"unicode/utf8"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
@@ -34,6 +35,7 @@ func (sc *scan) place(e *entry, j int, more bool) (int, rule.Piece, bool) {
 		if stemlessAfter(e, p.Prev) {
 			p.HasStem = false
 		}
+		p.Quoted = strings.ContainsRune(quoteShuts, p.Prev)
 		return start, p, true
 	case e.lead == rule.LeadVowel:
 		open := n > 0 || more || j == len(sc.s) || sc.auxNext(j)

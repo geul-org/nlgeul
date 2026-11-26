@@ -70,6 +70,9 @@ package rule
 // ends in the linking closing 어/아, and that the letters right after that
 // word begin with the stem of an auxiliary verb (a main verb with an
 // auxiliary verb written onto it: 가 in 가봐).
+// Quoted tells that the piece stands right after a quotation mark that
+// closes (what is quoted ends there, and the piece is written onto the
+// mark: 는 in 간다"는).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -105,4 +108,5 @@ type Piece struct {
 	Bound    bool
 	Modifier bool
 	Main     bool
+	Quoted   bool
 }

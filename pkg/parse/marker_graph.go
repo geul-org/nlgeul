@@ -29,7 +29,8 @@ import (
 // of it (leading) whether it stands right on its stem with a sign that
 // ends a sentence closing the unit after it; a closing written only
 // onto a Hangul stem (hangulBound) whether a Hangul syllable stands
-// before it; a particle whose letters are a closing written wrong's
+// before it, which a quotation mark that closes right before it lifts
+// for a closing of the quoting verb (quotedClosings: 간다"는); a particle whose letters are a closing written wrong's
 // (echoes) the rebuttal that it stands right on a stem with no final
 // consonant before 요; and a form that ends a
 // closed-set word yields to that word. A graph the case exception table
@@ -60,8 +61,13 @@ func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) in
 		edges++
 	}
 	if slices.Contains(hangulBound, e.name) {
-		except(g, rule.PieceAfter, whyNoHangul, &rule.Bits{Of: "after", Mask: rule.AfterHangul}).Attacks(claim)
+		run := except(g, rule.PieceAfter, whyNoHangul, &rule.Bits{Of: "after", Mask: rule.AfterHangul})
+		run.Attacks(claim)
 		edges++
+		if slices.Contains(quotedClosings, e.name) {
+			except(g, rule.PieceIs, whyQuoted, fact(rule.PieceQuoted)).Attacks(run)
+			edges++
+		}
 	}
 	if e.inner {
 		except(g, rule.PieceIs, whyLast, fact(rule.PieceLast)).Attacks(claim)

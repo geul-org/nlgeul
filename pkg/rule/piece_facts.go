@@ -4,7 +4,7 @@ package rule
 
 func pieceFacts(p Piece) int {
 	have := 0
-	for i, yes := range []bool{p.HasStem, p.Num, p.Lone, p.Whole, p.Adn, p.Turned, p.Marked, p.Next < 0, p.Keeps, p.Sole, p.Det, p.Closed, p.Same, p.Misspelt, p.YoOpen, p.Order, p.Apart, p.Conn, p.Change, p.Glossed, p.UnitWord, p.Bound, p.Modifier, p.Main} {
+	for i, yes := range []bool{p.HasStem, p.Num, p.Lone, p.Whole, p.Adn, p.Turned, p.Marked, p.Next < 0, p.Keeps, p.Sole, p.Det, p.Closed, p.Same, p.Misspelt, p.YoOpen, p.Order, p.Apart, p.Conn, p.Change, p.Glossed, p.UnitWord, p.Bound, p.Modifier, p.Main, p.Quoted} {
 		if yes {
 			have |= 1 << i
 		}
