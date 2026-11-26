@@ -39,6 +39,10 @@ func TestCopulas(t *testing.T) {
 	if got = quoted.copulas([]tail{{start: 2, pieces: []piece{{text: "라는", names: "꾸밈:라는"}}, close: rane}}, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != quoted.ix.nominalNew || got[0].gate == nil {
 		t.Fatal("a dropped stem before the quoting 라는 asks for a nominal or a new word", got)
 	}
+	cat := wordsScan("고양이다", layerCost)
+	if got = cat.copulas([]tail{{start: 3, pieces: []piece{{text: "다", names: "맺음:다"}}, close: da}}, false); len(got) != 2 || got[0].start != 2 || got[0].pieces[0].text != "이" || got[1].start != 3 || got[1].pieces[0].text != "(이)" || got[1].gate != cat.ix.nominal {
+		t.Fatal("after a syllable 이 the stem said and the stem dropped", got)
+	}
 	honor := []tail{{start: 2, pieces: []piece{{text: "시", names: "선어말:시"}, {text: "다", names: "맺음:다"}}, close: da}}
 	polite := wordsScan("어디시다", layerCost)
 	if got = polite.copulas(honor, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].pieces[1].names != "선어말:시" || got[0].gate != polite.ix.nominal || got[0].gate == nil {
@@ -50,7 +54,7 @@ func TestCopulas(t *testing.T) {
 	if got = scanOf("거네").copulas([]tail{{start: 1, pieces: []piece{{text: "네", names: "맺음:네"}}, close: ne}}, false); len(got) != 0 {
 		t.Fatal("before 네 no dropped stem without a word table", got)
 	}
-	if got = wordsScan("곰이네", layerCost).copulas([]tail{{start: 2, pieces: []piece{{text: "네", names: "맺음:네"}}, close: ne}}, false); len(got) != 1 || got[0].pieces[0].text != "이" || got[0].gate != nil {
+	if got = wordsScan("곰이네", layerCost).copulas([]tail{{start: 2, pieces: []piece{{text: "네", names: "맺음:네"}}, close: ne}}, false); len(got) != 2 || got[0].pieces[0].text != "이" || got[0].gate != nil || got[1].pieces[0].text != "(이)" {
 		t.Fatal("the stem said before 네 asks for nothing", got)
 	}
 	if got = wordsScan("학교다", layerCost).copulas([]tail{{start: 2, pieces: []piece{{text: "다", names: "맺음:다"}}, close: da}}, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != nil {
