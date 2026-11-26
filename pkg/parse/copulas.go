@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what copulas — the copula candidates of some predicate tails: each tail that may stand after the stem 이 (said or dropped), judged by the copula's graph, with the stem as a piece before the tail; before the closings of droppableKnown a dropped stem asks for a nominal of the word table before it (or a new word, before those of droppableNew: dropGate), unless the letter before it is no Hangul syllable (a run of Latin letters and digits is no row of the table); the graph is told what stands right after the stem (the tail's closing, or the slot before it, or the auxiliary written onto its 어/아 form: afterCopula) whether a particle is being read right after the tail (chained), and whether a number ends right before the stem (numEnds); each such tail is read once more after a suffix or a particle the copula follows (afterSuffixes) and after a closing it follows (afterLinked)
+//ff:what copulas — the copula candidates of some predicate tails: each tail that may stand after the stem 이 (said or dropped), judged by the copula's graph, with the stem as a piece before the tail; before the closings and the slots of droppableKnown (what stands right after the stem: 네, and 시 of 누구+(이)+시+다) a dropped stem asks for a nominal of the word table before it (or a new word, before those of droppableNew: dropGate), unless the letter before it is no Hangul syllable (a run of Latin letters and digits is no row of the table); the graph is told what stands right after the stem (the tail's closing, or the slot before it, or the auxiliary written onto its 어/아 form: afterCopula) whether a particle is being read right after the tail (chained), and whether a number ends right before the stem (numEnds); each such tail is read once more after a suffix or a particle the copula follows (afterSuffixes) and after a closing it follows (afterLinked)
 package parse
 
 import (
@@ -36,8 +36,8 @@ func (sc *scan) copulas(tails []tail, chained bool) []tail {
 			pc.text = "(이)"
 		}
 		read := tail{start: start, pieces: append([]piece{pc}, t.pieces...), base: base, noYo: t.noYo, close: t.close}
-		if pc.unseen && slices.Contains(droppableKnown, t.close.name) && rule.Fits(p.Prev, rule.AfterHangul) {
-			read.gate = sc.ix.dropGate(t.close.name)
+		if pc.unseen && slices.Contains(droppableKnown, p.After) && rule.Fits(p.Prev, rule.AfterHangul) {
+			read.gate = sc.ix.dropGate(p.After)
 		}
 		out = append(out, read)
 		out = append(out, sc.afterUnits(read)...)

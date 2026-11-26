@@ -39,6 +39,14 @@ func TestCopulas(t *testing.T) {
 	if got = quoted.copulas([]tail{{start: 2, pieces: []piece{{text: "라는", names: "꾸밈:라는"}}, close: rane}}, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != quoted.ix.nominalNew || got[0].gate == nil {
 		t.Fatal("a dropped stem before the quoting 라는 asks for a nominal or a new word", got)
 	}
+	honor := []tail{{start: 2, pieces: []piece{{text: "시", names: "선어말:시"}, {text: "다", names: "맺음:다"}}, close: da}}
+	polite := wordsScan("어디시다", layerCost)
+	if got = polite.copulas(honor, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].pieces[1].names != "선어말:시" || got[0].gate != polite.ix.nominal || got[0].gate == nil {
+		t.Fatal("a dropped stem before the slot 시 asks for a nominal", got)
+	}
+	if got = scanOf("어디시다").copulas(honor, false); len(got) != 0 {
+		t.Fatal("before the slot 시 no dropped stem without a word table", got)
+	}
 	if got = scanOf("거네").copulas([]tail{{start: 1, pieces: []piece{{text: "네", names: "맺음:네"}}, close: ne}}, false); len(got) != 0 {
 		t.Fatal("before 네 no dropped stem without a word table", got)
 	}

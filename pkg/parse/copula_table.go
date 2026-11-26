@@ -32,6 +32,11 @@ const bareAdn = "꾸밈:ㄴ"
 // not 음 and ㅁ, which a particle chain is read after as well): before
 // it the dropped stem is read only when a particle follows it
 // (dropNaming, and the particle chain right after a naming closing).
+// The set also names the slots the stem is dropped before, after a
+// nominal of the table as well (누구+(이)+시+(ㅂ)니까, 사내+(이)+겠+느냐,
+// 증세+(이)+더+냐), and the closings whose first piece is the slot 시
+// (세요, 시오: 누구+(이)+시+(어)+요); before 었 the stem is not dropped
+// but fused (누구였다).
 var droppableKnown = append(append([]string{}, closingSets[setDropKnown]...), nounHeads...)
 
 // droppableNew are the closings of droppableKnown before which the
