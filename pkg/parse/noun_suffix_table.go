@@ -24,3 +24,11 @@ import "github.com/geul-org/nlgeul/pkg/data"
 // after a vowel or ㄴ 률 is written 율: 증가율, 출산율); 당 and 사 after anything.
 // They have no count: each costs what its syllables would cost as stem syllables.
 var nounSuffixes = data.Must(data.Each("noun-suffixes", 3, nounSuffixOf))
+
+// numberSuffixes are the suffixes of nounSuffixes read right after a
+// number too (number-suffixes.tsv): 사 (three companies named and then
+// 3사, 제2사). A number is a nominal (a numeral), so the gate of a
+// suffix passes it as one (suffixedNumber); after a number and its unit the
+// suffix is read as any particle chain is (6개사). The noun 사 read
+// apart from the number stays a candidate.
+var numberSuffixes = data.Must(data.Column("number-suffixes", 1))

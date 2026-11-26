@@ -71,6 +71,7 @@
 | `top-domains.tsv` | 최상위 도메인 | `topDomains` | `com` |
 | `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름이나 문장 단위 규칙의 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (`loadCases`, `caseExceptionOf`) | `맺음:소	담소	담소[열쇠:체언]	지움	관찰	46/46, 29파일, 2026-11-15, rules/new-word 2483d7f` |
 | `sino-units.tsv` | 단위(단위 표의 글자) | `sinoUnits` (`sinoNumerals`) | `인` |
+| `number-suffixes.tsv` | 접미(`noun-suffixes.tsv`의 꼴 가운데 수 바로 뒤에서도 읽는 것) | `numberSuffixes` (`suffixedNumber`) | `사` |
 | `after-unit-words.tsv` | 낱말 | `afterUnitWords` (`unitWordAt`) | `간` |
 
 - `closed-words.tsv`의 집합 가운데 `보조 용언`, `관형사`, `접속 부사`는 `loadClosed`가 읽고(스트림은 `ClosedWords`로 받는다), 21번째 줄(`의존명사 보조 용언`)부터의 일곱 집합은 스트림이 읽는다(`loadWordSets`). `지시어`(이, 그, 저)는 두 쪽이 함께 읽는다: `loadClosed`도 읽지만 쓰는 곳이 없고(그 뒤의 것의 줄임 `이+게`를 읽던 옛 코드는 지웠다), 스트림은 낱말 표가 없을 때 조사·서술격 앞의 그 낱말에 이름 `대명사`를 붙이고(`pronouns`), 문장 단위 규칙 `문장:홀로 선 이·그·저는 관형사`(`determinerAloneRule`)가 그 낱말을 닫힌 집합 관형사로 읽은 후보를 묻는다. 끝의 `인칭 대명사`(나, 너, 저, 우리, 너희, 저희: 학교 문법의 1·2인칭 대명사)는 스트림이 읽는다(`personalPronouns`): 문장 단위 규칙 `문장:격 조사와 꾸밈 받을 말 사이의 꾸밈꼴`(`argumentAdnRule`)은 글자가 이 집합이나 `지시어`의 대명사에 조사 표의 조사를 붙인 어절(`나는`, `이를`)을 묻지 않는다(`pronounParticled`). 낱말 표는 대명사를 체언 갈래로 접어 넣어 이 층이 대명사를 가를 수 없어 닫힌 집합으로 둔다. `loadClosed`는 다른 집합의 줄을 건너뛰고, 두 쪽 어느 이름도 아닌 집합은 `loadWordSets`가 읽을 때 오류다. 의존명사는 이 표가 아니라 `bound-nouns.tsv`에 적는다(이 표에 `의존명사` 줄이 있으면 오류다).
