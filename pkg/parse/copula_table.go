@@ -65,7 +65,12 @@ var dropNaming = nounHeads
 // such letters tells whether they end in a vowel. 야 attaches only to
 // the copula, so nothing else is read there; before the other closings
 // such a run is read as their stem (abc다), but for a run that ends in
-// a digit, which no closing stands right on (stemlessAfter: 3면).
+// a digit, which no closing stands right on (stemlessAfter: 3면). With
+// a word table the graph takes the dropped stem after such a letter
+// before every closing and slot it is dropped before (addCopula), and
+// copulaReads reads it so only right after a sign that closes a pair
+// (dropBarred: '묘지'+(이)+다, "…"+(이)+냐고), beside the closing read
+// alone there (+다).
 var droppableRun = []string{"맺음:야"}
 
 // notOnly is the one other stem the closings of the copula attach to.

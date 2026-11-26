@@ -66,7 +66,11 @@ func TestCopulas(t *testing.T) {
 		t.Fatal("after a letter that is no Hangul syllable a dropped stem before 야 asks for no nominal", got)
 	}
 	if got = wordsScan("abc다", layerCost).copulas([]tail{{start: 3, pieces: []piece{{text: "다", names: "맺음:다"}}, close: da}}, false); len(got) != 0 {
-		t.Fatal("after a letter that is no Hangul syllable the graph takes no dropped stem before 다", got)
+		t.Fatal("after a Latin letter no dropped stem before 다", got)
+	}
+	shut := wordsScan("(가)다", layerCost)
+	if got = shut.copulas([]tail{{start: 3, pieces: []piece{{text: "다", names: "맺음:다"}}, close: da}}, false); len(got) != 1 || got[0].start != 3 || got[0].pieces[0].text != "(이)" || got[0].gate != nil {
+		t.Fatal("right after a sign that closes a pair a dropped stem before 다, asking for no nominal", got)
 	}
 	naming := []tail{{start: 2, pieces: []piece{{text: "기", names: "이름:기"}}, close: &entry{name: "이름:기"}}}
 	ch := wordsScan("문제기도", layerCost)
@@ -87,6 +91,8 @@ func TestCopulas(t *testing.T) {
 		{scanOf("학교었다"), tail{start: 2, pieces: slot, close: da}, false},
 		{scanOf("곰고"), tail{start: 1, pieces: []piece{{text: "고", names: "맺음:고"}}, close: &entry{name: "맺음:고"}}, false},
 		{scanOf("abc야"), tail{start: 3, pieces: []piece{{text: "야", names: "맺음:야"}}, close: ya}, false},
+		{scanOf("abc다"), tail{start: 3, pieces: []piece{{text: "다", names: "맺음:다"}}, close: da}, false},
+		{wordsScan("(가다", layerCost), tail{start: 1, pieces: []piece{{text: "다", names: "맺음:다"}}, close: da}, false},
 		{scanOf("문제기도"), naming[0], true},
 	} {
 		if got = c.sc.copulas([]tail{c.t}, c.chained); len(got) != 0 {

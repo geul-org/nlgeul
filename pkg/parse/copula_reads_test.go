@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestCopulaReads — a tail read after the said stem (곰이다) and after the dropped one (학교다, written (이)); a stem the graph does not take gives nothing (학교서); a particle read after the tail is told to the graph (문제기도); a fused piece keeps the stem's syllable (누군지); with no letter before the stem the unit must attach (이다); before a closing of droppableKnown the dropped stem asks for a nominal (거네), and a stem dropped right after a syllable 이 asks for one whatever follows (고양이다)
+//ff:what TestCopulaReads — a tail read after the said stem (곰이다) and after the dropped one (학교다, written (이)); a stem the graph does not take gives nothing (학교서); a particle read after the tail is told to the graph (문제기도); a fused piece keeps the stem's syllable (누군지); right after a sign that closes a pair a dropped stem is read before 다 ((가)다), after a Latin letter it is not (abc다); with no letter before the stem the unit must attach (이다); before a closing of droppableKnown the dropped stem asks for a nominal (거네), and a stem dropped right after a syllable 이 asks for one whatever follows (고양이다)
 package parse
 
 import "testing"
@@ -40,6 +40,14 @@ func TestCopulaReads(t *testing.T) {
 	lone.attach = true
 	if got = lone.copulaReads(head, 0, lone.ix.copula, false); len(got) != 1 || got[0].start != 0 {
 		t.Fatal("a unit read as attaching", got)
+	}
+	sign := wordsScan("(가)다", layerCost)
+	if got = sign.copulaReads(tail{start: 3, pieces: one.pieces, close: da}, 3, sign.ix.dropped, false); len(got) != 1 || got[0].pieces[0].text != "(이)" || got[0].gate != nil {
+		t.Fatal("a dropped stem before 다 right after a sign that closes a pair", got)
+	}
+	run := wordsScan("abc다", layerCost)
+	if got = run.copulaReads(tail{start: 3, pieces: one.pieces, close: da}, 3, run.ix.dropped, false); got != nil {
+		t.Fatal("no dropped stem before 다 after a Latin letter", got)
 	}
 	ws := wordsScan("거네", layerCost)
 	if got = ws.copulaReads(tail{start: 1, pieces: []piece{{text: "네", names: "맺음:네"}}, close: &entry{name: "맺음:네"}}, 1, ws.ix.dropped, false); len(got) != 1 || got[0].gate != ws.ix.nominal || got[0].gate == nil {
