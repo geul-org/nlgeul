@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestJoinChain — 0x1234 is one number named 수:16진법, 0x12G4 and 0X1F stay runs; task.py becomes one atom with its candidates; a.b stays two runs; in a.b.com every dot joins; 10:30 is one number read two ways, 25:70 only a ratio, 1,00 two numbers, 2026.11.10 a date and a version, 1.28 with a full stop and a letter right after it a date before a decimal and a version, and 1.28 with a particle right after it a decimal and a version only
+//ff:what TestJoinChain — 0x1234 is one number named 수:16진법, 0x12G4 and 0X1F stay runs; task.py becomes one atom with its candidates; a.b stays two runs; in a.b.com every dot joins; 10:30 is one number read two ways, 25:70 only a ratio, 1,00 two numbers, 2026.11.10 a date and a version, 1.28 with a full stop and a letter right after it a date before a decimal and a version, and 1.28 with a particle right after it a decimal and a version only; a hidden name before a slash is a path with what the slash joins (.cache/db)
 package parse
 
 import "testing"
@@ -8,6 +8,10 @@ func TestJoinChain(t *testing.T) {
 	sc := scanOf("task.py")
 	if a := sc.atoms[0]; a.end != 7 || atomNames(a) != "파일명,도메인" || !sc.inside[4] || !sc.inside[5] || sc.inside[7] {
 		t.Fatal(a, sc.inside)
+	}
+	sc = scanOf(".cache/db")
+	if a := sc.atoms[0]; a.end != 9 || atomNames(a) != "경로" {
+		t.Fatal("a hidden name before a slash", sc.atoms)
 	}
 	sc = scanOf("ab.cd")
 	if a := sc.atoms[0]; a.end != 2 || atomNames(a) != "" || sc.atoms[3].end != 5 || sc.inside[2] || sc.inside[3] || !sc.inside[1] {

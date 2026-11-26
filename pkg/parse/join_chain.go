@@ -1,8 +1,12 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what joinChain — judge each sign of a chain of runs (told whether a full stop stands right after the chain's last run: MarkStopped) and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
+//ff:what joinChain — judge each sign of a chain of runs (told whether a full stop stands right after the chain's last run: MarkStopped) and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); the sign kept at the head of the first run ($HOME, .env) is no letter of its side before a slash (.cache/db is a path as cache/db is; before a dot or a hyphen it stays one, and that run joins nothing); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
 package parse
 
-import "github.com/geul-org/nlgeul/pkg/rule"
+import (
+	"strings"
+
+	"github.com/geul-org/nlgeul/pkg/rule"
+)
 
 func (sc *scan) joinChain(chain [][2]int) {
 	labels, signs := make([]string, len(chain)), make([]rune, len(chain)-1)
@@ -11,6 +15,9 @@ func (sc *scan) joinChain(chain [][2]int) {
 		if i < len(signs) {
 			signs[i] = sc.s[r[1]]
 		}
+	}
+	if len(signs) > 0 && signs[0] == '/' {
+		labels[0] = strings.TrimLeft(labels[0], runHeads)
 	}
 	start, names, num := chain[0][0], []string(nil), true
 	stopped, end := 0, chain[len(chain)-1][1]

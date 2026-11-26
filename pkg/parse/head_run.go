@@ -7,8 +7,12 @@ import (
 	"unicode"
 )
 
+// runHeads are the signs kept at a unit's head that the first run takes
+// in ($HOME, .env).
+const runHeads = "$."
+
 func (sc *scan) headRun(runs [][2]int) [][2]int {
-	if len(runs) == 0 || runs[0][0] != 1 || !strings.ContainsRune("$.", sc.s[0]) || unicode.IsDigit(sc.s[1]) {
+	if len(runs) == 0 || runs[0][0] != 1 || !strings.ContainsRune(runHeads, sc.s[0]) || unicode.IsDigit(sc.s[1]) {
 		return runs
 	}
 	return append([][2]int{{0, runs[0][1]}}, runs[1:]...)
