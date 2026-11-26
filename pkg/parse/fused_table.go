@@ -154,6 +154,10 @@ var haoSplits = map[string][]split{
 // 에다가, after these four words only (after any nominal they would
 // look the same as the copula's 다). 이젠 is 이제 with the particle 는 put
 // under it, listed like 그땐 and 여긴.
+// 이걸로, 그걸로 and 저걸로 are 이것, 그것 and 저것 with the particle 으로
+// shortened onto them. 데다 and 데다가 are the dependent noun 데 with 에다
+// and 에다가 whose 에 is left out (오는 데다), read as 게, 건 and 걸 are,
+// only right after a modifying closing.
 // contractLists are the fused forms as their table gives them, set by
 // set (contracts.tsv).
 var contractLists = data.Must(loadContracts(data.Must(data.Rows("contracts", 7))))
