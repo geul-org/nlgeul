@@ -20,6 +20,8 @@ func TestTables(t *testing.T) {
 		"polite-slots":      2,
 		"closing-particles": 2,
 		"quote-markers":     1,
+		"plate-letters":     1,
+		"plate-regions":     1,
 	}
 	empty := map[string]bool{"case-exceptions": true}
 	entries, err := fs.ReadDir(held, ".")
