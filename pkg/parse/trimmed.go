@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what trimmed — where the letters of a unit that are read begin and end (in letters), the signs at its edges left out, keeping a sign that belongs to a number there (one that stands at a number's front: -3, $40; a sign of the unit table at its end: 50%, 3℃, and after greater numbers written onto digits: 17억㎥) and the signs that belong to a name: a path's head and the slash at its end, the dashes of an option, and $ _ . before Latin letters; 0 and 0 when nothing is read
+//ff:what trimmed — where the letters of a unit that are read begin and end (in letters), the signs at its edges left out, keeping a sign that belongs to a number there (one that stands at a number's front: -3, $40; a sign of the unit table at its end: 50%, 3℃, and after greater numbers written onto digits: 17억㎥) and the signs that belong to a name: a path's head and the slash at its end, the dashes of an option, and $ _ . before Latin letters, and a sign of the unit table at its head that a suffix read after a unit with no number is written onto (unitKept: ㎡당); 0 and 0 when nothing is read
 package parse
 
 import (
@@ -25,6 +25,7 @@ func trimmed(field string) (int, int) {
 		to++
 	}
 	from = headKept(all, from)
+	from = unitKept(all, from)
 	if atOf(all, to) == '/' && strings.ContainsRune(string(all[from:to]), '/') {
 		to++
 	}

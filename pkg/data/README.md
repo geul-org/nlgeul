@@ -66,7 +66,7 @@
 | `pairs.tsv` | 기호, 여는 기호, 구실, 조건 | `pairRows`, `pairOrder` (`loadPairs`, `pairOf`) | `)	(	닫기	-` |
 | `number-heads.tsv` | 기호, 갈래 | `headSigns`, `headOrder` (`loadHeads`) | `$	돈` |
 | `units.tsv` | 글자, 이름 | `unitWords`, `unitRows` | `GB	기가바이트` |
-| `unit-suffixes.tsv` | 접미사 | `unitSuffixes` | `짜리` |
+| `unit-suffixes.tsv` | 앞말(`수와 단위 뒤`, `수 없는 단위 뒤에도`), 접미사 | `unitSuffixSets`, `unitSuffixes`, `bareSuffixes` | `수와 단위 뒤	짜리`, `수 없는 단위 뒤에도	당` |
 | `extensions.tsv` | 확장자 | `extensions` | `py` |
 | `top-domains.tsv` | 최상위 도메인 | `topDomains` | `com` |
 | `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름이나 문장 단위 규칙의 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (`loadCases`, `caseExceptionOf`) | `맺음:소	담소	담소[열쇠:체언]	지움	관찰	46/46, 29파일, 2026-11-15, rules/new-word 2483d7f` |

@@ -1,6 +1,8 @@
 package parse
 
 import (
+	"slices"
+
 	"github.com/geul-org/nlgeul/pkg/data"
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
@@ -136,8 +138,19 @@ const (
 )
 
 // unitSuffixes stand after a number and its unit, where 째 stands
-// (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are.
-var unitSuffixes = data.Must(data.Column("unit-suffixes", 1))
+// (백 원짜리, 다섯 개가량, 세 명당): suffixes, as 째 and 여 are. The table
+// (unit-suffixes.tsv) files each under what stands before it.
+// bareSuffixes are those read after a unit with no number before it
+// too (bareUnits: ㎡당, kg당): the standard dictionary's suffix -당 stands
+// after a number or a unit (마리당 삼천 원, 시간당 얼마).
+const (
+	setAfterUnit = "수와 단위 뒤"
+	setAfterBare = "수 없는 단위 뒤에도"
+)
+
+var unitSuffixSets = data.Must(data.Sets("unit-suffixes", setAfterUnit, setAfterBare))
+var unitSuffixes = append(slices.Clone(unitSuffixSets[setAfterUnit]), unitSuffixSets[setAfterBare]...)
+var bareSuffixes = unitSuffixSets[setAfterBare]
 
 // enclosedRanges are the circled and parenthesized numbers, each one
 // letter a number (name 수), as a run of digits is: U+2460-2473 ①-⑳
