@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=selection
-//ff:what copulaOf — the copula candidate a predicate tail may have: where the noun before it ends, and whether the stem 이 is said (a syllable 이, or the syllable a piece is fused into) or may be dropped; whether a vowel stands before a dropped stem and what it is dropped before (a closing right after it, not a slot) are left to the dropped stem's graph; a tail that asks for a predicate's stem or for a changed stem has no such candidate
+//ff:what copulaOf — the copula candidate a predicate tail may have: where the noun before it ends, and whether the stem 이 is said (a syllable 이, or the syllable a piece is fused into) or may be dropped; whether a vowel stands before a dropped stem and what it is dropped before (a closing right after it, not a slot) are left to the dropped stem's graph; with a word table a fused piece that asks for a predicate's stem of the table (a lone final consonant: 목소린) has the dropped candidate too, which then asks for a nominal instead (copulaReads); a tail with another gate, one that holds the stem or one that asks for a changed stem has no such candidate
 package parse
 
 // The third value is false when the tail has no such candidate.
@@ -14,7 +14,7 @@ func (sc *scan) copulaOf(t tail) (int, *entry, bool) {
 		return t.start - 1, sc.ix.copula, true
 	case whole && t.start >= 1:
 		return t.start, sc.ix.dropped, true
-	case !whole && t.gate == nil:
+	case !whole && (t.gate == nil || (sc.ix.lexed && t.gate == sc.ix.pred)):
 		return t.start, sc.ix.dropped, true
 	}
 	return 0, nil, false

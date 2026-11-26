@@ -41,6 +41,13 @@ func TestCopulaOf(t *testing.T) {
 	if _, _, ok := wordsScan("일본", layerCost).copulaOf(tail{start: 2, pieces: one, base: '보', close: n, gate: &entry{}}); ok {
 		t.Fatal("a lone consonant that asks for a predicate's stem has no dropped copula")
 	}
+	lexed := wordsScan("문젠", layerCost)
+	if at, e, ok := lexed.copulaOf(tail{start: 2, pieces: one, base: '제', close: n, gate: lexed.ix.pred}); !ok || at != 2 || e != lexed.ix.dropped {
+		t.Fatal("with a word table a lone consonant that asks for a predicate's stem has a dropped copula too", at)
+	}
+	if _, _, ok := scanOf("문젠").copulaOf(tail{start: 2, pieces: one, base: '제', close: n, gate: &entry{}}); ok {
+		t.Fatal("not without a word table")
+	}
 	if _, _, ok := school.copulaOf(tail{start: 2, pieces: one, close: da, irr: irrS}); ok {
 		t.Fatal("a tail that asks for a changed stem")
 	}

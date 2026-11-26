@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestCopulaReads — a tail read after the said stem (곰이다) and after the dropped one (학교다, written (이)); a stem the graph does not take gives nothing (학교서); a particle read after the tail is told to the graph (문제기도); a fused piece keeps the stem's syllable (누군지); right after a sign that closes a pair a dropped stem is read before 다 ((가)다), after a Latin letter it is not (abc다); with no letter before the stem the unit must attach (이다); before a closing of droppableKnown the dropped stem asks for a nominal (거네), and a stem dropped right after a syllable 이 asks for one whatever follows (고양이다); after a naming closing the tail is read once more with the closing before the stem (먹음이다)
+//ff:what TestCopulaReads — a tail read after the said stem (곰이다) and after the dropped one (학교다, written (이)); a stem the graph does not take gives nothing (학교서); a particle read after the tail is told to the graph (문제기도); a fused piece keeps the stem's syllable (누군지); right after a sign that closes a pair a dropped stem is read before 다 ((가)다), after a Latin letter it is not (abc다); with no letter before the stem the unit must attach (이다); before a closing of droppableKnown the dropped stem asks for a nominal (거네), and a stem dropped right after a syllable 이 asks for one whatever follows (고양이다), and so does a stem dropped under a lone ㄴ that asked for a predicate's stem (문젠); after a naming closing the tail is read once more with the closing before the stem (먹음이다)
 package parse
 
 import "testing"
@@ -52,6 +52,10 @@ func TestCopulaReads(t *testing.T) {
 	named := wordsScan("먹음이다", layerCost)
 	if got = named.copulaReads(tail{start: 3, pieces: one.pieces, close: da}, 2, named.ix.copula, false); len(got) < 2 || got[1].start != 1 || got[1].pieces[0].names != "이름:음" || got[1].pieces[1].names != copulaName {
 		t.Fatal("the copula read once more after the naming closing 음", got)
+	}
+	short := wordsScan("문젠", layerCost)
+	if got = short.copulaReads(tail{start: 2, pieces: []piece{{text: "(ㄴ)", names: "꾸밈:ㄴ"}}, base: '제', close: &entry{name: "꾸밈:ㄴ"}, gate: short.ix.pred}, 2, short.ix.dropped, false); len(got) != 1 || got[0].base != '제' || got[0].gate != short.ix.nominal {
+		t.Fatal("a stem dropped under a lone ㄴ that asked for a predicate's stem asks for a nominal", got)
 	}
 	ws := wordsScan("거네", layerCost)
 	if got = ws.copulaReads(tail{start: 1, pieces: []piece{{text: "네", names: "맺음:네"}}, close: &entry{name: "맺음:네"}}, 1, ws.ix.dropped, false); len(got) != 1 || got[0].gate != ws.ix.nominal || got[0].gate == nil {
