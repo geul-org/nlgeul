@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestCaseNumberBranch — a candidate's words are each sent up as caseNumberWord gives them (the word of a court case number as its pieces, the others as they are), its verdict and preference are kept, and the candidate given is not changed
+//ff:what TestCaseNumberBranch — a candidate's words are each sent up as caseNumberWord and plateWord give them (the word of a court case number as its pieces, the word of a registration number as its pieces, the others as they are), its verdict and preference are kept, and the candidate given is not changed
 package parse
 
 import "testing"
@@ -18,6 +18,10 @@ func TestCaseNumberBranch(t *testing.T) {
 	}
 	if len(in.Words[1].Parts) != 1 {
 		t.Fatal("the candidate given is changed", in.Words[1].Parts)
+	}
+	plate := caseNumberBranch(Branch{Words: []Eojeol{{Parts: []Part{{Text: "306너8412", Name: Name{Kind: plateKind}, Stem: true}}, End: 8}}})
+	if len(plate.Words) != 1 || plate.Words[0].String() != "306[수]+너[차등록:너]+8412[수]" || plate.Words[0].End != 8 {
+		t.Fatal(plate.Words)
 	}
 	if got := caseNumberBranch(Branch{}); len(got.Words) != 0 {
 		t.Fatal(got)
