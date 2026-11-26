@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestAddParticles — a graph for each case candidate: 이 has two (주격, 보격), 은 one; the suffix 이 and the emphatic 야 that only this layer reads are there too; the candidates of one particle have their own kinds
+//ff:what TestAddParticles — a graph for each case candidate: 이 has two (주격, 보격), 은 one; the suffix 이 (read with a particle after it, and once more for the place of one who is called, with the graph the name must pass) and the emphatic 야 that only this layer reads are there too; the candidates of one particle have their own kinds
 package parse
 
 import (
@@ -11,8 +11,12 @@ import (
 func TestAddParticles(t *testing.T) {
 	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}}
 	ix.addParticles()
-	last := ix.byKey['이'][len(ix.byKey['이'])-1]
-	if last.name != "접미:이" || !last.inner || last.slot != rule.LinkSuffix {
+	n := len(ix.byKey['이'])
+	inner, last := ix.byKey['이'][n-2], ix.byKey['이'][n-1]
+	if inner.name != nameSuffix || !inner.inner || inner.called || inner.gate != nil || inner.slot != rule.LinkSuffix {
+		t.Fatal(inner)
+	}
+	if last.name != nameSuffix || last.inner || !last.called || last.gate == nil || last.gate.name != nameGate || last.slot != rule.LinkSuffix {
 		t.Fatal(last)
 	}
 	ya := ix.byKey['야'][len(ix.byKey['야'])-1]

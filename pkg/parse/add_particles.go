@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=2
-//ff:what addParticles — one entry, and so one graph, for each case candidate of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate), and a shortened particle (shortenedParticles: 서) the graph that keeps it off a stem it makes a word of the word table with (joinedGateOf)
+//ff:what addParticles — one entry, and so one graph, for each case candidate of each particle of the table, with the observed count this layer keeps for its form, and for the suffixes only this layer reads; the vocative 야 is given the graph the word before it must pass (calledGate), the suffix 이 read where one is called the graph its name must pass (namedGate), and a shortened particle (shortenedParticles: 서) the graph that keeps it off a stem it makes a word of the word table with (joinedGateOf)
 package parse
 
 import (
@@ -63,8 +63,24 @@ const (
 	callGate = "앞말:부르는 말"
 )
 
+// nameSuffix is the suffix 이 written after a person's name that ends
+// in a consonant (the dictionary's suffix -이: 영숙이, 갑돌이). With a
+// particle after it, it is read wherever it stands (inner); with none it
+// looks the same as the subject particle 이, and is read only where one
+// who is called is written: at the end of its unit's letters, right
+// before a comma or an exclamation mark (called: 영숙이, 영숙이!). There
+// the word before it must pass the graph nameGate: no dependent noun,
+// and no word that stands as an adverb, a determiner, a predicate or an
+// interjection of the word table (a name is a nominal or a new word).
+// The subject and the complement candidates stay beside it.
+const (
+	nameSuffix = "접미:이"
+	nameGate   = "앞말:부르는 이름"
+)
+
 var ownParticles = []entry{
-	{name: "접미:이", form: "이", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkSuffix, inner: true},
+	{name: nameSuffix, form: "이", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkSuffix, inner: true},
+	{name: nameSuffix, form: "이", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkSuffix, called: true},
 	{name: "보조사:야", form: "야", class: classParticle, after: rule.AfterVowel, slot: rule.LinkTopic},
 	{name: emphName, form: "가", class: classParticle, slot: rule.LinkEmph, count: 2},
 	{name: "보조사:은커녕", form: "은커녕", class: classParticle, after: rule.AfterBatchim, slot: rule.LinkTopic, count: 66},
@@ -78,7 +94,8 @@ var ownParticles = []entry{
 func (ix *index) addParticles() {
 	ix.call = calledGate()
 	joined := joinedGateOf(joinedGate, 0)
-	ix.graphs, ix.edges = ix.graphs+2, ix.edges+2
+	named := namedGate()
+	ix.graphs, ix.edges = ix.graphs+3, ix.edges+4
 	for _, m := range ParticleMarkers() {
 		for _, label := range caseNames(m.Kase, m.Slot) {
 			e := &entry{name: label + ":" + m.Form, form: m.Form, class: classParticle, after: m.After, slot: linkOf(label, m.Form, m.Slot), kase: m.Kase, count: particleCount(m)}
@@ -93,6 +110,9 @@ func (ix *index) addParticles() {
 	}
 	for i := range ownParticles {
 		e := ownParticles[i]
+		if e.called {
+			e.gate = named
+		}
 		ix.add(&e)
 	}
 }

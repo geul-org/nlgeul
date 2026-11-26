@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what groupAt — judge every entry of one class that ends at j and file the candidates that stand by their key (entryGroup: the same token sequence of the same place or kind, and the same name); two entries of one key keep the one with the higher verdict; the graphs are told whether the piece closes its unit and whether it stands right on its stem
+//ff:what groupAt — judge every entry of one class that ends at j and file the candidates that stand by their key (entryGroup: the same token sequence of the same place or kind, and the same name); two entries of one key keep the one with the higher verdict; the graphs are told whether the piece closes its unit, whether it stands right on its stem, and whether it ends the unit's letters where one is called (before a comma or an exclamation mark: Called)
 package parse
 
 // The pieces come back by their keys, with the entry behind each and
@@ -18,6 +18,7 @@ func (sc *scan) groupAt(class, j, next int, more, closed, onStem bool) (map[stri
 			continue
 		}
 		p.Next, p.Closed = next, closed
+		p.Called = sc.called && j == len(sc.s) && next < 0
 		p.YoOpen = sc.yoOpen(p, start, onStem)
 		if e.wide && !more {
 			p.Right = sc.right(j)

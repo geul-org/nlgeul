@@ -14,7 +14,7 @@ func ontoReader(ix *index, u unit, trace bool, stats *netStats) *unitReader {
 	_, trail, at := edgesOf(u, sc.s)
 	r.after = func() []unitStretch { return stretchesOf(sc.signContests(u, trail, at, true)) }
 	if len(sc.s) > u.head {
-		ps := &scan{ix: sc.ix, s: sc.s[u.head:], closed: sc.closed, glossed: sc.glossed, trace: sc.trace, reg: newRegistry(ontoBorn)}
+		ps := &scan{ix: sc.ix, s: sc.s[u.head:], closed: sc.closed, called: sc.called, glossed: sc.glossed, trace: sc.trace, reg: newRegistry(ontoBorn)}
 		pl := newPlanter(sc, u.head)
 		plant := func(j int) []*path {
 			pl.step(j + u.head)

@@ -72,7 +72,9 @@ package rule
 // auxiliary verb written onto it: 가 in 가봐).
 // Quoted tells that the piece stands right after a quotation mark that
 // closes (what is quoted ends there, and the piece is written onto the
-// mark: 는 in 간다"는).
+// mark: 는 in 간다"는). Called tells that the piece ends the letters of
+// its unit that are read and that a comma or an exclamation mark stands
+// right after it (where one who is called is written: 영숙이, 영숙이!).
 type Piece struct {
 	Form     string
 	HasStem  bool
@@ -109,4 +111,5 @@ type Piece struct {
 	Modifier bool
 	Main     bool
 	Quoted   bool
+	Called   bool
 }

@@ -162,6 +162,7 @@ const (
 	PieceModifier             // it is a new word whose letters are a modifier and a known word it modifies written together (못와, 두손, 좀더, 할거): a rebuttal of the new word, which stands behind the two words read apart
 	PieceMain                 // it is a main verb's stem that begins its unit, and its word ends in the linking 어/아 right before an auxiliary verb's stem written onto it (가 in 가봐)
 	PieceQuoted               // it stands right after a quotation mark that closes (는 in 간다"는)
+	PieceCalled               // it ends the letters of its unit that are read, and a comma or an exclamation mark stands right after it (where one who is called is written: 영숙이, 영숙이!)
 )
 
 // Yes/no facts of a sign that MarkIs tests.

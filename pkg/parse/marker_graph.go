@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them that a closed-set word is written with the same letters (lifted for a closing right after a predicate's stem of the word table), and, but for a suffix, that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form, and for a particle read against the final consonant before it the exception that no Hangul syllable stands before it and the rebuttal that lowers it)
+//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them that a suffix read only where one is called does not stand there (called), that a closed-set word is written with the same letters (lifted for a closing right after a predicate's stem of the word table), and, but for a suffix, that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form, and for a particle read against the final consonant before it the exception that no Hangul syllable stands before it and the rebuttal that lowers it)
 package parse
 
 import (
@@ -80,6 +80,10 @@ func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) in
 	}
 	if e.inner {
 		except(g, rule.PieceIs, whyLast, fact(rule.PieceLast)).Attacks(claim)
+		edges++
+	}
+	if e.called {
+		except(g, rule.PieceIs, whyUncalled, fact(rule.PieceCalled), not).Attacks(claim)
 		edges++
 	}
 	if e.class == classSlot {

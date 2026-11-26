@@ -1,5 +1,5 @@
 //ff:type feature=parse type=model
-//ff:what entry — one candidate of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, whether it is a particle read against the final consonant of the word before it, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
+//ff:what entry — one candidate of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read only where one is called (at the end of its unit's letters before a comma or an exclamation mark), whether it is read against the tables' attachment rule, whether it is a particle read against the final consonant of the word before it, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
 package parse
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -38,6 +38,7 @@ type entry struct {
 	kase   int
 	noYo   bool
 	inner  bool
+	called bool
 	ended  bool
 	bars   bool
 	needs  bool
