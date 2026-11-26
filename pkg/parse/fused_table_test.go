@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestAskClosingsQuestion — the closings 냐, 느냐 and 는가 take the particles of askParticles as 는지 does, 의 among them (는가+의), not 과 or 로: 옳으냐에, 버티느냐가, 하느냐를, 가느냐도; 옳은가에 is not read so (ㄴ가 is not among them)
+//ff:what TestAskClosingsQuestion — the closings 냐, 느냐 and 는가 take the particles of askParticles as 는지 does, 의 among them (는가+의), and 로 (냐+로), not 과 or 에서: 옳으냐에, 버티느냐가, 하느냐를, 가느냐도; 옳은가에 is not read so (ㄴ가 is not among them)
 package parse
 
 import (
@@ -12,12 +12,12 @@ import (
 func TestAskClosingsQuestion(t *testing.T) {
 	ix := &index{byKey: map[rune][]*entry{}, words: map[string]*entry{}, closed: map[string]int{}}
 	ix.addClosings()
-	for _, c := range [][2]string{{"맺음:냐", "에"}, {"맺음:느냐", "가"}, {"맺음:느냐", "를"}, {"맺음:는가", "에"}, {"맺음:냐", "와"}, {"맺음:는가", "도"}, {"맺음:는가", "의"}} {
+	for _, c := range [][2]string{{"맺음:냐", "에"}, {"맺음:느냐", "가"}, {"맺음:느냐", "를"}, {"맺음:는가", "에"}, {"맺음:냐", "와"}, {"맺음:는가", "도"}, {"맺음:는가", "의"}, {"맺음:냐", "로"}} {
 		if v, _ := verdictOf(ix.askAux.g, rule.Piece{Form: c[1], Before: c[0], HasStem: true, Next: -1}, "", false); v <= 0 {
 			t.Errorf("%s takes %s", c[0], c[1])
 		}
 	}
-	for _, c := range [][2]string{{"맺음:느냐", "과"}, {"맺음:냐", "로"}, {"맺음:ㄴ가", "에"}} {
+	for _, c := range [][2]string{{"맺음:느냐", "과"}, {"맺음:냐", "에서"}, {"맺음:ㄴ가", "에"}} {
 		if v, _ := verdictOf(ix.askAux.g, rule.Piece{Form: c[1], Before: c[0], HasStem: true, Next: -1}, "", false); v > 0 {
 			t.Errorf("%s takes no %s", c[0], c[1])
 		}
@@ -31,6 +31,7 @@ func TestAskClosingsQuestion(t *testing.T) {
 		"하느냐를":  "하[열쇠:동사]+느냐[맺음:느냐]+를[목적격:를]",
 		"가느냐도":  "가[열쇠:동사]+느냐[맺음:느냐]+도[보조사:도]",
 		"가는가에":  "가[열쇠:동사]+는가[맺음:는가]+에[부사격:에]",
+		"가느냐로":  "가[열쇠:동사]+느냐[맺음:느냐]+로[부사격:로]",
 	} {
 		if got := streamText(r, in); !strings.Contains(got, want) {
 			t.Errorf("%s: no %s\n%s", in, want, got)

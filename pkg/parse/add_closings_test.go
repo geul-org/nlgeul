@@ -55,8 +55,8 @@ func TestAddClosings(t *testing.T) {
 			t.Errorf("%s takes %s", c[0], c[1])
 		}
 	}
-	if v, why := verdictOf(ix.askAux.g, rule.Piece{Form: "로", Before: "맺음:는지", HasStem: true, Next: -1}, "", true); v > 0 || !slices.Contains(why, whyNotTaken) || slices.Contains(why, whyNotAfter) {
-		t.Fatal("는지 takes no 로", v, why)
+	if v, why := verdictOf(ix.askAux.g, rule.Piece{Form: "에서", Before: "맺음:는지", HasStem: true, Next: -1}, "", true); v > 0 || !slices.Contains(why, whyNotTaken) || slices.Contains(why, whyNotAfter) {
+		t.Fatal("는지 takes no 에서", v, why)
 	}
 	for _, before := range []string{"맺음:지", "맺음:다", "꾸밈:는"} {
 		if v, why := verdictOf(ix.askAux.g, rule.Piece{Form: "를", Before: before, HasStem: true, Next: -1}, "", true); v > 0 || !slices.Contains(why, whyNotAfter) || slices.Contains(why, whyNotTaken) {

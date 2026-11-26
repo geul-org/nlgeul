@@ -51,12 +51,13 @@ var auxParticles = []string{"보조사:도", "보조사:는", "보조사:만", "
 // 느냐 and 는가, and after them ㄹ는지 and 을는지 (타계했을는지도), and askParticles the forms of the particles read
 // right after them: the auxiliary particles of auxParticles and the
 // case particles 가, 를, 에 and 와, and, added after them, 의 (저촉되는가의
-// 여부, 하는지의 문제). More particles may follow as the
+// 여부, 하는지의 문제), and then the adverbial 로 (가느냐로 갈리다: what
+// is asked is what something turns on). More particles may follow as the
 // chain's kinds allow (는지에+는).
 const askAuxName = "사슬:물음 맺음 뒤 조사"
 
 var askClosings = closingNames(Marker{Form: "지", Lead: rule.JongN}, Marker{Form: "는지"}, Marker{Form: "은지", After: rule.AfterBatchim}, Marker{Form: "지", Lead: rule.JongL}, Marker{Form: "을지", After: rule.AfterBatchim}, Marker{Form: "냐"}, Marker{Form: "느냐"}, Marker{Form: "는가"}, Marker{Form: "는지", Lead: rule.JongL}, Marker{Form: "을는지", After: rule.AfterBatchim})
-var askParticles = []string{"도", "는", "만", "야", "가", "를", "에", "와", "의"}
+var askParticles = []string{"도", "는", "만", "야", "가", "를", "에", "와", "의", "로"}
 
 // The auxiliary particle 는 is put under the last syllable of a closing
 // that ends in a vowel as the final consonant ㄴ (clause 33 of the
