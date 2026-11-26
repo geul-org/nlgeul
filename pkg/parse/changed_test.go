@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestChanged — each kind of change gives its form: 살 → 사 with no type, 듣 → 들, 짓 → 지, 덥 → 더우, 돕 → 도우 and 도오, 파랗 → 파라 and 파래, 그렇 → 그러 and 그래, 모르 → 몰르, 이르 → 이르르, 푸 → 프, 원하 → 원 and 가능하 → 가능 with 하 dropped (clause 40), but not the one-syllable 하; 생각하 → 생각, 깨끗하 → 깨끗, 섭섭하 → 섭섭 also with 하 dropped wholly after a final consonant that sounds [ㄱ], [ㄷ], [ㅂ] (note 2), but not 가능하 (ㅇ) nor 깔끔하 (ㅁ) nor 넓하 (ㄼ, [ㄹ]); a regular stem that ends in no ㄹ has none; a type the stem's shape does not fit gives nothing
+//ff:what TestChanged — each kind of change gives its form: 살 → 사 with no type, 듣 → 들, 짓 → 지, 덥 → 더우, 돕 → 도우 and 도오, 자랑스럽 → 자랑스러우 and 자랑스러 (not the bare 스럽, nor a stem with no ㅂ type), 파랗 → 파라 and 파래, 그렇 → 그러 and 그래, 모르 → 몰르, 이르 → 이르르, 푸 → 프, 원하 → 원 and 가능하 → 가능 with 하 dropped (clause 40), but not the one-syllable 하; 생각하 → 생각, 깨끗하 → 깨끗, 섭섭하 → 섭섭 also with 하 dropped wholly after a final consonant that sounds [ㄱ], [ㄷ], [ㅂ] (note 2), but not 가능하 (ㅇ) nor 깔끔하 (ㅁ) nor 넓하 (ㄼ, [ㄹ]); a regular stem that ends in no ㄹ has none; a type the stem's shape does not fit gives nothing
 package parse
 
 import (
@@ -14,6 +14,9 @@ func TestChanged(t *testing.T) {
 		fmt.Sprint(changed("듣", irrD)):                                   fmt.Sprint([]alt{{"들", irrD}}),
 		fmt.Sprint(changed("짓", irrS)):                                   fmt.Sprint([]alt{{"지", irrS}}),
 		fmt.Sprint(changed("덥", irrB)):                                   fmt.Sprint([]alt{{"더우", irrB}}),
+		fmt.Sprint(changed("자랑스럽", irrB)):                                fmt.Sprint([]alt{{"자랑스러우", irrB}, {"자랑스러", irrSeu}}),
+		fmt.Sprint(changed("스럽", irrB)):                                  fmt.Sprint([]alt{{"스러우", irrB}}),
+		fmt.Sprint(changed("자랑스럽", 0)):                                   fmt.Sprint([]alt(nil)),
 		fmt.Sprint(changed("돕", irrB)):                                   fmt.Sprint([]alt{{"도우", irrB}, {"도오", irrBO}}),
 		fmt.Sprint(changed("파랗", irrH)):                                  fmt.Sprint([]alt{{"파라", irrH}, {"파래", irrHE}}),
 		fmt.Sprint(changed("그렇", irrH)):                                  fmt.Sprint([]alt{{"그러", irrH}, {"그래", irrHE}}),

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestHeadOf — what each kind of slot or closing begins with: fused 어 and ㅆ; fused ㄴ, ㄹ, ㅁ, ㅂ, which take 으 where the closings of the index have the form with 으 (ㄴ데 as 은데, ㅂ시다 as 읍시다; not ㄴ다, ㄴ답니다, a shortened closing or ㅂ니다); a syllable 어/았; a form with 으; a first consonant with or without 으; 네; 건대, before which 하 drops wholly (not 건만); a particle, a piece with no letters and a form read after a stem's ㄹ against the tables (loose 은, 을) nothing
+//ff:what TestHeadOf — what each kind of slot or closing begins with: fused 어 and ㅆ; fused ㄴ, ㄹ, ㅁ, ㅂ, which take 으 where the closings of the index have the form with 으 (ㄴ데 as 은데, ㅂ시다 as 읍시다; not ㄴ다, ㄴ답니다, a shortened closing or ㅂ니다), and the modifying ㄴ is told as that closing (headAdn); a syllable 어/았; a form with 으; a first consonant with or without 으; 네; 건대, before which 하 drops wholly (not 건만); a particle, a piece with no letters and a form read after a stem's ㄹ against the tables (loose 은, 을) nothing
 package parse
 
 import (
@@ -19,6 +19,7 @@ func TestHeadOf(t *testing.T) {
 		{entry{class: classClosing, lead: rule.JongN, form: "다"}, headN},
 		{entry{class: classClosing, lead: rule.JongN, form: "대", wide: true}, headN},
 		{entry{class: classClosing, lead: rule.JongN, form: "데"}, headN | headEuOpen},
+		{entry{class: classClosing, lead: rule.JongN, name: "꾸밈:ㄴ"}, headN | headEuOpen | headAdn},
 		{entry{class: classClosing, lead: rule.JongN, form: "답니다"}, headN},
 		{entry{class: classClosing, lead: rule.JongL, form: "까"}, headL | headEuOpen},
 		{entry{class: classClosing, lead: rule.JongM}, headEuOpen},

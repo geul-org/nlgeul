@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=selection
-//ff:what headOf — what a slot or closing begins with, for the changes of an irregular stem (head…): a fused 어/아 or ㅆ; a fused ㄴ, ㄹ, ㅁ or ㅂ, and whether it is the form after a vowel of a tail that takes 으 (the closing tables have its form with 으: 은데 for ㄴ데, 읍시다 for ㅂ시다; none for ㄴ다 and ㄴ답니다, whose other form is 는다, nor for ㅂ니다); a syllable 어/아/여; a form with 으; else its first consonant, whether it takes 으 after a consonant, and 네, and for a closing before which 하 drops wholly (haWhole: 건대) that
+//ff:what headOf — what a slot or closing begins with, for the changes of an irregular stem (head…): a fused 어/아 or ㅆ; a fused ㄴ, ㄹ, ㅁ or ㅂ, and whether it is the form after a vowel of a tail that takes 으 (the closing tables have its form with 으: 은데 for ㄴ데, 읍시다 for ㅂ시다; none for ㄴ다 and ㄴ답니다, whose other form is 는다, nor for ㅂ니다), and for the modifying ㄴ that it is that closing (nameHeads); a syllable 어/아/여; a form with 으; else its first consonant, whether it takes 으 after a consonant, and 네, and for a closing before which 하 drops wholly (haWhole: 건대) that
 package parse
 
 import (
@@ -26,7 +26,7 @@ func (ix *index) headOf(e *entry) int {
 	case e.lead == rule.LeadVowel || e.lead == rule.JongSS:
 		return headFused
 	case e.lead > 0 && ix.closingSet[string(linkVowel+rune(e.lead))+e.form]:
-		return leadHeads[e.lead] | headEuOpen
+		return leadHeads[e.lead] | headEuOpen | nameHeads[e.name]
 	case e.lead > 0:
 		return leadHeads[e.lead]
 	case len(f) == 0:

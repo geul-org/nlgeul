@@ -1,9 +1,10 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what changed — the forms a predicate's stem changes into before some tails, each with the kind of change: ㄹ dropped (whatever the irregular types), and by the irregular types the table gives it ㄷ → ㄹ, ㅅ dropped, ㅂ → 우 (돕, 곱 also 오), ㅎ dropped (and with 어 fused), 르 → ㄹ르, 러, 우 → ㅡ; and a stem of two syllables or more that ends in 하 without its 하 (clause 40: 원하 → 원, read before 치, 케, 타, 토록, 코자, 컨대), and once more for note 2 when the syllable before 하 ends in a final consonant that sounds [ㄱ], [ㄷ] or [ㅂ] (생각하 → 생각, read before 건대)
+//ff:what changed — the forms a predicate's stem changes into before some tails, each with the kind of change: ㄹ dropped (whatever the irregular types), and by the irregular types the table gives it ㄷ → ㄹ, ㅅ dropped, ㅂ → 우 (돕, 곱 also 오; a stem of three syllables or more that ends in 스럽 also without the 우: 자랑스럽 → 자랑스러, read before the modifying ㄴ), ㅎ dropped (and with 어 fused), 르 → ㄹ르, 러, 우 → ㅡ; and a stem of two syllables or more that ends in 하 without its 하 (clause 40: 원하 → 원, read before 치, 케, 타, 토록, 코자, 컨대), and once more for note 2 when the syllable before 하 ends in a final consonant that sounds [ㄱ], [ㄷ] or [ㅂ] (생각하 → 생각, read before 건대)
 package parse
 
 import (
 	"slices"
+	"strings"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
@@ -25,6 +26,9 @@ func changed(key string, irr int) []alt {
 	}
 	if irr&irrB != 0 && jong == rule.JongB {
 		out = append(out, alt{head + string(last-rune(jong)) + "우", irrB})
+	}
+	if irr&irrB != 0 && len(r) >= 3 && strings.HasSuffix(key, seuEnd) {
+		out = append(out, alt{head + string(last-rune(jong)), irrSeu})
 	}
 	if irr&irrB != 0 && slices.Contains(roundB, key) {
 		out = append(out, alt{head + string(last-rune(jong)) + "오", irrBO})

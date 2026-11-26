@@ -30,6 +30,7 @@ const (
 	irrU               // 우: 푸 → 프 (퍼)
 	irrHa              // 제40항: 원하 → 원 (원치 = 원하+치), ㅏ of 하 dropped, its ㅎ fused into the closing's first consonant
 	irrHaW             // 제40항 붙임 2: 생각하 → 생각 (생각건대 = 생각하+건대), 하 dropped wholly after a voiceless final consonant
+	irrSeu             // ㅂ, a stem that ends in 스럽 only: 스러 before the modifying ㄴ (자랑스런 for 자랑스러운, a shortened form in wide use that the standard does not take)
 )
 
 // typeIrr reads the irregular type a word table gives a predicate.
@@ -48,6 +49,7 @@ const (
 	headNe                 // 네, before which ㅎ stays or goes
 	headHa                 // a closing with the ㅎ of 하 fused into its first consonant (haPairs)
 	headHaW                // a closing before which 하 drops wholly (haWhole)
+	headAdn                // the modifying closing ㄴ fused under the stem's last syllable (nameHeads)
 )
 
 // irrHeads says before what each change happens.
@@ -64,6 +66,7 @@ var irrHeads = map[int]int{
 	irrU:   headFused,
 	irrHa:  headHa,
 	irrHaW: headHaW,
+	irrSeu: headAdn,
 }
 
 // roundB are the two ㅂ stems whose 어 is 아 (도와, 고와); every other
@@ -73,6 +76,14 @@ var irrHeads = map[int]int{
 var roundB = []string{"돕", "곱"}
 var wideH = []string{"그렇", "이렇", "저렇", "어떻"}
 var eoStems = map[string]string{"그러": "그래", "이러": "이래", "저러": "저래", "어쩌": "어째"}
+
+// seuEnd is the suffix of the ㅂ stems that are also written without
+// the 우 of their changed form before the modifying ㄴ (스러운 → 스런),
+// and nameHeads what the closings so named begin a tail with besides
+// what their letters tell (headOf): the modifying ㄴ is headAdn.
+const seuEnd = "스럽"
+
+var nameHeads = map[string]int{"꾸밈:ㄴ": headAdn}
 
 // haPairs are the closings written with the ㅎ of a stem's last 하
 // fused into their first consonant (clause 40): the name of the
