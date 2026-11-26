@@ -38,6 +38,7 @@ const (
 	AfterHangul         // is a Hangul syllable
 	AfterNotN           // ends in a consonant other than ㄴ (률)
 	AfterOpenN          // ends in a vowel or ㄴ (율)
+	AfterHa             // is the syllable 하 (하야, the old spelling of 하여)
 )
 
 // Final-consonant indexes of a Hangul syllable, and the lead of a

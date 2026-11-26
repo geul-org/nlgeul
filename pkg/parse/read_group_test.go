@@ -27,10 +27,10 @@ func TestReadGroup(t *testing.T) {
 		t.Fatal(pieces)
 	}
 	wide := wordsScan("하래가", layerCost)
-	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, false); pieces["·래·0·맺음:래(라고 해)"].names != "" {
+	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, false); pieces["·래·0·앞말:용언·맺음:래(라고 해)"].names != "" {
 		t.Fatal("before a particle", pieces)
 	}
-	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, true); pieces["·래·0·맺음:래(라고 해)"].names != "맺음:래(라고 해)" {
+	if pieces, _, _ = wide.readGroup(classClosing, 2, -1, true); pieces["·래·0·앞말:용언·맺음:래(라고 해)"].names != "맺음:래(라고 해)" {
 		t.Fatal("before 요", pieces)
 	}
 }

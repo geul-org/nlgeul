@@ -20,6 +20,7 @@ var AfterNames = map[string]int{
 	"ㄹ 받침 뒤":    rule.AfterLiquid,
 	"ㄴ 아닌 받침 뒤": rule.AfterNotN,
 	"모음·ㄴ 받침 뒤": rule.AfterOpenN,
+	"하 뒤":       rule.AfterHa,
 }
 
 // SuffixNames tell whether particles follow a suffix read after a
