@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestPossessiveContractRuleGraph — the graph of possessiveContractRule evaluated by hand on rule.Around: 내 read as 나 with 의 stands, written apart, before a noun, a modifying form and an opening sign, after a word with a particle, and written onto an opening sign; it falls before an adverb, a predicate, a sign and at the end of the sentence, written onto a word, and right after a nominal with no particle; 네 read as 너 with 의 stands before a noun and falls before a unit, while 내 before a unit stands
+//ff:what TestPossessiveContractRuleGraph — the graph of possessiveContractRule evaluated by hand on rule.Around: 내 read as 나 with 의 stands, written apart, before a noun, a modifying form and an opening sign, after a word with a particle, and written onto an opening sign; it falls before an adverb, a predicate, a sign and at the end of the sentence, written onto a word, and right after a nominal with no particle; 네 read as 너 with 의 stands before a noun and falls before a unit, while 내 before a unit stands; 제 read as 저 with 의 stands before a noun and after the modifying 던, and falls before a number and after the modifying ㄹ, where 내 stands
 package parse
 
 import (
@@ -14,6 +14,11 @@ func TestPossessiveContractRuleGraph(t *testing.T) {
 	glued.Glued = true
 	noun := rule.Near{Stem: "말", Kind: "열쇠:체언", Last: "목적격:을", Marks: "목적격:을", Modifiable: true}
 	you := rule.Near{Stem: "너", Kind: "열쇠:체언", Last: "관형격:의", Marks: "관형격:의", Text: "네"}
+	self := rule.Near{Stem: "저", Kind: "열쇠:체언", Last: "관형격:의", Marks: "관형격:의", Text: "제"}
+	num := []rule.Near{{Stem: "3", Kind: "수", Modifiable: true}}
+	adn := func(name string) []rule.Near {
+		return []rule.Near{{Stem: "하", Kind: "열쇠:동사", Last: name, Marks: name, Pred: true}}
+	}
 	r := possessiveContractRule()
 	for _, c := range []struct {
 		name   string
@@ -34,6 +39,12 @@ func TestPossessiveContractRuleGraph(t *testing.T) {
 		{"네 before a noun", rule.Around{Self: you, After: []rule.Near{noun}}, true},
 		{"내 before a unit", rule.Around{Self: apart, After: []rule.Near{{Stem: "배", Kind: "열쇠:체언", Last: "목적격:를", Marks: "목적격:를", Modifiable: true}}}, true},
 		{"네 before a unit", rule.Around{Self: you, After: []rule.Near{{Stem: "개", Kind: "열쇠:체언", Modifiable: true}}}, false},
+		{"제 before a noun", rule.Around{Self: self, After: []rule.Near{noun}}, true},
+		{"제 after the modifying 던", rule.Around{Self: self, Before: adn("꾸밈:던"), After: []rule.Near{noun}}, true},
+		{"제 before a number", rule.Around{Self: self, After: num}, false},
+		{"제 after the modifying ㄹ", rule.Around{Self: self, Before: adn("꾸밈:ㄹ"), After: []rule.Near{noun}}, false},
+		{"내 before a number", rule.Around{Self: apart, After: num}, true},
+		{"내 after the modifying ㄹ", rule.Around{Self: apart, Before: adn("꾸밈:ㄹ"), After: []rule.Near{noun}}, true},
 	} {
 		if got := graphHolds(t, r, c.around); got != c.want {
 			t.Errorf("%s: %v, want %v", c.name, got, c.want)

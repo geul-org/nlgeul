@@ -15,7 +15,7 @@ func TestGenitiveFormsOf(t *testing.T) {
 	if got := genitiveFormsOf(nil); got != nil {
 		t.Fatal(got)
 	}
-	if !slices.Equal(genitiveForms, []string{"내", "네"}) {
+	if !slices.Equal(genitiveForms, []string{"내", "네", "제"}) {
 		t.Fatal(genitiveForms)
 	}
 }

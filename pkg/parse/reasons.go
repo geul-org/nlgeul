@@ -424,17 +424,25 @@ const (
 	whyLinkedCase  = "앞 어절이 -어야로 끝나 예외 표의 줄이 서지 않는다"
 )
 
-// The name of the rule of a sentence of 제 standing alone
+// The name of the rule of a sentence of 니 standing alone
 // before a word a modifier may stand before (possessiveRule); it falls
 // before a unit for whyUnitNext, as the rules of 한 do.
-const rulePossessive = "문장:체언 앞 제는 의가 줄어든 대명사"
+const rulePossessive = "문장:체언 앞 니는 의가 줄어든 대명사"
 
-// The name of the rule of a sentence of 내 and 네 standing alone before
-// a word a modifier may stand before, read as 나 and 너 with 의 fused
-// (possessiveContractRule); it falls right after a nominal for
-// whyAfterNominal (the noun 내 of 기간 내) and before a unit for
-// whyUnitNext (the numeral determiner 네 of 네 개).
-const rulePossessiveContract = "문장:체언 앞 내·네는 나·너에 의가 줄어든 꼴"
+// The name of the rule of a sentence of 내, 네 and 제 standing alone
+// before a word a modifier may stand before, read as 나, 너 and 저 with
+// 의 fused (possessiveContractRule); it falls right after a nominal for
+// whyAfterNominal (the noun 내 of 기간 내), before a unit for
+// whyUnitNext (the numeral determiner 네 of 네 개), and, for 제, before a
+// number (whyNumberNext: the prefix of 제 3) and after the modifying ㄹ
+// or 을 (whyFutureAdnBefore: the dependent noun of 할 제); the last two
+// fall for whyNotOrdinal when the word is not 제.
+const (
+	rulePossessiveContract = "문장:체언 앞 내·네·제는 나·너·저에 의가 줄어든 꼴"
+	whyNumberNext          = "바로 뒤 어절이 수다"
+	whyFutureAdnBefore     = "앞 어절이 꾸밈 맺음 ㄹ·을로 끝난다"
+	whyNotOrdinal          = "어절의 글자가 제가 아니다"
+)
 
 // The name of the rule of a sentence of a word of a nominal and an
 // adverb with a nominal written onto it (compoundFrontRule), and why it

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestNounModifiedRule — the rule is named as the trace prints it, adds bonusOverCount, waits for nothing, and speaks of a candidate that reads its stem as a noun of the word table alone, not one whose letters are a dependent noun's or a determiner's of the closed sets (수, 때, 이) and not one read under another name
+//ff:what TestNounModifiedRule — the rule is named as the trace prints it, adds bonusOverCount, waits for nothing, and speaks of a candidate that reads its stem as a noun of the word table alone, not one whose letters are a dependent noun's or a determiner's of the closed sets (수, 때, 이, 저; but 제 read as 저 with 의 fused is spoken of) and not one read under another name
 package parse
 
 import (
@@ -22,6 +22,8 @@ func TestNounModifiedRule(t *testing.T) {
 		{rule.Near{Stem: "수", Kind: "열쇠:체언"}, false},
 		{rule.Near{Stem: "때", Kind: "열쇠:체언"}, false},
 		{rule.Near{Stem: "이", Kind: "열쇠:체언"}, false},
+		{rule.Near{Stem: "저", Kind: "열쇠:체언", Text: "저"}, false},
+		{rule.Near{Stem: "저", Kind: "열쇠:체언", Last: "관형격:의", Marks: "관형격:의", Text: "제"}, true},
 		{rule.Near{Stem: "보", Kind: "열쇠:동사", Last: "맺음:고", Pred: true, Marks: "맺음:고"}, false},
 	} {
 		if got := r.about(c.near); got != c.want {

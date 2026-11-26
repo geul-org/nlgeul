@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what possessiveRule — the rule of a sentence "제 standing alone before a word a modifier may stand before is the pronoun with 의 fused": the candidate that reads one of the pronouns of the closed set (pronounWords: 제 and 니; not 내 and 네, whose letters the contracts table reads as 나 and 너 with 의: genitiveForms, possessiveContractRule) as the nominal with no particle after it is preferred (bonusOverCount), but not when the word right after it is not one a modifier may stand before (unless it is an opening sign), nor when the word right after it is a unit, nor when it is written onto the word before it (unless what stands right before it is an opening sign); it waits for the word after it
+//ff:what possessiveRule — the rule of a sentence "니 standing alone before a word a modifier may stand before is the pronoun with 의 fused": the candidate that reads one of the pronouns of the closed set (pronounWords: 니 is left; not 내, 네 and 제, whose letters the contracts table reads as 나, 너 and 저 with 의: genitiveForms, possessiveContractRule) as the nominal with no particle after it is preferred (bonusOverCount), but not when the word right after it is not one a modifier may stand before (unless it is an opening sign), nor when the word right after it is a unit, nor when it is written onto the word before it (unless what stands right before it is an opening sign); it waits for the word after it
 package parse
 
 import (
@@ -16,10 +16,11 @@ import (
 // 독립어로 쓰인다), so 네 before a nominal fell to the interjection.
 // Before a unit 네 is the numeral determiner (네 개, 네 명), which this
 // rule leaves alone. A modifier is written apart from the word before it
-// (clause 2 of the orthography). 내 and 네 are written out as 나 and
-// 너 with the particle 의 by the contracts table, and the rule of that
-// reading (possessiveContractRule) speaks of them in this one's place;
-// this rule is left with 제 and 니.
+// (clause 2 of the orthography). 내, 네 and 제 are written out as 나,
+// 너 and 저 with the particle 의 by the contracts table, and the rule
+// of that reading (possessiveContractRule) speaks of them in this
+// one's place; this rule is left with 니 (네 as it is said in speech:
+// 니 거), which the table does not write out.
 func possessiveRule() sentenceRule {
 	g, claim := sentenceClaim(rulePossessive, rule.Listed, listed("대명사", rule.ListSelfStem, pronounWords))
 	unmodifiable := except(g, rule.AroundIs, whyNoModifiableNext, &rule.Bits{Of: "around", Mask: rule.AroundBeforeModifiable}, not)

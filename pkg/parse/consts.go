@@ -585,17 +585,23 @@ var (
 
 // genitiveNames are the names of the adnominal particle 의 that the
 // contracts table puts under a pronoun (내: 나 with 의 fused, 네: 너
-// with 의 fused), and
+// with 의 fused, 제: 저 with 의 fused), and
 // genitiveForms the forms so written: a rule of a sentence prefers the
 // pronoun with the particle before a word a modifier may stand before
 // (possessiveContractRule), and the rule of the pronoun forms standing
 // alone leaves those letters to it (possessiveRule). genitiveNumerals
 // are those of the forms that are a numeral determiner as well (네:
 // four, 네 개), which the rule leaves alone before a unit.
+// genitiveOrdinals are those that are the prefix of an ordinal and the
+// dependent noun of time as well (제: 제 3, 할 제), which the rule
+// leaves alone before a number and after the modifying ㄹ or 을
+// (futureAdnNames).
 var (
 	genitiveNames    = []string{"관형격:의"}
 	genitiveForms    = genitiveFormsOf(shortPronouns)
 	genitiveNumerals = []string{"네"}
+	genitiveOrdinals = []string{"제"}
+	futureAdnNames   = []string{"꾸밈:ㄹ", "꾸밈:을"}
 )
 
 // negLinks are the names of the linking ending -지 (and of 진, -지 with

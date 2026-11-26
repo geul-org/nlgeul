@@ -1,12 +1,8 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what possessiveContractRule — the rule of a sentence "내 and 네 standing alone before a word a modifier may stand before are 나 and 너 with 의 fused": the candidate that reads a form the contracts table puts the adnominal particle 의 under (genitiveForms: 내, 네) as its pronoun with that particle (관형격:의, genitiveNames) is preferred (bonusOverCount), but not when the word right after it is not one a modifier may stand before (unless it is an opening sign), nor when the word right after it is a unit and the form is a numeral determiner as well (genitiveNumerals: 네 개; 내 before a noun that is also a unit stays 나 with 의), nor when it is written onto the word before it (unless what stands right before it is an opening sign), nor when the word right before it ends in a nominal (내 is then the noun of what is inside); it waits for the word after it
+//ff:what possessiveContractRule — the rule of a sentence "내, 네 and 제 standing alone before a word a modifier may stand before are 나, 너 and 저 with 의 fused": the candidate that reads a form the contracts table puts the adnominal particle 의 under (genitiveForms: 내, 네, 제) as its pronoun with that particle (관형격:의, genitiveNames) is preferred (bonusOverCount), but not when the word right after it is not one a modifier may stand before (unless it is an opening sign), nor when the word right after it is a unit and the form is a numeral determiner as well (genitiveNumerals: 네 개; 내 before a noun that is also a unit stays 나 with 의), nor when it is written onto the word before it (unless what stands right before it is an opening sign), nor when the word right before it ends in a nominal (내 is then the noun of what is inside, 제 a noun of a system), nor, for 제 (genitiveOrdinals), when the word right after it is a number (the prefix of an ordinal: 제 3) or the word right before it ends in the modifying ㄹ or 을 (the dependent noun of time: 할 제); it waits for the word after it
 package parse
 
-import (
-	"slices"
-
-	"github.com/geul-org/nlgeul/pkg/rule"
-)
+import "github.com/geul-org/nlgeul/pkg/rule"
 
 // The dictionary gives 내 as 나 with the adnominal particle 의 fused
 // (나의), and a word with 의 modifies the nominal after it (내 책, 내
@@ -32,6 +28,18 @@ import (
 // that is a unit as well (내 배, 내 번호) does not take the reading
 // away. Before a predicate (네 듣다) no word
 // with 의 stands.
+//
+// 제 is 저 with 의 fused (저의: 제 생각, and the reflexive 제 눈으로,
+// both written with the one pronoun 저). The same letters are the
+// prefix of an ordinal, which stands before a number (제 3 자, 제 12
+// 대; written onto the number it is one word with it and its letters
+// are not 제 alone), the dependent noun of time, which stands after the
+// modifying -ㄹ/-을 (할 제: the dictionary's 제, 적에 shortened), and a
+// noun or a suffix of a system, which stands right after its nominal
+// with no particle or is written onto it. Before 가 the pronoun takes
+// the form 제 (제가), written onto its particle. These two exceptions
+// speak of 제 alone: 내 and 네 before a number or after -ㄹ stay the
+// pronoun with 의 (내 3년, 갈 내 길).
 func possessiveContractRule() sentenceRule {
 	g, claim := sentenceClaim(rulePossessiveContract, rule.SelfHas, listed("관형격 의", rule.ListSelfMarks, genitiveNames))
 	unmodifiable := except(g, rule.AroundIs, whyNoModifiableNext, &rule.Bits{Of: "around", Mask: rule.AroundBeforeModifiable}, not)
@@ -44,8 +52,11 @@ func possessiveContractRule() sentenceRule {
 	glued.Attacks(claim)
 	except(g, rule.Listed, whyOpenBefore, listed("여는 기호", rule.ListPrevKind, []string{openName})).Attacks(glued)
 	except(g, rule.AroundIs, whyAfterNominal, &rule.Bits{Of: "around", Mask: rule.AroundAfterNominal}).Attacks(claim)
-	is := func(n rule.Near) bool {
-		return n.Kind == tableNoun && slices.Contains(genitiveNames, n.Marks) && slices.Contains(genitiveForms, n.Text)
-	}
-	return sentenceRule{name: rulePossessiveContract, graph: g, bonus: bonusOverCount, about: is, waits: is}
+	number := except(g, rule.Listed, whyNumberNext, listed("수", rule.ListNextKind, numberKinds))
+	number.Attacks(claim)
+	except(g, rule.Listed, whyNotOrdinal, listed("차례의 제", rule.ListSelfText, genitiveOrdinals), not).Attacks(number)
+	time := except(g, rule.Listed, whyFutureAdnBefore, listed("꾸밈 ㄹ·을", rule.ListPrevLast, futureAdnNames))
+	time.Attacks(claim)
+	except(g, rule.Listed, whyNotOrdinal, listed("차례의 제", rule.ListSelfText, genitiveOrdinals), not).Attacks(time)
+	return sentenceRule{name: rulePossessiveContract, graph: g, bonus: bonusOverCount, about: genitiveContract, waits: genitiveContract}
 }
