@@ -17,7 +17,7 @@ func TestTables(t *testing.T) {
 		"signs": 2, "spoken-markers": 3, "top-domains": 1, "typo-closings": 2, "typo-words": 2,
 		"unit-suffixes": 2, "units": 2,
 		"after-unit-words": 1, "sino-units": 1, "closing-chains": 2, "number-suffixes": 1,
-		"polite-slots": 2,
+		"polite-slots":      2,
 		"closing-particles": 2,
 	}
 	empty := map[string]bool{"case-exceptions": true}
