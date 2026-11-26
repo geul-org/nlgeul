@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then the two shapes of a date of two numbers with a full stop after them, stopShapes, then its own joins), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then the two shapes of a date of two numbers with a full stop after them, stopShapes, then its own joins, then the shapes of a date and a time of two numbers that ask no full stop after them, plainShapes), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
 package parse
 
 import (
@@ -18,7 +18,9 @@ import (
 // own joins (the version among them): of the same letters read two ways
 // the one named first comes first, and numbers of full stops in the
 // shape of a date are a date before a version (the orthography's
-// appendix on punctuation, 마침표 (3): 1919. 3. 1.).
+// appendix on punctuation, 마침표 (3): 1919. 3. 1.). The shapes of a
+// date and a time of two numbers with no full stop after them
+// (plainShapes) come after the joins: the decimal stays first.
 func (ix *index) addNumbers() {
 	g := toulmin.NewGraph(numGraph)
 	g.Rule(rule.PieceRead).With(&rule.Claim{Name: numGraph, Concludes: "열쇠"})
@@ -36,6 +38,10 @@ func (ix *index) addNumbers() {
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+2
 	}
 	ix.signs['.'] = append(ix.signs['.'], ix.joins...)
+	for _, s := range plainShapes {
+		ix.signs['.'] = append(ix.signs['.'], shapeGraph(s))
+		ix.graphs, ix.edges = ix.graphs+1, ix.edges+1
+	}
 	for _, sign := range nameOrder {
 		ix.signs[sign] = append(ix.signs[sign], nameGraph(nameSigns[sign]))
 		ix.graphs, ix.edges = ix.graphs+1, ix.edges+2

@@ -72,10 +72,27 @@ var signShapes = tildeShapes(map[rune][]rule.Shape{
 // a month and a day (1.28.) and a year and a month (1961.12.). They
 // come before the full stop's own joins: two numbers with a full stop
 // after them are a date before a decimal. Without the full stop after
-// them they are no date here (2.5, 3.1이닝).
+// them the date stands behind the decimal (plainShapes: 2.5, 3.1이닝).
 var stopShapes = []rule.Shape{
 	{Of: "날짜:.", Min: 2, Max: 2, Lens: [][2]int{{1, 2}}, Vals: [][2]int{{1, 12}, {1, 31}}},
 	{Of: "날짜:.", Min: 2, Max: 2, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}}},
+}
+
+// plainShapes are the shapes of a date and a time of two numbers joined
+// by a full stop with no full stop asked after them: a month and a day
+// (5.18, the name of a day: 4.3), a year and a month (1963.7), an hour
+// and a minute (19.00). They come after the full stop's own joins: of
+// the same letters the decimal and the version stay first, and the date
+// and the time stand behind them as candidates. The orthography's
+// appendix on punctuation writes a full stop between the numbers of a
+// month and a day that name a day of a special meaning (3.1 운동, 8.15
+// 광복); a time written so is no use of the norm (it parts the hour and
+// the minute with a colon) but is met in writing. The ranges are those
+// of the shapes of the other signs (날짜:/, 시각::).
+var plainShapes = []rule.Shape{
+	{Of: "날짜:.", Min: 2, Max: 2, Lens: [][2]int{{1, 2}}, Vals: [][2]int{{1, 12}, {1, 31}}},
+	{Of: "날짜:.", Min: 2, Max: 2, Lens: [][2]int{{4, 4}, {1, 2}}, Vals: [][2]int{{1, 9999}, {1, 12}}},
+	{Of: "시각:.", Min: 2, Max: 2, Lens: [][2]int{{1, 2}, {2, 2}}, Vals: [][2]int{{0, 24}, {0, 59}}},
 }
 
 // nameSigns are the signs that join two runs of Latin letters and

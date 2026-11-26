@@ -31,11 +31,11 @@ func TestJoinChain(t *testing.T) {
 		t.Fatal(a)
 	}
 	sc = scanOf("1.28.은 1.28에")
-	if a := sc.atoms[0]; a.end != 4 || atomNames(a) != "날짜,소수점,버전" || !a.num {
+	if a := sc.atoms[0]; a.end != 4 || atomNames(a) != "날짜,소수점,버전,시각" || !a.num {
 		t.Fatal("a full stop right after two numbers: a date first", a)
 	}
-	if a := sc.atoms[7]; atomNames(a) != "소수점,버전" {
-		t.Fatal("no full stop after them: no date", a)
+	if a := sc.atoms[7]; atomNames(a) != "소수점,버전,날짜,시각" {
+		t.Fatal("no full stop after them: the decimal first, the date and the time behind", a)
 	}
 	sc = scanOf("0x1234 0x12G4 0X1F")
 	if a := sc.atoms[0]; a.end != 6 || atomNames(a) != hexName || !a.num || !sc.numEnds[6] {
