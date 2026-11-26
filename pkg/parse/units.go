@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits or a circled number; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters; before a unit of sinoUnits, 인, only Sino-Korean ones: sinoNumerals); a suffix of bareSuffixes is read after a unit with no number before it too (bareUnits)
+//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits or a circled number; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters; before a unit of sinoUnits, 인, only Sino-Korean ones: sinoNumerals); a suffix of bareSuffixes is read after a unit with no number before it too (bareUnits); a piece is told that it numbers a part of a provision when its number begins with 제 or a joint to a following number stands right after it (jointAt: 31조의4)
 package parse
 
 import (
@@ -34,7 +34,7 @@ func (sc *scan) units(j, next int, open bool) []tail {
 			out = append(out, sc.bareUnits(e, start, j)...)
 			continue
 		}
-		facts := rule.Piece{Form: e.form, HasStem: true, Next: -1, Right: rule.RightDone, Num: sc.numEnds[start] || len(lefts)+len(words) > 0, Order: sc.ordEnds[start]}
+		facts := rule.Piece{Form: e.form, HasStem: true, Next: -1, Right: rule.RightDone, Num: sc.numEnds[start] || len(lefts)+len(words) > 0, Order: sc.ordEnds[start] || sc.jointAt(j)}
 		runs := open && sideOf(string(sc.at(j))) != 0
 		if runs && !sc.ix.lexed && !unicode.IsDigit(sc.at(j)) {
 			facts.Right = rule.RightOther

@@ -34,3 +34,12 @@ const branchJoint = "의"
 // two syllables (초기, 초보, 초재), and a record of seconds is written
 // in this shape.
 var caseUnitMarks = []string{"도", "차", "자", "인"}
+
+// caseJoints are the letters that hand one number on to the next when a
+// piece read after a number stands before them: the particle of a
+// branch number (branchJoint: 31조의4, 12호의3, and the fraction
+// 3000분의7) and the prefix of an order (orderHead: 36조제1항). Letters
+// that end so between two numbers are that piece and the joint, not a
+// case mark; they are read as they are anywhere else (the unit, the
+// particle 의, and the next number as a word of its own).
+var caseJoints = []string{branchJoint, string(orderHead)}

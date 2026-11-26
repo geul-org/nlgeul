@@ -153,7 +153,7 @@ const (
 	PieceSame                 // it is a restored syllable that stands in the letters as it is (the piece fused into it left no trace)
 	PieceMisspelt             // it is a stem or a marker whose letters are a wrong way to write another word (the word table gives the stem so; the marker is a closing of the table of closings written wrong)
 	PieceYoOpen               // the particle 요 stands right after it, and it stands right on a stem that ends in a Hangul syllable with no final consonant or right after the suffix 이 on a stem
-	PieceOrder                // the number right before it begins with the prefix 제
+	PieceOrder                // the number right before it begins with the prefix 제, or a joint to a following number (의 or 제 and a digit) stands right after it
 	PieceApart                // its letters hold, right after a run of Latin letters, a word the spacing articles write apart
 	PieceConn                 // the word right before it ends in the linking 어/아 and it is an auxiliary's stem with a predicate tail
 	PieceChange               // it is a new word over a place where a run of Latin letters and digits meets a Hangul syllable, and the two sides cut there each read as a known word or such a run
