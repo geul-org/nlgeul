@@ -200,6 +200,17 @@ const forceEcho = 0.5
 // measured value.
 const forceRun = 0.25
 
+// forcePathMarked is the force of the rebuttal "the Hangul after the
+// slash reads as markers alone" against a path read with that Hangul as
+// its name (pathTailName): at 0.5 the verdict is 1/3 and the path with
+// a particle after it (~/a/b/[경로]+에) stays first. forcePathWeak is
+// the force of the rebuttal "no head and one slash" against a path with
+// no head and one slash (pathWeakName).
+const (
+	forcePathMarked = 0.75
+	forcePathWeak   = 0.25
+)
+
 // forceDropAdn is the force of the rebuttal against a dropped copula
 // stem before a modifying or a naming closing (dropAdn), chosen among a
 // few values tried on a thousand sentences.

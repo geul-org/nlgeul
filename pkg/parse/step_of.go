@@ -16,7 +16,7 @@ func (sc *scan) stepOf(b, end int, t tail, r stemCandidate) step {
 		e.verdict = sc.unlisted(b, end, r.stem, t)
 	}
 	known := r.v > 0 && nameOf(r.name).Kind != setSurname
-	e.pref = sc.ix.stemPref(r.stem, tailClass(t.pieces), r.kind, known, sc.tokens(b, t.start)) - sc.ix.structure(b, t.pieces)
+	e.pref = sc.ix.stemPref(r.stem, tailClass(t.pieces), r.kind, known, sc.stemTokens(b, t.start, r)) - sc.ix.structure(b, t.pieces)
 	if t.as != "" {
 		e.pref = t.weight - sc.ix.structure(b, t.pieces)
 	}

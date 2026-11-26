@@ -25,6 +25,7 @@ func newIndex(o Options) (*index, error) {
 	ix.addFused()
 	ix.addNouns()
 	ix.addDots()
+	ix.addPaths()
 	ix.addPairs()
 	ix.addSigns()
 	ix.addNumbers()

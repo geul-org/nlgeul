@@ -38,6 +38,8 @@ const (
 	whyNotAfter      = "이 조각 뒤에 붙는 것이 아니다"
 	whyNotTaken      = "앞의 맺음이 받는 조사가 아니다"
 	whyMarked        = "경계 뒤의 통짜 새 낱말이 표지로 읽힌다"
+	whyPathMarked    = "빗금 뒤의 한글이 표지로만 읽힌다"
+	whyPathWeak      = "머리가 없고 빗금이 하나뿐이다"
 	whyWrittenApart  = "영문 글자 바로 뒤에 띄어 쓸 호칭어·의존 명사가 붙은 통짜 새 낱말이다"
 	whyChange        = "영숫자 열과 한글이 맞닿은 자리를 넘는 통짜 새 낱말이고, 그 자리에서 가른 두 쪽이 모두 아는 낱말이나 영숫자 열로 읽힌다"
 	whyLast          = "뒤에 조사가 없다"
