@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=2
-//ff:what TestHangulBound — the graph of each closing of hangulBound (은, 는, 을 of the modifying forms and 아, 어, 나, 여), with and without a word table, stands after a Hangul syllable and is turned down for whyNoHangul after a Latin letter, a digit, a backtick or a slash; the closings that may follow a run with the copula's stem dropped (다, 고, 면, 지, 네) and the particles 는, 은, 을, 이 stand after those characters as before
+//ff:what TestHangulBound — the graph of each closing of hangulBound (은, 는, 을 of the modifying forms and 아, 어, 나, 여), with and without a word table, stands after a Hangul syllable and is turned down for whyNoHangul after a Latin letter, a digit, a backtick or a slash; the closings that may follow a run with the copula's stem dropped (다, 고, 면, 지, 네) and the particles 는, 은, 을, 이 stand after those characters as before (their readings against the norm, misfit, are read after a Hangul syllable only and are left out)
 package parse
 
 import (
@@ -41,7 +41,7 @@ func TestHangulBound(t *testing.T) {
 		}
 	}
 	free := []string{"맺음:다", "맺음:고", "맺음:면", "맺음:지", "맺음:네", "보조사:는", "보조사:은", "목적격:을", "주격:이"}
-	others := slices.DeleteFunc(slices.Clone(all), func(e *entry) bool { return !slices.Contains(free, e.name) })
+	others := slices.DeleteFunc(slices.Clone(all), func(e *entry) bool { return !slices.Contains(free, e.name) || e.misfit })
 	stood := map[string]bool{}
 	for _, e := range others {
 		for _, r := range []rune{'i', '7', '`'} {

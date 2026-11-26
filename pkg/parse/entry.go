@@ -1,5 +1,5 @@
 //ff:type feature=parse type=model
-//ff:what entry — one candidate of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
+//ff:what entry — one candidate of one marker in the token index: its graph's name, its surface form and how it attaches, its class and place, whether it is read only with a piece after it, whether it is read against the tables' attachment rule, whether it is a particle read against the final consonant of the word before it, its observed count, its judgment graph, and for an entry that reads a closing written wrong the letters it is written with and the right closing it stands for
 package parse
 
 import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
@@ -14,7 +14,10 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // that a closing takes the link vowel 으 after a consonant, and head
 // what a slot or closing begins with (head…). loose marks a form read
 // where the tables do not let it attach (은 after a stem's ㄹ): its
-// graph rebuts it. wrote is, for an entry that reads a closing written
+// graph rebuts it. misfit marks a particle read against the final
+// consonant of the word before it (addMisfit: 는 after a consonant, 은
+// after a vowel): after is then where the other form of its pair is
+// right, and its graph rebuts it. wrote is, for an entry that reads a closing written
 // wrong (typoClosings), its written form with its lead (ㄹ께, 을께, 읍니다),
 // and right the right closing as it is printed ((ㄹ)게, 습니다); both
 // are "" for any other entry. ended marks a particle read only right
@@ -26,28 +29,29 @@ import "github.com/park-jun-woo/toulmin/go/pkg/toulmin"
 // table stands before the closing (markerGraph): judge then hands the
 // graph the kinds of the letters before it.
 type entry struct {
-	name  string
-	form  string
-	class int
-	lead  int
-	after int
-	slot  int
-	kase  int
-	noYo  bool
-	inner bool
-	ended bool
-	bars  bool
-	needs bool
-	holds bool
-	wide  bool
-	loose bool
-	eu    bool
-	head  int
-	tail  int
-	gate  *entry
-	count int
-	wrote string
-	right string
-	split bool
-	g     *toulmin.Graph
+	name   string
+	form   string
+	class  int
+	lead   int
+	after  int
+	slot   int
+	kase   int
+	noYo   bool
+	inner  bool
+	ended  bool
+	bars   bool
+	needs  bool
+	holds  bool
+	wide   bool
+	loose  bool
+	misfit bool
+	eu     bool
+	head   int
+	tail   int
+	gate   *entry
+	count  int
+	wrote  string
+	right  string
+	split  bool
+	g      *toulmin.Graph
 }

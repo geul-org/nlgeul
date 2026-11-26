@@ -671,3 +671,12 @@ const (
 	fNeedIda             // attaches only to the copula stem 이 or to 아니 (에요, 야)
 	fSelfIda             // holds the copula stem itself (예요 = 이 + 에요)
 )
+
+// forceMisfit is the force of the rebuttal of a particle written against
+// the final consonant of the word before it (addMisfit: 민주당는, 골드은):
+// the spelling is against the norm, so the reading stands behind one that
+// fits the norm and comes first only where the letters read as nothing
+// better. Measured on the answer sheet (train) against the build before:
+// 0.3 gave 3 righted and 13 turned wrong, 0.4 3 and 10, 0.45 3 and 4, 0.5
+// 3 and 3, 0.55 3 and 1, 0.6 and 0.7 2 and 1; 0.55 is taken.
+const forceMisfit = 0.55

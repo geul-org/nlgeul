@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them that a closed-set word is written with the same letters (lifted for a closing right after a predicate's stem of the word table), and, but for a suffix, that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form)
+//ff:what markerGraph — the judgment graph of one marker candidate, stamped from its table row, its exception list and its rows of the case exception table: the claim "this token sequence is this marker" and the structural exceptions against it, among them that a closed-set word is written with the same letters (lifted for a closing right after a predicate's stem of the word table), and, but for a suffix, that its unit is Hangul glossed with as many Han characters (and for a closing written wrong the rebuttal of a misspelt form, and for a particle read against the final consonant before it the exception that no Hangul syllable stands before it and the rebuttal that lowers it)
 package parse
 
 import (
@@ -32,7 +32,12 @@ import (
 // before it, which a quotation mark that closes right before it lifts
 // for a closing of the quoting verb (quotedClosings: 간다"는); a particle whose letters are a closing written wrong's
 // (echoes) the rebuttal that it stands right on a stem with no final
-// consonant before 요; and a form that ends a
+// consonant before 요; a particle read against the
+// final consonant of the word before it (misfit, addMisfit: its after is
+// where the other form of its pair is right) the exception that no
+// Hangul syllable stands before it and the rebuttal that the particle's
+// own form does not fit there (forceMisfit), so that it stands only where
+// it is written against the norm and is lowered there; and a form that ends a
 // closed-set word yields to that word; with a word table a closing of
 // whole syllables does not yield when the letters before it, from the
 // unit's head, are a predicate's stem of the table (split: 하지만 is
@@ -100,6 +105,11 @@ func markerGraph(e *entry, whole []string, cases []caseException, lexed bool) in
 	if slices.Contains(echoes, e.name) {
 		g.Counter(rule.PieceIs).With(fact(rule.PieceYoOpen)).Attacks(claim, forceEcho)
 		edges++
+	}
+	if e.misfit {
+		except(g, rule.PieceAfter, whyNoHangul, &rule.Bits{Of: "after", Mask: rule.AfterHangul}).Attacks(claim)
+		g.Counter(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: misfitAfter[e.after]}).Attacks(claim, forceMisfit)
+		edges += 2
 	}
 	if e.loose {
 		g.Counter(rule.PieceAfter).With(&rule.Bits{Of: "after", Mask: rule.AfterHard}).Attacks(claim, forceClash)

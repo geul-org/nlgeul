@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestGroupBase — the lead, the form and the place or kind, parted by dots; a closing written wrong has the letters it is written with at the end, so it is never filed with the right closing of the same letters; a closing read only after a word that passes a graph has that graph's name at the end (a gated particle has not), so it is never filed with a closing of the same letters read with no such graph; the entry's own name is not in the key
+//ff:what TestGroupBase — the lead, the form and the place or kind, parted by dots; a closing written wrong has the letters it is written with at the end, so it is never filed with the right closing of the same letters; a closing read only after a word that passes a graph has that graph's name at the end (a gated particle has not), so it is never filed with a closing of the same letters read with no such graph; a particle read against the norm (misfit) has misfitKey at the end, so it is never filed with the particle of the same name and form read only after a closing; the entry's own name is not in the key
 package parse
 
 import (
@@ -25,6 +25,9 @@ func TestGroupBase(t *testing.T) {
 		t.Fatal(got)
 	}
 	if got := groupBase(&entry{form: "선", class: classParticle, gate: gate}); got != "·선·0" {
+		t.Fatal(got)
+	}
+	if got := groupBase(&entry{form: "야", class: classParticle, slot: 3, misfit: true}); got != "·야·3·"+misfitKey || got == groupBase(&entry{form: "야", class: classParticle, slot: 3, ended: true}) {
 		t.Fatal(got)
 	}
 }

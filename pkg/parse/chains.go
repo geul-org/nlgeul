@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each candidate of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing), 를 of emphasis only after 에 and 으로 (emphKept); a full stop right after a number is a piece of the number's word too (numberStop: 31.까지); a particle read only right after a closing (ended) is read there and nowhere else; the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
+//ff:what chains — every particle chain that ends at j, as long as the kinds of its particles follow one another (rule.Links: no length is set), read right to left through the index; each candidate of a particle (one for each name) is followed back by its own kind, and the word before it passes its own graph; an auxiliary particle is read right after a linking closing too, and the emphatic 가 only after another particle (not after an honorific, a number's unit, or a closing), 를 of emphasis only after 에 and 으로 (emphKept); a full stop right after a number is a piece of the number's word too (numberStop: 31.까지); a particle read only right after a closing (ended) is read there and nowhere else; a particle read against the norm (misfit) is read on a stem or after another particle only, not after a number's unit or a closing; the particle right on a stem is read as onStem gives it (asked again where a sign that ends a sentence closes the unit)
 package parse
 
 import "github.com/geul-org/nlgeul/pkg/rule"
@@ -25,7 +25,7 @@ func (sc *scan) chains(j, depth, next int) []tail {
 		here := joined(emphKept(e, sc.chains(start, depth+1, e.slot)), pc)
 		here = append(here, joined(sc.fixed(start, e.slot), pc)...)
 		out = append(out, withGate(here, e.gate)...)
-		if e.slot == rule.LinkEmph {
+		if e.slot == rule.LinkEmph || e.misfit {
 			continue
 		}
 		out = append(out, joined(sc.loneHonors(start, false), pc)...)
