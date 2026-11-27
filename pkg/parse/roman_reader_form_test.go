@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestRomanReaderForm — a Roman numeral letter of Unicode standing alone has two candidates, the number first and the letter's shape after it (Ⅲ[수:로마십진], Ⅲ[로마 숫자:수]); letters in a row and a letter with a unit or a particle on it are the number alone (ⅩⅢ, Ⅷ세, Ⅲ의); a full-width letter or digit alone keeps its reading as a run and gets the shape after it (Ａ[전각:로마자], １[전각:수])
+//ff:what TestRomanReaderForm — a Roman numeral letter of Unicode standing alone has two candidates, the letter's shape first and the number after it (Ⅲ[로마 숫자:수], Ⅲ[수:로마십진]); letters in a row and a letter with a unit or a particle on it are the number alone (ⅩⅢ, Ⅷ세, Ⅲ의); a full-width letter or digit alone keeps its reading as a run and gets the shape after it (Ａ[전각:로마자], １[전각:수])
 package parse
 
 import (
@@ -13,8 +13,8 @@ func TestRomanReaderForm(t *testing.T) {
 		t.Fatal(err)
 	}
 	for text, want := range map[string][]string{
-		"Ⅲ": {"Ⅲ[수:로마십진]", "Ⅲ[로마 숫자:수]"},
-		"ⅳ": {"ⅳ[수:로마십진]", "ⅳ[로마 숫자:수]"},
+		"Ⅲ": {"Ⅲ[로마 숫자:수]", "Ⅲ[수:로마십진]"},
+		"ⅳ": {"ⅳ[로마 숫자:수]", "ⅳ[수:로마십진]"},
 		"Ａ": {"Ａ[열:영숫자]", "Ａ[전각:로마자]"},
 		"１": {"１[열:영숫자]", "１[전각:수]"},
 	} {
