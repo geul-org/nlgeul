@@ -17,7 +17,9 @@ import "github.com/geul-org/nlgeul/pkg/data"
 // whatever it means, and particles and the copula follow it. 용 (用, for
 // a use or a user: 사업용, 파괴용) is read the same way, and after a run of
 // Latin letters and digits the table lists no word of (OTS용: suffixedRun)
-// every suffix is read as after a nominal. It is not
+// every suffix is read as after a nominal. 별 (別, each: 사업자별로, 필지별) is
+// read the same way after any nominal of the table, one syllable too
+// (시별); the noun 별 (a star) stays a candidate. It is not
 // read either where the stem and the suffix are two words of the table
 // written together (twoWords: 기동+전사, not 기동전+사). They are read only with a word table (addWide),
 // the word before must be a nominal of it, and a suffix is not read
@@ -37,7 +39,7 @@ var nounSuffixes = data.Must(data.Each("noun-suffixes", 3, nounSuffixOf))
 var numberSuffixes = data.Must(data.Column("number-suffixes", 1))
 
 // longSuffixes are the suffixes of nounSuffixes read only after a stem
-// of two syllables or more (long-stem-suffixes.tsv): 용. A word of one
+// of two syllables or more (long-stem-suffixes.tsv): 용 (not 별). A word of one
 // syllable and such a suffix is a word of its own that the word table
 // holds (군용), and where it holds none the letters are another word's:
 // shortStem.

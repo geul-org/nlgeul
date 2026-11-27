@@ -1,5 +1,5 @@
 //ff:func feature=parse type=helper control=sequence
-//ff:what TestShortStem — a stem is too short where the tail's first piece is a suffix of longSuffixes (용) and the stem is one syllable (법+용); not with a stem of two syllables (사업+용), with no piece, or with a suffix that is not in the table (사)
+//ff:what TestShortStem — a stem is too short where the tail's first piece is a suffix of longSuffixes (용) and the stem is one syllable (법+용); not with a stem of two syllables (사업+용), with no piece, or with a suffix that is not in the table (사, 별: it is read after one syllable too)
 package parse
 
 import "testing"
@@ -16,7 +16,7 @@ func TestShortStem(t *testing.T) {
 	if shortStem(tail{}, "법") {
 		t.Fatal("no piece")
 	}
-	if shortStem(sa, "법") {
+	if shortStem(sa, "법") || shortStem(tail{pieces: []piece{{text: "별", names: "접미:별"}}}, "시") {
 		t.Fatal("a suffix that is not in the table")
 	}
 }
