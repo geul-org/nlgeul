@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestAddSigns — each named sign gets a graph for each of its candidates in the order they are printed; the full stop's graphs are the closing candidates of the stops; 33 candidates in all (the ellipsis …, the middle dot variants ‧ ․ •, the slash, the dashes ― —, the full-width comma ， and plus ＋, the backslash, the box-drawing line ─ as 줄표 and the hyphen as 줄표 and 빼기 among them), one graph more, 줄임표 for a run of middle dots, which every middle dot takes after its 가운뎃점, and one for each sign with no name that is read apart between letters (the equals sign: a candidate with no name); a sign the tables of special letters name by its shape (㈎, ⓐ) has no graph here (addForms)
+//ff:what TestAddSigns — each named sign gets a graph for each of its candidates in the order they are printed; the full stop's graphs are the closing candidates of the stops; 35 candidates in all (the ideographic comma 、 as 쉼표 and the minus sign − as 빼기 among them; the ellipsis …, the middle dot variants ‧ ․ •, the slash, the dashes ― —, the full-width comma ， and plus ＋, the backslash, the box-drawing line ─ as 줄표 and the hyphen as 줄표 and 빼기 among them), one graph more, 줄임표 for a run of middle dots, which every middle dot takes after its 가운뎃점, and one for each sign with no name that is read apart between letters (the equals sign: a candidate with no name); a sign the tables of special letters name by its shape (㈎, ⓐ) has no graph here (addForms)
 package parse
 
 import (
@@ -12,7 +12,7 @@ func TestAddSigns(t *testing.T) {
 	ix.addDots()
 	graphs := ix.graphs
 	ix.addSigns()
-	if ix.graphs-graphs != 35 || len(ix.marks) != len(signOrderNamed)+1+len([]rune(bareApart)) {
+	if ix.graphs-graphs != 37 || len(ix.marks) != len(signOrderNamed)+1+len([]rune(bareApart)) {
 		t.Fatal(ix.graphs-graphs, len(ix.marks))
 	}
 	if len(ix.marks['.']) != 2 || ix.marks['.'][0].name != "마침표" || ix.marks['.'][1].name != "줄임표" {

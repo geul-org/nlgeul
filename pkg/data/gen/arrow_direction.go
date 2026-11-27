@@ -6,19 +6,16 @@ import "strings"
 
 func arrowDirection(name string) string {
 	words := strings.Fields(name)
-	found := map[string]bool{}
+	one := ""
 	for i := 0; i < len(words); {
 		d, n := directionAt(words, i)
+		if d != "" && one != "" && d != one {
+			return ""
+		}
 		if d != "" {
-			found[d] = true
+			one = d
 		}
 		i += n
 	}
-	if len(found) != 1 {
-		return ""
-	}
-	for d := range found {
-		return d
-	}
-	return ""
+	return one
 }

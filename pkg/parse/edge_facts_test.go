@@ -15,7 +15,7 @@ func TestEdgeFacts(t *testing.T) {
 		t.Fatal("before the letters", m)
 	}
 	m = sc.edgeFacts(unit{text: "#@태그"}, 0, 1, false, false)
-	if m.Right != 0 || m.Facts != rule.MarkBySign|rule.MarkDrawn {
+	if m.Right != 0 || m.Facts != rule.MarkBySign|rule.MarkDrawn|rule.MarkTouched {
 		t.Fatal("the stretch is not the last before the letters", m)
 	}
 	m = scanOf("뭐").edgeFacts(unit{text: "뭐?!", spaced: true}, 1, 3, true, true)
@@ -39,7 +39,7 @@ func TestEdgeFacts(t *testing.T) {
 		t.Fatal("a space on both sides is told of a stretch that is the whole unit only", m)
 	}
 	m = scanOf("").edgeFacts(unit{text: "|---|", facts: rule.MarkBare}, 1, 4, true, false)
-	if m.Facts != rule.MarkBySign|rule.MarkDrawn|rule.MarkBare {
+	if m.Facts != rule.MarkBySign|rule.MarkDrawn|rule.MarkTouched|rule.MarkBare {
 		t.Fatal("a stretch in a run that draws, in a line of signs alone", m)
 	}
 	m = scanOf("90%").edgeFacts(unit{text: "90%+"}, 3, 4, true, true)
@@ -47,7 +47,7 @@ func TestEdgeFacts(t *testing.T) {
 		t.Fatal("a sign of the unit table read with its number is no sign next to the stretch", m)
 	}
 	m = scanOf("a").edgeFacts(unit{text: "a%+"}, 2, 3, true, true)
-	if m.Facts != rule.MarkEnds|rule.MarkBySign|rule.MarkDrawn {
+	if m.Facts != rule.MarkEnds|rule.MarkBySign|rule.MarkDrawn|rule.MarkTouched {
 		t.Fatal("a sign after no digit is a sign next to the stretch", m)
 	}
 	m = scanOf("a").edgeFacts(unit{text: "a:1"}, 1, 2, true, false)

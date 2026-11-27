@@ -14,6 +14,9 @@ func TestGroupRowOf(t *testing.T) {
 	assertEq(t, line, "⁄\t기호\t수학\t⁄\t-")
 	line, _ = groupRowOf(tbl, jamo, 0x2E, "Basic Latin")
 	assertEq(t, line, ".\t기호\t그 밖\t.\t-")
+	if _, ok := groupRowOf(tbl, jamo, 0x24B6, "Enclosed Alphanumerics"); ok {
+		t.Fatal("a symbol the form table holds")
+	}
 	for _, r := range []rune{0x28, 0x41, 0x0378, 0x2460, 0xBD} {
 		if _, ok := groupRowOf(tbl, jamo, r, "Basic Latin"); ok {
 			t.Fatalf("%U", r)

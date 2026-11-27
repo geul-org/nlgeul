@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestSignContest — one stretch of one sign as a contest: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); a sign the tables of special letters name by its shape is that name, any number of it in a row (ⓐ[원:로마자], ㈎[괄호:한글], ㉠㉠[원:한글]); a sign the hand-written table or the table of kinds names is that name as a stem, as a sign with no name is (→, =), with its candidates in the order of their verdicts (one ○ alone is 기호:원 before 가림:원, ○○ and a △ written onto letters 가림 first; ● at the head of a line with a space after it 글머리 first; ■ elsewhere the shape alone), and not where the signs next to it draw something with it (=>); the letters with no name when none stands (a letter of a private use area is in no table); beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵; the candidates of a higher verdict come first, each with its graph's verdict (one hyphen alone: 줄표 before 빼기, the other way round where a sum is written)
+//ff:what TestSignContest — one stretch of one sign as a contest: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); a sign the tables of special letters name by its shape is that name, any number of it in a row (ⓐ[원:로마자], ㈎[괄호:한글], ㉠㉠[원:한글]); a sign the hand-written table or the table of kinds names is that name as a stem, as a sign with no name is (→, =), with its candidates in the order of their verdicts (one ○ alone is 기호:원 before 가림:원, ○○ and a △ written onto letters 가림 first; ● at the head of a line with a space after it 글머리 first; ■ elsewhere the shape first and 가림 after it), and not where the signs next to it draw something with it (=>); the letters with no name when none stands (a letter of a private use area is in no table); beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵; the candidates of a higher verdict come first, each with its graph's verdict (one hyphen alone: 줄표 before 빼기, the other way round where a sum is written)
 package parse
 
 import (
@@ -35,10 +35,11 @@ func TestSignContest(t *testing.T) {
 		{"○○", rule.Mark{Run: 2, Facts: rule.MarkAlone}, 0, `"가림:원"/stem=true/depth=0/end=0; "기호:원"/stem=true/depth=0/end=0`},
 		{"△", rule.Mark{Run: 1, Facts: rule.MarkLeads}, 0, `"가림:세모"/stem=true/depth=0/end=0; "기호:도형"/stem=true/depth=0/end=0`},
 		{"●", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkHeads | rule.MarkSpaced}, 0, `"글머리:검은 원"/stem=true/depth=0/end=0; "기호:도형"/stem=true/depth=0/end=0; "가림:검은 원"/stem=true/depth=0/end=0`},
-		{"■", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `"기호:도형"/stem=true/depth=0/end=0`},
+		{"■", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `"기호:도형"/stem=true/depth=0/end=0; "가림:검은 네모"/stem=true/depth=0/end=0`},
 		{"→", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `"화살표:오른쪽"/stem=true/depth=0/end=0`},
 		{"=", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `"기호:같음"/stem=true/depth=0/end=0`},
-		{"=", rule.Mark{Run: 1, Facts: rule.MarkLeads | rule.MarkDrawn}, 0, `""/stem=true/depth=0/end=0`},
+		{"=", rule.Mark{Run: 1, Left: rule.SideHangul, Right: rule.SideHangul}, 0, `"기호:같음"/stem=true/depth=0/end=0`},
+		{"=", rule.Mark{Run: 1, Facts: rule.MarkLeads | rule.MarkTouched}, 0, `""/stem=true/depth=0/end=0`},
 		{"\uE000", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `""/stem=true/depth=0/end=0`},
 	}
 	for _, c := range cases {

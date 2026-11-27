@@ -191,6 +191,7 @@ const (
 	MarkBare                   // its input line holds no letter and no digit: a line of signs alone (a rule ---, a table's line |---|---|, a frame -----------)
 	MarkDrawn                  // a sign that is no punctuation mark of a sentence stands in the run of signs it is in (-->, <!--, |---|, ├──┼): the signs draw something together
 	MarkSum                    // it stands alone where a sum is written: inside a bracket still open, or between two numbers with a space on each side
+	MarkTouched                // a sign other than itself that is no punctuation mark of a sentence stands right next to it (=>, |-, ★☆; a sign of the unit table read with the number before it is none: 5%↓)
 )
 
 // The facts a list is asked for (List.Of).
