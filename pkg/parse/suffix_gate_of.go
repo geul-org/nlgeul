@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=sequence
-//ff:what suffixGateOf — the graph the word before a suffix of nounSuffixes must pass: the claim, the exception that the word is no nominal of the word table, and the exception that the stem and the suffix together are a word of the word table, or two words of it written together (the words of the table stand first)
+//ff:what suffixGateOf — the graph the word before a suffix of nounSuffixes must pass: the claim, the exception that the word is no nominal of the word table, and the exception that the stem and the suffix together are a word of the word table, or two words of it written together (the words of the table stand first), and the exception that the suffix's letter is the prefix 제 of a number right after it
 package parse
 
 import (
@@ -15,5 +15,6 @@ func suffixGateOf() *entry {
 	claim := g.Rule(rule.PieceRead).With(&rule.Claim{Name: nominalGate, Concludes: "열쇠"})
 	except(g, rule.StemKind, whyKind, &rule.Bits{Of: "kinds", Mask: kindNominal}, not).Attacks(claim)
 	except(g, rule.PieceIs, whyJoinedWord, fact(rule.PieceWhole)).Attacks(claim)
+	except(g, rule.PieceIs, whyOrderJoint, fact(rule.PieceOrder)).Attacks(claim)
 	return &entry{name: nominalGate, g: g}
 }

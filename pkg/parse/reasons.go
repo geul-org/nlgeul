@@ -21,6 +21,7 @@ const (
 	whyKind          = "앞말이 낱말 표에서 그 갈래의 줄기가 아니다"
 	whyUnlisted      = "앞말이 어느 표에도 없는 새 낱말이다"
 	whyJoinedWord    = "줄기와 접미를 합친 글자열이 낱말 표의 낱말이다"
+	whyOrderJoint    = "접미의 글자가 바로 뒤 수에 붙는 차례의 제다"
 	whyShape         = "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다"
 	whyNotStopped    = "둘째 수 바로 뒤에 마침표가 없다"
 	whyNoNumber      = "바로 앞이 수가 아니다"

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestCopulaReads — a tail read after the said stem (곰이다) and after the dropped one (학교다, written (이)); a stem the graph does not take gives nothing (학교서); a particle read after the tail is told to the graph (문제기도); a fused piece keeps the stem's syllable (누군지); right after a sign that closes a pair a dropped stem is read before 다 ((가)다), after a Latin letter it is not (abc다); with no letter before the stem the unit must attach (이다); before a closing of droppableKnown the dropped stem asks for a nominal (거네), and a stem dropped right after a syllable 이 asks for one whatever follows (고양이다), and so does a stem dropped under a lone ㄴ that asked for a predicate's stem (문젠); after a naming closing the tail is read once more with the closing before the stem (먹음이다)
+//ff:what TestCopulaReads — a tail read after the said stem (곰이다) and after the dropped one (학교다, written (이)); a stem the graph does not take gives nothing (학교서); a particle read after the tail is told to the graph (문제기도, read once more after the suffix 제 of 문제, which the gate of a suffix judges later); a fused piece keeps the stem's syllable (누군지); right after a sign that closes a pair a dropped stem is read before 다 ((가)다), after a Latin letter it is not (abc다); with no letter before the stem the unit must attach (이다); before a closing of droppableKnown the dropped stem asks for a nominal (거네), and a stem dropped right after a syllable 이 asks for one whatever follows (고양이다), and so does a stem dropped under a lone ㄴ that asked for a predicate's stem (문젠); after a naming closing the tail is read once more with the closing before the stem (먹음이다)
 package parse
 
 import "testing"
@@ -25,8 +25,8 @@ func TestCopulaReads(t *testing.T) {
 	if got = ch.copulaReads(naming, 2, ch.ix.dropped, false); got != nil {
 		t.Fatal("no dropped stem before 기 with no particle after it", got)
 	}
-	if got = ch.copulaReads(naming, 2, ch.ix.dropped, true); len(got) != 1 || got[0].gate != ch.ix.nominal {
-		t.Fatal("a dropped stem before 기 with a particle after it", got)
+	if got = ch.copulaReads(naming, 2, ch.ix.dropped, true); len(got) != 2 || got[0].gate != ch.ix.nominal || got[1].pieces[0].text != "제" {
+		t.Fatal("a dropped stem before 기 with a particle after it, and once more after the suffix 제 of the word 문제 (its gate judges it later)", got)
 	}
 	sc = scanOf("누군지")
 	if got = sc.copulaReads(tail{start: 2, pieces: []piece{{text: "(ㄴ)지", names: "맺음:ㄴ지"}}, base: '구', close: &entry{name: "맺음:ㄴ지"}}, 2, sc.ix.dropped, false); len(got) != 1 || got[0].base != '구' {

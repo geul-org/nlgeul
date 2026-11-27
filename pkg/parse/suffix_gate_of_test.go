@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestSuffixGateOf — the graph is named as the nominal gate; it passes a nominal of the word table whose stem and suffix together are no word of the table, and turns down a word that is no nominal or whose stem and suffix together are a word, each with its reason
+//ff:what TestSuffixGateOf — the graph is named as the nominal gate; it passes a nominal of the word table whose stem and suffix together are no word of the table and whose suffix is no prefix 제 of a number, and turns down a word that is no nominal, whose stem and suffix together are a word, or whose suffix is such a prefix (Order), each with its reason
 package parse
 
 import (
@@ -22,6 +22,7 @@ func TestSuffixGateOf(t *testing.T) {
 		{rule.Piece{Form: "보장", HasStem: true, Next: -1, Stem: kindNominal}, true, ""},
 		{rule.Piece{Form: "보장", HasStem: true, Next: -1, Stem: kindNominal | kindVerb}, true, ""},
 		{rule.Piece{Form: "합격", HasStem: true, Next: -1, Stem: kindNominal, Whole: true}, false, whyJoinedWord},
+		{rule.Piece{Form: "요추", HasStem: true, Next: -1, Stem: kindNominal, Order: true}, false, whyOrderJoint},
 		{rule.Piece{Form: "가", HasStem: true, Next: -1, Stem: kindVerb}, false, whyKind},
 		{rule.Piece{Form: "뷁", HasStem: true, Next: -1}, false, whyKind},
 	} {
