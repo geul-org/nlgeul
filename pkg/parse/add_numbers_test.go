@@ -18,7 +18,7 @@ func TestAddNumbers(t *testing.T) {
 	if ix.order == nil || ix.order.name != orderHeadName || ix.measure == nil {
 		t.Fatal(ix.order)
 	}
-	if ix.graphs != graphs+1+19+len(stopShapes)+len(plainShapes)+len(nameSigns)+4+1+1+2+6+len(unitSuffixes)+len(unitRows)+1+1+1+1 || len(ix.after['리']) != 2 {
+	if ix.graphs != graphs+1+19+len(stopShapes)+len(plainShapes)+len(nameSigns)+4+1+1+2+6+len(unitSuffixes)+len(unitRows)+1+1+1+1+1 || len(ix.after['리']) != 2 {
 		t.Fatal(ix.graphs - graphs)
 	}
 }

@@ -36,6 +36,10 @@ var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" +
 // written onto it: 사십 before 년 written apart): loneNumbers.
 const loneNumberGraph = "수(홀로 섬)"
 
+// bigFrontGraph names the graph of a greater number written in Hangul
+// right before the digits of the same number (천500억): bigFront.
+const bigFrontGraph = "큰 수(숫자 앞)"
+
 // hexName and binForm name the other ways a run reads as a number: a
 // run that is 0x and then hexadecimal digits is the number named
 // 수:16진법 (the only candidate of it); a number of digits 0 and 1 only
