@@ -1,0 +1,25 @@
+//ff:func feature=parse type=reader control=iteration dimension=2
+//ff:what TestReaderStreamWrittenNumbers — numbers that are no run of digits, end to end with a word table: each case gives candidates of a made-up sentence in the order they are read, and what must not be read; a number its word tells (a unit, digits or a bracket written onto it) comes first, and where nothing in the word tells a number, the number or the unit written apart is a candidate behind the word of the word table
+package parse
+
+import "testing"
+
+func TestReaderStreamWrittenNumbers(t *testing.T) {
+	r := streamReader(t, "words-written-numbers.tsv")
+	cases := []struct {
+		sentence string
+		order    []string
+		lacks    []string
+	}{
+		{"사십 년", []string{"사십[열쇠:체언]", "사십[수:한글십진]", "년[열쇠:체언]"}, nil},
+		{"오 년을", []string{"오[열쇠:체언]", "오[수:한글십진]", "년[열쇠:체언]+을[목적격:을]"}, []string{"년[단위:년]+을"}},
+		{"사십을", []string{"사십[열쇠:체언]+을[목적격:을]"}, []string{"사십[수:한글십진]+을"}},
+	}
+	for _, c := range cases {
+		lines := streamLines(r, c.sentence)
+		if !linesInOrder(lines, c.order) {
+			t.Errorf("%q: not in the order %v\n%s", c.sentence, c.order, streamText(r, c.sentence))
+		}
+		checkLines(t, c.sentence, streamText(r, c.sentence), nil, c.lacks)
+	}
+}

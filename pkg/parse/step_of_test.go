@@ -41,6 +41,14 @@ func TestStepOf(t *testing.T) {
 	if e = sc.stepOf(4, 6, case_, det); e.det {
 		t.Fatal("a determiner with a piece after it is no determiner", e)
 	}
+	behind := stemCandidate{kindCandidate{kindBehind, numName, 0.4}, "열", ""}
+	if e = sc.stepOf(0, 1, tail{start: 1}, behind); e.kind != 0 || e.verdict != 0.4 || e.word.Parts[0].Name != (Name{"수", "한글십진"}) || e.pref != sc.ix.behindPref("열", 1)-costPiece || e.pref > sc.stepOf(0, 1, tail{start: 1}, other).pref {
+		t.Fatal("a candidate that stands behind the words of the word table", e)
+	}
+	unseen := stemCandidate{kindCandidate{kindBehind, numName, 0.9}, "곰", ""}
+	if e = sc.stepOf(2, 4, to, unseen); e.verdict != sc.unlisted(2, 4, "곰", to) || e.verdict >= 0.9 {
+		t.Fatal("a candidate that stands behind, of letters the word table lacks, stands no higher than their new word", e)
+	}
 	as := tail{start: 3, as: numName, weight: -1.5, pieces: []piece{{"명", "단위:명", 1, -1, 0, false, ""}}}
 	if e = sc.stepOf(0, 4, as, other); e.pref != -1.5-costPiece+(-1) {
 		t.Fatal("a tail with its own weight", e.pref)

@@ -25,6 +25,7 @@ const (
 	whyShape         = "기호가 잇는 숫자 마디들이 이 풀이의 꼴이 아니다"
 	whyNotStopped    = "둘째 수 바로 뒤에 마침표가 없다"
 	whyNoNumber      = "바로 앞이 수가 아니다"
+	whyNoNumberSign  = "수라는 근거가 어절 안에 없다"
 	whyLone          = "낱말 표 없이 홀로 선 한자어 한 음절 수사다"
 	whyNoDigits      = "기호의 오른쪽이 수가 아니다"
 	whyAfterWord     = "기호의 왼쪽에 글자가 붙어 있다"

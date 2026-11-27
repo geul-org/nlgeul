@@ -31,6 +31,11 @@ const (
 // numberNames are the names a number is given (numberNameOf).
 var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm}
 
+// loneNumberGraph names the graph of a number that is no run of digits
+// read where nothing in its word tells that it is a number (no unit is
+// written onto it: 사십 before 년 written apart): loneNumbers.
+const loneNumberGraph = "수(홀로 섬)"
+
 // hexName and binForm name the other ways a run reads as a number: a
 // run that is 0x and then hexadecimal digits is the number named
 // 수:16진법 (the only candidate of it); a number of digits 0 and 1 only

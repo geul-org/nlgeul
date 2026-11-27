@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then the two shapes of a date of two numbers with a full stop after them, stopShapes, then its own joins, then the shapes of a date and a time of two numbers that ask no full stop after them, plainShapes), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands, and 여 once more where 째 stands, after a number and its unit: 5분여), and the graph of a unit written in letters that are no Hangul syllables read with no number written onto it (loneUnitGraph: its claim is rebutted with the force of a new word, since no number stands on it), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then the two shapes of a date of two numbers with a full stop after them, stopShapes, then its own joins, then the shapes of a date and a time of two numbers that ask no full stop after them, plainShapes), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands, and 여 once more where 째 stands, after a number and its unit: 5분여), and the graph of a unit written in letters that are no Hangul syllables read with no number written onto it (loneUnitGraph: its claim is rebutted with the force of a new word, since no number stands on it), and the graph of a number that is no run of digits read where nothing in its word tells that it is a number (loneNumberGraph: rebutted with the force of a new word too), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
 package parse
 
 import (
@@ -74,6 +74,10 @@ func (ix *index) addNumbers() {
 	unit := lone.Rule(rule.PieceRead).With(&rule.Claim{Name: loneUnitGraph, Concludes: "열쇠"})
 	lone.Counter(rule.PieceRead).With(&rule.Claim{Name: whyNoNumber, Concludes: "반박"}).Attacks(unit, forceNew)
 	ix.loneUnit, ix.graphs, ix.edges = verdict(lone, rule.Piece{}), ix.graphs+1, ix.edges+1
+	alone := toulmin.NewGraph(loneNumberGraph)
+	number := alone.Rule(rule.PieceRead).With(&rule.Claim{Name: loneNumberGraph, Concludes: "열쇠"})
+	alone.Counter(rule.PieceRead).With(&rule.Claim{Name: whyNoNumberSign, Concludes: "반박"}).Attacks(number, forceNew)
+	ix.loneNumber, ix.graphs, ix.edges = verdict(alone, rule.Piece{}), ix.graphs+1, ix.edges+1
 	g, edges := measureGraph()
 	ix.measure, ix.graphs, ix.edges = g, ix.graphs+1, ix.edges+edges
 }

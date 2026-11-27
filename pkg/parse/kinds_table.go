@@ -147,3 +147,11 @@ const (
 	determinerLabel = "관형사"
 	pronounLabel    = "대명사"
 )
+
+// kindBehind marks a candidate of a stem that is no word of a table and
+// stands behind every word of the word table with its letters: a number
+// or a unit read with nothing in its word that tells it (loneNumbers,
+// loneUnits). It is no kind of a word (its bit is none of theirs): the word it makes has no kind
+// (stepOf), and its preference is the least the word table gives its
+// letters (behindPref).
+const kindBehind = 1 << 30
