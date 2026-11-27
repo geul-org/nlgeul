@@ -20,6 +20,11 @@ const (
 	sinoMyriads = "만억조"
 	sinoBigs    = "십백천" + sinoMyriads
 	sinoSome    = '수'
+	// sinoSix is written 륙 (sinoSixAfter) right after sinoFive in an
+	// approximate number (오륙: approxPair).
+	sinoFive     = "오"
+	sinoSix      = "육"
+	sinoSixAfter = "륙"
 )
 
 // numeralCount is the number of entries of the two tables: a numeral

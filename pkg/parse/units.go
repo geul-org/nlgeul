@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits or a circled number; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters; before a unit of sinoUnits, 인, only Sino-Korean ones: sinoNumerals); a suffix of bareSuffixes is read after a unit with no number before it too (bareUnits); a piece is told that it numbers a part of a provision when its number begins with 제 or a joint to a following number stands right after it (jointAt: 31조의4)
+//ff:what units — the pieces after a number that end at j: a greater number, 여, a unit of the table, 째, in that order, the first of them right after a number (a run of digits or a circled number; for all but a greater number also Hangul numerals or a Latin letter of the table, and before 목 a letter of orderLetters; before a unit of sinoUnits, 인, only Sino-Korean ones: sinoNumerals); a suffix of bareSuffixes is read after a unit with no number before it too (bareUnits); a piece is told that it numbers a part of a provision when its number begins with 제 or a joint to a following number stands right after it (jointAt: 31조의4); a unit is read after an approximate number written in Hangul too, the second number a piece before the unit (approxTails: 칠팔년)
 package parse
 
 import (
@@ -51,6 +51,9 @@ func (sc *scan) units(j, next int, open bool) []tail {
 			facts.Right = rule.RightOther
 		}
 		out = append(out, sc.numeralTails(e, start, j, facts, pc, words)...)
+		if e.slot != placeBig {
+			out = append(out, sc.approxTails(e, start, j, facts, pc)...)
+		}
 		out = append(out, joined(sc.digitLefts(lefts, facts.Right), pc)...)
 	}
 	return out
