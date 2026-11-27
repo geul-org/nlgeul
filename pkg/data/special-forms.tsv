@@ -1,5 +1,5 @@
 # 칸(탭으로 나눔): 글자, 꼴, 내용, 값, 수 값
-# 기계로 만든 표다. 손으로 고치지 않는다: go run ./pkg/data/gen <UnicodeData.txt> <Blocks.txt> 로 다시 만든다.
+# 기계로 만든 표다. 손으로 고치지 않는다: go run ./pkg/data/gen forms <UnicodeData.txt> <Blocks.txt> 로 다시 만든다.
 # 자료: Unicode Character Database 15.0.0 (Unicode License v3, https://www.unicode.org/license.txt)
 ª	위첨자	로마자	a	-
 ²	위첨자	수	2	2

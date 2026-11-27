@@ -23,11 +23,11 @@ func TestRunWriteFails(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	if run(ucd, bl, failWriter{}) == nil {
+	if run("forms", ucd, bl, failWriter{}) == nil {
 		t.Fatal("the failing writer must stop run")
 	}
 	var b strings.Builder
-	if err := run(ucd, bl, &b); err != nil || b.Len() <= 4096 {
+	if err := run("forms", ucd, bl, &b); err != nil || b.Len() <= 4096 {
 		t.Fatal(err, b.Len())
 	}
 }

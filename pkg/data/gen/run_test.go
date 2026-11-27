@@ -1,5 +1,5 @@
 //ff:func feature=data type=helper control=iteration dimension=1
-//ff:what TestRun — a table is written from two files, a wrong Blocks.txt version stops it, and a missing file is an error
+//ff:what TestRun — a forms or groups table is written from two files, an unknown mode is an error, a wrong Blocks.txt version stops it, and a missing file is an error
 package main
 
 import (
@@ -23,13 +23,20 @@ func TestRun(t *testing.T) {
 		}
 	}
 	var b strings.Builder
-	if err := run(ucd, ok, &b); err != nil || !strings.Contains(b.String(), "①\t원\t수\t1\t1\n") {
+	if err := run("forms", ucd, ok, &b); err != nil || !strings.Contains(b.String(), "①\t원\t수\t1\t1\n") {
 		t.Fatal(err, b.String())
 	}
-	if err := run(ucd, old, &b); err == nil || !strings.Contains(err.Error(), "14.0.0") {
+	if err := run("forms", ucd, old, &b); err == nil || !strings.Contains(err.Error(), "14.0.0") {
 		t.Fatal(err)
 	}
-	if run(ucd+".none", ok, &b) == nil || run(ucd, ok+".none", &b) == nil {
+	b.Reset()
+	if err := run("groups", ucd, ok, &b); err != nil || !strings.Contains(b.String(), "글자, 갈래, 이름") {
+		t.Fatal(err, b.String())
+	}
+	if err := run("none", ucd, ok, &b); err == nil || !strings.Contains(err.Error(), "none") {
+		t.Fatal(err)
+	}
+	if run("forms", ucd+".none", ok, &b) == nil || run("forms", ucd, ok+".none", &b) == nil {
 		t.Fatal("missing")
 	}
 }
