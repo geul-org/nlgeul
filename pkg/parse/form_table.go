@@ -26,3 +26,9 @@ const romanShape = "로마 숫자"
 // a number (the content 수: 원:수, 괄호:수, 로마 숫자:수 …): a stem of
 // such a name is a number (numberName).
 var formNumberNames = contentNames(formList, numName)
+
+// loneFormGraph names the graph of a letter of the tables that is a
+// letter of a run of Latin letters and digits (a Roman numeral letter,
+// a full-width letter or digit) read alone by its shape (loneForms):
+// the run's own reading stands before it.
+const loneFormGraph = "꼴 글자(홀로 섬)"

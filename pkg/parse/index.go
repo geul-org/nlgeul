@@ -63,6 +63,7 @@ type index struct {
 	run         float64
 	loneUnit    float64
 	loneNumber  float64
+	loneForm    float64
 	bigFront    float64
 	pathNamed   float64
 	pathMarked  float64

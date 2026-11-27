@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what TestAddForms — each sign of the tables of special letters gets a candidate for each name the tables give it, and the letters of one name share one graph (ⓐ and ⓩ: 원:로마자); a letter of the tables that is no sign (①, ㊀, Ⅲ) gets none, nor does a sign the sign table already names (，, ＋)
+//ff:what TestAddForms — each sign of the tables of special letters gets a candidate for each name the tables give it, and the letters of one name share one graph (ⓐ and ⓩ: 원:로마자); a letter of the tables that is no sign (①, ㊀, Ⅲ) gets none, nor does a sign the sign table already names (，, ＋); one graph more gives the verdict of a letter of a run read alone by its shape (loneForm)
 package parse
 
 import (
@@ -25,7 +25,7 @@ func TestAddForms(t *testing.T) {
 	for _, list := range ix.forms {
 		names[list[0].name] = true
 	}
-	if ix.graphs-graphs != len(names) || len(names) == 0 {
+	if ix.graphs-graphs != len(names)+1 || len(names) == 0 || ix.loneForm <= 0 {
 		t.Fatal(ix.graphs-graphs, len(names))
 	}
 }
