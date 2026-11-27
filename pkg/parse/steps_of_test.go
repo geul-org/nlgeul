@@ -1,4 +1,4 @@
-//ff:func feature=parse type=reader control=iteration dimension=1
+//ff:func feature=parse type=reader control=sequence
 //ff:what TestStepsOf — a word whose stem stands as two kinds is two candidates, each with its own kind, verdict and preference (the kind's count); in the first layer both stand whole; a closed-set word of two sets and an atom of two names are two candidates; a number read with nothing that tells it stands before the new word of its letters, and is left out where that new word does not stand of one verdict and preference; a word of one way is one candidate
 package parse
 
@@ -37,10 +37,14 @@ func TestStepsOf(t *testing.T) {
 	if len(lone) != 2 || lone[0].sig != "사십[수:한글십진]" || lone[0].kind != 0 || lone[1].sig != "사십" || lone[0].verdict > lone[1].verdict {
 		t.Fatal("a number behind the word table's words, of letters the table lacks, before their new word", lone)
 	}
-	for _, e := range wordsScan("밥학생이되었다", layerCost).stepsOf(3, 4, tail{start: 4}) {
-		if e.verdict <= 0 && e.word.Parts[0].Name.Kind == numName {
-			t.Fatal("no number where the new word of its letters does not stand", e)
-		}
+	glued := &scan{ix: streamReader(t, "words-sentence.tsv").ix, s: []rune("밥학생이되었다")}
+	glued.prepare()
+	if was := glued.stepsOf(3, 4, tail{start: 4}); len(was) != 2 || was[0].sig != "이[관형사:이]" || was[1].sig != "이[수:한글십진]" {
+		t.Fatal(was)
+	}
+	glued.marks[4] = map[int]bool{3: true}
+	if now := glued.stepsOf(3, 4, tail{start: 4}); len(now) != 1 || now[0].sig != "이[관형사:이]" {
+		t.Fatal("no number where the new word of its letters does not stand (the letters read as markers there)", now)
 	}
 	if one := scanOf("고양이").stepsOf(0, 3, tail{start: 3}); len(one) != 1 || one[0].word.Parts[0].Name != (Name{}) {
 		t.Fatal("a new word is one candidate", one)
