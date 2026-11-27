@@ -9,7 +9,7 @@ func TestPartName(t *testing.T) {
 		name, text string
 		want       Name
 	}{
-		{"수", "7", Name{"수", "십진"}}, {"수", "일곱", Name{"수", "한글십진"}}, {"수", "②", Name{"원문자", "수"}}, {"수", "n", Name{"특수", "로마자"}}, {"수", "몇", Name{"수", ""}}, {plainNumName, "사", Name{"수", ""}},
+		{"수", "7", Name{"수", "십진"}}, {"수", "일곱", Name{"수", "한글십진"}}, {"수", "②", Name{"원", "수"}}, {"수", "n", Name{"특수", "로마자"}}, {"수", "몇", Name{"수", ""}}, {plainNumName, "사", Name{"수", ""}},
 		{"수:2진법", "101", Name{"수", "2진법"}}, {"단위:개", "개", Name{"단위", "개"}}, {"", "x", Name{}},
 	} {
 		if got := partName(c.name, c.text); got != c.want {

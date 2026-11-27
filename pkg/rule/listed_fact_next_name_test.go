@@ -1,5 +1,5 @@
 //ff:func feature=rule type=helper control=iteration dimension=1
-//ff:what TestListedFactNextName — ListNextName is the whole name of the stem of the nearest word after the candidate (원문자:수, not its kind alone and not the farther words); "" when no word is after it or that word has no stem name; a list of it validates, one with no name is refused
+//ff:what TestListedFactNextName — ListNextName is the whole name of the stem of the nearest word after the candidate (원:수, not its kind alone and not the farther words); "" when no word is after it or that word has no stem name; a list of it validates, one with no name is refused
 package rule
 
 import (
@@ -13,7 +13,7 @@ func TestListedFactNextName(t *testing.T) {
 		after []Near
 		want  string
 	}{
-		{[]Near{{Stem: "①", Kind: "원문자:수"}, {Stem: "점", Kind: "열쇠:체언"}}, "원문자:수"},
+		{[]Near{{Stem: "①", Kind: "원:수"}, {Stem: "점", Kind: "열쇠:체언"}}, "원:수"},
 		{[]Near{{Stem: "쪼간"}, {Stem: "먹", Kind: "열쇠:동사"}}, ""},
 		{nil, ""},
 	} {

@@ -12,15 +12,15 @@ func TestNominalStem(t *testing.T) {
 		{Stem: true, Text: "나", Name: Name{Kind: "대명사"}},
 		{Stem: true, Text: "3", Name: Name{Kind: "수"}},
 		{Stem: true, Text: "3.5", Name: Name{Kind: "소수점"}},
-		{Stem: true, Text: "①", Name: Name{"원문자", "수"}},
-		{Stem: true, Text: "⑴", Name: Name{"괄호문자", "수"}},
+		{Stem: true, Text: "①", Name: Name{"원", "수"}},
+		{Stem: true, Text: "⑴", Name: Name{"괄호", "수"}},
 		{Stem: true, Text: "n", Name: Name{"특수", "로마자"}},
 	}
 	no := []Part{
 		{Text: "씨", Name: Name{"열쇠", "체언"}},
 		{Stem: true, Text: "가", Name: Name{"열쇠", "동사"}},
 		{Stem: true, Text: "다", Name: Name{"맺음", "다"}},
-		{Stem: true, Text: "㈎", Name: Name{"괄호문자", "한글"}},
+		{Stem: true, Text: "㈎", Name: Name{"괄호", "한글"}},
 	}
 	for _, p := range yes {
 		if !nominalStem(p) {

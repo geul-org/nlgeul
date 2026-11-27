@@ -9,7 +9,7 @@ func TestSignPartName(t *testing.T) {
 		name, text string
 		want       Name
 	}{
-		{"수", "-90", Name{"수", "십진"}}, {"수", "n", Name{"특수", "로마자"}}, {"수", "⑴", Name{"괄호문자", "수"}}, {"수", "ⓛ", Name{"수", ""}}, {"범위:~(단위 뒤)", "~", Name{Kind: "범위:~(단위 뒤)"}}, {"", "-", Name{}},
+		{"수", "-90", Name{"수", "십진"}}, {"수", "n", Name{"특수", "로마자"}}, {"수", "⑴", Name{"괄호", "수"}}, {"수", "ⓛ", Name{"수", ""}}, {"범위:~(단위 뒤)", "~", Name{Kind: "범위:~(단위 뒤)"}}, {"", "-", Name{}},
 	} {
 		if got := signPartName(c.name, c.text); got != c.want {
 			t.Errorf("%s %s: %+v, want %+v", c.name, c.text, got, c.want)

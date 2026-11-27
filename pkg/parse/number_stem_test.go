@@ -5,7 +5,7 @@ package parse
 import "testing"
 
 func TestNumberStem(t *testing.T) {
-	for _, p := range []Part{{Stem: true, Text: "3", Name: Name{Kind: "수"}}, {Stem: true, Text: "삼십"}, {Stem: true, Text: "세"}, {Stem: true, Text: "①", Name: Name{"원문자", "수"}}, {Stem: true, Text: "n", Name: Name{"특수", "로마자"}}} {
+	for _, p := range []Part{{Stem: true, Text: "3", Name: Name{Kind: "수"}}, {Stem: true, Text: "삼십"}, {Stem: true, Text: "세"}, {Stem: true, Text: "①", Name: Name{"원", "수"}}, {Stem: true, Text: "n", Name: Name{"특수", "로마자"}}} {
 		if !numberStem(p) {
 			t.Fatal(p)
 		}

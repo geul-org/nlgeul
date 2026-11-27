@@ -22,7 +22,10 @@ var forms = formsByLetter(formList)
 // 수:로마십진, as a run of digits is a number (romanLetters).
 const romanShape = "로마 숫자"
 
-// legacyShapes are the shapes whose letters that write a number are a
-// number of one letter (enclosedNumber), with what such a letter was
-// called before the table named it (letterName).
-var legacyShapes = map[string]string{"원": circledNumName, "괄호": parenNumName}
+// formNumberNames are the names of the letters of the tables that write
+// a number (the content 수: 원:수, 괄호:수, 로마 숫자:수 …): a stem of
+// such a name is a number (numberName). enclosedShapes are the shapes
+// whose letters of that content are a number of one letter, an atom of
+// its unit as a run of digits is (enclosedNumber).
+var formNumberNames = contentNames(formList, numName)
+var enclosedShapes = []string{"원", "괄호"}

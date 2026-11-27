@@ -32,22 +32,22 @@ const (
 )
 
 // numberNames are the names a number is given (numberNameOf, and
-// englishNumName).
-var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm, circledNumName, parenNumName, latinLetterName}
+// englishNumName): the kind 수 with each of its forms, the names the
+// tables of special letters give a letter that writes a number
+// (formNumberNames) and the name of one Latin letter.
+var numberNames = append(append([]string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm}, formNumberNames...), latinLetterName)
 
-// The names of the letters written where a number stands that are named
-// by their own shape (numberNameOf): a circled number (①), a
-// parenthesized number (⑴) and one Latin letter (n of n개) are numbers;
-// a parenthesized Hangul letter (㈎: signs.tsv, 괄호문자:한글) is no number.
-const (
-	circledNumName  = "원문자:수"
-	parenNumName    = "괄호문자:수"
-	latinLetterName = "특수:로마자"
-)
+// The letters written where a number stands that are named by their
+// own shape (numberNameOf): a letter that writes a number in a shape of
+// its own is named as the tables of special letters name it (①[원:수],
+// ⑴[괄호:수]: letterName), and one Latin letter (n of n개) is
+// latinLetterName; a parenthesized Hangul letter (㈎[괄호:한글]) is no
+// number.
+const latinLetterName = "특수:로마자"
 
 // shapeNumberNames are the names a number is given by the shape of its
 // one letter (letterName).
-var shapeNumberNames = []string{circledNumName, parenNumName, latinLetterName}
+var shapeNumberNames = append(slices.Clone(formNumberNames), latinLetterName)
 
 // plainNumName is the name that holds a number's plain 수 whatever its
 // letters are (numberNameOf is not asked): the letter that numbers an

@@ -9,7 +9,7 @@ import (
 )
 
 func TestReaderStreamNumberQuote(t *testing.T) {
-	const quote, ending = "②[원문자:수]+라고[부사격:라고]", "②[원문자:수]+라고[맺음:라고]"
+	const quote, ending = "②[원:수]+라고[부사격:라고]", "②[원:수]+라고[맺음:라고]"
 	got, notes := copulaBranches(t, "이것을 ②라고 한다.", "②라고", true)
 	plain, _ := copulaBranches(t, "이것을 ②라고 한다.", "②라고", false)
 	if len(plain) == 0 || plain[0].String() != ending {
