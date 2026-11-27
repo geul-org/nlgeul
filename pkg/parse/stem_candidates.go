@@ -29,7 +29,7 @@ func (sc *scan) stemCandidates(b int, t tail, sole, main bool) []stemCandidate {
 	}
 	front := stemWith(stem, "", sc.bigFront(b, stem, t))
 	if candidates := stemWith(stem, "", sc.ix.knownCandidates(stem, tailClass(t.pieces), sole, sc.auxAfterConn(b, stem, t), sc.unitWordAt(b, stem), sc.boundAfterAdn(b, stem), main)); len(candidates) > 0 {
-		return append(append(front, candidates...), stemWith(stem, "", append(sc.ix.loneUnits(stem), sc.ix.loneNumbers(stem, t)...))...)
+		return append(append(front, candidates...), stemWith(stem, "", append(sc.ix.loneUnits(stem, t), sc.ix.loneNumbers(stem, t)...))...)
 	}
 	if candidates := stemWith(stem, "", kindCandidatesOf(sc.atomStem(b, t.start))); len(candidates) > 0 {
 		return plainToo(stem, candidates)

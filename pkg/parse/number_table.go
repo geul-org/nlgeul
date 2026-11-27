@@ -169,9 +169,9 @@ const (
 	overForm  = "여"
 	orderName = "차례:째"
 	tildeName = "범위:~(단위 뒤)"
-	// loneUnitGraph names the graph of a unit written in letters that are
-	// no Hangul syllables (m, km, kg) read as the stem of a word with no
-	// number written onto it (700 m): loneUnits.
+	// loneUnitGraph names the graph of a unit (m, km, kg, 년, 도) read as
+	// the stem of a word with no number written onto it (700 m, 사십 년):
+	// loneUnits.
 	loneUnitGraph = "단위(수와 띄어 씀)"
 )
 

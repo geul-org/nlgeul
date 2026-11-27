@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestSpacingAlready — the rules of articles 41 and 47 and 43 find boundaries the search already makes: 마당에서놀았다 and 읽어보았다 have the same candidates with every rule on as off (마당+에서 놀+았+다, 읽+어 보+았+다 are in both), and 고양이세마리 has 세 마리 in both and one candidate more with article 43 on (with every rule on 양 and 이 are titles and more are made)
+//ff:what TestSpacingAlready — the rules of articles 41 and 47 and 43 find boundaries the search already makes: 마당에서놀았다 and 읽어보았다 have the same candidates with every rule on as off (마당+에서 놀+았+다, 읽+어 보+았+다 are in both), and 고양이세마리 has 세 마리 in both and two candidates more with article 43 on (고양이세 before 마리 the noun, and before 마리 the unit read with no number written onto it) (with every rule on 양 and 이 are titles and more are made)
 package parse
 
 import "testing"
@@ -16,7 +16,8 @@ func TestSpacingAlready(t *testing.T) {
 	}
 	const line = "고양이[열쇠:체언] 세[열쇠:관형사] 마리[열쇠:체언]"
 	unit := spacingReader(t, "words-spacing.tsv", "43")
-	if !branchLines(off, "고양이세마리")[line] || !branchLines(unit, "고양이세마리")[line] || len(branchLines(unit, "고양이세마리")) != len(branchLines(off, "고양이세마리"))+1 {
-		t.Fatal(len(branchLines(off, "고양이세마리")), len(branchLines(unit, "고양이세마리")))
+	was, now := branchLines(off, "고양이세마리"), branchLines(unit, "고양이세마리")
+	if !was[line] || !now[line] || !now["고양이세 마리[열쇠:체언]"] || !now["고양이세 마리[단위:마리]"] || len(now) != len(was)+2 {
+		t.Fatal(len(was), len(now))
 	}
 }
