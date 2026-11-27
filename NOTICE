@@ -8,7 +8,8 @@ Code in this repository is licensed under the MIT License (LICENSE).
 CC0 data and documents in this repository:
   - data/words.tsv (word table)
   - pkg/data/*.tsv (grammar tables: particles, endings, pieces, closed
-    lists and the other tsv files)
+    lists and the other tsv files; special-forms.tsv is derived from
+    Unicode data, see below)
   - the tables left in code in pkg/parse
   - README.md, data/README.md, pkg/data/README.md and the documentation
 
@@ -20,7 +21,7 @@ CC0 text file is kept here; the legal code at that address applies.
 Versions released before 2026-11-14 under CC0 remain CC0.
 
 Third-party material keeps its own license and is covered by neither MIT nor
-CC0 above: the Go modules listed below.
+CC0 above: the Go modules and the Unicode data listed below.
 
 --------------------------------------------------------------------------------
 Go (module: github.com/geul-org/nlgeul)
@@ -44,6 +45,21 @@ Go (module: github.com/geul-org/nlgeul)
     URL:         https://github.com/inconshreveable/mousetrap
 
 The modules' LICENSE files hold the full texts.
+
+--------------------------------------------------------------------------------
+Unicode data
+--------------------------------------------------------------------------------
+* pkg/data/special-forms.tsv (the table of special letters: a letter, its
+  shape, what it writes, the letters it writes, the number it stands for)
+  is made by the program in pkg/data/gen from the Unicode Character
+  Database 15.0.0 (UnicodeData.txt and Blocks.txt: the letters, their
+  decompositions, numeric values and blocks). The Korean names of the
+  shapes and contents in it are our own (CC0).
+    License:     Unicode License v3
+    Copyright:   Copyright (c) 1991-2022 Unicode, Inc.
+    URL:         https://www.unicode.org/license.txt
+    Source:      https://www.unicode.org/Public/15.0.0/ucd/
+  The data files themselves are not kept in this repository.
 
 --------------------------------------------------------------------------------
 Grammar tables
