@@ -24,8 +24,5 @@ const romanShape = "로마 숫자"
 
 // formNumberNames are the names of the letters of the tables that write
 // a number (the content 수: 원:수, 괄호:수, 로마 숫자:수 …): a stem of
-// such a name is a number (numberName). enclosedShapes are the shapes
-// whose letters of that content are a number of one letter, an atom of
-// its unit as a run of digits is (enclosedNumber).
+// such a name is a number (numberName).
 var formNumberNames = contentNames(formList, numName)
-var enclosedShapes = []string{"원", "괄호"}

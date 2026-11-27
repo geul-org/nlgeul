@@ -29,6 +29,7 @@ func newIndex(o Options) (*index, error) {
 	ix.addPaths()
 	ix.addPairs()
 	ix.addSigns()
+	ix.addForms()
 	ix.addNumbers()
 	ix.addSurname()
 	ix.addStems()

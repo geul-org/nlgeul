@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=selection
-//ff:what sideOf — what a text is, as a sign's side: a run of Latin letters and digits (of digits only, when so), a Hangul syllable, a circled or parenthesized number (as digits), or neither
+//ff:what sideOf — what a text is, as a sign's side: a run of Latin letters and digits (of digits only, when so), a Hangul syllable, a letter that writes a number in a shape of its own (numberLetter: ①, as digits), or neither
 package parse
 
 import (
@@ -15,7 +15,7 @@ func sideOf(text string) int {
 		return 0
 	case rule.JongOf(r[len(r)-1]) >= 0:
 		return rule.SideHangul
-	case len(r) == 1 && enclosedNumber(r[0]):
+	case len(r) == 1 && numberLetter(r[0]):
 		return rule.SideAlnum | rule.SideDigit
 	case !rule.RunRune(r[0]):
 		return 0

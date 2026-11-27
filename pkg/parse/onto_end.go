@@ -5,7 +5,7 @@ package parse
 import "unicode"
 
 func (c *cutter) ontoEnd(from int) int {
-	if from >= len(c.r) || unicode.IsSpace(c.r[from]) || unicode.IsPunct(c.r[from]) || unicode.IsSymbol(c.r[from]) || len(signNames[c.r[from]]) > 0 {
+	if from >= len(c.r) || unicode.IsSpace(c.r[from]) || unicode.IsPunct(c.r[from]) || unicode.IsSymbol(c.r[from]) || namedSign(c.r[from]) {
 		return from
 	}
 	return c.wordEnd(from)

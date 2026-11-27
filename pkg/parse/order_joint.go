@@ -9,5 +9,5 @@ func (sc *scan) orderJoint(t tail) bool {
 		return false
 	}
 	next := sc.at(t.start + 1)
-	return unicode.IsDigit(next) || enclosedNumber(next)
+	return unicode.IsDigit(next) || numberLetter(next)
 }

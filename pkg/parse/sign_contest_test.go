@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestSignContest — one stretch of one sign as a contest: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); the letters with no name when none stands; beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵; the candidates of a higher verdict come first, each with its graph's verdict (one hyphen alone: 줄표 before 빼기, the other way round where a sum is written)
+//ff:what TestSignContest — one stretch of one sign as a contest: a candidate for each graph that stands (샵 and 태그 for # with letters right after it, the heading named with its count and holding it as its depth); a sign the tables of special letters name by its shape is that name, any number of it in a row (ⓐ[원:로마자], ㈎[괄호:한글], ㉠㉠[원:한글]); the letters with no name when none stands (○ is in no table); beside the candidates when all of them are by what the sign does for the words after it (## is 제목2 and ##), not beside 샵; the candidates of a higher verdict come first, each with its graph's verdict (one hyphen alone: 줄표 before 빼기, the other way round where a sum is written)
 package parse
 
 import (
@@ -28,6 +28,10 @@ func TestSignContest(t *testing.T) {
 		{"-", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart | rule.MarkHeads}, 0, `""/stem=true/depth=0/end=0`},
 		{"---", rule.Mark{Run: 3, Facts: rule.MarkAlone | rule.MarkApart | rule.MarkBare}, 0, `""/stem=true/depth=0/end=0`},
 		{"─", rule.Mark{Run: 1, Facts: rule.MarkAlone | rule.MarkApart}, 0, `"줄표"/stem=false/depth=0/end=0`},
+		{"ⓐ", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `"원:로마자"/stem=false/depth=0/end=0`},
+		{"㈎", rule.Mark{Run: 1, Facts: rule.MarkLeads}, 0, `"괄호:한글"/stem=false/depth=0/end=0`},
+		{"㉠㉠", rule.Mark{Run: 2, Facts: rule.MarkAlone}, 0, `"원:한글"/stem=false/depth=0/end=0`},
+		{"○", rule.Mark{Run: 1, Facts: rule.MarkAlone}, 0, `""/stem=true/depth=0/end=0`},
 	}
 	for _, c := range cases {
 		b := sc.signContest(c.text, c.m, c.end)

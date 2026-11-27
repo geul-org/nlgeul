@@ -22,5 +22,5 @@ func stemlessAfter(e *entry, prev rune) bool {
 		return true
 	}
 	_, pair := pairRows[prev]
-	return e.class == classSlot && (pair || len(signNames[prev]) > 0)
+	return e.class == classSlot && (pair || namedSign(prev))
 }

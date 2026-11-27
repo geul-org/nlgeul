@@ -9,6 +9,6 @@ import (
 
 func trimSigns(field string) []rune {
 	return []rune(strings.TrimFunc(field, func(r rune) bool {
-		return unicode.IsPunct(r) || unicode.IsSymbol(r) || len(signNames[r]) > 0
+		return unicode.IsPunct(r) || unicode.IsSymbol(r) || namedSign(r)
 	}))
 }

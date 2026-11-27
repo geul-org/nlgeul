@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestEnclosedReader — a circled or parenthesized number is read as a number with a particle, a unit or an order after it, as a digit is, a parenthesized Hangul letter is a sign named 괄호:한글 (one piece for each letter) and no number, and circled Hangul is left a symbol with no name
+//ff:what TestEnclosedReader — a circled or parenthesized number is read as a number with a particle, a unit or an order after it, as a digit is, a parenthesized Hangul letter is a sign named 괄호:한글 (one piece for each letter) and no number, and circled Hangul and Latin letters are no number
 package parse
 
 import (
