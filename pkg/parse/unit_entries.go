@@ -6,7 +6,7 @@ func (ix *index) unitEntries(form string) []*entry {
 	var out []*entry
 	for _, row := range unitRows {
 		if row.Cells[0] == form {
-			out = append(out, ix.formEntry(unitLabel+row.Cells[1]))
+			out = append(out, ix.formEntry(unitLabel+row.Cells[1], false))
 		}
 	}
 	return out

@@ -5,7 +5,7 @@ package parse
 import "testing"
 
 func TestFormName(t *testing.T) {
-	if got := (form{'❶', "검은 원", "수", "1", "1"}).name(); got != "검은 원:수" {
+	if got := (form{'❶', "검은 원", "수", "1", "1", ""}).name(); got != "검은 원:수" {
 		t.Fatal(got)
 	}
 }

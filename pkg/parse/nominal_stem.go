@@ -6,7 +6,7 @@ func nominalStem(p Part) bool {
 	switch {
 	case !p.Stem:
 		return false
-	case p.Name.Kind == "" && p.Name.Form == "":
+	case p.Name.Kind == "" && p.Name.Form == "", bareOrKept(p):
 		return true
 	case p.Name.Kind == "열쇠":
 		return p.Name.Form == "체언"

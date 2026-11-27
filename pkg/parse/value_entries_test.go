@@ -15,12 +15,12 @@ func TestValueEntries(t *testing.T) {
 		f    form
 		want []string
 	}{
-		{form{'？', "전각", "기호", "?", ""}, []string{"물음표"}},
-		{form{'＃', "전각", "기호", "#", ""}, []string{"제목", "샵", "태그"}},
-		{form{'＝', "전각", "기호", "=", ""}, nil},
-		{form{'，', "전각", "기호", ",", ""}, nil},
-		{form{'㎡', "네모", "기호+로마자", "m2", ""}, nil},
-		{form{'㈜', "괄호", "한글", "주", ""}, nil},
+		{form{'？', "전각", "기호", "?", "", ""}, []string{"물음표"}},
+		{form{'＃', "전각", "기호", "#", "", ""}, []string{"제목", "샵", "태그"}},
+		{form{'＝', "전각", "기호", "=", "", ""}, nil},
+		{form{'，', "전각", "기호", ",", "", ""}, nil},
+		{form{'㎡', "네모", "기호+로마자", "m2", "", ""}, nil},
+		{form{'㈜', "괄호", "한글", "주", "", ""}, nil},
 	} {
 		if got := entryNames(ix.valueEntries(c.f)); !reflect.DeepEqual(got, c.want) {
 			t.Errorf("%c: %q, want %q", c.f.letter, got, c.want)

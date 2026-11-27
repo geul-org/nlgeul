@@ -6,14 +6,14 @@ import "testing"
 
 func TestFormEntry(t *testing.T) {
 	ix := &index{formEntries: map[string]*entry{}}
-	a := ix.formEntry("원:로마자")
+	a := ix.formEntry("원:로마자", false)
 	if a.name != "원:로마자" || a.g == nil || ix.graphs != 1 {
 		t.Fatal(a, ix.graphs)
 	}
-	if ix.formEntry("원:로마자") != a || ix.graphs != 1 {
+	if ix.formEntry("원:로마자", false) != a || ix.graphs != 1 {
 		t.Fatal("one entry for one name")
 	}
-	if b := ix.formEntry("원:한글"); b == a || ix.graphs != 2 {
+	if b := ix.formEntry("원:한글", false); b == a || ix.graphs != 2 {
 		t.Fatal(b, ix.graphs)
 	}
 }

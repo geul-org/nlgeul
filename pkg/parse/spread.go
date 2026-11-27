@@ -20,7 +20,7 @@ func spread(contests []Contest, u unit) []Contest {
 		for _, rd := range u.candidates {
 			out = append(out, lowered(withHead(br, Name{Kind: rd.name, Form: strconv.Itoa(rd.depth)}, rd.depth), rd.verdict))
 		}
-		for _, name := range formNames([]rune(u.text)[0]) {
+		for _, name := range shapeNames([]rune(u.text)[0]) {
 			out = append(out, withHead(br, nameOf(name), 0))
 		}
 		if u.bare {

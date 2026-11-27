@@ -3,7 +3,7 @@
 package parse
 
 func signRun(parts []Part) bool {
-	if len(parts) != 1 || !parts[0].Stem || parts[0].Name != (Name{}) || parts[0].Text == "" {
+	if len(parts) != 1 || !parts[0].Stem || !bareOrKept(parts[0]) || parts[0].Text == "" {
 		return false
 	}
 	for _, r := range parts[0].Text {

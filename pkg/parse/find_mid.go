@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what findMid — the signs between letters of a unit that are also read as a word of their own (apartSigns): the first of a run of one sign, not at the unit's head (nor right after a sign of a pair there), with letters after it, not inside an atom, not where an atom begins and not where the range sign of a number and its unit stands (rangeAt: 1월~3월); each with the candidates its graphs let stand (none, no sign); a candidate with no name (bareApart: =) is the sign's letters as a stem
+//ff:what findMid — the signs between letters of a unit that are also read as a word of their own (apartSigns): the first of a run of one sign, not at the unit's head (nor right after a sign of a pair there), with letters after it, not inside an atom, not where an atom begins and not where the range sign of a number and its unit stands (rangeAt: 1월~3월); each with the candidates its graphs let stand (none, no sign); a candidate with no name (bareApart: =) takes the name the tables of special letters give the sign (midPart: =[기호:같음]), or is the sign's letters as a stem when they give none
 package parse
 
 import "strings"
@@ -29,7 +29,7 @@ func (sc *scan) findMid() {
 		}
 		var candidates []Part
 		for _, m := range marks {
-			candidates = append(candidates, Part{Text: text, Name: signPartName(m.name, text), Stem: m.name == ""})
+			candidates = append(candidates, midPart(text, m.name, sc.s[q]))
 		}
 		sc.mid[q] = midSign{candidates: candidates}
 	}

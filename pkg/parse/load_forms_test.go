@@ -12,7 +12,7 @@ func TestLoadForms(t *testing.T) {
 	one := []data.Row{{Cells: []string{"①", "원", "수", "1", "1"}}}
 	two := []data.Row{{Cells: []string{"㈎", "괄호", "한글", "가", "-"}}}
 	got, err := loadForms(one, two)
-	if err != nil || len(got) != 2 || got[0] != (form{'①', "원", "수", "1", "1"}) || got[1] != (form{'㈎', "괄호", "한글", "가", ""}) {
+	if err != nil || len(got) != 2 || got[0] != (form{'①', "원", "수", "1", "1", ""}) || got[1] != (form{'㈎', "괄호", "한글", "가", "", ""}) {
 		t.Fatalf("%v %v", got, err)
 	}
 	if _, err := loadForms([]data.Row{{Cells: []string{"①②", "원", "수", "1", "1"}, Names: []string{"글자", "꼴", "내용", "값", "수 값"}}}); err == nil {

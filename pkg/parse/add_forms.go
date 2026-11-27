@@ -14,13 +14,13 @@ func (ix *index) addForms() {
 	ix.loneForm, ix.graphs, ix.edges = verdict(alone, rule.Piece{}), ix.graphs+1, ix.edges+1
 	ix.forms, ix.formEntries = map[rune][]*entry{}, map[string]*entry{}
 	for _, f := range formList {
-		if !signRune(f.letter) {
+		if !signRune(f.letter) || (f.origin == defaultTable+".tsv" && ix.handNamed(f.letter)) {
 			continue
 		}
 		if len(ix.forms[f.letter]) > 0 {
-			ix.forms[f.letter] = append(ix.forms[f.letter], ix.formEntry(f.name()))
+			ix.forms[f.letter] = append(ix.forms[f.letter], ix.formEntry(f.name(), f.origin != madeTable+".tsv"))
 			continue
 		}
-		ix.forms[f.letter] = append(append(ix.unitEntries(string(f.letter)), ix.formEntry(f.name())), ix.valueEntries(f)...)
+		ix.forms[f.letter] = append(append(ix.unitEntries(string(f.letter)), ix.formEntry(f.name(), f.origin != madeTable+".tsv")), ix.valueEntries(f)...)
 	}
 }

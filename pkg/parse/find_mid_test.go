@@ -51,8 +51,8 @@ func TestFindMid(t *testing.T) {
 	if len(scanOf("A·B").mid) != 1 || len(scanOf("3·5").mid) != 1 {
 		t.Fatal("between Latin runs")
 	}
-	if bare := scanOf("값=3").mid[1].candidates; len(bare) != 1 || bare[0].Text != "=" || bare[0].Name.Kind != "" || !bare[0].Stem {
-		t.Fatal("a sign with no name is its letters as a stem", bare)
+	if bare := scanOf("값=3").mid[1].candidates; len(bare) != 1 || bare[0].Text != "=" || bare[0].Name != (Name{"기호", "같음"}) || !bare[0].Stem {
+		t.Fatal("a sign with no name of the sign table takes the name of the tables of special letters, a stem still", bare)
 	}
 	if before := scanOf("벌금~300").mid[2].candidates; len(before) != 1 || before[0].Name.Kind != "물결표" {
 		t.Fatal("a tilde right before a digit", before)
