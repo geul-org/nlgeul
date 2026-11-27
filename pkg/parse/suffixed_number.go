@@ -1,5 +1,5 @@
 //ff:func feature=parse type=helper control=sequence
-//ff:what suffixedNumber — is the word before a tail a number a suffix of numberSuffixes (사) is read right after: its stem is named as a number is (numberKinds: 수, 차례), a number ends where the tail starts, and the tail's first piece is such a suffix (3사, 제2사)
+//ff:what suffixedNumber — is the word before a tail a number a suffix of numberSuffixes (사, 용) is read right after: its stem is named as a number is (numberKinds: 수, 차례), a number ends where the tail starts, and the tail's first piece is such a suffix (3사, 제2사, 4용)
 package parse
 
 import "slices"

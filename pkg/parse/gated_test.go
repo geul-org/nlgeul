@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestGated — a tail with no gate always passes; a tail with the predicate gate passes the stem of a verb and not a noun's, and with the nominal gate the noun's; a stem of two kinds passes by the kind its candidate is given and, with no kind given, by any of them; the gate of a suffix after a nominal passes a nominal of the table and not a new word, and not where the stem and the piece after it together are a word of the table (the nominal gate still passes it), nor where they are two words of the table written together (twoWords); a number stem before the suffix 사 passes the gate of a suffix and before 률 does not (suffixedNumber)
+//ff:what TestGated — a tail with no gate always passes; a tail with the predicate gate passes the stem of a verb and not a noun's, and with the nominal gate the noun's; a stem of two kinds passes by the kind its candidate is given and, with no kind given, by any of them; the gate of a suffix after a nominal passes a nominal of the table and not a new word, and not where the stem and the piece after it together are a word of the table (the nominal gate still passes it), nor where they are two words of the table written together (twoWords); a number stem before the suffix 사 passes the gate of a suffix and before 률 does not (suffixedNumber), so does a run of Latin letters and digits (suffixedRun), and a stem of one syllable does not pass before a suffix of longSuffixes (용: shortStem) and a stem of two syllables does
 package parse
 
 import "testing"
@@ -41,5 +41,17 @@ func TestGated(t *testing.T) {
 	ryul := tail{start: 4, gate: sc.ix.suffixGate, pieces: []piece{{text: "률", names: "접미:률"}}}
 	if !sc.gated(0, sa, number) || sc.gated(3, ryul, number) {
 		t.Fatal("a number stem passes the gate of a suffix before 사 and not before 률")
+	}
+	run := step{word: Eojeol{Parts: []Part{{Text: "OTS", Stem: true, Name: Name{Kind: "열", Form: "영숫자"}}}}}
+	if !sc.gated(0, sa, run) || !sc.gated(3, ryul, run) {
+		t.Fatal("a run of Latin letters and digits passes the gate of every suffix")
+	}
+	sc = wordsScan("학교용 법용", layerCost)
+	sc.ix.lex["법"] = word{kinds: kindNominal, count: 10}
+	yong := func(start int) tail {
+		return tail{start: start, gate: sc.ix.suffixGate, pieces: []piece{{text: "용", names: "접미:용"}}}
+	}
+	if !sc.gated(0, yong(2), stem("학교", 0)) || sc.gated(4, yong(5), stem("법", 0)) {
+		t.Fatal("a stem of one syllable does not pass before 용 and a stem of two syllables does")
 	}
 }

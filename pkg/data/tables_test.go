@@ -16,7 +16,7 @@ func TestTables(t *testing.T) {
 		"particles": 5, "short-closings": 6, "short-particles": 4, "short-slots": 4,
 		"signs": 2, "spoken-markers": 3, "top-domains": 1, "typo-closings": 2, "typo-words": 2,
 		"unit-suffixes": 2, "units": 2,
-		"after-unit-words": 1, "sino-units": 1, "closing-chains": 2, "number-suffixes": 1,
+		"after-unit-words": 1, "sino-units": 1, "closing-chains": 2, "number-suffixes": 1, "long-stem-suffixes": 1,
 		"polite-slots":      2,
 		"closing-particles": 2,
 		"quote-markers":     1,

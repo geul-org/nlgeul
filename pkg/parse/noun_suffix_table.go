@@ -14,7 +14,10 @@ import "github.com/geul-org/nlgeul/pkg/data"
 // suffix written onto a name or a nominal for a company or a body, a
 // person of a trade, a temple, a history and so on (the dictionary's
 // -사 社, 師, 士, 寺, 史 …: 구글사, 전담사); it has one name, 접미:사,
-// whatever it means, and particles and the copula follow it. It is not
+// whatever it means, and particles and the copula follow it. 용 (用, for
+// a use or a user: 사업용, 파괴용) is read the same way, and after a run of
+// Latin letters and digits the table lists no word of (OTS용: suffixedRun)
+// every suffix is read as after a nominal. It is not
 // read either where the stem and the suffix are two words of the table
 // written together (twoWords: 기동+전사, not 기동전+사). They are read only with a word table (addWide),
 // the word before must be a nominal of it, and a suffix is not read
@@ -27,8 +30,15 @@ var nounSuffixes = data.Must(data.Each("noun-suffixes", 3, nounSuffixOf))
 
 // numberSuffixes are the suffixes of nounSuffixes read right after a
 // number too (number-suffixes.tsv): 사 (three companies named and then
-// 3사, 제2사). A number is a nominal (a numeral), so the gate of a
+// 3사, 제2사) and 용 (4용). A number is a nominal (a numeral), so the gate of a
 // suffix passes it as one (suffixedNumber); after a number and its unit the
 // suffix is read as any particle chain is (6개사). The noun 사 read
 // apart from the number stays a candidate.
 var numberSuffixes = data.Must(data.Column("number-suffixes", 1))
+
+// longSuffixes are the suffixes of nounSuffixes read only after a stem
+// of two syllables or more (long-stem-suffixes.tsv): 용. A word of one
+// syllable and such a suffix is a word of its own that the word table
+// holds (군용), and where it holds none the letters are another word's:
+// shortStem.
+var longSuffixes = data.Must(data.Column("long-stem-suffixes", 1))
