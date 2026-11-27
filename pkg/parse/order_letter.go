@@ -15,5 +15,5 @@ func (sc *scan) orderLetter(start int) []numeral {
 	if start >= 2 && sideOf(string(sc.s[start-2])) != 0 && !sc.numberBefore(start-1) {
 		return nil
 	}
-	return []numeral{{string(sc.s[start-1]), math.Log10(1 / float64(utf8.RuneCountInString(orderLetters)))}}
+	return []numeral{{string(sc.s[start-1]), math.Log10(1 / float64(utf8.RuneCountInString(orderLetters))), numName}}
 }

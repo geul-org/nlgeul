@@ -1,5 +1,7 @@
 package parse
 
+import "github.com/geul-org/nlgeul/pkg/data"
+
 // What counts as a number right before a unit, besides a run of digits
 // (decision 014-32). The tables are closed; a form is added by writing
 // it here.
@@ -54,3 +56,10 @@ const (
 	orderLetters = "가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허"
 	letterUnit   = "목"
 )
+
+// hanNumerals are the Han characters a number is written with
+// (han-numerals.tsv): the digits 〇 and 零 to 九, the greater numbers 十,
+// 百, 千, 萬, 億 and 兆, and 万 as 萬 is also written. A run of them is one
+// number however they are put together (十二, 二三, 二〇二四), named
+// 수:한자십진 by its letters (numberNameOf).
+var hanNumerals = data.Must(data.Column("han-numerals", 1))

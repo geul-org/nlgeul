@@ -21,6 +21,11 @@ func TestReaderStreamWrittenNumbers(t *testing.T) {
 		{"천6백여", []string{"천[큰 수:천]", "천[열쇠:체언]", "6[수:십진]+백[큰 수:백]+여[어림:여]"}, nil},
 		{"천", []string{"천[열쇠:체언]", "천[수:한글십진]"}, []string{"큰 수:천"}},
 		{"만19세", []string{"만[열쇠:관형사]", "19[수:십진]+세[단위:세]"}, []string{"큰 수:만"}},
+		{"二三일", []string{"二三[수:한자십진]+일[단위:일]", "二三일"}, nil},
+		{"十원은", []string{"十[수:한자십진]+원[단위:원]+은[보조사:은]", "十원은"}, nil},
+		{"三인", []string{"三[수:한자십진]+인[단위:인]", "三인"}, nil},
+		{"十", []string{"十[수:한자십진]", "十"}, nil},
+		{"第一회", []string{"第一회"}, []string{"수:한자십진"}},
 	}
 	for _, c := range cases {
 		lines := streamLines(r, c.sentence)

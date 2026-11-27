@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what TestNumeralTails — a unit after a native numeral stands as it is; after a lone Sino-Korean digit with no word table it is not read; with a word table a numeral and a unit that are a word together stand with a low verdict, and others with the unit's own
+//ff:what TestNumeralTails — a unit after a native numeral stands as it is; after a lone Sino-Korean digit with no word table it is not read; with a word table a numeral and a unit that are a word together stand with a low verdict, and others with the unit's own; the stem is named as the numeral is (수 for Hangul numerals, 수:한자십진 for Han numerals)
 package parse
 
 import "testing"
@@ -13,6 +13,12 @@ func TestNumeralTails(t *testing.T) {
 		t.Fatal("a lone Sino-Korean digit with no word table", got)
 	}
 	if got = scanOf("이십건").units(3, 0, true); len(got) != 2 || got[1].only != "이십" {
+		t.Fatal(got)
+	}
+	if got = scanOf("二三일").units(3, 0, true); len(got) != 1 || got[0].only != "二三" || got[0].as != numName {
+		t.Fatal("the stem is named as the numeral is", got)
+	}
+	if got = scanOf("이십건").units(3, 0, true); got[1].as != numName {
 		t.Fatal(got)
 	}
 	got = wordsScan("세대", layerCost).units(2, 0, true)
