@@ -15,7 +15,7 @@ func TestCaseNumberParts(t *testing.T) {
 	if len(got) != 2 || got[0].Unit != 1 || got[0].Text != "97도2836" || !got[1].Glued || got[1].Text != "판결" {
 		t.Fatal(got)
 	}
-	if len(got[0].Branches) != 2 || got[0].Branches[0].Words[0].String() != "97[수]+도[사건:도]+2836[수]" || got[0].Branches[0].Verdict != 1 {
+	if len(got[0].Branches) != 2 || got[0].Branches[0].Words[0].String() != "97[수:십진]+도[사건:도]+2836[수:십진]" || got[0].Branches[0].Verdict != 1 {
 		t.Fatal(got[0].Branches)
 	}
 	if got[0].Branches[1].Words[0].String() != "판결" || got[1].Branches[0].Words[0].String() != "판결" {

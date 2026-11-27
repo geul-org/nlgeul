@@ -13,10 +13,10 @@ func TestReaderStreamOverUnit(t *testing.T) {
 		t.Fatal(err)
 	}
 	cases := []struct{ sentence, first string }{
-		{"5분여 지났다", "5[수]+분[단위:분]+여[어림:여]"},
-		{"1시간여 지났다", "1[수]+시간[단위:시간]+여[어림:여]"},
-		{"7년여가 지났다", "7[수]+년[단위:년]+여[어림:여]+가[주격:가]"},
-		{"10여명이 왔다", "10[수]+여[어림:여]+명[단위:명]+이[주격:이]"},
+		{"5분여 지났다", "5[수:십진]+분[단위:분]+여[어림:여]"},
+		{"1시간여 지났다", "1[수:십진]+시간[단위:시간]+여[어림:여]"},
+		{"7년여가 지났다", "7[수:십진]+년[단위:년]+여[어림:여]+가[주격:가]"},
+		{"10여명이 왔다", "10[수:십진]+여[어림:여]+명[단위:명]+이[주격:이]"},
 	}
 	for _, c := range cases {
 		first := "\n" + strings.Join(bestLines(r, c.sentence), "\n") + "\n"
@@ -27,7 +27,7 @@ func TestReaderStreamOverUnit(t *testing.T) {
 			t.Errorf("%s: %q appears %d times\n%s", c.sentence, c.first, strings.Count(all, c.first), all)
 		}
 	}
-	if all := streamText(r, "5분여 지났다"); !strings.Contains(all, "5[수]+분[단위:분]+이[서술격:이]+(어)[맺음:어(합침)]") {
+	if all := streamText(r, "5분여 지났다"); !strings.Contains(all, "5[수:십진]+분[단위:분]+이[서술격:이]+(어)[맺음:어(합침)]") {
 		t.Errorf("5분여: the reading with the copula is gone\n%s", all)
 	}
 }

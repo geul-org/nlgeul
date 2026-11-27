@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=sequence
-//ff:what numberCandidates — the ways a word is read whose stem from b to stemEnd is a number: the word as it is and, when the stem is one run of the digits 0 and 1 only (named 수, with no sign before it and no sign inside), the same word again with its stem named 수:2진법; the order is the number first
+//ff:what numberCandidates — the ways a word is read whose stem from b to stemEnd is a number: the word as it is and, when the stem is one run of the digits 0 and 1 only (named 수:십진, with no sign before it and no sign inside), the same word again with its stem named 수:2진법; the order is the number first
 package parse
 
 // Nothing else of the second candidate differs: its verdict and

@@ -22,7 +22,7 @@ func TestSoundAtSentence(t *testing.T) {
 		{"大棍[대곤)을 맞았다.", nil, []string{"\n대[열쇠:동사]+곤[맺음:곤(고는)]\n", "\n)[닫기:1]\n"}},
 		{"[대곤]을 맞았다.", nil, []string{"\n대[열쇠:동사]+곤[맺음:곤(고는)]\n"}},
 		{"保障率[보장률]이 낮다.", nil, []string{"\n보장[열쇠:체언]+률[접미:률]\n"}},
-		{"三年[삼년] 동안", nil, []string{"\n삼[수]+년[단위:년]\n"}},
+		{"三年[삼년] 동안", nil, []string{"\n삼[수:한글십진]+년[단위:년]\n"}},
 	} {
 		lines := streamText(r, c.sentence)
 		for _, g := range c.gone {

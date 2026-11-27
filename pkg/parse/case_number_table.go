@@ -14,7 +14,7 @@ const caseMarkMax = 3
 // number is one stem named so (an atom); it is sent up as three pieces
 // of one word (caseNumberParts): the year and the serial number, each a
 // number (numName), and between them the mark, named caseKind with the
-// mark as its form (2005[수]+두[사건:두]+1329[수]), as a unit is named
+// mark as its form (2005[수:십진]+두[사건:두]+1329[수:십진]), as a unit is named
 // with its letters (개[단위:개]).
 const caseKind = "사건"
 

@@ -9,7 +9,7 @@ import (
 
 func TestSpacingMyriad(t *testing.T) {
 	on, off := spacingReader(t, "words-spacing.tsv", "44"), spacingReader(t, "words-spacing.tsv")
-	if !branchLines(on, "삼억오천만원을")["삼억 오천만[수]+원[단위:원]+을[목적격:을]"] || branchLines(off, "삼억오천만원을")["삼억 오천만[수]+원[단위:원]+을[목적격:을]"] {
+	if !branchLines(on, "삼억오천만원을")["삼억 오천만[수:한글십진]+원[단위:원]+을[목적격:을]"] || branchLines(off, "삼억오천만원을")["삼억 오천만[수:한글십진]+원[단위:원]+을[목적격:을]"] {
 		t.Fatal(branchLines(on, "삼억오천만원을"))
 	}
 	if !slices.Equal(on.BoxLines("오천만원을", false, 0), off.BoxLines("오천만원을", false, 0)) {

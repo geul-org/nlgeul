@@ -53,7 +53,7 @@ func TestReaderStreamStructure(t *testing.T) {
 	if len(c) != 5 || c[2].Text != "3개를" || c[3].Text != "먹어보다" || c[3].Unit != 3 {
 		t.Fatalf("%s: %+v", second, c)
 	}
-	counted := []Eojeol{{Parts: []Part{{Text: "3", Name: Name{"수", ""}, Stem: true}, {Text: "개", Name: Name{"단위", "개"}}, {Text: "를", Name: Name{"목적격", "를"}}}, End: 3}}
+	counted := []Eojeol{{Parts: []Part{{Text: "3", Name: Name{"수", "십진"}, Stem: true}, {Text: "개", Name: Name{"단위", "개"}}, {Text: "를", Name: Name{"목적격", "를"}}}, End: 3}}
 	if !reflect.DeepEqual(c[2].Branches[0].Words, counted) {
 		t.Fatalf("3개를: %+v", c[2].Branches[0])
 	}

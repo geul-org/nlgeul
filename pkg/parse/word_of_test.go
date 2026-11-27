@@ -87,7 +87,7 @@ func TestWordOf(t *testing.T) {
 		t.Fatal("without a word table, an auxiliary verb's stem before an adjective's closing", e)
 	}
 	num := scanOf("세명")
-	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.sig != "세[수]+명[단위:명]" || e.pref != -1.5-costPiece || e.verdict != 1 {
+	if e := num.wordOf(0, 2, tail{start: 1, as: numName, weight: -1.5, pieces: []piece{{text: "명", names: "단위:명", verdict: 1}}}); e.sig != "세[수:한글십진]+명[단위:명]" || e.pref != -1.5-costPiece || e.verdict != 1 {
 		t.Fatal(e)
 	}
 }

@@ -22,13 +22,13 @@ func TestReaderStreamPersonUnit(t *testing.T) {
 		reads    []string
 		unit     bool
 	}{
-		{"3인이 높다", []string{"3[수]+인[단위:인]+이[주격:이]"}, true},
-		{"3인당 비율", []string{"3[수]+인[단위:인]+당[접미:당]"}, true},
-		{"비율이 3인 학교", []string{"3[수]+인[단위:인]", "3[수]+이[서술격:이]+(ㄴ)[꾸밈:ㄴ]"}, true},
+		{"3인이 높다", []string{"3[수:십진]+인[단위:인]+이[주격:이]"}, true},
+		{"3인당 비율", []string{"3[수:십진]+인[단위:인]+당[접미:당]"}, true},
+		{"비율이 3인 학교", []string{"3[수:십진]+인[단위:인]", "3[수:십진]+이[서술격:이]+(ㄴ)[꾸밈:ㄴ]"}, true},
 		{"네인 학교", nil, false},
 		{"한인 학교", nil, false},
 	}
-	if lone := streamText(with, "삼인이 높다"); !strings.Contains(lone, "\n삼[수]+인[단위:인]+이[주격:이]") {
+	if lone := streamText(with, "삼인이 높다"); !strings.Contains(lone, "\n삼[수:한글십진]+인[단위:인]+이[주격:이]") {
 		t.Errorf("삼인이: the unit after a Sino-Korean numeral is not read with a word table\n%s", lone)
 	}
 	for _, c := range cases {

@@ -17,7 +17,7 @@ func (sc *scan) signContest(text string, m rule.Mark, end int) Contest {
 	slices.SortStableFunc(marks, func(a, b markCandidate) int { return cmp.Compare(b.v, a.v) })
 	for _, mk := range marks {
 		name := mk.name
-		p := Part{Text: text, Name: Name{Kind: name}}
+		p := Part{Text: text, Name: signPartName(name, text)}
 		if name == headingName {
 			p.Name.Kind, p.Depth = name+strconv.Itoa(m.Run), m.Run
 		}

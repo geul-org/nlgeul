@@ -23,8 +23,8 @@ const plateSerialLen = 4
 // is sent up as the pieces of one word (plateWord): the kind and the
 // serial number, each a number (numName), and between them the letter,
 // named plateKind with the letter as its form
-// (206[수]+너[차등록:너]+9499[수]); the region before them is a nominal
-// (regionName: 서울[열쇠:체언]+34[수]+가[차등록:가]+5678[수]).
+// (206[수:십진]+너[차등록:너]+9499[수:십진]); the region before them is a nominal
+// (regionName: 서울[열쇠:체언]+34[수:십진]+가[차등록:가]+5678[수:십진]).
 const plateKind = "차등록"
 
 var regionName = Name{keyKind, "체언"}

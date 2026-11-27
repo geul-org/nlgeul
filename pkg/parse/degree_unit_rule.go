@@ -19,6 +19,6 @@ import (
 func degreeUnitRule() sentenceRule {
 	g, _ := sentenceClaim(ruleDegreeUnit, rule.Listed, listed("단위 도", rule.ListSelfLast, degreeNames))
 	return sentenceRule{name: ruleDegreeUnit, graph: g, bonus: bonusSameLetters, about: func(n rule.Near) bool {
-		return n.Kind == numName && slices.Contains(degreeNames, n.Last)
+		return slices.Contains(numberNames, n.Kind) && slices.Contains(degreeNames, n.Last)
 	}}
 }

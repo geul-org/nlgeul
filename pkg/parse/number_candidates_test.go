@@ -10,10 +10,10 @@ func TestNumberCandidates(t *testing.T) {
 		return sc.numberCandidates(sc.wordOf(0, len(sc.s), tail{start: stemEnd}), 0, stemEnd)
 	}
 	two := read("1010", 4)
-	if len(two) != 2 || two[0].sig != "1010[수]" || two[1].sig != "1010[수:2진법]" || two[0].verdict != two[1].verdict || two[0].pref != two[1].pref || two[0].end != two[1].end {
+	if len(two) != 2 || two[0].sig != "1010[수:십진]" || two[1].sig != "1010[수:2진법]" || two[0].verdict != two[1].verdict || two[0].pref != two[1].pref || two[0].end != two[1].end {
 		t.Fatalf("%+v", two)
 	}
-	if two[0].word.Parts[0].Name != (Name{"수", ""}) || two[1].word.Parts[0].Name != (Name{"수", "2진법"}) {
+	if two[0].word.Parts[0].Name != (Name{"수", "십진"}) || two[1].word.Parts[0].Name != (Name{"수", "2진법"}) {
 		t.Fatal("the first candidate is not changed by the second", two[0].word.Parts[0].Name)
 	}
 	for _, c := range []struct {

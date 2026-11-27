@@ -8,7 +8,7 @@ func TestDegreeUnitRuleOrder(t *testing.T) {
 	r := streamReader(t, "words-stream.tsv")
 	for _, text := range []string{"10도", "340도"} {
 		n := text[:len(text)-len("도")]
-		unit, particle := n+"[수]+도[단위:도]", n+"[수]+도[보조사:도]"
+		unit, particle := n+"[수:십진]+도[단위:도]", n+"[수:십진]+도[보조사:도]"
 		bare := r.Stream(text)
 		bare.rules = nil
 		plain, _ := bare.Next()
@@ -28,7 +28,7 @@ func TestDegreeUnitRuleOrder(t *testing.T) {
 		}
 	}
 	seg, _ := r.Stream("10도로").Next()
-	if got := seg.Nodes[0].Contest.Branches[0].String(); got != "10[수]+도[단위:도]+로[부사격:로]" {
+	if got := seg.Nodes[0].Contest.Branches[0].String(); got != "10[수:십진]+도[단위:도]+로[부사격:로]" {
 		t.Fatal("a particle after the unit", got)
 	}
 }

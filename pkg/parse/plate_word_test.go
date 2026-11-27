@@ -7,7 +7,7 @@ import "testing"
 func TestPlateWord(t *testing.T) {
 	in := Eojeol{Parts: []Part{{Text: "74모2238", Name: Name{Kind: plateKind}, Stem: true}, {Text: "호", Name: Name{"단위", "호"}}}, End: 8}
 	got := plateWord(in)
-	if got.String() != "74[수]+모[차등록:모]+2238[수]+호[단위:호]" || got.End != 8 {
+	if got.String() != "74[수:십진]+모[차등록:모]+2238[수:십진]+호[단위:호]" || got.End != 8 {
 		t.Fatal(got.String(), got.End)
 	}
 	if !got.Parts[0].Stem || got.Parts[1].Stem || got.Parts[2].Stem || got.Parts[3].Stem {
@@ -17,7 +17,7 @@ func TestPlateWord(t *testing.T) {
 		t.Fatal("the word given is changed", in.Parts)
 	}
 	got = plateWord(Eojeol{Parts: []Part{{Text: "서울34가5678", Name: Name{Kind: plateKind}, Stem: true}}})
-	if got.String() != "서울[열쇠:체언]+34[수]+가[차등록:가]+5678[수]" {
+	if got.String() != "서울[열쇠:체언]+34[수:십진]+가[차등록:가]+5678[수:십진]" {
 		t.Fatal(got.String())
 	}
 	if !got.Parts[0].Stem || got.Parts[1].Stem || got.Parts[2].Stem || got.Parts[3].Stem {

@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestNumberStopSentence — end to end with the word table of testdata: in a date written with dots the last number's dot with a particle after it is a piece of the number's word, read first (2012. 12. 31.까지: 31[수]+.[마침표]+까지[보조사:까지]), while the dots before it stand alone; the dot of a decimal stays in the number (1.5까지), and a full stop after a word still closes that word (했다.그는)
+//ff:what TestNumberStopSentence — end to end with the word table of testdata: in a date written with dots the last number's dot with a particle after it is a piece of the number's word, read first (2012. 12. 31.까지: 31[수:십진]+.[마침표]+까지[보조사:까지]), while the dots before it stand alone; the dot of a decimal stays in the number (1.5까지), and a full stop after a word still closes that word (했다.그는)
 package parse
 
 import (
@@ -17,7 +17,7 @@ func TestNumberStopSentence(t *testing.T) {
 		in   string
 		want []string
 	}{
-		{"2012. 12. 31.까지", []string{"{0 4} 2012[수]", "{4 5} .[마침표]", "{5 7} 12[수]", "{7 8} .[마침표]", "{8 13} 31[수]+.[마침표]+까지[보조사:까지]"}},
+		{"2012. 12. 31.까지", []string{"{0 4} 2012[수:십진]", "{4 5} .[마침표]", "{5 7} 12[수:십진]", "{7 8} .[마침표]", "{8 13} 31[수:십진]+.[마침표]+까지[보조사:까지]"}},
 		{"1.5까지", []string{"{0 5} 1.5[소수점]+까지[보조사:까지]"}},
 	} {
 		if got := flatNodes(r, c.in, true); !slices.Equal(got, c.want) {

@@ -2,6 +2,7 @@ package parse
 
 import (
 	"math"
+	"slices"
 
 	"github.com/geul-org/nlgeul/pkg/rule"
 )
@@ -423,8 +424,11 @@ var (
 // numberKinds are the names of the stem of a number (and of an ordinal
 // number with 제, so that the two readings of the same digits keep their
 // order) that a rule of a sentence reads 라고 after as the particle of
-// quotation (numberQuoteRule).
-var numberKinds = []string{"수", "차례"}
+// quotation (numberQuoteRule). A number is named by the letters it is
+// written in (numberNameOf), so each of its names is listed (numberNames;
+// the plain 수 is a number written in other letters); the names 수:2진법
+// and 수:16진법 are not among them.
+var numberKinds = append(slices.Clone(numberNames), "차례")
 
 // copulaNames are the names of the copula 이 written out, contrastNames
 // those of the linking ending 나 after it, and commaNames those of the

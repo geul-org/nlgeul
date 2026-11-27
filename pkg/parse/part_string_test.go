@@ -11,7 +11,7 @@ func TestPartString(t *testing.T) {
 	if got := (Part{Text: "마신", Stem: true}).String(); got != "마신" {
 		t.Fatalf("new word: %q", got)
 	}
-	if got := (Part{Text: "3", Stem: true, Name: Name{"수", ""}}).String(); got != "3[수]" {
+	if got := (Part{Text: "3", Stem: true, Name: Name{"수", "십진"}}).String(); got != "3[수:십진]" {
 		t.Fatalf("number: %q", got)
 	}
 	if got := (Part{Text: "x"}).String(); got != "x[]" {

@@ -10,10 +10,10 @@ import (
 func TestNumberAdnRebuttalSentence(t *testing.T) {
 	r := streamReader(t, "words-number-adn.tsv")
 	for _, c := range []struct{ in, want string }{
-		{"그 1인 회사의 주주", "1[수]+인[단위:인]"},
-		{"300인 이상", "300[수]+인[단위:인]"},
+		{"그 1인 회사의 주주", "1[수:십진]+인[단위:인]"},
+		{"300인 이상", "300[수:십진]+인[단위:인]"},
 		{"84.2%인 비율", "84.2[소수점]+%[단위:퍼센트]+이[서술격:이]+(ㄴ)[꾸밈:ㄴ]"},
-		{"주주는 3이다.", "3[수]+이[서술격:이]+다[맺음:다]"},
+		{"주주는 3이다.", "3[수:십진]+이[서술격:이]+다[맺음:다]"},
 	} {
 		var words []string
 		for _, b := range bestNodes(r, c.in) {
@@ -23,7 +23,7 @@ func TestNumberAdnRebuttalSentence(t *testing.T) {
 			t.Errorf("%s: want %s first\n%s", c.in, c.want, got)
 		}
 	}
-	if !netHas(r, "300인 이상", "300[수]+이[서술격:이]+(ㄴ)[꾸밈:ㄴ]") {
+	if !netHas(r, "300인 이상", "300[수:십진]+이[서술격:이]+(ㄴ)[꾸밈:ㄴ]") {
 		t.Fatal("the copula right after 300 is gone")
 	}
 }

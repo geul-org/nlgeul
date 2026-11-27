@@ -17,7 +17,7 @@ func TestReaderStreamSuffix(t *testing.T) {
 		"문제끼리인데": "열쇠:체언+접미:끼리+서술격:이+맺음:ㄴ데",
 		"학교들이":   "열쇠:체언+접미:들+주격:이",
 		"학교이다":   "열쇠:체언+서술격:이+맺음:다",
-		"3명당이다":  "수:+단위:명+접미:당+서술격:이+맺음:다",
+		"3명당이다":  "수:십진+단위:명+접미:당+서술격:이+맺음:다",
 	} {
 		if !hasNames(streamContests(r, in), want) {
 			t.Errorf("%s: no candidate %s", in, want)

@@ -29,7 +29,7 @@ func TestEnclosedReader(t *testing.T) {
 		}
 	}
 	for _, text := range []string{"ⓐ", "㉠"} {
-		if got := streamText(r, text); strings.Contains(got, "[수]") {
+		if got := streamText(r, text); strings.Contains(got, "[수") {
 			t.Errorf("%s is no number: %s", text, got)
 		}
 	}

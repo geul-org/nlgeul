@@ -30,7 +30,7 @@ func TestGrowAlone(t *testing.T) {
 	}
 	bin := scanOf("1010")
 	e = bin.stepsOf(0, 4, tail{start: 4})[0]
-	if got := bin.growAlone(nil, kept[:1], e, 0, 4); len(got) != 2 || got[0].last.sig != "1010[수]" || got[1].last.sig != "1010[수:2진법]" {
+	if got := bin.growAlone(nil, kept[:1], e, 0, 4); len(got) != 2 || got[0].last.sig != "1010[수:십진]" || got[1].last.sig != "1010[수:2진법]" {
 		t.Fatal("a number in binary has two candidates", got)
 	}
 	if got := bin.growAlone(nil, nil, e, 0, 4); len(got) != 0 {

@@ -17,6 +17,20 @@ const (
 	numGraph = "수:숫자열"
 )
 
+// The forms of a number's name by the letters it is written in
+// (numberNameOf): digits, Hangul syllables, Chinese characters, Roman
+// numeral letters. Any other letters (a circled number, one Latin letter)
+// keep the name with no form.
+const (
+	decimalForm = "십진"
+	hangulForm  = "한글십진"
+	hanjaForm   = "한자십진"
+	romanForm   = "로마십진"
+)
+
+// numberNames are the names a number is given (numberNameOf).
+var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm}
+
 // hexName and binForm name the other ways a run reads as a number: a
 // run that is 0x and then hexadecimal digits is the number named
 // 수:16진법 (the only candidate of it); a number of digits 0 and 1 only

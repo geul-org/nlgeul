@@ -20,10 +20,10 @@ func TestReaderStreamNumberSuffix(t *testing.T) {
 		sentence, first string
 		suffix          bool
 	}{
-		{"3사는 높다", "3[수]+사[접미:사]+는[보조사:는]", true},
+		{"3사는 높다", "3[수:십진]+사[접미:사]+는[보조사:는]", true},
 		{"제2사를 보다", "제2[차례]+사[접미:사]+를[목적격:를]", true},
-		{"3사이다", "3[수]+사[접미:사]+이[서술격:이]+다[맺음:다]", true},
-		{"6개사의 학교", "6[수]+개[단위:개]+사[접미:사]+의[관형격:의]", true},
+		{"3사이다", "3[수:십진]+사[접미:사]+이[서술격:이]+다[맺음:다]", true},
+		{"6개사의 학교", "6[수:십진]+개[단위:개]+사[접미:사]+의[관형격:의]", true},
 		{"3률은 높다", "", false},
 	}
 	for _, c := range cases {
@@ -38,7 +38,7 @@ func TestReaderStreamNumberSuffix(t *testing.T) {
 			t.Errorf("%s: a suffix read with no word table:\n%s", c.sentence, bare)
 		}
 	}
-	if apart := streamText(with, "3사는 높다"); !strings.Contains(apart, "3[수]") || !strings.Contains(apart, "사[열쇠:체언]+는[보조사:는]") {
+	if apart := streamText(with, "3사는 높다"); !strings.Contains(apart, "3[수:십진]") || !strings.Contains(apart, "사[열쇠:체언]+는[보조사:는]") {
 		t.Errorf("3사는: the reading apart from the number is gone\n%s", apart)
 	}
 	if first := strings.Join(bestLines(with, "3사단이 높다"), "\n"); !strings.Contains(first, "사단[열쇠:체언]+이[주격:이]") {

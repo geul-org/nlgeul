@@ -29,7 +29,7 @@ func (sc *scan) findMid() {
 		}
 		var candidates []Part
 		for _, m := range marks {
-			candidates = append(candidates, Part{Text: text, Name: Name{Kind: m.name}, Stem: m.name == ""})
+			candidates = append(candidates, Part{Text: text, Name: signPartName(m.name, text), Stem: m.name == ""})
 		}
 		sc.mid[q] = midSign{candidates: candidates}
 	}

@@ -11,7 +11,7 @@ import (
 func (sc *scan) stepOf(b, end int, t tail, r stemCandidate) step {
 	e := step{end: end, word: Eojeol{Parts: []Part{{Text: r.stem, Stem: true}}, End: end}, verdict: r.v, kind: r.kind}
 	if r.v > 0 {
-		e.word.Parts[0].Name, e.word.Parts[0].Written = nameOf(r.name), r.wrote
+		e.word.Parts[0].Name, e.word.Parts[0].Written = partName(r.name, r.stem), r.wrote
 	} else {
 		e.verdict = sc.unlisted(b, end, r.stem, t)
 	}
@@ -23,7 +23,7 @@ func (sc *scan) stepOf(b, end int, t tail, r stemCandidate) step {
 	last := ""
 	for _, p := range t.pieces {
 		hidden, shown := hiddenOf(p.text)
-		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Name: nameOf(p.names), Unseen: p.unseen, Written: p.wrote})
+		e.word.Parts = append(e.word.Parts, Part{Text: shown, Hidden: hidden, Name: partName(p.names, shown), Unseen: p.unseen, Written: p.wrote})
 		e.verdict, e.pref, last = math.Min(e.verdict, p.verdict), e.pref+p.pref, p.names
 	}
 	e.sig = e.word.String()
