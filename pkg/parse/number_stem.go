@@ -3,5 +3,5 @@
 package parse
 
 func numberStem(p Part) bool {
-	return p.Stem && (p.Name.Kind == "수" || sinoTokens(p.Text) > 0 || nativeTokens(p.Text) > 0)
+	return p.Stem && (numberName(p.Name) || sinoTokens(p.Text) > 0 || nativeTokens(p.Text) > 0)
 }

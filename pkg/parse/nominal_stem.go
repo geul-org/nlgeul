@@ -13,5 +13,5 @@ func nominalStem(p Part) bool {
 	}
 	// A decimal number (3.5) is named by its dot, 소수점; it is a number
 	// all the same.
-	return p.Name.Kind == "의존명사" || p.Name.Kind == "대명사" || p.Name.Kind == "수" || p.Name.Kind == "소수점"
+	return p.Name.Kind == "의존명사" || p.Name.Kind == "대명사" || numberName(p.Name) || p.Name.Kind == "소수점"
 }

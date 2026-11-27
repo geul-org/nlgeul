@@ -217,6 +217,7 @@ const (
 	ListSelfText             // the letters of the candidate's word (한 of 하다 with ㄴ)
 	ListPrevName             // the name of the stem of the word before it, whole (열쇠:동사)
 	ListNext2Last            // the name of the last piece of the word after that
+	ListNextName             // the name of the stem of the word after it, whole (원문자:수)
 )
 
 // Yes/no facts of a candidate judged in its sentence that AroundIs

@@ -25,7 +25,7 @@ func TestListValidate(t *testing.T) {
 		{List{Name: "letters", Of: ListSelfText, Items: []string{"한"}}, true},
 		{List{Name: "names", Of: ListPrevName, Items: []string{"열쇠:동사"}}, true},
 		{List{Name: "lasts", Of: ListNext2Last, Items: []string{"꾸밈:는"}}, true},
-		{List{Name: "forms", Of: ListNext2Last + 1}, false},
+		{List{Name: "forms", Of: ListNextName + 1}, false},
 	}
 	for _, c := range cases {
 		if err := c.l.Validate(); (err == nil) != c.ok {

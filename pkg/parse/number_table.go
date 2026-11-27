@@ -33,7 +33,27 @@ const (
 
 // numberNames are the names a number is given (numberNameOf, and
 // englishNumName).
-var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm}
+var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm, circledNumName, parenNumName, latinLetterName}
+
+// The names of the letters written where a number stands that are named
+// by their own shape (numberNameOf): a circled number (①), a
+// parenthesized number (⑴) and one Latin letter (n of n개) are numbers;
+// a parenthesized Hangul letter (㈎: signs.tsv, 괄호문자:한글) is no number.
+const (
+	circledNumName  = "원문자:수"
+	parenNumName    = "괄호문자:수"
+	latinLetterName = "특수:로마자"
+)
+
+// shapeNumberNames are the names a number is given by the shape of its
+// one letter (letterName).
+var shapeNumberNames = []string{circledNumName, parenNumName, latinLetterName}
+
+// plainNumName is the name that holds a number's plain 수 whatever its
+// letters are (numberNameOf is not asked): the letter that numbers an
+// item of a law (사목: 사 is no numeral 사). nameOf reads it as the kind
+// 수 with no form.
+const plainNumName = numName + ":"
 
 // romanNumName and englishNumName name a number whose letters do not
 // tell the way it is written (numberNameOf reads Latin letters as no

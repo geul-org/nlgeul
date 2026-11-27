@@ -28,7 +28,7 @@ func (sc *scan) units(j, next int, open bool) []tail {
 			words = nil
 		}
 		if e.form == letterUnit {
-			words = append(words, sc.orderLetter(start)...)
+			words = withOrderLetter(words, sc.orderLetter(start))
 		}
 		if len(lefts) == 0 && len(words) == 0 && !rule.RunRune(sc.s[start-1]) && !enclosedNumber(sc.s[start-1]) {
 			out = append(out, sc.bareUnits(e, start, j)...)

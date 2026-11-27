@@ -70,3 +70,10 @@ var hanNumerals = data.Must(data.Column("han-numerals", 1))
 // trillion. A number written with them is named 수:영문십진
 // (englishNumber).
 var englishNumerals = data.Must(data.Column("english-numerals", 1))
+
+// hangulNumerals are the numerals written in Hangul (hangul-numerals.tsv):
+// the native ones (하나 … 아흔), their forms before a unit (한, 두 …) and
+// the Sino-Korean ones (일, 이 … 조). A run of them is a numeral, named
+// 수:한글십진 (hangulNumeral); 몇, 여러 and the letters that number the
+// items of a law are read as numbers, but are no numerals: the plain 수.
+var hangulNumerals = data.Must(data.Column("hangul-numerals", 1))

@@ -8,5 +8,5 @@ func (sc *scan) suffixedNumber(t tail, e step) bool {
 	if len(t.pieces) == 0 || !sc.numEnds[t.start] || !slices.Contains(numberSuffixes, t.pieces[0].text) {
 		return false
 	}
-	return slices.Contains(numberKinds, e.word.Parts[0].Name.Kind)
+	return slices.Contains(numberKinds, e.word.Parts[0].Name.Kind) || numberName(e.word.Parts[0].Name)
 }
