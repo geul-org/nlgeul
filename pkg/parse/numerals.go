@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what numerals — the numbers that end at a place and are no run of digits: every run of Hangul numerals that ends there, however long (as far back as the letters of numerals go), a Latin letter of the table that is a run by itself, and the run of Han numerals that ends there (hanNumerals)
+//ff:what numerals — the numbers that end at a place and are no run of digits: every run of Hangul numerals that ends there, however long (as far back as the letters of numerals go), a Latin letter of the table that is a run by itself, the run of Han numerals that ends there (hanNumerals), and a Roman numeral written in Latin capitals that is a run by itself (romanNumerals)
 package parse
 
 import (
@@ -21,5 +21,5 @@ func (sc *scan) numerals(end int) []numeral {
 	if ok && a.end == end && slices.Contains(numberLetters, string(sc.s[end-1:end])) {
 		out = append(out, numeral{string(sc.s[end-1 : end]), math.Log10(1.0 / float64(len(numberLetters))), numName})
 	}
-	return append(out, sc.hanNumerals(end)...)
+	return append(append(out, sc.hanNumerals(end)...), sc.romanNumerals(end)...)
 }

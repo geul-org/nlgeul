@@ -1,6 +1,7 @@
 package parse
 
 import (
+	"regexp"
 	"slices"
 
 	"github.com/geul-org/nlgeul/pkg/data"
@@ -31,10 +32,16 @@ const (
 // numberNames are the names a number is given (numberNameOf).
 var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm}
 
-// loneNumberGraph names the graph of a number that is no run of digits
-// read where nothing in its word tells that it is a number (no unit is
-// written onto it: 사십 before 년 written apart): loneNumbers.
-const loneNumberGraph = "수(홀로 섬)"
+// romanNumName names a number whose letters do not tell the way it is
+// written (numberNameOf reads Latin letters as no form): a Roman numeral
+// written in Latin capitals (XIV). loneNumberGraph names the graph of a
+// number that is no run of digits read where nothing in its word tells
+// that it is a number (no unit is written onto it: 사십 before 년 written
+// apart, II after a name): loneNumbers.
+const (
+	romanNumName    = numName + ":" + romanForm
+	loneNumberGraph = "수(홀로 섬)"
+)
 
 // bigFrontGraph names the graph of a greater number written in Hangul
 // right before the digits of the same number (천500억): bigFront.
@@ -212,3 +219,19 @@ var bareSuffixes = unitSuffixSets[setAfterBare]
 // U+3251-325F ㉑-㉟ (circled 21-35), U+32B1-32BF ㊱-㊿ (circled 36-50).
 // The table is closed; circled Hangul and Latin letters are not numbers.
 var enclosedRanges = [][2]rune{{0x2460, 0x2473}, {0x2474, 0x2487}, {0x3251, 0x325F}, {0x32B1, 0x32BF}}
+
+// romanRange are the Roman numeral letters of Unicode (U+2160-217F: Ⅰ-Ⅻ,
+// Ⅼ, Ⅽ, Ⅾ, Ⅿ and the small ⅰ-ⅿ): each is a Roman numeral by itself, and a
+// run of them alone is a number named 수:로마십진, as a run of digits is a
+// number. romanShape is the shape of a Roman numeral written in the Latin
+// capitals I, V and X: tens, then ones, each in the numeral's own order
+// (romanWritten). romanHidden is the letter that, repeated alone, stands
+// for what is not told (XX, XXX: romanSure). romanCount is how many
+// numerals that shape writes (1 to 39).
+var romanRange = [2]rune{0x2160, 0x217F}
+var romanShape = regexp.MustCompile(`^X{0,3}(IX|IV|V?I{0,3})$`)
+
+const (
+	romanHidden = "X"
+	romanCount  = 39
+)

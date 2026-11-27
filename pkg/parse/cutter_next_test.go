@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestCutterNext — the unit at a place by what stands there: plain letters up to the next sign of a pair, an opening sign alone (the ways of standing open move past it), a span of code with what is written onto it, a closing sign with the particle written onto it (the ways move back), a sign read as nothing but a letter in its word, a sign that is also its letter, a sign that cuts the sentence (a plus between letters) alone; the first unit of an input line, a space right after a unit and the facts of its place in its line (a space on both sides of it) are told
+//ff:what TestCutterNext — the unit at a place by what stands there: plain letters up to the next sign of a pair, an opening sign alone (the ways of standing open move past it), a span of code with what is written onto it, a closing sign with the particle written onto it (the ways move back), a sign read as nothing but a letter in its word, a sign that is also its letter, a sign that cuts the sentence (a plus between letters) alone; the first unit of an input line, a space right after a unit and the facts of its place in its line (a space on both sides of it) are told, and whether a unit of letters stands alone in a round bracket written onto a word (III of 크로뮴(III), not after a space)
 package parse
 
 import (
@@ -35,6 +35,12 @@ func TestCutterNext(t *testing.T) {
 		if !reflect.DeepEqual(got, s.want) || end != s.end || !reflect.DeepEqual(c.open, s.open) {
 			t.Errorf("next(%d): %+v end %d open %q\nwant %+v end %d open %q", s.at, got, end, c.open, s.want, s.end, s.open)
 		}
+	}
+	if in, _ := newCutter(ix, "크로뮴(III)", false).next(4); in.text != "III" || !in.bracketed {
+		t.Fatal("letters alone in a round bracket written onto a word", in)
+	}
+	if in, _ := newCutter(ix, "크로뮴 (III)", false).next(5); in.text != "III" || in.bracketed {
+		t.Fatal("a bracket written apart", in)
 	}
 	plus, end := newCutter(ix, "곰+돌", false).next(1)
 	if plus.text != "+" || plus.head != 0 || plus.name != "" || plus.candidates != nil || end != 2 {

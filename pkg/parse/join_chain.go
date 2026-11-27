@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what joinChain — judge each sign of a chain of runs (told whether a full stop stands right after the chain's last run: MarkStopped) and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); the sign kept at the head of the first run ($HOME, .env) is no letter of its side before a slash (.cache/db is a path as cache/db is; before a dot or a hyphen it stays one, and that run joins nothing); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법)
+//ff:what joinChain — judge each sign of a chain of runs (told whether a full stop stands right after the chain's last run: MarkStopped) and note the atoms: runs stay joined across a sign that a joining candidate stands for, the names of the joins in order with 붙임 last (hyphenLast); the sign kept at the head of the first run ($HOME, .env) is no letter of its side before a slash (.cache/db is a path as cache/db is; before a dot or a hyphen it stays one, and that run joins nothing); an atom made of runs of digits is a number, and so is a run that is 0x and hexadecimal digits (named 수:16진법), and a run of the Roman numeral letters of Unicode alone (romanLetters: Ⅱ, ⅳ; named 수:로마십진)
 package parse
 
 import (
@@ -38,6 +38,8 @@ func (sc *scan) joinChain(chain [][2]int) {
 		}
 		if len(names) == 0 && start == r[0] && hexRun(labels[k]) {
 			sc.closeAtom(start, r[1], []string{hexName}, true)
+		} else if len(names) == 0 && start == r[0] && romanLetters(labels[k]) {
+			sc.closeAtom(start, r[1], []string{romanNumName}, true)
 		} else {
 			sc.closeAtom(start, r[1], hyphenLast(names), num)
 		}

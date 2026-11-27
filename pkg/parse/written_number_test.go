@@ -5,7 +5,7 @@ package parse
 import "testing"
 
 func TestWrittenNumber(t *testing.T) {
-	for text, want := range map[string]string{"사십": numName, "오": numName, "수십": numName, "삼십만": numName, "十": numName, "二三": numName,
+	for text, want := range map[string]string{"사십": numName, "오": numName, "수십": numName, "삼십만": numName, "十": numName, "二三": numName, "II": romanNumName, "XIV": romanNumName, "V": romanNumName, "XX": romanNumName,
 		"40": "", "세": "", "육칠": "", "곰": "", "CD": "", "ii": "", "": ""} {
 		if got := writtenNumber(text); got != want {
 			t.Errorf("writtenNumber(%q) = %q", text, got)
