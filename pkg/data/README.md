@@ -59,7 +59,7 @@
 | `short-closings.tsv` | 꼴, 앞말, 갈래, 조건, 본말, 줄기 | `shortClosings` (`shortOf`) | `달까	-	종결	서술격 안 됨	다고 할까	형용사` |
 | `short-particles.tsv` | 꼴, 앞말, 격, 본말 | `shortParticles` (`shortParticleOf`) | `선	-	부사격	에서는` |
 | `short-slots.tsv` | 꼴, 앞말, 본말, 줄기 | `shortSlots` (`shortSlotOf`) | `댔	-	다고 했	형용사` |
-| `noun-suffixes.tsv` | 꼴(온 음절), 앞말, 뒤(`조사 이어짐`: 조사와 서술격이 뒤에 선다, `조사 없음`: 낱말을 끝낸다. `SuffixNames`) | `nounSuffixes` (`nounSuffixOf`) | `률	ㄴ 아닌 받침 뒤	조사 이어짐`, `당	-	조사 없음` |
+| `noun-suffixes.tsv` | 꼴(온 음절), 앞말, 뒤(`조사 이어짐`: 조사와 서술격이 뒤에 선다, `조사 없음`: 낱말을 끝낸다. `SuffixNames`) | `nounSuffixes` (`nounSuffixOf`) | `률	ㄴ 아닌 받침 뒤	조사 이어짐`, `당	-	조사 없음`, `용	-	조사 이어짐` |
 | `typo-closings.tsv` | 틀린 꼴, 바른 맺음(색인 이름) | `typoClosings` (`typoClosingOf`) | `ㄹ께	맺음:ㄹ게` |
 | `typo-words.tsv` | 틀린 꼴, 바른 낱말 | `typoKeys` | `꺼	거` |
 | `spoken-markers.tsv` | 적힌 꼴, 표준 표지(색인 이름), 조건(`서술격만` 또는 `-`) | `spokenMarkers` (`spokenOf`) | `구	맺음:고	-`, `요	맺음:오	서술격만` |
@@ -73,7 +73,7 @@
 | `case-exceptions.tsv` | 그래프(색인의 표지 그래프 이름이나 문장 단위 규칙의 이름), 낱말, 바른 읽기(없으면 `-`), 세기, 근거 종류, 근거 | `caseExceptions` (`loadCases`, `caseExceptionOf`) | `맺음:소	담소	담소[열쇠:체언]	지움	관찰	46/46, 29파일, 2026-11-15, rules/new-word 2483d7f` |
 | `sino-units.tsv` | 단위(단위 표의 글자) | `sinoUnits` (`sinoNumerals`) | `인` |
 | `number-suffixes.tsv` | 접미(`noun-suffixes.tsv`의 꼴 가운데 수 바로 뒤에서도 읽는 것) | `numberSuffixes` (`suffixedNumber`) | `사`, `용` |
-| `long-stem-suffixes.tsv` | 접미(`noun-suffixes.tsv`의 꼴 가운데 두 음절 이상의 앞말 뒤에서만 읽는 것) | `longSuffixes` (`shortStem`) | `용` |
+| `long-stem-suffixes.tsv` | 접미(`noun-suffixes.tsv`의 꼴 가운데 두 음절 이상의 앞말 뒤에서만 읽는 것. `별`은 한 음절 앞말 뒤에서도 읽어 넣지 않는다) | `longSuffixes` (`shortStem`) | `용`, `제`, `권` |
 | `after-unit-words.tsv` | 낱말 | `afterUnitWords` (`unitWordAt`) | `간` |
 | `polite-slots.tsv` | 꼴(온 음절, 오나 옵으로 끝난다), 앞말 | `politeSlots` (`politeSlotOf`) | `오	모음 뒤`, `사옵	받침 뒤` |
 | `closing-particles.tsv` | 조사 이름(색인 이름), 앞 맺음 이름들(`\|`로 잇는다) | `closingParticles` (`addNamed`) | `보조사:야	맺음:다\|맺음:라` |
