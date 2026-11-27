@@ -146,6 +146,10 @@ const (
 	overForm  = "여"
 	orderName = "차례:째"
 	tildeName = "범위:~(단위 뒤)"
+	// loneUnitGraph names the graph of a unit written in letters that are
+	// no Hangul syllables (m, km, kg) read as the stem of a word with no
+	// number written onto it (700 m): loneUnits.
+	loneUnitGraph = "단위(수와 띄어 씀)"
 )
 
 // orderHead is the prefix 제 (第) right before a number (제1항, 제36조): it

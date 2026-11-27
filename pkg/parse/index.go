@@ -60,6 +60,7 @@ type index struct {
 	pairs       map[rune][]*entry
 	marks       map[rune][]*entry
 	run         float64
+	loneUnit    float64
 	pathNamed   float64
 	pathMarked  float64
 	pathWeak    float64
