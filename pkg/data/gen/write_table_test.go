@@ -21,4 +21,7 @@ func TestWriteTable(t *testing.T) {
 	if writeTable(failWriter{}, tbl, blocks) == nil {
 		t.Fatal("head")
 	}
+	if writeTable(&failAfterWriter{}, tbl, blocks) == nil {
+		t.Fatal("rows")
+	}
 }

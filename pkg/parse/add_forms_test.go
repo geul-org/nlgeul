@@ -24,4 +24,12 @@ func TestAddForms(t *testing.T) {
 	if ix.graphs-graphs != len(ix.formEntries)+1 || len(ix.formEntries) == 0 || ix.loneForm <= 0 {
 		t.Fatal(ix.graphs-graphs, len(ix.formEntries))
 	}
+	saved := formList
+	defer func() { formList = saved }()
+	formList = []form{{'？', "전각", "기호", "?", ""}, {'？', "원", "기호", "?", ""}}
+	jx := &index{}
+	jx.addForms()
+	if got := entryNames(jx.forms['？']); !reflect.DeepEqual(got, []string{"전각:기호", "원:기호"}) {
+		t.Fatalf("a second line of the same sign adds its name after the first: %q", got)
+	}
 }
