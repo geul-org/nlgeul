@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what addForms — the graphs of the letters of the tables of special letters that are signs (signRune: ⓐ, ㉠, ㈎, ？), read at a unit's edge as the sign contest of that letter: one graph for each name (shape:content) of the tables, shared by the letters of that name, the claim "this letter is that shape of that content" with nothing against it (any number of the letter in a row); a letter of several lines has a candidate for each; a letter the sign table names (ix.marks: ，, ＋) is left to that table; and the verdict of a letter of the tables that is a letter of a run of Latin letters and digits read alone by its shape (loneForm, the graph loneFormGraph: the claim and against it "the letter is a letter of a run", with the force a new word is weighed with)
+//ff:what addForms — the candidates of the letters of the tables of special letters that are signs (signRune: ⓐ, ㉠, ㈎, ？, ，, ㎡), read at a unit's edge after the candidates of the sign table (signContest), in the order they are printed: the units of the unit table written with that letter (㎡[단위:제곱미터]: the hand-written table first), then the names (kind:what, the table's 꼴 and 내용) the tables give the letter, one for each of its lines, then the readings through the letters it writes (valueEntries: ？[물음표] after ？[전각:기호]); the letters of one name share one graph, the claim with nothing against it (formEntry); and the verdict of a letter of the tables that is a letter of a run of Latin letters and digits read alone by its shape (loneForm, the graph loneFormGraph: the claim and against it "the letter is a letter of a run", with the force a new word is weighed with)
 package parse
 
 import (
@@ -12,18 +12,15 @@ func (ix *index) addForms() {
 	shape := alone.Rule(rule.PieceRead).With(&rule.Claim{Name: loneFormGraph, Concludes: "열쇠"})
 	alone.Counter(rule.PieceRead).With(&rule.Claim{Name: whyRunLetter, Concludes: "반박"}).Attacks(shape, forceNew)
 	ix.loneForm, ix.graphs, ix.edges = verdict(alone, rule.Piece{}), ix.graphs+1, ix.edges+1
-	ix.forms = map[rune][]*entry{}
-	byName := map[string]*entry{}
+	ix.forms, ix.formEntries = map[rune][]*entry{}, map[string]*entry{}
 	for _, f := range formList {
-		if !signRune(f.letter) || len(ix.marks[f.letter]) > 0 {
+		if !signRune(f.letter) {
 			continue
 		}
-		e, ok := byName[f.name()]
-		if !ok {
-			g, edges := signGraph(f.name())
-			e = &entry{name: f.name(), g: g}
-			byName[f.name()], ix.graphs, ix.edges = e, ix.graphs+1, ix.edges+edges
+		if len(ix.forms[f.letter]) > 0 {
+			ix.forms[f.letter] = append(ix.forms[f.letter], ix.formEntry(f.name()))
+			continue
 		}
-		ix.forms[f.letter] = append(ix.forms[f.letter], e)
+		ix.forms[f.letter] = append(append(ix.unitEntries(string(f.letter)), ix.formEntry(f.name())), ix.valueEntries(f)...)
 	}
 }

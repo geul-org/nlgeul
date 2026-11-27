@@ -60,6 +60,7 @@ type index struct {
 	pairs       map[rune][]*entry
 	marks       map[rune][]*entry
 	forms       map[rune][]*entry
+	formEntries map[string]*entry
 	run         float64
 	loneUnit    float64
 	loneNumber  float64

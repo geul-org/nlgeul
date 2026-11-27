@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what TestSpread — a unit headed by a sign of a pair gives each candidate that names the head once for each way the sign is read (열기:1, 열기:2, …, with its depth), and once more with the head as its letter alone when the sign is also read so; a candidate that does not name the head stays as it is; a reading whose graph lowered it has that verdict; a unit of another kind, and no contest, are given back as they are
+//ff:what TestSpread — a unit headed by a sign of a pair gives each candidate that names the head once for each way the sign is read (열기:1, 열기:2, …, with its depth), and once more with the head as its letter alone when the sign is also read so; a candidate that does not name the head stays as it is; a reading whose graph lowered it has that verdict; a head the tables of special letters name by its shape is given once more with that name and no depth, after the readings as a sign of a pair (（[전각:기호]); a unit of another kind, and no contest, are given back as they are
 package parse
 
 import (
@@ -42,5 +42,9 @@ func TestSpread(t *testing.T) {
 	single := spread([]Contest{{Text: ")", Branches: []Branch{headedBranch}}}, unit{text: ")", head: 1, name: pairName, candidates: []pairing{{shutName, 3, 1}}})
 	if p := single[0].Branches[0].Words[0].Parts[0]; len(single[0].Branches) != 1 || p.Name.Kind != shutName || p.Name.Form != "3" || p.Depth != 3 {
 		t.Fatal("one way, not also a letter", single)
+	}
+	wide := spread([]Contest{{Text: "（", Branches: []Branch{headedBranch}}}, unit{text: "（", head: 1, name: pairName, candidates: []pairing{{openName, 1, 1}}})
+	if p := wide[0].Branches[1].Words[0].Parts[0]; len(wide[0].Branches) != 2 || wide[0].Branches[0].Words[0].Parts[0].Name.Kind != openName || p.Name != (Name{"전각", "기호"}) || p.Depth != 0 {
+		t.Fatal("the shape of the head after its reading as a sign of a pair", wide)
 	}
 }

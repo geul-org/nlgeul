@@ -1,5 +1,5 @@
 //ff:func feature=parse type=reader control=iteration dimension=1
-//ff:what spread — the contests of a unit whose head is a sign of a pair, with each candidate that names the head given once for each way the sign is read: for each depth it may open or close at (([열기:1], ([열기:2]), and with the head as its letter alone when the sign is also read so; a candidate that does not name the head (the whole unit as a new word) stays as it is; the contests of any other unit are given back as they are
+//ff:what spread — the contests of a unit whose head is a sign of a pair, with each candidate that names the head given once for each way the sign is read: for each depth it may open or close at (([열기:1], ([열기:2]), then once for each name the tables of special letters give the sign by its shape (（[전각:기호] after （[열기:1]), and with the head as its letter alone when the sign is also read so; a candidate that does not name the head (the whole unit as a new word) stays as it is; the contests of any other unit are given back as they are
 package parse
 
 import "strconv"
@@ -19,6 +19,9 @@ func spread(contests []Contest, u unit) []Contest {
 		}
 		for _, rd := range u.candidates {
 			out = append(out, lowered(withHead(br, Name{Kind: rd.name, Form: strconv.Itoa(rd.depth)}, rd.depth), rd.verdict))
+		}
+		for _, name := range formNames([]rune(u.text)[0]) {
+			out = append(out, withHead(br, nameOf(name), 0))
 		}
 		if u.bare {
 			out = append(out, withHead(br, Name{}, 0))
