@@ -8,7 +8,7 @@ import "github.com/geul-org/nlgeul/pkg/data"
 // (꼴), what it writes (내용), the letters it writes (값) and the number
 // it stands for; the shape and what it writes are the letter's name in
 // the output as they stand (①[원:수]). special-forms.tsv is made from
-// the Unicode Character Database by pkg/data/gen/special_forms.py and
+// the Unicode Character Database by the program in pkg/data/gen and
 // is not written by hand; special-etc.tsv holds the letters that table
 // lacks, written by hand in the same columns (its lines come first).
 // Nothing here tells how many shapes, contents or letters there are:
