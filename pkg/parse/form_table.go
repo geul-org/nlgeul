@@ -1,0 +1,28 @@
+package parse
+
+import "github.com/geul-org/nlgeul/pkg/data"
+
+// The tables of special letters: the letters that write other letters
+// in a shape of their own (① is 1 in a circle, ㈎ is 가 in round
+// brackets, Ⅲ is 3 as a Roman numeral). A line gives a letter its shape
+// (꼴), what it writes (내용), the letters it writes (값) and the number
+// it stands for; the shape and what it writes are the letter's name in
+// the output as they stand (①[원:수]). special-forms.tsv is made from
+// the Unicode Character Database by pkg/data/gen/special_forms.py and
+// is not written by hand; special-etc.tsv holds the letters that table
+// lacks, written by hand in the same columns (its lines come first).
+// Nothing here tells how many shapes, contents or letters there are:
+// the tables do.
+var formList = data.Must(loadForms(data.Must(data.Rows("special-etc", 5)), data.Must(data.Rows("special-forms", 5))))
+var forms = formsByLetter(formList)
+
+// romanShape is the shape (꼴) the table gives the Roman numeral letters
+// of Unicode (Ⅰ-Ⅻ, Ⅼ, Ⅽ, Ⅾ, Ⅿ, the small ⅰ-ⅿ and the old ↀ-ↈ): each is
+// a Roman numeral by itself, and a run of them alone is a number named
+// 수:로마십진, as a run of digits is a number (romanLetters).
+const romanShape = "로마 숫자"
+
+// legacyShapes are the shapes whose letters that write a number are a
+// number of one letter (enclosedNumber), with what such a letter was
+// called before the table named it (letterName).
+var legacyShapes = map[string]string{"원": circledNumName, "괄호": parenNumName}

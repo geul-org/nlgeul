@@ -238,23 +238,13 @@ var unitSuffixSets = data.Must(data.Sets("unit-suffixes", setAfterUnit, setAfter
 var unitSuffixes = append(slices.Clone(unitSuffixSets[setAfterUnit]), unitSuffixSets[setAfterBare]...)
 var bareSuffixes = unitSuffixSets[setAfterBare]
 
-// enclosedRanges are the circled and parenthesized numbers, each one
-// letter a number (name 수), as a run of digits is: U+2460-2473 ①-⑳
-// (circled digit and number 1-20), U+2474-2487 ⑴-⒇ (parenthesized 1-20),
-// U+3251-325F ㉑-㉟ (circled 21-35), U+32B1-32BF ㊱-㊿ (circled 36-50).
-// The table is closed; circled Hangul and Latin letters are not numbers.
-var enclosedRanges = [][2]rune{{0x2460, 0x2473}, {0x2474, 0x2487}, {0x3251, 0x325F}, {0x32B1, 0x32BF}}
-
-// romanRange are the Roman numeral letters of Unicode (U+2160-217F: Ⅰ-Ⅻ,
-// Ⅼ, Ⅽ, Ⅾ, Ⅿ and the small ⅰ-ⅿ): each is a Roman numeral by itself, and a
-// run of them alone is a number named 수:로마십진, as a run of digits is a
-// number. romanShape is the shape of a Roman numeral written in the Latin
+// romanLatin is the shape of a Roman numeral written in the Latin
 // capitals I, V and X: tens, then ones, each in the numeral's own order
 // (romanWritten). romanHidden is the letter that, repeated alone, stands
 // for what is not told (XX, XXX: romanSure). romanCount is how many
-// numerals that shape writes (1 to 39).
-var romanRange = [2]rune{0x2160, 0x217F}
-var romanShape = regexp.MustCompile(`^X{0,3}(IX|IV|V?I{0,3})$`)
+// numerals that shape writes (1 to 39). The Roman numeral letters of
+// Unicode (Ⅲ) are told by the tables of special letters (romanLetters).
+var romanLatin = regexp.MustCompile(`^X{0,3}(IX|IV|V?I{0,3})$`)
 
 const (
 	romanHidden = "X"

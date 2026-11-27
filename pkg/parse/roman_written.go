@@ -6,5 +6,5 @@ package parse
 // M are written as abbreviations are (CD, MD, DC, MC, CM, MM, CI, MV,
 // XL), and nothing in the letters tells the two apart.
 func romanWritten(text string) bool {
-	return text != "" && romanShape.MatchString(text)
+	return text != "" && romanLatin.MatchString(text)
 }
