@@ -6,7 +6,7 @@ import "testing"
 
 func TestLoneNumbers(t *testing.T) {
 	ix, bare := wordsScan("", layerCost).ix, scanOf("").ix
-	for stem, name := range map[string]string{"사십": numName, "十": numName, "II": romanNumName} {
+	for stem, name := range map[string]string{"사십": numName, "十": numName, "II": romanNumName, "two": englishNumName} {
 		got := ix.loneNumbers(stem, tail{})
 		if len(got) != 1 || got[0].name != name || got[0].kind != kindBehind || got[0].v != ix.loneNumber {
 			t.Errorf("%q: %v", stem, got)

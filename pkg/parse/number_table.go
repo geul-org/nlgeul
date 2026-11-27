@@ -21,25 +21,30 @@ const (
 // The forms of a number's name by the letters it is written in
 // (numberNameOf): digits, Hangul syllables, Chinese characters, Roman
 // numeral letters. Any other letters (a circled number, one Latin letter)
-// keep the name with no form.
+// keep the name with no form. englishForm is the form of a number written
+// in English, which the reading that finds it names (englishNumName).
 const (
 	decimalForm = "십진"
 	hangulForm  = "한글십진"
 	hanjaForm   = "한자십진"
 	romanForm   = "로마십진"
+	englishForm = "영문십진"
 )
 
-// numberNames are the names a number is given (numberNameOf).
-var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm}
+// numberNames are the names a number is given (numberNameOf, and
+// englishNumName).
+var numberNames = []string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm}
 
-// romanNumName names a number whose letters do not tell the way it is
-// written (numberNameOf reads Latin letters as no form): a Roman numeral
-// written in Latin capitals (XIV). loneNumberGraph names the graph of a
-// number that is no run of digits read where nothing in its word tells
-// that it is a number (no unit is written onto it: 사십 before 년 written
-// apart, II after a name): loneNumbers.
+// romanNumName and englishNumName name a number whose letters do not
+// tell the way it is written (numberNameOf reads Latin letters as no
+// form): a Roman numeral written in Latin capitals (XIV) and a number
+// written in English (two). loneNumberGraph names the graph of a number
+// that is no run of digits read where nothing in its word tells that it
+// is a number (no unit is written onto it: 사십 before 년 written apart,
+// II after a name, two): loneNumbers.
 const (
 	romanNumName    = numName + ":" + romanForm
+	englishNumName  = numName + ":" + englishForm
 	loneNumberGraph = "수(홀로 섬)"
 )
 

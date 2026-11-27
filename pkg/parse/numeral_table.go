@@ -63,3 +63,10 @@ const (
 // number however they are put together (十二, 二三, 二〇二四), named
 // 수:한자십진 by its letters (numberNameOf).
 var hanNumerals = data.Must(data.Column("han-numerals", 1))
+
+// englishNumerals are the numerals of English a number is written with
+// (english-numerals.tsv), in small letters: zero to nineteen, the tens
+// twenty to ninety, and hundred, thousand, million, billion and
+// trillion. A number written with them is named 수:영문십진
+// (englishNumber).
+var englishNumerals = data.Must(data.Column("english-numerals", 1))
