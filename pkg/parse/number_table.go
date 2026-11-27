@@ -143,6 +143,7 @@ const tildeSigns = "~∼～〜"
 const (
 	unitLabel = "단위:"
 	overName  = "어림:여"
+	overForm  = "여"
 	orderName = "차례:째"
 	tildeName = "범위:~(단위 뒤)"
 )

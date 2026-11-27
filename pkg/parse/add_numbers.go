@@ -1,5 +1,5 @@
 //ff:func feature=parse type=rule control=iteration dimension=1
-//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then the two shapes of a date of two numbers with a full stop after them, stopShapes, then its own joins, then the shapes of a date and a time of two numbers that ask no full stop after them, plainShapes), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
+//ff:what addNumbers — the graphs of numbers: a run of digits, each candidate of each sign between runs of digits (the full stop gets two shapes of a number, then the two shapes of a date of two numbers with a full stop after them, stopShapes, then its own joins, then the shapes of a date and a time of two numbers that ask no full stop after them, plainShapes), the candidates of a slash and a hyphen that join the runs of a name, the signs at a number's front, the prefix 제 before a number, the range sign after a unit, and the pieces after a number (여, the units, 째 and the suffixes that stand where it stands, and 여 once more where 째 stands, after a number and its unit: 5분여), and the graph of a quotation mark right after a digit read as a unit of measure (measureGraph)
 package parse
 
 import (
@@ -61,8 +61,9 @@ func (ix *index) addNumbers() {
 	for _, r := range sinoBigs {
 		ix.addAfter(bigName+string(r), string(r), placeBig)
 	}
-	ix.addAfter(overName, "여", placeOver)
+	ix.addAfter(overName, overForm, placeOver)
 	ix.addAfter(orderName, "째", placeOrder)
+	ix.addAfter(overName, overForm, placeOrder)
 	for _, s := range unitSuffixes {
 		ix.addAfter("접미:"+s, s, placeOrder)
 	}
