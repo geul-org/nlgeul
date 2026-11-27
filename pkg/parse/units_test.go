@@ -42,7 +42,7 @@ func TestUnits(t *testing.T) {
 		t.Fatal(got)
 	}
 	got = scanOf("가목").units(2, 0, true)
-	if len(got) != 1 || got[0].only != "가" || got[0].as != plainNumName || got[0].pieces[0].names != "단위:목" || got[0].weight >= 0 {
+	if len(got) != 1 || got[0].only != "가" || got[0].as != orderLetterName || got[0].pieces[0].names != "단위:목" || got[0].weight >= 0 {
 		t.Fatal("a letter of the order before 목 is a number", got)
 	}
 	if len(scanOf("가개").units(2, 0, true)) != 0 || len(scanOf("다목적").units(2, 0, true)) != 0 {

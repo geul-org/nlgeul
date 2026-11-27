@@ -35,7 +35,7 @@ const (
 // englishNumName): the kind 수 with each of its forms, the names the
 // tables of special letters give a letter that writes a number
 // (formNumberNames) and the name of one Latin letter.
-var numberNames = append(append([]string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm}, formNumberNames...), latinLetterName)
+var numberNames = append(append([]string{numName, numName + ":" + decimalForm, numName + ":" + hangulForm, numName + ":" + hanjaForm, numName + ":" + romanForm, numName + ":" + englishForm}, formNumberNames...), latinLetterName, orderLetterName)
 
 // The letters written where a number stands that are named by their
 // own shape (numberNameOf): a letter that writes a number in a shape of
@@ -47,13 +47,25 @@ const latinLetterName = "특수:로마자"
 
 // shapeNumberNames are the names a number is given by the shape of its
 // one letter (letterName).
-var shapeNumberNames = append(slices.Clone(formNumberNames), latinLetterName)
+var shapeNumberNames = append(slices.Clone(formNumberNames), latinLetterName, orderLetterName)
 
 // plainNumName is the name that holds a number's plain 수 whatever its
 // letters are (numberNameOf is not asked): the letter that numbers an
 // item of a law (사목: 사 is no numeral 사). nameOf reads it as the kind
 // 수 with no form.
 const plainNumName = numName + ":"
+
+// orderLetterName names the Hangul letter that numbers an item of a law
+// where a number stands (가 of 가목: orderLetter): the kind 차례, an
+// order, and in it a Hangul letter; it is no numeral. determinerName
+// names a word that stands where a number stands before a unit and is
+// no numeral (몇, 여러: nativeAlone words that hangulNumeral does not
+// read): the word table's reading of it, a determiner, with the unit
+// after it read as after a number (몇[열쇠:관형사]+개[단위:개]).
+const (
+	orderLetterName = "차례:한글"
+	determinerName  = "열쇠:관형사"
+)
 
 // romanNumName and englishNumName name a number whose letters do not
 // tell the way it is written (numberNameOf reads Latin letters as no

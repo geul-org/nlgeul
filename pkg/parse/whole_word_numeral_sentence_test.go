@@ -22,7 +22,7 @@ func TestWholeWordNumeralSentence(t *testing.T) {
 			t.Errorf("%s: want %s first\n%s", c.in, c.want, got)
 		}
 	}
-	if !netHas(r, "여러분은", "여러[수]+분[단위:분]+은[보조사:은]") {
+	if !netHas(r, "여러분은", "여러[열쇠:관형사]+분[단위:분]+은[보조사:은]") {
 		t.Fatal("the numeral and the unit are gone")
 	}
 }
